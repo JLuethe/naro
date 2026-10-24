@@ -205,7 +205,11 @@ impl Encoding {
                 let text = if self.utf8 {
                     std::str::from_utf8(&s[x..x + n]).unwrap_or("�").to_string()
                 } else {
-                    (b as char).to_string()
+                    if b >= 160 && unsafe { native::nr_print_byte(b as i32) } == 0 {
+                        " ".into()
+                    } else {
+                        (b as char).to_string()
+                    }
                 };
                 let text = if whitespace && b == b' ' {
                     if self.utf8 { "·".into() } else { ".".into() }

@@ -445,7 +445,7 @@
     "text": "n"
    },
    {
-    "wait_exit": 3
+    "sleep": 3000
    }
   ],
   "id": "TEST-INPUT-009"

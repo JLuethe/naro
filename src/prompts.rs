@@ -64,26 +64,34 @@ impl Editor {
                 }
                 s
             }
-            PromptKind::Insert => format!(
-                "{} [from {}]",
+            PromptKind::Insert => {
                 native::tr(match (self.conf.on(NEW_BUFFER), self.conf.on(NO_CONVERT)) {
-                    (false, false) => "File to insert",
-                    (false, true) => "File to insert unconverted",
-                    (true, false) => "File to read into new buffer",
-                    _ => "File to read unconverted into new buffer",
-                }),
-                if self.conf.value("operatingdir").is_empty() {
-                    "./".into()
-                } else {
-                    format!("{}/", bytes::text(&self.conf.value("operatingdir")))
-                }
-            ),
+                    (false, false) => "File to insert [from %s]",
+                    (false, true) => "File to insert unconverted [from %s]",
+                    (true, false) => "File to read into new buffer [from %s]",
+                    _ => "File to read unconverted into new buffer [from %s]",
+                })
+                .replace(
+                    "%s",
+                    &if self.conf.value("operatingdir").is_empty() {
+                        "./".into()
+                    } else {
+                        format!("{}/", bytes::text(&self.conf.value("operatingdir")))
+                    },
+                )
+            }
             PromptKind::Execute => native::tr(if self.conf.on(NEW_BUFFER) {
                 "Command to execute in new buffer"
             } else {
                 "Command to execute"
             }),
-            PromptKind::BrowserSearch => native::tr("Search"),
+            PromptKind::BrowserSearch | PromptKind::HelpSearch => {
+                let mut label = native::tr("Search");
+                if !self.search.is_empty() {
+                    label.push_str(&format!(" [{}]", bytes::text(&self.search)));
+                }
+                label
+            }
             PromptKind::BrowserGoto => native::tr("Go To Directory"),
             PromptKind::Spell => native::tr("Edit a replacement"),
         }
@@ -101,6 +109,13 @@ impl Editor {
         };
         match fun {
             "do_cancel" => {
+                if matches!(p.kind, PromptKind::HelpSearch) {
+                    if let Some(h) = self.help_saved.take() {
+                        self.mode = Mode::Help(h);
+                    }
+                    self.msg("Cancelled", 1);
+                    return;
+                }
                 if matches!(p.kind, PromptKind::Insert | PromptKind::Execute) {
                     self.conf.set(NEW_BUFFER, p.initial_newbuffer);
                 }
@@ -270,20 +285,20 @@ impl Editor {
             }
             "flip_convert" => self.conf.toggle(NO_CONVERT),
             "flip_execute" => {
-                self.tool_answer = if matches!(p.kind, PromptKind::Execute) {
-                    p.answer.clone()
-                } else {
+                let from_execute = matches!(p.kind, PromptKind::Execute);
+                if from_execute {
+                    self.tool_answer = p.answer.clone();
+                }
+                let next = if !from_execute && p.other_answer.is_empty() {
                     self.tool_answer.clone()
+                } else {
+                    std::mem::take(&mut p.other_answer)
                 };
-                p.kind = if matches!(p.kind, PromptKind::Execute) {
+                p.other_answer = std::mem::replace(&mut p.answer, next);
+                p.kind = if from_execute {
                     PromptKind::Insert
                 } else {
                     PromptKind::Execute
-                };
-                p.answer = if matches!(p.kind, PromptKind::Execute) {
-                    self.tool_answer.clone()
-                } else {
-                    Vec::new()
                 };
                 p.x = p.answer.len();
             }
@@ -441,6 +456,14 @@ impl Editor {
                     }
                     self.mode = Mode::Browser(b);
                     self.refresh_browser();
+                }
+            }
+            PromptKind::HelpSearch => {
+                if !p.answer.is_empty() {
+                    self.search = p.answer;
+                }
+                if let Some(h) = self.help_saved.take() {
+                    self.help_find(h, false);
                 }
             }
             PromptKind::Spell => {
@@ -620,6 +643,8 @@ impl Editor {
         if mode == 0 && !confirmed_disk && files::changed(self.b(), &p.answer) {
             self.mode = Mode::Edit;
             self.msg("File on disk has changed", 7);
+            self.pause_painted = false;
+            self.pause_duration = std::time::Duration::from_millis(1500);
             self.pause_until =
                 Some(std::time::Instant::now() + std::time::Duration::from_millis(1500));
             self.pause_next = Some(Box::new(Mode::Question(Question {
@@ -688,7 +713,10 @@ impl Editor {
             }
             Err(_) => {
                 self.mode = Mode::Edit;
-                self.msg(format!("File \"{}\" not found", bytes::text(&name)), 7);
+                self.msg(
+                    native::tr("File \"%s\" not found").replace("%s", &bytes::text(&name)),
+                    7,
+                );
             }
         }
     }
@@ -874,7 +902,7 @@ impl Editor {
         }
         if !valid {
             self.msg("Invalid line or column number", if startup { 7 } else { 5 });
-        } else {
+        } else if !startup {
             self.clear();
         }
     }

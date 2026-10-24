@@ -6,7 +6,10 @@ The acceptance target is the default build in ENV-BASE of
 [00-reference-environment.md](00-reference-environment.md). A recorded scenario
 is evidence, not a passing assertion. The inherited corpus has 309 scenarios,
 all recorded; only TEST-SMOKE-001 has explicit assertions (four). Ten scenarios
-intentionally end with a harness SIGKILL. Coverage below describes observations,
+intentionally end with a harness SIGKILL. Their final unsuccessful `wait_exit`
+steps were corrected to equal-duration `sleep` recording steps, with original
+steps archived in `evidence/recording-timeout-corrections.json`; the raw reference
+recordings remain unchanged. Coverage below describes observations,
 not a claim that every branch has been tested.
 
 ## 1. Running and preserving evidence
@@ -35,8 +38,13 @@ Set `NANOSPEC_WORK` to a separate scratch directory for simultaneous runs.
 Each JSON file contains an array of scenarios (or a single object). A scenario
 has `id`, `args`, optional `profile`, `argv0`, `cols`/`rows` (80/24), `term`
 (`tmux-256color`), `lang` (`en_US.UTF-8`), `locpath`, `env`, `cwd` (`work`),
-`umask` (`022`), `stdin`, `stdout_redirect`, `finally_kill`, and `steps`.
+`umask` (`022`), `stdin`, `stdout_redirect`, `hold_tty`, `finally_kill`, and `steps`.
 Environment values and argv elements expand `$FX` to the fixture root.
+The launcher uses execve to set the exact `argv0` and explicit environment,
+preventing Python locale coercion from changing C-locale tests. `hold_tty`
+retains a descriptor to the PTY when both streams are redirected; otherwise
+closing its last descriptor can deliver SIGHUP. TMPDIR defaults to a private
+per-scenario `tmp` directory outside the captured fixture manifest.
 Fixtures declare `dirs`, `files` (`text`, `hex` or `b64`, optional octal `mode`),
 `symlinks`, `hardlinks`, `fifos`, and `chmod`.
 
@@ -94,7 +102,7 @@ is permitted.
 | N-TMP | In diagnostic text and fixture names, a complete `nano.` plus six alphanumeric characters becomes `nano.XXXXXX`, preserving extensions. Ordinary saved file contents remain exact even if they contain that spelling. For the fixture-owned `home/spell-args` (TEST-FEAT-005) and `home/fmt-args` (TEST-FEAT-007) only, replace the run's actual TMPDIR (default /tmp) plus the random basename with `<TMP>/nano.XXXXXX`, preserving arguments, extension and every other byte. No other file payload is masked. |
 | N-ROOT | Replace each run's actual fixture root by `<FX>` in names, diagnostics and symlink targets; recognize `!`-encoded roots in backup names. Do not replace unrelated absolute paths or data-file bytes. |
 | N-LOCK | For recognizable 1024-byte `b0` lock files (including intermediate captures), zero PID bytes 24–27, user bytes 28–43 and host bytes 68–99. Preserve program/version bytes 2–11, filename bytes 108–875, modified byte 1007 and all remaining bytes. |
-| N-TIME | Ignore tmux-generated timestamps in the exact `Pane is dead (status/signal …, DATE)` banner, absolute inode numbers, mtimes, UID/GID, input timestamps, raw byte counts/hashes and output write fragmentation. Preserve mode, link counts and inode equivalence groups. For operations requiring mtime/inode preservation, compare before/after relationships separately; this comparator does not assert those relations. |
+| N-TIME | Ignore tmux-generated timestamps in the exact `Pane is dead (status/signal …, DATE)` banner (including the truncated date on a narrow dead-pane row), absolute inode numbers, mtimes, UID/GID, input timestamps, raw byte counts/hashes and output write fragmentation. Preserve mode, link counts and inode equivalence groups. For operations requiring mtime/inode preservation, compare before/after relationships separately; this comparator does not assert those relations. |
 | N-ATTR-BLANK | Ignore bold, italic, dim, blink and foreground color on an ordinary space when they do not affect its visible background. Retain background, reverse, underline, strike, hidden, and foreground when reverse is active. Never apply this rule to non-space or wide-character continuation cells. Attributes are indexed by **terminal columns**, not Unicode indices. |
 | N-CURSOR-DEAD | Ignore the final dead pane's cursor visibility (tmux forcibly hides it). Preserve its position and live snapshot cursor visibility; compare `trace_final_modes.cursor_visible` to verify restoration. |
 

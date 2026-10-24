@@ -83,7 +83,10 @@ def norm_screen(screen, root=None, dead=False):
     # Grid width comes from mode-independent geometry, not Python len(text).
     width = screen.get('width') or max((sum(max(0, LIBC.wcwidth(c)) for c in r['text'])
                                            for r in screen['rows']), default=0)
-    return {'rows': [norm_row(r, width, root) for r in screen['rows']],
+    rows = [norm_row(r, width, root) for r in screen['rows']]
+    if dead:
+        rows = [(re.sub(r'^(Pane is dead \((?:status|signal) [0-9]+), .*$', r'\1, <TIME>', t), a) for t, a in rows]
+    return {'rows': rows,
             'cursor': cursor, 'modes': screen.get('modes', {})}
 
 
@@ -182,6 +185,8 @@ def compare(ref, cand, files_only=False):
     check('trace_final_modes', ref.get('trace_final_modes'), cand.get('trace_final_modes'))
     # Timeouts invalidate a comparison even if both happen to time out.
     for side, run in (('reference', ref), ('candidate', cand)):
+        if run.get('steps_ok') is False:
+            diffs.append({'field': side + '.failed_steps', 'reference': True, 'candidate': False})
         for note in run.get('notes', []):
             if 'timed out' in note:
                 diffs.append({'field': side + '.timeout', 'reference': None, 'candidate': note})

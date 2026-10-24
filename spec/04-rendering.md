@@ -241,7 +241,9 @@ prompts, yes/no without "All", linter), (b) no spotlight is active (or
 *showcursor*, or the spell prompt), and (c) the terminal has more than one row,
 or the current message is at most HUSH. Otherwise it is hidden. It is hidden
 while nano processes a key. In the help viewer and the browser it is hidden,
-except with *showcursor* (`-g`), or after a successful search in the help viewer.
+except with *showcursor* (`-g`). A successful help search positions it at the
+match, but spotlighting keeps it hidden unless *showcursor* is on
+(TEST-FEAT-018).
 - **Source:** `src/winio.c:2493-2535, 198-203, 260`.
 
 ### REND-041 — Viewport rules

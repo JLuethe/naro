@@ -14,12 +14,14 @@ All required documents and local links validate. No failed recorded assertions
 or timeouts. Ten intentional SIGKILL observations and extensive source-only
 branches are explicitly listed, not claimed as full verification.
 
-Eleven comparator regression tests pass. All 309 original runs compare equal to
+Twelve comparator regression tests pass. All 309 original runs compare equal to
 themselves. A fresh reference smoke replay passes four assertions and matches
 the original after the documented normalizations. This exposed and fixed the
 tmux dead-pane date banner and historical result-schema differences. The audit
 also removed three obsolete duplicate scenario definitions from the runnable
-corpus, preserving them in an archive. The pinned source worktree remains clean.
+corpus, preserving them in an archive. Ten recording definitions now end with
+equal-duration sleeps instead of failed wait_exit steps; archived originals and
+raw reference recordings preserve the distinction. The pinned source worktree remains clean.
 
 The spec is ready for implementation; it does not claim that Naro already
 implements nano. Implementation/build/test results belong to the repository

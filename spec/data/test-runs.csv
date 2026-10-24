@@ -106,9 +106,9 @@ TEST-FEAT-001,features.json,-I -r 30 f.txt,recorded,0,,5,,12
 TEST-FEAT-002,features.json,-I -r 30 f.txt,recorded,0,,2,,12
 TEST-FEAT-003,features.json,-I -r 30 -M f.txt,recorded,0,,2,,12
 TEST-FEAT-004,features.json,-I f.txt,recorded,0,,6,,12
-TEST-FEAT-005,features.json,-I -s altspell --opt f.txt,recorded,0,,5,,12
+TEST-FEAT-005,features.json,-I -s altspell --opt f.txt,recorded,0,,5,,12 16
 TEST-FEAT-006,features.json,f.txt,recorded,0,,8,,12
-TEST-FEAT-007,features.json,f.txt,recorded,0,,4,,12
+TEST-FEAT-007,features.json,f.txt,recorded,0,,4,,12 16
 TEST-FEAT-008,features.json,-I f.txt,recorded,0,,10,,12
 TEST-FEAT-009,features.json,-I f.txt,recorded,0,,7,,12
 TEST-FEAT-010,features.json,-I f.txt,recorded,0,,4,,12

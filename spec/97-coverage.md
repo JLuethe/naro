@@ -43,7 +43,7 @@ scenario IDs, matching full reference hashes, missing/failed evidence, timeouts
 and the clean pinned worktree. It writes `evidence/audit.json` and
 `data/requirements.csv`. `tools/test_inventory.py` writes the run inventory.
 `tools/test_compare_runs.py` checks comparator failure detection, wide/combining
-cell indexing, lock masks, blank attributes, stdout, timeouts and dead cursor.
+cell indexing, lock masks, blank attributes, stdout, timeouts, dead cursor and truncated dead-pane timestamps.
 Self-comparison of all 309 runs yields zero differences. A separate fresh smoke
 replay checks reproducibility; this is not candidate validation.
 
@@ -53,7 +53,11 @@ are preserved in `evidence/superseded-scenarios.json`; only the corrected ones
 remain runnable. The reference result directories already correspond to the
 corrected definitions. This eliminates ambiguous replays without inventing data.
 
-Ten runs deliberately ended with harness SIGKILL; see audit JSON for IDs. They
+Ten runs deliberately ended with harness SIGKILL; see audit JSON for IDs.
+Their inherited final `wait_exit` steps timed out. Runnable definitions now
+use equal-duration `sleep` steps, accurately requesting a recording instead of
+a clean exit; original steps are archived in
+`evidence/recording-timeout-corrections.json`. Raw reference results are intact. They
 still contain observations but do not prove clean exit or restoration. The
 reference crash TEST-CLI-057 is recorded normally through nano's handler and
 must be treated as a declared candidate deviation, not a reproduced defect.

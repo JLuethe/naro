@@ -41,7 +41,12 @@ unsafe extern "C" {
     pub fn nr_resize();
     pub fn nr_rows() -> c_int;
     pub fn nr_cols() -> c_int;
+    pub fn nr_colors() -> c_int;
+    pub fn nr_collate(a: *const c_char, b: *const c_char) -> c_int;
+    pub fn nr_print_byte(b: c_int) -> c_int;
+    pub fn nr_child_signals();
     pub fn nr_erase();
+    pub fn nr_finish(start: c_int);
     pub fn nr_refresh(row: c_int, col: c_int, visible: c_int);
     pub fn nr_beep();
     pub fn nr_get(ms: c_int) -> c_int;

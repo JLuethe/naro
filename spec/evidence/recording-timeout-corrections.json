@@ -1,0 +1,106 @@
+{
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "reason": "These recorded observations intentionally leave the editor running for harness SIGKILL. A final wait_exit falsely expects clean termination; replace it with an equal-duration sleep. Raw reference observations are unchanged.",
+  "corrections": [
+    {
+      "suite": "cli.json",
+      "id": "TEST-CLI-031",
+      "old_step": {
+        "wait_exit": 3
+      },
+      "new_step": {
+        "sleep": 3000
+      }
+    },
+    {
+      "suite": "input.json",
+      "id": "TEST-INPUT-009",
+      "old_step": {
+        "wait_exit": 3
+      },
+      "new_step": {
+        "sleep": 3000
+      }
+    },
+    {
+      "suite": "search.json",
+      "id": "TEST-SRCH-007",
+      "old_step": {
+        "wait_exit": 3
+      },
+      "new_step": {
+        "sleep": 3000
+      }
+    },
+    {
+      "suite": "search.json",
+      "id": "TEST-SRCH-017",
+      "old_step": {
+        "wait_exit": 3
+      },
+      "new_step": {
+        "sleep": 3000
+      }
+    },
+    {
+      "suite": "files.json",
+      "id": "TEST-FILE-019",
+      "old_step": {
+        "wait_exit": 3
+      },
+      "new_step": {
+        "sleep": 3000
+      }
+    },
+    {
+      "suite": "browser.json",
+      "id": "TEST-BROWSE-002",
+      "old_step": {
+        "wait_exit": 3
+      },
+      "new_step": {
+        "sleep": 3000
+      }
+    },
+    {
+      "suite": "browser.json",
+      "id": "TEST-BROWSE-003",
+      "old_step": {
+        "wait_exit": 3
+      },
+      "new_step": {
+        "sleep": 3000
+      }
+    },
+    {
+      "suite": "browser.json",
+      "id": "TEST-BROWSE-004",
+      "old_step": {
+        "wait_exit": 3
+      },
+      "new_step": {
+        "sleep": 3000
+      }
+    },
+    {
+      "suite": "rc.json",
+      "id": "TEST-RC-006",
+      "old_step": {
+        "wait_exit": 3
+      },
+      "new_step": {
+        "sleep": 3000
+      }
+    },
+    {
+      "suite": "features2.json",
+      "id": "TEST-FEAT-017",
+      "old_step": {
+        "wait_exit": 3
+      },
+      "new_step": {
+        "sleep": 3000
+      }
+    }
+  ]
+}

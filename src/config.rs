@@ -119,6 +119,22 @@ impl Config {
         self.strings.get(k).cloned().unwrap_or_default()
     }
     pub fn style(&self, k: &str) -> Style {
+        if unsafe { native::nr_colors() } <= 0 {
+            return match k {
+                "functioncolor" | "scrollercolor" => Style::NORMAL,
+                "stripecolor" => Style::reverse(),
+                _ => {
+                    if self.on(BOLD_TEXT) {
+                        Style {
+                            bits: 1,
+                            ..Style::NORMAL
+                        }
+                    } else {
+                        Style::reverse()
+                    }
+                }
+            };
+        }
         if let Some(s) = self.colors.get(k) {
             return *s;
         }
@@ -214,7 +230,7 @@ impl Config {
                                 width = 0;
                             }
                             print!(" {}", s.name);
-                            width += s.name.len() + 1;
+                            width += self.enc().breadth(s.name.as_bytes());
                         }
                         println!();
                     }
@@ -328,7 +344,7 @@ impl Config {
             .iter()
             .map(|p| unsafe { native::from_c(*p) })
             .collect();
-        self.cli_flags = self.flags;
+        self.cli_flags = self.flags & !(1u64 << NO_WRAP);
         self.preserve_cli = self.on(PRESERVE);
         let profile = if self.on(MODERN_BINDINGS) {
             if std::env::var("TERM").unwrap_or_default() == "vt220" {
@@ -610,6 +626,21 @@ impl Config {
                     }
                     "bind" | "unbind" => {
                         let (key, rest) = word(args);
+                        if key.is_empty() {
+                            return Err("Missing key name".into());
+                        }
+                        let mut normalized = key.to_string();
+                        let position = usize::from(key.starts_with('^'));
+                        if let Some(ch) = normalized.as_bytes().get(position).copied() {
+                            normalized.replace_range(
+                                position..position + 1,
+                                &(ch as char).to_ascii_uppercase().to_string(),
+                            );
+                        }
+                        let key = normalized.as_str();
+                        if cmd == "bind" && rest.is_empty() {
+                            return Err("Must specify a function to bind the key to".into());
+                        }
                         let code =
                             parse_key(key).ok_or_else(|| format!("Key name {key} is invalid"))?;
                         if code == 27 {
@@ -630,6 +661,12 @@ impl Config {
                             ("", rest, None)
                         };
                         let (menu, _) = word(rest);
+                        if menu.is_empty() {
+                            return Err(
+                                "Must specify a menu (or \"all\") in which to bind/unbind the key"
+                                    .into(),
+                            );
+                        }
                         let menus =
                             parse_menu(menu).ok_or_else(|| format!("Unknown menu: {menu}"))?;
                         for k in &mut self.keys {
@@ -710,7 +747,23 @@ impl Config {
                     }
                     "include" => {
                         let pattern = quoted(args)?;
-                        for include in expand_glob(&expand(pattern.as_bytes())) {
+                        let expanded = expand(pattern.as_bytes());
+                        if !expanded.exists() {
+                            if pattern.contains(['*', '?', '['])
+                                && !expanded.parent().unwrap_or(Path::new(".")).exists()
+                            {
+                                return Err(format!(
+                                    "Error expanding {pattern}: No such file or directory"
+                                ));
+                            }
+                            if !pattern.contains(['*', '?', '[']) {
+                                return Err(format!(
+                                    "Error reading {}: No such file or directory",
+                                    expanded.display()
+                                ));
+                            }
+                        }
+                        for include in expand_glob(&expanded) {
                             self.read_rc(&include, true);
                         }
                     }
@@ -919,7 +972,7 @@ pub fn io_error(e: &std::io::Error) -> String {
         .into()
 }
 pub fn parse_num(s: &str) -> Option<i64> {
-    let s = s.trim_start_matches(char::is_whitespace);
+    let s = s.trim_start_matches([' ', '\t', '\n', '\r', '\u{b}', '\u{c}']);
     if s.is_empty() || s.trim_end() != s {
         return None;
     }
@@ -934,7 +987,7 @@ pub fn quoted(s: &str) -> Result<String, String> {
     if let Some(rest) = s.strip_prefix('"') {
         let end = rest
             .rfind('"')
-            .ok_or_else(|| format!("Argument '{rest}' has an unterminated \""))?;
+            .ok_or_else(|| format!("Argument '{s}' has an unterminated \""))?;
         Ok(rest[..end].into())
     } else {
         Ok(word(s).0.into())
@@ -1126,7 +1179,7 @@ fn color_number(s: &str, bits: &mut i32, bg: bool) -> Result<i32, String> {
         return Ok(n + if light && (!bright || bg) { 8 } else { 0 });
     }
     if light {
-        return Err(format!("Color '{s}' takes no prefix"));
+        return Err(format!("Color '{base}' takes no prefix"));
     }
     if s.is_empty() || s == "normal" {
         return Ok(-1);
@@ -1192,7 +1245,11 @@ fn expand_glob(p: &Path) -> Vec<PathBuf> {
         .filter(|e| glob_match(&name, &e.file_name().to_string_lossy()))
         .map(|e| e.path())
         .collect();
-    found.sort();
+    found.sort_by(|a, b| {
+        let a = native::cstr(a.as_os_str().as_bytes());
+        let b = native::cstr(b.as_os_str().as_bytes());
+        unsafe { native::nr_collate(a.as_ptr(), b.as_ptr()) }.cmp(&0)
+    });
     if found.is_empty() {
         found.push(p.to_path_buf());
     }

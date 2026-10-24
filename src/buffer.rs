@@ -346,12 +346,24 @@ impl Buffer {
             return false;
         }
         self.replace(a, b, b"");
+        let deletion_key = if back { "backspace" } else { "delete" };
+        let same_kind = self.last_kind == deletion_key;
+        self.last_kind = if same_kind {
+            "deletion".into()
+        } else {
+            String::new()
+        };
         self.finish(
             before,
             kind,
             kind == "deletion" && self.pos().line == p.line,
             nonew,
         );
+        self.last_kind = if kind == "deletion" {
+            deletion_key.into()
+        } else {
+            kind.into()
+        };
         true
     }
     pub fn cut(&mut self, a: Pos, b: Pos, kind: &str, group: bool, nonew: bool) -> Vec<u8> {
@@ -489,6 +501,20 @@ mod tests {
         assert!(!b.modified);
         b.insert(b"x", "addition", true, false);
         assert!(b.undo(true).is_none());
+    }
+    #[test]
+    fn backspace_and_delete_are_distinct_undo_groups() {
+        let e = Encoding { utf8: true, tab: 8 };
+        let mut b = Buffer::new(vec![], vec![b"abcdef".to_vec(), vec![]]);
+        b.state.pos.x = 3;
+        b.delete(e, true, false, false);
+        b.delete(e, true, false, false);
+        b.delete(e, false, false, false);
+        assert_eq!(b.raw(), b"aef\n");
+        b.undo(false);
+        assert_eq!(b.raw(), b"adef\n");
+        b.undo(false);
+        assert_eq!(b.raw(), b"abcdef\n");
     }
     #[test]
     fn region_splice() {

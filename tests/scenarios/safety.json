@@ -1,0 +1,116 @@
+[
+  {
+    "id": "TEST-NARO-REGEX-SAFE",
+    "args": [
+      "-I",
+      "+r/(",
+      "f.txt"
+    ],
+    "files": {
+      "work/f.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "wait": {
+          "text": "Bad regex"
+        }
+      },
+      {
+        "snapshot": "error"
+      },
+      {
+        "text": "X"
+      },
+      {
+        "keys": [
+          "^S"
+        ]
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 3
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "files": {
+        "work/f.txt": {
+          "text": "Xoriginal\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "error",
+          "row": 21,
+          "contains": "Bad regex"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-NUL-SAFE",
+    "args": [
+      "-I",
+      "f.txt"
+    ],
+    "files": {
+      "work/f.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 300
+      },
+      {
+        "text": "X"
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait": {
+          "text": "Save modified buffer?"
+        }
+      },
+      {
+        "hex": "00"
+      },
+      {
+        "settle": 200
+      },
+      {
+        "snapshot": "ignored"
+      },
+      {
+        "text": "n"
+      },
+      {
+        "wait_exit": 3
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "files": {
+        "work/f.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "ignored",
+          "row": 21,
+          "contains": "Save modified buffer?"
+        }
+      ]
+    }
+  }
+]

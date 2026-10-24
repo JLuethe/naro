@@ -14,6 +14,7 @@ pub struct Cell {
     pub style: Style,
     pub width: usize,
 }
+#[derive(Clone)]
 pub struct Canvas {
     pub cols: usize,
     pub rows: usize,
@@ -261,7 +262,13 @@ pub fn help_items(ed: &Editor, menu: u32, cols: usize) -> (usize, Vec<(String, S
             } else {
                 &f.tag
             };
-            items.push((k.tag.clone(), native::tr(tag), k.key));
+            let tag = native::tr(tag);
+            let tag = if ed.conf.utf8 {
+                tag
+            } else {
+                tag.replace('…', "...")
+            };
+            items.push((k.tag.clone(), tag, k.key));
             if items.len() >= count {
                 break;
             }
@@ -315,10 +322,24 @@ fn title(ed: &Editor, canvas: &mut Canvas, l: Layout) {
     let mut plug = 0;
     let mut upper = String::new();
     let path = match &ed.mode {
+        Mode::Prompt(p) if matches!(p.kind, PromptKind::HelpSearch) => ed
+            .help_saved
+            .as_ref()
+            .map(|h| h.title.clone())
+            .unwrap_or_default(),
+        Mode::Prompt(p)
+            if matches!(p.kind, PromptKind::BrowserSearch | PromptKind::BrowserGoto) =>
+        {
+            prefix = native::tr("DIR:");
+            ed.browser_saved
+                .as_ref()
+                .map(|b| directory_title(&b.dir))
+                .unwrap_or_default()
+        }
         Mode::Help(h) => h.title.clone(),
         Mode::Browser(b) => {
             prefix = native::tr("DIR:");
-            b.dir.to_string_lossy().into_owned()
+            directory_title(&b.dir)
         }
         Mode::Lint(_) => {
             prefix = native::tr("Linting --");
@@ -793,6 +814,9 @@ fn message(ed: &Editor, canvas: &mut Canvas, l: Layout) {
                 style,
                 l.cols - start + 2,
             );
+            if m.ellipsis {
+                canvas.text(l.status, start + width + 3, "...", style, 3);
+            }
         } else {
             canvas.text(l.status, start, text, style, l.cols - start);
         }
@@ -955,7 +979,14 @@ fn prompt(ed: &Editor, p: &Prompt, canvas: &mut Canvas, l: Layout) -> (usize, us
 }
 pub fn draw(ed: &mut Editor) {
     let l = layout(ed);
-    let mut canvas = Canvas::new(l.cols, l.rows);
+    let paused = ed
+        .pause_screen
+        .as_ref()
+        .filter(|s| s.cols == l.cols && s.rows == l.rows)
+        .cloned();
+    let mut canvas = paused
+        .clone()
+        .unwrap_or_else(|| Canvas::new(l.cols, l.rows));
     let startup_lock = matches!(
         &ed.mode,
         Mode::Question(Question {
@@ -965,18 +996,35 @@ pub fn draw(ed: &mut Editor) {
     );
     let mut cursor = if startup_lock {
         (0, l.top, true)
+    } else if paused.is_some() {
+        title(ed, &mut canvas, l);
+        (0, l.top, true)
     } else {
         title(ed, &mut canvas, l);
         edit(ed, &mut canvas, l)
     };
-    if !ed.conf.on(ZERO) || ed.message.is_some() {
+    if (!ed.conf.on(ZERO) && l.rows > 1) || ed.message.is_some() {
         canvas.fill(l.status, 0, l.cols, Style::NORMAL);
     }
     if ed.conf.on(MINIBAR) && !ed.conf.on(ZERO) && ed.message.is_none() {
         minibar(ed, &mut canvas, l);
     }
+    if let Mode::Prompt(p) = &ed.mode {
+        if matches!(p.kind, PromptKind::HelpSearch)
+            && let Some(h) = &ed.help_saved
+        {
+            paint_help(ed, &mut canvas, l, h);
+        }
+        if matches!(p.kind, PromptKind::BrowserSearch | PromptKind::BrowserGoto)
+            && let Some(b) = &ed.browser_saved
+        {
+            paint_browser(ed, &mut canvas, l, b);
+        }
+    }
     message(ed, &mut canvas, l);
-    helplines(ed, &mut canvas, l);
+    if paused.is_none() {
+        helplines(ed, &mut canvas, l);
+    }
     match &ed.mode {
         Mode::Prompt(p) => cursor = prompt(ed, p, &mut canvas, l),
         Mode::Question(q) => {
@@ -1030,91 +1078,50 @@ pub fn draw(ed: &mut Editor) {
                 }
             }
             let width = Encoding { utf8: true, tab: 8 }
-                .breadth(q.text.as_bytes())
+                .breadth(native::tr(&q.text).as_bytes())
                 .min(l.cols - 1);
             cursor = (width, l.status, !q.all);
         }
-        Mode::Help(h) => {
-            for row in 0..l.edit_rows {
-                canvas.fill(l.top + row, 0, l.cols, Style::NORMAL);
-                if let Some(line) = h.lines.get(h.top + row) {
-                    canvas.text(l.top + row, 0, &bytes::text(line), Style::NORMAL, l.cols);
-                }
-            }
-            cursor = (0, l.top, false);
-        }
-        Mode::Browser(b) => {
-            for row in 0..l.edit_rows {
-                canvas.fill(l.top + row, 0, l.cols, Style::NORMAL);
-            }
-            let page = b.selected / (l.edit_rows * b.piles).max(1) * (l.edit_rows * b.piles);
-            for (i, p) in b
-                .entries
-                .iter()
-                .enumerate()
-                .skip(page)
-                .take(l.edit_rows * b.piles)
-            {
-                let n = i - page;
-                let row = l.top + n / b.piles;
-                let col = n % b.piles * (b.gauge + 2);
-                let style = if i == b.selected {
-                    ed.conf.style("selectedcolor")
-                } else {
-                    Style::NORMAL
-                };
-                canvas.fill(row, col, col + b.gauge, style);
-                let name = p
-                    .file_name()
-                    .map(|s| s.to_string_lossy().into_owned())
-                    .unwrap_or_else(|| "..".into());
-                let meta = std::fs::metadata(p).ok();
-                let info = if name == ".." {
-                    "(parent dir)".into()
-                } else if p.is_dir() {
-                    "(dir)".into()
-                } else if p.is_symlink() {
-                    "--".into()
-                } else if let Some(meta) = meta {
-                    let size = meta.len();
-                    if size < 1024 {
-                        format!("{size:4}  B")
-                    } else if size < 1048576 {
-                        format!("{:4} KB", size / 1024)
-                    } else if size < 1073741824 {
-                        format!("{:4} MB", size / 1048576)
-                    } else {
-                        format!("{:4} GB", size / 1073741824)
-                    }
-                } else {
-                    "--".into()
-                };
-                let name = if name.chars().count() >= b.gauge.saturating_sub(7) && l.cols >= 15 {
-                    let tail: String = name
-                        .chars()
-                        .rev()
-                        .take(b.gauge.saturating_sub(10))
-                        .collect::<String>()
-                        .chars()
-                        .rev()
-                        .collect();
-                    format!("...{tail}")
-                } else {
-                    name
-                };
-                canvas.text(row, col, &name, style, b.gauge);
-                let infow = info.len().min(b.gauge);
-                canvas.text(row, col + b.gauge - infow, &info, style, infow);
-            }
-            cursor = (0, l.top, ed.conf.on(SHOW_CURSOR));
-        }
+        Mode::Help(h) => cursor = paint_help(ed, &mut canvas, l, h),
+        Mode::Browser(b) => cursor = paint_browser(ed, &mut canvas, l, b),
         Mode::Lint(_) => {}
         Mode::Edit => {}
     }
     if ed.pause_until.is_some() {
-        if l.help {
+        if l.help && paused.is_none() {
             canvas.fill(l.rows - 2, 0, l.cols, Style::NORMAL);
             canvas.fill(l.rows - 1, 0, l.cols, Style::NORMAL);
+        }
+        if l.help
+            && ed.pause_next.as_ref().is_some_and(|m| {
+                matches!(
+                    m.as_ref(),
+                    Mode::Prompt(Prompt {
+                        kind: PromptKind::Spell,
+                        ..
+                    })
+                )
+            })
+        {
+            canvas.fill(l.rows - 1, 0, l.cols, Style::NORMAL);
+            let width = if l.cols < 32 { l.cols / 2 } else { 16 };
+            let no = format!(" {}", native::tr("Nn").chars().next().unwrap_or('N'));
+            canvas.text(l.rows - 1, 0, &no, ed.conf.style("keycolor"), width);
+            canvas.text(
+                l.rows - 1,
+                3,
+                &native::tr("No"),
+                ed.conf.style("functioncolor"),
+                width.saturating_sub(3),
+            );
+            canvas.text(l.rows - 1, width, "^C", ed.conf.style("keycolor"), width);
+            canvas.text(
+                l.rows - 1,
+                width + 3,
+                &native::tr("Cancel"),
+                ed.conf.style("functioncolor"),
+                width.saturating_sub(3),
+            );
         }
         let width = ed
             .message
@@ -1127,4 +1134,147 @@ pub fn draw(ed: &mut Editor) {
         cursor.2 = false;
     }
     canvas.flush(cursor);
+    ed.last_screen = Some(canvas);
+}
+
+fn directory_title(p: &std::path::Path) -> String {
+    let mut s = p.to_string_lossy().into_owned();
+    if !s.ends_with('/') {
+        s.push('/');
+    }
+    s
+}
+fn paint_browser(
+    ed: &Editor,
+    canvas: &mut Canvas,
+    l: Layout,
+    b: &BrowserState,
+) -> (usize, usize, bool) {
+    for row in 0..l.edit_rows {
+        canvas.fill(l.top + row, 0, l.cols, Style::NORMAL);
+    }
+    let page = b.selected / (l.edit_rows * b.piles).max(1) * (l.edit_rows * b.piles);
+    for (i, p) in b
+        .entries
+        .iter()
+        .enumerate()
+        .skip(page)
+        .take(l.edit_rows * b.piles)
+    {
+        let n = i - page;
+        let row = l.top + n / b.piles;
+        let col = n % b.piles * (b.gauge + 2);
+        let style = if i == b.selected {
+            ed.conf.style("selectedcolor")
+        } else {
+            Style::NORMAL
+        };
+        canvas.fill(row, col, col + b.gauge, style);
+        let name = p
+            .file_name()
+            .map(|s| s.to_string_lossy().into_owned())
+            .unwrap_or_else(|| "..".into());
+        let meta = std::fs::metadata(p).ok();
+        let info = if name == ".." {
+            "(parent dir)".into()
+        } else if p.is_dir() {
+            "(dir)".into()
+        } else if p.is_symlink() {
+            "--".into()
+        } else if let Some(meta) = meta {
+            let size = meta.len();
+            if size < 1024 {
+                format!("{size:4}  B")
+            } else if size < 1048576 {
+                format!("{:4} KB", size / 1024)
+            } else if size < 1073741824 {
+                format!("{:4} MB", size / 1048576)
+            } else {
+                format!("{:4} GB", size / 1073741824)
+            }
+        } else {
+            "--".into()
+        };
+        let name = if name.chars().count() >= b.gauge.saturating_sub(7) && l.cols >= 15 {
+            let tail: String = name
+                .chars()
+                .rev()
+                .take(b.gauge.saturating_sub(10))
+                .collect::<String>()
+                .chars()
+                .rev()
+                .collect();
+            format!("...{tail}")
+        } else {
+            name
+        };
+        canvas.text(row, col, &name, style, b.gauge);
+        let infow = info.len().min(b.gauge);
+        canvas.text(row, col + b.gauge - infow, &info, style, infow);
+    }
+    let count = b
+        .entries
+        .len()
+        .saturating_sub(page)
+        .min(l.edit_rows * b.piles);
+    let row = l.top + count.saturating_sub(1) / b.piles;
+    let column = canvas.cells[row * l.cols..(row + 1) * l.cols]
+        .iter()
+        .enumerate()
+        .filter(|(_, c)| c.text != " " && !c.text.is_empty())
+        .map(|(i, c)| i + c.width)
+        .next_back()
+        .unwrap_or(0)
+        .min(l.cols - 1);
+    if (ed.message.is_some() || b.footer_cursor) && l.help {
+        let y = l.rows - 1;
+        let x = canvas.cells[y * l.cols..(y + 1) * l.cols]
+            .iter()
+            .enumerate()
+            .filter(|(_, c)| c.text != " " && !c.text.is_empty())
+            .map(|(i, c)| i + c.width)
+            .next_back()
+            .unwrap_or(0)
+            .min(l.cols - 1);
+        (x, y, ed.conf.on(SHOW_CURSOR))
+    } else {
+        (column, row, ed.conf.on(SHOW_CURSOR))
+    }
+}
+fn paint_help(ed: &Editor, canvas: &mut Canvas, l: Layout, h: &HelpState) -> (usize, usize, bool) {
+    let e = Encoding { utf8: true, tab: 8 };
+    for row in 0..l.edit_rows {
+        canvas.fill(l.top + row, 0, l.cols, Style::NORMAL);
+        if let Some(line) = h.lines.get(h.top + row) {
+            let mut x = 0;
+            for g in e.display(line, false, true) {
+                if x + g.width > l.cols {
+                    break;
+                }
+                let style = if h
+                    .highlight
+                    .is_some_and(|(i, a, b)| i == h.top + row && g.byte >= a && g.byte < b)
+                {
+                    ed.conf.style("spotlightcolor")
+                } else {
+                    Style::NORMAL
+                };
+                canvas.put(l.top + row, x, &g.text, style, g.width);
+                x += g.width;
+            }
+        }
+    }
+    if let Some((line, x, _)) = h.highlight {
+        (
+            e.column(&h.lines[line], x),
+            l.top + line.saturating_sub(h.top),
+            ed.conf.on(SHOW_CURSOR),
+        )
+    } else {
+        (
+            0,
+            l.top + if h.cursor_bottom { l.edit_rows - 1 } else { 0 },
+            false,
+        )
+    }
 }

@@ -900,7 +900,7 @@
     ]
    },
    {
-    "wait_exit": 3
+    "sleep": 3000
    }
   ],
   "stdin": "piped\n"

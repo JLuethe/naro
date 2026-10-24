@@ -89,7 +89,7 @@ REND-032,04-rendering.md,Guide stripe (`-J N`),TEST-CLI-045 TEST-REND-021
 REND-033,04-rendering.md,Selected text,TEST-REND-020
 REND-034,04-rendering.md,Spotlight,TEST-CLI-009 TEST-REND-022
 REND-035,04-rendering.md,Syntax colors,TEST-REND-019
-REND-040,04-rendering.md,Cursor position,
+REND-040,04-rendering.md,Cursor position,TEST-FEAT-018
 REND-041,04-rendering.md,Viewport rules,
 REND-050,04-rendering.md,Interface attributes,TEST-CLI-046 TEST-REND-013 TEST-REND-023
 REND-060,04-rendering.md,Importance and priority,TEST-CLI-008 TEST-REND-013

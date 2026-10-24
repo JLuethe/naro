@@ -1,4 +1,5 @@
 //! POSIX search, interactive replace and bracket matching.
+use crate::native;
 use crate::{buffer::Pos, bytes, config::Config, editor::*, generated::*, native::Regex};
 pub fn literal(
     c: &Config,
@@ -176,18 +177,19 @@ impl Editor {
                 } else {
                     self.clear();
                 }
-            } else {
+            } else if self.action_level < 5 {
                 self.clear();
             }
         } else {
             let max = unsafe { crate::native::nr_cols() }.max(1) as usize / 2;
             let n = self.conf.enc().actual(&self.search, max);
+            let needle = format!(
+                "{}{}",
+                bytes::text(&self.search[..n]),
+                if n < self.search.len() { "..." } else { "" }
+            );
             self.msg(
-                format!(
-                    "\"{}{}\" not found",
-                    bytes::text(&self.search[..n]),
-                    if n < self.search.len() { "..." } else { "" }
-                ),
+                native::tr("\"%.*s%s\" not found").replacen("%.*s%s", &needle, 1),
                 5,
             );
         }

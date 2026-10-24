@@ -6,10 +6,10 @@ import argparse,hashlib,json,os,pathlib,shutil,subprocess,sys
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'spec/tools'))
 from compare_runs import compare
-p=argparse.ArgumentParser(description=__doc__);p.add_argument('--binary',type=pathlib.Path,default=ROOT/'target/debug/naro');p.add_argument('--out',type=pathlib.Path,default=ROOT/'spec/evidence/naro-validation');p.add_argument('--ids',nargs='*');p.add_argument('--resume',action='store_true');args=p.parse_args()
+p=argparse.ArgumentParser(description=__doc__);p.add_argument('--binary',type=pathlib.Path,default=ROOT/'target/debug/naro');p.add_argument('--out',type=pathlib.Path,default=ROOT/'spec/evidence/naro-validation');p.add_argument('--ids',nargs='*');p.add_argument('--resume',action='store_true');p.add_argument('--compare-only',action='store_true',help='recompare existing recordings without changing the frozen binary or scenario list');args=p.parse_args()
 args.out.mkdir(parents=True,exist_ok=True)
 frozen=args.out/'naro';source=args.binary.resolve()
-if not args.resume:shutil.copy2(source,frozen)
+if not args.resume and not args.compare_only:shutil.copy2(source,frozen)
 selected=[];skipped={}
 for file in sorted((ROOT/'spec/evidence/scenarios').glob('*.json')):
  for s in json.loads(file.read_text()):
@@ -20,10 +20,11 @@ for file in sorted((ROOT/'spec/evidence/scenarios').glob('*.json')):
   if s['id']=='TEST-BROWSE-003':reason='root-directory browser probe excluded by fixture-only policy'
   if reason:skipped[s['id']]=reason;continue
   if not args.resume or not (args.out/s['id']/'result.json').exists():selected.append(s)
-scenarios=args.out/'scenarios.json';scenarios.write_text(json.dumps(selected,indent=1)+'\n')
+scenarios=args.out/'scenarios.json'
+if not args.compare_only:scenarios.write_text(json.dumps(selected,indent=1)+'\n')
 report=dict(reference_commit='6ed285c3ec7a1d228def4d4e7021c6ba269f620c',binary_sha256=hashlib.sha256(frozen.read_bytes()).hexdigest(),skipped=skipped,results={})
 (args.out/'provenance.json').write_text(json.dumps(report,indent=2)+'\n')
-if selected:
+if selected and not args.compare_only:
  env=os.environ.copy();env['PYTHONUNBUFFERED']='1';env.setdefault('NANOSPEC_WORK','/tmp/nanospec-work')
  run=subprocess.run([sys.executable,str(ROOT/'spec/tools/nanoharness.py'),str(scenarios),'--binary',str(frozen.resolve()),'--out',str(args.out.resolve())],env=env)
  report['harness_status']=run.returncode

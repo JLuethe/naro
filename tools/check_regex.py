@@ -2,9 +2,9 @@
 """Validate Naro's actual Rust/native regex wrapper through harness fixtures.
 Reference 6ed285c3ec7a1d228def4d4e7021c6ba269f620c.
 """
-import argparse,json,os,pathlib,subprocess,sys
+import argparse,hashlib,json,os,pathlib,subprocess,sys
 ROOT=pathlib.Path(__file__).resolve().parents[1]
-p=argparse.ArgumentParser();p.add_argument('--binary',default=str(ROOT/'target/debug/naro'));args=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--binary',default=str(ROOT/'target/debug/naro'));args=p.parse_args();args.binary=str(pathlib.Path(args.binary).resolve())
 out=ROOT/'spec/evidence/naro-regex';out.mkdir(parents=True,exist_ok=True)
 cases=(ROOT/'spec/evidence/regex/cases.tsv').read_text()
 scenarios=[]
@@ -23,5 +23,5 @@ for s in scenarios:
   if a!=b:diffs.append(dict(case=i+1,expected=a,actual=b))
  report.append(dict(locale=s['lang'],cases=len(actual),differences=diffs));failed|=bool(diffs)
  print(s['lang'],len(actual),'cases,',len(diffs),'differences')
-(out/'report.json').write_text(json.dumps(report,indent=2)+'\n')
+(out/'report.json').write_text(json.dumps({'reference_commit':'6ed285c3ec7a1d228def4d4e7021c6ba269f620c','binary_sha256':hashlib.sha256(pathlib.Path(args.binary).read_bytes()).hexdigest(),'locales':report},indent=2)+'\n')
 raise SystemExit(failed)

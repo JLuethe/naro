@@ -417,6 +417,8 @@ class Run:
                 env[k] = v.replace("$FX", root)
         argv0 = sc.get("argv0", "nano")
         exe = os.path.join(self.binary, argv0) if os.path.isdir(self.binary) else self.binary
+        with open(exe, "rb") as binary_file:
+            binary_sha256 = hashlib.file_digest(binary_file, "sha256").hexdigest()
         args = [a.replace("$FX", root) for a in sc.get("args", [])]
         cwd = os.path.join(root, sc.get("cwd", "work"))
         envs = " ".join("%s=%s" % (k, shlex.quote(v)) for k, v in sorted(env.items()))
@@ -429,13 +431,14 @@ class Run:
         if sc.get("stdout_redirect"):
             redir += " > " + shlex.quote(os.path.join(work, "stdout.bin"))
         stderr_path = os.path.join(work, "stderr.bin")
+        # exec -a applied to env changes env's argv[0], not the editor's.
+        # A tiny exec launcher preserves the exact requested editor argv[0].
+        launch = [sys.executable, "-c", "import os,sys,json; os.execve(sys.argv[1], sys.argv[3:], json.loads(sys.argv[2]))", exe, json.dumps(env), argv0] + args
         inner = ("umask %s; cd %s; while [ ! -e %s ]; do sleep 0.01; done; "
-                 "exec 2>%s; exec env -i %s %s %s%s" % (
+                 "exec 2>%s; exec env -i %s %s%s" % (
                      sc.get("umask", "022"), shlex.quote(cwd), shlex.quote(gofile),
-                     shlex.quote(stderr_path), envs, shlex.quote(exe),
-                     " ".join(shlex.quote(a) for a in args), redir))
-        if argv0 != os.path.basename(exe):
-            inner = inner.replace("exec env -i", "exec -a %s env -i" % argv0)
+                     shlex.quote(stderr_path), envs,
+                     " ".join(shlex.quote(a) for a in launch), redir))
         tmux("new-session", "-d", "-s", "t", "-x", str(cols), "-y", str(rows),
              "sh", "-c", inner)
         tmux("set", "-g", "remain-on-exit", "on")
@@ -467,7 +470,7 @@ class Run:
         tmux("kill-server", check=False)
         result = {
             "scenario": sc["id"], "reference_commit": REFERENCE_COMMIT,
-            "binary": exe, "argv": [argv0] + args, "env": env, "cwd": cwd,
+            "binary": exe, "binary_sha256": binary_sha256, "argv": [argv0] + args, "env": env, "cwd": cwd,
             "inputs": self.inputs, "snapshots": self.snapshots,
             "after_exit_screen": final,
             "exit_status": st.get("exit_status"), "exit_signal": st.get("exit_signal"),
@@ -555,7 +558,10 @@ class Run:
                 st = os.stat(path)
                 os.utime(path, ns=(st.st_atime_ns, st.st_mtime_ns + int(step["mtime_offset"] * 1e9)))
         elif "wait_exit" in step:
-            return self.wait_dead(step["wait_exit"])
+            passed = self.wait_dead(step["wait_exit"])
+            if not passed:
+                self.notes.append("wait_exit timed out after %ss" % step["wait_exit"])
+            return passed
         else:
             raise ValueError("unknown step %r" % step)
         return True

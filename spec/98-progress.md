@@ -108,7 +108,7 @@ See 99 for the full decision register, including remaining verification gaps.
 
 Completed comparator: live/final screens, attributes indexed by cells, cursor,
 modes, stdout/stderr, exit/signal, input bytes, fixture manifests and captured
-locks; narrow normalization documented in 16. Eleven regression tests pass;
+locks; narrow normalization documented in 16. Twelve regression tests pass;
 309/309 reference self-comparisons match. Harness now reports failed wait/settle
 steps and returns nonzero for FAIL/ERROR instead of silently recording success.
 No reference sources were changed.
@@ -130,3 +130,22 @@ Resume implementation from the repository README/status report. Preserve
 `spec/evidence/runs`; send candidate harness output to another directory.
 `~/src/nano-rs/spec` is the original working spec; the checked-in copy travels
 with Naro. Record later implementation work in the repository copy.
+
+
+## Implementation validation follow-up (2026-10-24)
+
+The repository copy at `~/Code/naro/spec` is authoritative for subsequent
+corrections. The original `~/src/nano-rs/spec` remains the inherited checkpoint.
+Rust was installed at user level without changing shell profiles or system
+packages. A working Rust/C-native implementation and the complete spec were
+committed and pushed to `JLuethe/naro`; GitHub CI builds and checks it.
+See `../IMPLEMENTATION.md` for current candidate validation, distinct from
+spec completion.
+
+Harness refinements: private per-scenario TMPDIR; exact argv0 and explicit
+execve environment (Python's implicit C-locale coercion must not leak into the
+editor); optional hold_tty for redirected probes. Corrected ten intentional
+kill recordings' terminal wait steps to sleeps, preserving their original
+steps in `evidence/recording-timeout-corrections.json` and raw reference output.
+Comparator now narrowly normalizes tool temp-path logs and truncated tmux dead
+banner dates. Twelve comparator regression tests cover the contract.

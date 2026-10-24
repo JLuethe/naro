@@ -667,7 +667,7 @@ impl Editor {
                 while end < s.len() && e.blank(&s, end) {
                     end = e.right(&s, end);
                 }
-                if e.column(&s, end) <= wrap || split.is_none() {
+                if e.column(&s, x) <= wrap || split.is_none() {
                     split = Some(end);
                 }
                 if e.column(&s, end) > wrap {
@@ -940,7 +940,11 @@ impl Editor {
             .unwrap_or("");
         let cols = unsafe { native::nr_cols() }.max(1) as usize;
         let mut lines = vec![b" ".to_vec()];
-        lines.extend(wrap_lines(body, cols.clamp(40, 74), " "));
+        let mut intro_lines = wrap_lines(body, cols.clamp(40, 74), " ");
+        if intro_lines.last().is_some_and(Vec::is_empty) {
+            intro_lines.pop();
+        }
+        lines.extend(intro_lines);
         for f in self.conf.funcs.iter().filter(|f| f.menus & menu != 0) {
             let keys: Vec<_> = self
                 .conf
@@ -970,29 +974,49 @@ impl Editor {
             }
         }
         if menu == MAIN {
-            for (name, flag, desc) in TOGGLES {
-                if let Some(k) = self
-                    .conf
-                    .keys
-                    .iter()
-                    .find(|k| k.toggle == *flag && k.menus & MAIN != 0)
+            for flag in 1..=13 {
+                if let Some((_, _, desc)) = TOGGLES.iter().find(|(_, f, _)| *f == flag)
+                    && let Some(k) = self
+                        .conf
+                        .keys
+                        .iter()
+                        .find(|k| k.toggle == flag && k.menus & MAIN != 0)
                 {
-                    let _ = name;
                     lines.push(
                         format!("{:<17}{} enable/disable", k.tag, native::tr(desc)).into_bytes(),
                     );
+                    if matches!(flag, LINE_NUMBERS | SOFTWRAP | AUTOINDENT) {
+                        lines.push(Vec::new());
+                    }
                 }
             }
         }
-        let hidden = self.conf.on(NO_HELP);
-        self.conf.set(NO_HELP, false);
+        let saved_flags = self.conf.flags;
+        let saved_search = self.search.clone();
+        let viewport = (self.b().top, self.b().brink);
+        for f in [
+            NO_HELP,
+            LINE_NUMBERS,
+            WHITESPACE_DISPLAY,
+            ZERO,
+            SOFTWRAP,
+            USE_REGEXP,
+            CASE_SENSITIVE,
+            BACKWARDS_SEARCH,
+        ] {
+            self.conf.set(f, false);
+        }
         self.clear();
         self.mode = Mode::Help(HelpState {
             previous: Box::new(previous),
             title,
             lines,
             top: 0,
-            original_nohelp: hidden,
+            saved_flags,
+            saved_search,
+            viewport,
+            highlight: None,
+            cursor_bottom: false,
         });
     }
     pub fn help_key(&mut self, mut h: HelpState, key: Key, fun: &str) {
@@ -1010,10 +1034,22 @@ impl Editor {
             fun
         };
         let l = render::layout(self);
+        if matches!(
+            f,
+            "to_first_line" | "to_last_line" | "do_up" | "do_down" | "do_page_up" | "do_page_down"
+        ) {
+            h.highlight = None;
+        }
         match f {
             "do_exit" | "do_cancel" => {
-                self.conf.set(NO_HELP, h.original_nohelp);
+                self.conf.flags = h.saved_flags;
+                self.search = h.saved_search;
+                self.bm().top = h.viewport.0;
+                self.bm().brink = h.viewport.1;
                 self.mode = *h.previous;
+                if let Mode::Browser(b) = &mut self.mode {
+                    b.footer_cursor = true;
+                }
                 self.clear();
                 return;
             }
@@ -1026,10 +1062,68 @@ impl Editor {
                 h.top = (h.top + l.edit_rows.saturating_sub(2))
                     .min(h.lines.len().saturating_sub(l.edit_rows))
             }
-            "to_first_line" => h.top = 0,
-            "to_last_line" => h.top = h.lines.len().saturating_sub(l.edit_rows),
+            "to_first_line" => {
+                h.top = 0;
+                h.cursor_bottom = false;
+            }
+            "to_last_line" => {
+                h.top = h.lines.len().saturating_sub(l.edit_rows);
+                h.cursor_bottom = true;
+            }
+            "do_search_forward" | "do_search_backward" => {
+                self.help_saved = Some(h);
+                self.prompt(PromptKind::HelpSearch, vec![]);
+                return;
+            }
+            "do_findnext" | "do_findprevious" => {
+                self.help_find(h, f == "do_findprevious");
+                return;
+            }
             "full_refresh" => {}
             _ => self.unbound(&key),
+        }
+        self.mode = Mode::Help(h);
+    }
+    pub fn help_find(&mut self, mut h: HelpState, back: bool) {
+        if self.search.is_empty() {
+            self.msg("No current search pattern", 5);
+            self.mode = Mode::Help(h);
+            return;
+        }
+        let from = h.highlight.map(|m| m.0).unwrap_or(h.top);
+        let n = h.lines.len();
+        let mut found = None;
+        for step in 1..=n {
+            let i = if back {
+                (from + n - step % n) % n
+            } else {
+                (from + step) % n
+            };
+            if let Some((a, b)) =
+                crate::search::literal(&self.conf, &h.lines[i], &self.search, 0, false)
+            {
+                found = Some((i, a, b));
+                break;
+            }
+        }
+        if let Some((i, a, b)) = found {
+            let rows = render::layout(self).edit_rows;
+            h.top = i.saturating_sub(rows / 2).min(n.saturating_sub(rows));
+            h.highlight = Some((i, a, b));
+            if i <= from && !back {
+                self.msg("Search Wrapped", 1);
+            } else {
+                self.clear();
+            }
+        } else {
+            self.msg(
+                native::tr("\"%.*s%s\" not found").replacen(
+                    "%.*s%s",
+                    &bytes::text(&self.search),
+                    1,
+                ),
+                5,
+            );
         }
         self.mode = Mode::Help(h);
     }
@@ -1052,6 +1146,7 @@ impl Editor {
             selected: 0,
             gauge: 15,
             piles: 1,
+            footer_cursor: false,
         });
         self.refresh_browser();
     }
@@ -1129,6 +1224,8 @@ impl Editor {
             fun
         };
         let n = b.entries.len();
+        let original_selection = b.selected;
+        b.footer_cursor = false;
         let l = render::layout(self);
         let p = b.piles;
         match f {
@@ -1166,6 +1263,16 @@ impl Editor {
                 self.prompt(PromptKind::BrowserSearch, vec![]);
                 return;
             }
+            "do_findnext" | "do_findprevious" => {
+                if self.search.is_empty() {
+                    self.msg("No current search pattern", 5);
+                } else {
+                    self.browser_saved = Some(b);
+                    let prompt = Prompt::new(PromptKind::BrowserSearch, vec![]);
+                    self.submit(prompt);
+                    return;
+                }
+            }
             "goto_dir" => {
                 self.browser_saved = Some(b);
                 self.prompt(PromptKind::BrowserGoto, vec![]);
@@ -1174,9 +1281,7 @@ impl Editor {
             "do_enter" => {
                 let selected = b.entries[b.selected].clone();
                 if selected.is_dir() {
-                    if b.dir == std::path::Path::new("/")
-                        && selected.file_name().is_some_and(|s| s == "..")
-                    {
+                    if b.dir == std::path::Path::new("/") && selected.ends_with("..") {
                         self.msg("Can't move up a directory", 7);
                     } else if !files::inside(&self.conf, &selected) {
                         self.msg(
@@ -1188,7 +1293,7 @@ impl Editor {
                         );
                     } else {
                         let old = b.dir.clone();
-                        let parent = selected.file_name().is_some_and(|s| s == "..");
+                        let parent = selected.ends_with("..");
                         b.dir = fs::canonicalize(&selected).unwrap_or(selected);
                         b.entries.clear();
                         b.selected = 0;
@@ -1224,6 +1329,9 @@ impl Editor {
                 return;
             }
             _ => self.unbound(&key),
+        }
+        if b.selected == original_selection {
+            b.footer_cursor = true;
         }
         self.mode = Mode::Browser(b);
     }
@@ -1716,6 +1824,9 @@ impl Editor {
             self.find(true);
             let next = Mode::Prompt(Prompt::new(PromptKind::Spell, word));
             if started {
+                self.pause_screen = self.last_screen.clone();
+                self.pause_painted = false;
+                self.pause_duration = std::time::Duration::from_millis(400);
                 self.mode = Mode::Edit;
                 self.msg("Next word...", 1);
                 self.pause_until =
@@ -1910,6 +2021,12 @@ fn capture(cmd: &mut Command, input: Option<Vec<u8>>) -> std::io::Result<(i32, V
             Stdio::null()
         })
         .process_group(0);
+    unsafe {
+        cmd.pre_exec(|| {
+            native::nr_child_signals();
+            Ok(())
+        });
+    }
     let mut child = cmd.spawn()?;
     let sender = input.and_then(|raw| {
         child.stdin.take().map(|mut p| {

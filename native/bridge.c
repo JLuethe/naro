@@ -62,6 +62,7 @@ int nr_init(int preserve,int rawseq) {
     define_key("\033[200~",0x4b5);define_key("\033[201~",0x4be);
     modes(preserve);return 1;
 }
+void nr_finish(int start) { if(active) { wattrset(stdscr,A_NORMAL); for(int y=start;y<LINES;y++){ wmove(stdscr,y,0);wclrtoeol(stdscr); } wmove(stdscr,LINES-1,0);wrefresh(stdscr); } }
 void nr_done(void) {
     if(active){curs_set(1);mousemask(0,NULL);wattrset(stdscr,A_NORMAL);wmove(stdscr,LINES-1,0);endwin();active=0;}
     fputs("\033[?2004l",stdout);fflush(stdout);
@@ -134,3 +135,10 @@ void nr_configure(int preserve,int rawseq) {keypad(stdscr,!rawseq);modes(preserv
 const char *nr_position(int lw,size_t line,size_t total_lines,int linepct,size_t col,size_t cols,int colpct,int cw,size_t count,size_t total,int charpct) {
     static char out[1024];snprintf(out,sizeof(out),gettext("line %*zd/%zd (%2d%%), col %2zu/%2zu (%3d%%), char %*zu/%zu (%2d%%)"),lw,line,total_lines,linepct,col,cols,colpct,cw,count,total,charpct);return out;
 }
+int nr_colors(void) {return COLORS;}
+void nr_child_signals(void) {
+    struct sigaction a={0};sigemptyset(&a.sa_mask);a.sa_handler=SIG_DFL;
+    sigaction(SIGINT,&a,NULL);sigaction(SIGQUIT,&a,NULL);sigaction(SIGPIPE,&a,NULL);
+}
+int nr_collate(const char *a,const char *b) {return strcoll(a,b);}
+int nr_print_byte(int b) {return isprint((unsigned char)b);}

@@ -68,6 +68,17 @@ class CompareTests(unittest.TestCase):
         self.assertNotEqual(c.norm_text("Pane is dead (status 1, date)"),
                             c.norm_text("Pane is dead (status 0, date)"))
 
+    def test_truncated_dead_banner(self):
+        def screen(text):
+            return {'width': 30, 'rows': [{'text': text, 'attrs': []}],
+                    'cursor': {'x': 0, 'y': 0, 'visible': True}}
+        a = screen('Pane is dead (status 0, Fri Oc')
+        b = screen('Pane is dead (status 0, Sat Oc')
+        self.assertEqual(c.norm_screen(a, dead=True), c.norm_screen(b, dead=True))
+        self.assertNotEqual(c.norm_screen(a), c.norm_screen(b))
+        b['rows'][0]['text'] = 'Pane is dead (status 1, Sat Oc'
+        self.assertNotEqual(c.norm_screen(a, dead=True), c.norm_screen(b, dead=True))
+
     def test_tool_temp_logs_are_narrowly_normalized(self):
         def manifest(raw):
             import base64

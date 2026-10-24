@@ -19,6 +19,7 @@ pub enum PromptKind {
     Execute,
     BrowserSearch,
     BrowserGoto,
+    HelpSearch,
     Spell,
 }
 #[derive(Clone, Debug)]
@@ -30,6 +31,7 @@ pub struct Prompt {
     pub remembered: Vec<u8>,
     pub fragment: Vec<u8>,
     pub initial_newbuffer: bool,
+    pub other_answer: Vec<u8>,
 }
 impl Prompt {
     pub fn new(kind: PromptKind, answer: Vec<u8>) -> Self {
@@ -42,6 +44,7 @@ impl Prompt {
             remembered: Vec::new(),
             fragment: Vec::new(),
             initial_newbuffer: false,
+            other_answer: Vec::new(),
         }
     }
 }
@@ -67,7 +70,11 @@ pub struct HelpState {
     pub title: String,
     pub lines: Vec<Vec<u8>>,
     pub top: usize,
-    pub original_nohelp: bool,
+    pub saved_search: Vec<u8>,
+    pub saved_flags: u64,
+    pub viewport: (usize, usize),
+    pub highlight: Option<(usize, usize, usize)>,
+    pub cursor_bottom: bool,
 }
 #[derive(Debug)]
 pub struct BrowserState {
@@ -77,6 +84,7 @@ pub struct BrowserState {
     pub selected: usize,
     pub gauge: usize,
     pub piles: usize,
+    pub footer_cursor: bool,
 }
 #[derive(Debug)]
 pub struct LintState {
@@ -99,6 +107,7 @@ pub struct Message {
     pub text: String,
     pub level: i32,
     pub countdown: usize,
+    pub ellipsis: bool,
     pub time: Instant,
 }
 pub struct Spelling {
@@ -131,6 +140,10 @@ pub struct Editor {
     pub action_level: i32,
     pub pause_until: Option<Instant>,
     pub pause_next: Option<Box<Mode>>,
+    pub last_screen: Option<render::Canvas>,
+    pub pause_screen: Option<render::Canvas>,
+    pub pause_painted: bool,
+    pub pause_duration: std::time::Duration,
     pub spotlight: Option<(usize, usize, usize)>,
     pub spotlight_time: Instant,
     pub cutbuffer: Vec<u8>,
@@ -153,6 +166,7 @@ pub struct Editor {
     pub completion_tried: Vec<Vec<u8>>,
     pub completion_start: Pos,
     pub browser_saved: Option<BrowserState>,
+    pub help_saved: Option<HelpState>,
     pub tool_answer: Vec<u8>,
     pub position_entries: Vec<Vec<u8>>,
 }
@@ -169,6 +183,10 @@ impl Editor {
             action_level: 0,
             pause_until: None,
             pause_next: None,
+            last_screen: None,
+            pause_screen: None,
+            pause_painted: false,
+            pause_duration: std::time::Duration::ZERO,
             spotlight: None,
             spotlight_time: Instant::now(),
             cutbuffer: Vec::new(),
@@ -191,6 +209,7 @@ impl Editor {
             completion_tried: Vec::new(),
             completion_start: Pos::default(),
             browser_saved: None,
+            help_saved: None,
             tool_answer: Vec::new(),
             position_entries: Vec::new(),
         }
@@ -210,9 +229,7 @@ impl Editor {
             && self.action_level == 7
             && level == 7
         {
-            if !m.text.ends_with(" ...") {
-                m.text.push_str(" ...");
-            }
+            m.ellipsis = true;
             return;
         }
         if level >= 5 {
@@ -228,6 +245,7 @@ impl Editor {
         self.message = Some(Message {
             text: native::tr(&text),
             level,
+            ellipsis: false,
             countdown: if self.conf.on(QUICK_BLANK) { 1 } else { 20 },
             time: Instant::now(),
         });
@@ -255,6 +273,7 @@ impl Editor {
                 PromptKind::BrowserSearch => BSEARCH,
                 PromptKind::BrowserGoto => BGOTO,
                 PromptKind::Spell => SPELL,
+                PromptKind::HelpSearch => HSEARCH,
             },
             Mode::Question(_) => YESNO,
             Mode::Help(_) => HELP,
@@ -431,12 +450,18 @@ impl Editor {
         }
         while self.exit.is_none() {
             if let Some(until) = self.pause_until {
-                if Instant::now() < until {
+                if !self.pause_painted {
                     render::draw(self);
+                    self.pause_until = Some(Instant::now() + self.pause_duration);
+                    self.pause_painted = true;
+                    continue;
+                }
+                if Instant::now() < until {
                     std::thread::sleep(std::time::Duration::from_millis(50));
                     continue;
                 }
                 self.pause_until = None;
+                self.pause_screen = None;
                 self.clear();
                 if let Some(next) = self.pause_next.take() {
                     self.mode = *next;
@@ -483,6 +508,12 @@ impl Editor {
                 }
                 Event::Signal(s) => self.signal(s),
                 Event::Key(k) => self.key(k),
+            }
+        }
+        if self.fatal.is_none() {
+            let l = render::layout(self);
+            unsafe {
+                native::nr_finish(l.status as i32);
             }
         }
         self.save_history();
@@ -562,9 +593,6 @@ impl Editor {
             }
         }
         let menu = self.menu();
-        if menu == MAIN {
-            self.spotlight = None;
-        }
         if key.code == 409 {
             self.mouse();
             return;
@@ -576,6 +604,9 @@ impl Editor {
                     if self.can_change() {
                         let no = self.conf.on(NO_NEWLINES);
                         self.bm().insert(&raw, "paste", false, no);
+                        if ok {
+                            self.clear();
+                        }
                         if !ok {
                             self.msg("Flawed paste", 7);
                         }
@@ -628,6 +659,14 @@ impl Editor {
             return;
         }
         let function = binding.as_ref().map(|b| b.func.as_str()).unwrap_or("");
+        if menu == MAIN
+            && !matches!(
+                function,
+                "do_search_forward" | "do_search_backward" | "do_replace"
+            )
+        {
+            self.spotlight = None;
+        }
         let mode = std::mem::take(&mut self.mode);
         match mode {
             Mode::Edit => self.edit_key(
@@ -827,7 +866,32 @@ impl Editor {
                         self.bm().state.mark = None;
                         self.bm().softmark = false;
                     }
-                    self.bm().insert(&[key.code as u8], "addition", true, no);
+                    let mut typed = vec![key.code as u8];
+                    if !self.input.replay.is_empty() {
+                        while self.input.replay.front().is_some_and(|k| {
+                            !k.meta
+                                && !k.shift
+                                && k.command.is_none()
+                                && (32..=255).contains(&k.code)
+                                && k.code != 127
+                        }) {
+                            typed.push(self.input.replay.pop_front().unwrap().code as u8);
+                        }
+                    } else {
+                        while self
+                            .input
+                            .queue
+                            .front()
+                            .is_some_and(|k| (32..=255).contains(k) && *k != 127)
+                        {
+                            let code = self.input.queue.pop_front().unwrap();
+                            if self.recording {
+                                self.macro_keys.push(Key::plain(code));
+                            }
+                            typed.push(code as u8);
+                        }
+                    }
+                    self.bm().insert(&typed, "addition", true, no);
                     self.hard_wrap();
                     self.preferred();
                 } else {
@@ -1016,7 +1080,8 @@ impl Editor {
                 let redo = fun == "do_redo";
                 if let Some(noun) = self.bm().undo(redo) {
                     self.msg(
-                        format!("{} {noun}", if redo { "Redid" } else { "Undid" }),
+                        native::tr(if redo { "Redid %s" } else { "Undid %s" })
+                            .replace("%s", &native::tr(&noun)),
                         1,
                     );
                 } else {
@@ -1125,7 +1190,12 @@ impl Editor {
                 }
             }
             "to_prev_anchor" | "to_next_anchor" => self.anchor(fun == "to_next_anchor"),
-            _ => self.unbound(&key),
+            "do_nothing" => {}
+            _ => {
+                if key.command.is_none() {
+                    self.unbound(&key);
+                }
+            }
         }
         if fun != "do_cycle" {
             self.cycle = 0;
@@ -1150,6 +1220,8 @@ impl Editor {
             "Unbindable key: ^[".into()
         } else if k.code < 32 {
             format!("Unbound key: ^{}", (k.code + 64) as u8 as char)
+        } else if !k.meta && (32..127).contains(&k.code) {
+            format!("Unbound key: {}", k.code as u8 as char)
         } else {
             "Unbound key".into()
         };
@@ -1202,7 +1274,8 @@ impl Editor {
         if let Some((_, _, desc)) = TOGGLES.iter().find(|(_, flag, _)| *flag == f) {
             let enabled = self.conf.on(f) ^ (f == NO_HELP || f == NO_SYNTAX);
             self.msg(
-                format!("{desc} {}", if enabled { "enabled" } else { "disabled" }),
+                native::tr(if enabled { "%s enabled" } else { "%s disabled" })
+                    .replace("%s", &native::tr(desc)),
                 2,
             );
         }
