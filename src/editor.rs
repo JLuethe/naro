@@ -255,6 +255,7 @@ impl Editor {
         self.message = None;
     }
     pub fn cancelled(&mut self) {
+        self.spotlight = None;
         self.mode = Mode::Edit;
         self.completion.clear();
         self.msg("Cancelled", 1);
