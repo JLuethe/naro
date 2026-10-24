@@ -1,0 +1,6 @@
+FROM docker.io/library/ubuntu:24.04
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential pkg-config libncurses-dev libmagic-dev libevent-dev bison gettext autoconf automake libtool locales python3 file git curl ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN localedef -i en_US -f UTF-8 en_US.UTF-8 && localedef -i de_DE -f UTF-8 de_DE.UTF-8 && localedef -i fr_FR -f UTF-8 fr_FR.UTF-8 && localedef -i ja_JP -f UTF-8 ja_JP.UTF-8
+RUN curl --fail --location --retry 3 https://github.com/tmux/tmux/releases/download/3.8/tmux-3.8.tar.gz -o /tmp/tmux.tar.gz && echo 'e79c699c7e949dccd0a4a125e17b8d1261e311b16979dbc8eb34542f3966d82e  /tmp/tmux.tar.gz' | sha256sum -c - && tar -xzf /tmp/tmux.tar.gz -C /tmp && cd /tmp/tmux-3.8 && ./configure --prefix=/usr/local && make -j2 && make install && rm -rf /tmp/tmux-3.8 /tmp/tmux.tar.gz
+ENV PATH="/opt/rust/bin:/usr/local/bin:/usr/bin:/bin"
+ENV LANG="en_US.UTF-8"

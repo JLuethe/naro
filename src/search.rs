@@ -210,10 +210,16 @@ impl Editor {
                     && (b.x == s.len() || !e.word(s, b.x, false, &[]))
             });
         }
-        let original = self.b().pos();
+        let original = self
+            .spelling
+            .as_ref()
+            .map(|s| s.original)
+            .unwrap_or(self.b().pos());
         let mark = self.b().state.mark;
         let top = self.b().top;
-        if let Some((a, b)) = self.b().region() {
+        if let Some((lo, hi)) = self.spelling.as_ref().and_then(|s| s.region) {
+            matches.retain(|(a, b, _)| self.b().offset(*a) >= lo && self.b().offset(*b) <= hi);
+        } else if let Some((a, b)) = self.b().region() {
             matches.retain(|(x, y, _)| *x >= a && *y <= b);
         } else {
             let pivot = matches
@@ -297,6 +303,11 @@ impl Editor {
                     i += 1;
                 }
                 let before = self.b().begin();
+                if let Some(session) = self.spelling.as_mut()
+                    && let Some((_, ref mut end)) = session.region
+                {
+                    *end = end.saturating_add_signed(raw.len() as isize - (b.x - a.x) as isize);
+                }
                 self.bm().replace(a, b, &raw);
                 let no = self.conf.on(NO_NEWLINES);
                 self.bm().finish(before, "replacement", false, no);
@@ -315,6 +326,15 @@ impl Editor {
                 }
                 if r.original.line == a.line && r.original.x > a.x && r.original.x >= b.x {
                     r.original.x = r.original.x.saturating_add_signed(delta);
+                }
+                if let Some(m) = &mut r.mark
+                    && m.line == a.line
+                    && m.x >= b.x
+                {
+                    m.x = m.x.saturating_add_signed(delta);
+                }
+                if let Some(session) = &mut self.spelling {
+                    session.original = r.original;
                 }
                 r.count += 1;
             }
@@ -352,6 +372,7 @@ impl Editor {
         }
 
         if spelling {
+            self.restore_spell_position();
             self.next_spell();
         }
     }

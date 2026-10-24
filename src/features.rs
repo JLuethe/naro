@@ -714,6 +714,9 @@ impl Editor {
         let after = self.b().state.clone();
         if let Some(last) = self.bm().history.last_mut() {
             last.after = after;
+            if last.kind == "paste" {
+                last.redo_kind = Some("addition".into());
+            }
         }
         self.preferred();
     }
@@ -1664,77 +1667,164 @@ impl Editor {
         }
     }
     pub fn format_tool(&mut self) {
-        let command = self.syntax().and_then(|s| s.formatter.clone());
+        let command = self
+            .syntax()
+            .and_then(|s| s.formatter.clone())
+            .filter(|s| !s.is_empty());
         if let Some(cmd) = command {
+            self.bm().state.mark = None;
             self.external_tool(&cmd, false);
         } else {
             self.msg("No formatter is defined for this type of file", 5);
         }
     }
     pub fn external_tool(&mut self, cmd: &str, spell: bool) {
-        let Some(program) = cmd.split_ascii_whitespace().next() else {
+        use std::os::unix::process::CommandExt;
+        let mut args = cmd.split(' ').filter(|s| !s.is_empty());
+        let Some(program) = args.next() else {
             return;
         };
-        if self.b().raw().is_empty() {
-            self.msg("Buffer is empty", 5);
+        let region = if spell { self.b().region() } else { None };
+        let empty = region
+            .map(|(a, b)| a == b)
+            .unwrap_or_else(|| self.b().raw().is_empty());
+        if empty {
+            self.msg(
+                if region.is_some() {
+                    "Selection is empty"
+                } else {
+                    "Buffer is empty"
+                },
+                5,
+            );
             return;
         }
-        let (temp, file) = match files::temp(&self.conf, self.b()) {
+        let temp = match files::temp(&self.conf, self.b(), region.is_some()) {
             Ok(t) => t,
             Err(e) => {
                 self.msg(format!("Error writing temp file: {e}"), 7);
                 return;
             }
         };
-        drop(file);
-        let old = fs::metadata(&temp).and_then(|s| s.modified()).ok();
+        let old = fs::metadata(&temp.path).and_then(|s| s.modified()).ok();
         let before = self.b().begin();
+        let pos = self.b().pos();
+        let mark = self.b().state.mark;
+        let at_eol = pos.x == self.b().line().len();
+        let preferred = self.b().preferred;
         if spell {
             unsafe {
                 native::nr_done();
             }
+        } else {
+            self.msg("Invoking formatter...", 1);
+            render::draw(self);
         }
-        let result = Command::new(program)
-            .args(cmd.split_ascii_whitespace().skip(1))
-            .arg(&temp)
-            .status();
+        let mut command = Command::new(program);
+        command.args(args).arg(&temp.path);
+        unsafe {
+            command.pre_exec(|| {
+                native::nr_child_signals();
+                Ok(())
+            });
+        }
+        let result = command.spawn().and_then(|mut child| {
+            loop {
+                if let Some(status) = child.try_wait()? {
+                    return Ok(status);
+                }
+                let sig = unsafe { native::nr_signal() };
+                if matches!(sig, 1 | 15) {
+                    let _ = child.kill();
+                    let _ = child.wait();
+                    self.signal(sig);
+                    return Err(std::io::Error::new(
+                        std::io::ErrorKind::Interrupted,
+                        "editor terminated",
+                    ));
+                }
+                if sig == 28 {
+                    self.signal(sig);
+                }
+                std::thread::sleep(std::time::Duration::from_millis(10));
+            }
+        });
         if spell {
             unsafe {
                 native::nr_resume(self.conf.on(PRESERVE) as i32);
             }
         }
+        if self.exit.is_some() {
+            return;
+        }
         let status = result.ok().and_then(|s| s.code()).unwrap_or(9);
         if status > 2 {
             self.msg(format!("Error invoking '{program}'"), 7);
-        } else if fs::metadata(&temp).and_then(|s| s.modified()).ok() == old {
-            self.msg("Nothing changed", 2);
-        } else if let Ok(raw) = fs::read(&temp) {
-            let (lines, _, _) = files::parse(&raw, !self.conf.on(NO_CONVERT));
-            let pos = self.b().pos();
-            self.bm().state.lines = lines;
-            self.bm().set_pos(pos);
-            let no = self.conf.on(NO_NEWLINES);
-            self.bm().finish(
-                before,
-                if spell {
-                    "spelling correction"
-                } else {
-                    "formatting"
-                },
-                false,
-                no,
-            );
-            self.preferred();
-            self.msg(
-                if spell {
-                    "Finished checking spelling"
-                } else {
-                    "Buffer has been processed"
-                },
-                2,
-            );
+            return;
         }
-        let _ = fs::remove_file(temp);
+        if status != 0 {
+            self.msg(format!("Program '{program}' complained"), 7);
+        }
+        if fs::metadata(&temp.path).and_then(|s| s.modified()).ok() == old {
+            self.msg("Nothing changed", 2);
+            return;
+        }
+        match fs::read(&temp.path) {
+            Ok(raw) => {
+                let (lines, _, _) = files::parse(&raw, !self.conf.on(NO_CONVERT));
+                let corrected = Buffer::new(Vec::new(), lines).raw();
+                let mut wanted = pos;
+                if let Some((a, b)) = region {
+                    self.bm().replace(a, b, &corrected);
+                    let end = self.b().pos();
+                    if mark.is_some_and(|m| m < pos) {
+                        wanted.x = end.x;
+                    }
+                    if let Some(mut m) = mark {
+                        if m >= pos {
+                            m.x = end.x;
+                        }
+                        m.line = m.line.min(self.b().state.lines.len() - 1);
+                        m.x = m.x.min(self.b().state.lines[m.line].len());
+                        self.bm().state.mark = Some(m);
+                    }
+                } else {
+                    let (lines, _, _) = files::parse(&raw, !self.conf.on(NO_CONVERT));
+                    self.bm().state.lines = lines;
+                }
+                self.bm().set_pos(wanted);
+                if at_eol {
+                    self.bm().state.pos.x = self.b().line().len();
+                }
+                if let Some(first) = self.bm().state.anchors.first_mut() {
+                    *first = false;
+                }
+                let no = self.conf.on(NO_NEWLINES);
+                self.bm().finish(
+                    before,
+                    if spell {
+                        "spelling correction"
+                    } else {
+                        "formatting"
+                    },
+                    false,
+                    no,
+                );
+                self.bm().preferred = preferred;
+                self.msg(
+                    if spell {
+                        "Finished checking spelling"
+                    } else {
+                        "Buffer has been processed"
+                    },
+                    2,
+                );
+            }
+            Err(e) => self.msg(
+                format!("Error reading {}: {}", temp.path.display(), io_error(&e)),
+                7,
+            ),
+        }
     }
     pub fn spell(&mut self) {
         let command = self.conf.value("speller");
@@ -1742,61 +1832,33 @@ impl Editor {
             self.external_tool(&bytes::text(&command), true);
             return;
         }
-        let (temp, file) = match files::temp(&self.conf, self.b()) {
+        let temp = match files::temp(&self.conf, self.b(), self.b().state.mark.is_some()) {
             Ok(t) => t,
             Err(e) => {
-                self.msg(e, 7);
+                self.msg(format!("Error writing temp file: {e}"), 7);
                 return;
             }
         };
-        drop(file);
-        let output = Command::new("hunspell")
-            .arg("-l")
-            .stdin(
-                fs::File::open(&temp)
-                    .map(Stdio::from)
-                    .unwrap_or(Stdio::null()),
-            )
-            .output()
-            .or_else(|_| {
-                Command::new("spell")
-                    .stdin(
-                        fs::File::open(&temp)
-                            .map(Stdio::from)
-                            .unwrap_or(Stdio::null()),
-                    )
-                    .output()
-            });
-        let _ = fs::remove_file(temp);
+        // Both the native pipeline and its statuses are retained independently
+        // of the interactive correction session.
+        let output = spelling_pipeline(&temp.path);
         match output {
-            Ok(o) => {
-                eprint!("{}", bytes::text(&o.stderr));
-                if !o.status.success() {
-                    self.msg("Error invoking 'spell'", 7);
-                    return;
-                }
-                let sorted = capture(Command::new("sort").arg("-f"), Some(o.stdout)).and_then(
-                    |(status, data)| {
-                        if status == 0 {
-                            capture(&mut Command::new("uniq"), Some(data))
-                        } else {
-                            Ok((status, data))
-                        }
-                    },
-                );
-                let data = match sorted {
-                    Ok((0, data)) => data,
-                    _ => {
-                        self.msg("Error invoking 'sort'", 7);
-                        return;
-                    }
-                };
+            Ok((data, failure)) => {
                 let words = data
                     .split(|b| *b == 10 || *b == 13)
                     .filter(|s| !s.is_empty())
                     .map(Vec::from)
                     .collect();
                 self.spelling = Some(Spelling {
+                    _temp: temp,
+                    region: self
+                        .b()
+                        .region()
+                        .map(|(a, b)| (self.b().offset(a), self.b().offset(b))),
+                    upright: self.b().state.mark.is_some_and(|m| m < self.b().pos()),
+                    failure,
+                    preferred: self.b().preferred,
+                    brink: self.b().brink,
                     words,
                     search: self.search.clone(),
                     flags: self.conf.flags,
@@ -1820,8 +1882,38 @@ impl Editor {
             self.conf.set(CASE_SENSITIVE, true);
             self.conf.set(USE_REGEXP, false);
             self.conf.set(BACKWARDS_SEARCH, false);
-            self.bm().state.pos = Pos::default();
-            self.find(true);
+            let region = self.spelling.as_ref().and_then(|s| s.region);
+            let e = self.conf.enc();
+            let wordchars = self.conf.value("wordchars");
+            let found = self
+                .all_matches(true)
+                .unwrap_or_default()
+                .into_iter()
+                .find(|(a, b, _)| {
+                    let text = &self.b().state.lines[a.line];
+                    region.is_none_or(|(lo, hi)| {
+                        self.b().offset(*a) >= lo && self.b().offset(*b) <= hi
+                    }) && (a.x == 0 || !e.word(text, e.left(text, a.x), false, &wordchars))
+                        && (b.x == text.len() || !e.word(text, b.x, false, &wordchars))
+                });
+            let Some((a, b, _)) = found else {
+                self.msg(format!("Unfindable word: {}", bytes::text(&word)), 7);
+                self.pause_duration = std::time::Duration::from_millis(2800);
+                self.pause_until = Some(std::time::Instant::now() + self.pause_duration);
+                self.pause_painted = false;
+                // Continue the session after the alert; no recursion through
+                // arbitrary tool output and no reference to an invalid match.
+                self.pause_next =
+                    Some(Box::new(Mode::Prompt(Prompt::new(PromptKind::Spell, word))));
+                return;
+            };
+            self.bm().state.pos = a;
+            self.bm().state.mark = None;
+            self.preferred();
+            self.center();
+            self.spotlight = Some((a.line, a.x, b.x));
+            self.spotlight_time = std::time::Instant::now();
+            self.clear();
             let next = Mode::Prompt(Prompt::new(PromptKind::Spell, word));
             if started {
                 self.pause_screen = self.last_screen.clone();
@@ -1839,17 +1931,45 @@ impl Editor {
             self.finish_spell();
         }
     }
+    pub fn restore_spell_position(&mut self) {
+        if let Some(s) = &self.spelling {
+            let original = s.original;
+            let region = s.region;
+            let upright = s.upright;
+            let top = s.top;
+            if let Some((lo, hi)) = region {
+                let (cur, mark) = if upright { (hi, lo) } else { (lo, hi) };
+                self.bm().state.pos = self.b().position_at_offset(cur);
+                self.bm().state.mark = Some(self.b().position_at_offset(mark));
+            } else {
+                self.bm().set_pos(original);
+            }
+            self.bm().top = top;
+        }
+    }
     pub fn finish_spell(&mut self) {
         if let Some(s) = self.spelling.take() {
             self.search = s.search;
             self.conf.flags = s.flags;
-            self.bm().set_pos(s.original);
+            if let Some((lo, hi)) = s.region {
+                let (cur, mark) = if s.upright { (hi, lo) } else { (lo, hi) };
+                self.bm().state.pos = self.b().position_at_offset(cur);
+                self.bm().state.mark = Some(self.b().position_at_offset(mark));
+            } else {
+                self.bm().set_pos(s.original);
+            }
             self.bm().top = s.top;
+            self.bm().brink = s.brink;
             self.mode = Mode::Edit;
             self.spotlight = None;
             self.preferred();
             self.clear();
-            self.msg("Finished checking spelling", 2);
+            self.bm().preferred = s.preferred;
+            if let Some(program) = s.failure {
+                self.msg(format!("Error invoking '{program}'"), 7);
+            } else {
+                self.msg("Finished checking spelling", 2);
+            }
         }
     }
     pub fn lint(&mut self) {
@@ -1871,7 +1991,7 @@ impl Editor {
         let Some(command) = self.syntax().and_then(|s| s.linter.clone()) else {
             return;
         };
-        let mut words = command.split_ascii_whitespace();
+        let mut words = command.split(' ').filter(|s| !s.is_empty());
         let Some(program) = words.next() else {
             return;
         };
@@ -2070,5 +2190,78 @@ fn capture(cmd: &mut Command, input: Option<Vec<u8>>) -> std::io::Result<(i32, V
             status.code().unwrap_or(-1)
         },
         output,
+    ))
+}
+
+fn spelling_pipeline(path: &std::path::Path) -> std::io::Result<(Vec<u8>, Option<&'static str>)> {
+    use std::os::unix::process::CommandExt;
+    fn prepare(cmd: &mut Command) {
+        cmd.stdout(Stdio::piped()).stderr(Stdio::inherit());
+        unsafe {
+            cmd.pre_exec(|| {
+                native::nr_child_signals();
+                Ok(())
+            });
+        }
+    }
+    let mut first = Command::new("hunspell");
+    first.arg("-l").stdin(fs::File::open(path)?);
+    prepare(&mut first);
+    let mut spell = first
+        .spawn()
+        .or_else(|_| {
+            let mut fallback = Command::new("spell");
+            fallback.stdin(fs::File::open(path)?);
+            prepare(&mut fallback);
+            fallback.spawn()
+        })
+        .ok();
+    let mut second = Command::new("sort");
+    second.arg("-f");
+    prepare(&mut second);
+    second.stdin(
+        spell
+            .as_mut()
+            .and_then(|c| c.stdout.take())
+            .map(Stdio::from)
+            .unwrap_or(Stdio::null()),
+    );
+    let mut sort = second.spawn().ok();
+    let mut third = Command::new("uniq");
+    prepare(&mut third);
+    third.stdin(
+        sort.as_mut()
+            .and_then(|c| c.stdout.take())
+            .map(Stdio::from)
+            .unwrap_or(Stdio::null()),
+    );
+    let mut uniq = third.spawn().ok();
+    let mut data = Vec::new();
+    if let Some(out) = uniq.as_mut().and_then(|c| c.stdout.take()) {
+        out.take(u64::MAX).read_to_end(&mut data)?;
+    }
+    let a = uniq
+        .as_mut()
+        .and_then(|c| c.wait().ok())
+        .is_some_and(|s| s.success());
+    let b = sort
+        .as_mut()
+        .and_then(|c| c.wait().ok())
+        .is_some_and(|s| s.success());
+    let c = spell
+        .as_mut()
+        .and_then(|c| c.wait().ok())
+        .is_some_and(|s| s.success());
+    Ok((
+        data,
+        if !a {
+            Some("uniq")
+        } else if !b {
+            Some("sort")
+        } else if !c {
+            Some("spell")
+        } else {
+            None
+        },
     ))
 }

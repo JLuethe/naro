@@ -1,0 +1,719 @@
+[
+ {
+  "id": "TEST-NEXT-PATH-001-032",
+  "args": [
+   "-I",
+   "-o",
+   "$FX/work/absent"
+  ],
+  "files": {},
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "start"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ],
+  "original_id": "TEST-CLI-032"
+ },
+ {
+  "id": "TEST-NEXT-PATH-001-033",
+  "args": [
+   "-I",
+   "-B",
+   "-C",
+   "$FX/work/absent"
+  ],
+  "files": {},
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "start"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ],
+  "original_id": "TEST-CLI-033"
+ },
+ {
+  "id": "TEST-NEXT-PATH-001-035",
+  "args": [
+   "-I",
+   "-R",
+   "-B",
+   "-C",
+   "$FX/work/absent"
+  ],
+  "files": {},
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "start"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ],
+  "original_id": "TEST-CLI-035"
+ },
+ {
+  "id": "TEST-NEXT-I18N-002-1",
+  "lang": "C",
+  "locpath": "/home/john/src/nano-locales",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "61c3a92065cc81ff000a"
+   }
+  },
+  "env": {
+   "LANGUAGE": ""
+  },
+  "steps": [
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^E",
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "count"
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "snapshot": "prompt"
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-NEXT-I18N-002-2",
+  "lang": "en_US.UTF-8",
+  "locpath": "/home/john/src/nano-locales",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "61c3a92065cc81ff000a"
+   }
+  },
+  "env": {
+   "LANGUAGE": ""
+  },
+  "steps": [
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^E",
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "count"
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "snapshot": "prompt"
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-NEXT-I18N-002-3",
+  "lang": "de_DE.UTF-8",
+  "locpath": "/home/john/src/nano-locales",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "61c3a92065cc81ff000a"
+   }
+  },
+  "env": {
+   "LANGUAGE": ""
+  },
+  "steps": [
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^E",
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "count"
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "snapshot": "prompt"
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-NEXT-I18N-002-4",
+  "lang": "de_DE.ISO-8859-1",
+  "locpath": "/home/john/src/nano-locales",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "61c3a92065cc81ff000a"
+   }
+  },
+  "env": {
+   "LANGUAGE": ""
+  },
+  "steps": [
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^E",
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "count"
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "snapshot": "prompt"
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-NEXT-I18N-002-5",
+  "lang": "ja_JP.UTF-8",
+  "locpath": "/home/john/src/nano-locales",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "61c3a92065cc81ff000a"
+   }
+  },
+  "env": {
+   "LANGUAGE": ""
+  },
+  "steps": [
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^E",
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "count"
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "snapshot": "prompt"
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-NEXT-I18N-002-6",
+  "lang": "en_US.UTF-8",
+  "locpath": "/home/john/src/nano-locales",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "61c3a92065cc81ff000a"
+   }
+  },
+  "env": {
+   "LANGUAGE": "fr"
+  },
+  "steps": [
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^E",
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "count"
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "snapshot": "prompt"
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-NEXT-TERM-001-1",
+  "term": "xterm",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "resize": [
+     30,
+     9
+    ]
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^E",
+     "M-b"
+    ]
+   },
+   {
+    "snapshot": "small"
+   },
+   {
+    "resize": [
+     100,
+     30
+    ]
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "snapshot": "large"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-NEXT-TERM-001-2",
+  "term": "screen",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "resize": [
+     30,
+     9
+    ]
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^E",
+     "M-b"
+    ]
+   },
+   {
+    "snapshot": "small"
+   },
+   {
+    "resize": [
+     100,
+     30
+    ]
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "snapshot": "large"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-NEXT-TERM-001-3",
+  "term": "vt220",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "resize": [
+     30,
+     9
+    ]
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^E",
+     "M-b"
+    ]
+   },
+   {
+    "snapshot": "small"
+   },
+   {
+    "resize": [
+     100,
+     30
+    ]
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "snapshot": "large"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-NEXT-RECOVER-001-MULTI-HUP",
+  "args": [
+   "-I",
+   "a.txt",
+   "b.txt"
+  ],
+  "files": {
+   "work/a.txt": {
+    "text": "a\n"
+   },
+   "work/b.txt": {
+    "text": "b\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "text": "1"
+   },
+   {
+    "keys": [
+     "M-."
+    ]
+   },
+   {
+    "text": "2"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "signal": "SIGHUP"
+   },
+   {
+    "wait_exit": 3
+   }
+  ],
+  "expect": {
+   "exit_status": 1,
+   "files": {
+    "work/a.txt.save": {
+     "text": "1a\n",
+     "mode": "0o600"
+    },
+    "work/b.txt.save": {
+     "text": "2b\n",
+     "mode": "0o600"
+    }
+   }
+  }
+ }
+]

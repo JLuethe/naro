@@ -37,6 +37,10 @@ pub struct Rule {
 }
 #[derive(Debug, Default)]
 pub struct Syntax {
+    pub source: Option<(PathBuf, usize)>,
+    pub augmentations: Vec<(PathBuf, usize, String, String)>,
+    pub seen_color: bool,
+    pub loaded: bool,
     pub name: String,
     pub files: Vec<Regex>,
     pub headers: Vec<Regex>,
@@ -545,7 +549,7 @@ impl Config {
                 cmd,
                 "syntax" | "set" | "unset" | "bind" | "unbind" | "include" | "extendsyntax"
             ) && let Some(i) = current.take()
-                && self.syntaxes[i].rules.is_empty()
+                && !self.syntaxes[i].seen_color
             {
                 self.error(
                     p,
@@ -785,6 +789,7 @@ impl Config {
                         }
                         let mut syntax = Syntax {
                             name: name.into(),
+                            source: Some((p.to_path_buf(), index + 1)),
                             ..Default::default()
                         };
                         for pat in regex_strings(rest)? {
@@ -802,14 +807,29 @@ impl Config {
                             .iter()
                             .rposition(|s| s.name == name)
                             .ok_or_else(|| format!("Could not find syntax \"{name}\" to extend"))?;
-                        self.syntax_command(i, command, rest)?;
+                        if matches!(command, "header" | "magic") {
+                            self.syntax_command(i, command, rest)?;
+                        } else {
+                            self.syntaxes[i].augmentations.push((
+                                p.to_path_buf(),
+                                index + 1,
+                                command.into(),
+                                rest.into(),
+                            ));
+                        }
                     }
                     "header" | "magic" | "color" | "icolor" | "comment" | "tabgives" | "linter"
                     | "formatter" => {
                         let i = current.ok_or_else(|| {
                             format!("A '{cmd}' command requires a preceding 'syntax' command")
                         })?;
-                        self.syntax_command(i, cmd, args)?;
+                        if matches!(cmd, "header" | "magic") {
+                            self.syntax_command(i, cmd, args)?;
+                        } else {
+                            if matches!(cmd, "color" | "icolor") {
+                                self.syntaxes[i].seen_color = true;
+                            }
+                        }
                     }
                     _ => return Err(format!("Command \"{cmd}\" not understood")),
                 }
@@ -820,7 +840,7 @@ impl Config {
             }
         }
         if let Some(i) = current
-            && self.syntaxes[i].rules.is_empty()
+            && !self.syntaxes[i].seen_color
         {
             self.error(
                 p,
@@ -828,6 +848,57 @@ impl Config {
                 format!("Syntax \"{}\" has no color commands", self.syntaxes[i].name),
             );
         }
+    }
+    pub fn activate_syntax(&mut self, index: usize) -> bool {
+        if self.syntaxes[index].loaded {
+            return false;
+        }
+        self.syntaxes[index].loaded = true;
+        let count = self.errors.len();
+        if let Some((path, start)) = self.syntaxes[index].source.clone() {
+            match std::fs::read(&path) {
+                Ok(data) => {
+                    for (line, bytes) in data.split(|b| *b == 10).enumerate().skip(start) {
+                        let text = String::from_utf8_lossy(bytes);
+                        let text = text.trim();
+                        if text.is_empty() || text.starts_with('#') {
+                            continue;
+                        }
+                        let (cmd, args) = word(text);
+                        if matches!(
+                            cmd,
+                            "syntax"
+                                | "set"
+                                | "unset"
+                                | "bind"
+                                | "unbind"
+                                | "include"
+                                | "extendsyntax"
+                        ) {
+                            break;
+                        }
+                        if matches!(cmd, "header" | "magic") {
+                            continue;
+                        }
+                        if let Err(error) = self.syntax_command(index, cmd, args) {
+                            self.error(&path, line + 1, error);
+                        }
+                    }
+                }
+                Err(error) => self.error(
+                    &path,
+                    0,
+                    format!("Error reading {}: {}", path.display(), io_error(&error)),
+                ),
+            }
+        }
+        let extra = std::mem::take(&mut self.syntaxes[index].augmentations);
+        for (path, line, cmd, args) in extra {
+            if let Err(error) = self.syntax_command(index, &cmd, &args) {
+                self.error(&path, line, error);
+            }
+        }
+        self.errors.len() != count
     }
     fn syntax_command(&mut self, i: usize, cmd: &str, args: &str) -> Result<(), String> {
         if args.is_empty() {

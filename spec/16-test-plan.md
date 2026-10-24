@@ -171,3 +171,19 @@ tmux output, not nano output, and only its date is masked (N-TIME).
 For a probe with both stdin and stdout redirected, `hold_tty: true` retains a
 private controlling-terminal descriptor across redirection. This avoids a PTY
 hangup before a noninteractive probe starts. Naro regex validation uses it.
+
+
+Follow-up runner extensions: `build_helpers` compiles fixture-owned C sources to
+fixture-owned executables/shared objects; `helpers` starts bounded fixture-owned
+processes; `wait_file` waits for a private acknowledgment; result `temp_files`
+records the private TMPDIR manifest. `expect.temp_empty`, `helper_statuses`, and
+`trace_final_modes` assert cleanup/restoration. A fixture-built ptrace supervisor
+injects write faults in the child editor only, identified by target inode/path
+inside the fixture; real host files and terminal FDs are excluded. Target-binary
+hashes and launcher identity remain separate.
+
+N-BACKUP: only in TEST-NEXT-IO-002-BACKUP-FAIL, newly created (absent from the
+initial manifest) `home/f.txt~` plus exactly six alphanumeric characters becomes
+`home/f.txt~XXXXXX` in manifest names. Preserve all file bytes, modes and link
+relationships. Existing names and other cases remain exact. Regression tests
+cover this boundary. Q-TOOL-001 cleanup differences remain explicit.

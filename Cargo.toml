@@ -7,6 +7,11 @@ description = "The familiar nano experience, rebuilt in Rust"
 repository = "https://github.com/JLuethe/naro"
 build = "build.rs"
 
+[features]
+default = []
+credits = []
+test-hooks = []
+
 [profile.release]
 lto = true
 codegen-units = 1

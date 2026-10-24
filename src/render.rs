@@ -1278,3 +1278,58 @@ fn paint_help(ed: &Editor, canvas: &mut Canvas, l: Layout, h: &HelpState) -> (us
         )
     }
 }
+
+/// Brief reference-compatible backup warning while file I/O owns the buffer.
+pub fn flash_warning(config: &Config, text: &str) {
+    let cols = unsafe { native::nr_cols() }.max(1) as usize;
+    let rows = unsafe { native::nr_rows() }.max(1) as usize;
+    let help = !config.on(NO_HELP) && rows >= 5;
+    let status = rows - if help { 3 } else { 1 };
+    let mut canvas = Canvas::new(cols, rows);
+    let text = native::tr(text);
+    let width = Encoding { utf8: true, tab: 8 }
+        .breadth(text.as_bytes())
+        .min(cols);
+    let start = (cols - width) / 2;
+    let styled = if start > 1 {
+        format!("[ {text} ]")
+    } else {
+        text
+    };
+    canvas.text(
+        status,
+        start.saturating_sub(2),
+        &styled,
+        config.style("errorcolor"),
+        cols - start.saturating_sub(2),
+    );
+    for y in status..rows {
+        for x in 0..cols {
+            let cell = &canvas.cells[y * cols + x];
+            if cell.width == 0 {
+                continue;
+            }
+            let chars: Vec<u32> = cell.text.chars().map(u32::from).collect();
+            unsafe {
+                native::nr_put(
+                    y as i32,
+                    x as i32,
+                    chars.as_ptr(),
+                    chars.len() as i32,
+                    cell.style.bits,
+                    cell.style.fg,
+                    cell.style.bg,
+                );
+            }
+        }
+    }
+    unsafe {
+        native::nr_beep();
+        native::nr_refresh(
+            status as i32,
+            ((cols + width) / 2 + 2).min(cols - 1) as i32,
+            0,
+        );
+    }
+    std::thread::sleep(std::time::Duration::from_millis(1500));
+}

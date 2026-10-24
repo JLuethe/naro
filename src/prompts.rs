@@ -538,6 +538,15 @@ impl Editor {
                     self.mode = Mode::Prompt(p);
                 }
             }
+            QuestionKind::Backup(mut p, error) => {
+                if yes {
+                    p.skip_backup = true;
+                    self.try_write(p, true, true);
+                } else {
+                    self.mode = Mode::Edit;
+                    self.msg(error, 2);
+                }
+            }
             QuestionKind::Changed(p) => {
                 if yes {
                     self.try_write(p, true, true);
@@ -655,7 +664,14 @@ impl Editor {
             return;
         }
         let i = self.current;
-        match files::write(&self.conf, &mut self.buffers[i], &p.answer, mode, selection) {
+        match files::write(
+            &self.conf,
+            &mut self.buffers[i],
+            &p.answer,
+            mode,
+            selection,
+            p.skip_backup,
+        ) {
             Ok(n) => {
                 self.mode = Mode::Edit;
                 self.msg(files::line_message("Wrote", n, false), 2);
@@ -663,9 +679,32 @@ impl Editor {
                     self.close(0);
                 }
             }
-            Err(msg) => {
+            Err(error) => {
+                if error.confirm_backup {
+                    self.question(
+                        "Cannot make backup; continue and save actual file? ",
+                        QuestionKind::Backup(p, error.message),
+                        false,
+                    );
+                    return;
+                }
                 self.mode = Mode::Edit;
-                self.msg(msg, 7);
+                let no_space = error.errno == Some(28);
+                self.msg(error.message, 7);
+                if no_space {
+                    self.pause_screen = self.last_screen.clone();
+                    self.pause_painted = false;
+                    self.pause_duration = std::time::Duration::from_millis(3200);
+                    self.pause_until = Some(std::time::Instant::now() + self.pause_duration);
+                    self.io_warnings.push_back((
+                        "File on disk has been truncated!".into(),
+                        self.pause_duration,
+                    ));
+                    self.io_warnings.push_back((
+                        "Maybe ^T^Z, make room on disk, resume, then ^S^X".into(),
+                        std::time::Duration::ZERO,
+                    ));
+                }
             }
         }
     }

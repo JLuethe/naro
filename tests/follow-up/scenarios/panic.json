@@ -1,0 +1,179 @@
+[
+ {
+  "id": "TEST-NEXT-RECOVER-002-NAMED",
+  "args": [
+   "-I",
+   "-G",
+   "f.txt"
+  ],
+  "dirs": [
+   "work/hook"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "6f726967696e616c0a"
+   }
+  },
+  "env": {
+   "NARO_TEST_PANIC_DIR": "$FX/work/hook"
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "text": "X"
+   },
+   {
+    "wait_file": {
+     "path": "work/hook/ready",
+     "contains": "modified"
+    }
+   },
+   {
+    "write_file": "work/hook/trigger",
+    "content": "panic"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1,
+   "stderr_contains": "Sorry! Nano crashed!  Code: 6.",
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   },
+   "files": {
+    "work/f.txt.save": {
+     "text": "Xoriginal\n",
+     "mode": "0o600"
+    },
+    "work/.f.txt.swp": null
+   }
+  }
+ },
+ {
+  "id": "TEST-NEXT-RECOVER-002-NAMELESS",
+  "args": [
+   "-I"
+  ],
+  "dirs": [
+   "work/hook"
+  ],
+  "files": {},
+  "env": {
+   "NARO_TEST_PANIC_DIR": "$FX/work/hook"
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "text": "X"
+   },
+   {
+    "wait_file": {
+     "path": "work/hook/ready",
+     "contains": "modified"
+    }
+   },
+   {
+    "write_file": "work/hook/trigger",
+    "content": "panic"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1,
+   "stderr_contains": "Sorry! Nano crashed!  Code: 6.",
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  }
+ },
+ {
+  "id": "TEST-NEXT-RECOVER-002-MULTI",
+  "args": [
+   "-I",
+   "-G",
+   "f.txt",
+   "g.txt"
+  ],
+  "dirs": [
+   "work/hook"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "6f726967696e616c0a"
+   },
+   "work/g.txt": {
+    "text": "other\n"
+   }
+  },
+  "env": {
+   "NARO_TEST_PANIC_DIR": "$FX/work/hook"
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "M-."
+    ]
+   },
+   {
+    "text": "Y"
+   },
+   {
+    "wait": {
+     "text": "Yother"
+    }
+   },
+   {
+    "wait_file": {
+     "path": "work/hook/ready",
+     "contains": "modified"
+    }
+   },
+   {
+    "write_file": "work/hook/trigger",
+    "content": "panic"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1,
+   "stderr_contains": "Sorry! Nano crashed!  Code: 6.",
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   },
+   "files": {
+    "work/f.txt.save": {
+     "text": "Xoriginal\n",
+     "mode": "0o600"
+    },
+    "work/.f.txt.swp": null,
+    "work/g.txt.save": {
+     "text": "Yother\n",
+     "mode": "0o600"
+    },
+    "work/.g.txt.swp": null
+   }
+  }
+ }
+]

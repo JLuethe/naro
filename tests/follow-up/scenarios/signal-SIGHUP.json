@@ -1,0 +1,56 @@
+[
+ {
+  "id": "TEST-NEXT-TOOL-003-SIGHUP",
+  "args": [
+   "-I",
+   "-s",
+   "altspell --flag",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "6f726967696e616c0a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/ready",
+     "contains": "ready"
+    }
+   },
+   {
+    "signal": "SIGHUP"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  },
+  "env": {
+   "TOOL_MODE": "sleep"
+  },
+  "candidate_expect": {
+   "exit_status": 1,
+   "temp_empty": true
+  }
+ }
+]

@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 /spec/evidence/naro*/
 /spec/evidence/recheck/
+
+/spec/evidence/follow-up-runs/

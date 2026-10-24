@@ -30,6 +30,7 @@ pub struct Prompt {
     pub history: Option<usize>,
     pub remembered: Vec<u8>,
     pub fragment: Vec<u8>,
+    pub skip_backup: bool,
     pub initial_newbuffer: bool,
     pub other_answer: Vec<u8>,
 }
@@ -43,6 +44,7 @@ impl Prompt {
             history: None,
             remembered: Vec::new(),
             fragment: Vec::new(),
+            skip_backup: false,
             initial_newbuffer: false,
             other_answer: Vec::new(),
         }
@@ -54,6 +56,7 @@ pub enum QuestionKind {
     Different(Prompt),
     Overwrite(Prompt),
     Changed(Prompt),
+    Backup(Prompt, String),
     Replace,
     Lock(usize),
     LintSave,
@@ -111,6 +114,12 @@ pub struct Message {
     pub time: Instant,
 }
 pub struct Spelling {
+    pub _temp: files::ToolFile,
+    pub region: Option<(usize, usize)>,
+    pub upright: bool,
+    pub failure: Option<&'static str>,
+    pub preferred: usize,
+    pub brink: usize,
     pub started: bool,
     pub words: std::collections::VecDeque<Vec<u8>>,
     pub search: Vec<u8>,
@@ -138,6 +147,7 @@ pub struct Editor {
     pub input: Input,
     pub message: Option<Message>,
     pub action_level: i32,
+    pub io_warnings: std::collections::VecDeque<(String, std::time::Duration)>,
     pub pause_until: Option<Instant>,
     pub pause_next: Option<Box<Mode>>,
     pub last_screen: Option<render::Canvas>,
@@ -181,6 +191,7 @@ impl Editor {
             input: Input::default(),
             message: None,
             action_level: 0,
+            io_warnings: std::collections::VecDeque::new(),
             pause_until: None,
             pause_next: None,
             last_screen: None,
@@ -418,6 +429,10 @@ impl Editor {
         {
             self.msg("Welcome to nano.  For basic help, type Ctrl+G.", 1);
         }
+        let syntaxes: Vec<usize> = self.buffers.iter().filter_map(|b| b.syntax).collect();
+        for syntax in syntaxes {
+            self.conf.activate_syntax(syntax);
+        }
         if let Some(p) = self.conf.error_file.clone() {
             self.clear();
             self.msg(format!("Mistakes in '{}'", p.display()), 7);
@@ -450,7 +465,23 @@ impl Editor {
             self.exit = Some(1);
         }
         while self.exit.is_none() {
+            if let Some(syntax) = self.b().syntax
+                && self.conf.activate_syntax(syntax)
+                && let Some(path) = self.conf.error_file.clone()
+            {
+                self.clear();
+                self.msg(format!("Mistakes in '{}'", path.display()), 7);
+            }
+            #[cfg(feature = "test-hooks")]
+            crate::test_hooks::poll(self.b().modified);
             if let Some(until) = self.pause_until {
+                let sig = unsafe { native::nr_signal() };
+                if sig != 0 {
+                    self.signal(sig);
+                    if self.exit.is_some() {
+                        break;
+                    }
+                }
                 if !self.pause_painted {
                     render::draw(self);
                     self.pause_until = Some(Instant::now() + self.pause_duration);
@@ -462,10 +493,24 @@ impl Editor {
                     continue;
                 }
                 self.pause_until = None;
-                self.pause_screen = None;
                 self.clear();
+                if let Some((message, duration)) = self.io_warnings.pop_front() {
+                    self.msg(message, 7);
+                    if !duration.is_zero() {
+                        self.pause_duration = duration;
+                        self.pause_until = Some(Instant::now() + duration);
+                        self.pause_painted = false;
+                        continue;
+                    }
+                    self.bm().stat = std::fs::metadata(crate::config::expand(&self.b().name)).ok();
+                    self.pause_screen = None;
+                } else {
+                    self.pause_screen = None;
+                }
                 if let Some(next) = self.pause_next.take() {
                     self.mode = *next;
+                } else if self.spelling.is_some() {
+                    self.next_spell();
                 }
             }
             if self.b().modified && self.b().lock.is_some() && !self.b().lock_modified {
@@ -523,7 +568,7 @@ impl Editor {
         }
         self.exit.unwrap_or(0)
     }
-    fn signal(&mut self, s: i32) {
+    pub(crate) fn signal(&mut self, s: i32) {
         match s {
             1 | 15 => {
                 self.fatal = Some("Received SIGHUP or SIGTERM\n".into());
@@ -547,6 +592,7 @@ impl Editor {
         }
     }
     pub fn fatal_save(&mut self, message: &str) {
+        self.spelling = None;
         unsafe {
             native::nr_done();
         }
@@ -890,6 +936,14 @@ impl Editor {
                                 self.macro_keys.push(Key::plain(code));
                             }
                             typed.push(code as u8);
+                        }
+                    }
+                    if let Some(message) = self.message.as_mut() {
+                        message.countdown = message
+                            .countdown
+                            .saturating_sub(typed.len().saturating_sub(1));
+                        if message.countdown == 0 {
+                            self.message = None;
                         }
                     }
                     self.bm().insert(&typed, "addition", true, no);

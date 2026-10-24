@@ -1,0 +1,235 @@
+[
+ {
+  "id": "TEST-NEXT-SPELL-006-YES-NO",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7465682070726520746568206d69642074656820706f7374207465680a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   },
+   "bin/hunspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,re\nvalue=sys.stdin.buffer.read();open(os.environ['HOME']+'/tool-input','wb').write(value)\nfor word in re.findall(rb'\\bteh\\b',value):sys.stdout.buffer.write(word+b'\\n')\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Edit a replacement"
+    }
+   },
+   {
+    "snapshot": "prompt",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^A",
+     "^K"
+    ]
+   },
+   {
+    "text": "correct\r"
+   },
+   {
+    "wait": {
+     "text": "Replace this instance?"
+    }
+   },
+   {
+    "text": "yn"
+   },
+   {
+    "wait": {
+     "text": "Finished checking spelling"
+    }
+   },
+   {
+    "snapshot": "finished",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "text": "teh mid teh"
+    }
+   }
+  }
+ },
+ {
+  "id": "TEST-NEXT-TERM-001-PASTE-xterm",
+  "term": "xterm",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "paste": "one\ntwo\tthree"
+   },
+   {
+    "snapshot": "pasted"
+   },
+   {
+    "resize": [
+     40,
+     12
+    ]
+   },
+   {
+    "snapshot": "resized"
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo"
+   },
+   {
+    "keys": [
+     "M-E",
+     "^S"
+    ]
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-NEXT-TERM-001-PASTE-screen",
+  "term": "screen",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "paste": "one\ntwo\tthree"
+   },
+   {
+    "snapshot": "pasted"
+   },
+   {
+    "resize": [
+     40,
+     12
+    ]
+   },
+   {
+    "snapshot": "resized"
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo"
+   },
+   {
+    "keys": [
+     "M-E",
+     "^S"
+    ]
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ }
+]

@@ -147,64 +147,71 @@ pub fn output(b: &Buffer, raw: Option<Vec<u8>>, nonew: bool) -> Vec<u8> {
         data
     }
 }
+pub struct WriteError {
+    pub confirm_backup: bool,
+    pub message: String,
+    pub errno: Option<i32>,
+}
+impl From<String> for WriteError {
+    fn from(message: String) -> Self {
+        Self {
+            message,
+            errno: None,
+            confirm_backup: false,
+        }
+    }
+}
+impl From<WriteError> for String {
+    fn from(error: WriteError) -> String {
+        error.message
+    }
+}
+impl WriteError {
+    fn writing(name: &str, error: std::io::Error) -> Self {
+        Self {
+            message: format!("Error writing {name}: {}", io_error(&error)),
+            errno: error.raw_os_error(),
+            confirm_backup: false,
+        }
+    }
+}
 pub fn write(
     c: &Config,
     b: &mut Buffer,
     name: &[u8],
     mode: i32,
     selection: bool,
-) -> Result<usize, String> {
+    skip_backup: bool,
+) -> Result<usize, WriteError> {
     let p = config::expand(name);
     if !inside(c, &p) {
         return Err(format!(
             "Can't write outside of {}",
             bytes::text(&c.value("operatingdir"))
-        ));
+        )
+        .into());
     }
     let display = bytes::text(name);
-    let old = fs::read(&p).ok();
     let meta = fs::metadata(&p).ok();
-    if c.on(MAKE_BACKUP)
-        && !c.on(RESTRICTED)
-        && let Some(old_bytes) = &old
-        && meta.as_ref().is_some_and(|m| m.is_file())
+    if mode == 2
+        && meta
+            .as_ref()
+            .is_some_and(|m| m.mode() & 0o170000 == 0o010000)
     {
-        let backupdir = c.value("backupdir");
-        let bp = if backupdir.is_empty() {
-            let mut n = p.as_os_str().as_bytes().to_vec();
-            n.push(b'~');
-            config::path(&n)
-        } else {
-            let full = fs::canonicalize(&p).unwrap_or(p.clone());
-            let mut n = full.as_os_str().as_bytes().to_vec();
-            for x in &mut n {
-                if *x == b'/' {
-                    *x = b'!';
-                }
-            }
-            n.push(b'~');
-            let base = config::path(&backupdir).join(config::path(&n));
-            collision(&base)
-        };
-        let mut file = OpenOptions::new()
-            .write(true)
-            .create(true)
-            .truncate(true)
-            .mode(0o600)
-            .open(&bp)
-            .map_err(|e| format!("Cannot make backup: {}", io_error(&e)))?;
-        file.write_all(old_bytes).map_err(|e| io_error(&e))?;
-        if let Some(m) = meta.as_ref() {
-            file.set_permissions(fs::Permissions::from_mode(m.mode() & 0o7777))
-                .map_err(|e| io_error(&e))?;
-            file.set_times(
-                std::fs::FileTimes::new()
-                    .set_accessed(m.accessed().unwrap_or(std::time::SystemTime::now()))
-                    .set_modified(m.modified().unwrap_or(std::time::SystemTime::now())),
-            )
-            .map_err(|e| io_error(&e))?;
-        }
-        file.sync_all().map_err(|e| io_error(&e))?;
+        return Err(format!("Error writing {display}: FIFO").into());
+    }
+    let old = if meta.as_ref().is_some_and(|m| m.is_file()) {
+        fs::read(&p).ok()
+    } else {
+        None
+    };
+    if c.on(MAKE_BACKUP)
+        && !skip_backup
+        && !c.on(RESTRICTED)
+        && let (Some(old), Some(meta)) = (old.as_ref(), meta.as_ref())
+        && meta.is_file()
+    {
+        make_backup(c, &p, old, meta)?;
     }
     let region = if selection {
         b.region().map(|(a, z)| b.raw_region(a, z))
@@ -221,21 +228,18 @@ pub fn write(
         .append(mode == 1)
         .mode(0o666)
         .open(&p)
-        .map_err(|e| format!("Error writing {display}: {}", io_error(&e)))?;
-    f.write_all(&data)
-        .map_err(|e| format!("Error writing {display}: {}", io_error(&e)))?;
+        .map_err(|e| WriteError::writing(&display, e))?;
+    write_bytes(&mut f, &data).map_err(|e| WriteError::writing(&display, e))?;
     if mode == 2
         && let Some(old) = old
     {
-        f.write_all(&old)
-            .map_err(|e| format!("Error writing {display}: {}", io_error(&e)))?;
+        write_bytes(&mut f, &old).map_err(|e| WriteError::writing(&display, e))?;
     }
     if meta
         .as_ref()
         .is_none_or(|m| m.mode() & 0o170000 != 0o010000)
     {
-        f.sync_all()
-            .map_err(|e| format!("Error writing {display}: {}", io_error(&e)))?;
+        f.sync_all().map_err(|e| WriteError::writing(&display, e))?;
     }
     if !selection && mode == 0 {
         if b.name != name {
@@ -370,7 +374,15 @@ pub fn collision(base: &Path) -> PathBuf {
     }
     base.to_path_buf()
 }
-pub fn temp(c: &Config, b: &Buffer) -> Result<(PathBuf, File), String> {
+pub struct ToolFile {
+    pub path: PathBuf,
+}
+impl Drop for ToolFile {
+    fn drop(&mut self) {
+        let _ = fs::remove_file(&self.path);
+    }
+}
+pub fn temp(c: &Config, b: &Buffer, selection: bool) -> Result<ToolFile, String> {
     let dir = std::env::var_os("TMPDIR")
         .map(PathBuf::from)
         .filter(|d| d.is_dir())
@@ -406,11 +418,137 @@ pub fn temp(c: &Config, b: &Buffer) -> Result<(PathBuf, File), String> {
             .mode(0o600)
             .open(&p)
         {
-            f.write_all(&output(b, None, c.on(NO_NEWLINES)))
-                .map_err(|e| io_error(&e))?;
+            let temp = ToolFile { path: p };
+            let region = if selection {
+                b.region().map(|(a, z)| b.raw_region(a, z))
+            } else {
+                None
+            };
+            let data = output(b, region, selection || c.on(NO_NEWLINES));
+            f.write_all(&data).map_err(|e| io_error(&e))?;
             f.sync_all().map_err(|e| io_error(&e))?;
-            return Ok((p, f));
+            return Ok(temp);
         }
     }
     Err("Could not create temporary file".into())
+}
+
+// Match C stdio's error handling: retry positive short writes, but expose EINTR
+// rather than silently retrying it as Write::write_all does.
+fn write_bytes(file: &mut File, mut bytes: &[u8]) -> std::io::Result<()> {
+    while !bytes.is_empty() {
+        let count = file.write(bytes)?;
+        if count == 0 {
+            return Err(std::io::Error::from_raw_os_error(5));
+        }
+        bytes = &bytes[count..];
+    }
+    Ok(())
+}
+
+fn make_backup(
+    c: &Config,
+    path: &Path,
+    bytes: &[u8],
+    meta: &fs::Metadata,
+) -> Result<(), WriteError> {
+    let directory = c.value("backupdir");
+    let name = if directory.is_empty() {
+        let mut name = path.as_os_str().as_bytes().to_vec();
+        name.push(b'~');
+        config::path(&name)
+    } else {
+        let full = fs::canonicalize(path).unwrap_or_else(|_| path.to_path_buf());
+        let mut name = full.as_os_str().as_bytes().to_vec();
+        for c in &mut name {
+            if *c == b'/' {
+                *c = b'!';
+            }
+        }
+        name.push(b'~');
+        collision(&config::path(&directory).join(config::path(&name)))
+    };
+    let write = |file: &mut File| -> std::io::Result<()> {
+        write_bytes(file, bytes)?;
+        if let Err(error) = file.set_permissions(fs::Permissions::from_mode(meta.mode() & 0o7777))
+            && error.raw_os_error() != Some(1)
+        {
+            return Err(error);
+        }
+        file.sync_all()?;
+        let _ = file.set_times(
+            std::fs::FileTimes::new()
+                .set_accessed(meta.accessed()?)
+                .set_modified(meta.modified()?),
+        );
+        Ok(())
+    };
+    let first = (|| {
+        if !c.on(INSECURE_BACKUP) {
+            match fs::remove_file(&name) {
+                Ok(()) => (),
+                Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
+                Err(e) => return Err(e),
+            }
+        }
+        let mut file = OpenOptions::new()
+            .write(true)
+            .create(true)
+            .create_new(!c.on(INSECURE_BACKUP))
+            .truncate(c.on(INSECURE_BACKUP))
+            .mode(0o600)
+            .open(&name)?;
+        write(&mut file)
+    })();
+    if first.is_ok() {
+        return Ok(());
+    }
+    let _ = fs::remove_file(&name);
+    crate::render::flash_warning(c, "Cannot make regular backup");
+    crate::render::flash_warning(c, "Trying again in your home directory");
+    let home = std::env::var_os("HOME")
+        .map(PathBuf::from)
+        .unwrap_or_default();
+    let mut last = first.unwrap_err();
+    for i in 0..1000u64 {
+        let value = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap_or_default()
+            .as_nanos() as u64
+            + i;
+        let mut name = path.file_name().unwrap_or_default().as_bytes().to_vec();
+        name.push(b'~');
+        let alphabet = b"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        let mut n = value;
+        for _ in 0..6 {
+            name.push(alphabet[(n % 62) as usize]);
+            n /= 62;
+        }
+        match OpenOptions::new()
+            .write(true)
+            .create_new(true)
+            .mode(0o600)
+            .open(home.join(config::path(&name)))
+        {
+            Ok(mut file) => match write(&mut file) {
+                Ok(()) => return Ok(()),
+                Err(e) => {
+                    last = e;
+                    break;
+                }
+            },
+            Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => continue,
+            Err(e) => {
+                last = e;
+                break;
+            }
+        }
+    }
+    crate::render::flash_warning(c, "Cannot make backup");
+    crate::render::flash_warning(c, &io_error(&last));
+    Err(WriteError {
+        message: format!("Cannot make backup: {}", io_error(&last)),
+        errno: last.raw_os_error(),
+        confirm_backup: last.raw_os_error() != Some(28),
+    })
 }

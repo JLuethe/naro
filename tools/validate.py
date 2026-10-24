@@ -29,7 +29,7 @@ if selected and not args.compare_only:
  run=subprocess.run([sys.executable,str(ROOT/'spec/tools/nanoharness.py'),str(scenarios),'--binary',str(frozen.resolve()),'--out',str(args.out.resolve())],env=env)
  report['harness_status']=run.returncode
 for path in sorted(args.out.glob('TEST-*/result.json')):
- tid=path.parent.name;ref=ROOT/'spec/evidence/runs'/tid/'result.json'
+ tid=path.parent.name;ref=pathlib.Path(os.environ.get('NARO_REFERENCE_RUNS',str(ROOT/'spec/evidence/runs')))/tid/'result.json'
  if not ref.exists():continue
  a,b=json.loads(ref.read_text()),json.loads(path.read_text());full=compare(a,b);files=compare(a,b,True)
  deviation=tid in ('TEST-CLI-057','TEST-PROMPT-NUL-001')

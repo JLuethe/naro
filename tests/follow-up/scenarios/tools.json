@@ -1,0 +1,1792 @@
+[
+ {
+  "id": "TEST-NEXT-SPELL-001-F",
+  "args": [
+   "-I",
+   "-s",
+   "altspell --flag",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7072652074656820706f73740a6f75742074656820656e640a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "corrected",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "hex": "746568"
+    }
+   }
+  },
+  "env": {
+   "TOOL_MODE": "replace"
+  }
+ },
+ {
+  "id": "TEST-NEXT-SPELL-001-B",
+  "args": [
+   "-I",
+   "-s",
+   "altspell --flag",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7072652074656820706f73740a6f75742074656820656e640a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Left",
+     "Left",
+     "Left"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "corrected",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "hex": "746568"
+    }
+   }
+  },
+  "env": {
+   "TOOL_MODE": "replace"
+  }
+ },
+ {
+  "id": "TEST-NEXT-SPELL-002-MARK",
+  "args": [
+   "-I",
+   "-s",
+   "altspell --flag",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7072652074656820706f73740a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "empty",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": null
+   }
+  }
+ },
+ {
+  "id": "TEST-NEXT-SPELL-002-BUFFER",
+  "args": [
+   "-I",
+   "-s",
+   "altspell --flag",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": ""
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "empty",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": null
+   }
+  }
+ },
+ {
+  "id": "TEST-NEXT-SPELL-003-BYTES",
+  "args": [
+   "-I",
+   "-s",
+   "altspell --flag",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "70726520c3a9ff00207465680d0a656e640d0a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "End"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "corrected",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "hex": "c3a9ff0020746568"
+    }
+   }
+  },
+  "env": {
+   "TOOL_MODE": "replace"
+  }
+ },
+ {
+  "id": "TEST-NEXT-SPELL-004-F",
+  "args": [
+   "-I",
+   "-s",
+   "altspell --flag",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7072652074656820706f73740a6f75742074656820656e640a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "corrected",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "hex": "746568"
+    }
+   }
+  },
+  "env": {
+   "TOOL_MODE": "grow"
+  }
+ },
+ {
+  "id": "TEST-NEXT-SPELL-004-B",
+  "args": [
+   "-I",
+   "-s",
+   "altspell --flag",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7072652074656820706f73740a6f75742074656820656e640a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Left",
+     "Left",
+     "Left"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "corrected",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "hex": "746568"
+    }
+   }
+  },
+  "env": {
+   "TOOL_MODE": "grow"
+  }
+ },
+ {
+  "id": "TEST-NEXT-SPELL-005-EXIT0",
+  "args": [
+   "-I",
+   "-s",
+   "altspell --flag",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7072652074656820706f73740a6f75742074656820656e640a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "corrected",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "hex": "746568"
+    }
+   }
+  },
+  "env": {
+   "TOOL_MODE": "replace",
+   "TOOL_EXIT": "0"
+  }
+ },
+ {
+  "id": "TEST-NEXT-SPELL-005-EXIT1",
+  "args": [
+   "-I",
+   "-s",
+   "altspell --flag",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7072652074656820706f73740a6f75742074656820656e640a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "corrected",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "hex": "746568"
+    }
+   }
+  },
+  "env": {
+   "TOOL_MODE": "replace",
+   "TOOL_EXIT": "1"
+  }
+ },
+ {
+  "id": "TEST-NEXT-SPELL-005-EXIT2",
+  "args": [
+   "-I",
+   "-s",
+   "altspell --flag",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7072652074656820706f73740a6f75742074656820656e640a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "corrected",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "hex": "746568"
+    }
+   }
+  },
+  "env": {
+   "TOOL_MODE": "replace",
+   "TOOL_EXIT": "2"
+  }
+ },
+ {
+  "id": "TEST-NEXT-SPELL-005-EXIT9",
+  "args": [
+   "-I",
+   "-s",
+   "altspell --flag",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7072652074656820706f73740a6f75742074656820656e640a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "corrected",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "hex": "746568"
+    }
+   }
+  },
+  "env": {
+   "TOOL_MODE": "replace",
+   "TOOL_EXIT": "9"
+  }
+ },
+ {
+  "id": "TEST-NEXT-SPELL-005-EXIT15S",
+  "args": [
+   "-I",
+   "-s",
+   "altspell --flag",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7072652074656820706f73740a6f75742074656820656e640a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "corrected",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "hex": "746568"
+    }
+   }
+  },
+  "env": {
+   "TOOL_MODE": "replace",
+   "TOOL_EXIT": "-15"
+  }
+ },
+ {
+  "id": "TEST-NEXT-SPELL-005-MTIME",
+  "args": [
+   "-I",
+   "-s",
+   "altspell --flag",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7072652074656820706f73740a6f75742074656820656e640a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "corrected",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "hex": "746568"
+    }
+   }
+  },
+  "env": {
+   "TOOL_MODE": "unchanged"
+  }
+ },
+ {
+  "id": "TEST-NEXT-SPELL-006-ALL",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7465682070726520746568206d69642074656820706f7374207465680a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   },
+   "bin/hunspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,re\nvalue=sys.stdin.buffer.read();open(os.environ['HOME']+'/tool-input','wb').write(value)\nfor word in re.findall(rb'\\bteh\\b',value):sys.stdout.buffer.write(word+b'\\n')\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Edit a replacement"
+    }
+   },
+   {
+    "snapshot": "prompt",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^A",
+     "^K"
+    ]
+   },
+   {
+    "text": "correct\r"
+   },
+   {
+    "wait": {
+     "text": "Replace this instance?"
+    }
+   },
+   {
+    "text": "a"
+   },
+   {
+    "wait": {
+     "text": "Finished checking spelling"
+    }
+   },
+   {
+    "snapshot": "finished",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "text": "teh mid teh"
+    }
+   }
+  }
+ },
+ {
+  "id": "TEST-NEXT-SPELL-006-CANCEL",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7465682070726520746568206d69642074656820706f7374207465680a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   },
+   "bin/hunspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,re\nvalue=sys.stdin.buffer.read();open(os.environ['HOME']+'/tool-input','wb').write(value)\nfor word in re.findall(rb'\\bteh\\b',value):sys.stdout.buffer.write(word+b'\\n')\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Edit a replacement"
+    }
+   },
+   {
+    "snapshot": "prompt",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Finished checking spelling"
+    }
+   },
+   {
+    "snapshot": "finished",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "text": "teh mid teh"
+    }
+   }
+  }
+ },
+ {
+  "id": "TEST-NEXT-SPELL-002-INTERNAL",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7072652074656820706f73740a6f75742074656820656e640a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   },
+   "bin/hunspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,re\nvalue=sys.stdin.buffer.read();open(os.environ['HOME']+'/tool-input','wb').write(value)\nfor word in re.findall(rb'\\bteh\\b',value):sys.stdout.buffer.write(word+b'\\n')\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "M-A",
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Finished checking spelling"
+    }
+   },
+   {
+    "snapshot": "empty",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "text": ""
+    }
+   }
+  }
+ },
+ {
+  "id": "TEST-NEXT-TOOL-001-MARK",
+  "args": [
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7072652074656820706f73740a6f75742074656820656e640a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   },
+   "home/.nanorc": {
+    "text": "syntax text \"\\.txt$\"\ncolor red \"NOPE\"\nformatter altspell\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "^T",
+     "^O"
+    ]
+   },
+   {
+    "snapshot": "formatted",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "text": "pre teh post\nout teh end\n"
+    }
+   }
+  }
+ },
+ {
+  "id": "TEST-NEXT-TOOL-001-MISSING",
+  "args": [
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7072652074656820706f73740a6f75742074656820656e640a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   },
+   "home/.nanorc": {
+    "text": "syntax text \"\\.txt$\"\ncolor red \"NOPE\"\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "^T",
+     "^O"
+    ]
+   },
+   {
+    "snapshot": "formatted",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": null
+   }
+  }
+ },
+ {
+  "id": "TEST-NEXT-TOOL-002-SPACE",
+  "args": [
+   "-I",
+   "-s",
+   "altspell   --one  --two ",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7072652074656820706f73740a6f75742074656820656e640a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "corrected",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "hex": "746568"
+    }
+   }
+  },
+  "env": {
+   "TOOL_MODE": "replace"
+  }
+ },
+ {
+  "id": "TEST-NEXT-TOOL-002-TAB",
+  "args": [
+   "-I",
+   "-s",
+   "altspell --one\t--two",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "7072652074656820706f73740a6f75742074656820656e640a"
+   },
+   "bin/altspell": {
+    "text": "#!/usr/bin/python3\nimport os,sys,stat,json,signal,time\np=sys.argv[-1]; data=open(p,'rb').read();home=os.environ['HOME']\nopen(home+'/tool-input','wb').write(data)\njson.dump({'args':sys.argv[1:-1],'mode':oct(stat.S_IMODE(os.stat(p).st_mode)),'extension':os.path.splitext(p)[1],'private':os.path.dirname(p)==os.environ['TMPDIR']},open(home+'/tool-meta','w'),sort_keys=True)\nmode=os.environ.get('TOOL_MODE','replace'); code=int(os.environ.get('TOOL_EXIT','0'))\nif mode=='sleep':\n open(home+'/ready','w').write('ready');time.sleep(2)\nif mode!='unchanged':\n value=data.replace(b'teh',b'RIGHT\\nNEW' if mode=='grow' else b'the')\n stamp=os.stat(p).st_mtime_ns\n open(p,'wb').write(value);os.utime(p,ns=(stamp+1000000000,stamp+1000000000))\nif code<0:os.kill(os.getpid(),-code)\nsys.exit(code)\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right",
+     "Right",
+     "M-A",
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T",
+     "^T"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "corrected",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "y\r"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/tool-input": {
+     "hex": "746568"
+    }
+   }
+  },
+  "env": {
+   "TOOL_MODE": "replace"
+  }
+ }
+]

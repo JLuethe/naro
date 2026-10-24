@@ -91,9 +91,15 @@ def norm_screen(screen, root=None, dead=False):
 
 
 def norm_manifest(fixture, root=None, include_nlink=True, run=None):
+    def entry_name(path):
+        name = norm_text(path, root)
+        # Only a newly created backup in this fault scenario is mkstemp-named.
+        if run and run.get('scenario') == 'TEST-NEXT-IO-002-BACKUP-FAIL' and path not in run.get('initial_fixture', {}):
+            name = re.sub(r'^home/f\.txt~[A-Za-z0-9]{6}$', 'home/f.txt~XXXXXX', name)
+        return name
     out = {}
     for path, entry in fixture.items():
-        name = norm_text(path, root)
+        name = entry_name(path)
         if name in out:
             raise ValueError('normalization collides at ' + name)
         item = {k: entry.get(k) for k in ('type', 'mode', 'nlink') if k in entry}
@@ -123,7 +129,7 @@ def norm_manifest(fixture, root=None, include_nlink=True, run=None):
     groups = {}
     for path, entry in fixture.items():
         if entry['type'] == 'file':
-            groups.setdefault(entry.get('ino', path), []).append(norm_text(path, root))
+            groups.setdefault(entry.get('ino', path), []).append(entry_name(path))
     links = sorted(sorted(g) for g in groups.values() if len(g) > 1)
     return {'entries': out, 'hardlinks': links}
 
@@ -161,6 +167,10 @@ def compare(ref, cand, files_only=False):
         rf, cf = ref.get(k, {}), cand.get(k, {})
         links = all('nlink' in e for e in rf.values())
         check(k, norm_manifest(rf, roots[0], links, ref), norm_manifest(cf, roots[1], links, cand))
+    if 'temp_files' in ref:
+        check('temp_files', norm_manifest(ref['temp_files'], roots[0], run=ref), norm_manifest(cand.get('temp_files', {}), roots[1], run=cand))
+    if 'helper_statuses' in ref:
+        check('helper_statuses', ref['helper_statuses'], cand.get('helper_statuses'))
     check('captured_files', norm_captured(ref.get('captured_files', {})), norm_captured(cand.get('captured_files', {})))
     if files_only:
         return diffs

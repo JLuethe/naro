@@ -416,6 +416,12 @@ class Run:
         tempdir = os.path.join(work, "tmp")
         os.makedirs(tempdir, exist_ok=True)
         self.root = root
+        self.children = []
+        for helper in sc.get("build_helpers", []):
+            source, output = self.inside(helper["source"]), self.inside(helper["output"])
+            command = ["cc", "-O2", source, "-o", output]
+            if helper.get("shared", True): command.extend(["-shared", "-fPIC", "-ldl"])
+            subprocess.run(command, check=True, cwd=root)
         self.captured = {}
         self.initial_manifest = manifest(root)
         os.makedirs(self.outdir, exist_ok=True)
@@ -434,9 +440,16 @@ class Run:
                 env.pop(k, None)
             else:
                 env[k] = v.replace("$FX", root)
+        for helper in sc.get("helpers", []):
+            executable = self.inside(helper[0])
+            self.children.append(subprocess.Popen([executable] + [a.replace("$FX",root) for a in helper[1:]], cwd=os.path.join(root,"work"), env=env, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True))
         argv0 = sc.get("argv0", "nano")
         exe = os.path.join(self.binary, argv0) if os.path.isdir(self.binary) else self.binary
-        with open(exe, "rb") as binary_file:
+        target_binary = exe
+        if sc.get("fault_supervisor"):
+            env["NARO_FAULT_BINARY"] = os.path.abspath(exe)
+            exe = self.inside(sc["fault_supervisor"])
+        with open(target_binary, "rb") as binary_file:
             binary_sha256 = hashlib.file_digest(binary_file, "sha256").hexdigest()
         args = [a.replace("$FX", root) for a in sc.get("args", [])]
         cwd = os.path.join(root, sc.get("cwd", "work"))
@@ -487,9 +500,12 @@ class Run:
         st = pane_state()
         final = grid_to_snapshot(capture_grid(st["width"], st["height"]), st)
         tmux("kill-server", check=False)
+        helper_statuses = self.cleanup_helpers()
         result = {
+            "scenario_sha256": hashlib.sha256(json.dumps(sc,sort_keys=True,separators=(",",":")).encode()).hexdigest(),
+            "helper_statuses": helper_statuses, "temp_files": manifest(tempdir),
             "scenario": sc["id"], "reference_commit": REFERENCE_COMMIT,
-            "binary": exe, "binary_sha256": binary_sha256, "argv": [argv0] + args, "env": env, "cwd": cwd,
+            "binary": target_binary, "launcher": exe, "binary_sha256": binary_sha256, "argv": [argv0] + args, "env": env, "cwd": cwd,
             "inputs": self.inputs, "snapshots": self.snapshots,
             "after_exit_screen": final,
             "exit_status": st.get("exit_status"), "exit_signal": st.get("exit_signal"),
@@ -527,6 +543,19 @@ class Run:
         if not self.keep:
             shutil.rmtree(work, ignore_errors=True)
         return result
+
+    def cleanup_helpers(self):
+        statuses = []
+        for child in getattr(self, "children", []):
+            try:
+                statuses.append(child.wait(timeout=2))
+            except subprocess.TimeoutExpired:
+                os.killpg(child.pid, signal.SIGTERM)
+                try: statuses.append(child.wait(timeout=2))
+                except subprocess.TimeoutExpired:
+                    os.killpg(child.pid, signal.SIGKILL); statuses.append(child.wait())
+        self.children = []
+        return statuses
 
     def inside(self, rel):
         """Resolve a fixture-relative path; refuse anything outside the fixture."""
@@ -577,6 +606,17 @@ class Run:
             if "mtime_offset" in step:
                 st = os.stat(path)
                 os.utime(path, ns=(st.st_atime_ns, st.st_mtime_ns + int(step["mtime_offset"] * 1e9)))
+        elif "wait_file" in step:
+            request = step["wait_file"]
+            path = self.inside(request["path"])
+            deadline = time.time() + request.get("timeout",5)
+            while time.time() < deadline:
+                if os.path.isfile(path):
+                    with open(path,"rb") as f: raw = f.read()
+                    if "contains" not in request or request["contains"].encode() in raw: return True
+                time.sleep(0.02)
+            self.notes.append("wait_file timed out: " + request["path"])
+            return False
         elif "wait_exit" in step:
             passed = self.wait_dead(step["wait_exit"])
             if not passed:
@@ -592,6 +632,13 @@ class Run:
 
         def add(name, ok, detail=""):
             checks.append({"check": name, "pass": bool(ok), "detail": detail})
+        if "temp_empty" in exp:
+            add("temp_empty", bool(not result.get("temp_files")) == exp["temp_empty"])
+        if "helper_statuses" in exp:
+            add("helper_statuses", result.get("helper_statuses") == exp["helper_statuses"])
+        if "trace_final_modes" in exp:
+            for key, value in exp["trace_final_modes"].items():
+                add("trace_mode:"+key, result["trace_final_modes"].get(key) == value)
         if "exit_status" in exp:
             add("exit_status", result["exit_status"] == exp["exit_status"],
                 "got %r" % result["exit_status"])
@@ -666,9 +713,11 @@ def main():
         for sc in (doc if isinstance(doc, list) else [doc]):
             binary = args.binary or PROFILES[args.profile or sc.get("profile", "default")]
             outdir = os.path.join(args.out, sc["id"])
+            runner = Run(sc, binary, outdir, keep=args.keep)
             try:
-                res = Run(sc, binary, outdir, keep=args.keep).execute()
+                res = runner.execute()
             except Exception as exc:
+                runner.cleanup_helpers()
                 tmux("kill-server", check=False)
                 print("%-28s ERROR    %s" % (sc["id"], exc))
                 summary.append((sc["id"], "ERROR", 0, 0))

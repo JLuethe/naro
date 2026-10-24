@@ -20,10 +20,13 @@ editing/configuration/failure verification; environment coverage; installation
 and release. Package layout work can proceed alongside verification. Tiny and
 runtime credits are optional and are not prerequisites for the default release.
 
-Two reference differences remain intentional: Q-DEF-001 invalid-regex recovery
+The original two reference differences remain intentional: Q-DEF-001 invalid-regex recovery
 and Q-PROMPT-001 rejection of NUL as Yes. Retain their reference observations and
 separate semantic assertions. Q-KEY-001 retains its existing safe-dispatch policy.
-Do not weaken comparison rules to make a new case pass.
+Do not weaken comparison rules to make a new case pass. Follow-up Q-TOOL-001
+records a separate ownership improvement: handled HUP/TERM reaps the running
+tool and removes its temp file, whereas the reference leaves that file. Keep
+that field-level difference visible and assert clean candidate resources.
 
 The [planned test matrix](data/follow-up-tests.csv) assigns test IDs, requirement
 IDs, methods, oracles and gates. Every row starts as `planned`. Create executable
@@ -44,8 +47,10 @@ spellers; without a mark, pass the whole buffer. Resolve forward/backward marks
 to ordered byte endpoints while retaining their orientation for restoration.
 Preserve the reference's line-ending, internal-NUL and final-newline rules;
 reuse SPECIAL tool-file serialization rather than lossy string conversion.
-An empty selection reports `Selection is empty` and runs no child. An empty
-unmarked buffer reports `Buffer is empty`. Preserve bytes outside the selection.
+For an alternate speller, an empty selection reports `Selection is empty`
+and runs no child; an empty unmarked buffer reports `Buffer is empty`. The
+internal pipeline still runs on empty input, as confirmed by the source and
+TEST-NEXT-SPELL-002-INTERNAL. Preserve bytes outside the selection.
 
 ### NEXT-SPELL-002 — Replace and restore alternate-speller state
 

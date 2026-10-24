@@ -17,6 +17,7 @@ pub struct Undo {
     pub before: State,
     pub after: State,
     pub kind: String,
+    pub redo_kind: Option<String>,
 }
 #[derive(Debug)]
 pub struct Buffer {
@@ -182,6 +183,7 @@ impl Buffer {
                 before,
                 after,
                 kind: kind.into(),
+                redo_kind: None,
             });
             self.hist += 1;
         }
@@ -213,7 +215,15 @@ impl Buffer {
         self.softmark = false;
         self.modified = self.saved != Some(self.hist);
         self.last_kind.clear();
-        Some(self.history[index].kind.clone())
+        Some(if redo {
+            self.history[index]
+                .redo_kind
+                .as_ref()
+                .unwrap_or(&self.history[index].kind)
+                .clone()
+        } else {
+            self.history[index].kind.clone()
+        })
     }
     /// Replace an ordered region with external bytes (LF separators, NUL payload).
     pub fn replace(&mut self, a: Pos, b: Pos, raw: &[u8]) {

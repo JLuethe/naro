@@ -90,6 +90,18 @@ class CompareTests(unittest.TestCase):
         self.assertNotEqual(c.norm_manifest(manifest(b'-x /tmp/nano.abcdef.txt\n'),run=r),
                             c.norm_manifest(manifest(b'/scratch/tmp/nano.qrstuv.txt\n'),run=s))
 
+    def test_backup_randomness_is_case_and_identity_scoped(self):
+        def manifest(name):
+            return {name: {'type':'file','mode':'0o600','b64':'YWJj'}}
+        case={'scenario':'TEST-NEXT-IO-002-BACKUP-FAIL','initial_fixture':{}}
+        a,b=manifest('home/f.txt~abcdef'),manifest('home/f.txt~uvwxyz')
+        self.assertEqual(c.norm_manifest(a,run=case),c.norm_manifest(b,run=case))
+        self.assertNotEqual(c.norm_manifest(a),c.norm_manifest(b))
+        initial={**case,'initial_fixture':{'home/f.txt~abcdef':{}}}
+        self.assertNotEqual(c.norm_manifest(a,run=initial),c.norm_manifest(b,run=case))
+        b['home/f.txt~uvwxyz']['b64']='ZGlmZg=='
+        self.assertNotEqual(c.norm_manifest(a,run=case),c.norm_manifest(b,run=case))
+
     def test_timeout_fails(self):
         self.cand['notes'].append('settle timed out after 5.0s')
         self.assertTrue(c.compare(self.ref, self.cand))
