@@ -4,7 +4,7 @@ Reference commit: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`
 
 The behavioral spec is complete as a documented implementation contract for the
 reference envelope. Runtime verification is broad but not exhaustive. There are
-248 named requirement headings, 309 unique terminal scenarios in 23 files, 46
+248 baseline requirement headings, 309 unique terminal scenarios in 23 files, 46
 non-tty CLI probes, 81 POSIX regex cases in each of two locales, and 13 debugger
 key-table profiles. Only the smoke scenario has explicit assertions (four);
 other terminal runs are observations, requiring differential comparison.
@@ -78,3 +78,12 @@ from explicitly listed deviations), regex corpus, safety-deviation assertions
 and additional probes for implementation-specific risks. New platform, libc,
 locale or terminal combinations need separate evidence. Native compilation,
 a smoke pass, or file-only agreement alone cannot satisfy the complete target.
+
+## Planned follow-up coverage
+
+[Document 19](19-completion-and-release.md) and
+[data/follow-up-tests.csv](data/follow-up-tests.csv) add planned implementation,
+verification and release requirements. Their cases have not been executed.
+The audit reports their counts and statuses separately from the original 248
+requirements and 309 recorded reference scenarios. Required gates, conditional
+environment checks and optional tiny/runtime-credits work remain distinct.

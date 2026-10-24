@@ -16,8 +16,12 @@ def main():
     for prefix in expected:
         if not list(ROOT.glob(prefix + '-*.md')):
             problems.append('missing document prefix ' + prefix)
+    planned_docs = []
     for p in docs + [ROOT / 'data/README.md']:
         text = p.read_text()
+        phase = 'planned' if any(line.startswith('Status: planned') for line in text.splitlines()[:10]) else 'baseline'
+        if phase == 'planned' and p in docs:
+            planned_docs.append(p.name)
         if COMMIT not in '\n'.join(text.splitlines()[:5]):
             problems.append(str(p.relative_to(ROOT)) + ': missing top commit')
         for target in re.findall(r'\]\(([^)]+)\)', text):
@@ -31,7 +35,35 @@ def main():
             m = re.match(r'### ([A-Z][A-Z0-9-]+) — ([^\n]+)', block)
             if m:
                 tests = sorted(set(re.findall(r'TEST-[A-Z0-9-]+-\d{3}', block)))
-                requirements.append([m[1], p.name, m[2], ' '.join(tests)])
+                requirements.append([m[1], p.name, m[2], ' '.join(tests), phase])
+    planned_ids = {r[0] for r in requirements if r[4] == 'planned'}
+    planned_tests = []
+    matrix = ROOT / 'data/follow-up-tests.csv'
+    if matrix.exists():
+        with matrix.open(newline='') as f:
+            planned_tests = list(csv.DictReader(f))
+        seen_tests, covered = set(), set()
+        for row in planned_tests:
+            tid = row['test_id']
+            reqs = set(row['requirement_ids'].split(';'))
+            if tid in seen_tests or row['reference_commit'] != COMMIT:
+                problems.append('follow-up test identity mismatch: ' + tid)
+            seen_tests.add(tid)
+            covered.update(reqs)
+            if not reqs <= planned_ids:
+                problems.append('unknown follow-up requirement: ' + tid)
+            if row['status'] not in ('planned', 'recorded', 'verified', 'blocked', 'deferred'):
+                problems.append('invalid follow-up status: ' + tid)
+            if row['release_gate'] not in ('required', 'conditional', 'optional'):
+                problems.append('invalid follow-up gate: ' + tid)
+            if row['status'] in ('recorded', 'verified') and not row['evidence']:
+                problems.append('missing follow-up evidence: ' + tid)
+            if row['evidence'] and not (ROOT / row['evidence']).exists():
+                problems.append('absent follow-up evidence path: ' + tid)
+        for req in sorted(planned_ids - covered):
+            problems.append('follow-up requirement has no test: ' + req)
+    elif planned_ids:
+        problems.append('missing follow-up test matrix')
     ids, recorded, checks, killed = set(), 0, 0, []
     suites = {}
     for p in sorted((ROOT / 'evidence/scenarios').glob('*.json')):
@@ -66,8 +98,14 @@ def main():
     else:
         warnings.append('reference worktree absent; integrity check skipped')
     with (ROOT / 'data/requirements.csv').open('w', newline='') as f:
-        w = csv.writer(f); w.writerow(['requirement', 'document', 'title', 'explicit_test_ids']); w.writerows(requirements)
+        w = csv.writer(f); w.writerow(['requirement', 'document', 'title', 'explicit_test_ids', 'phase']); w.writerows(requirements)
     report = dict(reference_commit=COMMIT, documents=len(docs), requirements=len(requirements),
+                  baseline_documents=len(docs) - len(planned_docs),
+                  baseline_requirements=len(requirements) - len(planned_ids),
+                  planned_documents=planned_docs, planned_requirements=len(planned_ids),
+                  follow_up_tests=len(planned_tests),
+                  follow_up_statuses={s: sum(r['status'] == s for r in planned_tests)
+                                      for s in sorted({r['status'] for r in planned_tests})},
                   scenarios=len(ids), recorded=recorded, explicit_assertions=checks,
                   intentional_sigkill=killed, suites=suites, warnings=warnings, problems=problems)
     (ROOT / 'evidence/audit.json').write_text(json.dumps(report, indent=2) + '\n')

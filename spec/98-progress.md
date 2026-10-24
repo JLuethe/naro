@@ -195,3 +195,23 @@ complete source-branch or platform parity is made. The reference checkout
 remains clean at the exact pinned commit. Final Markdown/tools/data/scenario
 corrections are also synchronized back to `~/src/nano-rs/spec`; use the Git
 repository copy as the canonical location for future edits.
+
+
+## Follow-up specification (2026-10-24)
+
+Added `19-completion-and-release.md` for selected-region spelling, formatter
+selection state, editing/configuration/failure verification, environment coverage,
+and installation/release. Corrected the earlier broad formatter description:
+formatting remains whole-buffer; it must clear the mark at the source-defined
+point. The selection-only gap is spelling.
+
+There are 22 planned requirement headings and 41 proposed cases in
+`data/follow-up-tests.csv`, all marked planned with no invented observations.
+The structural audit now separates baseline/planned requirements and checks the
+matrix's IDs, coverage, gates, statuses and evidence-path presence. The original
+248 requirements, 309 recordings and frozen release validation remain unchanged.
+
+Tiny is explicitly an optional compile-time reduced profile. Added a static
+`CREDITS.md` with factual attribution and proposed a default-off plain-text
+runtime credits extension; no editor behavior or CLI output changed in this task.
+The next implementation milestone is doc 19 M1, not a new full-parity claim.

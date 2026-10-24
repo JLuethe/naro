@@ -24,7 +24,7 @@ Final release validation (see [saved reports](validation/README.md)):
 | Rust tests | Six pass |
 | Comparator / harness regressions | Twelve / three pass |
 | Formatting / strict Clippy | Pass |
-| Spec audit | 25 documents, 248 requirement headings, 309 reference recordings; no problems |
+| Baseline spec audit | 25 documents, 248 requirement headings, 309 reference recordings; no problems |
 
 There are no undeclared differences in the 303-scenario candidate replay.
 Six inherited terminal scenarios are excluded: five touch paths outside private
@@ -39,9 +39,11 @@ release compilation, comparator/harness regressions, terminal smoke and safety
 assertions. CI builds checksum-pinned tmux 3.8 in a private runner directory.
 The local terminal corpus uses tmux 3.8 and the locales in spec 00.
 
-Known limits: the optional tiny build and credits are absent. External
-formatter/speller commands currently operate on the whole buffer; marked-region
-behavior still needs implementation. Full hard-wrap/undo combinations, rare rc
+Known limits: the optional tiny build and runtime credits are absent. Spell
+checking currently operates on the whole buffer; selected-region behavior still
+needs implementation. Formatting should remain whole-buffer and clear the mark
+at the reference-defined point; its selection-state behavior needs completion.
+Full hard-wrap/undo combinations, rare rc
 lazy-loading branches, real Linux VT modifiers, injected-panic recovery,
 disk-full/FIFO/interrupted writes, libmagic database variants, and all 41 locale
 catalogs need additional verification. Byte-locale screen captures also inherit
@@ -57,3 +59,8 @@ or replacing its frozen binary. Do not overwrite `spec/evidence/runs`.
 Run full suites serially because default fixtures are keyed by test ID.
 Set `NANOSPEC_WORK` explicitly for simultaneous experiments, recognizing that
 changed absolute paths can affect bytes in golden tool logs.
+
+The next work is specified in [spec 19](spec/19-completion-and-release.md), with
+planned cases in [the follow-up matrix](spec/data/follow-up-tests.csv). The
+static [credits page](CREDITS.md) is documentation; runtime credits remain a
+proposal. No new editor behavior is implied by adding the follow-up spec.

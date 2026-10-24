@@ -26,7 +26,8 @@ Empty fields mean not applicable or not populated, not verified absence.
 | syntaxes.csv | 44 | Bundled syntax selectors, strings, rule counts and license headers |
 | undo-types.csv | 22 | Native history kinds, behavior references |
 | test-runs.csv | 309 | Scenario ID/file/argv, recorded state, exit/signal, snapshot count and citing docs |
-| requirements.csv | generated | Requirement headings, owning doc, nearby explicit test references; coarse traceability, not a coverage proof |
+| requirements.csv | generated | Requirement headings, owning doc, nearby explicit test references, and baseline/planned phase; coarse traceability, not a coverage proof |
+| follow-up-tests.csv | maintained | Planned test ID, requirement IDs, area, scenario, oracle, method, release gate, status and evidence path; every row pins the reference hash |
 
 Regenerate from `spec/`:
 
@@ -48,3 +49,13 @@ CSV requirement/test columns inherited from extraction are sometimes empty.
 Use 97, document evidence tables and scenario definitions together; counts alone
 do not establish complete behavior. Complete raw evidence is retained outside
 these compact inventories.
+
+
+Follow-up matrix schema: `requirement_ids` joins IDs with semicolons; `release_gate`
+is required/conditional/optional; `status` is planned/recorded/verified/blocked/
+deferred. `evidence` is a path relative to `spec/` and is mandatory for recorded
+or verified cases. The audit checks identity, coverage, status/gate values and
+path presence, not the semantic correctness of an evidence file. Review actual
+reference/candidate results before assigning verified. Planned cases never count
+as executed baseline scenarios. The requirement inventory's `phase` column
+separates the original contract from document 19's future work.

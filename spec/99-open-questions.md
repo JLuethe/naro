@@ -41,7 +41,9 @@ target; a recorded deviation must never be hidden by comparison normalization.
 | Q-SYN-001 | Libmagic path not probed | Open runtime gap; database version part of envelope. |
 | Q-FEAT-001 | Internal speller uses external pipeline | Resolved target: same hunspell/spell → sort -f → uniq behavior, fixture stubs in tests. |
 | Q-FEAT-002 | Justify keeps trailing blank without trimblanks | Resolved: reproduce. |
-| Q-FEAT-003 | Credits | Optional, excluded from required acceptance. |
+| Q-FEAT-003 | GNU scrolling credits Easter egg | Optional, excluded from default compatibility acceptance; static Naro attribution and the separate runtime proposal are in doc 19. |
+| Q-CRED-001 | Naro credits proposal | Static CREDITS.md is documentation. An optional plain-text --credits extension is proposed with default-off build selection and separate tests; no runtime CLI change is implemented. |
+| Q-TINY-001 | Naro tiny profile | Deferred optional work; match pinned tiny feature/binding tables and measure actual size/dependencies before advertising it. |
 | Q-SIG-001 | Emergency paths relative to cwd | Clarification: normally cwd stays fixed, but `-o` changes it at startup; use filename as given relative to resulting cwd. |
 | Q-SIG-002 | Rust panic recovery equivalent | Resolved architecture in 15 §5; verify restoration and emergency bytes with injected panic tests. |
 | Q-PROMPT-002 | Username completion depends on passwd | Resolved test policy: do not assert host-specific username listings. |

@@ -25,6 +25,7 @@ jobs:
       - run: cargo clippy --all-targets -- -D warnings
       - run: cargo test
       - run: cargo build --release
+      - run: python3 spec/tools/audit_spec.py
       - run: python3 spec/tools/test_compare_runs.py
       - run: python3 spec/tools/test_nanoharness.py
       - name: Terminal smoke and safety assertions

@@ -55,3 +55,9 @@ The [behavioral specification](spec/00-overview.md),
 [decisions](spec/99-open-questions.md) are checked in with reference evidence.
 The pinned nano source checkout is not modified or invoked by Naro.
 See [NOTICE](NOTICE) and the original headers for reused data and catalog licenses.
+
+
+The [follow-up specification](spec/19-completion-and-release.md) defines the next
+compatibility, verification and release work, with 41 planned test cases.
+[Credits](CREDITS.md) acknowledge the upstream work and development assistance.
+Tiny mode and an optional runtime credits command remain future work.

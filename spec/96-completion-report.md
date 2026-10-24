@@ -27,3 +27,9 @@ The spec is ready for implementation; it does not claim that Naro already
 implements nano. Implementation/build/test results belong to the repository
 status report. Open runtime gaps and deliberate safety deviations are recorded
 in 97/99. Original reference observations have not been rewritten to hide them.
+
+
+The counts above describe the original completed behavioral baseline. Document
+19 is a planned follow-up covering remaining implementation, verification and
+release work; its requirements and proposed test matrix are counted separately.
+Adding that plan does not implement it or change historical validation results.
