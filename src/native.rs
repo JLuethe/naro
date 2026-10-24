@@ -29,6 +29,7 @@ unsafe extern "C" {
     pub fn nr_reconnect() -> c_int;
     fn nr_host() -> *const c_char;
     fn nr_user() -> *const c_char;
+    fn nr_current_home() -> *const c_char;
     fn nr_home(name: *const c_char) -> *const c_char;
     pub fn nr_option(argc: c_int, argv: *mut *mut c_char) -> c_int;
     pub fn nr_optarg() -> *const c_char;
@@ -112,6 +113,14 @@ pub fn user() -> Vec<u8> {
 pub fn home(name: &[u8]) -> Vec<u8> {
     let s = cstr(name);
     unsafe { from_c(nr_home(s.as_ptr())) }
+}
+pub fn current_home() -> Option<Vec<u8>> {
+    let home = unsafe { nr_current_home() };
+    if home.is_null() {
+        None
+    } else {
+        Some(unsafe { from_c(home) })
+    }
 }
 pub fn magic(path: &[u8]) -> Vec<u8> {
     let s = cstr(path);

@@ -38,6 +38,11 @@ int nr_tty(int fd) {return isatty(fd);}
 int nr_reconnect(void) {return freopen("/dev/tty","r",stdin) != NULL;}
 const char *nr_user(void) {struct passwd *p=getpwuid(geteuid());return p?p->pw_name:"";}
 const char *nr_home(const char *name) {struct passwd *p= name&&*name?getpwnam(name):getpwuid(geteuid());return p?p->pw_dir:"";}
+const char *nr_current_home(void) {
+    const char *home=getenv("HOME");
+    if(!home||geteuid()==0){struct passwd *p=getpwuid(geteuid());if(p)home=p->pw_dir;}
+    return home&&*home?home:NULL;
+}
 int nr_option(int argc,char **argv) {return getopt_long(argc,argv,"ABC:DEFGHIJ:KLMNOPQ:RST:UVWX:Y:Zabcdef:ghijklmno:pqr:s:tuvwxyz!@%_01/",options,NULL);}
 const char *nr_optarg(void) {return optarg;}
 int nr_optind(void) {return optind;}

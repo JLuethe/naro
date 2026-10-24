@@ -94,8 +94,10 @@ def norm_manifest(fixture, root=None, include_nlink=True, run=None):
     def entry_name(path):
         name = norm_text(path, root)
         # Only a newly created backup in this fault scenario is mkstemp-named.
-        if run and run.get('scenario') == 'TEST-NEXT-IO-002-BACKUP-FAIL' and path not in run.get('initial_fixture', {}):
-            name = re.sub(r'^home/f\.txt~[A-Za-z0-9]{6}$', 'home/f.txt~XXXXXX', name)
+        backup_homes = {'TEST-NEXT-IO-002-BACKUP-FAIL':'home', 'TEST-ROOT-STATE-002-ACCOUNT':'account', 'TEST-ROOT-STATE-002-MISSING':'home'}
+        home = backup_homes.get(run.get('scenario')) if run else None
+        if home and path not in run.get('initial_fixture', {}):
+            name = re.sub(r'^'+home+r'/f\.txt~[A-Za-z0-9]{6}$', home+'/f.txt~XXXXXX', name)
         return name
     out = {}
     for path, entry in fixture.items():
@@ -169,6 +171,8 @@ def compare(ref, cand, files_only=False):
         check(k, norm_manifest(rf, roots[0], links, ref), norm_manifest(cf, roots[1], links, cand))
     if 'temp_files' in ref:
         check('temp_files', norm_manifest(ref['temp_files'], roots[0], run=ref), norm_manifest(cand.get('temp_files', {}), roots[1], run=cand))
+    if 'root_namespace' in ref:
+        check('root_namespace', norm_text(json.dumps(ref['root_namespace'],sort_keys=True), roots[0]), norm_text(json.dumps(cand.get('root_namespace'),sort_keys=True), roots[1]))
     if 'helper_statuses' in ref:
         check('helper_statuses', ref['helper_statuses'], cand.get('helper_statuses'))
     check('captured_files', norm_captured(ref.get('captured_files', {})), norm_captured(cand.get('captured_files', {})))

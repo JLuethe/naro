@@ -4,6 +4,7 @@ import argparse,copy,hashlib,json,os,pathlib,shutil,subprocess,sys
 ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'spec/tools'))
 from compare_runs import compare
 from environment import snapshot
+from follow_up_policy import deviation
 p=argparse.ArgumentParser();p.add_argument('--suite',required=True);p.add_argument('--binary',type=pathlib.Path,default=ROOT/'target/debug/naro');p.add_argument('--reference',type=pathlib.Path,default=pathlib.Path.home()/'src/nano-install/default/bin/nano');p.add_argument('--out',type=pathlib.Path,required=True);p.add_argument('--ids',nargs='*');p.add_argument('--reference-only',action='store_true');a=p.parse_args()
 if a.out.exists():raise SystemExit('preserve evidence: use a new output directory')
 a.out.mkdir(parents=True)
@@ -29,9 +30,9 @@ for kind,source in [('reference',a.reference),('candidate',a.binary)]:
    if any(not (a.out/k/tid/'result.json').exists()for k in ['reference','candidate']):
     report['results'][tid]={'match':False,'accepted':False,'reference_checks':False,'candidate_checks':False,'differences':[{'field':'missing recording'}]};continue
    r=json.loads((a.out/'reference'/tid/'result.json').read_text());c=json.loads((a.out/'candidate'/tid/'result.json').read_text());diff=compare(r,c)
-   declared=tid in ('TEST-NEXT-TOOL-003-SIGTERM','TEST-NEXT-TOOL-003-SIGHUP')and {d['field']for d in diff}=={'temp_files'}
-   report['results'][tid]={'match':not diff,'declared_deviation':declared,'accepted':not diff or declared,'reference_checks':all(x['pass']for x in r['checks'])and r['steps_ok'],'candidate_checks':all(x['pass']for x in c['checks'])and c['steps_ok'],'differences':diff}
-   print(tid,'MATCH'if not diff else 'EXPECTED cleanup difference'if declared else ', '.join(x['field']for x in diff))
+   issue=deviation(tid,r,c,diff);declared=bool(issue)
+   report['results'][tid]={'match':not diff,'declared_deviation':declared,'deviation_id':issue,'accepted':not diff or declared,'reference_checks':all(x['pass']for x in r['checks'])and r['steps_ok'],'candidate_checks':all(x['pass']for x in c['checks'])and c['steps_ok'],'differences':diff}
+   print(tid,'MATCH'if not diff else 'EXPECTED '+issue+' difference'if declared else ', '.join(x['field']for x in diff))
 report['summary']={'recorded':len(cases),'matches':sum(x['match']for x in report['results'].values()),'accepted':sum(x['accepted']for x in report['results'].values())}
 (a.out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(report['summary'])
 raise SystemExit(int(any(report.get(k+'_status',0)for k in ['reference','candidate'])or any(not r['accepted']for r in report['results'].values())))

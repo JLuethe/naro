@@ -102,6 +102,11 @@ class CompareTests(unittest.TestCase):
         b['home/f.txt~uvwxyz']['b64']='ZGlmZg=='
         self.assertNotEqual(c.norm_manifest(a,run=case),c.norm_manifest(b,run=case))
 
+    def test_namespace_identity_is_not_normalized_away(self):
+        self.ref['root_namespace']={'euid':0,'root':'/','null_device':[1,3]}
+        self.cand['root_namespace']={'euid':1000,'root':'/','null_device':[1,3]}
+        self.assertTrue(any(d['field']=='root_namespace'for d in c.compare(self.ref,self.cand)))
+
     def test_timeout_fails(self):
         self.cand['notes'].append('settle timed out after 5.0s')
         self.assertTrue(c.compare(self.ref, self.cand))

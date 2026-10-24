@@ -8,6 +8,13 @@ steps 1 and 2 of the next-work list. Historical doc 19 results remain unchanged.
 
 ## Scope and sources
 
+The root-suite oracle is rebuilt from the same pinned source with
+`--sysconfdir=/etc`, matching Naro's system-rc origin label for the no-home
+startup diagnostic. This parameter is explicit because the earlier host oracle
+compiled its installation prefix into that label. The namespace exposes no
+system nanorc. This phase does not add host-global configuration loading.
+
+
 Implement the root-home difference Q-ENV-ROOT-001 and safely replace deferred
 path checks with fresh observations inside a namespace-owned filesystem root.
 Build a console capability check and a reproducible operator protocol. Physical
@@ -44,8 +51,11 @@ remains literal, matching expand_leading_tilde(). Explicit rc paths and XDG
 precedence remain governed by docs 01/10/12. With no resolved home, skip home
 paths rather than reading cwd/.nanorc or creating cwd/.local; XDG can still
 provide a path. Match the reference diagnostic when neither home nor XDG exists.
-If a no-home tilde operation crashes the reference, record a separate decision
-before defining safe target behavior; do not reproduce memory faults.
+The no-home `~/other` operation crashes the reference (Q-ROOT-NOHOME-001):
+its NULL home reaches copy_of/strlen. The target preserves the literal pathname,
+keeps the editor usable and preserves bytes. Keep the exact differential visible
+and assert source Code 11, target exit 0 and unchanged files in the dedicated
+TEST-ROOT-HOME-002-NO-HOME-TILDE case. Do not reproduce memory faults.
 
 ### ROOT-STATE-003 — Preserve file and failure behavior
 

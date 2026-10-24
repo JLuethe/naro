@@ -389,11 +389,21 @@ impl Config {
             return;
         }
         let home = home_dir();
-        let mut paths = vec![home.join(".nanorc")];
+        let mut paths = Vec::new();
+        if let Some(home) = &home {
+            paths.push(home.join(".nanorc"));
+        }
         if let Some(x) = std::env::var_os("XDG_CONFIG_HOME") {
             paths.push(PathBuf::from(x).join("nano/nanorc"));
         }
-        paths.push(home.join(".config/nano/nanorc"));
+        if let Some(home) = &home {
+            paths.push(home.join(".config/nano/nanorc"));
+        }
+        if home.is_none() && std::env::var_os("XDG_CONFIG_HOME").is_none() {
+            self.errors
+                .push("I can't find my home directory!  Wah!".into());
+            self.error_file = Some(PathBuf::from("/etc/nanorc"));
+        }
         for p in paths {
             if p.is_file() {
                 self.read_rc(&p, false);
@@ -1010,18 +1020,26 @@ impl Config {
 pub fn path(bytes: &[u8]) -> PathBuf {
     PathBuf::from(OsString::from_vec(bytes.to_vec()))
 }
-pub fn home_dir() -> PathBuf {
-    std::env::var_os("HOME")
-        .map(PathBuf::from)
-        .unwrap_or_else(|| path(&native::home(b"")))
+pub fn home_dir() -> Option<PathBuf> {
+    // nano caches a successfully resolved home, and retries unresolved lookups.
+    static HOME: std::sync::OnceLock<PathBuf> = std::sync::OnceLock::new();
+    if let Some(home) = HOME.get() {
+        return Some(home.clone());
+    }
+    let home = native::current_home().map(|bytes| path(&bytes))?;
+    let _ = HOME.set(home.clone());
+    Some(home)
 }
 pub fn expand(name: &[u8]) -> PathBuf {
-    if name.first() != Some(&b'~') {
+    if name.first() != Some(&b'~') || name.len() == 1 {
         return path(name);
     }
     let end = name.iter().position(|b| *b == b'/').unwrap_or(name.len());
     let home = if end == 1 {
-        home_dir()
+        let Some(home) = home_dir() else {
+            return path(name);
+        };
+        home
     } else {
         let h = native::home(&name[1..end]);
         if h.is_empty() {
@@ -1032,7 +1050,9 @@ pub fn expand(name: &[u8]) -> PathBuf {
     if end == name.len() {
         home
     } else {
-        home.join(std::ffi::OsStr::from_bytes(&name[end + 1..]))
+        let mut expanded = home.as_os_str().as_bytes().to_vec();
+        expanded.extend_from_slice(&name[end..]);
+        path(&expanded)
     }
 }
 pub fn io_error(e: &std::io::Error) -> String {

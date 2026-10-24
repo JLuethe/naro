@@ -1,0 +1,74 @@
+[
+ {
+  "id": "TEST-ROOT-HOME-002-NO-HOME-TILDE",
+  "root_namespace": {
+   "uid": 0,
+   "passwd_entries": []
+  },
+  "env": {
+   "HOME": null
+  },
+  "args": [
+   "-I",
+   "~/other"
+  ],
+  "dirs": [
+   "account",
+   "changed",
+   "work/.local/share"
+  ],
+  "files": {
+   "work/policy": {
+    "text": ""
+   },
+   "work/f.txt": {
+    "text": "needle\n"
+   },
+   "work/.nanorc": {
+    "text": "set tabsize 9\n"
+   },
+   "work/~/other": {
+    "text": "LOCAL\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "snapshot": "opened"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1,
+   "stderr_contains": "Sorry! Nano crashed!  Code: 11.",
+   "files": {
+    "work/~/other": {
+     "text": "LOCAL\n"
+    }
+   }
+  },
+  "candidate_expect": {
+   "exit_status": 0,
+   "files": {
+    "work/~/other": {
+     "text": "LOCAL\n"
+    }
+   },
+   "screen": [
+    {
+     "snapshot": "opened",
+     "anywhere": "LOCAL"
+    }
+   ]
+  }
+ }
+]

@@ -340,7 +340,7 @@ def manifest(root, inline_limit=4096):
 class Run:
     def __init__(self, scenario, binary, outdir, keep=False):
         self.sc = scenario
-        self.binary = binary
+        self.binary = os.path.abspath(binary)
         self.outdir = outdir
         self.keep = keep
         self.inputs = []
@@ -423,6 +423,10 @@ class Run:
             if helper.get("shared", True): command.extend(["-shared", "-fPIC", "-ldl"])
             subprocess.run(command, check=True, cwd=root)
         self.captured = {}
+        namespace_state = None
+        if "root_namespace" in sc:
+            from namespace_exec import prepare
+            namespace_state = prepare(root, WORKROOT, sc["root_namespace"])
         self.initial_manifest = manifest(root)
         os.makedirs(self.outdir, exist_ok=True)
         self.rawfile = os.path.join(self.outdir, "raw-output.bin")
@@ -466,6 +470,8 @@ class Run:
         # exec -a applied to env changes env's argv[0], not the editor's.
         # A tiny exec launcher preserves the exact requested editor argv[0].
         launch = [sys.executable, "-c", "import os,sys,json; os.execve(sys.argv[1], sys.argv[3:], json.loads(sys.argv[2]))", exe, json.dumps(env), argv0] + args
+        if namespace_state is not None:
+            launch = [sys.executable, os.path.join(SPEC,"tools/namespace_exec.py"), str(namespace_state), exe, target_binary, json.dumps(env), json.dumps([argv0]+args)]
         inner = ("umask %s; cd %s; while [ ! -e %s ]; do sleep 0.01; done; "
                  "exec 2>%s; exec env -i %s %s%s" % (
                      sc.get("umask", "022"), shlex.quote(cwd), shlex.quote(gofile),
@@ -535,6 +541,9 @@ class Run:
             "keypad_transmit": last_of(b"\x1b[?1h\x1b=", b"\x1b[?1l\x1b>"),
             "mouse_tracking": last_of(b"\x1b[?1000h", b"\x1b[?1000l"),
         }
+        if namespace_state is not None:
+            probe = os.path.join(root,"namespace-nss/probe.json")
+            result["root_namespace"] = json.load(open(probe)) if os.path.isfile(probe) else None
         result["checks"] = self.check(result)
         result["step_checks"] = self.step_checks
         result["steps_ok"] = bool(ok) and not any("timed out" in n for n in self.notes)
@@ -632,6 +641,11 @@ class Run:
 
         def add(name, ok, detail=""):
             checks.append({"check": name, "pass": bool(ok), "detail": detail})
+        if "root_namespace" in exp:
+            for key,value in exp["root_namespace"].items():
+                got=(result.get("root_namespace")or{}).get(key)
+                if isinstance(value,str):value=value.replace("$FX",self.root)
+                add("namespace:"+key,got==value,repr(got))
         if "temp_empty" in exp:
             add("temp_empty", bool(not result.get("temp_files")) == exp["temp_empty"])
         if "helper_statuses" in exp:

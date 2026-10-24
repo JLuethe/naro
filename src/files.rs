@@ -73,6 +73,7 @@ pub fn line_message(verb: &str, n: usize, dos: bool) -> String {
 }
 pub fn open(c: &Config, name: &[u8], noread: bool) -> Result<(Buffer, String, i32), String> {
     let p = config::expand(name);
+    let name = p.as_os_str().as_bytes();
     let display = bytes::text(name);
     if !inside(c, &p) {
         return Err(format!(
@@ -504,43 +505,42 @@ fn make_backup(
         return Ok(());
     }
     let _ = fs::remove_file(&name);
-    crate::render::flash_warning(c, "Cannot make regular backup");
-    crate::render::flash_warning(c, "Trying again in your home directory");
-    let home = std::env::var_os("HOME")
-        .map(PathBuf::from)
-        .unwrap_or_default();
     let mut last = first.unwrap_err();
-    for i in 0..1000u64 {
-        let value = std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .unwrap_or_default()
-            .as_nanos() as u64
-            + i;
-        let mut name = path.file_name().unwrap_or_default().as_bytes().to_vec();
-        name.push(b'~');
-        let alphabet = b"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        let mut n = value;
-        for _ in 0..6 {
-            name.push(alphabet[(n % 62) as usize]);
-            n /= 62;
-        }
-        match OpenOptions::new()
-            .write(true)
-            .create_new(true)
-            .mode(0o600)
-            .open(home.join(config::path(&name)))
-        {
-            Ok(mut file) => match write(&mut file) {
-                Ok(()) => return Ok(()),
+    if let Some(home) = config::home_dir() {
+        crate::render::flash_warning(c, "Cannot make regular backup");
+        crate::render::flash_warning(c, "Trying again in your home directory");
+        for i in 0..1000u64 {
+            let value = std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap_or_default()
+                .as_nanos() as u64
+                + i;
+            let mut name = path.file_name().unwrap_or_default().as_bytes().to_vec();
+            name.push(b'~');
+            let alphabet = b"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let mut n = value;
+            for _ in 0..6 {
+                name.push(alphabet[(n % 62) as usize]);
+                n /= 62;
+            }
+            match OpenOptions::new()
+                .write(true)
+                .create_new(true)
+                .mode(0o600)
+                .open(home.join(config::path(&name)))
+            {
+                Ok(mut file) => match write(&mut file) {
+                    Ok(()) => return Ok(()),
+                    Err(e) => {
+                        last = e;
+                        break;
+                    }
+                },
+                Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => continue,
                 Err(e) => {
                     last = e;
                     break;
                 }
-            },
-            Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => continue,
-            Err(e) => {
-                last = e;
-                break;
             }
         }
     }

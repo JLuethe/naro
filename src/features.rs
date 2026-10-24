@@ -1435,11 +1435,18 @@ impl Editor {
             return;
         }
         let home = config::home_dir();
-        let dir = if home.join(".nano").is_dir() {
-            home.join(".nano")
+        let legacy = home
+            .as_ref()
+            .map(|p| p.join(".nano"))
+            .filter(|p| p.is_dir());
+        let dir = if let Some(legacy) = legacy {
+            legacy
         } else if let Some(x) = std::env::var_os("XDG_DATA_HOME") {
             PathBuf::from(x).join("nano")
         } else {
+            let Some(home) = home else {
+                return;
+            };
             home.join(".local/share/nano")
         };
         use std::os::unix::fs::DirBuilderExt;
