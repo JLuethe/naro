@@ -2,6 +2,8 @@
 
 The familiar nano experience, rebuilt in Rust. GPL-3.0-or-later.
 
+Naro is an independent Rust port of GNU nano, based on GNU nano 9.3.
+
 Naro is a working terminal editor with byte-preserving buffers, nano keybindings,
 undo/redo, search and POSIX regex replacement, file operations, backups and locks,
 nanorc, syntax highlighting, tools, histories, macros, mouse input and translations.
@@ -73,3 +75,24 @@ home selection and verifies private root/device/browser cases. Its
 and unchanged ordinary-user regression results. A separate no-home upstream
 crash has an asserted safe fallback. Physical Linux console verification remains
 deferred; readiness and explicit operator-trial tooling are available.
+
+Naro contributions are licensed under GPL-3.0-or-later. Upstream portions,
+assets and native dependencies retain their original license terms and notices.
+See [LICENSE](LICENSE), [NOTICE](NOTICE), [credits](CREDITS.md), and the original
+file headers for licensing and attribution details.
+
+See [SECURITY.md](SECURITY.md) for vulnerability reporting. GitHub private
+vulnerability reporting is not currently enabled; do not post sensitive details
+in public issues. Contribution and verification instructions are in
+[CONTRIBUTING.md](CONTRIBUTING.md).
+
+GNU nano's binding/help data, syntax definitions and translations retain their
+upstream notices in `src` and `assets`. Redistribution must preserve applicable
+upstream and dependency license terms and notices alongside Naro's license and
+attributions.
+
+Naro is an experimental preview. Building it does not replace the system's
+`nano` or install a system utility. Build and release tooling does not publish
+GitHub releases or crates.io packages automatically. See [INSTALL.md](INSTALL.md)
+for explicit installation and removal steps and the measured compatibility
+limits of packaged binaries.
