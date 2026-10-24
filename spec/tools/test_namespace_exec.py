@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """Isolation guard regressions; reference 6ed285c3ec7a1d228def4d4e7021c6ba269f620c."""
-import errno,importlib.util,json,tempfile,unittest
+import copy,errno,importlib.util,json,tempfile,unittest
 from pathlib import Path
 from unittest.mock import patch
 import namespace_exec as ns
 import nanoharness as h
 SPEC=importlib.util.spec_from_file_location('console_check',Path(__file__).resolve().parents[2]/'tools/console_check.py')
 console=importlib.util.module_from_spec(SPEC);SPEC.loader.exec_module(console)
+POLICY=importlib.util.spec_from_file_location("root_policy",Path(__file__).resolve().parents[2]/"tools/follow_up_policy.py")
+policy=importlib.util.module_from_spec(POLICY);POLICY.loader.exec_module(policy)
 
 class IsolationTests(unittest.TestCase):
     @classmethod
@@ -40,6 +42,19 @@ class IsolationTests(unittest.TestCase):
             with patch.object(ns.sys,'argv',['namespace_exec',str(state),'/usr/bin/true','/usr/bin/true','{}','["nano"]']),patch.object(ns.subprocess,'run')as launch:
                 with self.assertRaises(ValueError):ns.main()
                 launch.assert_not_called()
+
+    def test_crash_decision_cannot_hide_file_or_identity_changes(self):
+        tid='TEST-ROOT-HOME-002-NO-HOME-TILDE'
+        source={'reference_commit':h.REFERENCE_COMMIT,'scenario':tid,'fixture':{'x':{'type':'file','mode':'0o644','b64':'YWJj'}},'exit_status':1,'stderr':'Sorry! Nano crashed!  Code: 11.','steps_ok':True,'checks':[{'pass':True}],'root_namespace':{'euid':0,'passwd_home':None,'HOME':None}}
+        target=copy.deepcopy(source);target.update(exit_status=0,stderr='')
+        differences=[{'field':'exit_status'},{'field':'stderr'}]
+        self.assertEqual(policy.deviation(tid,source,target,differences),'Q-ROOT-NOHOME-001')
+        changed=copy.deepcopy(target);changed['fixture']['x']['mode']='0o600'
+        self.assertIsNone(policy.deviation(tid,source,changed,differences))
+        changed=copy.deepcopy(source);changed['root_namespace']['euid']=1000
+        self.assertIsNone(policy.deviation(tid,changed,target,differences))
+        self.assertIsNone(policy.deviation('TEST-UNRELATED-001',source,target,differences))
+        self.assertIsNone(policy.deviation(tid,source,target,differences+[{'field':'inputs'}]))
 
     def test_term_linux_on_pty_does_not_certify_vt(self):
         with patch.object(console.os,'isatty',return_value=True),patch.object(console.os,'ttyname',return_value='/dev/pts/123'),patch.object(console,'attrs',return_value=[]),patch.object(console.fcntl,'ioctl',side_effect=OSError(errno.ENOTTY,'not a VT'))as ioctl,patch.dict(console.os.environ,{'TERM':'linux'}):

@@ -7,6 +7,8 @@ def deviation(tid, reference, candidate, differences):
     if tid in ('TEST-NEXT-TOOL-003-SIGTERM','TEST-NEXT-TOOL-003-SIGHUP')and fields=={'temp_files'}:
         return 'Q-TOOL-001'
     if tid!='TEST-ROOT-HOME-002-NO-HOME-TILDE':return None
+    ns=reference.get('root_namespace')or{}
+    if ns.get('euid')!=0 or ns.get('passwd_home')is not None or ns.get('HOME')is not None:return None
     allowed=all(field in ('exit_status','stderr','after_exit_screen')or field.startswith('snapshot.opened.')for field in fields)
     files={d['field']for d in compare(reference,candidate,True)}
     if (allowed and files=={'exit_status'} and reference.get('exit_status')==1

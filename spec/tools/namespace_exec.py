@@ -29,7 +29,7 @@ def prepare(root,workroot,config):
             raise ValueError('unsafe fixture passwd entry')
         value=str(root/home)if home else''
         lines.append(f'{name}:x:{entry_uid}:{entry_uid}:Fixture:{value}:/bin/sh\n')
-    (nss/'passwd').write_text(''.join(lines));(nss/'group').write_text(f'fixture:x:{uid}:\n');(nss/'nsswitch.conf').write_text('passwd: files\ngroup: files\nhosts: files\n')
+    (nss/'passwd').write_bytes(''.join(lines).encode('utf-8','surrogateescape'));(nss/'group').write_text(f'fixture:x:{uid}:\n');(nss/'nsswitch.conf').write_text('passwd: files\ngroup: files\nhosts: files\n')
     state={'fixture':str(root),'root':str(tree),'uid':uid,'backend':'bubblewrap user/mount/pid/ipc/uts/network namespaces'}
     path=work/'namespace.json';path.write_text(json.dumps(state))
     return path

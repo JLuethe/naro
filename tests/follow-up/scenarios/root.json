@@ -1672,5 +1672,229 @@
   "dirs": [
    "account"
   ]
+ },
+ {
+  "id": "TEST-ROOT-HOME-002-XDG-RC",
+  "root_namespace": {
+   "uid": 0,
+   "passwd_entries": []
+  },
+  "env": {
+   "HOME": null,
+   "XDG_CONFIG_HOME": "$FX/xdg-config"
+  },
+  "args": [
+   "f.txt"
+  ],
+  "dirs": [
+   "account",
+   "changed",
+   "work/.local/share"
+  ],
+  "files": {
+   "work/policy": {
+    "text": ""
+   },
+   "work/f.txt": {
+    "text": "needle\n"
+   },
+   "work/.nanorc": {
+    "text": "set tabsize 9\n"
+   },
+   "xdg-config/nano/nanorc": {
+    "text": "set tabsize 4\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "text": "\tX"
+   },
+   {
+    "snapshot": "xdg"
+   },
+   {
+    "keys": [
+     "^S",
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "screen": [
+    {
+     "snapshot": "xdg",
+     "cursor": {
+      "x": 5,
+      "y": 1
+     }
+    }
+   ]
+  }
+ },
+ {
+  "id": "TEST-ROOT-STATE-001-XDG",
+  "root_namespace": {
+   "uid": 0,
+   "passwd_entries": []
+  },
+  "env": {
+   "HOME": null,
+   "XDG_DATA_HOME": "$FX/xdg-data"
+  },
+  "args": [
+   "-I",
+   "-H",
+   "-P",
+   "f.txt"
+  ],
+  "dirs": [
+   "account",
+   "changed",
+   "work/.local/share",
+   "xdg-data"
+  ],
+  "files": {
+   "work/policy": {
+    "text": ""
+   },
+   "work/f.txt": {
+    "text": "needle\n"
+   },
+   "work/.nanorc": {
+    "text": "set tabsize 9\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "text": "needle\r"
+   },
+   {
+    "snapshot": "found"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "root_namespace": {
+    "euid": 0,
+    "null_is_character_device": true,
+    "passwd_home": null
+   },
+   "files": {
+    "account/.local/share/nano/search_history": null,
+    "home/.local/share/nano/search_history": null,
+    "work/.local/share/nano/search_history": null,
+    "xdg-data/nano/search_history": {
+     "text": "needle\n\n\n\n",
+     "mode": "0o600"
+    },
+    "xdg-data/nano/filepos_history": {
+     "type": "file",
+     "mode": "0o600"
+    }
+   }
+  }
+ },
+ {
+  "id": "TEST-ROOT-HOME-001-BYTE-PATH",
+  "root_namespace": {
+   "uid": 0,
+   "passwd_entries": [
+    {
+     "name": "fixture",
+     "uid": 0,
+     "home": "account-\udcff"
+    }
+   ]
+  },
+  "env": {
+   "HOME": "$FX/home"
+  },
+  "args": [
+   "--rcfile",
+   "$FX/work/policy",
+   "-H",
+   "f.txt"
+  ],
+  "dirs": [
+   "account",
+   "changed",
+   "work/.local/share",
+   "account-\udcff"
+  ],
+  "files": {
+   "work/policy": {
+    "text": ""
+   },
+   "work/f.txt": {
+    "text": "needle\n"
+   },
+   "work/.nanorc": {
+    "text": "set tabsize 9\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "text": "needle\r"
+   },
+   {
+    "snapshot": "found"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "root_namespace": {
+    "euid": 0,
+    "null_is_character_device": true,
+    "passwd_home": "$FX/account-\udcff"
+   },
+   "files": {
+    "account/.local/share/nano/search_history": null,
+    "home/.local/share/nano/search_history": null,
+    "work/.local/share/nano/search_history": null,
+    "account-\udcff/.local/share/nano/search_history": {
+     "text": "needle\n\n\n\n",
+     "mode": "0o600"
+    }
+   }
+  }
  }
 ]
