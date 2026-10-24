@@ -1,0 +1,933 @@
+[
+ {
+  "id": "TEST-UNDO-001",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "u01",
+    "quiet": 150
+   },
+   {
+    "text": "ab"
+   },
+   {
+    "snapshot": "u02",
+    "quiet": 150
+   },
+   {
+    "text": "cd"
+   },
+   {
+    "snapshot": "u03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Left"
+    ]
+   },
+   {
+    "snapshot": "u04",
+    "quiet": 150
+   },
+   {
+    "text": "Z"
+   },
+   {
+    "snapshot": "u05",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u06",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u07",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u08",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "u09",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "u10",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "u11",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-UNDO-002",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abcdef\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "u00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Bsp"
+    ]
+   },
+   {
+    "snapshot": "u01",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Bsp"
+    ]
+   },
+   {
+    "snapshot": "u02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "snapshot": "u03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Del"
+    ]
+   },
+   {
+    "snapshot": "u04",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Del"
+    ]
+   },
+   {
+    "snapshot": "u05",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u06",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u07",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "u08",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-UNDO-003",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "text": "1"
+   },
+   {
+    "snapshot": "u00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "snapshot": "u01",
+    "quiet": 150
+   },
+   {
+    "text": "2"
+   },
+   {
+    "snapshot": "u02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u04",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "u05",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-UNDO-004",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "text": "1"
+   },
+   {
+    "snapshot": "u00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u01",
+    "quiet": 150
+   },
+   {
+    "text": "2"
+   },
+   {
+    "snapshot": "u02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "u03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-UNDO-005",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "l1\nl2\nl3\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^K"
+    ]
+   },
+   {
+    "snapshot": "u00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^K"
+    ]
+   },
+   {
+    "snapshot": "u01",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^U"
+    ]
+   },
+   {
+    "snapshot": "u02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u04",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "u05",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "u06",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-UNDO-006",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\ndef\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "u00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "u01",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "u02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Bsp"
+    ]
+   },
+   {
+    "snapshot": "u03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u04",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u05",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "u06",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-UNDO-007",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "a\nb\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "snapshot": "u00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "u01",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-}"
+    ]
+   },
+   {
+    "snapshot": "u02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-3"
+    ]
+   },
+   {
+    "snapshot": "u03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u04",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u05",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "u06",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "u07",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-UNDO-008",
+  "args": [
+   "-I",
+   "-r",
+   "10",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "one two three four five six seven\neight\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^J"
+    ]
+   },
+   {
+    "snapshot": "u00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u01",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "u02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-UNDO-009",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "u00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "u01",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Bsp"
+    ]
+   },
+   {
+    "snapshot": "u02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "u04",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-UNDO-010",
+  "args": [
+   "-I",
+   "-b",
+   "-r",
+   "12",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "word\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "u00",
+    "quiet": 150
+   },
+   {
+    "text": " more text here"
+   },
+   {
+    "snapshot": "u01",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-UNDO-011",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "u00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Bsp"
+    ]
+   },
+   {
+    "snapshot": "u01",
+    "quiet": 150
+   },
+   {
+    "text": "x"
+   },
+   {
+    "snapshot": "u02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "u03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ }
+]

@@ -1,0 +1,114 @@
+rc_name,function_c,toggle_flag,aliases,build_condition,source,menu_restriction,spec_section
+cancel,do_cancel,,,ENABLE_NANORC,src/rcfile.c:223,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+help,do_help,,,ENABLE_NANORC && ENABLE_HELP,src/rcfile.c:226,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+exit,do_exit,,,ENABLE_NANORC,src/rcfile.c:229,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+discardbuffer,discard_buffer,,,ENABLE_NANORC,src/rcfile.c:231,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+writeout,do_writeout,,,ENABLE_NANORC,src/rcfile.c:233,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+savefile,do_savefile,,,ENABLE_NANORC,src/rcfile.c:235,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+insert,do_insertfile,,,ENABLE_NANORC,src/rcfile.c:237,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+whereis,do_search_forward,,,ENABLE_NANORC,src/rcfile.c:239,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+wherewas,do_search_backward,,,ENABLE_NANORC,src/rcfile.c:241,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+findprevious,do_findprevious,,,ENABLE_NANORC,src/rcfile.c:243,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+findnext,do_findnext,,,ENABLE_NANORC,src/rcfile.c:245,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+replace,do_replace,,,ENABLE_NANORC,src/rcfile.c:247,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+cut,cut_text,,,ENABLE_NANORC,src/rcfile.c:249,MMOST|MBROWSER (universal),02-keybindings.md#bindable-functions
+copy,copy_text,,,ENABLE_NANORC,src/rcfile.c:251,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+paste,paste_text,,,ENABLE_NANORC,src/rcfile.c:253,MMOST|MBROWSER (universal),02-keybindings.md#bindable-functions
+execute,do_execute,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:256,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+cutrestoffile,cut_till_eof,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:258,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+zap,zap_text,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:260,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+mark,do_mark,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:262,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+tospell,do_spell,,speller,ENABLE_NANORC && ENABLE_SPELLER,src/rcfile.c:266,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+speller,do_spell,,tospell,ENABLE_NANORC && ENABLE_SPELLER,src/rcfile.c:267,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+linter,do_linter,,,ENABLE_NANORC && ENABLE_LINTER,src/rcfile.c:271,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+formatter,do_formatter,,,ENABLE_NANORC && ENABLE_FORMATTER,src/rcfile.c:275,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+location,report_cursor_position,,,ENABLE_NANORC,src/rcfile.c:278,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+gotoline,do_gotolinecolumn,,,ENABLE_NANORC,src/rcfile.c:280,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+justify,do_justify,,,ENABLE_NANORC && ENABLE_JUSTIFY,src/rcfile.c:283,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+fulljustify,do_full_justify,,,ENABLE_NANORC && ENABLE_JUSTIFY,src/rcfile.c:285,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+beginpara,to_para_begin,,,ENABLE_NANORC && ENABLE_JUSTIFY,src/rcfile.c:287,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+endpara,to_para_end,,,ENABLE_NANORC && ENABLE_JUSTIFY,src/rcfile.c:289,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+comment,do_comment,,,ENABLE_NANORC && ENABLE_COMMENT,src/rcfile.c:293,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+complete,complete_a_word,,,ENABLE_NANORC && ENABLE_WORDCOMPLETION,src/rcfile.c:297,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+indent,do_indent,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:301,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+unindent,do_unindent,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:303,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+chopwordleft,chop_previous_word,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:305,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+chopwordright,chop_next_word,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:307,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+findbracket,do_find_bracket,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:309,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+wordcount,count_lines_words_and_characters,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:311,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+recordmacro,record_macro,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:313,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+runmacro,run_macro,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:315,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+anchor,put_or_lift_anchor,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:317,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+prevanchor,to_prev_anchor,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:319,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+nextanchor,to_next_anchor,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:321,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+undo,do_undo,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:323,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+redo,do_redo,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:325,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+suspend,do_suspend,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:327,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+left,do_left,,back,ENABLE_NANORC,src/rcfile.c:330,MMOST|MBROWSER (universal),02-keybindings.md#bindable-functions
+back,do_left,,left,ENABLE_NANORC,src/rcfile.c:331,MMOST|MBROWSER (universal),02-keybindings.md#bindable-functions
+right,do_right,,forward,ENABLE_NANORC,src/rcfile.c:333,MMOST|MBROWSER (universal),02-keybindings.md#bindable-functions
+forward,do_right,,right,ENABLE_NANORC,src/rcfile.c:334,MMOST|MBROWSER (universal),02-keybindings.md#bindable-functions
+up,do_up,,prevline,ENABLE_NANORC,src/rcfile.c:336,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+prevline,do_up,,up,ENABLE_NANORC,src/rcfile.c:337,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+down,do_down,,nextline,ENABLE_NANORC,src/rcfile.c:339,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+nextline,do_down,,down,ENABLE_NANORC,src/rcfile.c:340,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+scrollleft,do_scroll_left,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:343,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+scrollright,do_scroll_right,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:345,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+scrollup,do_scroll_up,,,ENABLE_NANORC && (!NANO_TINY || ENABLE_HELP),src/rcfile.c:349,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+scrolldown,do_scroll_down,,,ENABLE_NANORC && (!NANO_TINY || ENABLE_HELP),src/rcfile.c:351,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+prevword,to_prev_word,,,ENABLE_NANORC,src/rcfile.c:354,MMOST|MBROWSER (universal),02-keybindings.md#bindable-functions
+nextword,to_next_word,,,ENABLE_NANORC,src/rcfile.c:356,MMOST|MBROWSER (universal),02-keybindings.md#bindable-functions
+home,do_home,,,ENABLE_NANORC,src/rcfile.c:358,MMOST|MBROWSER (universal),02-keybindings.md#bindable-functions
+end,do_end,,,ENABLE_NANORC,src/rcfile.c:360,MMOST|MBROWSER (universal),02-keybindings.md#bindable-functions
+prevblock,to_prev_block,,,ENABLE_NANORC,src/rcfile.c:362,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+nextblock,to_next_block,,,ENABLE_NANORC,src/rcfile.c:364,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+toprow,to_top_row,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:367,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+bottomrow,to_bottom_row,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:369,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+center,do_center,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:371,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+cycle,do_cycle,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:373,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+pageup,do_page_up,,prevpage,ENABLE_NANORC,src/rcfile.c:376,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+prevpage,do_page_up,,pageup,ENABLE_NANORC,src/rcfile.c:377,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+pagedown,do_page_down,,nextpage,ENABLE_NANORC,src/rcfile.c:379,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+nextpage,do_page_down,,pagedown,ENABLE_NANORC,src/rcfile.c:380,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+firstline,to_first_line,,,ENABLE_NANORC,src/rcfile.c:382,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+lastline,to_last_line,,,ENABLE_NANORC,src/rcfile.c:384,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+prevbuf,switch_to_prev_buffer,,,ENABLE_NANORC && ENABLE_MULTIBUFFER,src/rcfile.c:387,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+nextbuf,switch_to_next_buffer,,,ENABLE_NANORC && ENABLE_MULTIBUFFER,src/rcfile.c:389,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+verbatim,do_verbatim_input,,,ENABLE_NANORC,src/rcfile.c:392,MMOST|MBROWSER (universal),02-keybindings.md#bindable-functions
+tab,do_tab,,,ENABLE_NANORC,src/rcfile.c:394,MMOST|MBROWSER (universal),02-keybindings.md#bindable-functions
+enter,do_enter,,,ENABLE_NANORC,src/rcfile.c:396,MMOST|MBROWSER (universal),02-keybindings.md#bindable-functions
+delete,do_delete,,,ENABLE_NANORC,src/rcfile.c:398,MMOST|MBROWSER (universal),02-keybindings.md#bindable-functions
+backspace,do_backspace,,,ENABLE_NANORC,src/rcfile.c:400,MMOST|MBROWSER (universal),02-keybindings.md#bindable-functions
+refresh,full_refresh,,,ENABLE_NANORC,src/rcfile.c:402,MMOST|MBROWSER|MHELP|MYESNO,02-keybindings.md#bindable-functions
+casesens,case_sens_void,,,ENABLE_NANORC,src/rcfile.c:404,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+regexp,regexp_void,,,ENABLE_NANORC,src/rcfile.c:406,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+backwards,backwards_void,,,ENABLE_NANORC,src/rcfile.c:408,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+flipreplace,flip_replace,,,ENABLE_NANORC,src/rcfile.c:410,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+older,get_older_item,,,ENABLE_NANORC && ENABLE_HISTORIES,src/rcfile.c:413,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+newer,get_newer_item,,,ENABLE_NANORC && ENABLE_HISTORIES,src/rcfile.c:415,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+dosformat,dos_format,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:419,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+append,append_it,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:421,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+prepend,prepend_it,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:423,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+backup,back_it_up,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:425,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+flipexecute,flip_execute,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:427,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+flippipe,flip_pipe,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:429,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+flipconvert,flip_convert,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:431,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+flipnewbuffer,flip_newbuffer,,,ENABLE_NANORC && ENABLE_MULTIBUFFER,src/rcfile.c:435,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+tofiles,to_files,,browser,ENABLE_NANORC && ENABLE_BROWSER,src/rcfile.c:439,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+browser,to_files,,tofiles,ENABLE_NANORC && ENABLE_BROWSER,src/rcfile.c:440,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+gotodir,goto_dir,,,ENABLE_NANORC && ENABLE_BROWSER,src/rcfile.c:442,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+firstfile,to_first_file,,,ENABLE_NANORC && ENABLE_BROWSER,src/rcfile.c:444,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+lastfile,to_last_file,,,ENABLE_NANORC && ENABLE_BROWSER,src/rcfile.c:446,menus where the function is registered in the function list (allfuncs),02-keybindings.md#bindable-functions
+nohelp,do_toggle,NO_HELP,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:452,(MMOST|MBROWSER|MYESNO) & ~MFINDINHELP,02-keybindings.md#bindable-functions
+zero,do_toggle,ZERO,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:454,MMAIN,02-keybindings.md#bindable-functions
+constantshow,do_toggle,CONSTANT_SHOW,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:456,MMAIN,02-keybindings.md#bindable-functions
+softwrap,do_toggle,SOFTWRAP,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:458,MMAIN,02-keybindings.md#bindable-functions
+linenumbers,do_toggle,LINE_NUMBERS,,ENABLE_NANORC && !NANO_TINY && ENABLE_LINENUMBERS,src/rcfile.c:461,MMAIN,02-keybindings.md#bindable-functions
+whitespacedisplay,do_toggle,WHITESPACE_DISPLAY,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:464,MMAIN,02-keybindings.md#bindable-functions
+nosyntax,do_toggle,NO_SYNTAX,,ENABLE_NANORC && !NANO_TINY && ENABLE_COLOR,src/rcfile.c:467,MMAIN,02-keybindings.md#bindable-functions
+smarthome,do_toggle,SMART_HOME,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:470,MMAIN,02-keybindings.md#bindable-functions
+autoindent,do_toggle,AUTOINDENT,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:472,MMAIN,02-keybindings.md#bindable-functions
+cutfromcursor,do_toggle,CUT_FROM_CURSOR,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:474,MMAIN,02-keybindings.md#bindable-functions
+breaklonglines,do_toggle,BREAK_LONG_LINES,,ENABLE_NANORC && !NANO_TINY && ENABLE_WRAPPING,src/rcfile.c:477,MMAIN,02-keybindings.md#bindable-functions
+tabstospaces,do_toggle,TABS_TO_SPACES,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:480,MMAIN,02-keybindings.md#bindable-functions
+mouse,do_toggle,USE_MOUSE,,ENABLE_NANORC && !NANO_TINY && ENABLE_MOUSE,src/rcfile.c:483,MMAIN,02-keybindings.md#bindable-functions

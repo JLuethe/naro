@@ -1,0 +1,797 @@
+msg_id,msgid,msgid_plural,msgctxt,format_flags,substitutions,sources,display_channels,translator_comment,translatable,owner,spec_section
+MSG-001,(dir),,,,,src/browser.c:186 src/browser.c:193,file browser size/type column,TRANSLATORS: Anything more than 7 cells gets clipped.,yes,nano,14-messages-and-i18n.md
+MSG-002,(parent dir),,,,,src/browser.c:190,file browser size/type column,TRANSLATORS: Anything more than 12 cells gets clipped.,yes,nano,14-messages-and-i18n.md
+MSG-003,(huge),,,,,src/browser.c:220,file browser size/type column,"TRANSLATORS: Anything more than 7 cells gets clipped. * If necessary, you can leave out the parentheses.",yes,nano,14-messages-and-i18n.md
+MSG-004,Search Wrapped,,,,,src/browser.c:269 src/browser.c:274 src/search.c:257,statusline:HUSH (statusbar); statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-005,This is the only occurrence,,,,,src/browser.c:281 src/search.c:441,statusline:HUSH (statusbar); statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-006,Search,,,,,src/browser.c:314 src/search.c:99,prompt; prompt (Search) and prompt modifiers,TRANSLATORS: This is the main search prompt.,yes,nano,14-messages-and-i18n.md
+MSG-007, [Backwards],,,,,src/browser.c:316 src/search.c:103,prompt; prompt (Search) and prompt modifiers,TRANSLATORS: A modifier of the Search prompt.,yes,nano,14-messages-and-i18n.md
+MSG-008,Cancelled,,,,,src/browser.c:322 src/browser.c:563 src/files.c:1120 src/files.c:1213 src/files.c:2101 src/nano.c:321 src/search.c:113 src/search.c:292 src/search.c:726 src/search.c:793 src/text.c:2640 src/text.c:2841 src/winio.c:98,statusline:ALERT; statusline:HUSH (statusbar); statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-009,No current search pattern,,,,,src/browser.c:349 src/search.c:376,statusline:AHEM; statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-010,Cannot open directory: %s,,,c-format,%s,src/browser.c:404,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-011,No entries,,,,,src/browser.c:444,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-012,Go To Directory,,,,,src/browser.c:562,prompt,TRANSLATORS: This is a prompt.,yes,nano,14-messages-and-i18n.md
+MSG-013,Can't go outside of %s,,,c-format,%s,src/browser.c:579 src/browser.c:610,statusline:ALERT,"TRANSLATORS: This refers to the confining effect of * the option --operatingdir, not of --restricted.",yes,nano,14-messages-and-i18n.md
+MSG-014,Can't move up a directory,,,,,src/browser.c:601,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-015,Error reading %s: %s,,,c-format,%s %s,src/browser.c:616 src/files.c:877 src/files.c:883 src/files.c:1767 src/files.c:1779 src/history.c:264 src/history.c:292 src/history.c:399 src/history.c:453 src/rcfile.c:916 src/rcfile.c:1701,statusline:ALERT; stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-016,Paste is ignored,,,,,src/browser.c:643 src/help.c:496,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-017,The working directory has disappeared,,,,,src/browser.c:691 src/files.c:359,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-018,Unknown syntax name: %s,,,c-format,%s,src/color.c:156,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-019,magic_load() failed: %s,,,c-format,%s,src/color.c:196,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-020,magic_file(%s) failed: %s,,,c-format,%s %s,src/color.c:200,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-021,Nothing was cut,,,,,src/cut.c:173 src/cut.c:237 src/cut.c:571,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-022,Copied nothing,,,,,src/cut.c:621 src/cut.c:675,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-023,Cutbuffer is empty,,,,,src/cut.c:740,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-024,Error deleting lock file %s: %s,,,c-format,%s %s,src/files.c:134,statusline:MILD,,yes,nano,14-messages-and-i18n.md
+MSG-025,Couldn't determine my identity for lock file,,,,,src/files.c:162,statusline:MILD,TRANSLATORS: Keep the next seven messages at most 76 characters.,yes,nano,14-messages-and-i18n.md
+MSG-026,Couldn't determine hostname: %s,,,c-format,%s,src/files.c:167,statusline:MILD,,yes,nano,14-messages-and-i18n.md
+MSG-027,Error writing lock file %s: %s,,,c-format,%s %s,src/files.c:183 src/files.c:225,statusline:MILD,,yes,nano,14-messages-and-i18n.md
+MSG-028,Someone else is also editing this file,,,,,src/files.c:251,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-029,Error opening lock file %s: %s,,,c-format,%s %s,src/files.c:260,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-030,Bad lock file is ignored: %s,,,c-format,%s,src/files.c:274,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-031,"File %s is being edited by %s (with %s, PID %s); open anyway?",,,c-format,%s %s %s %s,src/files.c:295,yes/no prompt (lock file),"TRANSLATORS: The second %s is the name of the user, the third that of the editor.",yes,nano,14-messages-and-i18n.md
+MSG-032,Directory '%s' does not exist,,,c-format,%s,src/files.c:363,statusline:ALERT,TRANSLATORS: Keep the next ten messages at most 76 characters.,yes,nano,14-messages-and-i18n.md
+MSG-033,Path '%s': %s,,,c-format,%s %s,src/files.c:365,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-034,Path '%s' is not a directory,,,c-format,%s,src/files.c:367,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-035,Path '%s' is not accessible,,,c-format,%s,src/files.c:369,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-036,Directory '%s' is not writable,,,c-format,%s,src/files.c:372,statusline:MILD,,yes,nano,14-messages-and-i18n.md
+MSG-037,Can't read file from outside of %s,,,c-format,%s,src/files.c:399,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-038,'%s' is a directory,,,c-format,%s,src/files.c:409 src/rcfile.c:892,statusline:ALERT; stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-039,'%s' is a device file,,,c-format,%s,src/files.c:414 src/rcfile.c:893,statusline:ALERT; stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-040,'%s' is a FIFO,,,c-format,%s,src/files.c:420,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-041,'%s' is meant to be read-only,,,c-format,%s,src/files.c:426,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-042,'%s' is an invalid filename,,,c-format,%s,src/files.c:429,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-043,%s -- %zu line (%s),%s -- %zu lines (%s),,c-format,%s %zu %s,src/files.c:541,statusline:HUSH,"TRANSLATORS: First %s is file name, second %s is file format.",yes,nano,14-messages-and-i18n.md
+MSG-044,New Buffer,,,,,src/files.c:543 src/files.c:548 src/global.c:1149 src/winio.c:2056,help-line tag / help-viewer description; statusline:HUSH; title bar,,yes,nano,14-messages-and-i18n.md
+MSG-045,DOS,,,,,src/files.c:543 src/winio.c:2203,minibar; statusline:HUSH,,yes,nano,14-messages-and-i18n.md
+MSG-046,%s -- %zu line,%s -- %zu lines,,c-format,%s %zu,src/files.c:546,statusline:HUSH,,yes,nano,14-messages-and-i18n.md
+MSG-047,No more open file buffers,,,,,src/files.c:556,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-048,Interrupted,,,,,src/files.c:770 src/files.c:875 src/files.c:1817,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-049,File '%s' is unwritable,,,c-format,%s,src/files.c:795,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-050,Read %zu line (converted from DOS format),Read %zu lines (converted from DOS format),,c-format,%zu,src/files.c:801,statusline:REMARK,TRANSLATORS: Keep the next two messages at most 78 characters.,yes,nano,14-messages-and-i18n.md
+MSG-051,Read %zu line,Read %zu lines,,c-format,%zu,src/files.c:805,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-052,New File,,,,,src/files.c:849,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-053,"File ""%s"" not found",,,c-format,%s,src/files.c:852,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-054,Reading from FIFO...,,,,,src/files.c:859,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-055,Reading...,,,,,src/files.c:887,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-056,Could not create pipe: %s,,,c-format,%s,src/files.c:994 src/text.c:2365 src/text.c:2648,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-057,Could not fork: %s,,,c-format,%s,src/files.c:1035 src/files.c:1079 src/text.c:2179 src/text.c:2445 src/text.c:2683,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-058,Executing...,,,,,src/files.c:1040,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-059,filtering,,,,,src/files.c:1060 src/files.c:1110,undo/redo noun,TRANSLATORS: This one goes with Undid/Redid messages.,yes,nano,14-messages-and-i18n.md
+MSG-060,Failed to open pipe: %s,,,c-format,%s,src/files.c:1103,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-061,Error: %s,,,c-format,%s,src/files.c:1121,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-062,Piping failed,,,,,src/files.c:1126,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-063,Command to execute in new buffer,,,,,src/files.c:1175,prompt,TRANSLATORS: The next six messages are prompts.,yes,nano,14-messages-and-i18n.md
+MSG-064,Command to execute,,,,,src/files.c:1178,prompt,,yes,nano,14-messages-and-i18n.md
+MSG-065,File to read unconverted into new buffer [from %s],,,c-format,%s,src/files.c:1186,prompt,,yes,nano,14-messages-and-i18n.md
+MSG-066,File to read into new buffer [from %s],,,c-format,%s,src/files.c:1189,prompt,,yes,nano,14-messages-and-i18n.md
+MSG-067,File to insert unconverted [from %s],,,c-format,%s,src/files.c:1194,prompt,,yes,nano,14-messages-and-i18n.md
+MSG-068,File to insert [from %s],,,c-format,%s,src/files.c:1197,prompt,,yes,nano,14-messages-and-i18n.md
+MSG-069,"Invalid operating directory: %s
+",,,c-format,%s,src/files.c:1469,stderr + exit(1) (die),,yes,nano,14-messages-and-i18n.md
+MSG-070,"Invalid backup directory: %s
+",,,c-format,%s,src/files.c:1512,stderr + exit(1) (die),,yes,nano,14-messages-and-i18n.md
+MSG-071,Making backup...,,,,,src/files.c:1563,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-072,Too many existing backup files,,,,,src/files.c:1595,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-073,Cannot read original file,,,,,src/files.c:1643,statusline:ALERT + 1.5s pause,,yes,nano,14-messages-and-i18n.md
+MSG-074,Cannot make regular backup,,,,,src/files.c:1677,statusline:ALERT + 1.5s pause,,yes,nano,14-messages-and-i18n.md
+MSG-075,Trying again in your home directory,,,,,src/files.c:1678,statusline:ALERT + 1.5s pause,,yes,nano,14-messages-and-i18n.md
+MSG-076,Cannot make backup,,,,,src/files.c:1690,statusline:ALERT + 1.5s pause,,yes,nano,14-messages-and-i18n.md
+MSG-077,Cannot make backup; continue and save actual file? ,,,,,src/files.c:1701,yes/no prompt,TRANSLATORS: Try to keep this message at most 76 characters.,yes,nano,14-messages-and-i18n.md
+MSG-078,Cannot make backup: %s,,,c-format,%s,src/files.c:1706,statusline:HUSH,TRANSLATORS: The %s is the reason of failure.,yes,nano,14-messages-and-i18n.md
+MSG-079,Can't write outside of %s,,,c-format,%s,src/files.c:1741,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-080,Error writing %s: %s,,,c-format,%s %s,src/files.c:1760 src/files.c:1819 src/files.c:1830 src/files.c:1851 src/files.c:1871 src/files.c:1894 src/files.c:1905 src/files.c:1912 src/history.c:331 src/history.c:342 src/history.c:345 src/history.c:470 src/history.c:484 src/history.c:498 src/history.c:504,statusline:ALERT; stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-081,Error writing temp file: %s,,,c-format,%s,src/files.c:1783 src/text.c:2570 src/text.c:2983,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-082,Writing to FIFO...,,,,,src/files.c:1790,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-083,Writing...,,,,,src/files.c:1837,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-084,Error reading temp file: %s,,,c-format,%s,src/files.c:1890,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-085,File on disk has been truncated!,,,,,src/files.c:1919,statusline:ALERT,TRANSLATORS: This warns for data loss when the disk is full.,yes,nano,14-messages-and-i18n.md
+MSG-086,"Maybe ^T^Z, make room on disk, resume, then ^S^X",,,,,src/files.c:1924,statusline:ALERT,"TRANSLATORS: This is a suggestion to the user, * where ""resume"" means resuming from suspension. * Try to keep this at most 76 characters.",yes,nano,14-messages-and-i18n.md
+MSG-087,Wrote %zu line,Wrote %zu lines,,c-format,%zu,src/files.c:1984,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-088, [DOS Format],,,,,src/files.c:2066,prompt (Write Out) and prompt modifiers,,yes,nano,14-messages-and-i18n.md
+MSG-089, [Backup],,,,,src/files.c:2067,prompt (Write Out) and prompt modifiers,,yes,nano,14-messages-and-i18n.md
+MSG-090,Prepend Selection to File,,,,,src/files.c:2074,prompt (Write Out) and prompt modifiers,TRANSLATORS: The next six strings are prompts.,yes,nano,14-messages-and-i18n.md
+MSG-091,Append Selection to File,,,,,src/files.c:2075,prompt (Write Out) and prompt modifiers,,yes,nano,14-messages-and-i18n.md
+MSG-092,Write Selection to File,,,,,src/files.c:2076,prompt (Write Out) and prompt modifiers,,yes,nano,14-messages-and-i18n.md
+MSG-093,Prepend to File,,,,,src/files.c:2079,prompt (Write Out) and prompt modifiers,TRANSLATORS: Next three prompts are analogous to the above three.,yes,nano,14-messages-and-i18n.md
+MSG-094,Append to File,,,,,src/files.c:2079,prompt (Write Out) and prompt modifiers,,yes,nano,14-messages-and-i18n.md
+MSG-095,Write to File,,,,,src/files.c:2082,prompt (Write Out) and prompt modifiers,,yes,nano,14-messages-and-i18n.md
+MSG-096,Too tiny,,,,,src/files.c:2159 src/nano.c:1087 src/nano.c:1096,statusline:AHEM,TRANSLATORS: Concisely say the screen is too small.,yes,nano,14-messages-and-i18n.md
+MSG-097,File exists -- cannot overwrite,,,,,src/files.c:2191,statusline:ALERT + 1.5s pause,TRANSLATORS: Restricted mode forbids overwriting.,yes,nano,14-messages-and-i18n.md
+MSG-098,Save file under DIFFERENT NAME? ,,,,,src/files.c:2200,yes/no prompt,,yes,nano,14-messages-and-i18n.md
+MSG-099,"File ""%s"" exists; OVERWRITE? ",,,c-format,%s,src/files.c:2207,yes/no prompt (overwrite),,yes,nano,14-messages-and-i18n.md
+MSG-100,File on disk has changed,,,,,src/files.c:2231,statusline:ALERT + 1.5s pause,,yes,nano,14-messages-and-i18n.md
+MSG-101,File was modified since you opened it; continue saving? ,,,,,src/files.c:2234,yes/no prompt,TRANSLATORS: Try to keep this at most 76 characters.,yes,nano,14-messages-and-i18n.md
+MSG-102,(more),,,,,src/files.c:2609,tab-completion list in edit window,,yes,nano,14-messages-and-i18n.md
+MSG-103,Exit,,,,,src/global.c:585,help-line tag (Exit/Close),TRANSLATORS: Try to keep the next two strings at most 10 characters.,yes,nano,14-messages-and-i18n.md
+MSG-104,Close,,,,,src/global.c:586,help-line tag (Exit/Close),,yes,nano,14-messages-and-i18n.md
+MSG-105,Cancel the current function,,,,,src/global.c:594,help-viewer description (gist) and help-line tag,"TRANSLATORS: The next long series of strings are shortcut descriptions; * they are best kept shorter than 56 characters, but may be longer.",yes,nano,14-messages-and-i18n.md
+MSG-106,Display this help text,,,,,src/global.c:595,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-107,Close the current buffer / Exit from nano,,,,,src/global.c:596,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-108,Write the current buffer (or the marked region) to disk,,,,,src/global.c:598,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-109,Insert another file into current buffer (or into new buffer),,,,,src/global.c:600,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-110,Search forward for a string or a regular expression,,,,,src/global.c:602,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-111,Search backward for a string or a regular expression,,,,,src/global.c:604,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-112,Cut current line (or marked region) and store it in cutbuffer,,,,,src/global.c:606,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-113,Copy current line (or marked region) and store it in cutbuffer,,,,,src/global.c:608,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-114,Paste the contents of cutbuffer at current cursor position,,,,,src/global.c:610,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-115,Display the position of the cursor,,,,,src/global.c:611,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-116,"Invoke the spell checker, if available",,,,,src/global.c:613,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-117,Replace a string or a regular expression,,,,,src/global.c:615,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-118,Go to line and column number,,,,,src/global.c:616,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-119,Go to the matching bracket,,,,,src/global.c:618,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-120,Mark text starting from the cursor position,,,,,src/global.c:619,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-121,Throw away the current line (or marked region),,,,,src/global.c:620,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-122,Indent the current line (or marked lines),,,,,src/global.c:621,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-123,Unindent the current line (or marked lines),,,,,src/global.c:622,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-124,Undo the last operation,,,,,src/global.c:623,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-125,Redo the last undone operation,,,,,src/global.c:624,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-126,Go back one character,,,,,src/global.c:626,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-127,Go forward one character,,,,,src/global.c:627,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-128,Go back one word,,,,,src/global.c:628,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-129,Go forward one word,,,,,src/global.c:629,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-130,Go to previous line,,,,,src/global.c:630,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-131,Go to next line,,,,,src/global.c:631,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-132,Go to beginning of current line,,,,,src/global.c:632,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-133,Go to end of current line,,,,,src/global.c:633,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-134,Go to previous block of text,,,,,src/global.c:634,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-135,Go to next block of text,,,,,src/global.c:635,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-136,Go to beginning of paragraph; then of previous paragraph,,,,,src/global.c:638,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-137,Go just beyond end of paragraph; then of next paragraph,,,,,src/global.c:640,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-138,Go to first row in the viewport,,,,,src/global.c:643,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-139,Go to last row in the viewport,,,,,src/global.c:644,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-140,Center the line where the cursor is,,,,,src/global.c:645,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-141,"Push the cursor line to the center, then top, then bottom",,,,,src/global.c:646,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-142,Go one screenful up,,,,,src/global.c:648,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-143,Go one screenful down,,,,,src/global.c:649,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-144,Go to the first line of the file,,,,,src/global.c:650,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-145,Go to the last line of the file,,,,,src/global.c:651,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-146,Scroll the viewport a tabsize to the left,,,,,src/global.c:653,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-147,Scroll the viewport a tabsize to the right,,,,,src/global.c:654,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-148,Scroll up one line without moving the cursor textually,,,,,src/global.c:658,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-149,Scroll down one line without moving the cursor textually,,,,,src/global.c:660,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-150,Switch to the previous file buffer,,,,,src/global.c:663,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-151,Switch to the next file buffer,,,,,src/global.c:664,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-152,Insert the next keystroke verbatim,,,,,src/global.c:666,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-153,Insert a tab at the cursor position (or indent marked lines),,,,,src/global.c:667,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-154,Insert a newline at the cursor position,,,,,src/global.c:668,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-155,Delete the character under the cursor,,,,,src/global.c:669,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-156,Delete the character to the left of the cursor,,,,,src/global.c:671,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-157,Delete backward from cursor to word start,,,,,src/global.c:674,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-158,Delete forward from cursor to next word start,,,,,src/global.c:676,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-159,Cut from the cursor position to the end of the file,,,,,src/global.c:678,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-160,Justify the current paragraph,,,,,src/global.c:681,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-161,Justify the entire file,,,,,src/global.c:682,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-162,"Count the number of lines, words, and characters",,,,,src/global.c:686,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-163,Suspend the editor (return to the shell),,,,,src/global.c:687,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-164,Refresh (redraw) the current screen,,,,,src/global.c:689,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-165,Try and complete the current word,,,,,src/global.c:691,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-166,Comment/uncomment the current line (or marked lines),,,,,src/global.c:695,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-167,Save file without prompting,,,,,src/global.c:697,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-168,Search next occurrence backward,,,,,src/global.c:698,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-169,Search next occurrence forward,,,,,src/global.c:699,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-170,Start/stop recording a macro,,,,,src/global.c:701,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-171,Run the last recorded macro,,,,,src/global.c:702,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-172,Place or remove an anchor at the current line,,,,,src/global.c:703,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-173,Jump backward to the nearest anchor,,,,,src/global.c:704,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-174,Jump forward to the nearest anchor,,,,,src/global.c:705,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-175,Toggle the case sensitivity of the search,,,,,src/global.c:707,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-176,Reverse the direction of the search,,,,,src/global.c:708,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-177,Toggle the use of regular expressions,,,,,src/global.c:709,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-178,Recall the previous search/replace string,,,,,src/global.c:711,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-179,Recall the next search/replace string,,,,,src/global.c:712,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-180,Toggle the use of DOS format,,,,,src/global.c:715,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-181,Toggle appending,,,,,src/global.c:716,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-182,Toggle prepending,,,,,src/global.c:717,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-183,Toggle backing up of the original file,,,,,src/global.c:718,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-184,Execute a function or an external command,,,,,src/global.c:719,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-185,Pipe the current buffer (or marked region) to the command,,,,,src/global.c:721,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-186,Recall the previous command,,,,,src/global.c:723,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-187,Recall the next command,,,,,src/global.c:724,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-188,Do not convert from DOS format,,,,,src/global.c:726,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-189,Toggle the use of a new buffer,,,,,src/global.c:729,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-190,Close buffer without saving it,,,,,src/global.c:731,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-191,Go to file browser,,,,,src/global.c:733,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-192,Exit from the file browser,,,,,src/global.c:734,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-193,Go to the first file in the list,,,,,src/global.c:735,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-194,Go to the last file in the list,,,,,src/global.c:736,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-195,Go to the previous file in the list,,,,,src/global.c:737,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-196,Go to the next file in the list,,,,,src/global.c:738,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-197,Go to lefthand column,,,,,src/global.c:740,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-198,Go to righthand column,,,,,src/global.c:741,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-199,Go to first row in this column,,,,,src/global.c:742,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-200,Go to last row in this column,,,,,src/global.c:743,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-201,Search forward for a string,,,,,src/global.c:745,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-202,Search backward for a string,,,,,src/global.c:746,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-203,Refresh the file list,,,,,src/global.c:747,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-204,Go to directory,,,,,src/global.c:748,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-205,"Invoke the linter, if available",,,,,src/global.c:751,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-206,Go to previous linter msg,,,,,src/global.c:752,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-207,Go to next linter msg,,,,,src/global.c:753,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-208,Invoke a program to format/arrange/manipulate the buffer,,,,,src/global.c:757,help-viewer description (gist) and help-line tag,,yes,nano,14-messages-and-i18n.md
+MSG-209,Help,,,,,src/global.c:779,help-line tag / help-viewer description,TRANSLATORS: Try to keep the next thirteen strings at most 10 characters.,yes,nano,14-messages-and-i18n.md
+MSG-210,Cancel,,,,,src/global.c:783 src/prompt.c:706,help-line tag / help-viewer description; yes/no prompt answer letters and labels,,yes,nano,14-messages-and-i18n.md
+MSG-211,Write Out,,,,,src/global.c:803,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-212,Read File,,,,,src/global.c:811,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-213,Justify,,,,,src/global.c:815 src/global.c:854,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-214,Refresh,,,,,src/global.c:821 src/global.c:915 src/global.c:1133,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-215,Where Is,,,,,src/global.c:826 src/global.c:918,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-216,Replace,,,,,src/global.c:829 src/global.c:891,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-217,Cut,,,,,src/global.c:842,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-218,Paste,,,,,src/global.c:845,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-219,Execute,,,,,src/global.c:850 src/global.c:1125,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-220,Location,,,,,src/global.c:860,help-line tag / help-viewer description,TRANSLATORS: This refers to the position of the cursor.,yes,nano,14-messages-and-i18n.md
+MSG-221,Go To Line,,,,,src/global.c:866 src/global.c:1033,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-222,Undo,,,,,src/global.c:872,help-line tag / help-viewer description,TRANSLATORS: Try to keep the next four strings at most 12 characters.,yes,nano,14-messages-and-i18n.md
+MSG-223,Redo,,,,,src/global.c:874,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-224,Set Mark,,,,,src/global.c:877,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-225,Copy,,,,,src/global.c:879 src/global.c:1067,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-226,Case sensitive,,,,,src/global.c:884,help-line tag / help-viewer description,TRANSLATORS: Try to keep the next four strings at most 16 characters.,yes,nano,14-messages-and-i18n.md
+MSG-227,Reg.expression,,,,,src/global.c:886,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-228,Backwards,,,,,src/global.c:888,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-229,No Replace,,,,,src/global.c:893,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-230,Older,,,,,src/global.c:898 src/global.c:903,help-line tag / help-viewer description,TRANSLATORS: Try to keep the next two strings at most 10 characters.,yes,nano,14-messages-and-i18n.md
+MSG-231,Newer,,,,,src/global.c:900 src/global.c:905,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-232,Go To Dir,,,,,src/global.c:912,help-line tag / help-viewer description,TRANSLATORS: Try to keep the next four strings at most 10 characters.,yes,nano,14-messages-and-i18n.md
+MSG-233,Where Was,,,,,src/global.c:920 src/global.c:939,help-line tag / help-viewer description,TRANSLATORS: This starts a backward search.,yes,nano,14-messages-and-i18n.md
+MSG-234,Previous,,,,,src/global.c:923 src/global.c:943,help-line tag / help-viewer description,TRANSLATORS: This refers to searching the preceding occurrence.,yes,nano,14-messages-and-i18n.md
+MSG-235,Next,,,,,src/global.c:925 src/global.c:945,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-236,To Bracket,,,,,src/global.c:935,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-237,Back,,,,,src/global.c:950 src/global.c:955,help-line tag / help-viewer description,TRANSLATORS: This means move the cursor one character back.,yes,nano,14-messages-and-i18n.md
+MSG-238,Forward,,,,,src/global.c:952 src/global.c:957,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-239,Prev Word,,,,,src/global.c:963,help-line tag / help-viewer description,TRANSLATORS: Try to keep the next four strings at most 13 characters.,yes,nano,14-messages-and-i18n.md
+MSG-240,Next Word,,,,,src/global.c:965,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-241,Home,,,,,src/global.c:969,help-line tag / help-viewer description,"TRANSLATORS: These two mean: ""to beginning of line"", ""to end of line"".",yes,nano,14-messages-and-i18n.md
+MSG-242,End,,,,,src/global.c:971,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-243,Scroll Left,,,,,src/global.c:975,help-line tag / help-viewer description,TRANSLATORS: Try to keep the next two strings at most 13 characters.,yes,nano,14-messages-and-i18n.md
+MSG-244,Scroll Right,,,,,src/global.c:977,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-245,Prev Line,,,,,src/global.c:982,help-line tag / help-viewer description,TRANSLATORS: Try to keep the next two strings at most 10 characters.,yes,nano,14-messages-and-i18n.md
+MSG-246,Next Line,,,,,src/global.c:984,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-247,Scroll Up,,,,,src/global.c:988,help-line tag / help-viewer description,TRANSLATORS: Try to keep the next four strings at most 13 characters.,yes,nano,14-messages-and-i18n.md
+MSG-248,Scroll Down,,,,,src/global.c:990,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-249,Prev Block,,,,,src/global.c:994,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-250,Next Block,,,,,src/global.c:996,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-251,Start of Paragraph,,,,,src/global.c:1000,help-line tag / help-viewer description,TRANSLATORS: Try to keep these two strings at most 23 characters.,yes,nano,14-messages-and-i18n.md
+MSG-252,End of Paragraph,,,,,src/global.c:1002,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-253,Top Row,,,,,src/global.c:1007 src/global.c:1232,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-254,Bottom Row,,,,,src/global.c:1009 src/global.c:1234,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-255,Prev Page,,,,,src/global.c:1014 src/global.c:1217,help-line tag / help-viewer description,TRANSLATORS: Try to keep the next four strings at most 10 characters.,yes,nano,14-messages-and-i18n.md
+MSG-256,Next Page,,,,,src/global.c:1016 src/global.c:1219,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-257,First Line,,,,,src/global.c:1019,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-258,Last Line,,,,,src/global.c:1021,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-259,Prev File,,,,,src/global.c:1026,help-line tag / help-viewer description,TRANSLATORS: Try to keep these two strings at most 14 characters.,yes,nano,14-messages-and-i18n.md
+MSG-260,Next File,,,,,src/global.c:1028,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-261,Tab,,,,,src/global.c:1038,help-line tag / help-viewer description,TRANSLATORS: The next four strings are names of keyboard keys.,yes,nano,14-messages-and-i18n.md
+MSG-262,Enter,,,,,src/global.c:1040,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-263,Backspace,,,,,src/global.c:1043,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-264,Delete,,,,,src/global.c:1045,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-265,Chop Left,,,,,src/global.c:1050,help-line tag / help-viewer description,TRANSLATORS: The next two strings refer to deleting words.,yes,nano,14-messages-and-i18n.md
+MSG-266,Chop Right,,,,,src/global.c:1052,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-267,Cut Till End,,,,,src/global.c:1054 src/global.c:1200,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-268,Full Justify,,,,,src/global.c:1059 src/global.c:1166,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-269,Word Count,,,,,src/global.c:1064,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-270,Verbatim,,,,,src/global.c:1071,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-271,Indent,,,,,src/global.c:1078,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-272,Unindent,,,,,src/global.c:1080,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-273,Comment Lines,,,,,src/global.c:1084,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-274,Complete,,,,,src/global.c:1088,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-275,Record,,,,,src/global.c:1093,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-276,Run Macro,,,,,src/global.c:1095,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-277,Zap,,,,,src/global.c:1099,help-line tag / help-viewer description,TRANSLATORS: This refers to deleting a line or marked region.,yes,nano,14-messages-and-i18n.md
+MSG-278,Anchor,,,,,src/global.c:1102,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-279,Up to anchor,,,,,src/global.c:1104,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-280,Down to anchor,,,,,src/global.c:1106,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-281,Spell Check,,,,,src/global.c:1111 src/global.c:1158,help-line tag / help-viewer description,TRANSLATORS: Try to keep the next four strings at most 10 characters.,yes,nano,14-messages-and-i18n.md
+MSG-282,Linter,,,,,src/global.c:1115 src/global.c:1162,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-283,Formatter,,,,,src/global.c:1119 src/global.c:1170,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-284,Suspend,,,,,src/global.c:1128 src/global.c:1203,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-285,Center,,,,,src/global.c:1137,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-286,Cycle,,,,,src/global.c:1139,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-287,Save,,,,,src/global.c:1143,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-288,Pipe Text,,,,,src/global.c:1153,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-289,DOS Format,,,,,src/global.c:1175,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-290,Backup File,,,,,src/global.c:1183,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-291,Append,,,,,src/global.c:1186,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-292,Prepend,,,,,src/global.c:1188,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-293,No Conversion,,,,,src/global.c:1192,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-294,Execute Command,,,,,src/global.c:1197,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-295,Discard buffer,,,,,src/global.c:1207,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-296,Browse,,,,,src/global.c:1214,help-line tag / help-viewer description,TRANSLATORS: This invokes the file browser.,yes,nano,14-messages-and-i18n.md
+MSG-297,First File,,,,,src/global.c:1222,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-298,Last File,,,,,src/global.c:1224,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-299,Left Column,,,,,src/global.c:1228,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-300,Right Column,,,,,src/global.c:1230,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-301,Previous Linter message,,,,,src/global.c:1241,help-line tag / help-viewer description,TRANSLATORS: The next two strings may be up to 37 characters each.,yes,nano,14-messages-and-i18n.md
+MSG-302,Next Linter message,,,,,src/global.c:1243,help-line tag / help-viewer description,,yes,nano,14-messages-and-i18n.md
+MSG-303,Hidden interface,,,,,src/global.c:1637,toggle description (status bar REMARK and help viewer),"TRANSLATORS: The next thirteen strings are toggle descriptions; * they are best kept shorter than 40 characters, but may be longer.",yes,nano,14-messages-and-i18n.md
+MSG-304,Help mode,,,,,src/global.c:1639,toggle description (status bar REMARK and help viewer),,yes,nano,14-messages-and-i18n.md
+MSG-305,Constant cursor position display,,,,,src/global.c:1641,toggle description (status bar REMARK and help viewer),,yes,nano,14-messages-and-i18n.md
+MSG-306,Line numbering,,,,,src/global.c:1643,toggle description (status bar REMARK and help viewer),,yes,nano,14-messages-and-i18n.md
+MSG-307,Whitespace display,,,,,src/global.c:1645,toggle description (status bar REMARK and help viewer),,yes,nano,14-messages-and-i18n.md
+MSG-308,Color syntax highlighting,,,,,src/global.c:1647,toggle description (status bar REMARK and help viewer),,yes,nano,14-messages-and-i18n.md
+MSG-309,Soft wrapping of overlong lines,,,,,src/global.c:1649,toggle description (status bar REMARK and help viewer),,yes,nano,14-messages-and-i18n.md
+MSG-310,Hard wrapping of overlong lines,,,,,src/global.c:1651,toggle description (status bar REMARK and help viewer),,yes,nano,14-messages-and-i18n.md
+MSG-311,Conversion of typed tabs to spaces,,,,,src/global.c:1653,toggle description (status bar REMARK and help viewer),,yes,nano,14-messages-and-i18n.md
+MSG-312,Auto indent,,,,,src/global.c:1655,toggle description (status bar REMARK and help viewer),,yes,nano,14-messages-and-i18n.md
+MSG-313,Smart home key,,,,,src/global.c:1657,toggle description (status bar REMARK and help viewer),,yes,nano,14-messages-and-i18n.md
+MSG-314,Cut to end,,,,,src/global.c:1659,toggle description (status bar REMARK and help viewer),,yes,nano,14-messages-and-i18n.md
+MSG-315,Mouse support,,,,,src/global.c:1661,toggle description (status bar REMARK and help viewer),,yes,nano,14-messages-and-i18n.md
+MSG-316,"Search Command Help Text
+
+ Enter the words or characters you would like to search for, and then press Enter.  If there is a match for the text you entered, the screen will be updated to the location of the nearest match for the search string.
+
+ The previous search string will be shown in brackets after the search prompt.  Hitting Enter without entering any text will perform the previous search.  ",,,,,src/help.c:53,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-317,"If you have selected text with the mark and then search to replace, only matches in the selected text will be replaced.
+
+ The following function keys are available in Search mode:
+
+",,,,,src/help.c:62,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-318,"=== Replacement ===
+
+ Type the characters that should replace what you typed at the previous prompt, and press Enter.
+
+",,,,,src/help.c:68,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-319," The following function keys are available at this prompt:
+
+",,,,,src/help.c:71 src/help.c:134 src/help.c:159 src/help.c:170,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-320,"Go To Line Help Text
+
+ Enter the line number that you wish to go to and hit Enter.  If there are fewer lines of text than the number you entered, you will be brought to the last line of the file.
+
+ The following function keys are available in Go To Line mode:
+
+",,,,,src/help.c:75,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-321,"Insert File Help Text
+
+ Type in the name of a file to be inserted into the current file buffer at the current cursor location.
+
+ If you have compiled nano with multiple file buffer support, and enable multiple file buffers with the -F or --multibuffer command line flags, the Meta-F toggle, or a nanorc file, inserting a file will cause it to be loaded into a separate buffer (use Meta-< and > to switch between file buffers).  ",,,,,src/help.c:84,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-322,"If you need another blank buffer, do not enter any filename, or type in a nonexistent filename at the prompt and press Enter.
+
+ The following function keys are available in Insert File mode:
+
+",,,,,src/help.c:93,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-323,"Write File Help Text
+
+ Type the name that you wish to save the current file as and press Enter to save the file.
+
+ If you have selected text with the mark, you will be prompted to save only the selected portion to a separate file.  To reduce the chance of overwriting the current file with just a portion of it, the current filename is not the default in this mode.
+
+ The following function keys are available in Write File mode:
+
+",,,,,src/help.c:99,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-324,"File Browser Help Text
+
+ The file browser is used to visually browse the directory structure to select a file for reading or writing.  You may use the arrow keys or Page Up/Down to browse through the files, and S or Enter to choose the selected file or enter the selected directory.  To move up one level, select the directory called "".."" at the top of the file list.
+
+ The following function keys are available in the file browser:
+
+",,,,,src/help.c:112,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-325,"Browser Search Command Help Text
+
+ Enter the words or characters you would like to search for, and then press Enter.  If there is a match for the text you entered, the screen will be updated to the location of the nearest match for the search string.
+
+ The previous search string will be shown in brackets after the search prompt.  Hitting Enter without entering any text will perform the previous search.
+
+",,,,,src/help.c:125,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-326,"Browser Go To Directory Help Text
+
+ Enter the name of the directory you would like to browse to.
+
+ If tab completion has not been disabled, you can use the Tab key to (attempt to) automatically complete the directory name.
+
+ The following function keys are available in Browser Go To Directory mode:
+
+",,,,,src/help.c:138,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-327,"Execute Command Help Text
+
+ This mode allows you to insert the output of a command run by the shell into the current buffer (or into a new buffer).  If the command is preceded by '|' (the pipe symbol), the current contents of the buffer (or marked region) will be piped to the command.  ",,,,,src/help.c:150,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-328,"If you just need another blank buffer, do not enter any command.
+
+ You can also pick one of four tools, or cut a large piece of the buffer, or put the editor to sleep.
+
+",,,,,src/help.c:156,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-329,"=== Spelling correction ===
+
+ The spell checker has examined the spelling of all text in the current buffer or marked region.  An unknown word has been encountered -- it is highlighted and a replacement can now be edited.  After this you will be asked whether to replace each instance of that unknown word.
+
+",,,,,src/help.c:164,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-330,"=== Linter ===
+
+ In this mode, the status bar shows an error message or warning, and the cursor is put at the corresponding position in the file.  With PageUp and PageDown you can switch to earlier and later messages.
+
+",,,,,src/help.c:176,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-331," The following function keys are available in Linter mode:
+
+",,,,,src/help.c:181,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-332,"Main nano help text
+
+ The nano editor is designed to emulate the functionality and ease-of-use of the UW Pico text editor.  There are four main sections of the editor.  The top line shows the program version, the current filename being edited, and whether or not the file has been modified.  Next is the main editor window showing the file being edited.  The status line is the third line from the bottom and shows important messages.  ",,,,,src/help.c:186,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-333,"The bottom two lines show the most commonly used shortcuts in the editor.
+
+ Shortcuts are written as follows: Control-key sequences are notated with a '^' and can be entered either by using the Ctrl key or pressing the Esc key twice.  Meta-key sequences are notated with 'M-' and can be entered using either the Alt, Cmd, or Esc key, depending on your keyboard setup.  ",,,,,src/help.c:196,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-334,"Also, pressing Esc twice and then typing a three-digit decimal number from 000 to 255 will enter the character with the corresponding value.  The following keystrokes are available in the main editor window.  Alternative keys are shown in parentheses:
+
+",,,,,src/help.c:203,help-viewer introduction text,,yes,nano,14-messages-and-i18n.md
+MSG-335,enable/disable,,,,,src/help.c:229 src/help.c:293,help-viewer text,,yes,nano,14-messages-and-i18n.md
+MSG-336,^W = Ctrl+W    M-W = Alt+W,,,,,src/help.c:574 src/nano.c:1660,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-337,"Unable to create directory %s: %s
+It is required for saving/loading search history or cursor positions.
+",,,c-format,%s %s,src/history.c:238,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-338,"Path %s is not a directory and needs to be.
+Nano will be unable to load or save search history or cursor positions.
+",,,c-format,%s,src/history.c:245,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-339,Cannot limit permissions on %s: %s,,,c-format,%s %s,src/history.c:338 src/history.c:476,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-340,Not possible with '%s',,,c-format,%s,src/move.c:694 src/move.c:718,statusline:AHEM,TRANSLATORS: The %s is the name of an option.,yes,nano,14-messages-and-i18n.md
+MSG-341,Key is invalid in view mode,,,,,src/nano.c:201,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-342,This function is disabled in restricted mode,,,,,src/nano.c:208,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-343,"To suspend, type ^T^Z",,,,,src/nano.c:223,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-344,No file name,,,,,src/nano.c:312,statusline:ALERT + 1.5s pause,,yes,nano,14-messages-and-i18n.md
+MSG-345,Save modified buffer? ,,,,,src/nano.c:314,yes/no prompt,,yes,nano,14-messages-and-i18n.md
+MSG-346,"
+Too many .save files
+",,,c-format,,src/nano.c:339,stderr,,yes,nano,14-messages-and-i18n.md
+MSG-347,"
+Buffer written to %s
+",,,c-format,%s,src/nano.c:341,stderr,,yes,nano,14-messages-and-i18n.md
+MSG-348,"Usage: nano [OPTIONS] [[+LINE[,COLUMN]] FILE]...
+
+",,,c-format,,src/nano.c:492,stdout,,yes,nano,14-messages-and-i18n.md
+MSG-349,"To place the cursor on a specific line of a file, put the line number with
+a '+' before the filename.  The column number can be added after a comma.
+",,,c-format,,src/nano.c:496,stdout,TRANSLATORS: The next two strings are part of the --help output. * It's best to keep its lines within 80 characters.,yes,nano,14-messages-and-i18n.md
+MSG-350,"When a filename is '-', nano reads data from standard input.
+
+",,,c-format,,src/nano.c:498,stdout,,yes,nano,14-messages-and-i18n.md
+MSG-351,Option,,,,,src/nano.c:500,stdout (--help option table),TRANSLATORS: The next three are column headers of the --help output.,yes,nano,14-messages-and-i18n.md
+MSG-352,Long option,,,,,src/nano.c:500,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-353,Meaning,,,,,src/nano.c:500,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-354,Enable smart home key,,,,,src/nano.c:503,stdout (--help option table),TRANSLATORS: The next forty or so strings are option descriptions * for the --help output.  Try to keep them at most 40 characters.,yes,nano,14-messages-and-i18n.md
+MSG-355,Save backups of existing files,,,,,src/nano.c:505,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-356,-C <dir>,,,,,src/nano.c:506,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-357,--backupdir=<dir>,,,,,src/nano.c:506,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-358,Directory for saving unique backup files,,,,,src/nano.c:507,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-359,Use bold instead of reverse video text,,,,,src/nano.c:510,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-360,Convert typed tabs to spaces,,,,,src/nano.c:512,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-361,Read a file into a new buffer by default,,,,,src/nano.c:516,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-362,Use (vim-style) lock files,,,,,src/nano.c:519,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-363,Save & reload old search/replace strings,,,,,src/nano.c:523,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-364,Don't look at nanorc files,,,,,src/nano.c:526,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-365,-J <number>,,,,,src/nano.c:529,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-366,--guidestripe=<number>,,,,,src/nano.c:529,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-367,Show a guiding bar at this column,,,,,src/nano.c:530,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-368,Fix numeric keypad key confusion problem,,,,,src/nano.c:532,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-369,Don't add an automatic newline,,,,,src/nano.c:534,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-370,Trim tail spaces when hard-wrapping,,,,,src/nano.c:537,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-371,Don't convert files from DOS format,,,,,src/nano.c:540,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-372,Leading whitespace means new paragraph,,,,,src/nano.c:541,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-373,Save & restore position of the cursor,,,,,src/nano.c:545,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-374,-Q <regex>,,,,,src/nano.c:548,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-375,--quotestr=<regex>,,,,,src/nano.c:548,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-376,Regular expression to match quoting,,,,,src/nano.c:551,stdout (--help option table),"TRANSLATORS: This refers to email quoting, * like the > in: > quoted text.",yes,nano,14-messages-and-i18n.md
+MSG-377,Restrict access to the filesystem,,,,,src/nano.c:554,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-378,Display overlong lines on multiple rows,,,,,src/nano.c:556,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-379,-T <number>,,,,,src/nano.c:557,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-380,--tabsize=<number>,,,,,src/nano.c:557,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-381,Make a tab this number of columns wide,,,,,src/nano.c:558,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-382,Wipe status bar upon next keystroke,,,,,src/nano.c:560,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-383,Print version information and exit,,,,,src/nano.c:561,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-384,Detect word boundaries more accurately,,,,,src/nano.c:563,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-385,-X <string>,,,,,src/nano.c:564,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-386,--wordchars=<string>,,,,,src/nano.c:564,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-387,Which other characters are word parts,,,,,src/nano.c:565,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-388,-Y <name>,,,,,src/nano.c:568,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-389,--syntax=<name>,,,,,src/nano.c:568,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-390,Syntax definition to use for coloring,,,,,src/nano.c:569,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-391,Let Bsp and Del erase a marked region,,,,,src/nano.c:572,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-392,"When soft-wrapping, do it at whitespace",,,,,src/nano.c:573,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-393,Automatically hard-wrap overlong lines,,,,,src/nano.c:576,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-394,Constantly show cursor position,,,,,src/nano.c:578,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-395,Fix Backspace/Delete confusion problem,,,,,src/nano.c:579,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-396,Keep the line below the title bar empty,,,,,src/nano.c:581,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-397,-f <file>,,,,,src/nano.c:584,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-398,--rcfile=<file>,,,,,src/nano.c:584,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-399,Use only this file for configuring nano,,,,,src/nano.c:585,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-400,Show cursor in file browser & help text,,,,,src/nano.c:588,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-401,Show this help text and exit,,,,,src/nano.c:590,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-402,Automatically indent new lines,,,,,src/nano.c:592,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-403,"Scroll per half-screen, not per line",,,,,src/nano.c:593,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-404,Cut from cursor to end of line,,,,,src/nano.c:594,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-405,Show line numbers in front of the text,,,,,src/nano.c:597,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-406,Enable the use of the mouse,,,,,src/nano.c:600,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-407,Do not read the file (only write it),,,,,src/nano.c:603,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-408,-o <dir>,,,,,src/nano.c:606,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-409,--operatingdir=<dir>,,,,,src/nano.c:606,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-410,Set operating directory,,,,,src/nano.c:607,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-411,Preserve XON (^Q) and XOFF (^S) keys,,,,,src/nano.c:609,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-412,Show a position+portion indicator,,,,,src/nano.c:611,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-413,-r <number>,,,,,src/nano.c:614,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-414,--fill=<number>,,,,,src/nano.c:614,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-415,Set width for hard-wrap and justify,,,,,src/nano.c:615,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-416,-s <program>,,,,,src/nano.c:619,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-417,--speller=<program>,,,,,src/nano.c:619,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-418,Use this alternative spell checker,,,,,src/nano.c:620,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-419,"Save changes on exit, don't prompt",,,,,src/nano.c:622,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-420,Save a file by default in Unix format,,,,,src/nano.c:624,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-421,View mode (read-only),,,,,src/nano.c:626,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-422,Don't hard-wrap long lines [default],,,,,src/nano.c:628,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-423,Don't show the two help lines,,,,,src/nano.c:630,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-424,Make Ctrl+Right stop at word ends,,,,,src/nano.c:632,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-425,List the names of available syntaxes,,,,,src/nano.c:635,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-426,Also try magic to determine syntax,,,,,src/nano.c:638,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-427,Accept 'filename:linenumber' notation,,,,,src/nano.c:641,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-428,Show some states on the title bar,,,,,src/nano.c:642,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-429,Show a feedback bar at the bottom,,,,,src/nano.c:643,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-430,"Hide all bars, use whole terminal",,,,,src/nano.c:644,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-431,Scroll only the current line sideways,,,,,src/nano.c:645,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-432,Use better-known key bindings,,,,,src/nano.c:647,stdout (--help option table),,yes,nano,14-messages-and-i18n.md
+MSG-433," GNU nano, version %s
+",,,c-format,%s,src/nano.c:657,stdout,,yes,nano,14-messages-and-i18n.md
+MSG-434," (C) %s the Free Software Foundation and various contributors
+",,,c-format,%s,src/nano.c:661,stdout,TRANSLATORS: The %s is the year of the latest release.,yes,nano,14-messages-and-i18n.md
+MSG-435, Compiled options:,,,c-format,,src/nano.c:663,stdout,,yes,nano,14-messages-and-i18n.md
+MSG-436,"Available syntaxes:
+",,,c-format,,src/nano.c:798,stdout,,yes,nano,14-messages-and-i18n.md
+MSG-437,"Could not reconnect stdin to keyboard
+",,,,,src/nano.c:845,stderr + exit(1) (die),,yes,nano,14-messages-and-i18n.md
+MSG-438,"Reading data from keyboard; type ^D or ^D^D to finish.
+",,,c-format,,src/nano.c:863,stderr,,yes,nano,14-messages-and-i18n.md
+MSG-439,Failed to open stdin: %s,,,c-format,%s,src/nano.c:872,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-440,"Received SIGHUP or SIGTERM
+",,,,,src/nano.c:954,stderr + exit(1) (die),,yes,nano,14-messages-and-i18n.md
+MSG-441,"Sorry! Nano crashed!  Code: %d.  Please report a bug.
+",,,c-format,%d,src/nano.c:961,stderr + exit(1) (die),,yes,nano,14-messages-and-i18n.md
+MSG-442,"Use ""fg"" to return to nano.
+",,,c-format,,src/nano.c:977,stdout,,yes,nano,14-messages-and-i18n.md
+MSG-443,Current syntax determines Tab,,,,,src/nano.c:1120,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-444,enabled,,,,,src/nano.c:1147,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-445,disabled,,,,,src/nano.c:1147,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-446,Unknown sequence,,,,,src/nano.c:1290,statusline:AHEM,TRANSLATORS: This refers to a sequence of escape codes * (from the keyboard) that nano does not recognize.,yes,nano,14-messages-and-i18n.md
+MSG-447,Unknown function: %s,,,c-format,%s,src/nano.c:1293 src/rcfile.c:819,statusline:AHEM; stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-448,Missing },,,,,src/nano.c:1295,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-449,Unbound key: F%i,,,c-format,%i,src/nano.c:1300,statusline:AHEM,TRANSLATORS: This refers to an unbound function key.,yes,nano,14-messages-and-i18n.md
+MSG-450,Unbound key,,,,,src/nano.c:1303,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-451,Unbindable key: M-^%c,,,c-format,%c,src/nano.c:1307,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-452,Unbound key: %s%c,,,c-format,%s %c,src/nano.c:1312 src/nano.c:1315 src/nano.c:1319 src/nano.c:1322,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-453,Unbindable key: ^[,,,,,src/nano.c:1317,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-454,Flawed paste,,,,,src/nano.c:1457,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-455,"Guide column ""%s"" is invalid",,,c-format,%s,src/nano.c:1926 src/rcfile.c:1667,stderr; stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-456,"Requested tab size ""%s"" is invalid",,,c-format,%s,src/nano.c:1972 src/rcfile.c:1672,stderr; stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-457,"Requested fill size ""%s"" is invalid",,,c-format,%s,src/nano.c:2076 src/rcfile.c:1617,stderr; stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-458,"Type '%s -h' for a list of available options.
+",,,c-format,%s,src/nano.c:2151,stdout,,yes,nano,14-messages-and-i18n.md
+MSG-459,"Standard output is not a terminal
+",,,,,src/nano.c:2162,stderr + exit(1) (die),,yes,nano,14-messages-and-i18n.md
+MSG-460,"Bad quoting regex ""%s"": %s
+",,,c-format,%s %s,src/nano.c:2357,stderr + exit(1) (die),,yes,nano,14-messages-and-i18n.md
+MSG-461,Invalid search modifier '%c',,,c-format,%c,src/nano.c:2534,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-462,Empty search string,,,,,src/nano.c:2545,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-463,Invalid line or column number,,,,,src/nano.c:2554 src/search.c:804,statusline:AHEM; statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-464,"Invalid number
+",,,,,src/nano.c:2590,stderr + exit(1) (die),,yes,nano,14-messages-and-i18n.md
+MSG-465,"Standard input is not a terminal
+",,,,,src/nano.c:2636,stderr + exit(1) (die),,yes,nano,14-messages-and-i18n.md
+MSG-466,"Can open just one file
+",,,,,src/nano.c:2655,stderr + exit(1) (die),,yes,nano,14-messages-and-i18n.md
+MSG-467,"Welcome to nano.  For basic help, type Ctrl+G.",,,,,src/nano.c:2673,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-468,Byte Order Mark,,,,,src/nano.c:2720,statusline:NOTICE,,yes,nano,14-messages-and-i18n.md
+MSG-469,Yy,,,,,src/prompt.c:665,yes/no prompt answer letters and labels,"TRANSLATORS: For the next three strings, specify the starting letters * of the translations for ""Yes""/""No""/""All"".  The first letter of each of * these strings MUST be a single-byte letter; others may be multi-byte.",yes,nano,14-messages-and-i18n.md
+MSG-470,Nn,,,,,src/prompt.c:666,yes/no prompt answer letters and labels,,yes,nano,14-messages-and-i18n.md
+MSG-471,Aa,,,,,src/prompt.c:667,yes/no prompt answer letters and labels,,yes,nano,14-messages-and-i18n.md
+MSG-472,Yes,,,,,src/prompt.c:693,yes/no prompt answer letters and labels,,yes,nano,14-messages-and-i18n.md
+MSG-473,No,,,,,src/prompt.c:697,yes/no prompt answer letters and labels,,yes,nano,14-messages-and-i18n.md
+MSG-474,All,,,,,src/prompt.c:702,yes/no prompt answer letters and labels,,yes,nano,14-messages-and-i18n.md
+MSG-475,Mistakes in '%s',,,c-format,%s,src/rcfile.c:193,statusline:ALERT at startup (startup_problem),,yes,nano,14-messages-and-i18n.md
+MSG-476,Problems with history file,,,,,src/rcfile.c:197,statusline:ALERT at startup (startup_problem),,yes,nano,14-messages-and-i18n.md
+MSG-477,Error in %s on line %zu: ,,,c-format,%s %zu,src/rcfile.c:201,stderr-after-exit prefix of rcfile errors,,yes,nano,14-messages-and-i18n.md
+MSG-478,"Argument '%s' has an unterminated """,,,c-format,%s,src/rcfile.c:568,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-479,"Regex strings must begin and end with a "" character",,,,,src/rcfile.c:589 src/rcfile.c:599,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-480,Empty regex string,,,,,src/rcfile.c:604,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-481,"Bad regex ""%s"": %s",,,c-format,%s %s,src/rcfile.c:629 src/search.c:45,statusline:AHEM; stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-482,Missing syntax name,,,,,src/rcfile.c:649,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-483,Unpaired quote in syntax name,,,,,src/rcfile.c:657,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-484,"The ""none"" syntax is reserved",,,,,src/rcfile.c:669,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-485,"The ""default"" syntax does not accept extensions",,,,,src/rcfile.c:700,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-486,"Syntax ""%s"" has no color commands",,,c-format,%s,src/rcfile.c:718,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-487,Missing key name,,,,,src/rcfile.c:751,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-488,Key name %s is invalid,,,c-format,%s,src/rcfile.c:768 src/rcfile.c:775,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-489,Must specify a function to bind the key to,,,,,src/rcfile.c:784,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-490,"Must specify a menu (or ""all"") in which to bind/unbind the key",,,,,src/rcfile.c:795,stderr-after-exit (rcfile/history error list),"TRANSLATORS: Do not translate the word ""all"".",yes,nano,14-messages-and-i18n.md
+MSG-491,Unknown menu: %s,,,c-format,%s,src/rcfile.c:801,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-492,Function '%s' does not exist in menu '%s',,,c-format,%s %s,src/rcfile.c:858,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-493,Keystroke %s may not be rebound,,,c-format,%s,src/rcfile.c:868,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-494,"Command ""%s"" not understood",,,c-format,%s,src/rcfile.c:950 src/rcfile.c:1520,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-495,Path is too long,,,,,src/rcfile.c:978,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-496,Error expanding %s: %s,,,c-format,%s %s,src/rcfile.c:992,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-497,Color '%s' takes no prefix,,,c-format,%s,src/rcfile.c:1062 src/rcfile.c:1073,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-498,"Color ""%s"" not understood",,,c-format,%s,src/rcfile.c:1081,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-499,An attribute requires a subsequent comma,,,,,src/rcfile.c:1097 src/rcfile.c:1108,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-500,Missing color name,,,,,src/rcfile.c:1152,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-501,Missing regex string after '%s' command,,,c-format,%s,src/rcfile.c:1163 src/rcfile.c:1263,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-502,"""start="" requires a corresponding ""end=""",,,,,src/rcfile.c:1189,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-503,A '%s' command requires a preceding 'syntax' command,,,c-format,%s,src/rcfile.c:1252 src/rcfile.c:1501,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-504,"The ""default"" syntax does not accept '%s' regexes",,,c-format,%s,src/rcfile.c:1258,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-505,Missing argument after '%s',,,c-format,%s,src/rcfile.c:1305,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-506,"Argument of '%s' lacks closing """,,,c-format,%s,src/rcfile.c:1315,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-507,"No key is bound to function '%s' in menu '%s'.  Exiting.
+",,,c-format,%s %s,src/rcfile.c:1365,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-508,"If needed, use nano with the -I option to adjust your nanorc settings.
+",,,,,src/rcfile.c:1367,stderr + exit(1) (die),,yes,nano,14-messages-and-i18n.md
+MSG-509,"Could not find syntax ""%s"" to extend",,,c-format,%s,src/rcfile.c:1434,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-510,"Command ""%s"" not allowed in included file",,,c-format,%s,src/rcfile.c:1491,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-511,Missing option,,,,,src/rcfile.c:1532,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-512,Unknown option: %s,,,c-format,%s,src/rcfile.c:1546,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-513,"Cannot unset option ""%s""",,,c-format,%s,src/rcfile.c:1561,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-514,"Option ""%s"" requires an argument",,,c-format,%s,src/rcfile.c:1566,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-515,Argument is not a valid multibyte string,,,,,src/rcfile.c:1578,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-516,Non-blank characters required,,,,,src/rcfile.c:1625 src/rcfile.c:1643 src/rcfile.c:1648,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-517,Even number of characters required,,,,,src/rcfile.c:1627,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-518,Two single-column characters required,,,,,src/rcfile.c:1632,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-519,"Specified rcfile does not exist
+",,,,,src/rcfile.c:1723,stderr + exit(1) (die),,yes,nano,14-messages-and-i18n.md
+MSG-520,I can't find my home directory!  Wah!,,,,,src/rcfile.c:1742,stderr-after-exit (rcfile/history error list),,yes,nano,14-messages-and-i18n.md
+MSG-521, [Case sensitive],,,,,src/search.c:101,prompt (Search) and prompt modifiers,TRANSLATORS: The next four modify the search prompt.,yes,nano,14-messages-and-i18n.md
+MSG-522, [Reg.exp.],,,,,src/search.c:102,prompt (Search) and prompt modifiers,,yes,nano,14-messages-and-i18n.md
+MSG-523, (to replace) in selection,,,,,src/search.c:106,prompt (Search) and prompt modifiers,,yes,nano,14-messages-and-i18n.md
+MSG-524, (to replace),,,,,src/search.c:108,prompt (Search) and prompt modifiers,,yes,nano,14-messages-and-i18n.md
+MSG-525,Searching...,,,,,src/search.c:233 src/search.c:306,statusline:HUSH (statusbar),TRANSLATORS: This is shown when searching takes * more than half a second.,yes,nano,14-messages-and-i18n.md
+MSG-526,"""%.*s%s"" not found",,,c-format,%.*s %s,src/search.c:415,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-527,Replace this instance?,,,,,src/search.c:601,yes/no prompt,TRANSLATORS: This is a prompt.,yes,nano,14-messages-and-i18n.md
+MSG-528,Replace with,,,,,src/search.c:712,prompt,TRANSLATORS: This is a prompt.,yes,nano,14-messages-and-i18n.md
+MSG-529,Replaced %zd occurrence,Replaced %zd occurrences,,c-format,%zd,src/search.c:742,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-530,"Enter line number, column number",,,,,src/search.c:781,prompt,TRANSLATORS: This is a prompt.,yes,nano,14-messages-and-i18n.md
+MSG-531,Not a bracket,,,,,src/search.c:958,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-532,No matching bracket,,,,,src/search.c:1000,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-533,Placed anchor,,,,,src/search.c:1019,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-534,Removed anchor,,,,,src/search.c:1021,statusline:HUSH,,yes,nano,14-messages-and-i18n.md
+MSG-535,Jumped to anchor,,,,,src/search.c:1040,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-536,This is the only anchor,,,,,src/search.c:1042,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-537,There are no anchors,,,,,src/search.c:1044,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-538,Mark Set,,,,,src/text.c:43,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-539,Mark Unset,,,,,src/text.c:46,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-540,Commenting is not supported for this file type,,,,,src/text.c:376,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-541,Cannot comment past end of file,,,,,src/text.c:386,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-542,Nothing to undo,,,,,src/text.c:506,"undo/redo noun (""Undid %s"" / ""Redid %s"")",,yes,nano,14-messages-and-i18n.md
+MSG-543,addition,,,,,src/text.c:517 src/text.c:577 src/text.c:702 src/text.c:762,"undo/redo noun (""Undid %s"" / ""Redid %s"")","TRANSLATORS: The next thirteen strings describe actions * that are undone or redone.  They are all nouns, not verbs.",yes,nano,14-messages-and-i18n.md
+MSG-544,line break,,,,,src/text.c:525 src/text.c:714,"undo/redo noun (""Undid %s"" / ""Redid %s"")",,yes,nano,14-messages-and-i18n.md
+MSG-545,deletion,,,,,src/text.c:542 src/text.c:724,"undo/redo noun (""Undid %s"" / ""Redid %s"")",,yes,nano,14-messages-and-i18n.md
+MSG-546,line join,,,,,src/text.c:552 src/text.c:730,"undo/redo noun (""Undid %s"" / ""Redid %s"")",,yes,nano,14-messages-and-i18n.md
+MSG-547,replacement,,,,,src/text.c:569 src/text.c:746,"undo/redo noun (""Undid %s"" / ""Redid %s"")",,yes,nano,14-messages-and-i18n.md
+MSG-548,erasure,,,,,src/text.c:587 src/text.c:766,"undo/redo noun (""Undid %s"" / ""Redid %s"")",,yes,nano,14-messages-and-i18n.md
+MSG-549,cut,,,,,src/text.c:593 src/text.c:771,"undo/redo noun (""Undid %s"" / ""Redid %s"")","TRANSLATORS: Remember: these are nouns, NOT verbs.",yes,nano,14-messages-and-i18n.md
+MSG-550,paste,,,,,src/text.c:597 src/text.c:775,"undo/redo noun (""Undid %s"" / ""Redid %s"")",,yes,nano,14-messages-and-i18n.md
+MSG-551,insertion,,,,,src/text.c:604 src/text.c:779,"undo/redo noun (""Undid %s"" / ""Redid %s"")",,yes,nano,14-messages-and-i18n.md
+MSG-552,indent,,,,,src/text.c:633 src/text.c:802,"undo/redo noun (""Undid %s"" / ""Redid %s"")",,yes,nano,14-messages-and-i18n.md
+MSG-553,unindent,,,,,src/text.c:637 src/text.c:806,"undo/redo noun (""Undid %s"" / ""Redid %s"")",,yes,nano,14-messages-and-i18n.md
+MSG-554,comment,,,,,src/text.c:642 src/text.c:811,"undo/redo noun (""Undid %s"" / ""Redid %s"")",,yes,nano,14-messages-and-i18n.md
+MSG-555,uncomment,,,,,src/text.c:646 src/text.c:815,"undo/redo noun (""Undid %s"" / ""Redid %s"")",,yes,nano,14-messages-and-i18n.md
+MSG-556,Undid %s,,,c-format,%s,src/text.c:654,"undo/redo noun (""Undid %s"" / ""Redid %s"")",,yes,nano,14-messages-and-i18n.md
+MSG-557,Nothing to redo,,,,,src/text.c:689,"undo/redo noun (""Undid %s"" / ""Redid %s"")",,yes,nano,14-messages-and-i18n.md
+MSG-558,Redid %s,,,c-format,%s,src/text.c:823,"undo/redo noun (""Undid %s"" / ""Redid %s"")",,yes,nano,14-messages-and-i18n.md
+MSG-559,justification,,,,,src/text.c:1782 src/text.c:2002,undo/redo noun,TRANSLATORS: This one goes with Undid/Redid messages.,yes,nano,14-messages-and-i18n.md
+MSG-560,Selection is empty,,,,,src/text.c:1793 src/text.c:2131,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-561,Justified selection,,,,,src/text.c:2006,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-562,Justified file,,,,,src/text.c:2010,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-563,Justified paragraph,,,,,src/text.c:2012,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-564,Buffer is empty,,,,,src/text.c:2134,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-565,Invoking formatter...,,,,,src/text.c:2146,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-566,Error invoking '%s',,,c-format,%s,src/text.c:2183 src/text.c:2534 src/text.c:2536 src/text.c:2538 src/text.c:2786,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-567,Program '%s' complained,,,c-format,%s,src/text.c:2187,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-568,Nothing changed,,,,,src/text.c:2195,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-569,spelling correction,,,,,src/text.c:2220,"undo/redo noun (""Undid %s"" / ""Redid %s"")",TRANSLATORS: The next two go with Undid/Redid messages.,yes,nano,14-messages-and-i18n.md
+MSG-570,formatting,,,,,src/text.c:2220,"undo/redo noun (""Undid %s"" / ""Redid %s"")",,yes,nano,14-messages-and-i18n.md
+MSG-571,Finished checking spelling,,,,,src/text.c:2238 src/text.c:2542,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-572,Buffer has been processed,,,,,src/text.c:2240,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-573,Unfindable word: %s,,,c-format,%s,src/text.c:2284,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-574,Edit a replacement,,,,,src/text.c:2303,prompt,TRANSLATORS: This is a prompt.,yes,nano,14-messages-and-i18n.md
+MSG-575,Next word...,,,,,src/text.c:2316,statusline:HUSH (statusbar),TRANSLATORS: Shown after fixing misspellings in one word.,yes,nano,14-messages-and-i18n.md
+MSG-576,Invoking spell checker...,,,,,src/text.c:2369,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-577,Could not get size of pipe buffer,,,,,src/text.c:2454 src/text.c:2692,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-578,Error reading pipe: %s,,,c-format,%s,src/text.c:2540 src/text.c:2791,statusline:ALERT,,yes,nano,14-messages-and-i18n.md
+MSG-579,No linter is defined for this type of file,,,,,src/text.c:2627,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-580,Save modified buffer before linting?,,,,,src/text.c:2637,yes/no prompt,,yes,nano,14-messages-and-i18n.md
+MSG-581,Invoking linter...,,,,,src/text.c:2654,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-582,Zero messages from '%s',,,c-format,%s,src/text.c:2796,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-583,"This message is for unopened file %s, open it in a new buffer?",,,c-format,%s,src/text.c:2834,yes/no prompt (linter),,yes,nano,14-messages-and-i18n.md
+MSG-584,No messages for this file,,,,,src/text.c:2869,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-585,At first message,,,,,src/text.c:2919,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-586,At last message,,,,,src/text.c:2929,statusline:HUSH (statusbar),,yes,nano,14-messages-and-i18n.md
+MSG-587,No formatter is defined for this type of file,,,,,src/text.c:2969,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-588,"%s%zd %s,  %zu %s,  %zu %s",,,c-format,%s %zd %s %zu %s %zu %s,src/text.c:3044,statusline:INFO,,yes,nano,14-messages-and-i18n.md
+MSG-589,In Selection:  ,,,,,src/text.c:3045,statusline:INFO,,yes,nano,14-messages-and-i18n.md
+MSG-590,line,lines,,,,src/text.c:3046,statusline:INFO,,yes,nano,14-messages-and-i18n.md
+MSG-591,word,words,,,,src/text.c:3047,statusline:INFO,,yes,nano,14-messages-and-i18n.md
+MSG-592,character,characters,,,,src/text.c:3048,statusline:INFO,,yes,nano,14-messages-and-i18n.md
+MSG-593,Verbatim Input,,,,,src/text.c:3066,statusline:INFO,TRANSLATORS: Shown when the next keystroke will be inserted verbatim.,yes,nano,14-messages-and-i18n.md
+MSG-594,Invalid code,,,,,src/text.c:3090,statusline:AHEM,TRANSLATORS: An invalid verbatim Unicode code was typed.,yes,nano,14-messages-and-i18n.md
+MSG-595,No word fragment,,,,,src/text.c:3177,statusline:AHEM,TRANSLATORS: Shown when no text is directly left of the cursor.,yes,nano,14-messages-and-i18n.md
+MSG-596,No further matches,,,,,src/text.c:3280,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-597,No matches,,,,,src/text.c:3283,statusline:AHEM,TRANSLATORS: Shown when there are zero possible completions.,yes,nano,14-messages-and-i18n.md
+MSG-598,"Nano is out of memory!
+",,,,,src/utils.c:288 src/utils.c:299,stderr + exit(1) (die),,yes,nano,14-messages-and-i18n.md
+MSG-599,Recording a macro...,,,,,src/winio.c:93,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-600,Stopped recording,,,,,src/winio.c:103,statusline:REMARK,,yes,nano,14-messages-and-i18n.md
+MSG-601,Cannot run macro while recording,,,,,src/winio.c:123,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-602,Macro is empty,,,,,src/winio.c:129,statusline:AHEM,,yes,nano,14-messages-and-i18n.md
+MSG-603,"Too much input at once
+",,,,,src/winio.c:144,stderr + exit(1) (die),,yes,nano,14-messages-and-i18n.md
+MSG-604,"Too many errors from stdin
+",,,,,src/winio.c:257,stderr + exit(1) (die),,yes,nano,14-messages-and-i18n.md
+MSG-605,Unicode Input: %s,,,c-format,%s,src/winio.c:1421,statusline:INFO,TRANSLATORS: This is shown while a six-digit hexadecimal * Unicode character code (%s) is being typed in.,yes,nano,14-messages-and-i18n.md
+MSG-606,Linting --,,,,,src/winio.c:2035,title bar,"TRANSLATORS: The next five are ""labels"" in the title bar.",yes,nano,14-messages-and-i18n.md
+MSG-607,DIR:,,,,,src/winio.c:2041,title bar,,yes,nano,14-messages-and-i18n.md
+MSG-608,View,,,,,src/winio.c:2061,title bar,,yes,nano,14-messages-and-i18n.md
+MSG-609,Modified,,,,,src/winio.c:2067 src/winio.c:2071,title bar,,yes,nano,14-messages-and-i18n.md
+MSG-610,Restricted,,,,,src/winio.c:2069,title bar,,yes,nano,14-messages-and-i18n.md
+MSG-611,(nameless),,,,,src/winio.c:2166,minibar,,yes,nano,14-messages-and-i18n.md
+MSG-612, (%zu line), (%zu lines),,c-format,%zu,src/winio.c:2200,minibar,,yes,nano,14-messages-and-i18n.md
+MSG-613," (%zu line, %s)"," (%zu lines, %s)",,c-format,%zu %s,src/winio.c:2202,minibar,,yes,nano,14-messages-and-i18n.md
+MSG-614,"line %*zd/%zd (%2d%%), col %2zu/%2zu (%3d%%), char %*zu/%zu (%2d%%)",,,c-format,%*zd %zd %2d %2zu %2zu %3d %*zu %zu %2d,src/winio.c:3511,statusline:INFO,,yes,nano,14-messages-and-i18n.md
+MSG-615,The nano text editor,,,,,src/winio.c:3665,credits crawl (Easter egg),,yes,nano,14-messages-and-i18n.md
+MSG-616,version,,,,,src/winio.c:3666,credits crawl (Easter egg),,yes,nano,14-messages-and-i18n.md
+MSG-617,Brought to you by:,,,,,src/winio.c:3667,credits crawl (Easter egg),,yes,nano,14-messages-and-i18n.md
+MSG-618,Special thanks to:,,,,,src/winio.c:3668,credits crawl (Easter egg),,yes,nano,14-messages-and-i18n.md
+MSG-619,The Free Software Foundation,,,,,src/winio.c:3669,credits crawl (Easter egg),,yes,nano,14-messages-and-i18n.md
+MSG-620,the many translators and the TP,,,,,src/winio.c:3670,credits crawl (Easter egg),,yes,nano,14-messages-and-i18n.md
+MSG-621,For ncurses:,,,,,src/winio.c:3671,credits crawl (Easter egg),,yes,nano,14-messages-and-i18n.md
+MSG-622,and anyone else we forgot...,,,,,src/winio.c:3672,credits crawl (Easter egg),,yes,nano,14-messages-and-i18n.md
+MSG-623,Thank you for using nano!,,,,,src/winio.c:3673,credits crawl (Easter egg),,yes,nano,14-messages-and-i18n.md
+MSG-624,Precalculation: %.1f ms,,,,,src/color.c:372,statusline:NOTICE,,no,nano,14-messages-and-i18n.md
+MSG-625,"ncurses-%i.%i, patch %li",,,,%i %i %li,src/global.c:431,statusline:NOTICE,,no,nano,14-messages-and-i18n.md
+MSG-626,%*s,,,,%*s,src/nano.c:480,stdout,,no,nano,14-messages-and-i18n.md
+MSG-627,%*s,,,,%*s,src/nano.c:484,stdout,,no,nano,14-messages-and-i18n.md
+MSG-628," GNU nano from git, %s\n",,,,%s,src/nano.c:655,stdout,,no,nano,14-messages-and-i18n.md
+MSG-629, --enable-tiny,,,,,src/nano.c:666,stdout,,no,nano,14-messages-and-i18n.md
+MSG-630, --enable-browser,,,,,src/nano.c:668,stdout,,no,nano,14-messages-and-i18n.md
+MSG-631, --enable-color,,,,,src/nano.c:671,stdout,,no,nano,14-messages-and-i18n.md
+MSG-632, --enable-extra,,,,,src/nano.c:674,stdout,,no,nano,14-messages-and-i18n.md
+MSG-633, --enable-formatter,,,,,src/nano.c:677,stdout,,no,nano,14-messages-and-i18n.md
+MSG-634, --enable-help,,,,,src/nano.c:680,stdout,,no,nano,14-messages-and-i18n.md
+MSG-635, --enable-histories,,,,,src/nano.c:683,stdout,,no,nano,14-messages-and-i18n.md
+MSG-636, --enable-justify,,,,,src/nano.c:686,stdout,,no,nano,14-messages-and-i18n.md
+MSG-637, --enable-libmagic,,,,,src/nano.c:689,stdout,,no,nano,14-messages-and-i18n.md
+MSG-638, --enable-linenumbers,,,,,src/nano.c:692,stdout,,no,nano,14-messages-and-i18n.md
+MSG-639, --enable-linter,,,,,src/nano.c:695,stdout,,no,nano,14-messages-and-i18n.md
+MSG-640, --enable-mouse,,,,,src/nano.c:698,stdout,,no,nano,14-messages-and-i18n.md
+MSG-641, --enable-nanorc,,,,,src/nano.c:701,stdout,,no,nano,14-messages-and-i18n.md
+MSG-642, --enable-multibuffer,,,,,src/nano.c:704,stdout,,no,nano,14-messages-and-i18n.md
+MSG-643, --enable-operatingdir,,,,,src/nano.c:707,stdout,,no,nano,14-messages-and-i18n.md
+MSG-644, --enable-speller,,,,,src/nano.c:710,stdout,,no,nano,14-messages-and-i18n.md
+MSG-645, --enable-tabcomp,,,,,src/nano.c:713,stdout,,no,nano,14-messages-and-i18n.md
+MSG-646, --enable-wrapping,,,,,src/nano.c:716,stdout,,no,nano,14-messages-and-i18n.md
+MSG-647, --disable-browser,,,,,src/nano.c:720,stdout,,no,nano,14-messages-and-i18n.md
+MSG-648, --disable-color,,,,,src/nano.c:723,stdout,,no,nano,14-messages-and-i18n.md
+MSG-649, --disable-comment,,,,,src/nano.c:726,stdout,,no,nano,14-messages-and-i18n.md
+MSG-650, --disable-extra,,,,,src/nano.c:729,stdout,,no,nano,14-messages-and-i18n.md
+MSG-651, --disable-formatter,,,,,src/nano.c:732,stdout,,no,nano,14-messages-and-i18n.md
+MSG-652, --disable-help,,,,,src/nano.c:735,stdout,,no,nano,14-messages-and-i18n.md
+MSG-653, --disable-histories,,,,,src/nano.c:738,stdout,,no,nano,14-messages-and-i18n.md
+MSG-654, --disable-justify,,,,,src/nano.c:741,stdout,,no,nano,14-messages-and-i18n.md
+MSG-655, --disable-libmagic,,,,,src/nano.c:744,stdout,,no,nano,14-messages-and-i18n.md
+MSG-656, --disable-linenumbers,,,,,src/nano.c:747,stdout,,no,nano,14-messages-and-i18n.md
+MSG-657, --disable-linter,,,,,src/nano.c:750,stdout,,no,nano,14-messages-and-i18n.md
+MSG-658, --disable-mouse,,,,,src/nano.c:753,stdout,,no,nano,14-messages-and-i18n.md
+MSG-659, --disable-multibuffer,,,,,src/nano.c:756,stdout,,no,nano,14-messages-and-i18n.md
+MSG-660, --disable-nanorc,,,,,src/nano.c:759,stdout,,no,nano,14-messages-and-i18n.md
+MSG-661, --disable-operatingdir,,,,,src/nano.c:762,stdout,,no,nano,14-messages-and-i18n.md
+MSG-662, --disable-speller,,,,,src/nano.c:765,stdout,,no,nano,14-messages-and-i18n.md
+MSG-663, --disable-tabcomp,,,,,src/nano.c:768,stdout,,no,nano,14-messages-and-i18n.md
+MSG-664, --disable-wordcomp,,,,,src/nano.c:771,stdout,,no,nano,14-messages-and-i18n.md
+MSG-665, --disable-wrapping,,,,,src/nano.c:774,stdout,,no,nano,14-messages-and-i18n.md
+MSG-666, --enable-debug,,,,,src/nano.c:779,stdout,,no,nano,14-messages-and-i18n.md
+MSG-667, --disable-nls,,,,,src/nano.c:782,stdout,,no,nano,14-messages-and-i18n.md
+MSG-668, --enable-utf8,,,,,src/nano.c:785,stdout,,no,nano,14-messages-and-i18n.md
+MSG-669, --disable-utf8,,,,,src/nano.c:787,stdout,,no,nano,14-messages-and-i18n.md
+MSG-670,\n\n,,,,,src/nano.c:974,stdout,,no,nano,14-messages-and-i18n.md
+MSG-671,%s %s,,,,%s %s,src/nano.c:1147,statusline:REMARK,,no,nano,14-messages-and-i18n.md
+MSG-672,Using fallback keycode for %s\n,,,,%s,src/nano.c:1251,stderr,,no,nano,14-messages-and-i18n.md
+MSG-673,Took: %.2f,,,,,src/search.c:446,statusline:NOTICE,,no,nano,14-messages-and-i18n.md
+MSG-674,Bad undo type -- please report a bug\n,,,,,src/text.c:1088,stderr + exit(1) (die),,no,nano,14-messages-and-i18n.md
+MSG-675,Mismatching undo type -- please report a bug\n,,,,,src/text.c:1142,stderr + exit(1) (die),,no,nano,14-messages-and-i18n.md
+MSG-676,Bad undo type -- please report a bug\n,,,,,src/text.c:1225,stderr + exit(1) (die),,no,nano,14-messages-and-i18n.md
+MSG-677,Sequence of hex codes:,,,,,src/winio.c:316,stderr,,no,nano,14-messages-and-i18n.md
+MSG-678, %3x,,,,%3x,src/winio.c:318,stderr,,no,nano,14-messages-and-i18n.md
+MSG-679,Span has underflowed -- please report a bug,,,,,src/winio.c:1803,statusline:ALERT,,no,nano,14-messages-and-i18n.md
+MSG-680,Misplaced cursor -- please report a bug,,,,,src/winio.c:2527,statusline:ALERT,,no,nano,14-messages-and-i18n.md
+MSG-681,Missing multidata -- please report a bug,,,,,src/winio.c:2657,statusline:ALERT,,no,nano,14-messages-and-i18n.md
+MSG-682,Refresh: %.1f ms,,,,,src/winio.c:3425,statusline:NOTICE,,no,nano,14-messages-and-i18n.md

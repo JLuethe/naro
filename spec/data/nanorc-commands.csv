@@ -1,0 +1,16 @@
+command,where_allowed,source,build_condition,spec_section
+set,anywhere in nanorc; not in included files,src/rcfile.c:1511,ENABLE_NANORC,10-nanorc.md
+unset,anywhere in nanorc; not in included files,src/rcfile.c:1513,ENABLE_NANORC,10-nanorc.md
+bind,nanorc only,src/rcfile.c:1515,ENABLE_NANORC,10-nanorc.md
+unbind,nanorc only,src/rcfile.c:1517,ENABLE_NANORC,10-nanorc.md
+include,nanorc only (not inside an included file),src/rcfile.c:1507,ENABLE_COLOR,10-nanorc.md
+syntax,nanorc or included file,src/rcfile.c:1470,ENABLE_COLOR,10-nanorc.md
+header,after syntax,src/rcfile.c:1476,ENABLE_COLOR,10-nanorc.md
+magic,after syntax; ignored without libmagic,src/rcfile.c:1479,ENABLE_COLOR,10-nanorc.md
+color,after syntax,src/rcfile.c:1330,ENABLE_COLOR,10-nanorc.md
+icolor,after syntax,src/rcfile.c:1332,ENABLE_COLOR,10-nanorc.md
+comment,after syntax; ignored without ENABLE_COMMENT,src/rcfile.c:1334,ENABLE_COLOR,10-nanorc.md
+tabgives,after syntax,src/rcfile.c:1338,ENABLE_COLOR,10-nanorc.md
+linter,after syntax,src/rcfile.c:1340,ENABLE_COLOR,10-nanorc.md
+formatter,after syntax,src/rcfile.c:1343,ENABLE_COLOR,10-nanorc.md
+extendsyntax,nanorc only,src/rcfile.c:1420,ENABLE_COLOR,10-nanorc.md

@@ -1,0 +1,342 @@
+{
+ "scenario": "TEST-CLI-064",
+ "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+ "binary": "/home/john/src/nano-install/default/bin/nano",
+ "argv": [
+  "nano",
+  "-I"
+ ],
+ "env": {
+  "HOME": "/tmp/nanospec-work/TEST-CLI-064/fx/home",
+  "TERM": "tmux-256color",
+  "PATH": "/tmp/nanospec-work/TEST-CLI-064/fx/bin:/usr/bin:/bin",
+  "LANG": "en_US.UTF-8",
+  "SHELL": "/bin/sh",
+  "TZ": "UTC",
+  "LINES": "10",
+  "COLUMNS": "40"
+ },
+ "cwd": "/tmp/nanospec-work/TEST-CLI-064/fx/work",
+ "inputs": [
+  {
+   "t": 0.817,
+   "hex": "18"
+  }
+ ],
+ "snapshots": {
+  "start": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3   New Buffer                                                     ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 40,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "Welcome to nano.  For basic help, type C                                        ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 40,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help   ^O Write O^F Where I^K Cut                                            ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 10,
+       "end": 12,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 20,
+       "end": 22,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 30,
+       "end": 32,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit   ^R Read Fi^\\ Replace^U Paste                                          ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 10,
+       "end": 12,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 20,
+       "end": 22,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 30,
+       "end": 32,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  }
+ },
+ "after_exit_screen": {
+  "rows": [
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "Pane is dead (status 0, Fri Oct 23 22:50:15 2026)                               ",
+    "attrs": []
+   }
+  ],
+  "cursor": {
+   "x": 0,
+   "y": 23,
+   "visible": false
+  },
+  "modes": {
+   "alternate_screen": 0,
+   "keypad_mode": 0,
+   "cursor_keys_mode": 0,
+   "mouse_any": 0,
+   "mouse_sgr": 0,
+   "mouse_standard": 0,
+   "mouse_button": 0,
+   "mouse_all": 0,
+   "insert_mode": 0,
+   "autowrap": 1
+  }
+ },
+ "exit_status": 0,
+ "exit_signal": null,
+ "fixture": {
+  "home": {
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work": {
+   "mode": "0o755",
+   "type": "dir"
+  }
+ },
+ "notes": [],
+ "stderr": "",
+ "raw_output_bytes": 447,
+ "raw_output_sha256": "7085c2a75a8a7c6730030f5d86bb4c04f85a9e2c589fca2d44124627b2e9a59d",
+ "bracketed_paste_set": 1,
+ "bracketed_paste_reset": 1,
+ "trace_final_modes": {
+  "cursor_visible": true,
+  "alternate_screen": false,
+  "bracketed_paste": false,
+  "keypad_transmit": false,
+  "mouse_tracking": null
+ },
+ "checks": []
+}

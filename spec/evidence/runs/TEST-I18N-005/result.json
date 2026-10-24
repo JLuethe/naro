@@ -1,0 +1,793 @@
+{
+ "scenario": "TEST-I18N-005",
+ "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+ "binary": "/home/john/src/nano-install/default/bin/nano",
+ "argv": [
+  "nano",
+  "-I",
+  "f.txt"
+ ],
+ "env": {
+  "HOME": "/tmp/nanospec-work/TEST-I18N-005/fx/home",
+  "TERM": "tmux-256color",
+  "PATH": "/tmp/nanospec-work/TEST-I18N-005/fx/bin:/usr/bin:/bin",
+  "LANG": "en_US.UTF-8",
+  "SHELL": "/bin/sh",
+  "TZ": "UTC",
+  "LANGUAGE": "fr:de"
+ },
+ "cwd": "/tmp/nanospec-work/TEST-I18N-005/fx/work",
+ "inputs": [
+  {
+   "t": 0.816,
+   "hex": "17"
+  },
+  {
+   "t": 1.183,
+   "hex": "03"
+  },
+  {
+   "t": 1.553,
+   "hex": "18"
+  },
+  {
+   "t": 1.898,
+   "hex": "6e"
+  }
+ ],
+ "snapshots": {
+  "s0": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                          f.txt                                   ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "eins                                                                            ",
+     "attrs": []
+    },
+    {
+     "text": "zwei                                                                            ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                            [ Lecture de 2 lignes ]                             ",
+     "attrs": [
+      {
+       "start": 28,
+       "end": 51,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Aide      ^O Écrire    ^F Chercher  ^K Couper    ^T Exécuter  ^C Emplacement ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Quitter   ^R Lire fich.^\\ Remplacer ^U Coller    ^J Justifier ^/ Aller ligne ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "s01": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                          f.txt                                   ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "eins                                                                            ",
+     "attrs": []
+    },
+    {
+     "text": "zwei                                                                            ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "Recherche:                                                                      ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Aide             M-C Sens. à la casseM-B ->Arrière       ^P Plus ancien      ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 20,
+       "end": 23,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 40,
+       "end": 43,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 60,
+       "end": 62,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^C Annuler          M-R Expr. rationnell^R Remplacer        ^N Plus récent      ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 20,
+       "end": 23,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 40,
+       "end": 42,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 60,
+       "end": 62,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 11,
+    "y": 21,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "s02": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                          f.txt                                   ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "eins                                                                            ",
+     "attrs": []
+    },
+    {
+     "text": "zwei                                                                            ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                   [ Annulé ]                                   ",
+     "attrs": [
+      {
+       "start": 35,
+       "end": 45,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Aide      ^O Écrire    ^F Chercher  ^K Couper    ^T Exécuter  ^C Emplacement ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Quitter   ^R Lire fich.^\\ Remplacer ^U Coller    ^J Justifier ^/ Aller ligne ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  }
+ },
+ "after_exit_screen": {
+  "rows": [
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "Pane is dead (status 0, Fri Oct 23 23:28:42 2026)                               ",
+    "attrs": []
+   }
+  ],
+  "cursor": {
+   "x": 0,
+   "y": 23,
+   "visible": false
+  },
+  "modes": {
+   "alternate_screen": 0,
+   "keypad_mode": 0,
+   "cursor_keys_mode": 0,
+   "mouse_any": 0,
+   "mouse_sgr": 0,
+   "mouse_standard": 0,
+   "mouse_button": 0,
+   "mouse_all": 0,
+   "insert_mode": 0,
+   "autowrap": 1
+  }
+ },
+ "exit_status": 0,
+ "exit_signal": null,
+ "fixture": {
+  "home": {
+   "ino": 77035,
+   "nlink": 2,
+   "mtime_ns": 1792823320676308615,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work": {
+   "ino": 77036,
+   "nlink": 2,
+   "mtime_ns": 1792823320678235795,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work/f.txt": {
+   "ino": 77037,
+   "nlink": 1,
+   "mtime_ns": 1792823320678261870,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o644",
+   "type": "file",
+   "size": 10,
+   "sha256": "cea7589481795a99cc8b7989cc24706fd26d46cde9fc381d07db562de08b2e18",
+   "b64": "ZWlucwp6d2VpCg==",
+   "text": "eins\nzwei\n"
+  }
+ },
+ "initial_fixture": {
+  "home": {
+   "ino": 77035,
+   "nlink": 2,
+   "mtime_ns": 1792823320676308615,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work": {
+   "ino": 77036,
+   "nlink": 2,
+   "mtime_ns": 1792823320678235795,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work/f.txt": {
+   "ino": 77037,
+   "nlink": 1,
+   "mtime_ns": 1792823320678261870,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o644",
+   "type": "file",
+   "size": 10,
+   "sha256": "cea7589481795a99cc8b7989cc24706fd26d46cde9fc381d07db562de08b2e18",
+   "b64": "ZWlucwp6d2VpCg==",
+   "text": "eins\nzwei\n"
+  }
+ },
+ "captured_files": {},
+ "notes": [],
+ "stderr": "",
+ "raw_output_bytes": 1353,
+ "raw_output_sha256": "86615af255051b337014bd3daded062084a0e9fd77ea908808488c844a2b9d4b",
+ "bracketed_paste_set": 1,
+ "bracketed_paste_reset": 1,
+ "trace_final_modes": {
+  "cursor_visible": true,
+  "alternate_screen": false,
+  "bracketed_paste": false,
+  "keypad_transmit": false,
+  "mouse_tracking": null
+ },
+ "checks": []
+}

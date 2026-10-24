@@ -1,0 +1,71 @@
+option,type,flag,interface_element,default,validation,error_template,unsettable,cli_equivalent,deprecated,build_condition,source,spec_section
+boldtext,boolean,BOLD_TEXT,,unset,set/unset; extra words ignored,,yes,-D,,ENABLE_NANORC,src/rcfile.c:42,10-nanorc.md
+brackets,string,,,"copy_of(""\""')>]}"")",must contain no blank characters,Non-blank characters required,"no (""Cannot unset option"")",,,ENABLE_NANORC && ENABLE_JUSTIFY,src/rcfile.c:44,10-nanorc.md
+breaklonglines,boolean,BREAK_LONG_LINES,,unset,set/unset; extra words ignored,,yes,-b,,ENABLE_NANORC && ENABLE_WRAPPING,src/rcfile.c:47,10-nanorc.md
+casesensitive,boolean,CASE_SENSITIVE,,unset,set/unset; extra words ignored,,yes,(+c modifier only),,ENABLE_NANORC,src/rcfile.c:49,10-nanorc.md
+constantshow,boolean,CONSTANT_SHOW,,unset,set/unset; extra words ignored,,yes,-c,,ENABLE_NANORC,src/rcfile.c:50,10-nanorc.md
+fill,integer,,,-8 (COLUMNS_FROM_EOL); i.e. window width minus 8,parse_num(); on failure fill=-8,"Requested fill size ""%s"" is invalid","no (""Cannot unset option"")",-r,,ENABLE_NANORC && ENABLED_WRAPORJUSTIFY,src/rcfile.c:52,10-nanorc.md
+historylog,boolean,HISTORYLOG,,unset,set/unset; extra words ignored,,yes,-H,,ENABLE_NANORC && ENABLE_HISTORIES,src/rcfile.c:55,10-nanorc.md
+linenumbers,boolean,LINE_NUMBERS,,unset,set/unset; extra words ignored,,yes,-l,,ENABLE_NANORC && ENABLE_LINENUMBERS,src/rcfile.c:58,10-nanorc.md
+magic,boolean,USE_MAGIC,,unset,set/unset; extra words ignored,,yes,-!,,ENABLE_NANORC && HAVE_LIBMAGIC,src/rcfile.c:61,10-nanorc.md
+mouse,boolean,USE_MOUSE,,unset,set/unset; extra words ignored,,yes,-m,,ENABLE_NANORC && ENABLE_MOUSE,src/rcfile.c:64,10-nanorc.md
+multibuffer,boolean,NEW_BUFFER,,unset,set/unset; extra words ignored,,yes,-F,yes,ENABLE_NANORC && ENABLE_MULTIBUFFER,src/rcfile.c:67,10-nanorc.md
+newbuffer,boolean,NEW_BUFFER,,unset,set/unset; extra words ignored,,yes,-F,,ENABLE_NANORC && ENABLE_MULTIBUFFER,src/rcfile.c:68,10-nanorc.md
+nohelp,boolean,NO_HELP,,unset,set/unset; extra words ignored,,yes,-x,,ENABLE_NANORC,src/rcfile.c:70,10-nanorc.md
+nonewlines,boolean,NO_NEWLINES,,unset,set/unset; extra words ignored,,yes,-L,,ENABLE_NANORC,src/rcfile.c:71,10-nanorc.md
+nowrap,boolean,NO_WRAP,,set (NO_WRAP is set by default),set/unset; extra words ignored,,yes,-w,yes,ENABLE_NANORC && ENABLE_WRAPPING,src/rcfile.c:73,10-nanorc.md
+operatingdir,path,,,none,none at parse time; init_operating_dir() dies if unusable,Invalid operating directory: %s,"no (""Cannot unset option"")",-o,,ENABLE_NANORC && ENABLE_OPERATINGDIR,src/rcfile.c:76,10-nanorc.md
+positionlog,boolean,POSITIONLOG,,unset,set/unset; extra words ignored,,yes,-P,,ENABLE_NANORC && ENABLE_HISTORIES,src/rcfile.c:79,10-nanorc.md
+preserve,boolean,PRESERVE,,unset,set/unset; extra words ignored,,yes,-p,,ENABLE_NANORC,src/rcfile.c:81,10-nanorc.md
+punct,string,,,"copy_of(""!.?"")",must contain no blank characters,Non-blank characters required,"no (""Cannot unset option"")",,,ENABLE_NANORC && ENABLE_JUSTIFY,src/rcfile.c:83,10-nanorc.md
+quotestr,regex,,,^([ \t]*([!#%:;>|}]|/{2}))+,compiled at startup; nano dies when invalid,"Bad quoting regex ""%s"": %s","no (""Cannot unset option"")",-Q,,ENABLE_NANORC && ENABLE_JUSTIFY,src/rcfile.c:84,10-nanorc.md
+quickblank,boolean,QUICK_BLANK,,unset,set/unset; extra words ignored,,yes,-U,,ENABLE_NANORC,src/rcfile.c:86,10-nanorc.md
+rawsequences,boolean,RAW_SEQUENCES,,unset,set/unset; extra words ignored,,yes,-K,,ENABLE_NANORC,src/rcfile.c:87,10-nanorc.md
+rebinddelete,boolean,REBIND_DELETE,,unset,set/unset; extra words ignored,,yes,-d,,ENABLE_NANORC,src/rcfile.c:88,10-nanorc.md
+regexp,boolean,USE_REGEXP,,unset,set/unset; extra words ignored,,yes,(+r modifier only),,ENABLE_NANORC,src/rcfile.c:89,10-nanorc.md
+saveonexit,boolean,SAVE_ON_EXIT,,unset,set/unset; extra words ignored,,yes,-t,,ENABLE_NANORC,src/rcfile.c:90,10-nanorc.md
+speller,command,,,"none (then $SPELL, then internal hunspell/spell)",leading blanks stripped,,"no (""Cannot unset option"")",-s,,ENABLE_NANORC && ENABLE_SPELLER,src/rcfile.c:92,10-nanorc.md
+afterends,boolean,AFTER_ENDS,,unset,set/unset; extra words ignored,,yes,-y,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:95,10-nanorc.md
+allow_insecure_backup,boolean,INSECURE_BACKUP,,unset,set/unset; extra words ignored,,yes,,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:96,10-nanorc.md
+atblanks,boolean,AT_BLANKS,,unset,set/unset; extra words ignored,,yes,-a,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:97,10-nanorc.md
+autoindent,boolean,AUTOINDENT,,unset,set/unset; extra words ignored,,yes,-i,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:98,10-nanorc.md
+backup,boolean,MAKE_BACKUP,,unset,set/unset; extra words ignored,,yes,-B,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:99,10-nanorc.md
+backupdir,path,,,none,init_backup_dir() dies if not an existing directory,Invalid backup directory: %s,"no (""Cannot unset option"")",-C,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:100,10-nanorc.md
+bookstyle,boolean,BOOKSTYLE,,unset,set/unset; extra words ignored,,yes,-O,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:101,10-nanorc.md
+colonparsing,boolean,COLON_PARSING,,unset,set/unset; extra words ignored,,yes,-@,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:102,10-nanorc.md
+cutfromcursor,boolean,CUT_FROM_CURSOR,,unset,set/unset; extra words ignored,,yes,-k,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:103,10-nanorc.md
+emptyline,boolean,EMPTY_LINE,,unset,set/unset; extra words ignored,,yes,-e,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:104,10-nanorc.md
+guidestripe,integer > 0,,,0 (off),parse_num() and > 0; on failure 0,"Guide column ""%s"" is invalid","no (""Cannot unset option"")",-J,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:105,10-nanorc.md
+indicator,boolean,INDICATOR,,unset,set/unset; extra words ignored,,yes,-q,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:106,10-nanorc.md
+jumpyscrolling,boolean,JUMPY_SCROLLING,,unset,set/unset; extra words ignored,,yes,-j,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:107,10-nanorc.md
+locking,boolean,LOCKING,,unset,set/unset; extra words ignored,,yes,-G,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:108,10-nanorc.md
+matchbrackets,"string, even char count, no blanks",,,"""(<[{)>]}""",no blanks; even number of characters,Non-blank characters required / Even number of characters required,"no (""Cannot unset option"")",,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:109,10-nanorc.md
+minibar,boolean,MINIBAR,,unset,set/unset; extra words ignored,,yes,-_,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:110,10-nanorc.md
+noconvert,boolean,NO_CONVERT,,unset,set/unset; extra words ignored,,yes,-N,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:111,10-nanorc.md
+showcursor,boolean,SHOW_CURSOR,,unset,set/unset; extra words ignored,,yes,-g,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:112,10-nanorc.md
+smarthome,boolean,SMART_HOME,,unset,set/unset; extra words ignored,,yes,-A,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:113,10-nanorc.md
+softwrap,boolean,SOFTWRAP,,unset,set/unset; extra words ignored,,yes,-S,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:114,10-nanorc.md
+solosidescroll,boolean,SOLO_SIDESCROLL,,unset,set/unset; extra words ignored,,yes,-1,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:115,10-nanorc.md
+stateflags,boolean,STATEFLAGS,,unset,set/unset; extra words ignored,,yes,-%,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:116,10-nanorc.md
+tabsize,integer > 0,,,8,parse_num() and > 0; on failure -1 (=> 8),"Requested tab size ""%s"" is invalid","no (""Cannot unset option"")",-T,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:117,10-nanorc.md
+tabstospaces,boolean,TABS_TO_SPACES,,unset,set/unset; extra words ignored,,yes,-E,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:118,10-nanorc.md
+trimblanks,boolean,TRIM_BLANKS,,unset,set/unset; extra words ignored,,yes,-M,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:119,10-nanorc.md
+unix,boolean,MAKE_IT_UNIX,,unset,set/unset; extra words ignored,,yes,-u,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:120,10-nanorc.md
+whitespace,two single-column characters,,,"UTF-8: U+00BB U+00B7; else "">.""",exactly 2 characters each 1 column wide,Two single-column characters required,"no (""Cannot unset option"")",,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:121,10-nanorc.md
+whitespacedisplay,boolean,WHITESPACE_DISPLAY,,unset,set/unset; extra words ignored,,yes,--whitespacedisplay,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:122,10-nanorc.md
+wordbounds,boolean,WORD_BOUNDS,,unset,set/unset; extra words ignored,,yes,-W,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:123,10-nanorc.md
+wordchars,string,,,none,none,,"no (""Cannot unset option"")",-X,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:124,10-nanorc.md
+zap,boolean,LET_THEM_ZAP,,unset,set/unset; extra words ignored,,yes,-Z,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:125,10-nanorc.md
+zero,boolean,ZERO,,unset,set/unset; extra words ignored,,yes,-0,,ENABLE_NANORC && !NANO_TINY,src/rcfile.c:126,10-nanorc.md
+titlecolor,color combination,,TITLE_BAR,built-in (see 10-nanorc.md),"[bold,][italic,]fg[,bg]","Color ""%s"" not understood","no (""Cannot unset option"")",,,ENABLE_NANORC && ENABLE_COLOR,src/rcfile.c:129,10-nanorc.md
+numbercolor,color combination,,LINE_NUMBER,built-in (see 10-nanorc.md),"[bold,][italic,]fg[,bg]","Color ""%s"" not understood","no (""Cannot unset option"")",,,ENABLE_NANORC && ENABLE_COLOR,src/rcfile.c:130,10-nanorc.md
+stripecolor,color combination,,GUIDE_STRIPE,built-in (see 10-nanorc.md),"[bold,][italic,]fg[,bg]","Color ""%s"" not understood","no (""Cannot unset option"")",,,ENABLE_NANORC && ENABLE_COLOR,src/rcfile.c:131,10-nanorc.md
+scrollercolor,color combination,,SCROLL_BAR,built-in (see 10-nanorc.md),"[bold,][italic,]fg[,bg]","Color ""%s"" not understood","no (""Cannot unset option"")",,,ENABLE_NANORC && ENABLE_COLOR,src/rcfile.c:132,10-nanorc.md
+selectedcolor,color combination,,SELECTED_TEXT,built-in (see 10-nanorc.md),"[bold,][italic,]fg[,bg]","Color ""%s"" not understood","no (""Cannot unset option"")",,,ENABLE_NANORC && ENABLE_COLOR,src/rcfile.c:133,10-nanorc.md
+spotlightcolor,color combination,,SPOTLIGHTED,built-in (see 10-nanorc.md),"[bold,][italic,]fg[,bg]","Color ""%s"" not understood","no (""Cannot unset option"")",,,ENABLE_NANORC && ENABLE_COLOR,src/rcfile.c:134,10-nanorc.md
+minicolor,color combination,,MINI_INFOBAR,built-in (see 10-nanorc.md),"[bold,][italic,]fg[,bg]","Color ""%s"" not understood","no (""Cannot unset option"")",,,ENABLE_NANORC && ENABLE_COLOR,src/rcfile.c:135,10-nanorc.md
+promptcolor,color combination,,PROMPT_BAR,built-in (see 10-nanorc.md),"[bold,][italic,]fg[,bg]","Color ""%s"" not understood","no (""Cannot unset option"")",,,ENABLE_NANORC && ENABLE_COLOR,src/rcfile.c:136,10-nanorc.md
+statuscolor,color combination,,STATUS_BAR,built-in (see 10-nanorc.md),"[bold,][italic,]fg[,bg]","Color ""%s"" not understood","no (""Cannot unset option"")",,,ENABLE_NANORC && ENABLE_COLOR,src/rcfile.c:137,10-nanorc.md
+errorcolor,color combination,,ERROR_MESSAGE,built-in (see 10-nanorc.md),"[bold,][italic,]fg[,bg]","Color ""%s"" not understood","no (""Cannot unset option"")",,,ENABLE_NANORC && ENABLE_COLOR,src/rcfile.c:138,10-nanorc.md
+keycolor,color combination,,KEY_COMBO,built-in (see 10-nanorc.md),"[bold,][italic,]fg[,bg]","Color ""%s"" not understood","no (""Cannot unset option"")",,,ENABLE_NANORC && ENABLE_COLOR,src/rcfile.c:139,10-nanorc.md
+functioncolor,color combination,,FUNCTION_TAG,built-in (see 10-nanorc.md),"[bold,][italic,]fg[,bg]","Color ""%s"" not understood","no (""Cannot unset option"")",,,ENABLE_NANORC && ENABLE_COLOR,src/rcfile.c:140,10-nanorc.md

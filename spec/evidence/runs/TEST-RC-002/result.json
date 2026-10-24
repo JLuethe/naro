@@ -1,0 +1,546 @@
+{
+ "scenario": "TEST-RC-002",
+ "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+ "binary": "/home/john/src/nano-install/default/bin/nano",
+ "argv": [
+  "nano",
+  "t.txt"
+ ],
+ "env": {
+  "HOME": "/tmp/nanospec-work/TEST-RC-002/fx/home",
+  "TERM": "tmux-256color",
+  "PATH": "/tmp/nanospec-work/TEST-RC-002/fx/bin:/usr/bin:/bin",
+  "LANG": "en_US.UTF-8",
+  "SHELL": "/bin/sh",
+  "TZ": "UTC",
+  "XDG_CONFIG_HOME": "/tmp/nanospec-work/TEST-RC-002/fx/xdg"
+ },
+ "cwd": "/tmp/nanospec-work/TEST-RC-002/fx/work",
+ "inputs": [
+  {
+   "t": 0.843,
+   "hex": "18"
+  },
+  {
+   "t": 1.154,
+   "hex": "6e"
+  }
+ ],
+ "snapshots": {
+  "s0": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                         t.txt                                    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "  x                                                                             ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                [ Read 1 line ]                                 ",
+     "attrs": [
+      {
+       "start": 32,
+       "end": 47,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  }
+ },
+ "after_exit_screen": {
+  "rows": [
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "Pane is dead (status 0, Fri Oct 23 23:14:03 2026)                               ",
+    "attrs": []
+   }
+  ],
+  "cursor": {
+   "x": 0,
+   "y": 23,
+   "visible": false
+  },
+  "modes": {
+   "alternate_screen": 0,
+   "keypad_mode": 0,
+   "cursor_keys_mode": 0,
+   "mouse_any": 0,
+   "mouse_sgr": 0,
+   "mouse_standard": 0,
+   "mouse_button": 0,
+   "mouse_all": 0,
+   "insert_mode": 0,
+   "autowrap": 1
+  }
+ },
+ "exit_status": 0,
+ "exit_signal": null,
+ "fixture": {
+  "home": {
+   "ino": 65555,
+   "nlink": 3,
+   "mtime_ns": 1792822442737063490,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work": {
+   "ino": 65556,
+   "nlink": 2,
+   "mtime_ns": 1792822442737110445,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "xdg": {
+   "ino": 65560,
+   "nlink": 3,
+   "mtime_ns": 1792822442737090446,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "home/.config": {
+   "ino": 65557,
+   "nlink": 3,
+   "mtime_ns": 1792822442737063490,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "home/.config/nano": {
+   "ino": 65558,
+   "nlink": 2,
+   "mtime_ns": 1792822442737063490,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "home/.config/nano/nanorc": {
+   "ino": 65559,
+   "nlink": 1,
+   "mtime_ns": 1792822442737090446,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o644",
+   "type": "file",
+   "size": 14,
+   "sha256": "0c2deed82415058ebd41eee4769c169b54b0bf162adb88010a41fd5b434e396d",
+   "b64": "c2V0IHRhYnNpemUgMwo=",
+   "text": "set tabsize 3\n"
+  },
+  "work/t.txt": {
+   "ino": 65563,
+   "nlink": 1,
+   "mtime_ns": 1792822442737124650,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o644",
+   "type": "file",
+   "size": 3,
+   "sha256": "067892f9103fd1565ad3f1792b3fcd6780f4a70adcbec69499b4833a97c72361",
+   "b64": "CXgK",
+   "text": "\tx\n"
+  },
+  "xdg/nano": {
+   "ino": 65561,
+   "nlink": 2,
+   "mtime_ns": 1792822442737090446,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "xdg/nano/nanorc": {
+   "ino": 65562,
+   "nlink": 1,
+   "mtime_ns": 1792822442737110445,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o644",
+   "type": "file",
+   "size": 14,
+   "sha256": "20da60000f1d94a7c3624f75c89c74273c8e12cd4100232a4aebd45737d60520",
+   "b64": "c2V0IHRhYnNpemUgMgo=",
+   "text": "set tabsize 2\n"
+  }
+ },
+ "initial_fixture": {
+  "home": {
+   "ino": 65555,
+   "nlink": 3,
+   "mtime_ns": 1792822442737063490,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work": {
+   "ino": 65556,
+   "nlink": 2,
+   "mtime_ns": 1792822442737110445,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "xdg": {
+   "ino": 65560,
+   "nlink": 3,
+   "mtime_ns": 1792822442737090446,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "home/.config": {
+   "ino": 65557,
+   "nlink": 3,
+   "mtime_ns": 1792822442737063490,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "home/.config/nano": {
+   "ino": 65558,
+   "nlink": 2,
+   "mtime_ns": 1792822442737063490,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "home/.config/nano/nanorc": {
+   "ino": 65559,
+   "nlink": 1,
+   "mtime_ns": 1792822442737090446,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o644",
+   "type": "file",
+   "size": 14,
+   "sha256": "0c2deed82415058ebd41eee4769c169b54b0bf162adb88010a41fd5b434e396d",
+   "b64": "c2V0IHRhYnNpemUgMwo=",
+   "text": "set tabsize 3\n"
+  },
+  "work/t.txt": {
+   "ino": 65563,
+   "nlink": 1,
+   "mtime_ns": 1792822442737124650,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o644",
+   "type": "file",
+   "size": 3,
+   "sha256": "067892f9103fd1565ad3f1792b3fcd6780f4a70adcbec69499b4833a97c72361",
+   "b64": "CXgK",
+   "text": "\tx\n"
+  },
+  "xdg/nano": {
+   "ino": 65561,
+   "nlink": 2,
+   "mtime_ns": 1792822442737090446,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "xdg/nano/nanorc": {
+   "ino": 65562,
+   "nlink": 1,
+   "mtime_ns": 1792822442737110445,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o644",
+   "type": "file",
+   "size": 14,
+   "sha256": "20da60000f1d94a7c3624f75c89c74273c8e12cd4100232a4aebd45737d60520",
+   "b64": "c2V0IHRhYnNpemUgMgo=",
+   "text": "set tabsize 2\n"
+  }
+ },
+ "captured_files": {},
+ "notes": [],
+ "stderr": "",
+ "raw_output_bytes": 625,
+ "raw_output_sha256": "c7fe36f190084fc8b8349480d5601e3e08d1ccf254ec61476753eddf1289f388",
+ "bracketed_paste_set": 1,
+ "bracketed_paste_reset": 1,
+ "trace_final_modes": {
+  "cursor_visible": true,
+  "alternate_screen": false,
+  "bracketed_paste": false,
+  "keypad_transmit": false,
+  "mouse_tracking": null
+ },
+ "checks": []
+}

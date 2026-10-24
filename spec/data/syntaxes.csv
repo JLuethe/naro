@@ -1,0 +1,45 @@
+file,line,syntax,extensions,header,magic,comment,linter,formatter,tabgives,color_rules,multiline_rules,installed,license_line,spec_section
+syntax/asm.nanorc,6,asm,"""\.(S|s|asm)$""",,"""assembler source""","""//""",,,,10,1,yes,License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled
+syntax/autoconf.nanorc,6,autoconf,"""\.(ac|m4)$""",,,"""#""",,,,10,0,yes,License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled
+syntax/awk.nanorc,5,awk,"""\.awk$""","""^#!.*awk""","""awk script""","""#""",,,,19,0,yes,,11-syntax-highlighting.md#bundled
+syntax/c.nanorc,3,c,"""\.([ch](pp|xx)?|C|cc|c\+\+|cu|H|hh|ii?)$""","""-\*-.*\<C(\+\+)?((;|[[:blank:]]).*)?-\*-""","""^(C|C\+\+) (source|program)""","""//""",,,,21,2,yes,,11-syntax-highlighting.md#bundled
+syntax/changelog.nanorc,6,changelog,"""Change[Ll]og[^/]*$""",,,,,,,10,1,yes,License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled
+syntax/cmake.nanorc,5,cmake,"""(CMakeLists\.txt|\.cmake)$""",,,"""#""",,,,10,1,yes,,11-syntax-highlighting.md#bundled
+syntax/css.nanorc,5,css,"""\.css$""",,,"""/*|*/""",,,,6,3,yes,,11-syntax-highlighting.md#bundled
+syntax/default.nanorc,4,default,,,,"""#""",,,,10,0,yes,,11-syntax-highlighting.md#bundled
+syntax/email.nanorc,3,email,"""\.eml$""",,,,,,,6,1,yes,,11-syntax-highlighting.md#bundled
+syntax/extra/ada.nanorc,8,ada,"""\.ad[abcs]$""",,,"""--""",gcc -c -gnatc,,,13,0,no (extra/),License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled
+syntax/extra/fortran.nanorc,5,fortran,"""\.(f|for|f90|f95)$""",,,"""!""",,,,27,0,no (extra/),,11-syntax-highlighting.md#bundled
+syntax/extra/haskell.nanorc,6,haskell,"""\.hs$""",,,"""--""",,,,13,1,no (extra/),License:  GPL version 3,11-syntax-highlighting.md#bundled
+syntax/extra/povray.nanorc,5,pov,"""\.(pov|POV|povray|POVRAY)$""",,,"""//""",,,,9,1,no (extra/),,11-syntax-highlighting.md#bundled
+syntax/extra/spec.nanorc,5,spec,"""\.spec(\.[^/]+)?$""",,,"""#""",,,,25,3,no (extra/),,11-syntax-highlighting.md#bundled
+syntax/go.nanorc,6,go,"""\.go$""",,,"""//""",,gofmt -w,,19,2,yes,License:  CC0 (public domain),11-syntax-highlighting.md#bundled
+syntax/groff.nanorc,5,groff,"""\.(me|mm|mom|ms|roff|tmac)$|/tmac\.[^/]+$""",,,""".\""""",,,,12,3,yes,,11-syntax-highlighting.md#bundled
+syntax/guile.nanorc,6,guile,"""\.(scm|sld|sls|ss)$""","""^#!.*guile""",,""";""",,,,12,1,yes,License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled
+syntax/html.nanorc,3,html,"""\.html?$""",,"""HTML document""","""<!--|-->""",,tidy -m -q,,13,1,yes,,11-syntax-highlighting.md#bundled
+syntax/java.nanorc,3,java,"""\.java$""",,"""Java ""","""//""",,,,10,2,yes,,11-syntax-highlighting.md#bundled
+syntax/javascript.nanorc,3,javascript,"""\.(m?js|ts)$""",,"""JavaScript source""","""//""",,,,10,1,yes,,11-syntax-highlighting.md#bundled
+syntax/json.nanorc,6,json,"""\.json$""",,,"""""",,,,10,0,yes,License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled
+syntax/lua.nanorc,6,lua,"""\.lua$""",,"""Lua script""","""--""",luacheck --no-color,,,27,2,yes,License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled
+syntax/makefile.nanorc,3,makefile,"""(^|/)((GNU)?m|M)akefile[^/]*$|\.(make|mk)$""",,"""makefile script""","""#""",,,"""	""",7,0,yes,,11-syntax-highlighting.md#bundled
+syntax/man.nanorc,6,man,"""\.[1-9]x?$""",,"""troff or preprocessor input""",""".\""""",,,,11,0,yes,License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled
+syntax/markdown.nanorc,6,markdown,"""\.md$""",,,"""<!--|-->""",,,,15,2,yes,License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled
+syntax/nanohelp.nanorc,4,nanohelp,,,,,,,,6,0,yes,,11-syntax-highlighting.md#bundled
+syntax/nanorc.nanorc,3,nanorc,"""[/.]nanorc(\.in)?$""",,,"""#""",,,,26,2,yes,,11-syntax-highlighting.md#bundled
+syntax/nftables.nanorc,6,nftables,"""\.(nft|nftables)$""","""^#!.*(nft|nftables)""",,"""#""",,,,11,0,yes,License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled
+syntax/objc.nanorc,5,m,"""\.m$""",,"""Objective-C source""","""//""",,,,20,1,yes,,11-syntax-highlighting.md#bundled
+syntax/ocaml.nanorc,3,ocaml,"""\.mli?$""",,"""OCaml""","""(*|*)""",,,,12,1,yes,,11-syntax-highlighting.md#bundled
+syntax/patch.nanorc,6,patch,"""\.(patch|diff|debdiff|rej)$""",,"""diff output""","""""",,,,9,1,yes,License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled
+syntax/perl.nanorc,3,perl,"""\.p[lm]$""","""^#!.*perl""","""Perl script""","""#""",,,,21,1,yes,,11-syntax-highlighting.md#bundled
+syntax/php.nanorc,6,php,"""\.(php[23457s~]?|phtml|ctp)$""",,"""PHP script""","""//""",,,,12,1,yes,License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled
+syntax/po.nanorc,6,po,"""\.pot?$""",,,"""#""",,,,19,0,yes,License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled
+syntax/python.nanorc,3,python,"""\.py$""","""^#!.*python""","""Python script""","""#""",pyflakes,,,17,2,yes,,11-syntax-highlighting.md#bundled
+syntax/ruby.nanorc,5,ruby,"""\.rb$""","""^#!.*ruby""","""Ruby script""","""#""",ruby -w -c,,,14,1,yes,,11-syntax-highlighting.md#bundled
+syntax/rust.nanorc,6,rust,"""\.(rlib|rs)$""",,,"""//""",,,,12,4,yes,Licensed under GPL version 3 or newer.,11-syntax-highlighting.md#bundled
+syntax/sh.nanorc,6,sh,"""(\.sh|(^|/|\.)(a|ba|c|da|k|mk|pdk|tc|z)sh(rc|_profile)?|(/etc/|(^|/)\.)profile)$""","""^#!.*/(((env|busybox)[[:blank:]]+)?(a|ba|c|da|k|mk|pdk|tc|z)?sh|openrc-run|runscript)\>"" ""-\*-.*shell-script.*-\*-""","""(POSIX|Bourne-Again) shell script.*text""","""#""",dash -n,,,13,0,yes,License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled
+syntax/sql.nanorc,5,sql,"""\.sql$""",,,"""-- """,,,,29,1,yes,,11-syntax-highlighting.md#bundled
+syntax/tcl.nanorc,6,tcl,"""\.(tcl|exp)$""",,"""Tcl(/Tk)? script""","""#""",,,,21,0,yes,License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled
+syntax/tex.nanorc,3,tex,"""\.tex$""",,"""(La)?TeX document""","""%""",chktex -v0 -q -I,,,3,0,yes,,11-syntax-highlighting.md#bundled
+syntax/texinfo.nanorc,6,texinfo,"""\.texi$""","""^\\input texinfo""","""Texinfo source""","""@c """,,,,9,1,yes,License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled
+syntax/xml.nanorc,5,xml,"""\.([jrsx]html?|jnlp|mml|pom|rng|sgml?|svg|w[as]dl|wsdd|xjb|xml|xs(d|lt?)|xul)$""","""<\?xml.*version=.*\?>""","""(XML|SGML) (sub)?document""","""<!--|-->""",,,,8,3,yes,,11-syntax-highlighting.md#bundled
+syntax/yaml.nanorc,6,yaml,"""\.ya?ml$""","""^%YAML |^---( |$)""",,"""#""",,,"""  """,20,0,yes,License:  GPL version 3 or newer,11-syntax-highlighting.md#bundled

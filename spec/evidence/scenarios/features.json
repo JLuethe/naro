@@ -1,0 +1,1035 @@
+[
+ {
+  "id": "TEST-FEAT-001",
+  "args": [
+   "-I",
+   "-r",
+   "30",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.\n  Second line of\nthe paragraph.\n\n> quoted text that is rather long and needs to be wrapped around nicely here\n> more quoted\n\nlast\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^J"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^J"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^J"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-002",
+  "args": [
+   "-I",
+   "-r",
+   "30",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.\n  Second line of\nthe paragraph.\n\n> quoted text that is rather long and needs to be wrapped around nicely here\n> more quoted\n\nlast\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "M-J"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-003",
+  "args": [
+   "-I",
+   "-r",
+   "30",
+   "-M",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "one.  two.   three four five six seven eight nine ten\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^J"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-004",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "teh cat sat on teh wrold\n"
+   },
+   "bin/hunspell": {
+    "text": "#!/bin/sh\n# stub: report fixed misspellings, ignore stdin content\ncat > /dev/null\nprintf 'teh\\nwrold\\nteh\\n'\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "text": "the\r"
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "text": "a"
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s05",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-005",
+  "args": [
+   "-I",
+   "-s",
+   "altspell --opt",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "teh x\n"
+   },
+   "bin/altspell": {
+    "text": "#!/bin/sh\n# stub alternative speller: argv[1] is the temp file; uppercase it\necho \"$@\" > \"$HOME/spell-args\"\nfor last; do :; done; sed -i 's/teh/the/g' \"$last\"\nexit 0\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-006",
+  "args": [
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "line one\nline two\n"
+   },
+   "home/.nanorc": {
+    "text": "syntax txt \"\\.txt$\"\ncolor red \"zzz\"\nlinter mylint --flag\nformatter myfmt -x\n"
+   },
+   "bin/mylint": {
+    "text": "#!/bin/sh\necho \"$@\" > \"$HOME/lint-args\"\nfor last; do :; done; echo \"$last:2:3: second line problem\"\necho \"$last:1: first line problem\"\necho \"garbage line\"\necho \"other.txt:1:1: elsewhere\"\nexit 1\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^Y"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "PgDn"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "PgDn"
+    ]
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "PgUp"
+    ]
+   },
+   {
+    "snapshot": "s05",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "PgUp"
+    ]
+   },
+   {
+    "snapshot": "s06",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s07",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-007",
+  "args": [
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\n"
+   },
+   "home/.nanorc": {
+    "text": "syntax txt \"\\.txt$\"\ncolor red \"zzz\"\nlinter mylint --flag\nformatter myfmt -x\n"
+   },
+   "bin/myfmt": {
+    "text": "#!/bin/sh\necho \"$@\" > \"$HOME/fmt-args\"\nfor last; do :; done; tr a-z A-Z < \"$last\" > \"$last.tmp\" && cat \"$last.tmp\" > \"$last\"\n",
+    "mode": "0755"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-008",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "a\nb\nc\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "M-:"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "text": "<"
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "text": ">"
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "Down",
+     "Home"
+    ]
+   },
+   {
+    "snapshot": "s05",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-:"
+    ]
+   },
+   {
+    "snapshot": "s06",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-;"
+    ]
+   },
+   {
+    "snapshot": "s07",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-;"
+    ]
+   },
+   {
+    "snapshot": "s08",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-;"
+    ]
+   },
+   {
+    "snapshot": "s09",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-009",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "a\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "M-;"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-:"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-:"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-:"
+    ]
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-;"
+    ]
+   },
+   {
+    "snapshot": "s05",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-:"
+    ]
+   },
+   {
+    "snapshot": "s06",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-010",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "snapshot": "spellfail"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-011",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^Y"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-012",
+  "args": [
+   "-I",
+   "-R",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^R"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "F12"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ }
+]

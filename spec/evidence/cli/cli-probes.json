@@ -1,0 +1,647 @@
+{
+ "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+ "rc_files": {
+  "$RC1": "syntax \"foo\" \"\\.foo$\"\ncolor red \"x\"\nsyntax bar \"\\.bar$\"\ncolor blue \"y\"\n",
+  "$RCBAD": "set bogusoption\nset tabsize 0\nunset tabsize\nbind ^Q nosuchfunc main\nbind ^[ cut main\nsyntax \"x\"\nfoo\nset fill\n",
+  "$RCVITAL": "unbind ^X main\nunbind F2 main\n",
+  "$RCSYN": "include \"/home/john/src/nano-install/default/share/nano/*.nanorc\"\n"
+ },
+ "results": [
+  {
+   "id": "CLI-P-001",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "--help"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "Usage: nano [OPTIONS] [[+LINE[,COLUMN]] FILE]...\n\nTo place the cursor on a specific line of a file, put the line number with\na '+' before the filename.  The column number can be added after a comma.\nWhen a filename is '-', nano reads data from standard input.\n\n Option         Long option             Meaning\n -A             --smarthome             Enable smart home key\n -B             --backup                Save backups of existing files\n -C <dir>       --backupdir=<dir>       Directory for saving unique backup files\n -D             --boldtext              Use bold instead of reverse video text\n -E             --tabstospaces          Convert typed tabs to spaces\n -F             --newbuffer             Read a file into a new buffer by default\n -G             --locking               Use (vim-style) lock files\n -H             --historylog            Save & reload old search/replace strings\n -I             --ignorercfiles         Don't look at nanorc files\n -J <number>    --guidestripe=<number>  Show a guiding bar at this column\n -K             --rawsequences          Fix numeric keypad key confusion problem\n -L             --nonewlines            Don't add an automatic newline\n -M             --trimblanks            Trim tail spaces when hard-wrapping\n -N             --noconvert             Don't convert files from DOS format\n -O             --bookstyle             Leading whitespace means new paragraph\n -P             --positionlog           Save & restore position of the cursor\n -Q <regex>     --quotestr=<regex>      Regular expression to match quoting\n -R             --restricted            Restrict access to the filesystem\n -S             --softwrap              Display overlong lines on multiple rows\n -T <number>    --tabsize=<number>      Make a tab this number of columns wide\n -U             --quickblank            Wipe status bar upon next keystroke\n -V             --version               Print version information and exit\n -W             --wordbounds            Detect word boundaries more accurately\n -X <string>    --wordchars=<string>    Which other characters are word parts\n -Y <name>      --syntax=<name>         Syntax definition to use for coloring\n -Z             --zap                   Let Bsp and Del erase a marked region\n -a             --atblanks              When soft-wrapping, do it at whitespace\n -b             --breaklonglines        Automatically hard-wrap overlong lines\n -c             --constantshow          Constantly show cursor position\n -d             --rebinddelete          Fix Backspace/Delete confusion problem\n -e             --emptyline             Keep the line below the title bar empty\n -f <file>      --rcfile=<file>         Use only this file for configuring nano\n -g             --showcursor            Show cursor in file browser & help text\n -h             --help                  Show this help text and exit\n -i             --autoindent            Automatically indent new lines\n -j             --jumpyscrolling        Scroll per half-screen, not per line\n -k             --cutfromcursor         Cut from cursor to end of line\n -l             --linenumbers           Show line numbers in front of the text\n -m             --mouse                 Enable the use of the mouse\n -n             --noread                Do not read the file (only write it)\n -o <dir>       --operatingdir=<dir>    Set operating directory\n -p             --preserve              Preserve XON (^Q) and XOFF (^S) keys\n -q             --indicator             Show a position+portion indicator\n -r <number>    --fill=<number>         Set width for hard-wrap and justify\n -s <program>   --speller=<program>     Use this alternative spell checker\n -t             --saveonexit            Save changes on exit, don't prompt\n -u             --unix                  Save a file by default in Unix format\n -v             --view                  View mode (read-only)\n -w             --nowrap                Don't hard-wrap long lines [default]\n -x             --nohelp                Don't show the two help lines\n -y             --afterends             Make Ctrl+Right stop at word ends\n -z             --listsyntaxes          List the names of available syntaxes\n -!             --magic                 Also try magic to determine syntax\n -@             --colonparsing          Accept 'filename:linenumber' notation\n -%             --stateflags            Show some states on the title bar\n -_             --minibar               Show a feedback bar at the bottom\n -0             --zero                  Hide all bars, use whole terminal\n -1             --solosidescroll        Scroll only the current line sideways\n -/             --modernbindings        Use better-known key bindings\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-002",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-h"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "Usage: nano [OPTIONS] [[+LINE[,COLUMN]] FILE]...\n\nTo place the cursor on a specific line of a file, put the line number with\na '+' before the filename.  The column number can be added after a comma.\nWhen a filename is '-', nano reads data from standard input.\n\n Option         Long option             Meaning\n -A             --smarthome             Enable smart home key\n -B             --backup                Save backups of existing files\n -C <dir>       --backupdir=<dir>       Directory for saving unique backup files\n -D             --boldtext              Use bold instead of reverse video text\n -E             --tabstospaces          Convert typed tabs to spaces\n -F             --newbuffer             Read a file into a new buffer by default\n -G             --locking               Use (vim-style) lock files\n -H             --historylog            Save & reload old search/replace strings\n -I             --ignorercfiles         Don't look at nanorc files\n -J <number>    --guidestripe=<number>  Show a guiding bar at this column\n -K             --rawsequences          Fix numeric keypad key confusion problem\n -L             --nonewlines            Don't add an automatic newline\n -M             --trimblanks            Trim tail spaces when hard-wrapping\n -N             --noconvert             Don't convert files from DOS format\n -O             --bookstyle             Leading whitespace means new paragraph\n -P             --positionlog           Save & restore position of the cursor\n -Q <regex>     --quotestr=<regex>      Regular expression to match quoting\n -R             --restricted            Restrict access to the filesystem\n -S             --softwrap              Display overlong lines on multiple rows\n -T <number>    --tabsize=<number>      Make a tab this number of columns wide\n -U             --quickblank            Wipe status bar upon next keystroke\n -V             --version               Print version information and exit\n -W             --wordbounds            Detect word boundaries more accurately\n -X <string>    --wordchars=<string>    Which other characters are word parts\n -Y <name>      --syntax=<name>         Syntax definition to use for coloring\n -Z             --zap                   Let Bsp and Del erase a marked region\n -a             --atblanks              When soft-wrapping, do it at whitespace\n -b             --breaklonglines        Automatically hard-wrap overlong lines\n -c             --constantshow          Constantly show cursor position\n -d             --rebinddelete          Fix Backspace/Delete confusion problem\n -e             --emptyline             Keep the line below the title bar empty\n -f <file>      --rcfile=<file>         Use only this file for configuring nano\n -g             --showcursor            Show cursor in file browser & help text\n -h             --help                  Show this help text and exit\n -i             --autoindent            Automatically indent new lines\n -j             --jumpyscrolling        Scroll per half-screen, not per line\n -k             --cutfromcursor         Cut from cursor to end of line\n -l             --linenumbers           Show line numbers in front of the text\n -m             --mouse                 Enable the use of the mouse\n -n             --noread                Do not read the file (only write it)\n -o <dir>       --operatingdir=<dir>    Set operating directory\n -p             --preserve              Preserve XON (^Q) and XOFF (^S) keys\n -q             --indicator             Show a position+portion indicator\n -r <number>    --fill=<number>         Set width for hard-wrap and justify\n -s <program>   --speller=<program>     Use this alternative spell checker\n -t             --saveonexit            Save changes on exit, don't prompt\n -u             --unix                  Save a file by default in Unix format\n -v             --view                  View mode (read-only)\n -w             --nowrap                Don't hard-wrap long lines [default]\n -x             --nohelp                Don't show the two help lines\n -y             --afterends             Make Ctrl+Right stop at word ends\n -z             --listsyntaxes          List the names of available syntaxes\n -!             --magic                 Also try magic to determine syntax\n -@             --colonparsing          Accept 'filename:linenumber' notation\n -%             --stateflags            Show some states on the title bar\n -_             --minibar               Show a feedback bar at the bottom\n -0             --zero                  Hide all bars, use whole terminal\n -1             --solosidescroll        Scroll only the current line sideways\n -/             --modernbindings        Use better-known key bindings\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-003",
+   "profile": "default",
+   "argv0": "rnano",
+   "args": [
+    "--help"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "Usage: nano [OPTIONS] [[+LINE[,COLUMN]] FILE]...\n\nTo place the cursor on a specific line of a file, put the line number with\na '+' before the filename.  The column number can be added after a comma.\nWhen a filename is '-', nano reads data from standard input.\n\n Option         Long option             Meaning\n -A             --smarthome             Enable smart home key\n -D             --boldtext              Use bold instead of reverse video text\n -E             --tabstospaces          Convert typed tabs to spaces\n -G             --locking               Use (vim-style) lock files\n -I             --ignorercfiles         Don't look at nanorc files\n -J <number>    --guidestripe=<number>  Show a guiding bar at this column\n -K             --rawsequences          Fix numeric keypad key confusion problem\n -L             --nonewlines            Don't add an automatic newline\n -M             --trimblanks            Trim tail spaces when hard-wrapping\n -N             --noconvert             Don't convert files from DOS format\n -O             --bookstyle             Leading whitespace means new paragraph\n -Q <regex>     --quotestr=<regex>      Regular expression to match quoting\n -S             --softwrap              Display overlong lines on multiple rows\n -T <number>    --tabsize=<number>      Make a tab this number of columns wide\n -U             --quickblank            Wipe status bar upon next keystroke\n -V             --version               Print version information and exit\n -W             --wordbounds            Detect word boundaries more accurately\n -X <string>    --wordchars=<string>    Which other characters are word parts\n -Y <name>      --syntax=<name>         Syntax definition to use for coloring\n -Z             --zap                   Let Bsp and Del erase a marked region\n -a             --atblanks              When soft-wrapping, do it at whitespace\n -b             --breaklonglines        Automatically hard-wrap overlong lines\n -c             --constantshow          Constantly show cursor position\n -d             --rebinddelete          Fix Backspace/Delete confusion problem\n -e             --emptyline             Keep the line below the title bar empty\n -f <file>      --rcfile=<file>         Use only this file for configuring nano\n -g             --showcursor            Show cursor in file browser & help text\n -h             --help                  Show this help text and exit\n -i             --autoindent            Automatically indent new lines\n -j             --jumpyscrolling        Scroll per half-screen, not per line\n -k             --cutfromcursor         Cut from cursor to end of line\n -l             --linenumbers           Show line numbers in front of the text\n -m             --mouse                 Enable the use of the mouse\n -n             --noread                Do not read the file (only write it)\n -o <dir>       --operatingdir=<dir>    Set operating directory\n -p             --preserve              Preserve XON (^Q) and XOFF (^S) keys\n -q             --indicator             Show a position+portion indicator\n -r <number>    --fill=<number>         Set width for hard-wrap and justify\n -t             --saveonexit            Save changes on exit, don't prompt\n -u             --unix                  Save a file by default in Unix format\n -v             --view                  View mode (read-only)\n -w             --nowrap                Don't hard-wrap long lines [default]\n -x             --nohelp                Don't show the two help lines\n -y             --afterends             Make Ctrl+Right stop at word ends\n -z             --listsyntaxes          List the names of available syntaxes\n -!             --magic                 Also try magic to determine syntax\n -@             --colonparsing          Accept 'filename:linenumber' notation\n -%             --stateflags            Show some states on the title bar\n -_             --minibar               Show a feedback bar at the bottom\n -0             --zero                  Hide all bars, use whole terminal\n -1             --solosidescroll        Scroll only the current line sideways\n -/             --modernbindings        Use better-known key bindings\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-004",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-R",
+    "-h"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "Usage: nano [OPTIONS] [[+LINE[,COLUMN]] FILE]...\n\nTo place the cursor on a specific line of a file, put the line number with\na '+' before the filename.  The column number can be added after a comma.\nWhen a filename is '-', nano reads data from standard input.\n\n Option         Long option             Meaning\n -A             --smarthome             Enable smart home key\n -D             --boldtext              Use bold instead of reverse video text\n -E             --tabstospaces          Convert typed tabs to spaces\n -G             --locking               Use (vim-style) lock files\n -I             --ignorercfiles         Don't look at nanorc files\n -J <number>    --guidestripe=<number>  Show a guiding bar at this column\n -K             --rawsequences          Fix numeric keypad key confusion problem\n -L             --nonewlines            Don't add an automatic newline\n -M             --trimblanks            Trim tail spaces when hard-wrapping\n -N             --noconvert             Don't convert files from DOS format\n -O             --bookstyle             Leading whitespace means new paragraph\n -Q <regex>     --quotestr=<regex>      Regular expression to match quoting\n -S             --softwrap              Display overlong lines on multiple rows\n -T <number>    --tabsize=<number>      Make a tab this number of columns wide\n -U             --quickblank            Wipe status bar upon next keystroke\n -V             --version               Print version information and exit\n -W             --wordbounds            Detect word boundaries more accurately\n -X <string>    --wordchars=<string>    Which other characters are word parts\n -Y <name>      --syntax=<name>         Syntax definition to use for coloring\n -Z             --zap                   Let Bsp and Del erase a marked region\n -a             --atblanks              When soft-wrapping, do it at whitespace\n -b             --breaklonglines        Automatically hard-wrap overlong lines\n -c             --constantshow          Constantly show cursor position\n -d             --rebinddelete          Fix Backspace/Delete confusion problem\n -e             --emptyline             Keep the line below the title bar empty\n -f <file>      --rcfile=<file>         Use only this file for configuring nano\n -g             --showcursor            Show cursor in file browser & help text\n -h             --help                  Show this help text and exit\n -i             --autoindent            Automatically indent new lines\n -j             --jumpyscrolling        Scroll per half-screen, not per line\n -k             --cutfromcursor         Cut from cursor to end of line\n -l             --linenumbers           Show line numbers in front of the text\n -m             --mouse                 Enable the use of the mouse\n -n             --noread                Do not read the file (only write it)\n -o <dir>       --operatingdir=<dir>    Set operating directory\n -p             --preserve              Preserve XON (^Q) and XOFF (^S) keys\n -q             --indicator             Show a position+portion indicator\n -r <number>    --fill=<number>         Set width for hard-wrap and justify\n -t             --saveonexit            Save changes on exit, don't prompt\n -u             --unix                  Save a file by default in Unix format\n -v             --view                  View mode (read-only)\n -w             --nowrap                Don't hard-wrap long lines [default]\n -x             --nohelp                Don't show the two help lines\n -y             --afterends             Make Ctrl+Right stop at word ends\n -z             --listsyntaxes          List the names of available syntaxes\n -!             --magic                 Also try magic to determine syntax\n -@             --colonparsing          Accept 'filename:linenumber' notation\n -%             --stateflags            Show some states on the title bar\n -_             --minibar               Show a feedback bar at the bottom\n -0             --zero                  Hide all bars, use whole terminal\n -1             --solosidescroll        Scroll only the current line sideways\n -/             --modernbindings        Use better-known key bindings\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-005",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "--version"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n (C) 2026 the Free Software Foundation and various contributors\n Compiled options: --enable-utf8\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-006",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-V"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n (C) 2026 the Free Software Foundation and various contributors\n Compiled options: --enable-utf8\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-007",
+   "profile": "tiny",
+   "argv0": "nano",
+   "args": [
+    "--help"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "Usage: nano [OPTIONS] [[+LINE[,COLUMN]] FILE]...\n\n -D             --boldtext              Use bold instead of reverse video text\n -K             --rawsequences          Fix numeric keypad key confusion problem\n -R             --restricted            Restrict access to the filesystem\n -U             --quickblank            Wipe status bar upon next keystroke\n -V             --version               Print version information and exit\n -c             --constantshow          Constantly show cursor position\n -d             --rebinddelete          Fix Backspace/Delete confusion problem\n -h             --help                  Show this help text and exit\n -p             --preserve              Preserve XON (^Q) and XOFF (^S) keys\n -t             --saveonexit            Save changes on exit, don't prompt\n -v             --view                  View mode (read-only)\n -x             --nohelp                Don't show the two help lines\n -/             --modernbindings        Use better-known key bindings\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-008",
+   "profile": "tiny",
+   "argv0": "nano",
+   "args": [
+    "--version"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-009",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "--bogus"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--bogus'\n"
+  },
+  {
+   "id": "CLI-P-010",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-q",
+    "-%",
+    "-y",
+    "-k",
+    "-^"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: invalid option -- '^'\n"
+  },
+  {
+   "id": "CLI-P-011",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-T",
+    "0"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "",
+   "stderr": "Requested tab size \"0\" is invalid\n"
+  },
+  {
+   "id": "CLI-P-012",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-T",
+    "abc"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "",
+   "stderr": "Requested tab size \"abc\" is invalid\n"
+  },
+  {
+   "id": "CLI-P-013",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "--tabsize=4x"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "",
+   "stderr": "Requested tab size \"4x\" is invalid\n"
+  },
+  {
+   "id": "CLI-P-014",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-J",
+    "-3"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "",
+   "stderr": "Guide column \"-3\" is invalid\n"
+  },
+  {
+   "id": "CLI-P-015",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-r",
+    "x"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "",
+   "stderr": "Requested fill size \"x\" is invalid\n"
+  },
+  {
+   "id": "CLI-P-016",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-T"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: option requires an argument -- 'T'\n"
+  },
+  {
+   "id": "CLI-P-017",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "--tabsize"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: option '--tabsize' requires an argument\n"
+  },
+  {
+   "id": "CLI-P-018",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "--s"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: option '--s' is ambiguous; possibilities: '--syntax' '--showcursor' '--speller' '--saveonexit' '--smarthome' '--softwrap' '--stateflags' '--solosidescroll'\n"
+  },
+  {
+   "id": "CLI-P-019",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "--solo",
+    "--vers"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n (C) 2026 the Free Software Foundation and various contributors\n Compiled options: --enable-utf8\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-020",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-V",
+    "--bogus"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n (C) 2026 the Free Software Foundation and various contributors\n Compiled options: --enable-utf8\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-021",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "--bogus",
+    "-V"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--bogus'\n"
+  },
+  {
+   "id": "CLI-P-022",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-h",
+    "-V"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "Usage: nano [OPTIONS] [[+LINE[,COLUMN]] FILE]...\n\nTo place the cursor on a specific line of a file, put the line number with\na '+' before the filename.  The column number can be added after a comma.\nWhen a filename is '-', nano reads data from standard input.\n\n Option         Long option             Meaning\n -A             --smarthome             Enable smart home key\n -B             --backup                Save backups of existing files\n -C <dir>       --backupdir=<dir>       Directory for saving unique backup files\n -D             --boldtext              Use bold instead of reverse video text\n -E             --tabstospaces          Convert typed tabs to spaces\n -F             --newbuffer             Read a file into a new buffer by default\n -G             --locking               Use (vim-style) lock files\n -H             --historylog            Save & reload old search/replace strings\n -I             --ignorercfiles         Don't look at nanorc files\n -J <number>    --guidestripe=<number>  Show a guiding bar at this column\n -K             --rawsequences          Fix numeric keypad key confusion problem\n -L             --nonewlines            Don't add an automatic newline\n -M             --trimblanks            Trim tail spaces when hard-wrapping\n -N             --noconvert             Don't convert files from DOS format\n -O             --bookstyle             Leading whitespace means new paragraph\n -P             --positionlog           Save & restore position of the cursor\n -Q <regex>     --quotestr=<regex>      Regular expression to match quoting\n -R             --restricted            Restrict access to the filesystem\n -S             --softwrap              Display overlong lines on multiple rows\n -T <number>    --tabsize=<number>      Make a tab this number of columns wide\n -U             --quickblank            Wipe status bar upon next keystroke\n -V             --version               Print version information and exit\n -W             --wordbounds            Detect word boundaries more accurately\n -X <string>    --wordchars=<string>    Which other characters are word parts\n -Y <name>      --syntax=<name>         Syntax definition to use for coloring\n -Z             --zap                   Let Bsp and Del erase a marked region\n -a             --atblanks              When soft-wrapping, do it at whitespace\n -b             --breaklonglines        Automatically hard-wrap overlong lines\n -c             --constantshow          Constantly show cursor position\n -d             --rebinddelete          Fix Backspace/Delete confusion problem\n -e             --emptyline             Keep the line below the title bar empty\n -f <file>      --rcfile=<file>         Use only this file for configuring nano\n -g             --showcursor            Show cursor in file browser & help text\n -h             --help                  Show this help text and exit\n -i             --autoindent            Automatically indent new lines\n -j             --jumpyscrolling        Scroll per half-screen, not per line\n -k             --cutfromcursor         Cut from cursor to end of line\n -l             --linenumbers           Show line numbers in front of the text\n -m             --mouse                 Enable the use of the mouse\n -n             --noread                Do not read the file (only write it)\n -o <dir>       --operatingdir=<dir>    Set operating directory\n -p             --preserve              Preserve XON (^Q) and XOFF (^S) keys\n -q             --indicator             Show a position+portion indicator\n -r <number>    --fill=<number>         Set width for hard-wrap and justify\n -s <program>   --speller=<program>     Use this alternative spell checker\n -t             --saveonexit            Save changes on exit, don't prompt\n -u             --unix                  Save a file by default in Unix format\n -v             --view                  View mode (read-only)\n -w             --nowrap                Don't hard-wrap long lines [default]\n -x             --nohelp                Don't show the two help lines\n -y             --afterends             Make Ctrl+Right stop at word ends\n -z             --listsyntaxes          List the names of available syntaxes\n -!             --magic                 Also try magic to determine syntax\n -@             --colonparsing          Accept 'filename:linenumber' notation\n -%             --stateflags            Show some states on the title bar\n -_             --minibar               Show a feedback bar at the bottom\n -0             --zero                  Hide all bars, use whole terminal\n -1             --solosidescroll        Scroll only the current line sideways\n -/             --modernbindings        Use better-known key bindings\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-023",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "file"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "\u001b[?2004l",
+   "stderr": "Standard output is not a terminal\n"
+  },
+  {
+   "id": "CLI-P-024",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-z",
+    "-I"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-025",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-I",
+    "-z"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-026",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-f",
+    "/nonexistent/rc",
+    "-z"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "\u001b[?2004l",
+   "stderr": "Specified rcfile does not exist\n"
+  },
+  {
+   "id": "CLI-P-027",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-f",
+    "$TMP/rc1",
+    "-z"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "Available syntaxes:\n bar foo\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-028",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-f",
+    "$TMP/rcbad",
+    "-z"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "Available syntaxes:\n x\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-029",
+   "profile": "tiny",
+   "argv0": "nano",
+   "args": [
+    "-A"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-030",
+   "profile": "tiny",
+   "argv0": "nano",
+   "args": [
+    "--smarthome"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--smarthome'\n"
+  },
+  {
+   "id": "CLI-P-031",
+   "profile": "tiny",
+   "argv0": "nano",
+   "args": [
+    "-I"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-032",
+   "profile": "tiny",
+   "argv0": "nano",
+   "args": [
+    "-1",
+    "-h"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "Usage: nano [OPTIONS] [[+LINE[,COLUMN]] FILE]...\n\n -D             --boldtext              Use bold instead of reverse video text\n -K             --rawsequences          Fix numeric keypad key confusion problem\n -R             --restricted            Restrict access to the filesystem\n -U             --quickblank            Wipe status bar upon next keystroke\n -V             --version               Print version information and exit\n -c             --constantshow          Constantly show cursor position\n -d             --rebinddelete          Fix Backspace/Delete confusion problem\n -h             --help                  Show this help text and exit\n -p             --preserve              Preserve XON (^Q) and XOFF (^S) keys\n -t             --saveonexit            Save changes on exit, don't prompt\n -v             --view                  View mode (read-only)\n -x             --nohelp                Don't show the two help lines\n -/             --modernbindings        Use better-known key bindings\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-033",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-Q",
+    "(",
+    "-z"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-034",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "--fill=-0",
+    "--tabsize=+3",
+    "--guidestripe= 7",
+    "-V"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n (C) 2026 the Free Software Foundation and various contributors\n Compiled options: --enable-utf8\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-035",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "--rcfile"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: option '--rcfile' requires an argument\n"
+  },
+  {
+   "id": "CLI-P-036",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-f",
+    "$TMP/rcdir",
+    "-z"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-037",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-f",
+    "$TMP/rcvital",
+    "-z"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-038",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "--he"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "Usage: nano [OPTIONS] [[+LINE[,COLUMN]] FILE]...\n\nTo place the cursor on a specific line of a file, put the line number with\na '+' before the filename.  The column number can be added after a comma.\nWhen a filename is '-', nano reads data from standard input.\n\n Option         Long option             Meaning\n -A             --smarthome             Enable smart home key\n -B             --backup                Save backups of existing files\n -C <dir>       --backupdir=<dir>       Directory for saving unique backup files\n -D             --boldtext              Use bold instead of reverse video text\n -E             --tabstospaces          Convert typed tabs to spaces\n -F             --newbuffer             Read a file into a new buffer by default\n -G             --locking               Use (vim-style) lock files\n -H             --historylog            Save & reload old search/replace strings\n -I             --ignorercfiles         Don't look at nanorc files\n -J <number>    --guidestripe=<number>  Show a guiding bar at this column\n -K             --rawsequences          Fix numeric keypad key confusion problem\n -L             --nonewlines            Don't add an automatic newline\n -M             --trimblanks            Trim tail spaces when hard-wrapping\n -N             --noconvert             Don't convert files from DOS format\n -O             --bookstyle             Leading whitespace means new paragraph\n -P             --positionlog           Save & restore position of the cursor\n -Q <regex>     --quotestr=<regex>      Regular expression to match quoting\n -R             --restricted            Restrict access to the filesystem\n -S             --softwrap              Display overlong lines on multiple rows\n -T <number>    --tabsize=<number>      Make a tab this number of columns wide\n -U             --quickblank            Wipe status bar upon next keystroke\n -V             --version               Print version information and exit\n -W             --wordbounds            Detect word boundaries more accurately\n -X <string>    --wordchars=<string>    Which other characters are word parts\n -Y <name>      --syntax=<name>         Syntax definition to use for coloring\n -Z             --zap                   Let Bsp and Del erase a marked region\n -a             --atblanks              When soft-wrapping, do it at whitespace\n -b             --breaklonglines        Automatically hard-wrap overlong lines\n -c             --constantshow          Constantly show cursor position\n -d             --rebinddelete          Fix Backspace/Delete confusion problem\n -e             --emptyline             Keep the line below the title bar empty\n -f <file>      --rcfile=<file>         Use only this file for configuring nano\n -g             --showcursor            Show cursor in file browser & help text\n -h             --help                  Show this help text and exit\n -i             --autoindent            Automatically indent new lines\n -j             --jumpyscrolling        Scroll per half-screen, not per line\n -k             --cutfromcursor         Cut from cursor to end of line\n -l             --linenumbers           Show line numbers in front of the text\n -m             --mouse                 Enable the use of the mouse\n -n             --noread                Do not read the file (only write it)\n -o <dir>       --operatingdir=<dir>    Set operating directory\n -p             --preserve              Preserve XON (^Q) and XOFF (^S) keys\n -q             --indicator             Show a position+portion indicator\n -r <number>    --fill=<number>         Set width for hard-wrap and justify\n -s <program>   --speller=<program>     Use this alternative spell checker\n -t             --saveonexit            Save changes on exit, don't prompt\n -u             --unix                  Save a file by default in Unix format\n -v             --view                  View mode (read-only)\n -w             --nowrap                Don't hard-wrap long lines [default]\n -x             --nohelp                Don't show the two help lines\n -y             --afterends             Make Ctrl+Right stop at word ends\n -z             --listsyntaxes          List the names of available syntaxes\n -!             --magic                 Also try magic to determine syntax\n -@             --colonparsing          Accept 'filename:linenumber' notation\n -%             --stateflags            Show some states on the title bar\n -_             --minibar               Show a feedback bar at the bottom\n -0             --zero                  Hide all bars, use whole terminal\n -1             --solosidescroll        Scroll only the current line sideways\n -/             --modernbindings        Use better-known key bindings\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-039",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "--syntax"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: option '--syntax' requires an argument\n"
+  },
+  {
+   "id": "CLI-P-040",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-Y"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: option requires an argument -- 'Y'\n"
+  },
+  {
+   "id": "CLI-P-041",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "--zero",
+    "--version"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n (C) 2026 the Free Software Foundation and various contributors\n Compiled options: --enable-utf8\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-042",
+   "profile": "default",
+   "argv0": "xnano",
+   "args": [
+    "--help"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "Usage: nano [OPTIONS] [[+LINE[,COLUMN]] FILE]...\n\nTo place the cursor on a specific line of a file, put the line number with\na '+' before the filename.  The column number can be added after a comma.\nWhen a filename is '-', nano reads data from standard input.\n\n Option         Long option             Meaning\n -A             --smarthome             Enable smart home key\n -B             --backup                Save backups of existing files\n -C <dir>       --backupdir=<dir>       Directory for saving unique backup files\n -D             --boldtext              Use bold instead of reverse video text\n -E             --tabstospaces          Convert typed tabs to spaces\n -F             --newbuffer             Read a file into a new buffer by default\n -G             --locking               Use (vim-style) lock files\n -H             --historylog            Save & reload old search/replace strings\n -I             --ignorercfiles         Don't look at nanorc files\n -J <number>    --guidestripe=<number>  Show a guiding bar at this column\n -K             --rawsequences          Fix numeric keypad key confusion problem\n -L             --nonewlines            Don't add an automatic newline\n -M             --trimblanks            Trim tail spaces when hard-wrapping\n -N             --noconvert             Don't convert files from DOS format\n -O             --bookstyle             Leading whitespace means new paragraph\n -P             --positionlog           Save & restore position of the cursor\n -Q <regex>     --quotestr=<regex>      Regular expression to match quoting\n -R             --restricted            Restrict access to the filesystem\n -S             --softwrap              Display overlong lines on multiple rows\n -T <number>    --tabsize=<number>      Make a tab this number of columns wide\n -U             --quickblank            Wipe status bar upon next keystroke\n -V             --version               Print version information and exit\n -W             --wordbounds            Detect word boundaries more accurately\n -X <string>    --wordchars=<string>    Which other characters are word parts\n -Y <name>      --syntax=<name>         Syntax definition to use for coloring\n -Z             --zap                   Let Bsp and Del erase a marked region\n -a             --atblanks              When soft-wrapping, do it at whitespace\n -b             --breaklonglines        Automatically hard-wrap overlong lines\n -c             --constantshow          Constantly show cursor position\n -d             --rebinddelete          Fix Backspace/Delete confusion problem\n -e             --emptyline             Keep the line below the title bar empty\n -f <file>      --rcfile=<file>         Use only this file for configuring nano\n -g             --showcursor            Show cursor in file browser & help text\n -h             --help                  Show this help text and exit\n -i             --autoindent            Automatically indent new lines\n -j             --jumpyscrolling        Scroll per half-screen, not per line\n -k             --cutfromcursor         Cut from cursor to end of line\n -l             --linenumbers           Show line numbers in front of the text\n -m             --mouse                 Enable the use of the mouse\n -n             --noread                Do not read the file (only write it)\n -o <dir>       --operatingdir=<dir>    Set operating directory\n -p             --preserve              Preserve XON (^Q) and XOFF (^S) keys\n -q             --indicator             Show a position+portion indicator\n -r <number>    --fill=<number>         Set width for hard-wrap and justify\n -s <program>   --speller=<program>     Use this alternative spell checker\n -t             --saveonexit            Save changes on exit, don't prompt\n -u             --unix                  Save a file by default in Unix format\n -v             --view                  View mode (read-only)\n -w             --nowrap                Don't hard-wrap long lines [default]\n -x             --nohelp                Don't show the two help lines\n -y             --afterends             Make Ctrl+Right stop at word ends\n -z             --listsyntaxes          List the names of available syntaxes\n -!             --magic                 Also try magic to determine syntax\n -@             --colonparsing          Accept 'filename:linenumber' notation\n -%             --stateflags            Show some states on the title bar\n -_             --minibar               Show a feedback bar at the bottom\n -0             --zero                  Hide all bars, use whole terminal\n -1             --solosidescroll        Scroll only the current line sideways\n -/             --modernbindings        Use better-known key bindings\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-043",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-z"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "Available syntaxes:\n one\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-044",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "--listsyntaxes",
+    "-f",
+    "$TMP/rcsyn"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-045",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-f",
+    "$TMP/rcsyn",
+    "--listsyntaxes"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 0,
+   "stdout": "Available syntaxes:\n yaml xml tex texinfo tcl sql sh rust ruby python po php perl\n patch ocaml m nftables nanorc nanohelp markdown man makefile\n lua json javascript java html guile groff go email default\n css c cmake changelog awk autoconf asm\n",
+   "stderr": ""
+  },
+  {
+   "id": "CLI-P-046",
+   "profile": "default",
+   "argv0": "nano",
+   "args": [
+    "-o",
+    "/nonexistent-dir",
+    "file"
+   ],
+   "stdin": "/dev/null (not a tty)",
+   "stdout_is_tty": false,
+   "exit_status": 1,
+   "stdout": "\u001b[?2004l",
+   "stderr": "Standard output is not a terminal\n"
+  }
+ ]
+}

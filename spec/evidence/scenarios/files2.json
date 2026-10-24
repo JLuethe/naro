@@ -1,0 +1,685 @@
+[
+ {
+  "id": "TEST-FILE-014",
+  "args": [
+   "-I",
+   "-G",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "a\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "capture_file": "work/.f.txt.swp"
+   },
+   {
+    "snapshot": "f00",
+    "quiet": 200
+   },
+   {
+    "text": "x"
+   },
+   {
+    "snapshot": "f01",
+    "quiet": 200
+   },
+   {
+    "capture_file": "work/.f.txt.swp"
+   },
+   {
+    "snapshot": "f02",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "y"
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FILE-016",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "a\n"
+   },
+   "work/other.txt": {
+    "text": "o\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "text": "x"
+   },
+   {
+    "snapshot": "f00",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "snapshot": "f01",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^K"
+    ]
+   },
+   {
+    "snapshot": "f02",
+    "quiet": 200
+   },
+   {
+    "text": "other.txt\r"
+   },
+   {
+    "snapshot": "f03",
+    "quiet": 200
+   },
+   {
+    "text": "y"
+   },
+   {
+    "snapshot": "f04",
+    "quiet": 200
+   },
+   {
+    "text": "y"
+   },
+   {
+    "snapshot": "f05",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FILE-017",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "a\n"
+   },
+   "work/other.txt": {
+    "text": "o\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "snapshot": "f00",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^K"
+    ]
+   },
+   {
+    "snapshot": "f01",
+    "quiet": 200
+   },
+   {
+    "text": "other.txt"
+   },
+   {
+    "snapshot": "f02",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "snapshot": "f03",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "f04",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "snapshot": "f05",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^K"
+    ]
+   },
+   {
+    "snapshot": "f06",
+    "quiet": 200
+   },
+   {
+    "text": "other.txt"
+   },
+   {
+    "snapshot": "f07",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "M-P"
+    ]
+   },
+   {
+    "snapshot": "f08",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "f09",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FILE-025",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "a\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "text": "x"
+   },
+   {
+    "snapshot": "f00",
+    "quiet": 200
+   },
+   {
+    "write_file": "work/f.txt",
+    "mtime_offset": 5,
+    "content": "changed\n"
+   },
+   {
+    "snapshot": "f01",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "snapshot": "f02",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "f03",
+    "quiet": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "snapshot": "f04",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FILE-026",
+  "args": [
+   "-I",
+   "-G",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "a\n"
+   },
+   "work/.f.txt.swp": {
+    "b64": "YjB2aW0gOS4xAAAAAAAAAAAAAAAAAAAAkhAAAGFsaWNlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABob3N0eAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "ask"
+   },
+   {
+    "text": "y"
+   },
+   {
+    "settle": 300
+   },
+   {
+    "snapshot": "opened"
+   },
+   {
+    "capture_file": "work/.f.txt.swp"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FILE-027",
+  "args": [
+   "-I",
+   "-G",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "a\n"
+   },
+   "work/.f.txt.swp": {
+    "text": "garbage"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "bad"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FILE-028",
+  "args": [
+   "-I",
+   "-G",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "a\n"
+   },
+   "work/.f.txt.swp": {
+    "b64": "YjB2aW0gOS4xAAAAAAAAAAAAAAAAAAAAkhAAAGFsaWNlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABob3N0eAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "ask"
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FILE-029",
+  "args": [
+   "-I",
+   "f.txt",
+   "g.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "a\n"
+   },
+   "work/g.txt": {
+    "text": "g\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "M-."
+    ]
+   },
+   {
+    "snapshot": "f00",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "M-,"
+    ]
+   },
+   {
+    "snapshot": "f01",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "snapshot": "f02",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "snapshot": "f03",
+    "quiet": 200
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FILE-030",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "a\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^R"
+    ]
+   },
+   {
+    "snapshot": "f00",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "snapshot": "f01",
+    "quiet": 200
+   },
+   {
+    "text": "echo hi; echo err >&2\r"
+   },
+   {
+    "snapshot": "f02",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "f03",
+    "quiet": 200
+   },
+   {
+    "text": "|tr a-z A-Z\r"
+   },
+   {
+    "snapshot": "f04",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "f05",
+    "quiet": 200
+   },
+   {
+    "text": "false\r"
+   },
+   {
+    "snapshot": "f06",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FILE-031",
+  "args": [
+   "-I"
+  ],
+  "files": {
+   "work/existing.txt": {
+    "text": "keep\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "text": "x"
+   },
+   {
+    "snapshot": "f00",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "snapshot": "f01",
+    "quiet": 200
+   },
+   {
+    "text": "sub/none.txt\r"
+   },
+   {
+    "snapshot": "f02",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "snapshot": "f03",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^K"
+    ]
+   },
+   {
+    "snapshot": "f04",
+    "quiet": 200
+   },
+   {
+    "text": "existing.txt\r"
+   },
+   {
+    "snapshot": "f05",
+    "quiet": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "snapshot": "f06",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "f07",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ }
+]

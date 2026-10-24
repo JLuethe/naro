@@ -1,0 +1,2057 @@
+[
+ {
+  "id": "TEST-EDIT-001",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": ""
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "text": "abc"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-002",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^End"
+    ]
+   },
+   {
+    "text": "d"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-003",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^End"
+    ]
+   },
+   {
+    "keys": [
+     "Bsp"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-004",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "keys": [
+     "Del"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-005",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^End"
+    ]
+   },
+   {
+    "keys": [
+     "Del"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-006",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\ndef\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "keys": [
+     "Bsp"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-007",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\ndef\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "keys": [
+     "Del"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-008",
+  "args": [
+   "-I",
+   "-i",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "    indented\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "text": "x"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-009",
+  "args": [
+   "-I",
+   "-i",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "    indented\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "keys": [
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-010",
+  "args": [
+   "-I",
+   "-i",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "    \n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "text": "x"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-011",
+  "args": [
+   "-I",
+   "-E",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "Tab"
+    ]
+   },
+   {
+    "text": "|"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-012",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "l1\nl2\nl3\nl4\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^K"
+    ]
+   },
+   {
+    "keys": [
+     "^K"
+    ]
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "keys": [
+     "^U"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-013",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "l1\nl2\nl3\nl4\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^K"
+    ]
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "keys": [
+     "^K"
+    ]
+   },
+   {
+    "keys": [
+     "^U"
+    ]
+   },
+   {
+    "keys": [
+     "^U"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-014",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "l1\nl2\nl3\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^End"
+    ]
+   },
+   {
+    "snapshot": "s2"
+   },
+   {
+    "keys": [
+     "^K"
+    ]
+   },
+   {
+    "snapshot": "s4"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-015",
+  "args": [
+   "-I",
+   "-k",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello world\nsecond\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "keys": [
+     "^K"
+    ]
+   },
+   {
+    "keys": [
+     "^K"
+    ]
+   },
+   {
+    "keys": [
+     "^U"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-016",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "l1\nl2\nl3\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "M-6"
+    ]
+   },
+   {
+    "keys": [
+     "M-6"
+    ]
+   },
+   {
+    "keys": [
+     "^End"
+    ]
+   },
+   {
+    "keys": [
+     "^U"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-017",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abcdef\nghij\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "^K"
+    ]
+   },
+   {
+    "keys": [
+     "^End"
+    ]
+   },
+   {
+    "keys": [
+     "^U"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-018",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abcdef\nghij\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "keys": [
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "M-Del"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-019",
+  "args": [
+   "-I",
+   "-Z",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abcdef\nghij\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "keys": [
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "Bsp"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-020",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "one two three\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "keys": [
+     "Sh-^Del"
+    ]
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "keys": [
+     "^Del"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-021",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "l1\nl2\nl3\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "M-T"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-022",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "a\n\nb\nc\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "keys": [
+     "^End"
+    ]
+   },
+   {
+    "keys": [
+     "Tab"
+    ]
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-023",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "\ta\n    b\n  c\nd\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "keys": [
+     "^End"
+    ]
+   },
+   {
+    "keys": [
+     "Sh-Tab"
+    ]
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-024",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n#y\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "M-3"
+    ]
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "keys": [
+     "M-3"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-025",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "alphabet alpine\nal"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "Down",
+     "End"
+    ]
+   },
+   {
+    "keys": [
+     "^]"
+    ]
+   },
+   {
+    "snapshot": "c1"
+   },
+   {
+    "keys": [
+     "^]"
+    ]
+   },
+   {
+    "snapshot": "c2"
+   },
+   {
+    "keys": [
+     "^]"
+    ]
+   },
+   {
+    "snapshot": "c3"
+   },
+   {
+    "keys": [
+     "^]"
+    ]
+   },
+   {
+    "snapshot": "c4"
+   },
+   {
+    "text": "x"
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-026",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "one two\nthree four five\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "M-D"
+    ]
+   },
+   {
+    "snapshot": "s2"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-027",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "keys": [
+     "Left"
+    ]
+   },
+   {
+    "keys": [
+     "M-Bsp"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-EDIT-028",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "text": "y"
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "keys": [
+     "Del"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "final"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "saved"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ }
+]

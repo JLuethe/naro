@@ -1,0 +1,23 @@
+type,meaning,created_by,message_noun,flags_or_condition,source,spec_section
+ADD,typed or injected text,inject() nano.c:1488-1491; do_wrap,Undid/Redid addition,,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+ENTER,line break,do_enter() text.c:900,line break,,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+BACK,Backspace deletion (becomes JOIN at line start),expunge(BACK),deletion / line join,WAS_BACKSPACE_AT_EOF,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+DEL,Delete deletion (becomes JOIN at line end),expunge(DEL),deletion / line join,,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+JOIN,joining of two lines,add_undo BACK/DEL morph,line join,WAS_BACKSPACE_AT_EOF,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+REPLACE,one replacement of a search match,do_replace_loop search.c:624,replacement,,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+SPLIT_BEGIN,start of automatic hard wrap (inserted below the triggering item),do_wrap text.c:1276,addition,ENABLE_WRAPPING,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+SPLIT_END,end of automatic hard wrap,do_wrap text.c:1385,addition,ENABLE_WRAPPING,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+INDENT,indent of line(s),do_indent text.c:145,indent,,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+UNINDENT,unindent of line(s),do_unindent text.c:250,unindent,,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+COMMENT,comment line(s),do_comment text.c:405,comment,ENABLE_COMMENT,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+UNCOMMENT,uncomment line(s),do_comment text.c:405,uncomment,ENABLE_COMMENT,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+PREFLIGHT,"(internal action code, never stored)",comment_line,,ENABLE_COMMENT,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+ZAP,zap (erase without cutbuffer),zap_text cut.c:593,erasure,,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+CUT,"cut (line, region, chopped word, justify extraction, tool replacement)",cut_text cut.c:548 and others,cut,,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+CUT_TO_EOF,cut till end of file,cut_till_eof cut.c:575; replace_buffer,cut,,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+COPY,(last_action marker only; not stored as an undo item),copy_text cut.c:721,,,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+PASTE,"paste of cutbuffer, or re-insertion of justified text",paste_text cut.c:745,paste,,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+INSERT,inserted file or command output,read_file files.c:677,insertion,,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+COUPLE_BEGIN,"start of compound operation (justification, filtering, spelling correction, formatting)",text.c:1782 etc.,<operation name>,,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+COUPLE_END,end of compound operation,text.c:2002 etc.,<operation name>,,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md
+OTHER,(last_action marker only),,,,src/definitions.h:297-308; src/text.c:495-1230,06-undo-redo.md

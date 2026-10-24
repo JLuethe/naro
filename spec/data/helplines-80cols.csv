@@ -1,0 +1,1094 @@
+profile,context,slot,row,column,width,key_display,help_tag,function_c,cols
+default-utf8,MMAIN,0,1,0,13,^G,Help,do_help,80
+default-utf8,MMAIN,1,2,0,13,^X,Exit,do_exit,80
+default-utf8,MMAIN,2,1,13,13,^O,Write Out,do_writeout,80
+default-utf8,MMAIN,3,2,13,13,^R,Read File,do_insertfile,80
+default-utf8,MMAIN,4,1,26,13,^F,Where Is,do_search_forward,80
+default-utf8,MMAIN,5,2,26,13,^\,Replace,do_replace,80
+default-utf8,MMAIN,6,1,39,13,^K,Cut,cut_text,80
+default-utf8,MMAIN,7,2,39,13,^U,Paste,paste_text,80
+default-utf8,MMAIN,8,1,52,13,^T,Execute,do_execute,80
+default-utf8,MMAIN,9,2,52,13,^J,Justify,do_justify,80
+default-utf8,MMAIN,10,1,65,15,^C,Location,report_cursor_position,80
+default-utf8,MMAIN,11,2,65,15,^/,Go To Line,do_gotolinecolumn,80
+default-utf8,MWHEREIS,0,1,0,20,^G,Help,do_help,80
+default-utf8,MWHEREIS,1,2,0,20,^C,Cancel,do_cancel,80
+default-utf8,MWHEREIS,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-utf8,MWHEREIS,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-utf8,MWHEREIS,4,1,40,20,M-B,Backwards,backwards_void,80
+default-utf8,MWHEREIS,5,2,40,20,^R,Replace,flip_replace,80
+default-utf8,MWHEREIS,6,1,60,20,^P,Older,get_older_item,80
+default-utf8,MWHEREIS,7,2,60,20,^N,Newer,get_newer_item,80
+default-utf8,MREPLACE,0,1,0,20,^G,Help,do_help,80
+default-utf8,MREPLACE,1,2,0,20,^C,Cancel,do_cancel,80
+default-utf8,MREPLACE,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-utf8,MREPLACE,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-utf8,MREPLACE,4,1,40,20,M-B,Backwards,backwards_void,80
+default-utf8,MREPLACE,5,2,40,20,^R,No Replace,flip_replace,80
+default-utf8,MREPLACE,6,1,60,20,^P,Older,get_older_item,80
+default-utf8,MREPLACE,7,2,60,20,^N,Newer,get_newer_item,80
+default-utf8,MREPLACEWITH,0,1,0,40,^G,Help,do_help,80
+default-utf8,MREPLACEWITH,1,2,0,40,^C,Cancel,do_cancel,80
+default-utf8,MREPLACEWITH,2,1,40,40,^P,Older,get_older_item,80
+default-utf8,MREPLACEWITH,3,2,40,40,^N,Newer,get_newer_item,80
+default-utf8,MGOTOLINE,0,1,0,26,^G,Help,do_help,80
+default-utf8,MGOTOLINE,1,2,0,26,^C,Cancel,do_cancel,80
+default-utf8,MGOTOLINE,2,1,26,26,^W,Start of Paragraph,to_para_begin,80
+default-utf8,MGOTOLINE,3,2,26,26,^O,End of Paragraph,to_para_end,80
+default-utf8,MGOTOLINE,4,1,52,28,^Y,First Line,to_first_line,80
+default-utf8,MGOTOLINE,5,2,52,28,^V,Last Line,to_last_line,80
+default-utf8,MWRITEFILE,0,1,0,20,^G,Help,do_help,80
+default-utf8,MWRITEFILE,1,2,0,20,^C,Cancel,do_cancel,80
+default-utf8,MWRITEFILE,2,1,20,20,M-D,DOS Format,dos_format,80
+default-utf8,MWRITEFILE,3,2,20,20,M-B,Backup File,back_it_up,80
+default-utf8,MWRITEFILE,4,1,40,20,M-A,Append,append_it,80
+default-utf8,MWRITEFILE,5,2,40,20,M-P,Prepend,prepend_it,80
+default-utf8,MWRITEFILE,6,1,60,20,^Q,Discard buffer,discard_buffer,80
+default-utf8,MWRITEFILE,7,2,60,20,^T,Browse,to_files,80
+default-utf8,MINSERTFILE,0,1,0,26,^G,Help,do_help,80
+default-utf8,MINSERTFILE,1,2,0,26,^C,Cancel,do_cancel,80
+default-utf8,MINSERTFILE,2,1,26,26,M-F,New Buffer,flip_newbuffer,80
+default-utf8,MINSERTFILE,3,2,26,26,M-N,No Conversion,flip_convert,80
+default-utf8,MINSERTFILE,4,1,52,28,^X,Execute Command,flip_execute,80
+default-utf8,MINSERTFILE,5,2,52,28,^T,Browse,to_files,80
+default-utf8,MEXECUTE,0,1,0,13,^G,Help,do_help,80
+default-utf8,MEXECUTE,1,2,0,13,^C,Cancel,do_cancel,80
+default-utf8,MEXECUTE,2,1,13,13,^P,Older,get_older_item,80
+default-utf8,MEXECUTE,3,2,13,13,^N,Newer,get_newer_item,80
+default-utf8,MEXECUTE,4,1,26,13,M-F,New Buffer,flip_newbuffer,80
+default-utf8,MEXECUTE,5,2,26,13,M-\,Pipe Text,flip_pipe,80
+default-utf8,MEXECUTE,6,1,39,13,^S,Spell Check,do_spell,80
+default-utf8,MEXECUTE,7,2,39,13,^Y,Linter,do_linter,80
+default-utf8,MEXECUTE,8,1,52,13,^J,Full Justify,do_full_justify,80
+default-utf8,MEXECUTE,9,2,52,13,^O,Formatter,do_formatter,80
+default-utf8,MEXECUTE,10,1,65,15,^V,Cut Till End,cut_till_eof,80
+default-utf8,MEXECUTE,11,2,65,15,^Z,Suspend,do_suspend,80
+default-utf8,MHELP,0,1,0,13,^L,Refresh,full_refresh,80
+default-utf8,MHELP,1,2,0,13,^X,Close,do_exit,80
+default-utf8,MHELP,2,1,13,13,^F,Where Is,do_search_forward,80
+default-utf8,MHELP,3,2,13,13,^B,Where Was,do_search_backward,80
+default-utf8,MHELP,4,1,26,13,M-B,Previous,do_findprevious,80
+default-utf8,MHELP,5,2,26,13,M-F,Next,do_findnext,80
+default-utf8,MHELP,6,1,39,13,^P,Prev Line,do_up,80
+default-utf8,MHELP,7,2,39,13,^N,Next Line,do_down,80
+default-utf8,MHELP,8,1,52,13,^Y,Prev Page,do_page_up,80
+default-utf8,MHELP,9,2,52,13,^V,Next Page,do_page_down,80
+default-utf8,MHELP,10,1,65,15,M-\,First Line,to_first_line,80
+default-utf8,MHELP,11,2,65,15,M-/,Last Line,to_last_line,80
+default-utf8,MSPELL,0,1,0,80,^G,Help,do_help,80
+default-utf8,MSPELL,1,2,0,80,^C,Cancel,do_cancel,80
+default-utf8,MBROWSER,0,1,0,13,^G,Help,do_help,80
+default-utf8,MBROWSER,1,2,0,13,^X,Close,do_exit,80
+default-utf8,MBROWSER,2,1,13,13,^/,Go To Dir,goto_dir,80
+default-utf8,MBROWSER,3,2,13,13,^L,Refresh,full_refresh,80
+default-utf8,MBROWSER,4,1,26,13,^F,Where Is,do_search_forward,80
+default-utf8,MBROWSER,5,2,26,13,^B,Where Was,do_search_backward,80
+default-utf8,MBROWSER,6,1,39,13,M-B,Previous,do_findprevious,80
+default-utf8,MBROWSER,7,2,39,13,M-F,Next,do_findnext,80
+default-utf8,MBROWSER,8,1,52,13,◂,Back,do_left,80
+default-utf8,MBROWSER,9,2,52,13,▸,Forward,do_right,80
+default-utf8,MBROWSER,10,1,65,15,^P,Prev Line,do_up,80
+default-utf8,MBROWSER,11,2,65,15,^N,Next Line,do_down,80
+default-utf8,MWHEREISFILE,0,1,0,26,^G,Help,do_help,80
+default-utf8,MWHEREISFILE,1,2,0,26,^C,Cancel,do_cancel,80
+default-utf8,MWHEREISFILE,2,1,26,26,^P,Older,get_older_item,80
+default-utf8,MWHEREISFILE,3,2,26,26,^N,Newer,get_newer_item,80
+default-utf8,MWHEREISFILE,4,1,52,28,^Y,First File,to_first_file,80
+default-utf8,MWHEREISFILE,5,2,52,28,^V,Last File,to_last_file,80
+default-utf8,MGOTODIR,0,1,0,80,^G,Help,do_help,80
+default-utf8,MGOTODIR,1,2,0,80,^C,Cancel,do_cancel,80
+default-utf8,MLINTER,0,1,0,40,^G,Help,do_help,80
+default-utf8,MLINTER,1,2,0,40,^C,Cancel,do_cancel,80
+default-utf8,MLINTER,2,1,40,40,^Y,Previous Linter message,do_page_up,80
+default-utf8,MLINTER,3,2,40,40,^V,Next Linter message,do_page_down,80
+default-utf8,MFINDINHELP,0,1,0,80,^C,Cancel,do_cancel,80
+default-C,MMAIN,0,1,0,13,^G,Help,do_help,80
+default-C,MMAIN,1,2,0,13,^X,Exit,do_exit,80
+default-C,MMAIN,2,1,13,13,^O,Write Out,do_writeout,80
+default-C,MMAIN,3,2,13,13,^R,Read File,do_insertfile,80
+default-C,MMAIN,4,1,26,13,^F,Where Is,do_search_forward,80
+default-C,MMAIN,5,2,26,13,^\,Replace,do_replace,80
+default-C,MMAIN,6,1,39,13,^K,Cut,cut_text,80
+default-C,MMAIN,7,2,39,13,^U,Paste,paste_text,80
+default-C,MMAIN,8,1,52,13,^T,Execute,do_execute,80
+default-C,MMAIN,9,2,52,13,^J,Justify,do_justify,80
+default-C,MMAIN,10,1,65,15,^C,Location,report_cursor_position,80
+default-C,MMAIN,11,2,65,15,^/,Go To Line,do_gotolinecolumn,80
+default-C,MWHEREIS,0,1,0,20,^G,Help,do_help,80
+default-C,MWHEREIS,1,2,0,20,^C,Cancel,do_cancel,80
+default-C,MWHEREIS,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-C,MWHEREIS,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-C,MWHEREIS,4,1,40,20,M-B,Backwards,backwards_void,80
+default-C,MWHEREIS,5,2,40,20,^R,Replace,flip_replace,80
+default-C,MWHEREIS,6,1,60,20,^P,Older,get_older_item,80
+default-C,MWHEREIS,7,2,60,20,^N,Newer,get_newer_item,80
+default-C,MREPLACE,0,1,0,20,^G,Help,do_help,80
+default-C,MREPLACE,1,2,0,20,^C,Cancel,do_cancel,80
+default-C,MREPLACE,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-C,MREPLACE,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-C,MREPLACE,4,1,40,20,M-B,Backwards,backwards_void,80
+default-C,MREPLACE,5,2,40,20,^R,No Replace,flip_replace,80
+default-C,MREPLACE,6,1,60,20,^P,Older,get_older_item,80
+default-C,MREPLACE,7,2,60,20,^N,Newer,get_newer_item,80
+default-C,MREPLACEWITH,0,1,0,40,^G,Help,do_help,80
+default-C,MREPLACEWITH,1,2,0,40,^C,Cancel,do_cancel,80
+default-C,MREPLACEWITH,2,1,40,40,^P,Older,get_older_item,80
+default-C,MREPLACEWITH,3,2,40,40,^N,Newer,get_newer_item,80
+default-C,MGOTOLINE,0,1,0,26,^G,Help,do_help,80
+default-C,MGOTOLINE,1,2,0,26,^C,Cancel,do_cancel,80
+default-C,MGOTOLINE,2,1,26,26,^W,Start of Paragraph,to_para_begin,80
+default-C,MGOTOLINE,3,2,26,26,^O,End of Paragraph,to_para_end,80
+default-C,MGOTOLINE,4,1,52,28,^Y,First Line,to_first_line,80
+default-C,MGOTOLINE,5,2,52,28,^V,Last Line,to_last_line,80
+default-C,MWRITEFILE,0,1,0,20,^G,Help,do_help,80
+default-C,MWRITEFILE,1,2,0,20,^C,Cancel,do_cancel,80
+default-C,MWRITEFILE,2,1,20,20,M-D,DOS Format,dos_format,80
+default-C,MWRITEFILE,3,2,20,20,M-B,Backup File,back_it_up,80
+default-C,MWRITEFILE,4,1,40,20,M-A,Append,append_it,80
+default-C,MWRITEFILE,5,2,40,20,M-P,Prepend,prepend_it,80
+default-C,MWRITEFILE,6,1,60,20,^Q,Discard buffer,discard_buffer,80
+default-C,MWRITEFILE,7,2,60,20,^T,Browse,to_files,80
+default-C,MINSERTFILE,0,1,0,26,^G,Help,do_help,80
+default-C,MINSERTFILE,1,2,0,26,^C,Cancel,do_cancel,80
+default-C,MINSERTFILE,2,1,26,26,M-F,New Buffer,flip_newbuffer,80
+default-C,MINSERTFILE,3,2,26,26,M-N,No Conversion,flip_convert,80
+default-C,MINSERTFILE,4,1,52,28,^X,Execute Command,flip_execute,80
+default-C,MINSERTFILE,5,2,52,28,^T,Browse,to_files,80
+default-C,MEXECUTE,0,1,0,13,^G,Help,do_help,80
+default-C,MEXECUTE,1,2,0,13,^C,Cancel,do_cancel,80
+default-C,MEXECUTE,2,1,13,13,^P,Older,get_older_item,80
+default-C,MEXECUTE,3,2,13,13,^N,Newer,get_newer_item,80
+default-C,MEXECUTE,4,1,26,13,M-F,New Buffer,flip_newbuffer,80
+default-C,MEXECUTE,5,2,26,13,M-\,Pipe Text,flip_pipe,80
+default-C,MEXECUTE,6,1,39,13,^S,Spell Check,do_spell,80
+default-C,MEXECUTE,7,2,39,13,^Y,Linter,do_linter,80
+default-C,MEXECUTE,8,1,52,13,^J,Full Justify,do_full_justify,80
+default-C,MEXECUTE,9,2,52,13,^O,Formatter,do_formatter,80
+default-C,MEXECUTE,10,1,65,15,^V,Cut Till End,cut_till_eof,80
+default-C,MEXECUTE,11,2,65,15,^Z,Suspend,do_suspend,80
+default-C,MHELP,0,1,0,13,^L,Refresh,full_refresh,80
+default-C,MHELP,1,2,0,13,^X,Close,do_exit,80
+default-C,MHELP,2,1,13,13,^F,Where Is,do_search_forward,80
+default-C,MHELP,3,2,13,13,^B,Where Was,do_search_backward,80
+default-C,MHELP,4,1,26,13,M-B,Previous,do_findprevious,80
+default-C,MHELP,5,2,26,13,M-F,Next,do_findnext,80
+default-C,MHELP,6,1,39,13,^P,Prev Line,do_up,80
+default-C,MHELP,7,2,39,13,^N,Next Line,do_down,80
+default-C,MHELP,8,1,52,13,^Y,Prev Page,do_page_up,80
+default-C,MHELP,9,2,52,13,^V,Next Page,do_page_down,80
+default-C,MHELP,10,1,65,15,M-\,First Line,to_first_line,80
+default-C,MHELP,11,2,65,15,M-/,Last Line,to_last_line,80
+default-C,MSPELL,0,1,0,80,^G,Help,do_help,80
+default-C,MSPELL,1,2,0,80,^C,Cancel,do_cancel,80
+default-C,MBROWSER,0,1,0,13,^G,Help,do_help,80
+default-C,MBROWSER,1,2,0,13,^X,Close,do_exit,80
+default-C,MBROWSER,2,1,13,13,^/,Go To Dir,goto_dir,80
+default-C,MBROWSER,3,2,13,13,^L,Refresh,full_refresh,80
+default-C,MBROWSER,4,1,26,13,^F,Where Is,do_search_forward,80
+default-C,MBROWSER,5,2,26,13,^B,Where Was,do_search_backward,80
+default-C,MBROWSER,6,1,39,13,M-B,Previous,do_findprevious,80
+default-C,MBROWSER,7,2,39,13,M-F,Next,do_findnext,80
+default-C,MBROWSER,8,1,52,13,Left,Back,do_left,80
+default-C,MBROWSER,9,2,52,13,Right,Forward,do_right,80
+default-C,MBROWSER,10,1,65,15,^P,Prev Line,do_up,80
+default-C,MBROWSER,11,2,65,15,^N,Next Line,do_down,80
+default-C,MWHEREISFILE,0,1,0,26,^G,Help,do_help,80
+default-C,MWHEREISFILE,1,2,0,26,^C,Cancel,do_cancel,80
+default-C,MWHEREISFILE,2,1,26,26,^P,Older,get_older_item,80
+default-C,MWHEREISFILE,3,2,26,26,^N,Newer,get_newer_item,80
+default-C,MWHEREISFILE,4,1,52,28,^Y,First File,to_first_file,80
+default-C,MWHEREISFILE,5,2,52,28,^V,Last File,to_last_file,80
+default-C,MGOTODIR,0,1,0,80,^G,Help,do_help,80
+default-C,MGOTODIR,1,2,0,80,^C,Cancel,do_cancel,80
+default-C,MLINTER,0,1,0,40,^G,Help,do_help,80
+default-C,MLINTER,1,2,0,40,^C,Cancel,do_cancel,80
+default-C,MLINTER,2,1,40,40,^Y,Previous Linter message,do_page_up,80
+default-C,MLINTER,3,2,40,40,^V,Next Linter message,do_page_down,80
+default-C,MFINDINHELP,0,1,0,80,^C,Cancel,do_cancel,80
+default-modern,MMAIN,0,1,0,13,^H,Help,do_help,80
+default-modern,MMAIN,1,2,0,13,^Q,Exit,do_exit,80
+default-modern,MMAIN,2,1,13,13,^W,Write Out,do_writeout,80
+default-modern,MMAIN,3,2,13,13,^O,Read File,do_insertfile,80
+default-modern,MMAIN,4,1,26,13,^F,Where Is,do_search_forward,80
+default-modern,MMAIN,5,2,26,13,^R,Replace,do_replace,80
+default-modern,MMAIN,6,1,39,13,^X,Cut,cut_text,80
+default-modern,MMAIN,7,2,39,13,^V,Paste,paste_text,80
+default-modern,MMAIN,8,1,52,13,^E,Execute,do_execute,80
+default-modern,MMAIN,9,2,52,13,^J,Justify,do_justify,80
+default-modern,MMAIN,10,1,65,15,^P,Location,report_cursor_position,80
+default-modern,MMAIN,11,2,65,15,^T,Go To Line,do_gotolinecolumn,80
+default-modern,MWHEREIS,0,1,0,20,^H,Help,do_help,80
+default-modern,MWHEREIS,1,2,0,20,^C,Cancel,do_cancel,80
+default-modern,MWHEREIS,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-modern,MWHEREIS,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-modern,MWHEREIS,4,1,40,20,M-B,Backwards,backwards_void,80
+default-modern,MWHEREIS,5,2,40,20,^R,Replace,flip_replace,80
+default-modern,MWHEREIS,6,1,60,20,^P,Older,get_older_item,80
+default-modern,MWHEREIS,7,2,60,20,^N,Newer,get_newer_item,80
+default-modern,MREPLACE,0,1,0,20,^H,Help,do_help,80
+default-modern,MREPLACE,1,2,0,20,^C,Cancel,do_cancel,80
+default-modern,MREPLACE,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-modern,MREPLACE,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-modern,MREPLACE,4,1,40,20,M-B,Backwards,backwards_void,80
+default-modern,MREPLACE,5,2,40,20,^R,No Replace,flip_replace,80
+default-modern,MREPLACE,6,1,60,20,^P,Older,get_older_item,80
+default-modern,MREPLACE,7,2,60,20,^N,Newer,get_newer_item,80
+default-modern,MREPLACEWITH,0,1,0,40,^H,Help,do_help,80
+default-modern,MREPLACEWITH,1,2,0,40,^C,Cancel,do_cancel,80
+default-modern,MREPLACEWITH,2,1,40,40,^P,Older,get_older_item,80
+default-modern,MREPLACEWITH,3,2,40,40,^N,Newer,get_newer_item,80
+default-modern,MGOTOLINE,0,1,0,26,^H,Help,do_help,80
+default-modern,MGOTOLINE,1,2,0,26,^C,Cancel,do_cancel,80
+default-modern,MGOTOLINE,2,1,26,26,^W,Start of Paragraph,to_para_begin,80
+default-modern,MGOTOLINE,3,2,26,26,^O,End of Paragraph,to_para_end,80
+default-modern,MGOTOLINE,4,1,52,28,^Y,First Line,to_first_line,80
+default-modern,MGOTOLINE,5,2,52,28,^V,Last Line,to_last_line,80
+default-modern,MWRITEFILE,0,1,0,20,^H,Help,do_help,80
+default-modern,MWRITEFILE,1,2,0,20,^C,Cancel,do_cancel,80
+default-modern,MWRITEFILE,2,1,20,20,M-D,DOS Format,dos_format,80
+default-modern,MWRITEFILE,3,2,20,20,M-B,Backup File,back_it_up,80
+default-modern,MWRITEFILE,4,1,40,20,M-A,Append,append_it,80
+default-modern,MWRITEFILE,5,2,40,20,M-P,Prepend,prepend_it,80
+default-modern,MWRITEFILE,6,1,60,20,^Q,Discard buffer,discard_buffer,80
+default-modern,MWRITEFILE,7,2,60,20,^T,Browse,to_files,80
+default-modern,MINSERTFILE,0,1,0,26,^H,Help,do_help,80
+default-modern,MINSERTFILE,1,2,0,26,^C,Cancel,do_cancel,80
+default-modern,MINSERTFILE,2,1,26,26,M-F,New Buffer,flip_newbuffer,80
+default-modern,MINSERTFILE,3,2,26,26,M-N,No Conversion,flip_convert,80
+default-modern,MINSERTFILE,4,1,52,28,^X,Execute Command,flip_execute,80
+default-modern,MINSERTFILE,5,2,52,28,^T,Browse,to_files,80
+default-modern,MEXECUTE,0,1,0,13,^H,Help,do_help,80
+default-modern,MEXECUTE,1,2,0,13,^C,Cancel,do_cancel,80
+default-modern,MEXECUTE,2,1,13,13,^P,Older,get_older_item,80
+default-modern,MEXECUTE,3,2,13,13,^N,Newer,get_newer_item,80
+default-modern,MEXECUTE,4,1,26,13,M-F,New Buffer,flip_newbuffer,80
+default-modern,MEXECUTE,5,2,26,13,M-\,Pipe Text,flip_pipe,80
+default-modern,MEXECUTE,6,1,39,13,^S,Spell Check,do_spell,80
+default-modern,MEXECUTE,7,2,39,13,^Y,Linter,do_linter,80
+default-modern,MEXECUTE,8,1,52,13,^J,Full Justify,do_full_justify,80
+default-modern,MEXECUTE,9,2,52,13,^O,Formatter,do_formatter,80
+default-modern,MEXECUTE,10,1,65,15,^V,Cut Till End,cut_till_eof,80
+default-modern,MEXECUTE,11,2,65,15,^Z,Suspend,do_suspend,80
+default-modern,MHELP,0,1,0,13,^L,Refresh,full_refresh,80
+default-modern,MHELP,1,2,0,13,^H,Close,do_exit,80
+default-modern,MHELP,2,1,13,13,^F,Where Is,do_search_forward,80
+default-modern,MHELP,3,2,13,13,^B,Where Was,do_search_backward,80
+default-modern,MHELP,4,1,26,13,^D,Previous,do_findprevious,80
+default-modern,MHELP,5,2,26,13,^G,Next,do_findnext,80
+default-modern,MHELP,6,1,39,13,▴,Prev Line,do_up,80
+default-modern,MHELP,7,2,39,13,▾,Next Line,do_down,80
+default-modern,MHELP,8,1,52,13,PgUp,Prev Page,do_page_up,80
+default-modern,MHELP,9,2,52,13,PgDn,Next Page,do_page_down,80
+default-modern,MHELP,10,1,65,15,M-\,First Line,to_first_line,80
+default-modern,MHELP,11,2,65,15,M-/,Last Line,to_last_line,80
+default-modern,MSPELL,0,1,0,80,^H,Help,do_help,80
+default-modern,MSPELL,1,2,0,80,^C,Cancel,do_cancel,80
+default-modern,MBROWSER,0,1,0,13,^H,Help,do_help,80
+default-modern,MBROWSER,1,2,0,13,^Q,Close,do_exit,80
+default-modern,MBROWSER,2,1,13,13,^/,Go To Dir,goto_dir,80
+default-modern,MBROWSER,3,2,13,13,^L,Refresh,full_refresh,80
+default-modern,MBROWSER,4,1,26,13,^F,Where Is,do_search_forward,80
+default-modern,MBROWSER,5,2,26,13,^B,Where Was,do_search_backward,80
+default-modern,MBROWSER,6,1,39,13,^D,Previous,do_findprevious,80
+default-modern,MBROWSER,7,2,39,13,^G,Next,do_findnext,80
+default-modern,MBROWSER,8,1,52,13,◂,Back,do_left,80
+default-modern,MBROWSER,9,2,52,13,▸,Forward,do_right,80
+default-modern,MBROWSER,10,1,65,15,▴,Prev Line,do_up,80
+default-modern,MBROWSER,11,2,65,15,▾,Next Line,do_down,80
+default-modern,MWHEREISFILE,0,1,0,26,^H,Help,do_help,80
+default-modern,MWHEREISFILE,1,2,0,26,^C,Cancel,do_cancel,80
+default-modern,MWHEREISFILE,2,1,26,26,^P,Older,get_older_item,80
+default-modern,MWHEREISFILE,3,2,26,26,^N,Newer,get_newer_item,80
+default-modern,MWHEREISFILE,4,1,52,28,^Y,First File,to_first_file,80
+default-modern,MWHEREISFILE,5,2,52,28,^V,Last File,to_last_file,80
+default-modern,MGOTODIR,0,1,0,80,^H,Help,do_help,80
+default-modern,MGOTODIR,1,2,0,80,^C,Cancel,do_cancel,80
+default-modern,MLINTER,0,1,0,40,^H,Help,do_help,80
+default-modern,MLINTER,1,2,0,40,^C,Cancel,do_cancel,80
+default-modern,MLINTER,2,1,40,40,PgUp,Previous Linter message,do_page_up,80
+default-modern,MLINTER,3,2,40,40,PgDn,Next Linter message,do_page_down,80
+default-modern,MFINDINHELP,0,1,0,80,^C,Cancel,do_cancel,80
+default-modern-vt220,MMAIN,0,1,0,13,^N,Help,do_help,80
+default-modern-vt220,MMAIN,1,2,0,13,^Q,Exit,do_exit,80
+default-modern-vt220,MMAIN,2,1,13,13,^W,Write Out,do_writeout,80
+default-modern-vt220,MMAIN,3,2,13,13,^O,Read File,do_insertfile,80
+default-modern-vt220,MMAIN,4,1,26,13,^F,Where Is,do_search_forward,80
+default-modern-vt220,MMAIN,5,2,26,13,^R,Replace,do_replace,80
+default-modern-vt220,MMAIN,6,1,39,13,^X,Cut,cut_text,80
+default-modern-vt220,MMAIN,7,2,39,13,^V,Paste,paste_text,80
+default-modern-vt220,MMAIN,8,1,52,13,^E,Execute,do_execute,80
+default-modern-vt220,MMAIN,9,2,52,13,^J,Justify,do_justify,80
+default-modern-vt220,MMAIN,10,1,65,15,^P,Location,report_cursor_position,80
+default-modern-vt220,MMAIN,11,2,65,15,^T,Go To Line,do_gotolinecolumn,80
+default-modern-vt220,MWHEREIS,0,1,0,20,^N,Help,do_help,80
+default-modern-vt220,MWHEREIS,1,2,0,20,^C,Cancel,do_cancel,80
+default-modern-vt220,MWHEREIS,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-modern-vt220,MWHEREIS,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-modern-vt220,MWHEREIS,4,1,40,20,M-B,Backwards,backwards_void,80
+default-modern-vt220,MWHEREIS,5,2,40,20,^R,Replace,flip_replace,80
+default-modern-vt220,MWHEREIS,6,1,60,20,^P,Older,get_older_item,80
+default-modern-vt220,MWHEREIS,7,2,60,20,^N,Newer,get_newer_item,80
+default-modern-vt220,MREPLACE,0,1,0,20,^N,Help,do_help,80
+default-modern-vt220,MREPLACE,1,2,0,20,^C,Cancel,do_cancel,80
+default-modern-vt220,MREPLACE,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-modern-vt220,MREPLACE,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-modern-vt220,MREPLACE,4,1,40,20,M-B,Backwards,backwards_void,80
+default-modern-vt220,MREPLACE,5,2,40,20,^R,No Replace,flip_replace,80
+default-modern-vt220,MREPLACE,6,1,60,20,^P,Older,get_older_item,80
+default-modern-vt220,MREPLACE,7,2,60,20,^N,Newer,get_newer_item,80
+default-modern-vt220,MREPLACEWITH,0,1,0,40,^N,Help,do_help,80
+default-modern-vt220,MREPLACEWITH,1,2,0,40,^C,Cancel,do_cancel,80
+default-modern-vt220,MREPLACEWITH,2,1,40,40,^P,Older,get_older_item,80
+default-modern-vt220,MREPLACEWITH,3,2,40,40,^N,Newer,get_newer_item,80
+default-modern-vt220,MGOTOLINE,0,1,0,26,^N,Help,do_help,80
+default-modern-vt220,MGOTOLINE,1,2,0,26,^C,Cancel,do_cancel,80
+default-modern-vt220,MGOTOLINE,2,1,26,26,^W,Start of Paragraph,to_para_begin,80
+default-modern-vt220,MGOTOLINE,3,2,26,26,^O,End of Paragraph,to_para_end,80
+default-modern-vt220,MGOTOLINE,4,1,52,28,^Y,First Line,to_first_line,80
+default-modern-vt220,MGOTOLINE,5,2,52,28,^V,Last Line,to_last_line,80
+default-modern-vt220,MWRITEFILE,0,1,0,20,^N,Help,do_help,80
+default-modern-vt220,MWRITEFILE,1,2,0,20,^C,Cancel,do_cancel,80
+default-modern-vt220,MWRITEFILE,2,1,20,20,M-D,DOS Format,dos_format,80
+default-modern-vt220,MWRITEFILE,3,2,20,20,M-B,Backup File,back_it_up,80
+default-modern-vt220,MWRITEFILE,4,1,40,20,M-A,Append,append_it,80
+default-modern-vt220,MWRITEFILE,5,2,40,20,M-P,Prepend,prepend_it,80
+default-modern-vt220,MWRITEFILE,6,1,60,20,^Q,Discard buffer,discard_buffer,80
+default-modern-vt220,MWRITEFILE,7,2,60,20,^T,Browse,to_files,80
+default-modern-vt220,MINSERTFILE,0,1,0,26,^N,Help,do_help,80
+default-modern-vt220,MINSERTFILE,1,2,0,26,^C,Cancel,do_cancel,80
+default-modern-vt220,MINSERTFILE,2,1,26,26,M-F,New Buffer,flip_newbuffer,80
+default-modern-vt220,MINSERTFILE,3,2,26,26,M-N,No Conversion,flip_convert,80
+default-modern-vt220,MINSERTFILE,4,1,52,28,^X,Execute Command,flip_execute,80
+default-modern-vt220,MINSERTFILE,5,2,52,28,^T,Browse,to_files,80
+default-modern-vt220,MEXECUTE,0,1,0,13,^N,Help,do_help,80
+default-modern-vt220,MEXECUTE,1,2,0,13,^C,Cancel,do_cancel,80
+default-modern-vt220,MEXECUTE,2,1,13,13,^P,Older,get_older_item,80
+default-modern-vt220,MEXECUTE,3,2,13,13,^N,Newer,get_newer_item,80
+default-modern-vt220,MEXECUTE,4,1,26,13,M-F,New Buffer,flip_newbuffer,80
+default-modern-vt220,MEXECUTE,5,2,26,13,M-\,Pipe Text,flip_pipe,80
+default-modern-vt220,MEXECUTE,6,1,39,13,^S,Spell Check,do_spell,80
+default-modern-vt220,MEXECUTE,7,2,39,13,^Y,Linter,do_linter,80
+default-modern-vt220,MEXECUTE,8,1,52,13,^J,Full Justify,do_full_justify,80
+default-modern-vt220,MEXECUTE,9,2,52,13,^O,Formatter,do_formatter,80
+default-modern-vt220,MEXECUTE,10,1,65,15,^V,Cut Till End,cut_till_eof,80
+default-modern-vt220,MEXECUTE,11,2,65,15,^Z,Suspend,do_suspend,80
+default-modern-vt220,MHELP,0,1,0,13,^L,Refresh,full_refresh,80
+default-modern-vt220,MHELP,1,2,0,13,^N,Close,do_exit,80
+default-modern-vt220,MHELP,2,1,13,13,^F,Where Is,do_search_forward,80
+default-modern-vt220,MHELP,3,2,13,13,^B,Where Was,do_search_backward,80
+default-modern-vt220,MHELP,4,1,26,13,^D,Previous,do_findprevious,80
+default-modern-vt220,MHELP,5,2,26,13,^G,Next,do_findnext,80
+default-modern-vt220,MHELP,6,1,39,13,▴,Prev Line,do_up,80
+default-modern-vt220,MHELP,7,2,39,13,▾,Next Line,do_down,80
+default-modern-vt220,MHELP,8,1,52,13,PgUp,Prev Page,do_page_up,80
+default-modern-vt220,MHELP,9,2,52,13,PgDn,Next Page,do_page_down,80
+default-modern-vt220,MHELP,10,1,65,15,M-\,First Line,to_first_line,80
+default-modern-vt220,MHELP,11,2,65,15,M-/,Last Line,to_last_line,80
+default-modern-vt220,MSPELL,0,1,0,80,^N,Help,do_help,80
+default-modern-vt220,MSPELL,1,2,0,80,^C,Cancel,do_cancel,80
+default-modern-vt220,MBROWSER,0,1,0,13,^N,Help,do_help,80
+default-modern-vt220,MBROWSER,1,2,0,13,^Q,Close,do_exit,80
+default-modern-vt220,MBROWSER,2,1,13,13,^/,Go To Dir,goto_dir,80
+default-modern-vt220,MBROWSER,3,2,13,13,^L,Refresh,full_refresh,80
+default-modern-vt220,MBROWSER,4,1,26,13,^F,Where Is,do_search_forward,80
+default-modern-vt220,MBROWSER,5,2,26,13,^B,Where Was,do_search_backward,80
+default-modern-vt220,MBROWSER,6,1,39,13,^D,Previous,do_findprevious,80
+default-modern-vt220,MBROWSER,7,2,39,13,^G,Next,do_findnext,80
+default-modern-vt220,MBROWSER,8,1,52,13,◂,Back,do_left,80
+default-modern-vt220,MBROWSER,9,2,52,13,▸,Forward,do_right,80
+default-modern-vt220,MBROWSER,10,1,65,15,▴,Prev Line,do_up,80
+default-modern-vt220,MBROWSER,11,2,65,15,▾,Next Line,do_down,80
+default-modern-vt220,MWHEREISFILE,0,1,0,26,^N,Help,do_help,80
+default-modern-vt220,MWHEREISFILE,1,2,0,26,^C,Cancel,do_cancel,80
+default-modern-vt220,MWHEREISFILE,2,1,26,26,^P,Older,get_older_item,80
+default-modern-vt220,MWHEREISFILE,3,2,26,26,^N,Newer,get_newer_item,80
+default-modern-vt220,MWHEREISFILE,4,1,52,28,^Y,First File,to_first_file,80
+default-modern-vt220,MWHEREISFILE,5,2,52,28,^V,Last File,to_last_file,80
+default-modern-vt220,MGOTODIR,0,1,0,80,^N,Help,do_help,80
+default-modern-vt220,MGOTODIR,1,2,0,80,^C,Cancel,do_cancel,80
+default-modern-vt220,MLINTER,0,1,0,40,^N,Help,do_help,80
+default-modern-vt220,MLINTER,1,2,0,40,^C,Cancel,do_cancel,80
+default-modern-vt220,MLINTER,2,1,40,40,PgUp,Previous Linter message,do_page_up,80
+default-modern-vt220,MLINTER,3,2,40,40,PgDn,Next Linter message,do_page_down,80
+default-modern-vt220,MFINDINHELP,0,1,0,80,^C,Cancel,do_cancel,80
+default-preserve,MMAIN,0,1,0,13,^G,Help,do_help,80
+default-preserve,MMAIN,1,2,0,13,^X,Exit,do_exit,80
+default-preserve,MMAIN,2,1,13,13,^O,Write Out,do_writeout,80
+default-preserve,MMAIN,3,2,13,13,^R,Read File,do_insertfile,80
+default-preserve,MMAIN,4,1,26,13,^F,Where Is,do_search_forward,80
+default-preserve,MMAIN,5,2,26,13,^\,Replace,do_replace,80
+default-preserve,MMAIN,6,1,39,13,^K,Cut,cut_text,80
+default-preserve,MMAIN,7,2,39,13,^U,Paste,paste_text,80
+default-preserve,MMAIN,8,1,52,13,^T,Execute,do_execute,80
+default-preserve,MMAIN,9,2,52,13,^J,Justify,do_justify,80
+default-preserve,MMAIN,10,1,65,15,^C,Location,report_cursor_position,80
+default-preserve,MMAIN,11,2,65,15,^/,Go To Line,do_gotolinecolumn,80
+default-preserve,MWHEREIS,0,1,0,20,^G,Help,do_help,80
+default-preserve,MWHEREIS,1,2,0,20,^C,Cancel,do_cancel,80
+default-preserve,MWHEREIS,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-preserve,MWHEREIS,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-preserve,MWHEREIS,4,1,40,20,M-B,Backwards,backwards_void,80
+default-preserve,MWHEREIS,5,2,40,20,^R,Replace,flip_replace,80
+default-preserve,MWHEREIS,6,1,60,20,^P,Older,get_older_item,80
+default-preserve,MWHEREIS,7,2,60,20,^N,Newer,get_newer_item,80
+default-preserve,MREPLACE,0,1,0,20,^G,Help,do_help,80
+default-preserve,MREPLACE,1,2,0,20,^C,Cancel,do_cancel,80
+default-preserve,MREPLACE,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-preserve,MREPLACE,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-preserve,MREPLACE,4,1,40,20,M-B,Backwards,backwards_void,80
+default-preserve,MREPLACE,5,2,40,20,^R,No Replace,flip_replace,80
+default-preserve,MREPLACE,6,1,60,20,^P,Older,get_older_item,80
+default-preserve,MREPLACE,7,2,60,20,^N,Newer,get_newer_item,80
+default-preserve,MREPLACEWITH,0,1,0,40,^G,Help,do_help,80
+default-preserve,MREPLACEWITH,1,2,0,40,^C,Cancel,do_cancel,80
+default-preserve,MREPLACEWITH,2,1,40,40,^P,Older,get_older_item,80
+default-preserve,MREPLACEWITH,3,2,40,40,^N,Newer,get_newer_item,80
+default-preserve,MGOTOLINE,0,1,0,26,^G,Help,do_help,80
+default-preserve,MGOTOLINE,1,2,0,26,^C,Cancel,do_cancel,80
+default-preserve,MGOTOLINE,2,1,26,26,^W,Start of Paragraph,to_para_begin,80
+default-preserve,MGOTOLINE,3,2,26,26,^O,End of Paragraph,to_para_end,80
+default-preserve,MGOTOLINE,4,1,52,28,^Y,First Line,to_first_line,80
+default-preserve,MGOTOLINE,5,2,52,28,^V,Last Line,to_last_line,80
+default-preserve,MWRITEFILE,0,1,0,20,^G,Help,do_help,80
+default-preserve,MWRITEFILE,1,2,0,20,^C,Cancel,do_cancel,80
+default-preserve,MWRITEFILE,2,1,20,20,M-D,DOS Format,dos_format,80
+default-preserve,MWRITEFILE,3,2,20,20,M-B,Backup File,back_it_up,80
+default-preserve,MWRITEFILE,4,1,40,20,M-A,Append,append_it,80
+default-preserve,MWRITEFILE,5,2,40,40,M-P,Prepend,prepend_it,80
+default-preserve,MWRITEFILE,6,1,60,20,^T,Browse,to_files,80
+default-preserve,MINSERTFILE,0,1,0,26,^G,Help,do_help,80
+default-preserve,MINSERTFILE,1,2,0,26,^C,Cancel,do_cancel,80
+default-preserve,MINSERTFILE,2,1,26,26,M-F,New Buffer,flip_newbuffer,80
+default-preserve,MINSERTFILE,3,2,26,26,M-N,No Conversion,flip_convert,80
+default-preserve,MINSERTFILE,4,1,52,28,^X,Execute Command,flip_execute,80
+default-preserve,MINSERTFILE,5,2,52,28,^T,Browse,to_files,80
+default-preserve,MEXECUTE,0,1,0,13,^G,Help,do_help,80
+default-preserve,MEXECUTE,1,2,0,13,^C,Cancel,do_cancel,80
+default-preserve,MEXECUTE,2,1,13,13,^P,Older,get_older_item,80
+default-preserve,MEXECUTE,3,2,13,13,^N,Newer,get_newer_item,80
+default-preserve,MEXECUTE,4,1,26,13,M-F,New Buffer,flip_newbuffer,80
+default-preserve,MEXECUTE,5,2,26,13,M-\,Pipe Text,flip_pipe,80
+default-preserve,MEXECUTE,6,1,39,13,^T,Spell Check,do_spell,80
+default-preserve,MEXECUTE,7,2,39,13,^Y,Linter,do_linter,80
+default-preserve,MEXECUTE,8,1,52,13,^J,Full Justify,do_full_justify,80
+default-preserve,MEXECUTE,9,2,52,13,^O,Formatter,do_formatter,80
+default-preserve,MEXECUTE,10,1,65,15,^V,Cut Till End,cut_till_eof,80
+default-preserve,MEXECUTE,11,2,65,15,^Z,Suspend,do_suspend,80
+default-preserve,MHELP,0,1,0,13,^L,Refresh,full_refresh,80
+default-preserve,MHELP,1,2,0,13,^X,Close,do_exit,80
+default-preserve,MHELP,2,1,13,13,^F,Where Is,do_search_forward,80
+default-preserve,MHELP,3,2,13,13,^B,Where Was,do_search_backward,80
+default-preserve,MHELP,4,1,26,13,M-B,Previous,do_findprevious,80
+default-preserve,MHELP,5,2,26,13,M-F,Next,do_findnext,80
+default-preserve,MHELP,6,1,39,13,^P,Prev Line,do_up,80
+default-preserve,MHELP,7,2,39,13,^N,Next Line,do_down,80
+default-preserve,MHELP,8,1,52,13,^Y,Prev Page,do_page_up,80
+default-preserve,MHELP,9,2,52,13,^V,Next Page,do_page_down,80
+default-preserve,MHELP,10,1,65,15,M-\,First Line,to_first_line,80
+default-preserve,MHELP,11,2,65,15,M-/,Last Line,to_last_line,80
+default-preserve,MSPELL,0,1,0,80,^G,Help,do_help,80
+default-preserve,MSPELL,1,2,0,80,^C,Cancel,do_cancel,80
+default-preserve,MBROWSER,0,1,0,13,^G,Help,do_help,80
+default-preserve,MBROWSER,1,2,0,13,^X,Close,do_exit,80
+default-preserve,MBROWSER,2,1,13,13,^/,Go To Dir,goto_dir,80
+default-preserve,MBROWSER,3,2,13,13,^L,Refresh,full_refresh,80
+default-preserve,MBROWSER,4,1,26,13,^F,Where Is,do_search_forward,80
+default-preserve,MBROWSER,5,2,26,13,^B,Where Was,do_search_backward,80
+default-preserve,MBROWSER,6,1,39,13,M-B,Previous,do_findprevious,80
+default-preserve,MBROWSER,7,2,39,13,M-F,Next,do_findnext,80
+default-preserve,MBROWSER,8,1,52,13,◂,Back,do_left,80
+default-preserve,MBROWSER,9,2,52,13,▸,Forward,do_right,80
+default-preserve,MBROWSER,10,1,65,15,^P,Prev Line,do_up,80
+default-preserve,MBROWSER,11,2,65,15,^N,Next Line,do_down,80
+default-preserve,MWHEREISFILE,0,1,0,26,^G,Help,do_help,80
+default-preserve,MWHEREISFILE,1,2,0,26,^C,Cancel,do_cancel,80
+default-preserve,MWHEREISFILE,2,1,26,26,^P,Older,get_older_item,80
+default-preserve,MWHEREISFILE,3,2,26,26,^N,Newer,get_newer_item,80
+default-preserve,MWHEREISFILE,4,1,52,28,^Y,First File,to_first_file,80
+default-preserve,MWHEREISFILE,5,2,52,28,^V,Last File,to_last_file,80
+default-preserve,MGOTODIR,0,1,0,80,^G,Help,do_help,80
+default-preserve,MGOTODIR,1,2,0,80,^C,Cancel,do_cancel,80
+default-preserve,MLINTER,0,1,0,40,^G,Help,do_help,80
+default-preserve,MLINTER,1,2,0,40,^C,Cancel,do_cancel,80
+default-preserve,MLINTER,2,1,40,40,^Y,Previous Linter message,do_page_up,80
+default-preserve,MLINTER,3,2,40,40,^V,Next Linter message,do_page_down,80
+default-preserve,MFINDINHELP,0,1,0,80,^C,Cancel,do_cancel,80
+default-restricted,MMAIN,0,1,0,13,^G,Help,do_help,80
+default-restricted,MMAIN,1,2,0,13,^X,Exit,do_exit,80
+default-restricted,MMAIN,2,1,13,13,^O,Write Out,do_writeout,80
+default-restricted,MMAIN,3,2,13,13,^J,Justify,do_justify,80
+default-restricted,MMAIN,4,1,26,13,^F,Where Is,do_search_forward,80
+default-restricted,MMAIN,5,2,26,13,^\,Replace,do_replace,80
+default-restricted,MMAIN,6,1,39,13,^K,Cut,cut_text,80
+default-restricted,MMAIN,7,2,39,13,^U,Paste,paste_text,80
+default-restricted,MMAIN,8,1,52,13,^C,Location,report_cursor_position,80
+default-restricted,MMAIN,9,2,52,13,^/,Go To Line,do_gotolinecolumn,80
+default-restricted,MMAIN,10,1,65,15,M-U,Undo,do_undo,80
+default-restricted,MMAIN,11,2,65,15,M-E,Redo,do_redo,80
+default-restricted,MWHEREIS,0,1,0,20,^G,Help,do_help,80
+default-restricted,MWHEREIS,1,2,0,20,^C,Cancel,do_cancel,80
+default-restricted,MWHEREIS,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-restricted,MWHEREIS,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-restricted,MWHEREIS,4,1,40,20,M-B,Backwards,backwards_void,80
+default-restricted,MWHEREIS,5,2,40,20,^R,Replace,flip_replace,80
+default-restricted,MWHEREIS,6,1,60,20,^P,Older,get_older_item,80
+default-restricted,MWHEREIS,7,2,60,20,^N,Newer,get_newer_item,80
+default-restricted,MREPLACE,0,1,0,20,^G,Help,do_help,80
+default-restricted,MREPLACE,1,2,0,20,^C,Cancel,do_cancel,80
+default-restricted,MREPLACE,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-restricted,MREPLACE,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-restricted,MREPLACE,4,1,40,20,M-B,Backwards,backwards_void,80
+default-restricted,MREPLACE,5,2,40,20,^R,No Replace,flip_replace,80
+default-restricted,MREPLACE,6,1,60,20,^P,Older,get_older_item,80
+default-restricted,MREPLACE,7,2,60,20,^N,Newer,get_newer_item,80
+default-restricted,MREPLACEWITH,0,1,0,40,^G,Help,do_help,80
+default-restricted,MREPLACEWITH,1,2,0,40,^C,Cancel,do_cancel,80
+default-restricted,MREPLACEWITH,2,1,40,40,^P,Older,get_older_item,80
+default-restricted,MREPLACEWITH,3,2,40,40,^N,Newer,get_newer_item,80
+default-restricted,MGOTOLINE,0,1,0,26,^G,Help,do_help,80
+default-restricted,MGOTOLINE,1,2,0,26,^C,Cancel,do_cancel,80
+default-restricted,MGOTOLINE,2,1,26,26,^W,Start of Paragraph,to_para_begin,80
+default-restricted,MGOTOLINE,3,2,26,26,^O,End of Paragraph,to_para_end,80
+default-restricted,MGOTOLINE,4,1,52,28,^Y,First Line,to_first_line,80
+default-restricted,MGOTOLINE,5,2,52,28,^V,Last Line,to_last_line,80
+default-restricted,MWRITEFILE,0,1,0,40,^G,Help,do_help,80
+default-restricted,MWRITEFILE,1,2,0,40,^C,Cancel,do_cancel,80
+default-restricted,MWRITEFILE,2,1,40,40,M-D,DOS Format,dos_format,80
+default-restricted,MWRITEFILE,3,2,40,40,^Q,Discard buffer,discard_buffer,80
+default-restricted,MINSERTFILE,0,1,0,40,^G,Help,do_help,80
+default-restricted,MINSERTFILE,1,2,0,80,^C,Cancel,do_cancel,80
+default-restricted,MINSERTFILE,2,1,40,40,M-N,No Conversion,flip_convert,80
+default-restricted,MEXECUTE,0,1,0,13,^G,Help,do_help,80
+default-restricted,MEXECUTE,1,2,0,13,^C,Cancel,do_cancel,80
+default-restricted,MEXECUTE,2,1,13,13,^P,Older,get_older_item,80
+default-restricted,MEXECUTE,3,2,13,13,^N,Newer,get_newer_item,80
+default-restricted,MEXECUTE,4,1,26,13,^S,Spell Check,do_spell,80
+default-restricted,MEXECUTE,5,2,26,13,^Y,Linter,do_linter,80
+default-restricted,MEXECUTE,6,1,39,13,^J,Full Justify,do_full_justify,80
+default-restricted,MEXECUTE,7,2,39,13,^O,Formatter,do_formatter,80
+default-restricted,MEXECUTE,8,1,52,13,^V,Cut Till End,cut_till_eof,80
+default-restricted,MEXECUTE,9,2,52,28,^Z,Suspend,do_suspend,80
+default-restricted,MHELP,0,1,0,13,^L,Refresh,full_refresh,80
+default-restricted,MHELP,1,2,0,13,^X,Close,do_exit,80
+default-restricted,MHELP,2,1,13,13,^F,Where Is,do_search_forward,80
+default-restricted,MHELP,3,2,13,13,^B,Where Was,do_search_backward,80
+default-restricted,MHELP,4,1,26,13,M-B,Previous,do_findprevious,80
+default-restricted,MHELP,5,2,26,13,M-F,Next,do_findnext,80
+default-restricted,MHELP,6,1,39,13,^P,Prev Line,do_up,80
+default-restricted,MHELP,7,2,39,13,^N,Next Line,do_down,80
+default-restricted,MHELP,8,1,52,13,^Y,Prev Page,do_page_up,80
+default-restricted,MHELP,9,2,52,13,^V,Next Page,do_page_down,80
+default-restricted,MHELP,10,1,65,15,M-\,First Line,to_first_line,80
+default-restricted,MHELP,11,2,65,15,M-/,Last Line,to_last_line,80
+default-restricted,MSPELL,0,1,0,80,^G,Help,do_help,80
+default-restricted,MSPELL,1,2,0,80,^C,Cancel,do_cancel,80
+default-restricted,MBROWSER,0,1,0,13,^G,Help,do_help,80
+default-restricted,MBROWSER,1,2,0,13,^X,Close,do_exit,80
+default-restricted,MBROWSER,2,1,13,13,^/,Go To Dir,goto_dir,80
+default-restricted,MBROWSER,3,2,13,13,^L,Refresh,full_refresh,80
+default-restricted,MBROWSER,4,1,26,13,^F,Where Is,do_search_forward,80
+default-restricted,MBROWSER,5,2,26,13,^B,Where Was,do_search_backward,80
+default-restricted,MBROWSER,6,1,39,13,M-B,Previous,do_findprevious,80
+default-restricted,MBROWSER,7,2,39,13,M-F,Next,do_findnext,80
+default-restricted,MBROWSER,8,1,52,13,◂,Back,do_left,80
+default-restricted,MBROWSER,9,2,52,13,▸,Forward,do_right,80
+default-restricted,MBROWSER,10,1,65,15,^P,Prev Line,do_up,80
+default-restricted,MBROWSER,11,2,65,15,^N,Next Line,do_down,80
+default-restricted,MWHEREISFILE,0,1,0,26,^G,Help,do_help,80
+default-restricted,MWHEREISFILE,1,2,0,26,^C,Cancel,do_cancel,80
+default-restricted,MWHEREISFILE,2,1,26,26,^P,Older,get_older_item,80
+default-restricted,MWHEREISFILE,3,2,26,26,^N,Newer,get_newer_item,80
+default-restricted,MWHEREISFILE,4,1,52,28,^Y,First File,to_first_file,80
+default-restricted,MWHEREISFILE,5,2,52,28,^V,Last File,to_last_file,80
+default-restricted,MGOTODIR,0,1,0,80,^G,Help,do_help,80
+default-restricted,MGOTODIR,1,2,0,80,^C,Cancel,do_cancel,80
+default-restricted,MLINTER,0,1,0,40,^G,Help,do_help,80
+default-restricted,MLINTER,1,2,0,40,^C,Cancel,do_cancel,80
+default-restricted,MLINTER,2,1,40,40,^Y,Previous Linter message,do_page_up,80
+default-restricted,MLINTER,3,2,40,40,^V,Next Linter message,do_page_down,80
+default-restricted,MFINDINHELP,0,1,0,80,^C,Cancel,do_cancel,80
+default-rnano,MMAIN,0,1,0,13,^G,Help,do_help,80
+default-rnano,MMAIN,1,2,0,13,^X,Exit,do_exit,80
+default-rnano,MMAIN,2,1,13,13,^O,Write Out,do_writeout,80
+default-rnano,MMAIN,3,2,13,13,^J,Justify,do_justify,80
+default-rnano,MMAIN,4,1,26,13,^F,Where Is,do_search_forward,80
+default-rnano,MMAIN,5,2,26,13,^\,Replace,do_replace,80
+default-rnano,MMAIN,6,1,39,13,^K,Cut,cut_text,80
+default-rnano,MMAIN,7,2,39,13,^U,Paste,paste_text,80
+default-rnano,MMAIN,8,1,52,13,^C,Location,report_cursor_position,80
+default-rnano,MMAIN,9,2,52,13,^/,Go To Line,do_gotolinecolumn,80
+default-rnano,MMAIN,10,1,65,15,M-U,Undo,do_undo,80
+default-rnano,MMAIN,11,2,65,15,M-E,Redo,do_redo,80
+default-rnano,MWHEREIS,0,1,0,20,^G,Help,do_help,80
+default-rnano,MWHEREIS,1,2,0,20,^C,Cancel,do_cancel,80
+default-rnano,MWHEREIS,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-rnano,MWHEREIS,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-rnano,MWHEREIS,4,1,40,20,M-B,Backwards,backwards_void,80
+default-rnano,MWHEREIS,5,2,40,20,^R,Replace,flip_replace,80
+default-rnano,MWHEREIS,6,1,60,20,^P,Older,get_older_item,80
+default-rnano,MWHEREIS,7,2,60,20,^N,Newer,get_newer_item,80
+default-rnano,MREPLACE,0,1,0,20,^G,Help,do_help,80
+default-rnano,MREPLACE,1,2,0,20,^C,Cancel,do_cancel,80
+default-rnano,MREPLACE,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-rnano,MREPLACE,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-rnano,MREPLACE,4,1,40,20,M-B,Backwards,backwards_void,80
+default-rnano,MREPLACE,5,2,40,20,^R,No Replace,flip_replace,80
+default-rnano,MREPLACE,6,1,60,20,^P,Older,get_older_item,80
+default-rnano,MREPLACE,7,2,60,20,^N,Newer,get_newer_item,80
+default-rnano,MREPLACEWITH,0,1,0,40,^G,Help,do_help,80
+default-rnano,MREPLACEWITH,1,2,0,40,^C,Cancel,do_cancel,80
+default-rnano,MREPLACEWITH,2,1,40,40,^P,Older,get_older_item,80
+default-rnano,MREPLACEWITH,3,2,40,40,^N,Newer,get_newer_item,80
+default-rnano,MGOTOLINE,0,1,0,26,^G,Help,do_help,80
+default-rnano,MGOTOLINE,1,2,0,26,^C,Cancel,do_cancel,80
+default-rnano,MGOTOLINE,2,1,26,26,^W,Start of Paragraph,to_para_begin,80
+default-rnano,MGOTOLINE,3,2,26,26,^O,End of Paragraph,to_para_end,80
+default-rnano,MGOTOLINE,4,1,52,28,^Y,First Line,to_first_line,80
+default-rnano,MGOTOLINE,5,2,52,28,^V,Last Line,to_last_line,80
+default-rnano,MWRITEFILE,0,1,0,40,^G,Help,do_help,80
+default-rnano,MWRITEFILE,1,2,0,40,^C,Cancel,do_cancel,80
+default-rnano,MWRITEFILE,2,1,40,40,M-D,DOS Format,dos_format,80
+default-rnano,MWRITEFILE,3,2,40,40,^Q,Discard buffer,discard_buffer,80
+default-rnano,MINSERTFILE,0,1,0,40,^G,Help,do_help,80
+default-rnano,MINSERTFILE,1,2,0,80,^C,Cancel,do_cancel,80
+default-rnano,MINSERTFILE,2,1,40,40,M-N,No Conversion,flip_convert,80
+default-rnano,MEXECUTE,0,1,0,13,^G,Help,do_help,80
+default-rnano,MEXECUTE,1,2,0,13,^C,Cancel,do_cancel,80
+default-rnano,MEXECUTE,2,1,13,13,^P,Older,get_older_item,80
+default-rnano,MEXECUTE,3,2,13,13,^N,Newer,get_newer_item,80
+default-rnano,MEXECUTE,4,1,26,13,^S,Spell Check,do_spell,80
+default-rnano,MEXECUTE,5,2,26,13,^Y,Linter,do_linter,80
+default-rnano,MEXECUTE,6,1,39,13,^J,Full Justify,do_full_justify,80
+default-rnano,MEXECUTE,7,2,39,13,^O,Formatter,do_formatter,80
+default-rnano,MEXECUTE,8,1,52,13,^V,Cut Till End,cut_till_eof,80
+default-rnano,MEXECUTE,9,2,52,28,^Z,Suspend,do_suspend,80
+default-rnano,MHELP,0,1,0,13,^L,Refresh,full_refresh,80
+default-rnano,MHELP,1,2,0,13,^X,Close,do_exit,80
+default-rnano,MHELP,2,1,13,13,^F,Where Is,do_search_forward,80
+default-rnano,MHELP,3,2,13,13,^B,Where Was,do_search_backward,80
+default-rnano,MHELP,4,1,26,13,M-B,Previous,do_findprevious,80
+default-rnano,MHELP,5,2,26,13,M-F,Next,do_findnext,80
+default-rnano,MHELP,6,1,39,13,^P,Prev Line,do_up,80
+default-rnano,MHELP,7,2,39,13,^N,Next Line,do_down,80
+default-rnano,MHELP,8,1,52,13,^Y,Prev Page,do_page_up,80
+default-rnano,MHELP,9,2,52,13,^V,Next Page,do_page_down,80
+default-rnano,MHELP,10,1,65,15,M-\,First Line,to_first_line,80
+default-rnano,MHELP,11,2,65,15,M-/,Last Line,to_last_line,80
+default-rnano,MSPELL,0,1,0,80,^G,Help,do_help,80
+default-rnano,MSPELL,1,2,0,80,^C,Cancel,do_cancel,80
+default-rnano,MBROWSER,0,1,0,13,^G,Help,do_help,80
+default-rnano,MBROWSER,1,2,0,13,^X,Close,do_exit,80
+default-rnano,MBROWSER,2,1,13,13,^/,Go To Dir,goto_dir,80
+default-rnano,MBROWSER,3,2,13,13,^L,Refresh,full_refresh,80
+default-rnano,MBROWSER,4,1,26,13,^F,Where Is,do_search_forward,80
+default-rnano,MBROWSER,5,2,26,13,^B,Where Was,do_search_backward,80
+default-rnano,MBROWSER,6,1,39,13,M-B,Previous,do_findprevious,80
+default-rnano,MBROWSER,7,2,39,13,M-F,Next,do_findnext,80
+default-rnano,MBROWSER,8,1,52,13,◂,Back,do_left,80
+default-rnano,MBROWSER,9,2,52,13,▸,Forward,do_right,80
+default-rnano,MBROWSER,10,1,65,15,^P,Prev Line,do_up,80
+default-rnano,MBROWSER,11,2,65,15,^N,Next Line,do_down,80
+default-rnano,MWHEREISFILE,0,1,0,26,^G,Help,do_help,80
+default-rnano,MWHEREISFILE,1,2,0,26,^C,Cancel,do_cancel,80
+default-rnano,MWHEREISFILE,2,1,26,26,^P,Older,get_older_item,80
+default-rnano,MWHEREISFILE,3,2,26,26,^N,Newer,get_newer_item,80
+default-rnano,MWHEREISFILE,4,1,52,28,^Y,First File,to_first_file,80
+default-rnano,MWHEREISFILE,5,2,52,28,^V,Last File,to_last_file,80
+default-rnano,MGOTODIR,0,1,0,80,^G,Help,do_help,80
+default-rnano,MGOTODIR,1,2,0,80,^C,Cancel,do_cancel,80
+default-rnano,MLINTER,0,1,0,40,^G,Help,do_help,80
+default-rnano,MLINTER,1,2,0,40,^C,Cancel,do_cancel,80
+default-rnano,MLINTER,2,1,40,40,^Y,Previous Linter message,do_page_up,80
+default-rnano,MLINTER,3,2,40,40,^V,Next Linter message,do_page_down,80
+default-rnano,MFINDINHELP,0,1,0,80,^C,Cancel,do_cancel,80
+default-view,MMAIN,0,1,0,13,^G,Help,do_help,80
+default-view,MMAIN,1,2,0,13,^X,Exit,do_exit,80
+default-view,MMAIN,2,1,13,13,^O,Write Out,do_writeout,80
+default-view,MMAIN,3,2,13,13,^R,Read File,do_insertfile,80
+default-view,MMAIN,4,1,26,13,^F,Where Is,do_search_forward,80
+default-view,MMAIN,5,2,26,13,^\,Replace,do_replace,80
+default-view,MMAIN,6,1,39,13,^K,Cut,cut_text,80
+default-view,MMAIN,7,2,39,13,^U,Paste,paste_text,80
+default-view,MMAIN,8,1,52,13,^T,Execute,do_execute,80
+default-view,MMAIN,9,2,52,13,^J,Justify,do_justify,80
+default-view,MMAIN,10,1,65,15,^C,Location,report_cursor_position,80
+default-view,MMAIN,11,2,65,15,^/,Go To Line,do_gotolinecolumn,80
+default-view,MWHEREIS,0,1,0,20,^G,Help,do_help,80
+default-view,MWHEREIS,1,2,0,20,^C,Cancel,do_cancel,80
+default-view,MWHEREIS,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-view,MWHEREIS,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-view,MWHEREIS,4,1,40,20,M-B,Backwards,backwards_void,80
+default-view,MWHEREIS,5,2,40,20,^R,Replace,flip_replace,80
+default-view,MWHEREIS,6,1,60,20,^P,Older,get_older_item,80
+default-view,MWHEREIS,7,2,60,20,^N,Newer,get_newer_item,80
+default-view,MREPLACE,0,1,0,20,^G,Help,do_help,80
+default-view,MREPLACE,1,2,0,20,^C,Cancel,do_cancel,80
+default-view,MREPLACE,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-view,MREPLACE,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-view,MREPLACE,4,1,40,20,M-B,Backwards,backwards_void,80
+default-view,MREPLACE,5,2,40,20,^R,No Replace,flip_replace,80
+default-view,MREPLACE,6,1,60,20,^P,Older,get_older_item,80
+default-view,MREPLACE,7,2,60,20,^N,Newer,get_newer_item,80
+default-view,MREPLACEWITH,0,1,0,40,^G,Help,do_help,80
+default-view,MREPLACEWITH,1,2,0,40,^C,Cancel,do_cancel,80
+default-view,MREPLACEWITH,2,1,40,40,^P,Older,get_older_item,80
+default-view,MREPLACEWITH,3,2,40,40,^N,Newer,get_newer_item,80
+default-view,MGOTOLINE,0,1,0,26,^G,Help,do_help,80
+default-view,MGOTOLINE,1,2,0,26,^C,Cancel,do_cancel,80
+default-view,MGOTOLINE,2,1,26,26,^W,Start of Paragraph,to_para_begin,80
+default-view,MGOTOLINE,3,2,26,26,^O,End of Paragraph,to_para_end,80
+default-view,MGOTOLINE,4,1,52,28,^Y,First Line,to_first_line,80
+default-view,MGOTOLINE,5,2,52,28,^V,Last Line,to_last_line,80
+default-view,MWRITEFILE,0,1,0,20,^G,Help,do_help,80
+default-view,MWRITEFILE,1,2,0,20,^C,Cancel,do_cancel,80
+default-view,MWRITEFILE,2,1,20,20,M-D,DOS Format,dos_format,80
+default-view,MWRITEFILE,3,2,20,20,^Q,Discard buffer,discard_buffer,80
+default-view,MWRITEFILE,4,1,40,20,^T,Browse,to_files,80
+default-view,MINSERTFILE,0,1,0,40,^G,Help,do_help,80
+default-view,MINSERTFILE,1,2,0,40,^C,Cancel,do_cancel,80
+default-view,MINSERTFILE,2,1,40,40,M-N,No Conversion,flip_convert,80
+default-view,MINSERTFILE,3,2,40,40,^T,Browse,to_files,80
+default-view,MEXECUTE,0,1,0,13,^G,Help,do_help,80
+default-view,MEXECUTE,1,2,0,13,^C,Cancel,do_cancel,80
+default-view,MEXECUTE,2,1,13,13,^P,Older,get_older_item,80
+default-view,MEXECUTE,3,2,13,13,^N,Newer,get_newer_item,80
+default-view,MEXECUTE,4,1,26,13,^S,Spell Check,do_spell,80
+default-view,MEXECUTE,5,2,26,13,^Y,Linter,do_linter,80
+default-view,MEXECUTE,6,1,39,13,^J,Full Justify,do_full_justify,80
+default-view,MEXECUTE,7,2,39,13,^O,Formatter,do_formatter,80
+default-view,MEXECUTE,8,1,52,13,^V,Cut Till End,cut_till_eof,80
+default-view,MEXECUTE,9,2,52,28,^Z,Suspend,do_suspend,80
+default-view,MHELP,0,1,0,13,^L,Refresh,full_refresh,80
+default-view,MHELP,1,2,0,13,^X,Close,do_exit,80
+default-view,MHELP,2,1,13,13,^F,Where Is,do_search_forward,80
+default-view,MHELP,3,2,13,13,^B,Where Was,do_search_backward,80
+default-view,MHELP,4,1,26,13,M-B,Previous,do_findprevious,80
+default-view,MHELP,5,2,26,13,M-F,Next,do_findnext,80
+default-view,MHELP,6,1,39,13,^P,Prev Line,do_up,80
+default-view,MHELP,7,2,39,13,^N,Next Line,do_down,80
+default-view,MHELP,8,1,52,13,^Y,Prev Page,do_page_up,80
+default-view,MHELP,9,2,52,13,^V,Next Page,do_page_down,80
+default-view,MHELP,10,1,65,15,M-\,First Line,to_first_line,80
+default-view,MHELP,11,2,65,15,M-/,Last Line,to_last_line,80
+default-view,MSPELL,0,1,0,80,^G,Help,do_help,80
+default-view,MSPELL,1,2,0,80,^C,Cancel,do_cancel,80
+default-view,MBROWSER,0,1,0,13,^G,Help,do_help,80
+default-view,MBROWSER,1,2,0,13,^X,Close,do_exit,80
+default-view,MBROWSER,2,1,13,13,^/,Go To Dir,goto_dir,80
+default-view,MBROWSER,3,2,13,13,^L,Refresh,full_refresh,80
+default-view,MBROWSER,4,1,26,13,^F,Where Is,do_search_forward,80
+default-view,MBROWSER,5,2,26,13,^B,Where Was,do_search_backward,80
+default-view,MBROWSER,6,1,39,13,M-B,Previous,do_findprevious,80
+default-view,MBROWSER,7,2,39,13,M-F,Next,do_findnext,80
+default-view,MBROWSER,8,1,52,13,◂,Back,do_left,80
+default-view,MBROWSER,9,2,52,13,▸,Forward,do_right,80
+default-view,MBROWSER,10,1,65,15,^P,Prev Line,do_up,80
+default-view,MBROWSER,11,2,65,15,^N,Next Line,do_down,80
+default-view,MWHEREISFILE,0,1,0,26,^G,Help,do_help,80
+default-view,MWHEREISFILE,1,2,0,26,^C,Cancel,do_cancel,80
+default-view,MWHEREISFILE,2,1,26,26,^P,Older,get_older_item,80
+default-view,MWHEREISFILE,3,2,26,26,^N,Newer,get_newer_item,80
+default-view,MWHEREISFILE,4,1,52,28,^Y,First File,to_first_file,80
+default-view,MWHEREISFILE,5,2,52,28,^V,Last File,to_last_file,80
+default-view,MGOTODIR,0,1,0,80,^G,Help,do_help,80
+default-view,MGOTODIR,1,2,0,80,^C,Cancel,do_cancel,80
+default-view,MLINTER,0,1,0,40,^G,Help,do_help,80
+default-view,MLINTER,1,2,0,40,^C,Cancel,do_cancel,80
+default-view,MLINTER,2,1,40,40,^Y,Previous Linter message,do_page_up,80
+default-view,MLINTER,3,2,40,40,^V,Next Linter message,do_page_down,80
+default-view,MFINDINHELP,0,1,0,80,^C,Cancel,do_cancel,80
+default-saveonexit,MMAIN,0,1,0,13,^G,Help,do_help,80
+default-saveonexit,MMAIN,1,2,0,13,^X,Exit,do_exit,80
+default-saveonexit,MMAIN,2,1,13,13,^O,Write Out,do_writeout,80
+default-saveonexit,MMAIN,3,2,13,13,^R,Read File,do_insertfile,80
+default-saveonexit,MMAIN,4,1,26,13,^F,Where Is,do_search_forward,80
+default-saveonexit,MMAIN,5,2,26,13,^\,Replace,do_replace,80
+default-saveonexit,MMAIN,6,1,39,13,^K,Cut,cut_text,80
+default-saveonexit,MMAIN,7,2,39,13,^U,Paste,paste_text,80
+default-saveonexit,MMAIN,8,1,52,13,^T,Execute,do_execute,80
+default-saveonexit,MMAIN,9,2,52,13,^J,Justify,do_justify,80
+default-saveonexit,MMAIN,10,1,65,15,^C,Location,report_cursor_position,80
+default-saveonexit,MMAIN,11,2,65,15,^/,Go To Line,do_gotolinecolumn,80
+default-saveonexit,MWHEREIS,0,1,0,20,^G,Help,do_help,80
+default-saveonexit,MWHEREIS,1,2,0,20,^C,Cancel,do_cancel,80
+default-saveonexit,MWHEREIS,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-saveonexit,MWHEREIS,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-saveonexit,MWHEREIS,4,1,40,20,M-B,Backwards,backwards_void,80
+default-saveonexit,MWHEREIS,5,2,40,20,^R,Replace,flip_replace,80
+default-saveonexit,MWHEREIS,6,1,60,20,^P,Older,get_older_item,80
+default-saveonexit,MWHEREIS,7,2,60,20,^N,Newer,get_newer_item,80
+default-saveonexit,MREPLACE,0,1,0,20,^G,Help,do_help,80
+default-saveonexit,MREPLACE,1,2,0,20,^C,Cancel,do_cancel,80
+default-saveonexit,MREPLACE,2,1,20,20,M-C,Case sensitive,case_sens_void,80
+default-saveonexit,MREPLACE,3,2,20,20,M-R,Reg.expression,regexp_void,80
+default-saveonexit,MREPLACE,4,1,40,20,M-B,Backwards,backwards_void,80
+default-saveonexit,MREPLACE,5,2,40,20,^R,No Replace,flip_replace,80
+default-saveonexit,MREPLACE,6,1,60,20,^P,Older,get_older_item,80
+default-saveonexit,MREPLACE,7,2,60,20,^N,Newer,get_newer_item,80
+default-saveonexit,MREPLACEWITH,0,1,0,40,^G,Help,do_help,80
+default-saveonexit,MREPLACEWITH,1,2,0,40,^C,Cancel,do_cancel,80
+default-saveonexit,MREPLACEWITH,2,1,40,40,^P,Older,get_older_item,80
+default-saveonexit,MREPLACEWITH,3,2,40,40,^N,Newer,get_newer_item,80
+default-saveonexit,MGOTOLINE,0,1,0,26,^G,Help,do_help,80
+default-saveonexit,MGOTOLINE,1,2,0,26,^C,Cancel,do_cancel,80
+default-saveonexit,MGOTOLINE,2,1,26,26,^W,Start of Paragraph,to_para_begin,80
+default-saveonexit,MGOTOLINE,3,2,26,26,^O,End of Paragraph,to_para_end,80
+default-saveonexit,MGOTOLINE,4,1,52,28,^Y,First Line,to_first_line,80
+default-saveonexit,MGOTOLINE,5,2,52,28,^V,Last Line,to_last_line,80
+default-saveonexit,MWRITEFILE,0,1,0,20,^G,Help,do_help,80
+default-saveonexit,MWRITEFILE,1,2,0,20,^C,Cancel,do_cancel,80
+default-saveonexit,MWRITEFILE,2,1,20,20,M-D,DOS Format,dos_format,80
+default-saveonexit,MWRITEFILE,3,2,20,20,M-B,Backup File,back_it_up,80
+default-saveonexit,MWRITEFILE,4,1,40,20,M-A,Append,append_it,80
+default-saveonexit,MWRITEFILE,5,2,40,20,M-P,Prepend,prepend_it,80
+default-saveonexit,MWRITEFILE,6,1,60,20,^Q,Discard buffer,discard_buffer,80
+default-saveonexit,MWRITEFILE,7,2,60,20,^T,Browse,to_files,80
+default-saveonexit,MINSERTFILE,0,1,0,26,^G,Help,do_help,80
+default-saveonexit,MINSERTFILE,1,2,0,26,^C,Cancel,do_cancel,80
+default-saveonexit,MINSERTFILE,2,1,26,26,M-F,New Buffer,flip_newbuffer,80
+default-saveonexit,MINSERTFILE,3,2,26,26,M-N,No Conversion,flip_convert,80
+default-saveonexit,MINSERTFILE,4,1,52,28,^X,Execute Command,flip_execute,80
+default-saveonexit,MINSERTFILE,5,2,52,28,^T,Browse,to_files,80
+default-saveonexit,MEXECUTE,0,1,0,13,^G,Help,do_help,80
+default-saveonexit,MEXECUTE,1,2,0,13,^C,Cancel,do_cancel,80
+default-saveonexit,MEXECUTE,2,1,13,13,^P,Older,get_older_item,80
+default-saveonexit,MEXECUTE,3,2,13,13,^N,Newer,get_newer_item,80
+default-saveonexit,MEXECUTE,4,1,26,13,M-F,New Buffer,flip_newbuffer,80
+default-saveonexit,MEXECUTE,5,2,26,13,M-\,Pipe Text,flip_pipe,80
+default-saveonexit,MEXECUTE,6,1,39,13,^S,Spell Check,do_spell,80
+default-saveonexit,MEXECUTE,7,2,39,13,^Y,Linter,do_linter,80
+default-saveonexit,MEXECUTE,8,1,52,13,^J,Full Justify,do_full_justify,80
+default-saveonexit,MEXECUTE,9,2,52,13,^O,Formatter,do_formatter,80
+default-saveonexit,MEXECUTE,10,1,65,15,^V,Cut Till End,cut_till_eof,80
+default-saveonexit,MEXECUTE,11,2,65,15,^Z,Suspend,do_suspend,80
+default-saveonexit,MHELP,0,1,0,13,^L,Refresh,full_refresh,80
+default-saveonexit,MHELP,1,2,0,13,^X,Close,do_exit,80
+default-saveonexit,MHELP,2,1,13,13,^F,Where Is,do_search_forward,80
+default-saveonexit,MHELP,3,2,13,13,^B,Where Was,do_search_backward,80
+default-saveonexit,MHELP,4,1,26,13,M-B,Previous,do_findprevious,80
+default-saveonexit,MHELP,5,2,26,13,M-F,Next,do_findnext,80
+default-saveonexit,MHELP,6,1,39,13,^P,Prev Line,do_up,80
+default-saveonexit,MHELP,7,2,39,13,^N,Next Line,do_down,80
+default-saveonexit,MHELP,8,1,52,13,^Y,Prev Page,do_page_up,80
+default-saveonexit,MHELP,9,2,52,13,^V,Next Page,do_page_down,80
+default-saveonexit,MHELP,10,1,65,15,M-\,First Line,to_first_line,80
+default-saveonexit,MHELP,11,2,65,15,M-/,Last Line,to_last_line,80
+default-saveonexit,MSPELL,0,1,0,80,^G,Help,do_help,80
+default-saveonexit,MSPELL,1,2,0,80,^C,Cancel,do_cancel,80
+default-saveonexit,MBROWSER,0,1,0,13,^G,Help,do_help,80
+default-saveonexit,MBROWSER,1,2,0,13,^X,Close,do_exit,80
+default-saveonexit,MBROWSER,2,1,13,13,^/,Go To Dir,goto_dir,80
+default-saveonexit,MBROWSER,3,2,13,13,^L,Refresh,full_refresh,80
+default-saveonexit,MBROWSER,4,1,26,13,^F,Where Is,do_search_forward,80
+default-saveonexit,MBROWSER,5,2,26,13,^B,Where Was,do_search_backward,80
+default-saveonexit,MBROWSER,6,1,39,13,M-B,Previous,do_findprevious,80
+default-saveonexit,MBROWSER,7,2,39,13,M-F,Next,do_findnext,80
+default-saveonexit,MBROWSER,8,1,52,13,◂,Back,do_left,80
+default-saveonexit,MBROWSER,9,2,52,13,▸,Forward,do_right,80
+default-saveonexit,MBROWSER,10,1,65,15,^P,Prev Line,do_up,80
+default-saveonexit,MBROWSER,11,2,65,15,^N,Next Line,do_down,80
+default-saveonexit,MWHEREISFILE,0,1,0,26,^G,Help,do_help,80
+default-saveonexit,MWHEREISFILE,1,2,0,26,^C,Cancel,do_cancel,80
+default-saveonexit,MWHEREISFILE,2,1,26,26,^P,Older,get_older_item,80
+default-saveonexit,MWHEREISFILE,3,2,26,26,^N,Newer,get_newer_item,80
+default-saveonexit,MWHEREISFILE,4,1,52,28,^Y,First File,to_first_file,80
+default-saveonexit,MWHEREISFILE,5,2,52,28,^V,Last File,to_last_file,80
+default-saveonexit,MGOTODIR,0,1,0,80,^G,Help,do_help,80
+default-saveonexit,MGOTODIR,1,2,0,80,^C,Cancel,do_cancel,80
+default-saveonexit,MLINTER,0,1,0,40,^G,Help,do_help,80
+default-saveonexit,MLINTER,1,2,0,40,^C,Cancel,do_cancel,80
+default-saveonexit,MLINTER,2,1,40,40,^Y,Previous Linter message,do_page_up,80
+default-saveonexit,MLINTER,3,2,40,40,^V,Next Linter message,do_page_down,80
+default-saveonexit,MFINDINHELP,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-utf8,MMAIN,0,1,0,13,^X,Exit,do_exit,80
+tiny-utf8,MMAIN,1,2,0,13,^L,Refresh,full_refresh,80
+tiny-utf8,MMAIN,2,1,13,13,^O,Write Out,do_writeout,80
+tiny-utf8,MMAIN,3,2,13,13,^R,Read File,do_insertfile,80
+tiny-utf8,MMAIN,4,1,26,13,^F,Where Is,do_search_forward,80
+tiny-utf8,MMAIN,5,2,26,13,^\,Replace,do_replace,80
+tiny-utf8,MMAIN,6,1,39,13,M-B,Previous,do_findprevious,80
+tiny-utf8,MMAIN,7,2,39,13,M-F,Next,do_findnext,80
+tiny-utf8,MMAIN,8,1,52,13,^K,Cut,cut_text,80
+tiny-utf8,MMAIN,9,2,52,13,^U,Paste,paste_text,80
+tiny-utf8,MMAIN,10,1,65,15,^C,Location,report_cursor_position,80
+tiny-utf8,MMAIN,11,2,65,15,^/,Go To Line,do_gotolinecolumn,80
+tiny-utf8,MWHEREIS,0,1,0,26,^C,Cancel,do_cancel,80
+tiny-utf8,MWHEREIS,1,2,0,26,M-C,Case sensitive,case_sens_void,80
+tiny-utf8,MWHEREIS,2,1,26,26,M-R,Reg.expression,regexp_void,80
+tiny-utf8,MWHEREIS,3,2,26,54,M-B,Backwards,backwards_void,80
+tiny-utf8,MWHEREIS,4,1,52,28,^R,Replace,flip_replace,80
+tiny-utf8,MREPLACE,0,1,0,26,^C,Cancel,do_cancel,80
+tiny-utf8,MREPLACE,1,2,0,26,^L,Refresh,full_refresh,80
+tiny-utf8,MREPLACE,2,1,26,26,M-C,Case sensitive,case_sens_void,80
+tiny-utf8,MREPLACE,3,2,26,26,M-R,Reg.expression,regexp_void,80
+tiny-utf8,MREPLACE,4,1,52,28,M-B,Backwards,backwards_void,80
+tiny-utf8,MREPLACE,5,2,52,28,^R,No Replace,flip_replace,80
+tiny-utf8,MREPLACEWITH,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-utf8,MGOTOLINE,0,1,0,40,^C,Cancel,do_cancel,80
+tiny-utf8,MGOTOLINE,1,2,0,80,^Y,First Line,to_first_line,80
+tiny-utf8,MGOTOLINE,2,1,40,40,^V,Last Line,to_last_line,80
+tiny-utf8,MWRITEFILE,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-utf8,MWRITEFILE,1,2,0,80,^Q,Discard buffer,discard_buffer,80
+tiny-utf8,MINSERTFILE,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-utf8,MEXECUTE,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-utf8,MHELP,0,1,0,16,^F,Where Is,do_search_forward,80
+tiny-utf8,MHELP,1,2,0,16,^B,Where Was,do_search_backward,80
+tiny-utf8,MHELP,2,1,16,16,M-B,Previous,do_findprevious,80
+tiny-utf8,MHELP,3,2,16,16,M-F,Next,do_findnext,80
+tiny-utf8,MHELP,4,1,32,16,^P,Prev Line,do_up,80
+tiny-utf8,MHELP,5,2,32,16,^N,Next Line,do_down,80
+tiny-utf8,MHELP,6,1,48,16,^Y,Prev Page,do_page_up,80
+tiny-utf8,MHELP,7,2,48,16,^V,Next Page,do_page_down,80
+tiny-utf8,MHELP,8,1,64,16,M-\,First Line,to_first_line,80
+tiny-utf8,MHELP,9,2,64,16,M-/,Last Line,to_last_line,80
+tiny-utf8,MSPELL,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-utf8,MBROWSER,0,1,0,80,^P,Prev Line,do_up,80
+tiny-utf8,MBROWSER,1,2,0,80,^N,Next Line,do_down,80
+tiny-utf8,MWHEREISFILE,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-utf8,MGOTODIR,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-utf8,MLINTER,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-utf8,MFINDINHELP,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-C,MMAIN,0,1,0,13,^X,Exit,do_exit,80
+tiny-C,MMAIN,1,2,0,13,^L,Refresh,full_refresh,80
+tiny-C,MMAIN,2,1,13,13,^O,Write Out,do_writeout,80
+tiny-C,MMAIN,3,2,13,13,^R,Read File,do_insertfile,80
+tiny-C,MMAIN,4,1,26,13,^F,Where Is,do_search_forward,80
+tiny-C,MMAIN,5,2,26,13,^\,Replace,do_replace,80
+tiny-C,MMAIN,6,1,39,13,M-B,Previous,do_findprevious,80
+tiny-C,MMAIN,7,2,39,13,M-F,Next,do_findnext,80
+tiny-C,MMAIN,8,1,52,13,^K,Cut,cut_text,80
+tiny-C,MMAIN,9,2,52,13,^U,Paste,paste_text,80
+tiny-C,MMAIN,10,1,65,15,^C,Location,report_cursor_position,80
+tiny-C,MMAIN,11,2,65,15,^/,Go To Line,do_gotolinecolumn,80
+tiny-C,MWHEREIS,0,1,0,26,^C,Cancel,do_cancel,80
+tiny-C,MWHEREIS,1,2,0,26,M-C,Case sensitive,case_sens_void,80
+tiny-C,MWHEREIS,2,1,26,26,M-R,Reg.expression,regexp_void,80
+tiny-C,MWHEREIS,3,2,26,54,M-B,Backwards,backwards_void,80
+tiny-C,MWHEREIS,4,1,52,28,^R,Replace,flip_replace,80
+tiny-C,MREPLACE,0,1,0,26,^C,Cancel,do_cancel,80
+tiny-C,MREPLACE,1,2,0,26,^L,Refresh,full_refresh,80
+tiny-C,MREPLACE,2,1,26,26,M-C,Case sensitive,case_sens_void,80
+tiny-C,MREPLACE,3,2,26,26,M-R,Reg.expression,regexp_void,80
+tiny-C,MREPLACE,4,1,52,28,M-B,Backwards,backwards_void,80
+tiny-C,MREPLACE,5,2,52,28,^R,No Replace,flip_replace,80
+tiny-C,MREPLACEWITH,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-C,MGOTOLINE,0,1,0,40,^C,Cancel,do_cancel,80
+tiny-C,MGOTOLINE,1,2,0,80,^Y,First Line,to_first_line,80
+tiny-C,MGOTOLINE,2,1,40,40,^V,Last Line,to_last_line,80
+tiny-C,MWRITEFILE,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-C,MWRITEFILE,1,2,0,80,^Q,Discard buffer,discard_buffer,80
+tiny-C,MINSERTFILE,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-C,MEXECUTE,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-C,MHELP,0,1,0,16,^F,Where Is,do_search_forward,80
+tiny-C,MHELP,1,2,0,16,^B,Where Was,do_search_backward,80
+tiny-C,MHELP,2,1,16,16,M-B,Previous,do_findprevious,80
+tiny-C,MHELP,3,2,16,16,M-F,Next,do_findnext,80
+tiny-C,MHELP,4,1,32,16,^P,Prev Line,do_up,80
+tiny-C,MHELP,5,2,32,16,^N,Next Line,do_down,80
+tiny-C,MHELP,6,1,48,16,^Y,Prev Page,do_page_up,80
+tiny-C,MHELP,7,2,48,16,^V,Next Page,do_page_down,80
+tiny-C,MHELP,8,1,64,16,M-\,First Line,to_first_line,80
+tiny-C,MHELP,9,2,64,16,M-/,Last Line,to_last_line,80
+tiny-C,MSPELL,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-C,MBROWSER,0,1,0,80,^P,Prev Line,do_up,80
+tiny-C,MBROWSER,1,2,0,80,^N,Next Line,do_down,80
+tiny-C,MWHEREISFILE,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-C,MGOTODIR,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-C,MLINTER,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-C,MFINDINHELP,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-modern,MMAIN,0,1,0,13,^Q,Exit,do_exit,80
+tiny-modern,MMAIN,1,2,0,13,^L,Refresh,full_refresh,80
+tiny-modern,MMAIN,2,1,13,13,^W,Write Out,do_writeout,80
+tiny-modern,MMAIN,3,2,13,13,^O,Read File,do_insertfile,80
+tiny-modern,MMAIN,4,1,26,13,^F,Where Is,do_search_forward,80
+tiny-modern,MMAIN,5,2,26,13,^R,Replace,do_replace,80
+tiny-modern,MMAIN,6,1,39,13,^D,Previous,do_findprevious,80
+tiny-modern,MMAIN,7,2,39,13,^G,Next,do_findnext,80
+tiny-modern,MMAIN,8,1,52,13,^X,Cut,cut_text,80
+tiny-modern,MMAIN,9,2,52,13,^V,Paste,paste_text,80
+tiny-modern,MMAIN,10,1,65,15,^P,Location,report_cursor_position,80
+tiny-modern,MMAIN,11,2,65,15,^T,Go To Line,do_gotolinecolumn,80
+tiny-modern,MWHEREIS,0,1,0,26,^C,Cancel,do_cancel,80
+tiny-modern,MWHEREIS,1,2,0,26,M-C,Case sensitive,case_sens_void,80
+tiny-modern,MWHEREIS,2,1,26,26,M-R,Reg.expression,regexp_void,80
+tiny-modern,MWHEREIS,3,2,26,54,M-B,Backwards,backwards_void,80
+tiny-modern,MWHEREIS,4,1,52,28,^R,Replace,flip_replace,80
+tiny-modern,MREPLACE,0,1,0,26,^C,Cancel,do_cancel,80
+tiny-modern,MREPLACE,1,2,0,26,^L,Refresh,full_refresh,80
+tiny-modern,MREPLACE,2,1,26,26,M-C,Case sensitive,case_sens_void,80
+tiny-modern,MREPLACE,3,2,26,26,M-R,Reg.expression,regexp_void,80
+tiny-modern,MREPLACE,4,1,52,28,M-B,Backwards,backwards_void,80
+tiny-modern,MREPLACE,5,2,52,28,^R,No Replace,flip_replace,80
+tiny-modern,MREPLACEWITH,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-modern,MGOTOLINE,0,1,0,40,^C,Cancel,do_cancel,80
+tiny-modern,MGOTOLINE,1,2,0,80,^Y,First Line,to_first_line,80
+tiny-modern,MGOTOLINE,2,1,40,40,^V,Last Line,to_last_line,80
+tiny-modern,MWRITEFILE,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-modern,MWRITEFILE,1,2,0,80,^Q,Discard buffer,discard_buffer,80
+tiny-modern,MINSERTFILE,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-modern,MEXECUTE,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-modern,MHELP,0,1,0,16,^F,Where Is,do_search_forward,80
+tiny-modern,MHELP,1,2,0,16,^B,Where Was,do_search_backward,80
+tiny-modern,MHELP,2,1,16,16,^D,Previous,do_findprevious,80
+tiny-modern,MHELP,3,2,16,16,^G,Next,do_findnext,80
+tiny-modern,MHELP,4,1,32,16,▴,Prev Line,do_up,80
+tiny-modern,MHELP,5,2,32,16,▾,Next Line,do_down,80
+tiny-modern,MHELP,6,1,48,16,PgUp,Prev Page,do_page_up,80
+tiny-modern,MHELP,7,2,48,16,PgDn,Next Page,do_page_down,80
+tiny-modern,MHELP,8,1,64,16,M-\,First Line,to_first_line,80
+tiny-modern,MHELP,9,2,64,16,M-/,Last Line,to_last_line,80
+tiny-modern,MSPELL,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-modern,MBROWSER,0,1,0,80,▴,Prev Line,do_up,80
+tiny-modern,MBROWSER,1,2,0,80,▾,Next Line,do_down,80
+tiny-modern,MWHEREISFILE,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-modern,MGOTODIR,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-modern,MLINTER,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-modern,MFINDINHELP,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-restricted,MMAIN,0,1,0,13,^X,Exit,do_exit,80
+tiny-restricted,MMAIN,1,2,0,13,^L,Refresh,full_refresh,80
+tiny-restricted,MMAIN,2,1,13,13,^O,Write Out,do_writeout,80
+tiny-restricted,MMAIN,3,2,13,13,^R,Read File,do_insertfile,80
+tiny-restricted,MMAIN,4,1,26,13,^F,Where Is,do_search_forward,80
+tiny-restricted,MMAIN,5,2,26,13,^\,Replace,do_replace,80
+tiny-restricted,MMAIN,6,1,39,13,M-B,Previous,do_findprevious,80
+tiny-restricted,MMAIN,7,2,39,13,M-F,Next,do_findnext,80
+tiny-restricted,MMAIN,8,1,52,13,^K,Cut,cut_text,80
+tiny-restricted,MMAIN,9,2,52,13,^U,Paste,paste_text,80
+tiny-restricted,MMAIN,10,1,65,15,^C,Location,report_cursor_position,80
+tiny-restricted,MMAIN,11,2,65,15,^/,Go To Line,do_gotolinecolumn,80
+tiny-restricted,MWHEREIS,0,1,0,26,^C,Cancel,do_cancel,80
+tiny-restricted,MWHEREIS,1,2,0,26,M-C,Case sensitive,case_sens_void,80
+tiny-restricted,MWHEREIS,2,1,26,26,M-R,Reg.expression,regexp_void,80
+tiny-restricted,MWHEREIS,3,2,26,54,M-B,Backwards,backwards_void,80
+tiny-restricted,MWHEREIS,4,1,52,28,^R,Replace,flip_replace,80
+tiny-restricted,MREPLACE,0,1,0,26,^C,Cancel,do_cancel,80
+tiny-restricted,MREPLACE,1,2,0,26,^L,Refresh,full_refresh,80
+tiny-restricted,MREPLACE,2,1,26,26,M-C,Case sensitive,case_sens_void,80
+tiny-restricted,MREPLACE,3,2,26,26,M-R,Reg.expression,regexp_void,80
+tiny-restricted,MREPLACE,4,1,52,28,M-B,Backwards,backwards_void,80
+tiny-restricted,MREPLACE,5,2,52,28,^R,No Replace,flip_replace,80
+tiny-restricted,MREPLACEWITH,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-restricted,MGOTOLINE,0,1,0,40,^C,Cancel,do_cancel,80
+tiny-restricted,MGOTOLINE,1,2,0,80,^Y,First Line,to_first_line,80
+tiny-restricted,MGOTOLINE,2,1,40,40,^V,Last Line,to_last_line,80
+tiny-restricted,MWRITEFILE,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-restricted,MWRITEFILE,1,2,0,80,^Q,Discard buffer,discard_buffer,80
+tiny-restricted,MINSERTFILE,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-restricted,MEXECUTE,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-restricted,MHELP,0,1,0,16,^F,Where Is,do_search_forward,80
+tiny-restricted,MHELP,1,2,0,16,^B,Where Was,do_search_backward,80
+tiny-restricted,MHELP,2,1,16,16,M-B,Previous,do_findprevious,80
+tiny-restricted,MHELP,3,2,16,16,M-F,Next,do_findnext,80
+tiny-restricted,MHELP,4,1,32,16,^P,Prev Line,do_up,80
+tiny-restricted,MHELP,5,2,32,16,^N,Next Line,do_down,80
+tiny-restricted,MHELP,6,1,48,16,^Y,Prev Page,do_page_up,80
+tiny-restricted,MHELP,7,2,48,16,^V,Next Page,do_page_down,80
+tiny-restricted,MHELP,8,1,64,16,M-\,First Line,to_first_line,80
+tiny-restricted,MHELP,9,2,64,16,M-/,Last Line,to_last_line,80
+tiny-restricted,MSPELL,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-restricted,MBROWSER,0,1,0,80,^P,Prev Line,do_up,80
+tiny-restricted,MBROWSER,1,2,0,80,^N,Next Line,do_down,80
+tiny-restricted,MWHEREISFILE,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-restricted,MGOTODIR,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-restricted,MLINTER,0,1,0,80,^C,Cancel,do_cancel,80
+tiny-restricted,MFINDINHELP,0,1,0,80,^C,Cancel,do_cancel,80

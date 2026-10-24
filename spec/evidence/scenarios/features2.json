@@ -1,0 +1,680 @@
+[
+ {
+  "id": "TEST-FEAT-013",
+  "args": [
+   "-I",
+   "-H",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\nold2\n"
+   },
+   "home/.local/share/nano/search_history": {
+    "text": "old1\nold2\n\nrep1\n\ncmd1\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "s05",
+    "quiet": 250
+   },
+   {
+    "text": "new\u0000z"
+   },
+   {
+    "snapshot": "s06",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "s07",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^\\"
+    ]
+   },
+   {
+    "snapshot": "s08",
+    "quiet": 250
+   },
+   {
+    "text": "abc\r"
+   },
+   {
+    "snapshot": "s09",
+    "quiet": 250
+   },
+   {
+    "text": "XY\r"
+   },
+   {
+    "snapshot": "s10",
+    "quiet": 250
+   },
+   {
+    "text": "a"
+   },
+   {
+    "snapshot": "s11",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-014",
+  "args": [
+   "-I",
+   "-P",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "l1\nl2\nl3\nl4\nl5\nl6\nl7\nl8\nl9\nl10\nl11\nl12\nl13\nl14\nl15\nl16\nl17\nl18\nl19\nl20\nl21\nl22\nl23\nl24\nl25\nl26\nl27\nl28\nl29\nl30\nl31\nl32\nl33\nl34\nl35\nl36\nl37\nl38\nl39\nl40\nl41\nl42\nl43\nl44\nl45\nl46\nl47\nl48\nl49\nl50\nl51\nl52\nl53\nl54\nl55\nl56\nl57\nl58\nl59\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "M-G"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "text": "40,2\r"
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-Ins"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-Ins"
+    ]
+   },
+   {
+    "snapshot": "s05",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-015",
+  "args": [
+   "-I",
+   "-P",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "l1\nl2\nl3\nl4\nl5\nl6\nl7\nl8\nl9\nl10\nl11\nl12\nl13\nl14\nl15\nl16\nl17\nl18\nl19\nl20\nl21\nl22\nl23\nl24\nl25\nl26\nl27\nl28\nl29\nl30\nl31\nl32\nl33\nl34\nl35\nl36\nl37\nl38\nl39\nl40\nl41\nl42\nl43\nl44\nl45\nl46\nl47\nl48\nl49\nl50\nl51\nl52\nl53\nl54\nl55\nl56\nl57\nl58\nl59\n"
+   },
+   "home/.local/share/nano/filepos_history": {
+    "text": "/elsewhere 3 1\n41 42 /tmp/nanospec-work/TEST-FEAT-015/fx/work/f.txt 40 2\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-016",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^Z"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "sleep": 500
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "signal": "SIGCONT"
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 250
+   },
+   {
+    "settle": 500
+   },
+   {
+    "snapshot": "s05",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-017",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "a\nb\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-F"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "text": "echo hi\r"
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-\\"
+    ]
+   },
+   {
+    "snapshot": "s05",
+    "quiet": 250
+   },
+   {
+    "text": "rev\r"
+   },
+   {
+    "snapshot": "s06",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-,"
+    ]
+   },
+   {
+    "snapshot": "s07",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "s08",
+    "quiet": 250
+   },
+   {
+    "text": "|rev\r"
+   },
+   {
+    "snapshot": "s09",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "snapshot": "s10",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^V"
+    ]
+   },
+   {
+    "snapshot": "s11",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-018",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^G"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "PgDn"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 250
+   },
+   {
+    "text": "Justify\r"
+   },
+   {
+    "snapshot": "s05",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-W"
+    ]
+   },
+   {
+    "snapshot": "s06",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "snapshot": "s07",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "snapshot": "s08",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-019",
+  "args": [
+   "-I",
+   "-l",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abc\ndef\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^End"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-FEAT-020",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "text": "y"
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "snapshot": "noname"
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ }
+]

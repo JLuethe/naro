@@ -1,0 +1,589 @@
+[
+ {
+  "id": "TEST-SYN-001",
+  "args": [
+   "t.x"
+  ],
+  "files": {
+   "home/.nanorc": {
+    "text": "syntax first \"\\.x$\"\ncolor red \"a\"\nsyntax second \"\\.x$\"\ncolor green \"a\"\nsyntax hdr\nheader \"^#!hdr\"\ncolor blue \"a\"\nsyntax default\ncolor yellow \"a\"\nsyntax ml \"\\.ml$\"\ncolor cyan start=\"<<\" end=\">>\"\nicolor magenta \"zz\"\ncolor red \"^q\"\ncolor bold,white \"q\"\nsyntax zero \"\\.z0$\"\ncolor red start=\"^\" end=\"$\"\nsyntax path \"/sub/\"\ncolor blue \"a\"\n"
+   },
+   "work/t.x": {
+    "text": "a b\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SYN-002",
+  "args": [
+   "t.none"
+  ],
+  "files": {
+   "home/.nanorc": {
+    "text": "syntax first \"\\.x$\"\ncolor red \"a\"\nsyntax second \"\\.x$\"\ncolor green \"a\"\nsyntax hdr\nheader \"^#!hdr\"\ncolor blue \"a\"\nsyntax default\ncolor yellow \"a\"\nsyntax ml \"\\.ml$\"\ncolor cyan start=\"<<\" end=\">>\"\nicolor magenta \"zz\"\ncolor red \"^q\"\ncolor bold,white \"q\"\nsyntax zero \"\\.z0$\"\ncolor red start=\"^\" end=\"$\"\nsyntax path \"/sub/\"\ncolor blue \"a\"\n"
+   },
+   "work/t.none": {
+    "text": "#!hdr a\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SYN-003",
+  "args": [
+   "plain"
+  ],
+  "files": {
+   "home/.nanorc": {
+    "text": "syntax first \"\\.x$\"\ncolor red \"a\"\nsyntax second \"\\.x$\"\ncolor green \"a\"\nsyntax hdr\nheader \"^#!hdr\"\ncolor blue \"a\"\nsyntax default\ncolor yellow \"a\"\nsyntax ml \"\\.ml$\"\ncolor cyan start=\"<<\" end=\">>\"\nicolor magenta \"zz\"\ncolor red \"^q\"\ncolor bold,white \"q\"\nsyntax zero \"\\.z0$\"\ncolor red start=\"^\" end=\"$\"\nsyntax path \"/sub/\"\ncolor blue \"a\"\n"
+   },
+   "work/plain": {
+    "text": "a b\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SYN-004",
+  "args": [
+   "-Y",
+   "first",
+   "t.x"
+  ],
+  "files": {
+   "home/.nanorc": {
+    "text": "syntax first \"\\.x$\"\ncolor red \"a\"\nsyntax second \"\\.x$\"\ncolor green \"a\"\nsyntax hdr\nheader \"^#!hdr\"\ncolor blue \"a\"\nsyntax default\ncolor yellow \"a\"\nsyntax ml \"\\.ml$\"\ncolor cyan start=\"<<\" end=\">>\"\nicolor magenta \"zz\"\ncolor red \"^q\"\ncolor bold,white \"q\"\nsyntax zero \"\\.z0$\"\ncolor red start=\"^\" end=\"$\"\nsyntax path \"/sub/\"\ncolor blue \"a\"\n"
+   },
+   "work/t.x": {
+    "text": "a b\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SYN-005",
+  "args": [
+   "-Y",
+   "none",
+   "t.x"
+  ],
+  "files": {
+   "home/.nanorc": {
+    "text": "syntax first \"\\.x$\"\ncolor red \"a\"\nsyntax second \"\\.x$\"\ncolor green \"a\"\nsyntax hdr\nheader \"^#!hdr\"\ncolor blue \"a\"\nsyntax default\ncolor yellow \"a\"\nsyntax ml \"\\.ml$\"\ncolor cyan start=\"<<\" end=\">>\"\nicolor magenta \"zz\"\ncolor red \"^q\"\ncolor bold,white \"q\"\nsyntax zero \"\\.z0$\"\ncolor red start=\"^\" end=\"$\"\nsyntax path \"/sub/\"\ncolor blue \"a\"\n"
+   },
+   "work/t.x": {
+    "text": "a b\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SYN-006",
+  "args": [
+   "t.ml"
+  ],
+  "files": {
+   "home/.nanorc": {
+    "text": "syntax first \"\\.x$\"\ncolor red \"a\"\nsyntax second \"\\.x$\"\ncolor green \"a\"\nsyntax hdr\nheader \"^#!hdr\"\ncolor blue \"a\"\nsyntax default\ncolor yellow \"a\"\nsyntax ml \"\\.ml$\"\ncolor cyan start=\"<<\" end=\">>\"\nicolor magenta \"zz\"\ncolor red \"^q\"\ncolor bold,white \"q\"\nsyntax zero \"\\.z0$\"\ncolor red start=\"^\" end=\"$\"\nsyntax path \"/sub/\"\ncolor blue \"a\"\n"
+   },
+   "work/t.ml": {
+    "text": "x << y\nmid ZZ\nend >> q\nq << a >> b << c >> d\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^Home"
+    ]
+   },
+   {
+    "snapshot": "s1"
+   },
+   {
+    "text": ">>"
+   },
+   {
+    "snapshot": "s2"
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "s3"
+   },
+   {
+    "keys": [
+     "Down",
+     "Down",
+     "Down",
+     "End"
+    ]
+   },
+   {
+    "snapshot": "s4"
+   },
+   {
+    "text": " <<"
+   },
+   {
+    "snapshot": "s5"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SYN-007",
+  "args": [
+   "t.z0"
+  ],
+  "files": {
+   "home/.nanorc": {
+    "text": "syntax first \"\\.x$\"\ncolor red \"a\"\nsyntax second \"\\.x$\"\ncolor green \"a\"\nsyntax hdr\nheader \"^#!hdr\"\ncolor blue \"a\"\nsyntax default\ncolor yellow \"a\"\nsyntax ml \"\\.ml$\"\ncolor cyan start=\"<<\" end=\">>\"\nicolor magenta \"zz\"\ncolor red \"^q\"\ncolor bold,white \"q\"\nsyntax zero \"\\.z0$\"\ncolor red start=\"^\" end=\"$\"\nsyntax path \"/sub/\"\ncolor blue \"a\"\n"
+   },
+   "work/t.z0": {
+    "text": "ab\ncd\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SYN-008",
+  "args": [
+   "sub/f.txt"
+  ],
+  "files": {
+   "home/.nanorc": {
+    "text": "syntax first \"\\.x$\"\ncolor red \"a\"\nsyntax second \"\\.x$\"\ncolor green \"a\"\nsyntax hdr\nheader \"^#!hdr\"\ncolor blue \"a\"\nsyntax default\ncolor yellow \"a\"\nsyntax ml \"\\.ml$\"\ncolor cyan start=\"<<\" end=\">>\"\nicolor magenta \"zz\"\ncolor red \"^q\"\ncolor bold,white \"q\"\nsyntax zero \"\\.z0$\"\ncolor red start=\"^\" end=\"$\"\nsyntax path \"/sub/\"\ncolor blue \"a\"\n"
+   },
+   "work/sub/f.txt": {
+    "text": "a\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SYN-009",
+  "args": [
+   "t.txt"
+  ],
+  "files": {
+   "home/.nanorc": {
+    "text": "syntax first \"\\.x$\"\ncolor red \"a\"\nsyntax second \"\\.x$\"\ncolor green \"a\"\nsyntax hdr\nheader \"^#!hdr\"\ncolor blue \"a\"\nsyntax default\ncolor yellow \"a\"\nsyntax ml \"\\.ml$\"\ncolor cyan start=\"<<\" end=\">>\"\nicolor magenta \"zz\"\ncolor red \"^q\"\ncolor bold,white \"q\"\nsyntax zero \"\\.z0$\"\ncolor red start=\"^\" end=\"$\"\nsyntax path \"/sub/\"\ncolor blue \"a\"\n"
+   },
+   "work/t.txt": {
+    "text": "a\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "snapshot": "s1"
+   },
+   {
+    "keys": [
+     "^K"
+    ]
+   },
+   {
+    "snapshot": "s2"
+   },
+   {
+    "text": "t.x\r"
+   },
+   {
+    "snapshot": "s3"
+   },
+   {
+    "text": "y"
+   },
+   {
+    "snapshot": "s4"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SYN-010",
+  "args": [
+   "t.x"
+  ],
+  "files": {
+   "home/.nanorc": {
+    "text": "syntax first \"\\.x$\"\ncolor red \"a\"\nsyntax second \"\\.x$\"\ncolor green \"a\"\nsyntax hdr\nheader \"^#!hdr\"\ncolor blue \"a\"\nsyntax default\ncolor yellow \"a\"\nsyntax ml \"\\.ml$\"\ncolor cyan start=\"<<\" end=\">>\"\nicolor magenta \"zz\"\ncolor red \"^q\"\ncolor bold,white \"q\"\nsyntax zero \"\\.z0$\"\ncolor red start=\"^\" end=\"$\"\nsyntax path \"/sub/\"\ncolor blue \"a\"\n"
+   },
+   "work/t.x": {
+    "text": "a b\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "M-Y"
+    ]
+   },
+   {
+    "snapshot": "s1"
+   },
+   {
+    "keys": [
+     "M-Y"
+    ]
+   },
+   {
+    "snapshot": "s2"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ }
+]

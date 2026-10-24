@@ -1,0 +1,11 @@
+[
+ {"id": "TEST-SMOKE-001", "args": ["-I"], "steps": [
+   {"wait": {"text": "Welcome to nano"}}, {"snapshot": "start"},
+   {"text": "hello"}, {"snapshot": "typed"},
+   {"keys": ["^X"]}, {"wait": {"text": "Save modified buffer?"}}, {"snapshot": "ask"},
+   {"text": "n"}, {"wait_exit": 5}],
+  "expect": {"exit_status": 0, "screen": [
+     {"snapshot": "start", "row": 0, "contains": "GNU nano 9.3"},
+     {"snapshot": "start", "row": 22, "contains": "^G Help"},
+     {"snapshot": "typed", "cursor": {"x": 5, "y": 1}}]}}
+]

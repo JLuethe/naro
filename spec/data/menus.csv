@@ -1,0 +1,17 @@
+context,bit,mask,rc_menu_name,where,rc_addressable,source,spec_section
+MMAIN,0,0x1,main,edit window,yes,src/definitions.h:254-269; src/rcfile.c:496-506,02-keybindings.md#contexts
+MWHEREIS,1,0x2,search,Search prompt (^W / ^F / ^B),yes,src/definitions.h:254-269; src/rcfile.c:496-506,02-keybindings.md#contexts
+MREPLACE,2,0x4,replace,Search (to replace) prompt,yes,src/definitions.h:254-269; src/rcfile.c:496-506,02-keybindings.md#contexts
+MREPLACEWITH,3,0x8,replacewith,Replace with prompt,yes,src/definitions.h:254-269; src/rcfile.c:496-506,02-keybindings.md#contexts
+MGOTOLINE,4,0x10,gotoline,Go To Line prompt,yes,src/definitions.h:254-269; src/rcfile.c:496-506,02-keybindings.md#contexts
+MWRITEFILE,5,0x20,writeout,Write to File prompt,yes,src/definitions.h:254-269; src/rcfile.c:496-506,02-keybindings.md#contexts
+MINSERTFILE,6,0x40,insert,File to insert prompt,yes,src/definitions.h:254-269; src/rcfile.c:496-506,02-keybindings.md#contexts
+MEXECUTE,7,0x80,execute,Command to execute prompt,yes,src/definitions.h:254-269; src/rcfile.c:496-506,02-keybindings.md#contexts
+MHELP,8,0x100,help,help viewer,yes,src/definitions.h:254-269; src/rcfile.c:496-506,02-keybindings.md#contexts
+MSPELL,9,0x200,spell,Edit a replacement prompt (spell checker),yes,src/definitions.h:254-269; src/rcfile.c:496-506,02-keybindings.md#contexts
+MBROWSER,10,0x400,browser,file browser,yes,src/definitions.h:254-269; src/rcfile.c:496-506,02-keybindings.md#contexts
+MWHEREISFILE,11,0x800,whereisfile,Search prompt in file browser,yes,src/definitions.h:254-269; src/rcfile.c:496-506,02-keybindings.md#contexts
+MGOTODIR,12,0x1000,gotodir,Go To Directory prompt in file browser,yes,src/definitions.h:254-269; src/rcfile.c:496-506,02-keybindings.md#contexts
+MYESNO,13,0x2000,yesno,Yes/No/All questions,yes,src/definitions.h:254-269; src/rcfile.c:496-506,02-keybindings.md#contexts
+MLINTER,14,0x4000,linter,linter message navigation,yes,src/definitions.h:254-269; src/rcfile.c:496-506,02-keybindings.md#contexts
+MFINDINHELP,15,0x8000,,Search prompt inside the help viewer,no rc name (only via 'all'),src/definitions.h:254-269; src/rcfile.c:496-506,02-keybindings.md#contexts

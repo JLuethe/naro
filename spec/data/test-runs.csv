@@ -1,0 +1,310 @@
+test_id,scenario_file,argv,status,exit_status,exit_signal,snapshots,note,cited_in_docs
+TEST-BROWSE-001,browser.json,-I f.txt,recorded,0,,14,,09
+TEST-BROWSE-002,browser.json,-I f.txt,recorded,,9,11,harness-killed,09
+TEST-BROWSE-003,browser.json,-I f.txt,recorded,,9,6,harness-killed,09
+TEST-BROWSE-004,browser.json,-I f.txt,recorded,,9,7,harness-killed,09
+TEST-BYTE-001,bytes.json,-I m.txt,recorded,0,,30,,18
+TEST-BYTE-002,bytes.json,-I m.txt,recorded,0,,9,,18
+TEST-BYTE-003,bytes.json,-I n.txt,recorded,0,,7,,18
+TEST-BYTE-004,bytes.json,-I l.txt,recorded,0,,13,,05 18 99
+TEST-BYTE-005,bytes.json,-I u.txt,recorded,0,,5,,00 18
+TEST-BYTE-006,bytes.json,-I -T 4 t.txt,recorded,0,,7,,18
+TEST-CLI-001,cli.json,-I +50 f.txt,recorded,0,,1,,01
+TEST-CLI-002,cli.json,"-I +50,3 f.txt",recorded,0,,1,,01
+TEST-CLI-003,cli.json,-I +-1 f.txt,recorded,0,,1,,01
+TEST-CLI-004,cli.json,-I + f.txt,recorded,0,,1,,01
+TEST-CLI-005,cli.json,"-I +,4 f.txt",recorded,0,,1,,01
+TEST-CLI-006,cli.json,-I +999 f.txt,recorded,0,,1,,01
+TEST-CLI-007,cli.json,"-I +3,-2 w.txt",recorded,0,,1,,01
+TEST-CLI-008,cli.json,-I +x5 f.txt,recorded,0,,1,,01 04
+TEST-CLI-009,cli.json,-I +/foo w.txt,recorded,0,,1,,01 04 07
+TEST-CLI-010,cli.json,-I +c/foo w.txt,recorded,0,,1,,01 07
+TEST-CLI-011,cli.json,-I +?foo w.txt,recorded,0,,1,,01 07
+TEST-CLI-012,cli.json,-I +r/^l.st w.txt,recorded,0,,1,,01 07
+TEST-CLI-013,cli.json,-I +/ w.txt,recorded,0,,1,,01 07
+TEST-CLI-014,cli.json,-I +q/foo w.txt,recorded,0,,1,,01 07
+TEST-CLI-015,cli.json,-I +/nomatch w.txt,recorded,0,,1,,01 07
+TEST-CLI-016,cli.json,-I +50,recorded,0,,1,,01
+TEST-CLI-017,cli.json,-I -- +50,recorded,0,,1,,01
+TEST-CLI-018,cli.json,-I -@ f.txt:7,recorded,0,,1,,01
+TEST-CLI-019,cli.json,-I -@ f.txt:7:3,recorded,0,,1,,01
+TEST-CLI-020,cli.json,-I -@ nofile:7,recorded,0,,1,,01
+TEST-CLI-021,cli.json,-I f.txt:7,recorded,0,,1,,01
+TEST-CLI-022,cli.json,-I -@ +2 f.txt:7,recorded,0,,1,,01
+TEST-CLI-023,cli.json,-I newfile.txt,recorded,0,,1,,01 08
+TEST-CLI-024,cli.json,-I .,recorded,0,,1,,01 08
+TEST-CLI-025,cli.json,-I /dev/null,recorded,0,,1,,01 08
+TEST-CLI-026,cli.json,-I dir/,recorded,0,,1,,01 08
+TEST-CLI-027,cli.json,-I f.txt w.txt,recorded,0,,2,,01 08
+TEST-CLI-028,cli.json,-I -v f.txt,recorded,0,,2,,01 02
+TEST-CLI-029,cli.json,-I -v,recorded,0,,1,,01
+TEST-CLI-030,cli.json,-I -,recorded,0,,2,,01 08
+TEST-CLI-031,cli.json,-I - f.txt,recorded,,9,1,harness-killed,01
+TEST-CLI-032,cli.json,-I -o /nonexistent-dir,recorded,1,,1,,01
+TEST-CLI-033,cli.json,-I -B -C /nonexistent-dir,recorded,1,,1,,01
+TEST-CLI-034,cli.json,-I -Q (,recorded,1,,1,,01
+TEST-CLI-035,cli.json,-I -R -B -C /nonexistent-dir,recorded,0,,1,,01
+TEST-CLI-036,cli.json,-I,recorded,1,,1,,01
+TEST-CLI-037,cli.json,,recorded,0,,1,,01 10
+TEST-CLI-038,cli.json,-I -x -c,recorded,0,,1,,01 04
+TEST-CLI-039,cli.json,-I -0,recorded,0,,1,,01 04
+TEST-CLI-040,cli.json,-I -_ f.txt,recorded,0,,1,,01 04
+TEST-CLI-041,cli.json,-I -% -i f.txt,recorded,0,,1,,01
+TEST-CLI-042,cli.json,-I -e f.txt,recorded,0,,1,,01 04
+TEST-CLI-043,cli.json,-I -l f.txt,recorded,0,,1,,01 04
+TEST-CLI-044,cli.json,-I -q f.txt,recorded,0,,1,,01 04
+TEST-CLI-045,cli.json,-I -J 10 w.txt,recorded,0,,1,,01 04
+TEST-CLI-046,cli.json,-I -D f.txt,recorded,0,,1,,01 04
+TEST-CLI-047,cli.json,-I -Y nosuchsyntax f.txt,recorded,0,,1,,01
+TEST-CLI-048,cli.json,-I +2 f.txt +3 w.txt,recorded,0,,2,,01
+TEST-CLI-049,cli.json,-I -R,recorded,0,,1,,01 02 04
+TEST-CLI-050,cli.json,-I f.txt nonexist.txt .,recorded,0,,2,,01 04 08
+TEST-CLI-051,cli.json,-I -f /tmp/nanospec-work/TEST-CLI-051/fx/home/rcdir,recorded,0,,1,,01 10
+TEST-CLI-052,cli.json,"-I +0,0 f.txt",recorded,0,,1,,01
+TEST-CLI-053,cli.json,-I +2.5 f.txt,recorded,0,,1,,01
+TEST-CLI-054,cli.json,-I +2:5 f.txt,recorded,0,,1,,01
+TEST-CLI-055,cli.json,-I +cr/F.o w.txt,recorded,0,,1,,01
+TEST-CLI-056,cli-extra.json,"-I +3, f.txt",recorded,0,,1,,01
+TEST-CLI-057,cli-extra.json,-I +r/( w.txt,recorded,1,,1,,01 97 99
+TEST-CLI-058,cli-extra.json,-I w.txt -v,recorded,0,,1,,01
+TEST-CLI-059,cli-extra.json,-I w.txt -v,recorded,0,,1,,01
+TEST-CLI-060,cli-extra.json,-I,recorded,0,,1,,01
+TEST-CLI-061,cli-extra.json,-I,recorded,1,,1,,01
+TEST-CLI-062,cli-extra.json,-I w.txt +5,recorded,0,,2,,01
+TEST-CLI-063,cli-extra.json,-I +c/foo w.txt +/foo w.txt,recorded,0,,2,,01
+TEST-CLI-064,cli-extra.json,-I,recorded,0,,1,,01
+TEST-CLI-065,cli-extra.json,"-I +2,9999 w.txt",recorded,0,,2,,01
+TEST-EDIT-001,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-002,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-003,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-004,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-005,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-006,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-007,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-008,edit.json,-I -i f.txt,recorded,0,,2,,05
+TEST-EDIT-009,edit.json,-I -i f.txt,recorded,0,,2,,05
+TEST-EDIT-010,edit.json,-I -i f.txt,recorded,0,,2,,05
+TEST-EDIT-011,edit.json,-I -E f.txt,recorded,0,,2,,05
+TEST-EDIT-012,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-013,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-014,edit.json,-I f.txt,recorded,0,,4,,05
+TEST-EDIT-015,edit.json,-I -k f.txt,recorded,0,,2,,05
+TEST-EDIT-016,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-017,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-018,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-019,edit.json,-I -Z f.txt,recorded,0,,2,,05
+TEST-EDIT-020,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-021,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-022,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-023,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-024,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-025,edit.json,-I f.txt,recorded,0,,7,,05 06
+TEST-EDIT-026,edit.json,-I f.txt,recorded,0,,3,,12
+TEST-EDIT-027,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-EDIT-028,edit.json,-I f.txt,recorded,0,,2,,05
+TEST-FEAT-001,features.json,-I -r 30 f.txt,recorded,0,,5,,12
+TEST-FEAT-002,features.json,-I -r 30 f.txt,recorded,0,,2,,12
+TEST-FEAT-003,features.json,-I -r 30 -M f.txt,recorded,0,,2,,12
+TEST-FEAT-004,features.json,-I f.txt,recorded,0,,6,,12
+TEST-FEAT-005,features.json,-I -s altspell --opt f.txt,recorded,0,,5,,12
+TEST-FEAT-006,features.json,f.txt,recorded,0,,8,,12
+TEST-FEAT-007,features.json,f.txt,recorded,0,,4,,12
+TEST-FEAT-008,features.json,-I f.txt,recorded,0,,10,,12
+TEST-FEAT-009,features.json,-I f.txt,recorded,0,,7,,12
+TEST-FEAT-010,features.json,-I f.txt,recorded,0,,4,,12
+TEST-FEAT-011,features.json,-I f.txt,recorded,0,,3,,12
+TEST-FEAT-012,features.json,-I -R f.txt,recorded,0,,4,,12
+TEST-FEAT-013,features2.json,-I -H f.txt,recorded,0,,12,,12 17
+TEST-FEAT-014,features2.json,-I -P f.txt,recorded,0,,6,,12
+TEST-FEAT-015,features2.json,-I -P f.txt,recorded,0,,1,,12
+TEST-FEAT-016,features2.json,-I f.txt,recorded,0,,6,,12 13
+TEST-FEAT-017,features2.json,-I f.txt,recorded,,9,12,harness-killed,12
+TEST-FEAT-018,features2.json,-I f.txt,recorded,0,,9,,12
+TEST-FEAT-019,features2.json,-I -l f.txt,recorded,0,,5,,12 18
+TEST-FEAT-020,features2.json,-I f.txt,recorded,0,,5,,12
+TEST-FILE-001,files.json,-I f.txt,recorded,0,,3,,08
+TEST-FILE-002,files.json,-I,recorded,0,,3,,08
+TEST-FILE-003,files.json,-I link.txt,recorded,0,,3,,08
+TEST-FILE-004,files.json,-I f.txt,recorded,0,,3,,08
+TEST-FILE-005,files.json,-I f.txt,recorded,0,,3,,08
+TEST-FILE-006,files.json,-I f.txt,recorded,0,,3,,08
+TEST-FILE-007,files.json,-I f.txt,recorded,0,,3,,08
+TEST-FILE-008,files.json,-I -N f.txt,recorded,0,,3,,08
+TEST-FILE-009,files.json,-I -u f.txt,recorded,0,,3,,08
+TEST-FILE-010,files.json,-I -L f.txt,recorded,0,,4,,08
+TEST-FILE-011,files.json,-I f.txt,recorded,0,,4,,08 18
+TEST-FILE-012,files.json,-I -B f.txt,recorded,0,,6,,08
+TEST-FILE-013,files.json,-I -B -C /tmp/nanospec-work/TEST-FILE-013/fx/bk f.txt,recorded,0,,6,,08
+TEST-FILE-014,files2.json,-I -G f.txt,recorded,0,,3,,08
+TEST-FILE-015,files.json,-I f.txt,recorded,0,,3,,08
+TEST-FILE-016,files2.json,-I f.txt,recorded,0,,6,,08
+TEST-FILE-017,files2.json,-I f.txt,recorded,0,,10,,08
+TEST-FILE-018,files.json,-I f.txt,recorded,0,,5,,08
+TEST-FILE-019,files.json,-I f.txt,recorded,,9,7,harness-killed,08
+TEST-FILE-020,files.json,-I f.txt,recorded,2,,3,,08
+TEST-FILE-021,files.json,-I -t f.txt,recorded,0,,2,,08
+TEST-FILE-022,files.json,-I f.txt,recorded,1,,2,,08
+TEST-FILE-023,files.json,-I f.txt,recorded,1,,2,,08
+TEST-FILE-024,files.json,-I,recorded,1,,2,,08
+TEST-FILE-025,files2.json,-I f.txt,recorded,0,,5,,08
+TEST-FILE-026,files2.json,-I -G f.txt,recorded,0,,2,,08
+TEST-FILE-027,files2.json,-I -G f.txt,recorded,0,,1,,08
+TEST-FILE-028,files2.json,-I -G f.txt,recorded,0,,1,,08
+TEST-FILE-029,files2.json,-I f.txt g.txt,recorded,0,,4,,08
+TEST-FILE-030,files2.json,-I f.txt,recorded,0,,7,,12
+TEST-FILE-031,files2.json,-I,recorded,0,,8,,08
+TEST-I18N-001,i18n.json,-I f.txt,recorded,0,,9,,00 14 17
+TEST-I18N-002,i18n.json,-I f.txt,recorded,0,,5,,00 14 17
+TEST-I18N-003,i18n.json,-I l1.txt,recorded,0,,4,,14 18 99
+TEST-I18N-004,i18n.json,-I f.txt,recorded,0,,4,,14
+TEST-I18N-005,i18n.json,-I f.txt,recorded,0,,3,,14
+TEST-I18N-006,i18n.json,-I f.txt,recorded,0,,3,,14
+TEST-I18N-007,i18n.json,-I f.txt,recorded,0,,2,,00 14
+TEST-I18N-008,i18n.json,-I missing.txt,recorded,0,,3,,14
+TEST-INPUT-001,input.json,-I,recorded,0,,3,,03
+TEST-INPUT-002,input.json,-I,recorded,0,,3,,03
+TEST-INPUT-003,input.json,-I,recorded,0,,1,,03
+TEST-INPUT-004,input.json,-I,recorded,0,,1,,03
+TEST-INPUT-005,input.json,-I,recorded,0,,3,,03 06
+TEST-INPUT-006,input.json,-I,recorded,0,,10,,03
+TEST-INPUT-007,input.json,-I -d,recorded,0,,3,,03
+TEST-INPUT-008,input.json,-I -K,recorded,0,,4,,03
+TEST-INPUT-009,input.json,-I -m,recorded,,9,5,harness-killed,03
+TEST-INPUT-010,input.json,-I,recorded,0,,3,,03 04 13 17
+TEST-INPUT-011,input.json,-I,recorded,0,,3,,03
+TEST-INPUT-012,input.json,-I,recorded,0,,6,,03 05
+TEST-INPUT-013,input.json,-I,recorded,0,,7,,03
+TEST-INPUT-014,input.json,-I,recorded,0,,2,,03
+TEST-INPUT-015,input.json,-I,recorded,0,,4,,03
+TEST-KEY-001,keys.json,-I,recorded,0,,7,,02
+TEST-KEY-002,keys.json,,recorded,0,,5,,02 10
+TEST-KEY-003,keys.json,,recorded,0,,1,,02 10
+TEST-KEY-004,keys.json,,recorded,1,,1,,02 10
+TEST-KEY-005,keys.json,,recorded,0,,3,,02 10
+TEST-KEY-006,keys.json,-I --modernbindings,recorded,0,,2,,02
+TEST-KEY-007,keys.json,,recorded,0,,1,,02
+TEST-KEY-008,keys.json,-I,recorded,0,,18,,02 04
+TEST-KEY-009,keys.json,-I -x,recorded,0,,3,,02
+TEST-KEY-010,keys.json,-I -p --modernbindings,recorded,0,,2,,02 04
+TEST-KEY-011,keys.json,-I --preserve,recorded,0,,2,,02
+TEST-KEY-012,keys.json,,recorded,0,,1,,02
+TEST-MOVE-001,move.json,-I f.txt,recorded,0,,12,,05
+TEST-MOVE-002,move.json,-I -W f.txt,recorded,0,,6,,05
+TEST-MOVE-003,move.json,-I -y f.txt,recorded,0,,6,,05
+TEST-MOVE-004,move.json,-I -X ._ f.txt,recorded,0,,4,,05
+TEST-MOVE-005,move.json,-I -A f.txt,recorded,0,,5,,05
+TEST-MOVE-006,move.json,-I f.txt,recorded,0,,5,,05
+TEST-MOVE-007,move.json,-I f.txt,recorded,0,,5,,05
+TEST-MOVE-008,move.json,-I f.txt,recorded,0,,11,,05
+TEST-MOVE-009,move.json,-I f.txt,recorded,0,,5,,05
+TEST-MOVE-010,move.json,-I f.txt,recorded,0,,6,,05
+TEST-MOVE-011,move.json,-I f.txt,recorded,0,,4,,05
+TEST-MOVE-012,move.json,-I -j f.txt,recorded,0,,3,,05
+TEST-MOVE-013,move.json,-I f.txt,recorded,0,,3,,05
+TEST-MOVE-014,move.json,-I f.txt,recorded,0,,1,,05 07
+TEST-MOVE-015,move.json,-I f.txt,recorded,0,,6,,05 07
+TEST-MOVE-016,move.json,-I f.txt,recorded,0,,8,,05
+TEST-PROMPT-001,prompts.json,-I f.txt,recorded,0,,8,,17
+TEST-PROMPT-002,prompts.json,-I f.txt,recorded,0,,8,,17
+TEST-PROMPT-003,prompts.json,-I f.txt,recorded,0,,4,,17
+TEST-PROMPT-004,prompts.json,-I f.txt,recorded,0,,11,,17
+TEST-PROMPT-005,prompts.json,-I -H f.txt,recorded,0,,14,,17
+TEST-PROMPT-006,prompts.json,-I f.txt,recorded,0,,6,,17
+TEST-PROMPT-007,prompts.json,-I f.txt,recorded,0,,11,,17
+TEST-PROMPT-008,prompts.json,-I f.txt,recorded,0,,6,,17
+TEST-PROMPT-009,prompts.json,-I -R f.txt,recorded,0,,9,,17
+TEST-PROMPT-010,prompts.json,-I -m f.txt,recorded,0,,7,,17
+TEST-PROMPT-011,prompts.json,-I f.txt,recorded,0,,5,,17
+TEST-PROMPT-012,prompts.json,-I f.txt,recorded,0,,5,,17
+TEST-PROMPT-NUL-001,prompt-nul.json,-I f.txt,recorded,0,,1,,14 17 99
+TEST-RC-001,rc.json,t.txt,recorded,0,,1,,10
+TEST-RC-002,rc.json,t.txt,recorded,0,,1,,10
+TEST-RC-003,rc.json,t.txt,recorded,0,,1,,10
+TEST-RC-004,rc.json,,recorded,0,,1,,10
+TEST-RC-005,rc.json,x.foo,recorded,0,,1,,10 11
+TEST-RC-006,rc.json,x.foo hdr,recorded,,9,2,harness-killed,10 11
+TEST-RC-007,rc.json,t.txt,recorded,0,,3,,10
+TEST-RC-008,rc.json,-T 6 t.txt,recorded,0,,1,,10
+TEST-RC-009,rc.json,-i t.txt,recorded,0,,5,,10
+TEST-RC-010,rc.json,t.txt,recorded,0,,2,,10
+TEST-RC-011,rc.json,-R,recorded,0,,1,,10 12
+TEST-REND-001,render.json,-I long.txt,recorded,0,,5,,04
+TEST-REND-002,render.json,-I -1 long.txt,recorded,0,,3,,04
+TEST-REND-003,render.json,-I -S long.txt,recorded,0,,2,,04
+TEST-REND-004,render.json,-I -S -a long.txt,recorded,0,,2,,04
+TEST-REND-005,render.json,-I -c sp.txt,recorded,0,,4,,04 18
+TEST-REND-006,render.json,-I ws.txt,recorded,0,,2,,04
+TEST-REND-007,render.json,-I -l big.txt,recorded,0,,3,,04
+TEST-REND-008,render.json,-I -q big.txt,recorded,0,,3,,04
+TEST-REND-009,render.json,-I -_ -c -% big.txt,recorded,0,,3,,04
+TEST-REND-010,render.json,-I -0 big.txt,recorded,0,,3,,04
+TEST-REND-011,render.json,-I a-rather-long-file-name-for-testing.txt,recorded,0,,2,,04
+TEST-REND-012,render.json,-I a-rather-long-file-name-for-testing.txt,recorded,0,,2,,04
+TEST-REND-013,render.json,-I f.txt nonexist1/ nonexist2/ .,recorded,0,,1,,04
+TEST-REND-014,render.json,-I,recorded,0,,2,,04
+TEST-REND-015,render.json,-I,recorded,0,,2,,04
+TEST-REND-016,render.json,-I,recorded,0,,2,,04
+TEST-REND-017,render.json,-I,recorded,0,,2,,04
+TEST-REND-018,render.json,-I,recorded,0,,2,,04
+TEST-REND-019,render.json,t.c,recorded,0,,2,,04 11
+TEST-REND-020,render.json,-I big.txt,recorded,0,,4,,04
+TEST-REND-021,render.json,-I -J 5 s.txt,recorded,0,,1,,04
+TEST-REND-022,render.json,-I big.txt,recorded,0,,3,,04
+TEST-REND-023,render.json,-I big.txt,recorded,0,,3,,04
+TEST-REND-024,render.json,-I -D big.txt,recorded,0,,3,,04
+TEST-REND-025,render.json,-I -x -c big.txt,recorded,0,,4,,04
+TEST-SIG-001,signals.json,-I f.txt,recorded,1,,1,,13
+TEST-SIG-002,signals.json,-I,recorded,1,,1,,13 99
+TEST-SIG-003,signals.json,-I f.txt,recorded,1,,1,,13
+TEST-SIG-004,signals.json,-I -R f.txt,recorded,1,,1,,13
+TEST-SIG-005,signals.json,-I f.txt,recorded,0,,2,,13
+TEST-SIG-006,signals.json,-I a.txt b.txt,recorded,1,,1,,13
+TEST-SIG-007,signals.json,-I f.txt,recorded,0,,4,,13
+TEST-SIG-008,signals.json,-I -G f.txt,recorded,1,,1,,13
+TEST-SIG-009,signals.json,-I f.txt,recorded,1,,1,,13
+TEST-SIG-010,signals.json,-I -v f.txt,recorded,1,,1,,13
+TEST-SIG-011,signals2.json,-I f.txt,recorded,2,,0,,13 14 17
+TEST-SIG-012,signals2.json,-I f.txt,recorded,2,,0,,13 14 17
+TEST-SIG-013,signals2.json,-I a.txt b.txt,recorded,0,,1,,13 14 17
+TEST-SIG-014,signals2.json,-I f.txt,recorded,0,,0,,13 14 17
+TEST-SMOKE-001,smoke.json,-I,recorded,0,,3,,02 03 04 16 98
+TEST-SRCH-001,search.json,-I f.txt,recorded,0,,8,,07
+TEST-SRCH-002,search.json,-I f.txt,recorded,0,,6,,07
+TEST-SRCH-003,search.json,-I f.txt,recorded,0,,10,,07
+TEST-SRCH-004,search.json,-I f.txt,recorded,0,,3,,07
+TEST-SRCH-005,search.json,-I f.txt,recorded,0,,4,,07
+TEST-SRCH-006,search.json,-I f.txt,recorded,0,,4,,07
+TEST-SRCH-007,search.json,-I f.txt,recorded,,9,6,harness-killed,07
+TEST-SRCH-008,search.json,-I f.txt,recorded,0,,4,,07
+TEST-SRCH-009,search.json,-I f.txt,recorded,0,,5,,07
+TEST-SRCH-010,search.json,-I f.txt,recorded,0,,7,,07
+TEST-SRCH-011,search.json,-I f.txt,recorded,0,,5,,07
+TEST-SRCH-012,search.json,-I f.txt,recorded,0,,4,,07
+TEST-SRCH-013,search.json,-I f.txt,recorded,0,,4,,07 14
+TEST-SRCH-014,search.json,-I f.txt,recorded,0,,9,,07
+TEST-SRCH-015,search.json,-I f.txt,recorded,0,,5,,07 99
+TEST-SRCH-016,search.json,-I f.txt,recorded,0,,3,,07
+TEST-SRCH-017,search.json,-I f.txt,recorded,,9,5,harness-killed,07
+TEST-SRCH-018,search.json,-I f.txt,recorded,0,,1,,07
+TEST-SRCH-019,search.json,-I f.txt,recorded,0,,3,,07 18
+TEST-SYN-001,syntax.json,t.x,recorded,0,,1,,11
+TEST-SYN-002,syntax.json,t.none,recorded,0,,1,,11
+TEST-SYN-003,syntax.json,plain,recorded,0,,1,,11
+TEST-SYN-004,syntax.json,-Y first t.x,recorded,0,,1,,11
+TEST-SYN-005,syntax.json,-Y none t.x,recorded,0,,1,,11
+TEST-SYN-006,syntax.json,t.ml,recorded,0,,6,,11
+TEST-SYN-007,syntax.json,t.z0,recorded,0,,1,,11
+TEST-SYN-008,syntax.json,sub/f.txt,recorded,0,,1,,11
+TEST-SYN-009,syntax.json,t.txt,recorded,0,,5,,11
+TEST-SYN-010,syntax.json,t.x,recorded,0,,3,,11
+TEST-UNDO-001,undo.json,-I f.txt,recorded,0,,12,,06
+TEST-UNDO-002,undo.json,-I f.txt,recorded,0,,9,,06
+TEST-UNDO-003,undo.json,-I f.txt,recorded,0,,6,,06
+TEST-UNDO-004,undo.json,-I f.txt,recorded,0,,4,,06
+TEST-UNDO-005,undo.json,-I f.txt,recorded,0,,7,,06
+TEST-UNDO-006,undo.json,-I f.txt,recorded,0,,7,,06
+TEST-UNDO-007,undo.json,-I f.txt,recorded,0,,8,,06
+TEST-UNDO-008,undo.json,-I -r 10 f.txt,recorded,0,,3,,06
+TEST-UNDO-009,undo.json,-I f.txt,recorded,0,,5,,06
+TEST-UNDO-010,undo.json,-I -b -r 12 f.txt,recorded,0,,2,,06
+TEST-UNDO-011,undo.json,-I f.txt,recorded,0,,4,,06

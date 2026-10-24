@@ -1,0 +1,1316 @@
+[
+ {
+  "id": "TEST-MOVE-001",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo.bar baz_qux  end\n\n  indented line here\n\nlast para one\nlast para two\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m00",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m01",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m02",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m03",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m04",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m05",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Left"
+    ]
+   },
+   {
+    "snapshot": "m06",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Left"
+    ]
+   },
+   {
+    "snapshot": "m07",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Left"
+    ]
+   },
+   {
+    "snapshot": "m08",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Left"
+    ]
+   },
+   {
+    "snapshot": "m09",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Left"
+    ]
+   },
+   {
+    "snapshot": "m10",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Left"
+    ]
+   },
+   {
+    "snapshot": "m11",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-MOVE-002",
+  "args": [
+   "-I",
+   "-W",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo.bar baz_qux  end\n\n  indented line here\n\nlast para one\nlast para two\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m00",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m01",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m02",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m03",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m04",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m05",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-MOVE-003",
+  "args": [
+   "-I",
+   "-y",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo.bar baz_qux  end\n\n  indented line here\n\nlast para one\nlast para two\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m00",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m01",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m02",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m03",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m04",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m05",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-MOVE-004",
+  "args": [
+   "-I",
+   "-X",
+   "._",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo.bar baz_qux  end\n\n  indented line here\n\nlast para one\nlast para two\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m00",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m01",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m02",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "m03",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-MOVE-005",
+  "args": [
+   "-I",
+   "-A",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo.bar baz_qux  end\n\n  indented line here\n\nlast para one\nlast para two\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "Down",
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "m00",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "m01",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "snapshot": "m02",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "snapshot": "m03",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "snapshot": "m04",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-MOVE-006",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo.bar baz_qux  end\n\n  indented line here\n\nlast para one\nlast para two\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^Down"
+    ]
+   },
+   {
+    "snapshot": "m00",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Down"
+    ]
+   },
+   {
+    "snapshot": "m01",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Down"
+    ]
+   },
+   {
+    "snapshot": "m02",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Up"
+    ]
+   },
+   {
+    "snapshot": "m03",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Up"
+    ]
+   },
+   {
+    "snapshot": "m04",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-MOVE-007",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo.bar baz_qux  end\n\n  indented line here\n\nlast para one\nlast para two\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "M-)"
+    ]
+   },
+   {
+    "snapshot": "m00",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-)"
+    ]
+   },
+   {
+    "snapshot": "m01",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-)"
+    ]
+   },
+   {
+    "snapshot": "m02",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-("
+    ]
+   },
+   {
+    "snapshot": "m03",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-("
+    ]
+   },
+   {
+    "snapshot": "m04",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-MOVE-008",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline 10\nline 11\nline 12\nline 13\nline 14\nline 15\nline 16\nline 17\nline 18\nline 19\nline 20\nline 21\nline 22\nline 23\nline 24\nline 25\nline 26\nline 27\nline 28\nline 29\nline 30\nline 31\nline 32\nline 33\nline 34\nline 35\nline 36\nline 37\nline 38\nline 39\nline 40\nline 41\nline 42\nline 43\nline 44\nline 45\nline 46\nline 47\nline 48\nline 49\nline 50\nline 51\nline 52\nline 53\nline 54\nline 55\nline 56\nline 57\nline 58\nline 59\nline 60\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "PgDn"
+    ]
+   },
+   {
+    "snapshot": "m00",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "PgDn"
+    ]
+   },
+   {
+    "snapshot": "m01",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "PgDn"
+    ]
+   },
+   {
+    "snapshot": "m02",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "PgUp"
+    ]
+   },
+   {
+    "snapshot": "m03",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-End"
+    ]
+   },
+   {
+    "snapshot": "m04",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-Home"
+    ]
+   },
+   {
+    "snapshot": "m05",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-Down"
+    ]
+   },
+   {
+    "snapshot": "m06",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-Up"
+    ]
+   },
+   {
+    "snapshot": "m07",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^L"
+    ]
+   },
+   {
+    "snapshot": "m08",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-%"
+    ]
+   },
+   {
+    "snapshot": "m09",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-%"
+    ]
+   },
+   {
+    "snapshot": "m10",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-MOVE-009",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "a long line here\nab\n\tx\nmore\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "m00",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "m01",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "m02",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "m03",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "m04",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-MOVE-010",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "e\u0301x\u4e2d\u6587y\nabcdef\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "m00",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "m01",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "m02",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Left"
+    ]
+   },
+   {
+    "snapshot": "m03",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Left"
+    ]
+   },
+   {
+    "snapshot": "m04",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "m05",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-MOVE-011",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo.bar baz_qux  end\n\n  indented line here\n\nlast para one\nlast para two\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^End"
+    ]
+   },
+   {
+    "snapshot": "m00",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "m01",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Home"
+    ]
+   },
+   {
+    "snapshot": "m02",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Left"
+    ]
+   },
+   {
+    "snapshot": "m03",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-MOVE-012",
+  "args": [
+   "-I",
+   "-j",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline 10\nline 11\nline 12\nline 13\nline 14\nline 15\nline 16\nline 17\nline 18\nline 19\nline 20\nline 21\nline 22\nline 23\nline 24\nline 25\nline 26\nline 27\nline 28\nline 29\nline 30\nline 31\nline 32\nline 33\nline 34\nline 35\nline 36\nline 37\nline 38\nline 39\nline 40\nline 41\nline 42\nline 43\nline 44\nline 45\nline 46\nline 47\nline 48\nline 49\nline 50\nline 51\nline 52\nline 53\nline 54\nline 55\nline 56\nline 57\nline 58\nline 59\nline 60\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "PgDn"
+    ]
+   },
+   {
+    "snapshot": "m00",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "PgDn"
+    ]
+   },
+   {
+    "snapshot": "m01",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "PgUp"
+    ]
+   },
+   {
+    "snapshot": "m02",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-MOVE-013",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\nshort\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "M->"
+    ]
+   },
+   {
+    "snapshot": "m00",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M->"
+    ]
+   },
+   {
+    "snapshot": "m01",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-<"
+    ]
+   },
+   {
+    "snapshot": "m02",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-MOVE-014",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "(a [b] {c (d)} e)\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "M-]"
+    ]
+   },
+   {
+    "snapshot": "m00",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-MOVE-015",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "(a [b] {c (d)} e)\nx\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "m00",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-]"
+    ]
+   },
+   {
+    "snapshot": "m01",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-]"
+    ]
+   },
+   {
+    "snapshot": "m02",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "snapshot": "m03",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "m04",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-]"
+    ]
+   },
+   {
+    "snapshot": "m05",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-MOVE-016",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline 10\nline 11\nline 12\nline 13\nline 14\nline 15\nline 16\nline 17\nline 18\nline 19\nline 20\nline 21\nline 22\nline 23\nline 24\nline 25\nline 26\nline 27\nline 28\nline 29\nline 30\nline 31\nline 32\nline 33\nline 34\nline 35\nline 36\nline 37\nline 38\nline 39\nline 40\nline 41\nline 42\nline 43\nline 44\nline 45\nline 46\nline 47\nline 48\nline 49\nline 50\nline 51\nline 52\nline 53\nline 54\nline 55\nline 56\nline 57\nline 58\nline 59\nline 60\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "Down",
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "m00",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-Ins"
+    ]
+   },
+   {
+    "snapshot": "m01",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^Home"
+    ]
+   },
+   {
+    "snapshot": "m02",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-PgDn"
+    ]
+   },
+   {
+    "snapshot": "m03",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-PgDn"
+    ]
+   },
+   {
+    "snapshot": "m04",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-PgUp"
+    ]
+   },
+   {
+    "snapshot": "m05",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-Ins"
+    ]
+   },
+   {
+    "snapshot": "m06",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-PgDn"
+    ]
+   },
+   {
+    "snapshot": "m07",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ }
+]

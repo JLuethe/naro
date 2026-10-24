@@ -1,0 +1,33 @@
+feature,configure_switch,macro,default_build,tiny_build,tiny_default,dependencies,observable_scope,conditional_blocks_in_src,source,spec_section
+browser,--disable-browser,ENABLE_BROWSER,on,off,off,,"file browser (^T at Read/Write prompts), MBROWSER/MWHEREISFILE/MGOTODIR menus",33,configure.ac,12-features.md#build-features
+color,--disable-color,ENABLE_COLOR,on,off,off,requires nanorc; --disable-nanorc disables color silently,"syntax highlighting, interface colors, syntax/include/extendsyntax/color/icolor/header/magic/comment/tabgives/linter/formatter commands, -Y, -z",78,configure.ac,12-features.md#build-features
+comment,--disable-comment,ENABLE_COMMENT,on,off,cannot enable with tiny,,"comment/uncomment (M-3), 'comment' syntax command effect, COMMENT/UNCOMMENT undo types",15,configure.ac,12-features.md#build-features
+extra,--disable-extra,ENABLE_EXTRA,on,off,off,,"credits Easter egg (^X Y 'zzy'), M-& ncurses version",8,configure.ac,12-features.md#build-features
+formatter,--disable-formatter,ENABLE_FORMATTER,on,off,off,requires color+nanorc,"formatter tool (^T^O in Execute), 'formatter' syntax command",16,configure.ac,12-features.md#build-features
+help,--disable-help,ENABLE_HELP,on,off,off,requires multibuffer,"help viewer (^G/F1), help-line descriptions; without it ^G says '^W = Ctrl+W    M-W = Alt+W'",36,configure.ac,12-features.md#build-features
+histories,--disable-histories,ENABLE_HISTORIES,on,off,off,,"search/replace/execute histories, Up/Down/^P/^N history in prompts, -H, -P, history files",42,configure.ac,12-features.md#build-features
+justify,--disable-justify,ENABLE_JUSTIFY,on,off,off,,"^J justify, M-J full justify, paragraph movement M-( M-) M-9 M-0, -Q, quotestr/punct/brackets options",47,configure.ac,12-features.md#build-features
+libmagic,--disable-libmagic,HAVE_LIBMAGIC,on,off,off (unless --enable-libmagic),requires color+nanorc; needs libmagic+zlib,"-! / set magic, 'magic' syntax command effect",8,configure.ac,12-features.md#build-features
+linter,--disable-linter,ENABLE_LINTER,on,off,off,requires color+nanorc,"linter (^T^Y), MLINTER menu, 'linter' syntax command",17,configure.ac,12-features.md#build-features
+linenumbers,--disable-linenumbers,ENABLE_LINENUMBERS,on,off,off,,"-l, M-N toggle (in tiny M-N toggles numbers if enabled)",19,configure.ac,12-features.md#build-features
+mouse,--disable-mouse,ENABLE_MOUSE,on,off,off,requires ncurses mouse (NCURSES_MOUSE_VERSION),"-m, M-M toggle, mouse clicks/wheel",23,configure.ac,12-features.md#build-features
+multibuffer,--disable-multibuffer,ENABLE_MULTIBUFFER,on,off,off,,"several files, M-< M-> M-, M-. M-Left/Right, -F, Read-into-new-buffer; without it only one file may be named",50,configure.ac,12-features.md#build-features
+nanorc,--disable-nanorc,ENABLE_NANORC,on,off,off,,"nanorc files, -I, -f, bind/unbind, string binds",45,configure.ac,12-features.md#build-features
+operatingdir,--disable-operatingdir,ENABLE_OPERATINGDIR,on,off,off,,-o / set operatingdir confinement,23,configure.ac,12-features.md#build-features
+speller,--disable-speller,ENABLE_SPELLER,on,off,off,,"spell check (^T^T, F12), -s, $SPELL",38,configure.ac,12-features.md#build-features
+tabcomp,--disable-tabcomp,ENABLE_TABCOMP,on,off,off,,"Tab completion of filenames, history completion in search prompts",14,configure.ac,12-features.md#build-features
+wordcomp,--disable-wordcomp,ENABLE_WORDCOMPLETION,on,off,cannot enable with tiny,,^] word completion,10,configure.ac,12-features.md#build-features
+wrapping,--disable-wrapping,ENABLE_WRAPPING,on,off,off,,"hard wrapping (-b, -w, M-L), SPLIT_BEGIN/SPLIT_END undo",32,configure.ac,12-features.md#build-features
+nls,--disable-nls,ENABLE_NLS,on,on,on,gettext,translated messages; affects yes/no letters,5,configure.ac,12-features.md#build-features
+utf8,--enable-utf8/--disable-utf8,ENABLE_UTF8,on,on,auto,wide curses + iswalpha etc.,multibyte handling; using_utf8 additionally requires a UTF-8 locale at run time,51,configure.ac,12-features.md#build-features
+debug,--enable-debug,DEBUG,off,off,off,,"debug output on stderr, asserts; disables crash handler",10,configure.ac,12-features.md#build-features
+tiny,--enable-tiny,NANO_TINY,off,on,-,,"removes undo, mark, toggles, softwrap, indent, many keys; see 12-features.md",451,configure.ac,12-features.md#build-features
+altrcname,--enable-altrcname=NAME,RCFILE_NAME,off,off,-,,changes ~/.nanorc and XDG rc file names,1,configure.ac,12-features.md#build-features
+(derived) ENABLED_WRAPORJUSTIFY,,ENABLED_WRAPORJUSTIFY,on,off,,ENABLE_WRAPPING || ENABLE_JUSTIFY,"--fill/-r, --trimblanks/-M, wrap_at computation",18,src/definitions.h:95-97,12-features.md#build-features
+(derived) NCURSES_MOUSE_VERSION,,NCURSES_MOUSE_VERSION,on,on,,ncurses provides mouse API,undefines ENABLE_MOUSE when absent,2,src/definitions.h:91-93,12-features.md#build-features
+(derived) HAVE_SET_ESCDELAY,,HAVE_SET_ESCDELAY,on,on,,ncurses has set_escdelay,ESC delay 50 ms,1,src/nano.c:2511-2514,12-features.md#build-features
+(derived) HAVE_DEFINE_KEY,,HAVE_DEFINE_KEY,on,on,,ncurses has define_key,bracketed paste sequences mapped to keycodes,1,src/nano.c:2492-2496,12-features.md#build-features
+(derived) HAVE_KEY_DEFINED,,HAVE_KEY_DEFINED,on,on,,ncurses has key_defined,modified-key codes taken from terminfo,1,src/nano.c:1241-1254,12-features.md#build-features
+(derived) HAVE_USE_DEFAULT_COLORS,,HAVE_USE_DEFAULT_COLORS,on,on,,ncurses has use_default_colors,'normal'/default colors,1,src/color.c:38-41,12-features.md#build-features
+(derived) HAVE_TERM_H,,HAVE_TERM_H,on,on,,term.h available,help key ^H vs ^N in modern bindings,2,src/global.c:761-767,12-features.md#build-features
+(derived) REVISION,,REVISION,off,off,,build in git checkout,version banner and title bar branding,2,"src/winio.c:34-38, src/nano.c:654-658",12-features.md#build-features

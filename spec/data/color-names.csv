@@ -1,0 +1,35 @@
+name,index_expr,position,accepts_light_prefix,requires_256_colors,source,spec_section
+red,COLOR_RED,0,yes,no,src/rcfile.c:1019-1038,10-nanorc.md
+green,COLOR_GREEN,1,yes,no,src/rcfile.c:1019-1038,10-nanorc.md
+blue,COLOR_BLUE,2,yes,no,src/rcfile.c:1019-1038,10-nanorc.md
+yellow,COLOR_YELLOW,3,yes,no,src/rcfile.c:1019-1038,10-nanorc.md
+cyan,COLOR_CYAN,4,yes,no,src/rcfile.c:1019-1038,10-nanorc.md
+magenta,COLOR_MAGENTA,5,yes,no,src/rcfile.c:1019-1038,10-nanorc.md
+white,COLOR_WHITE,6,yes,no,src/rcfile.c:1019-1038,10-nanorc.md
+black,COLOR_BLACK,7,yes,no,src/rcfile.c:1019-1038,10-nanorc.md
+normal,THE_DEFAULT,8,n/a,no,src/rcfile.c:1019-1038,10-nanorc.md
+pink,204,9,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+purple,163,10,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+mauve,134,11,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+lagoon,38,12,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+mint,48,13,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+lime,148,14,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+peach,215,15,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+orange,208,16,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+latte,137,17,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+rosy,175,18,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+beet,127,19,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+plum,98,20,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+sea,32,21,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+sky,111,22,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+slate,66,23,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+teal,35,24,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+sage,107,25,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+brown,100,26,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+ocher,142,27,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+sand,186,28,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+tawny,136,29,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+brick,166,30,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+crimson,161,31,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+grey,COLOR_BLACK + 8,32,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md
+gray,COLOR_BLACK + 8,33,no,yes (else default),src/rcfile.c:1019-1038,10-nanorc.md

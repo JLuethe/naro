@@ -1,0 +1,420 @@
+{
+ "scenario": "TEST-RC-004",
+ "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+ "binary": "/home/john/src/nano-install/default/bin/nano",
+ "argv": [
+  "nano"
+ ],
+ "env": {
+  "HOME": "/tmp/nanospec-work/TEST-RC-004/fx/home",
+  "TERM": "tmux-256color",
+  "PATH": "/tmp/nanospec-work/TEST-RC-004/fx/bin:/usr/bin:/bin",
+  "LANG": "en_US.UTF-8",
+  "SHELL": "/bin/sh",
+  "TZ": "UTC"
+ },
+ "cwd": "/tmp/nanospec-work/TEST-RC-004/fx/work",
+ "inputs": [
+  {
+   "t": 0.835,
+   "hex": "18"
+  },
+  {
+   "t": 1.179,
+   "hex": "6e"
+  }
+ ],
+ "snapshots": {
+  "s0": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                       New·Buffer                                 ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "bg=4,bold=True,fg=9"
+      }
+     ]
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "        [ Mistakes in '/tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc' ]        ",
+     "attrs": [
+      {
+       "start": 8,
+       "end": 72,
+       "attr": "bg=46,bold=True,fg=196,italic=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "bold=True,fg=3"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "bold=True,fg=3"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "bold=True,fg=3"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "bold=True,fg=3"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "bold=True,fg=3"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "bold=True,fg=3"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "bold=True,fg=3"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "bold=True,fg=3"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "bold=True,fg=3"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "bold=True,fg=3"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "bold=True,fg=3"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "bold=True,fg=3"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  }
+ },
+ "after_exit_screen": {
+  "rows": [
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "Pane is dead (status 0, Fri Oct 23 23:14:06 2026)                               ",
+    "attrs": []
+   }
+  ],
+  "cursor": {
+   "x": 0,
+   "y": 23,
+   "visible": false
+  },
+  "modes": {
+   "alternate_screen": 0,
+   "keypad_mode": 0,
+   "cursor_keys_mode": 0,
+   "mouse_any": 0,
+   "mouse_sgr": 0,
+   "mouse_standard": 0,
+   "mouse_button": 0,
+   "mouse_all": 0,
+   "insert_mode": 0,
+   "autowrap": 1
+  }
+ },
+ "exit_status": 0,
+ "exit_signal": null,
+ "fixture": {
+  "home": {
+   "ino": 65582,
+   "nlink": 2,
+   "mtime_ns": 1792822445682057417,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work": {
+   "ino": 65583,
+   "nlink": 2,
+   "mtime_ns": 1792822445680554019,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "home/.nanorc": {
+   "ino": 65584,
+   "nlink": 1,
+   "mtime_ns": 1792822445682089153,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o644",
+   "type": "file",
+   "size": 699,
+   "sha256": "4eb5a32f96efb4ec304300ab766c4ebd378cea505fa13d9f1894436acfa093c6",
+   "b64": "IyBjb21tZW50CiAgIAoJc2V0ICAgIGF1dG9pbmRlbnQgIGV4dHJhIHdvcmRzCnNldCB3aGl0ZXNwYWNlICJhYiIKc2V0IHdoaXRlc3BhY2UgIsK7wrciCnNldCBtYXRjaGJyYWNrZXRzICIoPCIKc2V0IG1hdGNoYnJhY2tldHMgIiggKSIKdW5zZXQgdGFic2l6ZQpzZXQgdGFic2l6ZQpzZXQKc2V0IG5vbmV4aXN0ZW50CnNldCBmaWxsIGFiYwpzZXQgZ3VpZGVzdHJpcGUgMApzZXQgcHVuY3QgImEgYiIKc2V0IHNwZWxsZXIgIiAgYXNwZWxsIC1jIgpzZXQgdGl0bGVjb2xvciBib2xkLGxpZ2h0cmVkLGJsdWUKc2V0IG51bWJlcmNvbG9yIHBpbmsKc2V0IGtleWNvbG9yIGJyaWdodHllbGxvdwpzZXQgZnVuY3Rpb25jb2xvciBib2xkCnNldCBzdGF0dXNjb2xvciAsZ3JlZW4Kc2V0IGVycm9yY29sb3IgYm9sZCxpdGFsaWMsI2YwMCwjMGYwCnNldCBzcG90bGlnaHRjb2xvciBsaWdodHBpbmsKc2V0IHNlbGVjdGVkY29sb3IgIzEyCmJpbmQNCnNldCBxdW90ZXN0ciAidW50ZXJtaW5hdGVkCnN5bnRheApzeW50YXggIiIKc3ludGF4IG5vbmUgIngiCnN5bnRheCAicQpjb2xvciByZWQgIngiCmZvbyBiYXIKaW5jbHVkZSAiL25vbmV4aXN0ZW50LyoubmFub3JjIgppbmNsdWRlICIvbm9uZXhpc3RlbnQtaG9tZS9taXNzaW5nLm5hbm9yYyIKZXh0ZW5kc3ludGF4IG5vc3VjaCBjb2xvciByZWQgIngiCnNldCB3aGl0ZXNwYWNlZGlzcGxheQ0K",
+   "text": "# comment\n   \n\tset    autoindent  extra words\nset whitespace \"ab\"\nset whitespace \"»·\"\nset matchbrackets \"(<\"\nset matchbrackets \"( )\"\nunset tabsize\nset tabsize\nset\nset nonexistent\nset fill abc\nset guidestripe 0\nset punct \"a b\"\nset speller \"  aspell -c\"\nset titlecolor bold,lightred,blue\nset numbercolor pink\nset keycolor brightyellow\nset functioncolor bold\nset statuscolor ,green\nset errorcolor bold,italic,#f00,#0f0\nset spotlightcolor lightpink\nset selectedcolor #12\nbind\r\nset quotestr \"unterminated\nsyntax\nsyntax \"\"\nsyntax none \"x\"\nsyntax \"q\ncolor red \"x\"\nfoo bar\ninclude \"/nonexistent/*.nanorc\"\ninclude \"/nonexistent-home/missing.nanorc\"\nextendsyntax nosuch color red \"x\"\nset whitespacedisplay\r\n"
+  }
+ },
+ "initial_fixture": {
+  "home": {
+   "ino": 65582,
+   "nlink": 2,
+   "mtime_ns": 1792822445682057417,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work": {
+   "ino": 65583,
+   "nlink": 2,
+   "mtime_ns": 1792822445680554019,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "home/.nanorc": {
+   "ino": 65584,
+   "nlink": 1,
+   "mtime_ns": 1792822445682089153,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o644",
+   "type": "file",
+   "size": 699,
+   "sha256": "4eb5a32f96efb4ec304300ab766c4ebd378cea505fa13d9f1894436acfa093c6",
+   "b64": "IyBjb21tZW50CiAgIAoJc2V0ICAgIGF1dG9pbmRlbnQgIGV4dHJhIHdvcmRzCnNldCB3aGl0ZXNwYWNlICJhYiIKc2V0IHdoaXRlc3BhY2UgIsK7wrciCnNldCBtYXRjaGJyYWNrZXRzICIoPCIKc2V0IG1hdGNoYnJhY2tldHMgIiggKSIKdW5zZXQgdGFic2l6ZQpzZXQgdGFic2l6ZQpzZXQKc2V0IG5vbmV4aXN0ZW50CnNldCBmaWxsIGFiYwpzZXQgZ3VpZGVzdHJpcGUgMApzZXQgcHVuY3QgImEgYiIKc2V0IHNwZWxsZXIgIiAgYXNwZWxsIC1jIgpzZXQgdGl0bGVjb2xvciBib2xkLGxpZ2h0cmVkLGJsdWUKc2V0IG51bWJlcmNvbG9yIHBpbmsKc2V0IGtleWNvbG9yIGJyaWdodHllbGxvdwpzZXQgZnVuY3Rpb25jb2xvciBib2xkCnNldCBzdGF0dXNjb2xvciAsZ3JlZW4Kc2V0IGVycm9yY29sb3IgYm9sZCxpdGFsaWMsI2YwMCwjMGYwCnNldCBzcG90bGlnaHRjb2xvciBsaWdodHBpbmsKc2V0IHNlbGVjdGVkY29sb3IgIzEyCmJpbmQNCnNldCBxdW90ZXN0ciAidW50ZXJtaW5hdGVkCnN5bnRheApzeW50YXggIiIKc3ludGF4IG5vbmUgIngiCnN5bnRheCAicQpjb2xvciByZWQgIngiCmZvbyBiYXIKaW5jbHVkZSAiL25vbmV4aXN0ZW50LyoubmFub3JjIgppbmNsdWRlICIvbm9uZXhpc3RlbnQtaG9tZS9taXNzaW5nLm5hbm9yYyIKZXh0ZW5kc3ludGF4IG5vc3VjaCBjb2xvciByZWQgIngiCnNldCB3aGl0ZXNwYWNlZGlzcGxheQ0K",
+   "text": "# comment\n   \n\tset    autoindent  extra words\nset whitespace \"ab\"\nset whitespace \"»·\"\nset matchbrackets \"(<\"\nset matchbrackets \"( )\"\nunset tabsize\nset tabsize\nset\nset nonexistent\nset fill abc\nset guidestripe 0\nset punct \"a b\"\nset speller \"  aspell -c\"\nset titlecolor bold,lightred,blue\nset numbercolor pink\nset keycolor brightyellow\nset functioncolor bold\nset statuscolor ,green\nset errorcolor bold,italic,#f00,#0f0\nset spotlightcolor lightpink\nset selectedcolor #12\nbind\r\nset quotestr \"unterminated\nsyntax\nsyntax \"\"\nsyntax none \"x\"\nsyntax \"q\ncolor red \"x\"\nfoo bar\ninclude \"/nonexistent/*.nanorc\"\ninclude \"/nonexistent-home/missing.nanorc\"\nextendsyntax nosuch color red \"x\"\nset whitespacedisplay\r\n"
+  }
+ },
+ "captured_files": {},
+ "notes": [],
+ "stderr": "Error in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 7: Non-blank characters required\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 8: Cannot unset option \"tabsize\"\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 9: Option \"tabsize\" requires an argument\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 10: Missing option\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 11: Unknown option: nonexistent\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 12: Requested fill size \"abc\" is invalid\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 13: Guide column \"0\" is invalid\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 14: Non-blank characters required\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 19: An attribute requires a subsequent comma\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 22: Color 'pink' takes no prefix\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 23: Color \"#12\" not understood\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 24: Missing key name\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 25: Argument '\"unterminated' has an unterminated \"\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 26: Missing syntax name\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 27: Missing syntax name\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 28: The \"none\" syntax is reserved\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 29: Unpaired quote in syntax name\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 30: A 'color' command requires a preceding 'syntax' command\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 31: Command \"foo\" not understood\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 32: Error expanding /nonexistent/*.nanorc: No such file or directory\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 33: Error reading /nonexistent-home/missing.nanorc: No such file or directory\nError in /tmp/nanospec-work/TEST-RC-004/fx/home/.nanorc on line 34: Could not find syntax \"nosuch\" to extend\n",
+ "raw_output_bytes": 807,
+ "raw_output_sha256": "8487b144108b517880cefe879a888054fb68d8086f670bdfc1f53a5f1919ca15",
+ "bracketed_paste_set": 1,
+ "bracketed_paste_reset": 1,
+ "trace_final_modes": {
+  "cursor_visible": true,
+  "alternate_screen": false,
+  "bracketed_paste": false,
+  "keypad_transmit": false,
+  "mouse_tracking": null
+ },
+ "checks": []
+}

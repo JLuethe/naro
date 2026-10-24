@@ -1,0 +1,461 @@
+{
+ "scenario": "TEST-SYN-002",
+ "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+ "binary": "/home/john/src/nano-install/default/bin/nano",
+ "argv": [
+  "nano",
+  "t.none"
+ ],
+ "env": {
+  "HOME": "/tmp/nanospec-work/TEST-SYN-002/fx/home",
+  "TERM": "tmux-256color",
+  "PATH": "/tmp/nanospec-work/TEST-SYN-002/fx/bin:/usr/bin:/bin",
+  "LANG": "en_US.UTF-8",
+  "SHELL": "/bin/sh",
+  "TZ": "UTC"
+ },
+ "cwd": "/tmp/nanospec-work/TEST-SYN-002/fx/work",
+ "inputs": [
+  {
+   "t": 0.822,
+   "hex": "18"
+  },
+  {
+   "t": 1.09,
+   "hex": "6e"
+  },
+  {
+   "t": 1.327,
+   "hex": "18"
+  },
+  {
+   "t": 1.56,
+   "hex": "6e"
+  }
+ ],
+ "snapshots": {
+  "s0": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                         t.none                                   ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "#!hdr a                                                                         ",
+     "attrs": [
+      {
+       "start": 6,
+       "end": 7,
+       "attr": "fg=4"
+      }
+     ]
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                [ Read 1 line ]                                 ",
+     "attrs": [
+      {
+       "start": 32,
+       "end": 47,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  }
+ },
+ "after_exit_screen": {
+  "rows": [
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "Pane is dead (status 0, Fri Oct 23 23:16:49 2026)                               ",
+    "attrs": []
+   }
+  ],
+  "cursor": {
+   "x": 0,
+   "y": 23,
+   "visible": false
+  },
+  "modes": {
+   "alternate_screen": 0,
+   "keypad_mode": 0,
+   "cursor_keys_mode": 0,
+   "mouse_any": 0,
+   "mouse_sgr": 0,
+   "mouse_standard": 0,
+   "mouse_button": 0,
+   "mouse_all": 0,
+   "insert_mode": 0,
+   "autowrap": 1
+  }
+ },
+ "exit_status": 0,
+ "exit_signal": null,
+ "fixture": {
+  "home": {
+   "ino": 76404,
+   "nlink": 2,
+   "mtime_ns": 1792822608233214156,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work": {
+   "ino": 76405,
+   "nlink": 2,
+   "mtime_ns": 1792822608233342083,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "home/.nanorc": {
+   "ino": 76406,
+   "nlink": 1,
+   "mtime_ns": 1792822608233342083,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o644",
+   "type": "file",
+   "size": 333,
+   "sha256": "a5804d7ac95784c224b3de05c5baf0bd0cd287c9d5a910561e7ba0c94dee421c",
+   "b64": "c3ludGF4IGZpcnN0ICJcLngkIgpjb2xvciByZWQgImEiCnN5bnRheCBzZWNvbmQgIlwueCQiCmNvbG9yIGdyZWVuICJhIgpzeW50YXggaGRyCmhlYWRlciAiXiMhaGRyIgpjb2xvciBibHVlICJhIgpzeW50YXggZGVmYXVsdApjb2xvciB5ZWxsb3cgImEiCnN5bnRheCBtbCAiXC5tbCQiCmNvbG9yIGN5YW4gc3RhcnQ9Ijw8IiBlbmQ9Ij4+IgppY29sb3IgbWFnZW50YSAienoiCmNvbG9yIHJlZCAiXnEiCmNvbG9yIGJvbGQsd2hpdGUgInEiCnN5bnRheCB6ZXJvICJcLnowJCIKY29sb3IgcmVkIHN0YXJ0PSJeIiBlbmQ9IiQiCnN5bnRheCBwYXRoICIvc3ViLyIKY29sb3IgYmx1ZSAiYSIK",
+   "text": "syntax first \"\\.x$\"\ncolor red \"a\"\nsyntax second \"\\.x$\"\ncolor green \"a\"\nsyntax hdr\nheader \"^#!hdr\"\ncolor blue \"a\"\nsyntax default\ncolor yellow \"a\"\nsyntax ml \"\\.ml$\"\ncolor cyan start=\"<<\" end=\">>\"\nicolor magenta \"zz\"\ncolor red \"^q\"\ncolor bold,white \"q\"\nsyntax zero \"\\.z0$\"\ncolor red start=\"^\" end=\"$\"\nsyntax path \"/sub/\"\ncolor blue \"a\"\n"
+  },
+  "work/t.none": {
+   "ino": 76407,
+   "nlink": 1,
+   "mtime_ns": 1792822608233372221,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o644",
+   "type": "file",
+   "size": 8,
+   "sha256": "8ce816d38926703db2e0505e107f80ae9adc91ff9fcc733513a09041e7238480",
+   "b64": "IyFoZHIgYQo=",
+   "text": "#!hdr a\n"
+  }
+ },
+ "initial_fixture": {
+  "home": {
+   "ino": 76404,
+   "nlink": 2,
+   "mtime_ns": 1792822608233214156,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work": {
+   "ino": 76405,
+   "nlink": 2,
+   "mtime_ns": 1792822608233342083,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "home/.nanorc": {
+   "ino": 76406,
+   "nlink": 1,
+   "mtime_ns": 1792822608233342083,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o644",
+   "type": "file",
+   "size": 333,
+   "sha256": "a5804d7ac95784c224b3de05c5baf0bd0cd287c9d5a910561e7ba0c94dee421c",
+   "b64": "c3ludGF4IGZpcnN0ICJcLngkIgpjb2xvciByZWQgImEiCnN5bnRheCBzZWNvbmQgIlwueCQiCmNvbG9yIGdyZWVuICJhIgpzeW50YXggaGRyCmhlYWRlciAiXiMhaGRyIgpjb2xvciBibHVlICJhIgpzeW50YXggZGVmYXVsdApjb2xvciB5ZWxsb3cgImEiCnN5bnRheCBtbCAiXC5tbCQiCmNvbG9yIGN5YW4gc3RhcnQ9Ijw8IiBlbmQ9Ij4+IgppY29sb3IgbWFnZW50YSAienoiCmNvbG9yIHJlZCAiXnEiCmNvbG9yIGJvbGQsd2hpdGUgInEiCnN5bnRheCB6ZXJvICJcLnowJCIKY29sb3IgcmVkIHN0YXJ0PSJeIiBlbmQ9IiQiCnN5bnRheCBwYXRoICIvc3ViLyIKY29sb3IgYmx1ZSAiYSIK",
+   "text": "syntax first \"\\.x$\"\ncolor red \"a\"\nsyntax second \"\\.x$\"\ncolor green \"a\"\nsyntax hdr\nheader \"^#!hdr\"\ncolor blue \"a\"\nsyntax default\ncolor yellow \"a\"\nsyntax ml \"\\.ml$\"\ncolor cyan start=\"<<\" end=\">>\"\nicolor magenta \"zz\"\ncolor red \"^q\"\ncolor bold,white \"q\"\nsyntax zero \"\\.z0$\"\ncolor red start=\"^\" end=\"$\"\nsyntax path \"/sub/\"\ncolor blue \"a\"\n"
+  },
+  "work/t.none": {
+   "ino": 76407,
+   "nlink": 1,
+   "mtime_ns": 1792822608233372221,
+   "uid": 1000,
+   "gid": 1000,
+   "mode": "0o644",
+   "type": "file",
+   "size": 8,
+   "sha256": "8ce816d38926703db2e0505e107f80ae9adc91ff9fcc733513a09041e7238480",
+   "b64": "IyFoZHIgYQo=",
+   "text": "#!hdr a\n"
+  }
+ },
+ "captured_files": {},
+ "notes": [],
+ "stderr": "",
+ "raw_output_bytes": 644,
+ "raw_output_sha256": "5483b13d6e6f6a229c88d1dd2372354bebf5f325bf2c66a696f44624e72fafa1",
+ "bracketed_paste_set": 1,
+ "bracketed_paste_reset": 1,
+ "trace_final_modes": {
+  "cursor_visible": true,
+  "alternate_screen": false,
+  "bracketed_paste": false,
+  "keypad_transmit": false,
+  "mouse_tracking": null
+ },
+ "checks": []
+}

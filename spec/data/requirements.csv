@@ -1,0 +1,249 @@
+requirement,document,title,explicit_test_ids
+CLI-001,01-cli.md,Restricted mode by invocation name,TEST-KEY-RESTR-001
+CLI-002,01-cli.md,Option syntax and parser,TEST-CLI-017 TEST-CLI-058 TEST-CLI-059
+CLI-003,01-cli.md,Option effects,TEST-CLI-028
+CLI-004,01-cli.md,Unknown options and missing arguments,
+CLI-005,01-cli.md,Tiny-build option acceptance,
+CLI-006,01-cli.md,Numeric option values,
+CLI-007,01-cli.md,String option values,TEST-CLI-047
+CLI-010,01-cli.md,`--help`,
+CLI-011,01-cli.md,`--version`,
+CLI-012,01-cli.md,`--listsyntaxes`,
+CLI-013,01-cli.md,Startup order,
+CLI-014,01-cli.md,Merging command line and nanorc,TEST-RC-PREC-001
+CLI-015,01-cli.md,`-b` versus `-w`,
+CLI-020,01-cli.md,"Order-sensitive interactions of `-p`, `-/`, `-R`, `-v`",TEST-KEY-MODPRES-001
+CLI-021,01-cli.md,Post-processing rules,TEST-CLI-033
+CLI-022,01-cli.md,`-o` operating directory,TEST-CLI-032
+CLI-023,01-cli.md,Quoting regex,TEST-CLI-034
+CLI-024,01-cli.md,`$SPELL`,
+CLI-030,01-cli.md,Positional arguments: `+` arguments,TEST-CLI-001 TEST-CLI-008 TEST-CLI-016 TEST-CLI-056 TEST-CLI-062 TEST-CLI-063
+CLI-031,01-cli.md,Applying a position,TEST-CLI-001 TEST-CLI-003 TEST-CLI-065
+CLI-032,01-cli.md,Applying a search string,TEST-CLI-009
+CLI-033,01-cli.md,Invalid regex in `+r/…` (suspected defect),TEST-CLI-057
+CLI-034,01-cli.md,`-@` colon parsing,TEST-CLI-018 TEST-CLI-019 TEST-CLI-020 TEST-CLI-021 TEST-CLI-022
+CLI-035,01-cli.md,`-` reads standard input,TEST-CLI-030
+CLI-036,01-cli.md,Opening named files,TEST-CLI-024 TEST-CLI-050
+CLI-037,01-cli.md,No file opened,TEST-CLI-029
+CLI-038,01-cli.md,Startup messages,TEST-CLI-037
+CLI-040,01-cli.md,Not a terminal,TEST-CLI-036
+CLI-041,01-cli.md,TERM handling,TEST-CLI-060 TEST-CLI-061 TEST-CLI-064
+CLI-050,01-cli.md,Exit status,TEST-FILE-EXIT-002
+CLI-060,01-cli.md,Environment variables read by nano,TEST-CLI-001 TEST-CLI-017 TEST-CLI-032
+KEY-001,02-keybindings.md,Contexts,
+KEY-002,02-keybindings.md,Key notation (display strings),
+KEY-003,02-keybindings.md,Default bindings,TEST-KEY-TABLE-001
+KEY-010,02-keybindings.md,Shortcut lookup,
+KEY-020,02-keybindings.md,Main-window dispatch,TEST-CLI-028 TEST-KEY-001
+KEY-021,02-keybindings.md,Cut-chain bookkeeping,
+KEY-022,02-keybindings.md,Shift-held keys,
+KEY-023,02-keybindings.md,Prompt dispatch,
+KEY-024,02-keybindings.md,Browser and help-viewer letter keys,
+KEY-025,02-keybindings.md,Unbound and invalid keys,TEST-KEY-001 TEST-KEY-002 TEST-KEY-009
+KEY-026,02-keybindings.md,^Z suggestion,TEST-KEY-001
+KEY-040,02-keybindings.md,"Modern bindings (`-/`, `--modernbindings`)",TEST-KEY-006
+KEY-041,02-keybindings.md,"Preserve (`-p`, `--preserve`)",TEST-KEY-010 TEST-KEY-012
+KEY-042,02-keybindings.md,Restricted mode,TEST-CLI-049
+KEY-043,02-keybindings.md,View mode,
+KEY-044,02-keybindings.md,Tiny build,TEST-KEY-007
+KEY-045,02-keybindings.md,Toggles,TEST-KEY-008
+KEY-046,02-keybindings.md,Yes/No dispatch,
+KEY-047,02-keybindings.md,Linter dispatch,
+KEY-030,02-keybindings.md,Grammar,
+KEY-031,02-keybindings.md,KEY names,TEST-KEY-005
+KEY-032,02-keybindings.md,"FUNCTION, MENU and their validation",TEST-KEY-002
+KEY-033,02-keybindings.md,Shift+Meta bindings,
+KEY-034,02-keybindings.md,String bindings (macros in rc),TEST-KEY-002
+KEY-035,02-keybindings.md,Vital functions,TEST-KEY-004
+KEY-050,02-keybindings.md,Which items appear in the help lines,TEST-KEY-002 TEST-SMOKE-001
+KEY-051,02-keybindings.md,Help-viewer key listing,TEST-CLI-028 TEST-CLI-049 TEST-KEY-001 TEST-KEY-002 TEST-KEY-006 TEST-KEY-007 TEST-KEY-008
+INPUT-001,03-terminal-input.md,Terminal modes while editing,TEST-SMOKE-001
+INPUT-002,03-terminal-input.md,Bursts,
+INPUT-003,03-terminal-input.md,ncurses escape delay,TEST-INPUT-001
+INPUT-004,03-terminal-input.md,Escape and Meta decoding,TEST-INPUT-001 TEST-INPUT-002 TEST-INPUT-013
+INPUT-005,03-terminal-input.md,nano's own escape-sequence tables,TEST-INPUT-012 TEST-INPUT-014 TEST-INPUT-015
+INPUT-006,03-terminal-input.md,Decimal byte entry (Esc Esc + three digits),TEST-INPUT-003 TEST-INPUT-004
+INPUT-007,03-terminal-input.md,Final mapping,TEST-INPUT-007
+INPUT-008,03-terminal-input.md,Verbatim input (`M-V`),TEST-INPUT-006
+INPUT-009,03-terminal-input.md,Bracketed paste,TEST-INPUT-005 TEST-INPUT-011
+INPUT-010,03-terminal-input.md,Mouse,TEST-INPUT-009
+INPUT-011,03-terminal-input.md,Window resize as an input event,TEST-INPUT-010
+INPUT-012,03-terminal-input.md,Cancelling long operations with ^C,
+INPUT-013,03-terminal-input.md,Timed waits for messages,
+INPUT-014,03-terminal-input.md,Keys with no meaning in a context,TEST-INPUT-001 TEST-INPUT-003 TEST-INPUT-005 TEST-INPUT-006 TEST-INPUT-007 TEST-INPUT-008 TEST-INPUT-009 TEST-INPUT-010 TEST-INPUT-012 TEST-INPUT-020
+REND-001,04-rendering.md,Window layout,TEST-CLI-038 TEST-REND-010 TEST-REND-014
+REND-002,04-rendering.md,Title bar,TEST-KEY-008 TEST-REND-011 TEST-SMOKE-001
+REND-003,04-rendering.md,State flags,
+REND-004,04-rendering.md,"Mini bar (`-_`/`--minibar`, not with zero)",TEST-REND-009
+REND-005,04-rendering.md,Help lines,TEST-CLI-049 TEST-INPUT-010 TEST-KEY-010 TEST-REND-025
+REND-006,04-rendering.md,Yes/No question layout,
+REND-020,04-rendering.md,Converting a line to cells,TEST-REND-001 TEST-REND-005
+REND-021,04-rendering.md,`^@` versus `^J`,
+REND-022,04-rendering.md,Horizontal scrolling (no soft wrap),TEST-REND-001 TEST-REND-002
+REND-023,04-rendering.md,Soft wrapping (`-S`),TEST-REND-003 TEST-REND-004
+REND-024,04-rendering.md,Whitespace display (`M-P`),TEST-REND-006
+REND-025,04-rendering.md,Byte Order Mark notice,
+REND-030,04-rendering.md,"Line numbers (`-l`, `M-N`)",TEST-CLI-043 TEST-REND-007
+REND-031,04-rendering.md,"Indicator (""scroll bar"", `-q`)",TEST-CLI-044 TEST-REND-008
+REND-032,04-rendering.md,Guide stripe (`-J N`),TEST-CLI-045 TEST-REND-021
+REND-033,04-rendering.md,Selected text,TEST-REND-020
+REND-034,04-rendering.md,Spotlight,TEST-CLI-009 TEST-REND-022
+REND-035,04-rendering.md,Syntax colors,TEST-REND-019
+REND-040,04-rendering.md,Cursor position,
+REND-041,04-rendering.md,Viewport rules,
+REND-050,04-rendering.md,Interface attributes,TEST-CLI-046 TEST-REND-013 TEST-REND-023
+REND-060,04-rendering.md,Importance and priority,TEST-CLI-008 TEST-REND-013
+REND-061,04-rendering.md,Warnings with pause,
+REND-070,04-rendering.md,Small sizes,TEST-REND-014 TEST-REND-015 TEST-REND-016 TEST-REND-018
+REND-071,04-rendering.md,Resize,TEST-CLI-043 TEST-CLI-046 TEST-INPUT-010 TEST-REND-001 TEST-REND-007 TEST-REND-014 TEST-REND-022
+EDIT-001,05-buffer-and-editing.md,Buffer state,TEST-EDIT-001
+EDIT-002,05-buffer-and-editing.md,Global (cross-buffer) state,
+EDIT-003,05-buffer-and-editing.md,Modified flag,
+EDIT-010,05-buffer-and-editing.md,Typing (inject),
+EDIT-011,05-buffer-and-editing.md,Enter (*enter*),TEST-EDIT-008
+EDIT-012,05-buffer-and-editing.md,Tab (*tab*),TEST-EDIT-011
+EDIT-015,05-buffer-and-editing.md,Automatic hard wrapping (*breaklonglines*),TEST-EDIT-WRAP-001
+EDIT-020,05-buffer-and-editing.md,Delete (*delete*) and Backspace (*backspace*),TEST-EDIT-003 TEST-EDIT-004 TEST-EDIT-005 TEST-EDIT-019
+EDIT-021,05-buffer-and-editing.md,"Chop word left/right (`Sh-^Del`, `M-Bsp`; `^Del`)",TEST-EDIT-020
+EDIT-030,05-buffer-and-editing.md,When there is nothing to cut,TEST-EDIT-014
+EDIT-031,05-buffer-and-editing.md,"Cut (*cut*, `^K`, F9)",TEST-EDIT-012
+EDIT-032,05-buffer-and-editing.md,"Copy (*copy*, `M-6`, `M-^`)",TEST-EDIT-016
+EDIT-033,05-buffer-and-editing.md,"Paste (*paste*, `^U`, F10)",
+EDIT-034,05-buffer-and-editing.md,"Zap (*zap*, `M-Del`)",TEST-EDIT-018
+EDIT-035,05-buffer-and-editing.md,"Cut till end of file (*cutrestoffile*, `M-T`, `^T ^V`)",TEST-EDIT-021
+EDIT-036,05-buffer-and-editing.md,"Setting the mark (*mark*, `^6`, `M-A`)",
+EDIT-037,05-buffer-and-editing.md,Soft mark (Shift selection),TEST-INPUT-012
+EDIT-038,05-buffer-and-editing.md,Region and line range,
+EDIT-040,05-buffer-and-editing.md,"Indent (*indent*, `M-}`, Tab with a multi-line mark)",TEST-EDIT-022
+EDIT-041,05-buffer-and-editing.md,"Unindent (*unindent*, `M-{`, Sh-Tab)",TEST-EDIT-023
+EDIT-042,05-buffer-and-editing.md,"Comment/uncomment (*comment*, `M-3`)",TEST-EDIT-024
+EDIT-043,05-buffer-and-editing.md,"Word completion (*complete*, `^]`)",TEST-EDIT-025
+EDIT-060,05-buffer-and-editing.md,Word characters,TEST-MOVE-001
+EDIT-061,05-buffer-and-editing.md,"Previous/next word (`^◂`/`^▸`, `M-Space`/`^Space`)",TEST-MOVE-001
+EDIT-062,05-buffer-and-editing.md,Home / End,TEST-MOVE-005
+EDIT-063,05-buffer-and-editing.md,Left / Right,TEST-MOVE-010
+EDIT-064,05-buffer-and-editing.md,Up / Down,TEST-MOVE-009
+EDIT-065,05-buffer-and-editing.md,"Page up / down (`^Y`/`^V`, PgUp/PgDn)",TEST-MOVE-008
+EDIT-066,05-buffer-and-editing.md,"First / last line (`M-\`, `^Home`; `M-/`, `^End`)",TEST-MOVE-011
+EDIT-067,05-buffer-and-editing.md,"Blocks (`^▴`/`^▾`, `M-7`/`M-8`)",TEST-MOVE-006
+EDIT-068,05-buffer-and-editing.md,"Paragraphs (`M-(`/`M-9`, `M-)`/`M-0`; justify builds)",TEST-MOVE-007
+EDIT-069,05-buffer-and-editing.md,"Top/bottom row, scrolling, centering",TEST-MOVE-008
+EDIT-070,05-buffer-and-editing.md,Scroll left/right (`M-<`/`M->`),TEST-MOVE-013
+EDIT-071,05-buffer-and-editing.md,"Anchors (`M-Ins`, `M-""`; `M-PgUp`; `M-PgDn`, `M-'`)",TEST-MOVE-016
+EDIT-072,05-buffer-and-editing.md,"Go to line/column (`^/`, `^_`, `M-G`)",TEST-BYTE-004 TEST-EDIT-001 TEST-EDIT-003 TEST-EDIT-012 TEST-EDIT-022 TEST-INPUT-012 TEST-MOVE-001
+UNDO-001,06-undo-redo.md,Per-buffer history,
+UNDO-002,06-undo-redo.md,New edits discard redo,TEST-UNDO-004
+UNDO-003,06-undo-redo.md,Grouping,TEST-EDIT-025 TEST-INPUT-005 TEST-UNDO-001 TEST-UNDO-002
+UNDO-004,06-undo-redo.md,Item contents (normative effect),TEST-UNDO-001
+UNDO-005,06-undo-redo.md,Messages and side effects,TEST-UNDO-001
+UNDO-006,06-undo-redo.md,Saved state,TEST-UNDO-001 TEST-UNDO-003
+UNDO-007,06-undo-redo.md,Backspace at the start of the magic line (quirk),TEST-UNDO-009
+UNDO-008,06-undo-redo.md,Interaction with other features,TEST-EDIT-025 TEST-INPUT-005 TEST-UNDO-001 TEST-UNDO-004 TEST-UNDO-009 TEST-UNDO-010
+SRCH-001,07-search-replace.md,Search prompt,TEST-SRCH-001 TEST-SRCH-016
+SRCH-002,07-search-replace.md,Case sensitivity and literal matching,TEST-SRCH-019
+SRCH-003,07-search-replace.md,Where a search starts and how it proceeds,TEST-SRCH-001 TEST-SRCH-004 TEST-SRCH-018
+SRCH-004,07-search-replace.md,Regex specifics,TEST-SRCH-003
+SRCH-005,07-search-replace.md,Replace,TEST-SRCH-007 TEST-SRCH-013
+SRCH-006,07-search-replace.md,Replacement text,TEST-SRCH-009 TEST-SRCH-015
+SRCH-007,07-search-replace.md,Spell-check replacement,
+SRCH-008,07-search-replace.md,Not-found message,TEST-SRCH-005
+SRCH-009,07-search-replace.md,Search persistence,
+SRCH-010,07-search-replace.md,"Bracket matching (*findbracket*, `M-]`)",TEST-MOVE-014 TEST-MOVE-015 TEST-SRCH-001 TEST-SRCH-002 TEST-SRCH-005 TEST-SRCH-007
+FILE-OPEN,08-files.md,Opening a file into a buffer,TEST-CLI-023 TEST-FILE-015
+FILE-PATH,08-files.md,Containing directory check,
+FILE-READ,08-files.md,Reading,TEST-CLI-030 TEST-FILE-005 TEST-FILE-006 TEST-FILE-007 TEST-FILE-008 TEST-FILE-011 TEST-FILE-015
+FILE-INSERT,08-files.md,"Read File (`^R`, Ins, F5)",TEST-FILE-019
+FILE-MULTI,08-files.md,Buffer list,TEST-CLI-027 TEST-FILE-029
+FILE-MULTI-ERR,08-files.md,Deferred error messages,TEST-CLI-050
+FILE-WRITE,08-files.md,"Write Out (`^O`, F3) and Save (`^S`)",TEST-FILE-001 TEST-FILE-005 TEST-FILE-016 TEST-FILE-025
+FILE-WRITE-CORE,08-files.md,How bytes are written,TEST-FILE-001 TEST-FILE-002 TEST-FILE-010 TEST-FILE-015 TEST-FILE-031
+FILE-SELECTION,08-files.md,Writing a selection,TEST-FILE-018
+FILE-FMT,08-files.md,Formats on save,TEST-FILE-009
+FILE-BAK,08-files.md,"Backups (`-B`, `set backup`; not tiny; never in restricted mode)",TEST-FILE-012 TEST-FILE-013
+FILE-LOCK,08-files.md,"Lock files (`-G`, `set locking`; not tiny; not in view mode)",TEST-FILE-014 TEST-FILE-026 TEST-FILE-027 TEST-FILE-028
+FILE-RESTR,08-files.md,Restricted mode,
+FILE-EXIT,08-files.md,"Exit / Close (`^X`, F2)",TEST-FILE-020 TEST-FILE-021
+FILE-CLOSE,08-files.md,Closing,
+FILE-TEMP,08-files.md,Temporary files,
+FILE-TILDE,08-files.md,Tilde expansion,
+FILE-OPDIR,08-files.md,Operating directory (`-o`),
+FILE-HUP,08-files.md,Emergency save,TEST-CLI-023 TEST-CLI-027 TEST-FILE-001 TEST-FILE-005 TEST-FILE-006 TEST-FILE-012 TEST-FILE-014 TEST-FILE-019 TEST-FILE-020 TEST-FILE-022 TEST-FILE-029
+BROWSE-001,09-file-browser.md,Entering the browser,
+BROWSE-002,09-file-browser.md,Listing and sorting,TEST-BROWSE-001
+BROWSE-003,09-file-browser.md,Navigation,TEST-BROWSE-001
+BROWSE-004,09-file-browser.md,Searching names,TEST-BROWSE-001
+BROWSE-005,09-file-browser.md,Choosing (Enter),TEST-BROWSE-001 TEST-BROWSE-002 TEST-BROWSE-003
+BROWSE-006,09-file-browser.md,Go to directory,TEST-BROWSE-002
+BROWSE-007,09-file-browser.md,Mouse,TEST-BROWSE-001
+RC-LOOKUP,10-nanorc.md,Which files are read,TEST-CLI-051 TEST-RC-001
+RC-LINE,10-nanorc.md,Line grammar,TEST-RC-004
+RC-SET,10-nanorc.md,`set` and `unset`,TEST-RC-004 TEST-RC-010
+RC-COLOR,10-nanorc.md,Color specifications,TEST-RC-004
+RC-SYNTAX,10-nanorc.md,`syntax` and syntax-only commands (color builds),TEST-RC-005
+RC-INCLUDE,10-nanorc.md,`include`,TEST-RC-004 TEST-RC-006
+RC-EXTEND,10-nanorc.md,`extendsyntax NAME COMMAND ARGS`,TEST-RC-006
+RC-BIND,10-nanorc.md,`bind`/`unbind`,
+RC-ERR,10-nanorc.md,Error reporting,TEST-CLI-037 TEST-RC-001 TEST-RC-004
+SYN-SELECT,11-syntax-highlighting.md,Which syntax a buffer gets,TEST-SYN-001 TEST-SYN-002 TEST-SYN-003 TEST-SYN-008
+SYN-TOGGLE,11-syntax-highlighting.md,Turning colors off,TEST-SYN-010
+SYN-RULES,11-syntax-highlighting.md,Painting order,TEST-SYN-006
+SYN-SINGLE,11-syntax-highlighting.md,Single-line rules,
+SYN-MULTI,11-syntax-highlighting.md,Multiline rules (`start=`/`end=`),TEST-SYN-006 TEST-SYN-007
+SYN-UPDATE,11-syntax-highlighting.md,Keeping colors correct after edits,TEST-SYN-006
+SYN-BUNDLED,11-syntax-highlighting.md,Bundled syntaxes,
+SYN-STRINGS,11-syntax-highlighting.md,Syntax-attached strings,
+REGEX-001,11-syntax-highlighting.md,Engine and flags,
+REGEX-002,11-syntax-highlighting.md,Required matching semantics (from the corpus),
+REGEX-003,11-syntax-highlighting.md,Consequences for a Rust implementation,TEST-REND-019 TEST-SYN-001 TEST-SYN-006 TEST-SYN-010
+FEAT-QUOTE,12-features.md,Quote and indentation parts,
+FEAT-PARA,12-features.md,Paragraph boundaries,TEST-FEAT-001
+FEAT-JUST,12-features.md,"Justify (`^J`, F4), full justify (`M-J`)",TEST-FEAT-001 TEST-FEAT-003
+FEAT-TEMP,12-features.md,Temporary file for tools,TEST-FEAT-005
+FEAT-SPELL,12-features.md,Spell checking (`^T` then `^T`/`^S` at the Execute prompt; F12),TEST-FEAT-004 TEST-FEAT-005 TEST-FEAT-010
+FEAT-LINT,12-features.md,Linter (`^T ^Y` at the Execute prompt),TEST-FEAT-006 TEST-FEAT-011
+FEAT-FORMAT,12-features.md,Formatter (`^T ^O`),TEST-FEAT-007
+FEAT-EXEC,12-features.md,Execute command (`^T`),TEST-FEAT-012 TEST-FEAT-017
+FEAT-MACRO,12-features.md,Record (`M-:`) and run (`M-;`),TEST-FEAT-008 TEST-FEAT-009
+FEAT-POS,12-features.md,Cursor position (`^C`) and word count (`M-D`),TEST-FEAT-019
+FEAT-STATEDIR,12-features.md,Where state files live,TEST-FEAT-014
+FEAT-HIST,12-features.md,"Search, replace and execute histories (`-H`, `set historylog`)",TEST-FEAT-013
+FEAT-POSLOG,12-features.md,"Cursor position log (`-P`, `set positionlog`)",TEST-FEAT-014 TEST-FEAT-015
+FEAT-HELP,12-features.md,`^G` / F1,TEST-FEAT-018
+FEAT-RESTRICT,12-features.md,"`-R`, or invoked as `r*` (argv[0] basename starting with `r`)",TEST-FEAT-012 TEST-RC-011
+FEAT-BUILD,12-features.md,Build profiles,
+FEAT-CREDITS,12-features.md,Easter egg,TEST-EDIT-026 TEST-FEAT-001 TEST-FEAT-004 TEST-FEAT-006 TEST-FEAT-007 TEST-FEAT-008 TEST-FEAT-012 TEST-FEAT-013 TEST-FEAT-017 TEST-FEAT-018 TEST-FEAT-019 TEST-FILE-030 TEST-RC-011
+SIG-TERM-INIT,13-signals-and-terminal.md,Terminal setup,
+SIG-TERM-RESTORE,13-signals-and-terminal.md,Restoring the terminal,TEST-SIG-001
+SIG-IGN,13-signals-and-terminal.md,Ignored signals,TEST-SIG-005
+SIG-EXIT,13-signals-and-terminal.md,SIGHUP and SIGTERM,TEST-SIG-001 TEST-SIG-006 TEST-SIG-008 TEST-SIG-009 TEST-SIG-010
+SIG-EMERG,13-signals-and-terminal.md,Emergency save files,TEST-SIG-001 TEST-SIG-002 TEST-SIG-003 TEST-SIG-004
+SIG-CRASH,13-signals-and-terminal.md,SIGSEGV and SIGABRT,
+SIG-SUSPEND,13-signals-and-terminal.md,"Suspend (SIGTSTP, `^T ^Z`)",TEST-SIG-007
+SIG-WINCH,13-signals-and-terminal.md,Window resize,TEST-INPUT-010
+SIG-STATUS,13-signals-and-terminal.md,Exit status summary,TEST-FEAT-016 TEST-INPUT-010 TEST-SIG-001 TEST-SIG-005 TEST-SIG-007 TEST-SIG-011 TEST-SIG-013 TEST-SIG-014
+MSG-CATALOG,14-messages-and-i18n.md,Message texts are part of the interface,
+MSG-PLURAL,14-messages-and-i18n.md,Plural forms,TEST-I18N-001
+I18N-LOCALE,14-messages-and-i18n.md,Locale detection,TEST-I18N-001 TEST-I18N-003 TEST-I18N-005 TEST-I18N-006
+I18N-CATALOGS,14-messages-and-i18n.md,Translations shipped,
+I18N-YESNO,14-messages-and-i18n.md,Translated answer letters,TEST-I18N-001 TEST-I18N-002 TEST-PROMPT-NUL-001 TEST-SIG-011
+I18N-WIDTH,14-messages-and-i18n.md,Translated texts in the layout,TEST-I18N-001 TEST-I18N-004
+I18N-HELP,14-messages-and-i18n.md,Translated help text,TEST-I18N-001 TEST-I18N-007 TEST-PROMPT-NUL-001 TEST-SRCH-013
+PROMPT-DISP,17-prompts-and-completion.md,Layout and horizontal scrolling,TEST-PROMPT-006
+PROMPT-EDIT,17-prompts-and-completion.md,Editing the answer,TEST-PROMPT-004 TEST-PROMPT-007 TEST-PROMPT-008 TEST-PROMPT-010 TEST-PROMPT-011 TEST-PROMPT-012
+PROMPT-RET,17-prompts-and-completion.md,Return protocol,
+PROMPT-YESNO,17-prompts-and-completion.md,Yes/No/All questions,
+PROMPT-HIST,17-prompts-and-completion.md,History browsing,TEST-PROMPT-005
+PROMPT-COMPLETE,17-prompts-and-completion.md,Filename completion (Tab),TEST-PROMPT-001 TEST-PROMPT-002 TEST-PROMPT-003 TEST-PROMPT-004
+PROMPT-RESTR,17-prompts-and-completion.md,Restricted mode at the Write prompt,TEST-PROMPT-009
+PROMPT-VERB,17-prompts-and-completion.md,Verbatim input in prompts,
+PROMPT-MOUSE,17-prompts-and-completion.md,Summary,TEST-FEAT-013 TEST-I18N-001 TEST-PROMPT-001 TEST-PROMPT-004 TEST-PROMPT-005 TEST-PROMPT-006 TEST-PROMPT-009 TEST-PROMPT-NUL-001 TEST-SIG-011
+BYTE-MODEL,18-bytes-encoding-and-coordinates.md,Storage,
+BYTE-NUL,18-bytes-encoding-and-coordinates.md,NUL bytes,TEST-BYTE-003
+BYTE-STEP,18-bytes-encoding-and-coordinates.md,Character boundaries,TEST-BYTE-001 TEST-BYTE-002 TEST-BYTE-005
+BYTE-DECODE,18-bytes-encoding-and-coordinates.md,Code point of a character (UTF-8 mode),
+BYTE-CLASS,18-bytes-encoding-and-coordinates.md,Character classes,TEST-BYTE-004
+BYTE-WIDTH,18-bytes-encoding-and-coordinates.md,Display width (`advance_over`),TEST-BYTE-001 TEST-BYTE-006
+BYTE-COLUMNS,18-bytes-encoding-and-coordinates.md,Coordinate conversions,TEST-BYTE-001 TEST-BYTE-006
+BYTE-COUNT,18-bytes-encoding-and-coordinates.md,Character counts,TEST-BYTE-001 TEST-BYTE-005
+BYTE-CASE,18-bytes-encoding-and-coordinates.md,Case-insensitive comparison,TEST-BYTE-004 TEST-SRCH-019
+BYTE-INVALID,18-bytes-encoding-and-coordinates.md,Summary for invalid UTF-8,TEST-BYTE-001 TEST-BYTE-003 TEST-BYTE-004 TEST-BYTE-006 TEST-FEAT-019 TEST-FILE-011 TEST-REND-005 TEST-SRCH-019

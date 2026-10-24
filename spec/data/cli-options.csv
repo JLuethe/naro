@@ -1,0 +1,61 @@
+short,short_accepted_by_getopt,long,deprecated_aliases,argument,build_condition_long,build_condition_handler,handler_source,long_source,effect_c,help_text,help_source,help_condition,help_restricted,spec_section
+-A,yes,--smarthome,,none,!NANO_TINY,!NANO_TINY,src/nano.c:1885,src/nano.c:1805,SET(SMART_HOME);,Enable smart home key,src/nano.c:503,!NANO_TINY,,01-cli.md
+-B,yes,--backup,,none,!NANO_TINY,!NANO_TINY,src/nano.c:1888,src/nano.c:1806,SET(MAKE_BACKUP);,Save backups of existing files,src/nano.c:505,!NANO_TINY,hidden from --help when restricted,01-cli.md
+-C,yes,--backupdir,,required,!NANO_TINY,!NANO_TINY,src/nano.c:1891,src/nano.c:1807,"backup_dir = mallocstrcpy(backup_dir, optarg);",Directory for saving unique backup files,src/nano.c:506,!NANO_TINY,hidden from --help when restricted,01-cli.md
+-D,yes,--boldtext,,none,,,src/nano.c:1895,src/nano.c:1745,SET(BOLD_TEXT);,Use bold instead of reverse video text,src/nano.c:510,,,01-cli.md
+-E,yes,--tabstospaces,,none,!NANO_TINY,!NANO_TINY,src/nano.c:1899,src/nano.c:1808,SET(TABS_TO_SPACES);,Convert typed tabs to spaces,src/nano.c:512,!NANO_TINY,,01-cli.md
+-F,yes,--multibuffer --newbuffer,--multibuffer,none,ENABLE_MULTIBUFFER,ENABLE_MULTIBUFFER,src/nano.c:1904,src/nano.c:1747 src/nano.c:1748,SET(NEW_BUFFER);,Read a file into a new buffer by default,src/nano.c:516,ENABLE_MULTIBUFFER,hidden from --help when restricted,01-cli.md
+-G,yes,--locking,,none,!NANO_TINY,!NANO_TINY,src/nano.c:1909,src/nano.c:1809,SET(LOCKING);,Use (vim-style) lock files,src/nano.c:519,!NANO_TINY,,01-cli.md
+-H,yes,--historylog,,none,!NANO_TINY,ENABLE_HISTORIES,src/nano.c:1914,src/nano.c:1810,SET(HISTORYLOG);,Save & reload old search/replace strings,src/nano.c:523,ENABLE_HISTORIES,hidden from --help when restricted,01-cli.md
+-I,yes,--ignorercfiles,,none,ENABLE_NANORC,ENABLE_NANORC,src/nano.c:1919,src/nano.c:1751,ignore_rcfiles = TRUE;,Don't look at nanorc files,src/nano.c:526,ENABLE_NANORC,,01-cli.md
+-J,yes,--guidestripe,,required,!NANO_TINY,!NANO_TINY,src/nano.c:1924,src/nano.c:1811,"if (!parse_num(optarg, &stripe_column) || stripe_column <= 0) { fprintf(stderr, _(""Guide column \""%s\"" is invalid""), optarg); fprintf(stderr, ""\n""); exit(1); }",Show a guiding bar at this column,src/nano.c:529,!NANO_TINY,,01-cli.md
+-K,yes,--rawsequences,,none,,,src/nano.c:1932,src/nano.c:1753,SET(RAW_SEQUENCES);,Fix numeric keypad key confusion problem,src/nano.c:532,,,01-cli.md
+-L,yes,--nonewlines,,none,!NANO_TINY,!NANO_TINY,src/nano.c:1936,src/nano.c:1812,SET(NO_NEWLINES);,Don't add an automatic newline,src/nano.c:534,!NANO_TINY,,01-cli.md
+-M,yes,--trimblanks,,none,ENABLED_WRAPORJUSTIFY,ENABLED_WRAPORJUSTIFY,src/nano.c:1941,src/nano.c:1755,SET(TRIM_BLANKS);,Trim tail spaces when hard-wrapping,src/nano.c:537,ENABLED_WRAPORJUSTIFY,,01-cli.md
+-N,yes,--noconvert,,none,!NANO_TINY,!NANO_TINY,src/nano.c:1946,src/nano.c:1813,SET(NO_CONVERT);,Don't convert files from DOS format,src/nano.c:540,!NANO_TINY,,01-cli.md
+-O,yes,--bookstyle,,none,!NANO_TINY,!NANO_TINY,src/nano.c:1949,src/nano.c:1814,SET(BOOKSTYLE);,Leading whitespace means new paragraph,src/nano.c:541,!NANO_TINY,,01-cli.md
+-P,yes,--positionlog,,none,!NANO_TINY,ENABLE_HISTORIES,src/nano.c:1954,src/nano.c:1815,SET(POSITIONLOG);,Save & restore position of the cursor,src/nano.c:545,ENABLE_HISTORIES,hidden from --help when restricted,01-cli.md
+-Q,yes,--quotestr,,required,ENABLE_JUSTIFY,ENABLE_JUSTIFY,src/nano.c:1959,src/nano.c:1758,"quotestr = mallocstrcpy(quotestr, optarg);",Regular expression to match quoting,src/nano.c:548,ENABLE_JUSTIFY,,01-cli.md
+-R,yes,--restricted,,none,,,src/nano.c:1963,src/nano.c:1760,SET(RESTRICTED);,Restrict access to the filesystem,src/nano.c:554,,hidden from --help when restricted,01-cli.md
+-S,yes,--softwrap,,none,!NANO_TINY,!NANO_TINY,src/nano.c:1967,src/nano.c:1816,SET(SOFTWRAP);,Display overlong lines on multiple rows,src/nano.c:556,!NANO_TINY,,01-cli.md
+-T,yes,--tabsize,,required,!NANO_TINY,!NANO_TINY,src/nano.c:1970,src/nano.c:1817,"if (!parse_num(optarg, &tabsize) || tabsize <= 0) { fprintf(stderr, _(""Requested tab size \""%s\"" is invalid""), optarg); fprintf(stderr, ""\n""); exit(1); }",Make a tab this number of columns wide,src/nano.c:557,!NANO_TINY,,01-cli.md
+-U,yes,--quickblank,,none,,,src/nano.c:1978,src/nano.c:1761,SET(QUICK_BLANK);,Wipe status bar upon next keystroke,src/nano.c:560,,,01-cli.md
+-V,yes,--version,,none,,,src/nano.c:1981,src/nano.c:1762,version(); exit(0);,Print version information and exit,src/nano.c:561,,,01-cli.md
+-W,yes,--wordbounds,,none,!NANO_TINY,!NANO_TINY,src/nano.c:1985,src/nano.c:1818,SET(WORD_BOUNDS);,Detect word boundaries more accurately,src/nano.c:563,!NANO_TINY,,01-cli.md
+-X,yes,--wordchars,,required,!NANO_TINY,!NANO_TINY,src/nano.c:1988,src/nano.c:1819,"word_chars = mallocstrcpy(word_chars, optarg);",Which other characters are word parts,src/nano.c:564,!NANO_TINY,,01-cli.md
+-Y,yes,--syntax,,required,ENABLE_COLOR,ENABLE_COLOR,src/nano.c:1993,src/nano.c:1764,"syntaxstr = mallocstrcpy(syntaxstr, optarg);",Syntax definition to use for coloring,src/nano.c:568,ENABLE_COLOR,,01-cli.md
+-Z,yes,--zap,,none,!NANO_TINY,!NANO_TINY,src/nano.c:1998,src/nano.c:1820,SET(LET_THEM_ZAP);,Let Bsp and Del erase a marked region,src/nano.c:572,!NANO_TINY,,01-cli.md
+-a,yes,--atblanks,,none,!NANO_TINY,!NANO_TINY,src/nano.c:2001,src/nano.c:1821,SET(AT_BLANKS);,"When soft-wrapping, do it at whitespace",src/nano.c:573,!NANO_TINY,,01-cli.md
+-b,yes,--breaklonglines,,none,ENABLE_WRAPPING,ENABLE_WRAPPING,src/nano.c:2006,src/nano.c:1767,hardwrap = 1;,Automatically hard-wrap overlong lines,src/nano.c:576,ENABLE_WRAPPING,,01-cli.md
+-c,yes,--constantshow,,none,,,src/nano.c:2010,src/nano.c:1769,SET(CONSTANT_SHOW);,Constantly show cursor position,src/nano.c:578,,,01-cli.md
+-d,yes,--rebinddelete,,none,,,src/nano.c:2013,src/nano.c:1770,SET(REBIND_DELETE);,Fix Backspace/Delete confusion problem,src/nano.c:579,,,01-cli.md
+-e,yes,--emptyline,,none,!NANO_TINY,!NANO_TINY,src/nano.c:2017,src/nano.c:1822,SET(EMPTY_LINE);,Keep the line below the title bar empty,src/nano.c:581,!NANO_TINY,,01-cli.md
+-f,yes,--rcfile,,required,ENABLE_NANORC,ENABLE_NANORC,src/nano.c:2022,src/nano.c:1772,"custom_nanorc = mallocstrcpy(custom_nanorc, optarg);",Use only this file for configuring nano,src/nano.c:584,ENABLE_NANORC,,01-cli.md
+-g,yes,--showcursor,,none,(ENABLE_BROWSER || ENABLE_HELP),(ENABLE_BROWSER || ENABLE_HELP),src/nano.c:2027,src/nano.c:1775,SET(SHOW_CURSOR);,Show cursor in file browser & help text,src/nano.c:588,(ENABLE_BROWSER || ENABLE_HELP),,01-cli.md
+-h,yes,--help,,none,,,src/nano.c:2031,src/nano.c:1777,usage(); exit(0);,Show this help text and exit,src/nano.c:590,,,01-cli.md
+-i,yes,--autoindent,,none,!NANO_TINY,!NANO_TINY,src/nano.c:2035,src/nano.c:1823,SET(AUTOINDENT);,Automatically indent new lines,src/nano.c:592,!NANO_TINY,,01-cli.md
+-j,yes,--jumpyscrolling,,none,!NANO_TINY,!NANO_TINY,src/nano.c:2038,src/nano.c:1824,SET(JUMPY_SCROLLING);,"Scroll per half-screen, not per line",src/nano.c:593,!NANO_TINY,,01-cli.md
+-k,yes,--cutfromcursor,,none,!NANO_TINY,!NANO_TINY,src/nano.c:2041,src/nano.c:1825,SET(CUT_FROM_CURSOR);,Cut from cursor to end of line,src/nano.c:594,!NANO_TINY,,01-cli.md
+-l,yes,--linenumbers,,none,ENABLE_LINENUMBERS,ENABLE_LINENUMBERS,src/nano.c:2046,src/nano.c:1779,SET(LINE_NUMBERS);,Show line numbers in front of the text,src/nano.c:597,ENABLE_LINENUMBERS,,01-cli.md
+-m,yes,--mouse,,none,ENABLE_MOUSE,ENABLE_MOUSE,src/nano.c:2051,src/nano.c:1782,SET(USE_MOUSE);,Enable the use of the mouse,src/nano.c:600,ENABLE_MOUSE,,01-cli.md
+-n,yes,--noread,,none,!NANO_TINY,!NANO_TINY,src/nano.c:2056,src/nano.c:1826,SET(NOREAD_MODE);,Do not read the file (only write it),src/nano.c:603,!NANO_TINY,,01-cli.md
+-o,yes,--operatingdir,,required,ENABLE_OPERATINGDIR,ENABLE_OPERATINGDIR,src/nano.c:2061,src/nano.c:1785,"operating_dir = mallocstrcpy(operating_dir, optarg);",Set operating directory,src/nano.c:606,ENABLE_OPERATINGDIR,,01-cli.md
+-p,yes,--preserve,,none,,,src/nano.c:2065,src/nano.c:1787,SET(PRESERVE);,Preserve XON (^Q) and XOFF (^S) keys,src/nano.c:609,,,01-cli.md
+-q,yes,--indicator,,none,!NANO_TINY,!NANO_TINY,src/nano.c:2069,src/nano.c:1827,SET(INDICATOR);,Show a position+portion indicator,src/nano.c:611,!NANO_TINY,,01-cli.md
+-r,yes,--fill,,required,ENABLED_WRAPORJUSTIFY,ENABLED_WRAPORJUSTIFY,src/nano.c:2074,src/nano.c:1789,"if (!parse_num(optarg, &fill)) { fprintf(stderr, _(""Requested fill size \""%s\"" is invalid""), optarg); fprintf(stderr, ""\n""); exit(1); } fill_used = TRUE;",Set width for hard-wrap and justify,src/nano.c:614,ENABLED_WRAPORJUSTIFY,,01-cli.md
+-s,yes,--speller,,required,ENABLE_SPELLER,ENABLE_SPELLER,src/nano.c:2086,src/nano.c:1792,"alt_speller = mallocstrcpy(alt_speller, optarg);",Use this alternative spell checker,src/nano.c:619,ENABLE_SPELLER,hidden from --help when restricted,01-cli.md
+-t,yes,--saveonexit,,none,,,src/nano.c:2090,src/nano.c:1794,SET(SAVE_ON_EXIT);,"Save changes on exit, don't prompt",src/nano.c:622,,,01-cli.md
+-u,yes,--unix,,none,!NANO_TINY,!NANO_TINY,src/nano.c:2094,src/nano.c:1828,SET(MAKE_IT_UNIX);,Save a file by default in Unix format,src/nano.c:624,!NANO_TINY,,01-cli.md
+-v,yes,--view,,none,,,src/nano.c:2098,src/nano.c:1795,SET(VIEW_MODE);,View mode (read-only),src/nano.c:626,,,01-cli.md
+-w,yes,--nowrap,,none,ENABLE_WRAPPING,ENABLE_WRAPPING,src/nano.c:2102,src/nano.c:1797,hardwrap = 0;,Don't hard-wrap long lines [default],src/nano.c:628,ENABLE_WRAPPING,,01-cli.md
+-x,yes,--nohelp,,none,,,src/nano.c:2106,src/nano.c:1799,SET(NO_HELP);,Don't show the two help lines,src/nano.c:630,,,01-cli.md
+-y,yes,--afterends,,none,!NANO_TINY,!NANO_TINY,src/nano.c:2110,src/nano.c:1829,SET(AFTER_ENDS);,Make Ctrl+Right stop at word ends,src/nano.c:632,!NANO_TINY,,01-cli.md
+-z,yes,--listsyntaxes,,none,ENABLE_COLOR,ENABLE_COLOR,src/nano.c:2115,src/nano.c:1801,if (!ignore_rcfiles) do_rcfiles(); if (syntaxes) list_syntax_names(); exit(0);,List the names of available syntaxes,src/nano.c:635,ENABLE_COLOR,,01-cli.md
+-!,yes,--magic,,none,HAVE_LIBMAGIC,HAVE_LIBMAGIC,src/nano.c:2123,src/nano.c:1838,SET(USE_MAGIC);,Also try magic to determine syntax,src/nano.c:638,HAVE_LIBMAGIC,,01-cli.md
+-@,yes,--colonparsing,,none,!NANO_TINY,!NANO_TINY,src/nano.c:2131,src/nano.c:1831,SET(COLON_PARSING);,Accept 'filename:linenumber' notation,src/nano.c:641,!NANO_TINY,,01-cli.md
+-%,yes,--stateflags,,none,!NANO_TINY,!NANO_TINY,src/nano.c:2134,src/nano.c:1832,SET(STATEFLAGS);,Show some states on the title bar,src/nano.c:642,!NANO_TINY,,01-cli.md
+-_,yes,--minibar,,none,!NANO_TINY,!NANO_TINY,src/nano.c:2137,src/nano.c:1833,SET(MINIBAR);,Show a feedback bar at the bottom,src/nano.c:643,!NANO_TINY,,01-cli.md
+-0,yes,--zero,,none,!NANO_TINY,!NANO_TINY,src/nano.c:2140,src/nano.c:1834,SET(ZERO);,"Hide all bars, use whole terminal",src/nano.c:644,!NANO_TINY,,01-cli.md
+-1,yes,--solosidescroll,,none,!NANO_TINY,,src/nano.c:2147,src/nano.c:1835,SET(SOLO_SIDESCROLL);,Scroll only the current line sideways,src/nano.c:645,!NANO_TINY,,01-cli.md
+-/,yes,--modernbindings,,none,,,src/nano.c:2144,src/nano.c:1803,SET(MODERN_BINDINGS);,Use better-known key bindings,src/nano.c:647,,,01-cli.md
+,no (long only),--whitespacedisplay,,none,!NANO_TINY,!NANO_TINY,src/nano.c:2128,src/nano.c:1830,SET(WHITESPACE_DISPLAY);,,,,,01-cli.md

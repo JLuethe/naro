@@ -1,0 +1,316 @@
+{
+ "scenario": "TEST-REND-012",
+ "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+ "binary": "/home/john/src/nano-install/default/bin/nano",
+ "argv": [
+  "nano",
+  "-I",
+  "a-rather-long-file-name-for-testing.txt"
+ ],
+ "env": {
+  "HOME": "/tmp/nanospec-work/TEST-REND-012/fx/home",
+  "TERM": "tmux-256color",
+  "PATH": "/tmp/nanospec-work/TEST-REND-012/fx/bin:/usr/bin:/bin",
+  "LANG": "en_US.UTF-8",
+  "SHELL": "/bin/sh",
+  "TZ": "UTC"
+ },
+ "cwd": "/tmp/nanospec-work/TEST-REND-012/fx/work",
+ "inputs": [
+  {
+   "t": 0.833,
+   "hex": "78"
+  },
+  {
+   "t": 1.135,
+   "hex": "18"
+  },
+  {
+   "t": 1.443,
+   "hex": "6e"
+  }
+ ],
+ "snapshots": {
+  "s0": {
+   "rows": [
+    {
+     "text": "...e-for-testing.txt",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 20,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "hi                  ",
+     "attrs": []
+    },
+    {
+     "text": "                    ",
+     "attrs": []
+    },
+    {
+     "text": "                    ",
+     "attrs": []
+    },
+    {
+     "text": "                    ",
+     "attrs": []
+    },
+    {
+     "text": "  [ Read 1 line ]   ",
+     "attrs": [
+      {
+       "start": 2,
+       "end": 17,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Hel^O Wri^F Where",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 6,
+       "end": 8,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 12,
+       "end": 14,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exi^R Rea^\\ Repla",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 6,
+       "end": 8,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 12,
+       "end": 14,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "s1": {
+   "rows": [
+    {
+     "text": "...ting.txt Modified",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 20,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "xhi                 ",
+     "attrs": []
+    },
+    {
+     "text": "                    ",
+     "attrs": []
+    },
+    {
+     "text": "                    ",
+     "attrs": []
+    },
+    {
+     "text": "                    ",
+     "attrs": []
+    },
+    {
+     "text": "  [ Read 1 line ]   ",
+     "attrs": [
+      {
+       "start": 2,
+       "end": 17,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Hel^O Wri^F Where",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 6,
+       "end": 8,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 12,
+       "end": 14,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exi^R Rea^\\ Repla",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 6,
+       "end": 8,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 12,
+       "end": 14,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 1,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  }
+ },
+ "after_exit_screen": {
+  "rows": [
+   {
+    "text": "                    ",
+    "attrs": []
+   },
+   {
+    "text": "                    ",
+    "attrs": []
+   },
+   {
+    "text": "                    ",
+    "attrs": []
+   },
+   {
+    "text": "                    ",
+    "attrs": []
+   },
+   {
+    "text": "                    ",
+    "attrs": []
+   },
+   {
+    "text": "                    ",
+    "attrs": []
+   },
+   {
+    "text": "                    ",
+    "attrs": []
+   },
+   {
+    "text": "Pane is dead (status",
+    "attrs": []
+   }
+  ],
+  "cursor": {
+   "x": 0,
+   "y": 7,
+   "visible": false
+  },
+  "modes": {
+   "alternate_screen": 0,
+   "keypad_mode": 0,
+   "cursor_keys_mode": 0,
+   "mouse_any": 0,
+   "mouse_sgr": 0,
+   "mouse_standard": 0,
+   "mouse_button": 0,
+   "mouse_all": 0,
+   "insert_mode": 0,
+   "autowrap": 1
+  }
+ },
+ "exit_status": 0,
+ "exit_signal": null,
+ "fixture": {
+  "home": {
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work": {
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work/a-rather-long-file-name-for-testing.txt": {
+   "mode": "0o644",
+   "type": "file",
+   "size": 3,
+   "sha256": "98ea6e4f216f2fb4b69fff9b3a44842c38686ca685f3f55dc48c5d3fb1107be4",
+   "b64": "aGkK",
+   "text": "hi\n"
+  }
+ },
+ "notes": [],
+ "stderr": "",
+ "raw_output_bytes": 575,
+ "raw_output_sha256": "8e1f1bdd8c694e849ae847a53a03df5cf096ffed2777e1a730e0d87ca0c18482",
+ "bracketed_paste_set": 1,
+ "bracketed_paste_reset": 1,
+ "trace_final_modes": {
+  "cursor_visible": true,
+  "alternate_screen": false,
+  "bracketed_paste": false,
+  "keypad_transmit": false,
+  "mouse_tracking": null
+ },
+ "checks": []
+}

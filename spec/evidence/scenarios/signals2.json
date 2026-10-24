@@ -1,0 +1,167 @@
+[
+ {
+  "id": "TEST-SIG-011",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "text": "a"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^Q"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SIG-012",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "text": "a"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "y"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^Q"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SIG-013",
+  "args": [
+   "-I",
+   "a.txt",
+   "b.txt"
+  ],
+  "files": {
+   "work/a.txt": {
+    "text": "a\n"
+   },
+   "work/b.txt": {
+    "text": "b\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "text": "1"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^Q"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "snapshot": "s1"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SIG-014",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "text": "a"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^N"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ }
+]

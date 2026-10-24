@@ -1,0 +1,366 @@
+[
+ {
+  "id": "TEST-SIG-001",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "text": "abc"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "signal": "SIGTERM"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SIG-002",
+  "args": [
+   "-I"
+  ],
+  "files": {},
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "text": "nameless"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "signal": "SIGHUP"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SIG-003",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   },
+   "work/f.txt.save": {
+    "text": "old save\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "text": "abc"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "signal": "SIGTERM"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SIG-004",
+  "args": [
+   "-I",
+   "-R",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "text": "abc"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "signal": "SIGTERM"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SIG-005",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "signal": "SIGINT"
+   },
+   {
+    "settle": 300
+   },
+   {
+    "signal": "SIGQUIT"
+   },
+   {
+    "settle": 300
+   },
+   {
+    "snapshot": "alive"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SIG-006",
+  "args": [
+   "-I",
+   "a.txt",
+   "b.txt"
+  ],
+  "files": {
+   "work/a.txt": {
+    "text": "a\n"
+   },
+   "work/b.txt": {
+    "text": "b\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "text": "1"
+   },
+   {
+    "keys": [
+     "M-."
+    ]
+   },
+   {
+    "text": "2"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "signal": "SIGTERM"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SIG-007",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^Z"
+    ]
+   },
+   {
+    "snapshot": "s1"
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "keys": [
+     "^Z"
+    ]
+   },
+   {
+    "settle": 600
+   },
+   {
+    "snapshot": "stopped"
+   },
+   {
+    "signal": "SIGCONT"
+   },
+   {
+    "settle": 600
+   },
+   {
+    "snapshot": "resumed"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SIG-008",
+  "args": [
+   "-I",
+   "-G",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "text": "abc"
+   },
+   {
+    "settle": 300
+   },
+   {
+    "capture_file": "work/.f.txt.swp"
+   },
+   {
+    "signal": "SIGTERM"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SIG-009",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "signal": "SIGTERM"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SIG-010",
+  "args": [
+   "-I",
+   "-v",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "signal": "SIGTERM"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ }
+]

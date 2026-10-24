@@ -1,0 +1,791 @@
+[
+ {
+  "id": "TEST-BYTE-001",
+  "args": [
+   "-I",
+   "m.txt"
+  ],
+  "files": {
+   "work/m.txt": {
+    "b64": "YeliwIBj7aCAZPCfmIBlzIHml6XChWYK"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s05",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s06",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s07",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s08",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s09",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s10",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s11",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s12",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s13",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s14",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s15",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s16",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s17",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s18",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s19",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s20",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s21",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s22",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s23",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s24",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s25",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s26",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s27",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s28",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s29",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-BYTE-002",
+  "args": [
+   "-I",
+   "m.txt"
+  ],
+  "files": {
+   "work/m.txt": {
+    "b64": "eGXMgXkK"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Bsp"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "s05",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Home",
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s06",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Del"
+    ]
+   },
+   {
+    "snapshot": "s07",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s08",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-BYTE-003",
+  "args": [
+   "-I",
+   "n.txt"
+  ],
+  "files": {
+   "work/n.txt": {
+    "b64": "YQBiCgAK"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 200
+   },
+   {
+    "text": "Z"
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "snapshot": "s05",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "s06",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-BYTE-004",
+  "args": [
+   "-I",
+   "l.txt"
+  ],
+  "files": {
+   "work/l.txt": {
+    "b64": "5GJjIGTkZiBnCoWfoHgK"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 200
+   },
+   {
+    "text": "|"
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^Right"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 200
+   },
+   {
+    "text": "#"
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "s05",
+    "quiet": 200
+   },
+   {
+    "hex": "c4"
+   },
+   {
+    "snapshot": "s06",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "s07",
+    "quiet": 200
+   },
+   {
+    "text": "@"
+   },
+   {
+    "snapshot": "s08",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^Home"
+    ]
+   },
+   {
+    "snapshot": "s09",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^Del"
+    ]
+   },
+   {
+    "snapshot": "s10",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "snapshot": "s11",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "s12",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ],
+  "lang": "de_DE.ISO-8859-1",
+  "locpath": "/home/john/src/nano-locales"
+ },
+ {
+  "id": "TEST-BYTE-005",
+  "args": [
+   "-I",
+   "u.txt"
+  ],
+  "files": {
+   "work/u.txt": {
+    "b64": "w6l4Cg=="
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ],
+  "lang": "C"
+ },
+ {
+  "id": "TEST-BYTE-006",
+  "args": [
+   "-I",
+   "-T",
+   "4",
+   "t.txt"
+  ],
+  "files": {
+   "work/t.txt": {
+    "b64": "CWFiCWPml6UJZAo="
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Home",
+     "Down",
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "s05",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "s06",
+    "quiet": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ }
+]

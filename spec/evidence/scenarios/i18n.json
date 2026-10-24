@@ -1,0 +1,495 @@
+[
+ {
+  "id": "TEST-I18N-001",
+  "lang": "de_DE.UTF-8",
+  "locpath": "/home/john/src/nano-locales",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "eins\nzwei\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "text": "x"
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "text": "q"
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "s05",
+    "quiet": 250
+   },
+   {
+    "text": "zzz\r"
+   },
+   {
+    "snapshot": "s06",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "M-D"
+    ]
+   },
+   {
+    "snapshot": "s07",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s08",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-I18N-002",
+  "lang": "de_DE.UTF-8",
+  "locpath": "/home/john/src/nano-locales",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "eins\nzwei\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "text": "x"
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "text": "j"
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "s04",
+    "quiet": 250
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-I18N-003",
+  "lang": "de_DE.ISO-8859-1",
+  "locpath": "/home/john/src/nano-locales",
+  "args": [
+   "-I",
+   "l1.txt"
+  ],
+  "files": {
+   "work/l1.txt": {
+    "b64": "w6RiYwrkYmMK"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-I18N-004",
+  "lang": "ja_JP.UTF-8",
+  "locpath": "/home/john/src/nano-locales",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "eins\nzwei\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s03",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-I18N-005",
+  "lang": "en_US.UTF-8",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "eins\nzwei\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ],
+  "env": {
+   "LANGUAGE": "fr:de"
+  }
+ },
+ {
+  "id": "TEST-I18N-006",
+  "lang": "C",
+  "locpath": "/home/john/src/nano-locales",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "eins\nzwei\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ],
+  "env": {
+   "LANGUAGE": "de"
+  }
+ },
+ {
+  "id": "TEST-I18N-007",
+  "lang": "de_DE.UTF-8",
+  "locpath": "/home/john/src/nano-locales",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "eins\nzwei\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^G"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-I18N-008",
+  "lang": "de_DE.UTF-8",
+  "locpath": "/home/john/src/nano-locales",
+  "args": [
+   "-I",
+   "missing.txt"
+  ],
+  "files": {},
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^R"
+    ]
+   },
+   {
+    "snapshot": "s01",
+    "quiet": 250
+   },
+   {
+    "text": "nonexist\r"
+   },
+   {
+    "snapshot": "s02",
+    "quiet": 250
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ }
+]

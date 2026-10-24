@@ -1,0 +1,2169 @@
+{
+ "argv": "",
+ "keys": [
+  {
+   "order": 0,
+   "keystr": "^M",
+   "keystr_bytes": [
+    94,
+    77
+   ],
+   "keycode": 13,
+   "menus_mask": 57087,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_enter"
+  },
+  {
+   "order": 1,
+   "keystr": "Enter",
+   "keystr_bytes": [
+    69,
+    110,
+    116,
+    101,
+    114
+   ],
+   "keycode": 343,
+   "menus_mask": 57087,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_enter"
+  },
+  {
+   "order": 2,
+   "keystr": "^I",
+   "keystr_bytes": [
+    94,
+    73
+   ],
+   "keycode": 9,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_tab"
+  },
+  {
+   "order": 3,
+   "keystr": "Tab",
+   "keystr_bytes": [
+    84,
+    97,
+    98
+   ],
+   "keycode": 9,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_tab"
+  },
+  {
+   "order": 4,
+   "keystr": "^B",
+   "keystr_bytes": [
+    94,
+    66
+   ],
+   "keycode": 2,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_search_backward"
+  },
+  {
+   "order": 5,
+   "keystr": "^F",
+   "keystr_bytes": [
+    94,
+    70
+   ],
+   "keycode": 6,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_search_forward"
+  },
+  {
+   "order": 6,
+   "keystr": "^G",
+   "keystr_bytes": [
+    94,
+    71
+   ],
+   "keycode": 7,
+   "menus_mask": 24319,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER"
+   ],
+   "func": "do_help"
+  },
+  {
+   "order": 7,
+   "keystr": "^X",
+   "keystr_bytes": [
+    94,
+    88
+   ],
+   "keycode": 24,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_exit"
+  },
+  {
+   "order": 8,
+   "keystr": "^S",
+   "keystr_bytes": [
+    94,
+    83
+   ],
+   "keycode": 19,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_savefile"
+  },
+  {
+   "order": 9,
+   "keystr": "^O",
+   "keystr_bytes": [
+    94,
+    79
+   ],
+   "keycode": 15,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_writeout"
+  },
+  {
+   "order": 10,
+   "keystr": "^R",
+   "keystr_bytes": [
+    94,
+    82
+   ],
+   "keycode": 18,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_insertfile"
+  },
+  {
+   "order": 11,
+   "keystr": "^Q",
+   "keystr_bytes": [
+    94,
+    81
+   ],
+   "keycode": 17,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_search_backward"
+  },
+  {
+   "order": 12,
+   "keystr": "^W",
+   "keystr_bytes": [
+    94,
+    87
+   ],
+   "keycode": 23,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_search_forward"
+  },
+  {
+   "order": 13,
+   "keystr": "^A",
+   "keystr_bytes": [
+    94,
+    65
+   ],
+   "keycode": 1,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_home"
+  },
+  {
+   "order": 14,
+   "keystr": "^E",
+   "keystr_bytes": [
+    94,
+    69
+   ],
+   "keycode": 5,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_end"
+  },
+  {
+   "order": 15,
+   "keystr": "^P",
+   "keystr_bytes": [
+    94,
+    80
+   ],
+   "keycode": 16,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_up"
+  },
+  {
+   "order": 16,
+   "keystr": "^N",
+   "keystr_bytes": [
+    94,
+    78
+   ],
+   "keycode": 14,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_down"
+  },
+  {
+   "order": 17,
+   "keystr": "^Y",
+   "keystr_bytes": [
+    94,
+    89
+   ],
+   "keycode": 25,
+   "menus_mask": 17665,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER",
+    "MLINTER"
+   ],
+   "func": "do_page_up"
+  },
+  {
+   "order": 18,
+   "keystr": "^V",
+   "keystr_bytes": [
+    94,
+    86
+   ],
+   "keycode": 22,
+   "menus_mask": 17665,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER",
+    "MLINTER"
+   ],
+   "func": "do_page_down"
+  },
+  {
+   "order": 19,
+   "keystr": "^C",
+   "keystr_bytes": [
+    94,
+    67
+   ],
+   "keycode": 3,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "report_cursor_position"
+  },
+  {
+   "order": 20,
+   "keystr": "^H",
+   "keystr_bytes": [
+    94,
+    72
+   ],
+   "keycode": 8,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_backspace"
+  },
+  {
+   "order": 21,
+   "keystr": "^D",
+   "keystr_bytes": [
+    94,
+    68
+   ],
+   "keycode": 4,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_delete"
+  },
+  {
+   "order": 22,
+   "keystr": "Bsp",
+   "keystr_bytes": [
+    66,
+    115,
+    112
+   ],
+   "keycode": 263,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_backspace"
+  },
+  {
+   "order": 23,
+   "keystr": "Sh-Del",
+   "keystr_bytes": [
+    83,
+    104,
+    45,
+    68,
+    101,
+    108
+   ],
+   "keycode": 1117,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_backspace"
+  },
+  {
+   "order": 24,
+   "keystr": "Del",
+   "keystr_bytes": [
+    68,
+    101,
+    108
+   ],
+   "keycode": 330,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_delete"
+  },
+  {
+   "order": 25,
+   "keystr": "Ins",
+   "keystr_bytes": [
+    73,
+    110,
+    115
+   ],
+   "keycode": 331,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_insertfile"
+  },
+  {
+   "order": 26,
+   "keystr": "^\\",
+   "keystr_bytes": [
+    94,
+    92
+   ],
+   "keycode": 28,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_replace"
+  },
+  {
+   "order": 27,
+   "keystr": "M-R",
+   "keystr_bytes": [
+    77,
+    45,
+    82
+   ],
+   "keycode": 114,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_replace"
+  },
+  {
+   "order": 28,
+   "keystr": "^K",
+   "keystr_bytes": [
+    94,
+    75
+   ],
+   "keycode": 11,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "cut_text"
+  },
+  {
+   "order": 29,
+   "keystr": "M-6",
+   "keystr_bytes": [
+    77,
+    45,
+    54
+   ],
+   "keycode": 54,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "copy_text"
+  },
+  {
+   "order": 30,
+   "keystr": "M-^",
+   "keystr_bytes": [
+    77,
+    45,
+    94
+   ],
+   "keycode": 94,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "copy_text"
+  },
+  {
+   "order": 31,
+   "keystr": "^U",
+   "keystr_bytes": [
+    94,
+    85
+   ],
+   "keycode": 21,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "paste_text"
+  },
+  {
+   "order": 32,
+   "keystr": "^/",
+   "keystr_bytes": [
+    94,
+    47
+   ],
+   "keycode": 31,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_gotolinecolumn"
+  },
+  {
+   "order": 33,
+   "keystr": "M-G",
+   "keystr_bytes": [
+    77,
+    45,
+    71
+   ],
+   "keycode": 103,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_gotolinecolumn"
+  },
+  {
+   "order": 34,
+   "keystr": "^_",
+   "keystr_bytes": [
+    94,
+    95
+   ],
+   "keycode": 31,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_gotolinecolumn"
+  },
+  {
+   "order": 35,
+   "keystr": "PgUp",
+   "keystr_bytes": [
+    80,
+    103,
+    85,
+    112
+   ],
+   "keycode": 339,
+   "menus_mask": 17665,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER",
+    "MLINTER"
+   ],
+   "func": "do_page_up"
+  },
+  {
+   "order": 36,
+   "keystr": "PgDn",
+   "keystr_bytes": [
+    80,
+    103,
+    68,
+    110
+   ],
+   "keycode": 338,
+   "menus_mask": 17665,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER",
+    "MLINTER"
+   ],
+   "func": "do_page_down"
+  },
+  {
+   "order": 37,
+   "keystr": "Bsp",
+   "keystr_bytes": [
+    66,
+    115,
+    112
+   ],
+   "keycode": 263,
+   "menus_mask": 1280,
+   "menus": [
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_page_up"
+  },
+  {
+   "order": 38,
+   "keystr": "Sh-Del",
+   "keystr_bytes": [
+    83,
+    104,
+    45,
+    68,
+    101,
+    108
+   ],
+   "keycode": 1117,
+   "menus_mask": 1280,
+   "menus": [
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_page_up"
+  },
+  {
+   "order": 39,
+   "keystr": "Space",
+   "keystr_bytes": [
+    83,
+    112,
+    97,
+    99,
+    101
+   ],
+   "keycode": 32,
+   "menus_mask": 1280,
+   "menus": [
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_page_down"
+  },
+  {
+   "order": 40,
+   "keystr": "M-\\",
+   "keystr_bytes": [
+    77,
+    45,
+    92
+   ],
+   "keycode": 92,
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "func": "to_first_line"
+  },
+  {
+   "order": 41,
+   "keystr": "^Home",
+   "keystr_bytes": [
+    94,
+    72,
+    111,
+    109,
+    101
+   ],
+   "keycode": 1029,
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "func": "to_first_line"
+  },
+  {
+   "order": 42,
+   "keystr": "M-/",
+   "keystr_bytes": [
+    77,
+    45,
+    47
+   ],
+   "keycode": 47,
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "func": "to_last_line"
+  },
+  {
+   "order": 43,
+   "keystr": "^End",
+   "keystr_bytes": [
+    94,
+    69,
+    110,
+    100
+   ],
+   "keycode": 1030,
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "func": "to_last_line"
+  },
+  {
+   "order": 44,
+   "keystr": "M-B",
+   "keystr_bytes": [
+    77,
+    45,
+    66
+   ],
+   "keycode": 98,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_findprevious"
+  },
+  {
+   "order": 45,
+   "keystr": "M-F",
+   "keystr_bytes": [
+    77,
+    45,
+    70
+   ],
+   "keycode": 102,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_findnext"
+  },
+  {
+   "order": 46,
+   "keystr": "M-W",
+   "keystr_bytes": [
+    77,
+    45,
+    87
+   ],
+   "keycode": 119,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_findnext"
+  },
+  {
+   "order": 47,
+   "keystr": "M-Q",
+   "keystr_bytes": [
+    77,
+    45,
+    81
+   ],
+   "keycode": 113,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_findprevious"
+  },
+  {
+   "order": 48,
+   "keystr": "M-N",
+   "keystr_bytes": [
+    77,
+    45,
+    78
+   ],
+   "keycode": 110,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "to_next_word"
+  },
+  {
+   "order": 49,
+   "keystr": "M-D",
+   "keystr_bytes": [
+    77,
+    45,
+    68
+   ],
+   "keycode": 100,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "to_prev_word"
+  },
+  {
+   "order": 50,
+   "keystr": "^B",
+   "keystr_bytes": [
+    94,
+    66
+   ],
+   "keycode": 2,
+   "menus_mask": 56062,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_left"
+  },
+  {
+   "order": 51,
+   "keystr": "^F",
+   "keystr_bytes": [
+    94,
+    70
+   ],
+   "keycode": 6,
+   "menus_mask": 56062,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_right"
+  },
+  {
+   "order": 52,
+   "keystr": "◂",
+   "keystr_bytes": [
+    226,
+    151,
+    130
+   ],
+   "keycode": 260,
+   "menus_mask": 57343,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MHELP",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_left"
+  },
+  {
+   "order": 53,
+   "keystr": "▸",
+   "keystr_bytes": [
+    226,
+    150,
+    184
+   ],
+   "keycode": 261,
+   "menus_mask": 57343,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MHELP",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_right"
+  },
+  {
+   "order": 54,
+   "keystr": "^◂",
+   "keystr_bytes": [
+    94,
+    226,
+    151,
+    130
+   ],
+   "keycode": 1025,
+   "menus_mask": 1025,
+   "menus": [
+    "MMAIN",
+    "MBROWSER"
+   ],
+   "func": "to_prev_word"
+  },
+  {
+   "order": 55,
+   "keystr": "^▸",
+   "keystr_bytes": [
+    94,
+    226,
+    150,
+    184
+   ],
+   "keycode": 1026,
+   "menus_mask": 1025,
+   "menus": [
+    "MMAIN",
+    "MBROWSER"
+   ],
+   "func": "to_next_word"
+  },
+  {
+   "order": 56,
+   "keystr": "M-Space",
+   "keystr_bytes": [
+    77,
+    45,
+    83,
+    112,
+    97,
+    99,
+    101
+   ],
+   "keycode": 32,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "to_prev_word"
+  },
+  {
+   "order": 57,
+   "keystr": "^Space",
+   "keystr_bytes": [
+    94,
+    83,
+    112,
+    97,
+    99,
+    101
+   ],
+   "keycode": 0,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "to_next_word"
+  },
+  {
+   "order": 58,
+   "keystr": "Home",
+   "keystr_bytes": [
+    72,
+    111,
+    109,
+    101
+   ],
+   "keycode": 262,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_home"
+  },
+  {
+   "order": 59,
+   "keystr": "End",
+   "keystr_bytes": [
+    69,
+    110,
+    100
+   ],
+   "keycode": 360,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_end"
+  },
+  {
+   "order": 60,
+   "keystr": "▴",
+   "keystr_bytes": [
+    226,
+    150,
+    180
+   ],
+   "keycode": 259,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_up"
+  },
+  {
+   "order": 61,
+   "keystr": "▾",
+   "keystr_bytes": [
+    226,
+    150,
+    190
+   ],
+   "keycode": 258,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_down"
+  },
+  {
+   "order": 62,
+   "keystr": "^▴",
+   "keystr_bytes": [
+    94,
+    226,
+    150,
+    180
+   ],
+   "keycode": 1027,
+   "menus_mask": 17409,
+   "menus": [
+    "MMAIN",
+    "MBROWSER",
+    "MLINTER"
+   ],
+   "func": "to_prev_block"
+  },
+  {
+   "order": 63,
+   "keystr": "^▾",
+   "keystr_bytes": [
+    94,
+    226,
+    150,
+    190
+   ],
+   "keycode": 1028,
+   "menus_mask": 17409,
+   "menus": [
+    "MMAIN",
+    "MBROWSER",
+    "MLINTER"
+   ],
+   "func": "to_next_block"
+  },
+  {
+   "order": 64,
+   "keystr": "M-7",
+   "keystr_bytes": [
+    77,
+    45,
+    55
+   ],
+   "keycode": 55,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "to_prev_block"
+  },
+  {
+   "order": 65,
+   "keystr": "M-8",
+   "keystr_bytes": [
+    77,
+    45,
+    56
+   ],
+   "keycode": 56,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "to_next_block"
+  },
+  {
+   "order": 66,
+   "keystr": "M-V",
+   "keystr_bytes": [
+    77,
+    45,
+    86
+   ],
+   "keycode": 118,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_verbatim_input"
+  },
+  {
+   "order": 67,
+   "keystr": "M-H",
+   "keystr_bytes": [
+    77,
+    45,
+    72
+   ],
+   "keycode": 104,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_help"
+  },
+  {
+   "order": 68,
+   "keystr": "^L",
+   "keystr_bytes": [
+    94,
+    76
+   ],
+   "keycode": 12,
+   "menus_mask": 65535,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MHELP",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MYESNO",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "full_refresh"
+  },
+  {
+   "order": 69,
+   "keystr": "^C",
+   "keystr_bytes": [
+    94,
+    67
+   ],
+   "keycode": 3,
+   "menus_mask": 64254,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MYESNO",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_cancel"
+  },
+  {
+   "order": 70,
+   "keystr": "M-C",
+   "keystr_bytes": [
+    77,
+    45,
+    67
+   ],
+   "keycode": 99,
+   "menus_mask": 6,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE"
+   ],
+   "func": "case_sens_void"
+  },
+  {
+   "order": 71,
+   "keystr": "M-R",
+   "keystr_bytes": [
+    77,
+    45,
+    82
+   ],
+   "keycode": 114,
+   "menus_mask": 6,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE"
+   ],
+   "func": "regexp_void"
+  },
+  {
+   "order": 72,
+   "keystr": "M-B",
+   "keystr_bytes": [
+    77,
+    45,
+    66
+   ],
+   "keycode": 98,
+   "menus_mask": 6,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE"
+   ],
+   "func": "backwards_void"
+  },
+  {
+   "order": 73,
+   "keystr": "^R",
+   "keystr_bytes": [
+    94,
+    82
+   ],
+   "keycode": 18,
+   "menus_mask": 6,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE"
+   ],
+   "func": "flip_replace"
+  },
+  {
+   "order": 74,
+   "keystr": "^T",
+   "keystr_bytes": [
+    94,
+    84
+   ],
+   "keycode": 20,
+   "menus_mask": 18,
+   "menus": [
+    "MWHEREIS",
+    "MGOTOLINE"
+   ],
+   "func": "flip_goto"
+  },
+  {
+   "order": 75,
+   "keystr": "^Y",
+   "keystr_bytes": [
+    94,
+    89
+   ],
+   "keycode": 25,
+   "menus_mask": 32786,
+   "menus": [
+    "MWHEREIS",
+    "MGOTOLINE",
+    "MFINDINHELP"
+   ],
+   "func": "to_first_line"
+  },
+  {
+   "order": 76,
+   "keystr": "^V",
+   "keystr_bytes": [
+    94,
+    86
+   ],
+   "keycode": 22,
+   "menus_mask": 32786,
+   "menus": [
+    "MWHEREIS",
+    "MGOTOLINE",
+    "MFINDINHELP"
+   ],
+   "func": "to_last_line"
+  },
+  {
+   "order": 77,
+   "keystr": "^Q",
+   "keystr_bytes": [
+    94,
+    81
+   ],
+   "keycode": 17,
+   "menus_mask": 32,
+   "menus": [
+    "MWRITEFILE"
+   ],
+   "func": "discard_buffer"
+  },
+  {
+   "order": 78,
+   "keystr": "^C",
+   "keystr_bytes": [
+    94,
+    67
+   ],
+   "keycode": 3,
+   "menus_mask": 1280,
+   "menus": [
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_exit"
+  },
+  {
+   "order": 79,
+   "keystr": "F1",
+   "keystr_bytes": [
+    70,
+    49
+   ],
+   "keycode": 265,
+   "menus_mask": 23295,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER"
+   ],
+   "func": "do_help"
+  },
+  {
+   "order": 80,
+   "keystr": "F2",
+   "keystr_bytes": [
+    70,
+    50
+   ],
+   "keycode": 266,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_exit"
+  },
+  {
+   "order": 81,
+   "keystr": "F3",
+   "keystr_bytes": [
+    70,
+    51
+   ],
+   "keycode": 267,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_writeout"
+  },
+  {
+   "order": 82,
+   "keystr": "F5",
+   "keystr_bytes": [
+    70,
+    53
+   ],
+   "keycode": 269,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_insertfile"
+  },
+  {
+   "order": 83,
+   "keystr": "F6",
+   "keystr_bytes": [
+    70,
+    54
+   ],
+   "keycode": 270,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_search_forward"
+  },
+  {
+   "order": 84,
+   "keystr": "F7",
+   "keystr_bytes": [
+    70,
+    55
+   ],
+   "keycode": 271,
+   "menus_mask": 17665,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER",
+    "MLINTER"
+   ],
+   "func": "do_page_up"
+  },
+  {
+   "order": 85,
+   "keystr": "F8",
+   "keystr_bytes": [
+    70,
+    56
+   ],
+   "keycode": 272,
+   "menus_mask": 17665,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER",
+    "MLINTER"
+   ],
+   "func": "do_page_down"
+  },
+  {
+   "order": 86,
+   "keystr": "F9",
+   "keystr_bytes": [
+    70,
+    57
+   ],
+   "keycode": 273,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "cut_text"
+  },
+  {
+   "order": 87,
+   "keystr": "F10",
+   "keystr_bytes": [
+    70,
+    49,
+    48
+   ],
+   "keycode": 274,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "paste_text"
+  },
+  {
+   "order": 88,
+   "keystr": "F11",
+   "keystr_bytes": [
+    70,
+    49,
+    49
+   ],
+   "keycode": 275,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "report_cursor_position"
+  },
+  {
+   "order": 89,
+   "keystr": "",
+   "keystr_bytes": [],
+   "keycode": 1278,
+   "menus_mask": 65535,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MHELP",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MYESNO",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "full_refresh"
+  }
+ ],
+ "funcs": [
+  {
+   "order": 0,
+   "func": "do_cancel",
+   "menus_mask": 64254,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MYESNO",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "tag": "Cancel"
+  },
+  {
+   "order": 1,
+   "func": "do_exit",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Exit"
+  },
+  {
+   "order": 2,
+   "func": "full_refresh",
+   "menus_mask": 5,
+   "menus": [
+    "MMAIN",
+    "MREPLACE"
+   ],
+   "tag": "Refresh"
+  },
+  {
+   "order": 3,
+   "func": "do_writeout",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Write Out"
+  },
+  {
+   "order": 4,
+   "func": "do_insertfile",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Read File"
+  },
+  {
+   "order": 5,
+   "func": "do_search_forward",
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "tag": "Where Is"
+  },
+  {
+   "order": 6,
+   "func": "do_replace",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Replace"
+  },
+  {
+   "order": 7,
+   "func": "do_search_backward",
+   "menus_mask": 256,
+   "menus": [
+    "MHELP"
+   ],
+   "tag": "Where Was"
+  },
+  {
+   "order": 8,
+   "func": "do_findprevious",
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "tag": "Previous"
+  },
+  {
+   "order": 9,
+   "func": "do_findnext",
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "tag": "Next"
+  },
+  {
+   "order": 10,
+   "func": "cut_text",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Cut"
+  },
+  {
+   "order": 11,
+   "func": "paste_text",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Paste"
+  },
+  {
+   "order": 12,
+   "func": "report_cursor_position",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Location"
+  },
+  {
+   "order": 13,
+   "func": "do_gotolinecolumn",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Go To Line"
+  },
+  {
+   "order": 14,
+   "func": "case_sens_void",
+   "menus_mask": 6,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE"
+   ],
+   "tag": "Case sensitive"
+  },
+  {
+   "order": 15,
+   "func": "regexp_void",
+   "menus_mask": 6,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE"
+   ],
+   "tag": "Reg.expression"
+  },
+  {
+   "order": 16,
+   "func": "backwards_void",
+   "menus_mask": 6,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE"
+   ],
+   "tag": "Backwards"
+  },
+  {
+   "order": 17,
+   "func": "flip_replace",
+   "menus_mask": 2,
+   "menus": [
+    "MWHEREIS"
+   ],
+   "tag": "Replace"
+  },
+  {
+   "order": 18,
+   "func": "flip_replace",
+   "menus_mask": 4,
+   "menus": [
+    "MREPLACE"
+   ],
+   "tag": "No Replace"
+  },
+  {
+   "order": 19,
+   "func": "to_prev_word",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Prev Word"
+  },
+  {
+   "order": 20,
+   "func": "to_next_word",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Next Word"
+  },
+  {
+   "order": 21,
+   "func": "do_left",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Back"
+  },
+  {
+   "order": 22,
+   "func": "do_right",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Forward"
+  },
+  {
+   "order": 23,
+   "func": "do_home",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Home"
+  },
+  {
+   "order": 24,
+   "func": "do_end",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "End"
+  },
+  {
+   "order": 25,
+   "func": "do_up",
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "tag": "Prev Line"
+  },
+  {
+   "order": 26,
+   "func": "do_down",
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "tag": "Next Line"
+  },
+  {
+   "order": 27,
+   "func": "to_prev_block",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Prev Block"
+  },
+  {
+   "order": 28,
+   "func": "to_next_block",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Next Block"
+  },
+  {
+   "order": 29,
+   "func": "do_page_up",
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "tag": "Prev Page"
+  },
+  {
+   "order": 30,
+   "func": "do_page_down",
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "tag": "Next Page"
+  },
+  {
+   "order": 31,
+   "func": "to_first_line",
+   "menus_mask": 273,
+   "menus": [
+    "MMAIN",
+    "MGOTOLINE",
+    "MHELP"
+   ],
+   "tag": "First Line"
+  },
+  {
+   "order": 32,
+   "func": "to_last_line",
+   "menus_mask": 273,
+   "menus": [
+    "MMAIN",
+    "MGOTOLINE",
+    "MHELP"
+   ],
+   "tag": "Last Line"
+  },
+  {
+   "order": 33,
+   "func": "do_tab",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Tab"
+  },
+  {
+   "order": 34,
+   "func": "do_enter",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Enter"
+  },
+  {
+   "order": 35,
+   "func": "do_backspace",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Backspace"
+  },
+  {
+   "order": 36,
+   "func": "do_delete",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Delete"
+  },
+  {
+   "order": 37,
+   "func": "copy_text",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Copy"
+  },
+  {
+   "order": 38,
+   "func": "do_verbatim_input",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Verbatim"
+  },
+  {
+   "order": 39,
+   "func": "do_search_backward",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Where Was"
+  },
+  {
+   "order": 40,
+   "func": "do_savefile",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Save"
+  },
+  {
+   "order": 41,
+   "func": "discard_buffer",
+   "menus_mask": 32,
+   "menus": [
+    "MWRITEFILE"
+   ],
+   "tag": "Discard buffer"
+  }
+ ],
+ "globals": {
+  "using_utf8": 1,
+  "on_a_vt": 0,
+  "flags[0]": 0,
+  "flags[1]": 1024,
+  "COLS": 80,
+  "LINES": 24,
+  "tabsize": 8
+ }
+}

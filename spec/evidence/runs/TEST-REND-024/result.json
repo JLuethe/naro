@@ -1,0 +1,742 @@
+{
+ "scenario": "TEST-REND-024",
+ "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+ "binary": "/home/john/src/nano-install/default/bin/nano",
+ "argv": [
+  "nano",
+  "-I",
+  "-D",
+  "big.txt"
+ ],
+ "env": {
+  "HOME": "/tmp/nanospec-work/TEST-REND-024/fx/home",
+  "TERM": "tmux-256color",
+  "PATH": "/tmp/nanospec-work/TEST-REND-024/fx/bin:/usr/bin:/bin",
+  "LANG": "en_US.UTF-8",
+  "SHELL": "/bin/sh",
+  "TZ": "UTC"
+ },
+ "cwd": "/tmp/nanospec-work/TEST-REND-024/fx/work",
+ "inputs": [
+  {
+   "t": 0.92,
+   "hex": "17"
+  },
+  {
+   "t": 1.279,
+   "hex": "7a7a7a0d"
+  },
+  {
+   "t": 1.631,
+   "hex": "18"
+  },
+  {
+   "t": 1.94,
+   "hex": "6e"
+  }
+ ],
+ "snapshots": {
+  "s0": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                        big.txt                                   ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 45,
+       "attr": "bold=True"
+      }
+     ]
+    },
+    {
+     "text": "line 1                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 2                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 3                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 4                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 5                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 6                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 7                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 8                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 9                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 10                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 11                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 12                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 13                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 14                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 15                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 16                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 17                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 18                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 19                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 20                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "                              [ Read 1200 lines ]                               ",
+     "attrs": [
+      {
+       "start": 30,
+       "end": 49,
+       "attr": "bold=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "bold=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "bold=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "bold=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "bold=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "bold=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "bold=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "bold=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "bold=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "bold=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "bold=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "bold=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "bold=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "s1": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                        big.txt                                   ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 45,
+       "attr": "bold=True"
+      }
+     ]
+    },
+    {
+     "text": "line 1                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 2                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 3                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 4                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 5                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 6                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 7                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 8                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 9                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 10                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 11                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 12                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 13                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 14                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 15                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 16                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 17                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 18                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 19                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 20                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "Search:                                                                         ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 8,
+       "attr": "bold=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help             M-C Case sensitive  M-B Backwards       ^P Older            ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "bold=True"
+      },
+      {
+       "start": 20,
+       "end": 23,
+       "attr": "bold=True"
+      },
+      {
+       "start": 40,
+       "end": 43,
+       "attr": "bold=True"
+      },
+      {
+       "start": 60,
+       "end": 62,
+       "attr": "bold=True"
+      }
+     ]
+    },
+    {
+     "text": "^C Cancel           M-R Reg.expression  ^R Replace          ^N Newer            ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "bold=True"
+      },
+      {
+       "start": 20,
+       "end": 23,
+       "attr": "bold=True"
+      },
+      {
+       "start": 40,
+       "end": 42,
+       "attr": "bold=True"
+      },
+      {
+       "start": 60,
+       "end": 62,
+       "attr": "bold=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 8,
+    "y": 21,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "s2": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                        big.txt                                   ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 45,
+       "attr": "bold=True"
+      }
+     ]
+    },
+    {
+     "text": "line 1                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 2                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 3                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 4                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 5                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 6                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 7                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 8                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 9                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 10                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 11                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 12                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 13                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 14                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 15                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 16                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 17                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 18                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 19                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 20                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "                              [ \"zzz\" not found ]                               ",
+     "attrs": [
+      {
+       "start": 30,
+       "end": 49,
+       "attr": "bg=1,bold=True,fg=7"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "bold=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "bold=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "bold=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "bold=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "bold=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "bold=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "bold=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "bold=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "bold=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "bold=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "bold=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "bold=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  }
+ },
+ "after_exit_screen": {
+  "rows": [
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "Pane is dead (status 0, Fri Oct 23 22:48:50 2026)                               ",
+    "attrs": []
+   }
+  ],
+  "cursor": {
+   "x": 0,
+   "y": 23,
+   "visible": false
+  },
+  "modes": {
+   "alternate_screen": 0,
+   "keypad_mode": 0,
+   "cursor_keys_mode": 0,
+   "mouse_any": 0,
+   "mouse_sgr": 0,
+   "mouse_standard": 0,
+   "mouse_button": 0,
+   "mouse_all": 0,
+   "insert_mode": 0,
+   "autowrap": 1
+  }
+ },
+ "exit_status": 0,
+ "exit_signal": null,
+ "fixture": {
+  "home": {
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work": {
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work/big.txt": {
+   "mode": "0o644",
+   "type": "file",
+   "size": 10893,
+   "sha256": "d1bb891609202847491861c391071789800619a95963bce3c5d043d8fb4670f4"
+  }
+ },
+ "notes": [],
+ "stderr": "",
+ "raw_output_bytes": 1498,
+ "raw_output_sha256": "340730d0ea93467c4568ef8dca76d2a711e856bde57d807db8675448fc4c3f8d",
+ "bracketed_paste_set": 1,
+ "bracketed_paste_reset": 1,
+ "trace_final_modes": {
+  "cursor_visible": true,
+  "alternate_screen": false,
+  "bracketed_paste": false,
+  "keypad_transmit": false,
+  "mouse_tracking": null
+ },
+ "checks": []
+}

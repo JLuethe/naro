@@ -1,0 +1,636 @@
+[
+ {
+  "id": "TEST-KEY-001",
+  "args": [
+   "-I"
+  ],
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "hex": "1b01"
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "F13"
+    ]
+   },
+   {
+    "snapshot": "s1"
+   },
+   {
+    "hex": "1b4f7a"
+   },
+   {
+    "snapshot": "s2"
+   },
+   {
+    "hex": "1b7e"
+   },
+   {
+    "snapshot": "s3"
+   },
+   {
+    "keys": [
+     "^Z"
+    ]
+   },
+   {
+    "snapshot": "s4"
+   },
+   {
+    "keys": [
+     "^H"
+    ]
+   },
+   {
+    "snapshot": "s5"
+   },
+   {
+    "keys": [
+     "^H"
+    ]
+   },
+   {
+    "snapshot": "s6"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-KEY-002",
+  "args": [],
+  "files": {
+   "home/.nanorc": {
+    "text": "bind ^Q cut main\nbind M-1 \"hello{enter}world\" main\nbind M-2 \"{nosuch}\" main\nbind M-3 \"x{cut\" main\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "text": "abc"
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^Q"
+    ]
+   },
+   {
+    "snapshot": "s1"
+   },
+   {
+    "keys": [
+     "M-1"
+    ]
+   },
+   {
+    "snapshot": "s2"
+   },
+   {
+    "keys": [
+     "M-2"
+    ]
+   },
+   {
+    "snapshot": "s3"
+   },
+   {
+    "keys": [
+     "M-3"
+    ]
+   },
+   {
+    "snapshot": "s4"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-KEY-003",
+  "args": [],
+  "files": {
+   "home/.nanorc": {
+    "text": "unbind ^X main\nbind ^Q exit main\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^Q"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-KEY-004",
+  "args": [],
+  "files": {
+   "home/.nanorc": {
+    "text": "unbind ^X main\nunbind F2 main\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   }
+  ]
+ },
+ {
+  "id": "TEST-KEY-005",
+  "args": [],
+  "files": {
+   "home/.nanorc": {
+    "text": "bind ^[ cut main\nbind ^T zap search\nbind F25 cut main\nbind M- cut main\nbind ^ cut main\nbind x cut main\nbind ^Q cut nomenu\nbind ^Q\nbind ^Q cut\nbind Sh-M-a cut main\nunbind\nbind M-Up cut main\nbind ^space mark main\nbind m-x cut main\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "snapshot": "s1"
+   },
+   {
+    "hex": "1b41"
+   },
+   {
+    "snapshot": "s2"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-KEY-006",
+  "args": [
+   "-I",
+   "--modernbindings"
+  ],
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^H"
+    ]
+   },
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "help"
+   },
+   {
+    "keys": [
+     "^H"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^Q"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-KEY-007",
+  "profile": "tiny",
+  "args": [],
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-KEY-008",
+  "args": [
+   "-I"
+  ],
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "M-I"
+    ]
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "M-I"
+    ]
+   },
+   {
+    "snapshot": "s1"
+   },
+   {
+    "keys": [
+     "M-X"
+    ]
+   },
+   {
+    "snapshot": "s2"
+   },
+   {
+    "keys": [
+     "M-X"
+    ]
+   },
+   {
+    "snapshot": "s3"
+   },
+   {
+    "keys": [
+     "M-Y"
+    ]
+   },
+   {
+    "snapshot": "s4"
+   },
+   {
+    "keys": [
+     "M-C"
+    ]
+   },
+   {
+    "snapshot": "s5"
+   },
+   {
+    "keys": [
+     "M-C"
+    ]
+   },
+   {
+    "snapshot": "s6"
+   },
+   {
+    "keys": [
+     "M-O"
+    ]
+   },
+   {
+    "snapshot": "s7"
+   },
+   {
+    "keys": [
+     "M-K"
+    ]
+   },
+   {
+    "snapshot": "s8"
+   },
+   {
+    "keys": [
+     "M-M"
+    ]
+   },
+   {
+    "snapshot": "s9"
+   },
+   {
+    "keys": [
+     "M-H"
+    ]
+   },
+   {
+    "snapshot": "s10"
+   },
+   {
+    "keys": [
+     "M-P"
+    ]
+   },
+   {
+    "snapshot": "s11"
+   },
+   {
+    "keys": [
+     "M-P"
+    ]
+   },
+   {
+    "snapshot": "s12"
+   },
+   {
+    "keys": [
+     "M-S"
+    ]
+   },
+   {
+    "snapshot": "s13"
+   },
+   {
+    "keys": [
+     "M-S"
+    ]
+   },
+   {
+    "snapshot": "s14"
+   },
+   {
+    "keys": [
+     "M-L"
+    ]
+   },
+   {
+    "snapshot": "s15"
+   },
+   {
+    "keys": [
+     "M-N"
+    ]
+   },
+   {
+    "snapshot": "s16"
+   },
+   {
+    "keys": [
+     "M-N"
+    ]
+   },
+   {
+    "snapshot": "s17"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-KEY-009",
+  "args": [
+   "-I",
+   "-x"
+  ],
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^G"
+    ]
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "text": "z"
+   },
+   {
+    "snapshot": "s1"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "snapshot": "s2"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-KEY-010",
+  "args": [
+   "-I",
+   "-p",
+   "--modernbindings"
+  ],
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^E"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "snapshot": "exec"
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "snapshot": "write"
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^Q"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-KEY-011",
+  "args": [
+   "-I",
+   "--preserve"
+  ],
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "snapshot": "write"
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-KEY-012",
+  "args": [],
+  "files": {
+   "home/.nanorc": {
+    "text": "set preserve\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "snapshot": "s0"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ }
+]

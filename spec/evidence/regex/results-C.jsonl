@@ -1,0 +1,81 @@
+{"flags":"E","pattern":"a|ab","subject":"ab","compile":0,"exec":0,"match":[[0,2]],"nsub":0}
+{"flags":"E","pattern":"ab|a","subject":"ab","compile":0,"exec":0,"match":[[0,2]],"nsub":0}
+{"flags":"E","pattern":"(a|ab)(c|bcd)","subject":"abcd","compile":0,"exec":0,"match":[[0,4],[0,1],[1,4]],"nsub":2}
+{"flags":"E","pattern":"(a*)(ab)*b","subject":"ab","compile":0,"exec":0,"match":[[0,2],[0,1],[-1,-1]],"nsub":2}
+{"flags":"E","pattern":"(a|b)*","subject":"abab","compile":0,"exec":0,"match":[[0,4],[3,4]],"nsub":1}
+{"flags":"E","pattern":"(a*)*","subject":"b","compile":0,"exec":0,"match":[[0,0],[0,0]],"nsub":1}
+{"flags":"E","pattern":"(a*)+","subject":"b","compile":0,"exec":0,"match":[[0,0],[0,0]],"nsub":1}
+{"flags":"E","pattern":"((a)|b)+","subject":"ab","compile":0,"exec":0,"match":[[0,2],[1,2],[0,1]],"nsub":2}
+{"flags":"E","pattern":"(a)(b)?","subject":"a","compile":0,"exec":0,"match":[[0,1],[0,1],[-1,-1]],"nsub":2}
+{"flags":"E","pattern":"(a)\\1","subject":"aa","compile":0,"exec":0,"match":[[0,2],[0,1]],"nsub":1}
+{"flags":"E","pattern":"(a)\\1","subject":"ab","compile":0,"exec":1}
+{"flags":"E","pattern":"(a|b)\\1","subject":"ab","compile":0,"exec":1}
+{"flags":"E","pattern":"\\<foo\\>","subject":"a foo b","compile":0,"exec":0,"match":[[2,5]],"nsub":0}
+{"flags":"E","pattern":"\\bfoo\\b","subject":"afoo foo","compile":0,"exec":0,"match":[[5,8]],"nsub":0}
+{"flags":"E","pattern":"\\Bo\\B","subject":"foo","compile":0,"exec":0,"match":[[1,2]],"nsub":0}
+{"flags":"E","pattern":"\\w+","subject":"\u00c3\u00a9-x","compile":0,"exec":0,"match":[[3,4]],"nsub":0}
+{"flags":"E","pattern":"\\W","subject":"\u00c3\u00a9-x","compile":0,"exec":0,"match":[[0,1]],"nsub":0}
+{"flags":"E","pattern":"\\s+","subject":"a \u0009b","compile":0,"exec":0,"match":[[1,3]],"nsub":0}
+{"flags":"E","pattern":"\\S+","subject":" \u00c3\u00a9 ","compile":0,"exec":0,"match":[[1,3]],"nsub":0}
+{"flags":"E","pattern":"\\`a","subject":"ba","compile":0,"exec":1}
+{"flags":"E","pattern":"a\\'","subject":"ab","compile":0,"exec":1}
+{"flags":"E","pattern":"\\d","subject":"123d","compile":0,"exec":0,"match":[[3,4]],"nsub":0}
+{"flags":"E","pattern":"[[:digit:]]+","subject":"ab123","compile":0,"exec":0,"match":[[2,5]],"nsub":0}
+{"flags":"E","pattern":"[[:alpha:]]+","subject":"1\u00c3\u00a9a2","compile":0,"exec":0,"match":[[3,4]],"nsub":0}
+{"flags":"E","pattern":"[[:upper:]]","subject":"a\u00c3\u0089","compile":0,"exec":1}
+{"flags":"EI","pattern":"[[:upper:]]","subject":"a\u00c3\u00a9","compile":0,"exec":0,"match":[[0,1]],"nsub":0}
+{"flags":"E","pattern":"[[=e=]]","subject":"\u00c3\u00a9","compile":0,"exec":1}
+{"flags":"E","pattern":"[\u00c3\u00a0-\u00c3\u00a7]","subject":"\u00c3\u00a6","compile":0,"exec":0,"match":[[0,1]],"nsub":0}
+{"flags":"E","pattern":"[^a]","subject":"\u00c3\u00a9","compile":0,"exec":0,"match":[[0,1]],"nsub":0}
+{"flags":"E","pattern":".","subject":"\u00c3\u00a9","compile":0,"exec":0,"match":[[0,1]],"nsub":0}
+{"flags":"E","pattern":"..","subject":"\u00c3\u00a9","compile":0,"exec":0,"match":[[0,2]],"nsub":0}
+{"flags":"E","pattern":".+","subject":"a\u00ffb","compile":0,"exec":0,"match":[[0,3]],"nsub":0}
+{"flags":"E","pattern":"\u00ff","subject":"a\u00ffb","compile":0,"exec":0,"match":[[1,2]],"nsub":0}
+{"flags":"E","pattern":"[^a]+","subject":"b\u00ffc","compile":0,"exec":0,"match":[[0,3]],"nsub":0}
+{"flags":"EI","pattern":"\u00c3\u0089","subject":"x\u00c3\u00a9","compile":0,"exec":1}
+{"flags":"EI","pattern":"\u00c3\u00a9","subject":"x\u00c3\u0089","compile":0,"exec":1}
+{"flags":"EI","pattern":"\u00c3\u009f","subject":"SS","compile":0,"exec":1}
+{"flags":"EI","pattern":"STRASSE","subject":"stra\u00c3\u009fe","compile":0,"exec":1}
+{"flags":"E","pattern":"a{2}","subject":"aaa","compile":0,"exec":0,"match":[[0,2]],"nsub":0}
+{"flags":"E","pattern":"a{,3}","subject":"aaaa","compile":0,"exec":0,"match":[[0,3]],"nsub":0}
+{"flags":"E","pattern":"a{1,2}","subject":"aaa","compile":0,"exec":0,"match":[[0,2]],"nsub":0}
+{"flags":"E","pattern":"a{2,1}","subject":"aa","compile":10,"error":"Invalid content of \\{\\}"}
+{"flags":"E","pattern":"a+?","subject":"aaa","compile":0,"exec":0,"match":[[0,3]],"nsub":0}
+{"flags":"E","pattern":"a**","subject":"aaa","compile":0,"exec":0,"match":[[0,3]],"nsub":0}
+{"flags":"E","pattern":"*a","subject":"*a","compile":13,"error":"Invalid preceding regular expression"}
+{"flags":"E","pattern":"^*","subject":"*a","compile":13,"error":"Invalid preceding regular expression"}
+{"flags":"E","pattern":"a$b","subject":"a$b","compile":0,"exec":1}
+{"flags":"E","pattern":"a|*b","subject":"*b","compile":13,"error":"Invalid preceding regular expression"}
+{"flags":"E","pattern":"(?i)a","subject":"a","compile":13,"error":"Invalid preceding regular expression"}
+{"flags":"E","pattern":"(","subject":"x","compile":8,"error":"Unmatched ( or \\("}
+{"flags":"E","pattern":")","subject":"x","compile":0,"exec":1}
+{"flags":"E","pattern":"[a","subject":"x","compile":7,"error":"Unmatched [, [^, [:, [., or [="}
+{"flags":"E","pattern":"a{1","subject":"x","compile":9,"error":"Unmatched \\{"}
+{"flags":"E","pattern":"\\","subject":"x","compile":5,"error":"Trailing backslash"}
+{"flags":"E","pattern":"[[:foo:]]","subject":"x","compile":4,"error":"Invalid character class name"}
+{"flags":"E","pattern":"()","subject":"x","compile":0,"exec":0,"match":[[0,0],[0,0]],"nsub":1}
+{"flags":"E","pattern":"(|a)","subject":"a","compile":0,"exec":0,"match":[[0,1],[0,1]],"nsub":1}
+{"flags":"E","pattern":"x*","subject":"abc","compile":0,"exec":0,"match":[[0,0]],"nsub":0}
+{"flags":"E","pattern":"^","subject":"abc","compile":0,"exec":0,"match":[[0,0]],"nsub":0}
+{"flags":"B","pattern":"^a","subject":"abc","compile":0,"exec":1}
+{"flags":"EB","pattern":"^a","subject":"abc","compile":0,"exec":1}
+{"flags":"E","pattern":"$","subject":"abc","compile":0,"exec":0,"match":[[3,3]],"nsub":0}
+{"flags":"E","pattern":".","subject":"a\u000ab","compile":0,"exec":0,"match":[[0,1]],"nsub":0}
+{"flags":"E","pattern":"a.b","subject":"a\u000ab","compile":0,"exec":0,"match":[[0,3]],"nsub":0}
+{"flags":"E","pattern":"[^x]","subject":"\u000a","compile":0,"exec":0,"match":[[0,1]],"nsub":0}
+{"flags":"E","pattern":"^b","subject":"a\u000ab","compile":0,"exec":1}
+{"flags":"ES","pattern":"^b","subject":"ab","start":1,"compile":0,"exec":1}
+{"flags":"ES","pattern":"\\<b","subject":"ab","start":1,"compile":0,"exec":1}
+{"flags":"ES","pattern":"b","subject":"abcb","start":2,"compile":0,"exec":0,"match":[[3,4]],"nsub":0}
+{"flags":"E","pattern":"o*","subject":"foo","compile":0,"exec":0,"match":[[0,0]],"nsub":0}
+{"flags":"E","pattern":"[a-z]+","subject":"ABC","compile":0,"exec":1}
+{"flags":"EI","pattern":"[a-z]+","subject":"ABC","compile":0,"exec":0,"match":[[0,3]],"nsub":0}
+{"flags":"E","pattern":"[[:space:]]","subject":"\u00c2\u00a0","compile":0,"exec":1}
+{"flags":"E","pattern":"[[:punct:]]+","subject":".,-_","compile":0,"exec":0,"match":[[0,4]],"nsub":0}
+{"flags":"E","pattern":"\\(a\\)","subject":"(a)","compile":0,"exec":0,"match":[[0,3]],"nsub":0}
+{"flags":"E","pattern":"\\.","subject":"a.b","compile":0,"exec":0,"match":[[1,2]],"nsub":0}
+{"flags":"E","pattern":"[.]","subject":"a.b","compile":0,"exec":0,"match":[[1,2]],"nsub":0}
+{"flags":"E","pattern":"[]a]","subject":"]","compile":0,"exec":0,"match":[[0,1]],"nsub":0}
+{"flags":"E","pattern":"[^]a]","subject":"b","compile":0,"exec":0,"match":[[0,1]],"nsub":0}
+{"flags":"E","pattern":"a\\{2\\}","subject":"a{2}","compile":0,"exec":0,"match":[[0,4]],"nsub":0}
+{"flags":"E","pattern":"(a)(b)(c)(d)(e)(f)(g)(h)(i)(j)\\10","subject":"abcdefghija0","compile":0,"exec":0,"match":[[0,12],[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9]],"nsub":10}

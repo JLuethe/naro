@@ -1,0 +1,16 @@
+key,flag,description,rc_function,contexts,legacy,build_condition,source,spec_section
+M-Z,ZERO,Hidden interface,zero,MMAIN,,!NANO_TINY,src/global.c:1488,05-buffer-and-editing.md#toggles; 12-features.md
+M-X,NO_HELP,Help mode,nohelp,ALMOST_ALL ((MMOST|MBROWSER|MYESNO) & ~MFINDINHELP),,!NANO_TINY,src/global.c:1489,05-buffer-and-editing.md#toggles; 12-features.md
+M-C,CONSTANT_SHOW,Constant cursor position display,constantshow,MMAIN,,!NANO_TINY,src/global.c:1490,05-buffer-and-editing.md#toggles; 12-features.md
+M-N,LINE_NUMBERS,Line numbering,linenumbers,MMAIN,,!NANO_TINY && ENABLE_LINENUMBERS,src/global.c:1492,05-buffer-and-editing.md#toggles; 12-features.md
+M-#,LINE_NUMBERS,Line numbering,linenumbers,MMAIN,yes,!NANO_TINY && ENABLE_LINENUMBERS,src/global.c:1493,05-buffer-and-editing.md#toggles; 12-features.md
+M-P,WHITESPACE_DISPLAY,Whitespace display,whitespacedisplay,MMAIN,,!NANO_TINY,src/global.c:1496,05-buffer-and-editing.md#toggles; 12-features.md
+M-Y,NO_SYNTAX,Color syntax highlighting,nosyntax,MMAIN,,!NANO_TINY && ENABLE_COLOR,src/global.c:1498,05-buffer-and-editing.md#toggles; 12-features.md
+M-S,SOFTWRAP,Soft wrapping of overlong lines,softwrap,MMAIN,,!NANO_TINY,src/global.c:1500,05-buffer-and-editing.md#toggles; 12-features.md
+M-$,SOFTWRAP,Soft wrapping of overlong lines,softwrap,MMAIN,yes,!NANO_TINY,src/global.c:1501,05-buffer-and-editing.md#toggles; 12-features.md
+M-L,BREAK_LONG_LINES,Hard wrapping of overlong lines,breaklonglines,MMAIN,,!NANO_TINY && ENABLE_WRAPPING,src/global.c:1504,05-buffer-and-editing.md#toggles; 12-features.md
+M-O,TABS_TO_SPACES,Conversion of typed tabs to spaces,tabstospaces,MMAIN,,!NANO_TINY,src/global.c:1506,05-buffer-and-editing.md#toggles; 12-features.md
+M-I,AUTOINDENT,Auto indent,autoindent,MMAIN,,!NANO_TINY,src/global.c:1507,05-buffer-and-editing.md#toggles; 12-features.md
+M-H,SMART_HOME,Smart home key,smarthome,MMAIN,,!NANO_TINY,src/global.c:1509,05-buffer-and-editing.md#toggles; 12-features.md
+M-K,CUT_FROM_CURSOR,Cut to end,cutfromcursor,MMAIN,,!NANO_TINY,src/global.c:1510,05-buffer-and-editing.md#toggles; 12-features.md
+M-M,USE_MOUSE,Mouse support,mouse,MMAIN,,!NANO_TINY && ENABLE_MOUSE,src/global.c:1512,05-buffer-and-editing.md#toggles; 12-features.md

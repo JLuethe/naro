@@ -1,0 +1,1505 @@
+[
+ {
+  "id": "TEST-SRCH-001",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "text": "foo\r"
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-W"
+    ]
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-W"
+    ]
+   },
+   {
+    "snapshot": "q03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-W"
+    ]
+   },
+   {
+    "snapshot": "q04",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-Q"
+    ]
+   },
+   {
+    "snapshot": "q05",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "q06",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "q07",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-002",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-C"
+    ]
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "text": "foo\r"
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-W"
+    ]
+   },
+   {
+    "snapshot": "q03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-W"
+    ]
+   },
+   {
+    "snapshot": "q04",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-W"
+    ]
+   },
+   {
+    "snapshot": "q05",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-003",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-R"
+    ]
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "text": "b.z\r"
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "q03",
+    "quiet": 150
+   },
+   {
+    "text": "^\r"
+   },
+   {
+    "snapshot": "q04",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-W"
+    ]
+   },
+   {
+    "snapshot": "q05",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-W"
+    ]
+   },
+   {
+    "snapshot": "q06",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "q07",
+    "quiet": 150
+   },
+   {
+    "text": "o*\r"
+   },
+   {
+    "snapshot": "q08",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-W"
+    ]
+   },
+   {
+    "snapshot": "q09",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-004",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "text": "baz\r"
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-W"
+    ]
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-005",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "text": "nothere\r"
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\r"
+   },
+   {
+    "snapshot": "q03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-006",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^Q"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "text": "foo\r"
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-Q"
+    ]
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-F"
+    ]
+   },
+   {
+    "snapshot": "q03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-007",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^\\"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "text": "foo\r"
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "text": "qux\r"
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "text": "y"
+   },
+   {
+    "snapshot": "q03",
+    "quiet": 150
+   },
+   {
+    "text": "n"
+   },
+   {
+    "snapshot": "q04",
+    "quiet": 150
+   },
+   {
+    "text": "y"
+   },
+   {
+    "snapshot": "q05",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-008",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^\\"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "text": "foo\r"
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "text": "X\r"
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "text": "a"
+   },
+   {
+    "snapshot": "q03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-009",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^\\"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-R"
+    ]
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "text": "(f)(o+)\r"
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "text": "<\\2\\1\\3>\r"
+   },
+   {
+    "snapshot": "q03",
+    "quiet": 150
+   },
+   {
+    "text": "a"
+   },
+   {
+    "snapshot": "q04",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-010",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^\\"
+    ]
+   },
+   {
+    "snapshot": "q03",
+    "quiet": 150
+   },
+   {
+    "text": "o\r"
+   },
+   {
+    "snapshot": "q04",
+    "quiet": 150
+   },
+   {
+    "text": "0\r"
+   },
+   {
+    "snapshot": "q05",
+    "quiet": 150
+   },
+   {
+    "text": "a"
+   },
+   {
+    "snapshot": "q06",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-011",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^\\"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-R"
+    ]
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "text": "^\r"
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "text": "> \r"
+   },
+   {
+    "snapshot": "q03",
+    "quiet": 150
+   },
+   {
+    "text": "a"
+   },
+   {
+    "snapshot": "q04",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-012",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^\\"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "text": "foo\r"
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "text": "\r"
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "text": "a"
+   },
+   {
+    "snapshot": "q03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-013",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^\\"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "text": "foo\r"
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "text": "Z\r"
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "q03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-014",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "text": "foo\r"
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "text": "baz\r"
+   },
+   {
+    "snapshot": "q03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "q04",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "q05",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "q06",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "q07",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "snapshot": "q08",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-015",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^\\"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-R"
+    ]
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "text": "o*\r"
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "text": "-\r"
+   },
+   {
+    "snapshot": "q03",
+    "quiet": 150
+   },
+   {
+    "text": "a"
+   },
+   {
+    "snapshot": "q04",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-016",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-R"
+    ]
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "text": "(\r"
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-017",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "foo Foo FOO\nbar foo\nbaz\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-B"
+    ]
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "text": "foo\r"
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "q03",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^R"
+    ]
+   },
+   {
+    "snapshot": "q04",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-018",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "M-W"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ },
+ {
+  "id": "TEST-SRCH-019",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "\u00e9 \u00c9\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "keys": [
+     "^W"
+    ]
+   },
+   {
+    "snapshot": "q00",
+    "quiet": 150
+   },
+   {
+    "text": "\u00c9\r"
+   },
+   {
+    "snapshot": "q01",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-W"
+    ]
+   },
+   {
+    "snapshot": "q02",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 300
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ }
+]

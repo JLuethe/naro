@@ -1,0 +1,772 @@
+{
+ "scenario": "TEST-REND-025",
+ "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+ "binary": "/home/john/src/nano-install/default/bin/nano",
+ "argv": [
+  "nano",
+  "-I",
+  "-x",
+  "-c",
+  "big.txt"
+ ],
+ "env": {
+  "HOME": "/tmp/nanospec-work/TEST-REND-025/fx/home",
+  "TERM": "tmux-256color",
+  "PATH": "/tmp/nanospec-work/TEST-REND-025/fx/bin:/usr/bin:/bin",
+  "LANG": "en_US.UTF-8",
+  "SHELL": "/bin/sh",
+  "TZ": "UTC"
+ },
+ "cwd": "/tmp/nanospec-work/TEST-REND-025/fx/work",
+ "inputs": [
+  {
+   "t": 0.956,
+   "hex": "03"
+  },
+  {
+   "t": 1.379,
+   "hex": "1b78"
+  },
+  {
+   "t": 1.769,
+   "hex": "1b78"
+  },
+  {
+   "t": 2.128,
+   "hex": "18"
+  },
+  {
+   "t": 2.436,
+   "hex": "6e"
+  }
+ ],
+ "snapshots": {
+  "s0": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                        big.txt                                   ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "line 1                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 2                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 3                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 4                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 5                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 6                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 7                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 8                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 9                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 10                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 11                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 12                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 13                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 14                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 15                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 16                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 17                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 18                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 19                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 20                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 21                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 22                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "                              [ Read 1200 lines ]                               ",
+     "attrs": [
+      {
+       "start": 30,
+       "end": 49,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "s1": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                        big.txt                                   ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "line 1                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 2                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 3                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 4                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 5                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 6                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 7                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 8                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 9                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 10                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 11                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 12                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 13                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 14                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 15                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 16                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 17                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 18                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 19                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 20                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 21                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 22                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "       [ line    1/1201 ( 0%), col  1/ 7 ( 14%), char     0/10893 ( 0%) ]       ",
+     "attrs": [
+      {
+       "start": 7,
+       "end": 73,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "s2": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                        big.txt                                   ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "line 1                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 2                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 3                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 4                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 5                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 6                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 7                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 8                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 9                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 10                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 11                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 12                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 13                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 14                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 15                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 16                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 17                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 18                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 19                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 20                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "                             [ Help mode enabled ]                              ",
+     "attrs": [
+      {
+       "start": 29,
+       "end": 50,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "s3": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                        big.txt                                   ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "line 1                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 2                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 3                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 4                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 5                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 6                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 7                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 8                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 9                                                                          ",
+     "attrs": []
+    },
+    {
+     "text": "line 10                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 11                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 12                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 13                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 14                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 15                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 16                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 17                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 18                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 19                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 20                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 21                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 22                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "                             [ Help mode disabled ]                             ",
+     "attrs": [
+      {
+       "start": 29,
+       "end": 51,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  }
+ },
+ "after_exit_screen": {
+  "rows": [
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "Pane is dead (status 0, Fri Oct 23 22:48:53 2026)                               ",
+    "attrs": []
+   }
+  ],
+  "cursor": {
+   "x": 0,
+   "y": 23,
+   "visible": false
+  },
+  "modes": {
+   "alternate_screen": 0,
+   "keypad_mode": 0,
+   "cursor_keys_mode": 0,
+   "mouse_any": 0,
+   "mouse_sgr": 0,
+   "mouse_standard": 0,
+   "mouse_button": 0,
+   "mouse_all": 0,
+   "insert_mode": 0,
+   "autowrap": 1
+  }
+ },
+ "exit_status": 0,
+ "exit_signal": null,
+ "fixture": {
+  "home": {
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work": {
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work/big.txt": {
+   "mode": "0o644",
+   "type": "file",
+   "size": 10893,
+   "sha256": "d1bb891609202847491861c391071789800619a95963bce3c5d043d8fb4670f4"
+  }
+ },
+ "notes": [],
+ "stderr": "",
+ "raw_output_bytes": 1211,
+ "raw_output_sha256": "f7c26586fadddb2735c0c6dac678f27128d9fbc4a18ca53f73d42f689d2afc4a",
+ "bracketed_paste_set": 1,
+ "bracketed_paste_reset": 1,
+ "trace_final_modes": {
+  "cursor_visible": true,
+  "alternate_screen": false,
+  "bracketed_paste": false,
+  "keypad_transmit": false,
+  "mouse_tracking": null
+ },
+ "checks": []
+}

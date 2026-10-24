@@ -1,0 +1,82 @@
+# flags	pattern	subject	[start]   (E=REG_EXTENDED I=REG_ICASE N=REG_NOSUB B=REG_NOTBOL S=REG_STARTEND from start)
+E	a|ab	ab
+E	ab|a	ab
+E	(a|ab)(c|bcd)	abcd
+E	(a*)(ab)*b	ab
+E	(a|b)*	abab
+E	(a*)*	b
+E	(a*)+	b
+E	((a)|b)+	ab
+E	(a)(b)?	a
+E	(a)\1	aa
+E	(a)\1	ab
+E	(a|b)\1	ab
+E	\<foo\>	a foo b
+E	\bfoo\b	afoo foo
+E	\Bo\B	foo
+E	\w+	é-x
+E	\W	é-x
+E	\s+	a \tb
+E	\S+	 é 
+E	\`a	ba
+E	a\'	ab
+E	\d	123d
+E	[[:digit:]]+	ab123
+E	[[:alpha:]]+	1éa2
+E	[[:upper:]]	aÉ
+EI	[[:upper:]]	aé
+E	[[=e=]]	é
+E	[à-ç]	æ
+E	[^a]	é
+E	.	é
+E	..	é
+E	.+	a\xffb
+E	\xff	a\xffb
+E	[^a]+	b\xffc
+EI	É	xé
+EI	é	xÉ
+EI	ß	SS
+EI	STRASSE	straße
+E	a{2}	aaa
+E	a{,3}	aaaa
+E	a{1,2}	aaa
+E	a{2,1}	aa
+E	a+?	aaa
+E	a**	aaa
+E	*a	*a
+E	^*	*a
+E	a$b	a$b
+E	a|*b	*b
+E	(?i)a	a
+E	(	x
+E	)	x
+E	[a	x
+E	a{1	x
+E	\	x
+E	[[:foo:]]	x
+E	()	x
+E	(|a)	a
+E	x*	abc
+E	^	abc
+B	^a	abc
+EB	^a	abc
+E	$	abc
+E	.	a\nb
+E	a.b	a\nb
+E	[^x]	\n
+E	^b	a\nb
+ES	^b	ab	1
+ES	\<b	ab	1
+ES	b	abcb	2
+E	o*	foo
+E	[a-z]+	ABC
+EI	[a-z]+	ABC
+E	[[:space:]]	\xc2\xa0
+E	[[:punct:]]+	.,-_
+E	\(a\)	(a)
+E	\.	a.b
+E	[.]	a.b
+E	[]a]	]
+E	[^]a]	b
+E	a\{2\}	a{2}
+E	(a)(b)(c)(d)(e)(f)(g)(h)(i)(j)\10	abcdefghija0

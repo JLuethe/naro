@@ -1,0 +1,2327 @@
+{
+ "scenario": "TEST-MOVE-008",
+ "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+ "binary": "/home/john/src/nano-install/default/bin/nano",
+ "argv": [
+  "nano",
+  "-I",
+  "f.txt"
+ ],
+ "env": {
+  "HOME": "/tmp/nanospec-work/TEST-MOVE-008/fx/home",
+  "TERM": "tmux-256color",
+  "PATH": "/tmp/nanospec-work/TEST-MOVE-008/fx/bin:/usr/bin:/bin",
+  "LANG": "en_US.UTF-8",
+  "SHELL": "/bin/sh",
+  "TZ": "UTC"
+ },
+ "cwd": "/tmp/nanospec-work/TEST-MOVE-008/fx/work",
+ "inputs": [
+  {
+   "t": 0.464,
+   "hex": "1b5b367e"
+  },
+  {
+   "t": 0.763,
+   "hex": "1b5b367e"
+  },
+  {
+   "t": 1.048,
+   "hex": "1b5b367e"
+  },
+  {
+   "t": 1.333,
+   "hex": "1b5b357e"
+  },
+  {
+   "t": 1.626,
+   "hex": "1b5b313b3346"
+  },
+  {
+   "t": 1.911,
+   "hex": "1b5b313b3348"
+  },
+  {
+   "t": 2.191,
+   "hex": "1b5b313b3342"
+  },
+  {
+   "t": 2.472,
+   "hex": "1b5b313b3341"
+  },
+  {
+   "t": 2.763,
+   "hex": "0c"
+  },
+  {
+   "t": 3.086,
+   "hex": "1b25"
+  },
+  {
+   "t": 3.403,
+   "hex": "1b25"
+  },
+  {
+   "t": 3.727,
+   "hex": "18"
+  },
+  {
+   "t": 4.069,
+   "hex": "6e"
+  }
+ ],
+ "snapshots": {
+  "m00": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                         f.txt                                    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "line 19                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 20                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 21                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 22                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 23                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 24                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 25                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 26                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 27                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 28                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 29                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 30                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 31                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 32                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 33                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 34                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 35                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 36                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 37                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 38                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "                               [ Read 60 lines ]                                ",
+     "attrs": [
+      {
+       "start": 31,
+       "end": 48,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "m01": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                         f.txt                                    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "line 37                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 38                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 39                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 40                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 41                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 42                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 43                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 44                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 45                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 46                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 47                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 48                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 49                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 50                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 51                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 52                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 53                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 54                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 55                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 56                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "                               [ Read 60 lines ]                                ",
+     "attrs": [
+      {
+       "start": 31,
+       "end": 48,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "m02": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                         f.txt                                    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "line 55                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 56                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 57                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 58                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 59                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 60                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                                                                                ",
+     "attrs": []
+    },
+    {
+     "text": "                               [ Read 60 lines ]                                ",
+     "attrs": [
+      {
+       "start": 31,
+       "end": 48,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "m03": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                         f.txt                                    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "line 37                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 38                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 39                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 40                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 41                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 42                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 43                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 44                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 45                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 46                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 47                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 48                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 49                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 50                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 51                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 52                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 53                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 54                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 55                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 56                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "                               [ Read 60 lines ]                                ",
+     "attrs": [
+      {
+       "start": 31,
+       "end": 48,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "m04": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                         f.txt                                    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "line 37                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 38                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 39                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 40                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 41                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 42                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 43                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 44                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 45                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 46                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 47                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 48                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 49                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 50                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 51                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 52                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 53                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 54                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 55                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 56                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "                               [ Read 60 lines ]                                ",
+     "attrs": [
+      {
+       "start": 31,
+       "end": 48,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 20,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "m05": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                         f.txt                                    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "line 37                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 38                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 39                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 40                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 41                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 42                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 43                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 44                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 45                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 46                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 47                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 48                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 49                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 50                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 51                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 52                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 53                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 54                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 55                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 56                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "                               [ Read 60 lines ]                                ",
+     "attrs": [
+      {
+       "start": 31,
+       "end": 48,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "m06": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                         f.txt                                    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "line 38                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 39                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 40                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 41                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 42                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 43                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 44                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 45                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 46                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 47                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 48                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 49                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 50                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 51                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 52                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 53                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 54                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 55                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 56                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 57                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "                               [ Read 60 lines ]                                ",
+     "attrs": [
+      {
+       "start": 31,
+       "end": 48,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "m07": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                         f.txt                                    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "line 37                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 38                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 39                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 40                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 41                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 42                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 43                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 44                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 45                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 46                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 47                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 48                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 49                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 50                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 51                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 52                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 53                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 54                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 55                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 56                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "                               [ Read 60 lines ]                                ",
+     "attrs": [
+      {
+       "start": 31,
+       "end": 48,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 2,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "m08": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                         f.txt                                    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "line 28                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 29                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 30                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 31                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 32                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 33                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 34                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 35                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 36                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 37                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 38                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 39                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 40                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 41                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 42                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 43                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 44                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 45                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 46                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 47                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "                               [ Read 60 lines ]                                ",
+     "attrs": [
+      {
+       "start": 31,
+       "end": 48,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 11,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "m09": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                         f.txt                                    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "line 28                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 29                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 30                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 31                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 32                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 33                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 34                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 35                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 36                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 37                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 38                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 39                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 40                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 41                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 42                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 43                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 44                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 45                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 46                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 47                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "                               [ Read 60 lines ]                                ",
+     "attrs": [
+      {
+       "start": 31,
+       "end": 48,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 11,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  },
+  "m10": {
+   "rows": [
+    {
+     "text": "  GNU nano 9.3                         f.txt                                    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 80,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "line 38                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 39                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 40                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 41                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 42                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 43                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 44                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 45                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 46                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 47                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 48                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 49                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 50                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 51                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 52                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 53                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 54                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 55                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 56                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "line 57                                                                         ",
+     "attrs": []
+    },
+    {
+     "text": "                               [ Read 60 lines ]                                ",
+     "attrs": [
+      {
+       "start": 31,
+       "end": 48,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location    ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    },
+    {
+     "text": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line  ",
+     "attrs": [
+      {
+       "start": 0,
+       "end": 2,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 13,
+       "end": 15,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 26,
+       "end": 28,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 39,
+       "end": 41,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 52,
+       "end": 54,
+       "attr": "reverse=True"
+      },
+      {
+       "start": 65,
+       "end": 67,
+       "attr": "reverse=True"
+      }
+     ]
+    }
+   ],
+   "cursor": {
+    "x": 0,
+    "y": 1,
+    "visible": true
+   },
+   "modes": {
+    "alternate_screen": 1,
+    "keypad_mode": 1,
+    "cursor_keys_mode": 1,
+    "mouse_any": 0,
+    "mouse_sgr": 0,
+    "mouse_standard": 0,
+    "mouse_button": 0,
+    "mouse_all": 0,
+    "insert_mode": 0,
+    "autowrap": 1
+   }
+  }
+ },
+ "after_exit_screen": {
+  "rows": [
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "                                                                                ",
+    "attrs": []
+   },
+   {
+    "text": "Pane is dead (status 0, Fri Oct 23 23:00:08 2026)                               ",
+    "attrs": []
+   }
+  ],
+  "cursor": {
+   "x": 0,
+   "y": 23,
+   "visible": false
+  },
+  "modes": {
+   "alternate_screen": 0,
+   "keypad_mode": 0,
+   "cursor_keys_mode": 0,
+   "mouse_any": 0,
+   "mouse_sgr": 0,
+   "mouse_standard": 0,
+   "mouse_button": 0,
+   "mouse_all": 0,
+   "insert_mode": 0,
+   "autowrap": 1
+  }
+ },
+ "exit_status": 0,
+ "exit_signal": null,
+ "fixture": {
+  "home": {
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work": {
+   "mode": "0o755",
+   "type": "dir"
+  },
+  "work/f.txt": {
+   "mode": "0o644",
+   "type": "file",
+   "size": 471,
+   "sha256": "48f12c137e3b430d27afa58900975bed0d5767cd73ded61789fd0c15335fa9fc",
+   "b64": "bGluZSAxCmxpbmUgMgpsaW5lIDMKbGluZSA0CmxpbmUgNQpsaW5lIDYKbGluZSA3CmxpbmUgOApsaW5lIDkKbGluZSAxMApsaW5lIDExCmxpbmUgMTIKbGluZSAxMwpsaW5lIDE0CmxpbmUgMTUKbGluZSAxNgpsaW5lIDE3CmxpbmUgMTgKbGluZSAxOQpsaW5lIDIwCmxpbmUgMjEKbGluZSAyMgpsaW5lIDIzCmxpbmUgMjQKbGluZSAyNQpsaW5lIDI2CmxpbmUgMjcKbGluZSAyOApsaW5lIDI5CmxpbmUgMzAKbGluZSAzMQpsaW5lIDMyCmxpbmUgMzMKbGluZSAzNApsaW5lIDM1CmxpbmUgMzYKbGluZSAzNwpsaW5lIDM4CmxpbmUgMzkKbGluZSA0MApsaW5lIDQxCmxpbmUgNDIKbGluZSA0MwpsaW5lIDQ0CmxpbmUgNDUKbGluZSA0NgpsaW5lIDQ3CmxpbmUgNDgKbGluZSA0OQpsaW5lIDUwCmxpbmUgNTEKbGluZSA1MgpsaW5lIDUzCmxpbmUgNTQKbGluZSA1NQpsaW5lIDU2CmxpbmUgNTcKbGluZSA1OApsaW5lIDU5CmxpbmUgNjAK",
+   "text": "line 1\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8\nline 9\nline 10\nline 11\nline 12\nline 13\nline 14\nline 15\nline 16\nline 17\nline 18\nline 19\nline 20\nline 21\nline 22\nline 23\nline 24\nline 25\nline 26\nline 27\nline 28\nline 29\nline 30\nline 31\nline 32\nline 33\nline 34\nline 35\nline 36\nline 37\nline 38\nline 39\nline 40\nline 41\nline 42\nline 43\nline 44\nline 45\nline 46\nline 47\nline 48\nline 49\nline 50\nline 51\nline 52\nline 53\nline 54\nline 55\nline 56\nline 57\nline 58\nline 59\nline 60\n"
+  }
+ },
+ "notes": [],
+ "stderr": "",
+ "raw_output_bytes": 4241,
+ "raw_output_sha256": "632e9a0a70a4abb199f863295ff16f7106d5472ff23b938c8e345d1f81c9536a",
+ "bracketed_paste_set": 1,
+ "bracketed_paste_reset": 1,
+ "trace_final_modes": {
+  "cursor_visible": true,
+  "alternate_screen": false,
+  "bracketed_paste": false,
+  "keypad_transmit": false,
+  "mouse_tracking": null
+ },
+ "checks": []
+}

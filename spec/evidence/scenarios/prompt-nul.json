@@ -1,0 +1,61 @@
+[
+ {
+  "id": "TEST-PROMPT-NUL-001",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 400
+   },
+   {
+    "text": "a"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "hex": "00"
+   },
+   {
+    "settle": 300
+   },
+   {
+    "snapshot": "s1"
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "settle": 200
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ]
+ }
+]

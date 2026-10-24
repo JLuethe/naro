@@ -1,0 +1,259 @@
+{
+ "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+ "reason": "Earlier definitions superseded by files2.json; runs contain the corrected versions. Archived during final audit.",
+ "scenarios": [
+  {
+   "id": "TEST-FILE-014",
+   "args": [
+    "-I",
+    "-G",
+    "f.txt"
+   ],
+   "files": {
+    "work/f.txt": {
+     "text": "a\n"
+    }
+   },
+   "steps": [
+    {
+     "settle": 400
+    },
+    {
+     "text": "x"
+    },
+    {
+     "snapshot": "f00",
+     "quiet": 200
+    },
+    {
+     "snapshot": "locked"
+    },
+    {
+     "keys": [
+      "^X"
+     ]
+    },
+    {
+     "settle": 300
+    },
+    {
+     "text": "y"
+    },
+    {
+     "settle": 300
+    },
+    {
+     "keys": [
+      "Enter"
+     ]
+    },
+    {
+     "wait_exit": 3
+    }
+   ],
+   "umask": "022"
+  },
+  {
+   "id": "TEST-FILE-016",
+   "args": [
+    "-I",
+    "f.txt"
+   ],
+   "files": {
+    "work/f.txt": {
+     "text": "a\n"
+    },
+    "work/other.txt": {
+     "text": "o\n"
+    }
+   },
+   "steps": [
+    {
+     "settle": 400
+    },
+    {
+     "text": "x"
+    },
+    {
+     "snapshot": "f00",
+     "quiet": 200
+    },
+    {
+     "keys": [
+      "^O"
+     ]
+    },
+    {
+     "snapshot": "f01",
+     "quiet": 200
+    },
+    {
+     "keys": [
+      "^U"
+     ]
+    },
+    {
+     "snapshot": "f02",
+     "quiet": 200
+    },
+    {
+     "text": "other.txt\r"
+    },
+    {
+     "snapshot": "f03",
+     "quiet": 200
+    },
+    {
+     "text": "y"
+    },
+    {
+     "snapshot": "f04",
+     "quiet": 200
+    },
+    {
+     "text": "y"
+    },
+    {
+     "snapshot": "f05",
+     "quiet": 200
+    },
+    {
+     "keys": [
+      "^X"
+     ]
+    },
+    {
+     "settle": 300
+    },
+    {
+     "text": "n"
+    },
+    {
+     "wait_exit": 3
+    }
+   ],
+   "umask": "022"
+  },
+  {
+   "id": "TEST-FILE-017",
+   "args": [
+    "-I",
+    "f.txt"
+   ],
+   "files": {
+    "work/f.txt": {
+     "text": "a\n"
+    },
+    "work/other.txt": {
+     "text": "o\n"
+    }
+   },
+   "steps": [
+    {
+     "settle": 400
+    },
+    {
+     "keys": [
+      "^O"
+     ]
+    },
+    {
+     "snapshot": "f00",
+     "quiet": 200
+    },
+    {
+     "keys": [
+      "^U"
+     ]
+    },
+    {
+     "snapshot": "f01",
+     "quiet": 200
+    },
+    {
+     "text": "other.txt"
+    },
+    {
+     "snapshot": "f02",
+     "quiet": 200
+    },
+    {
+     "keys": [
+      "M-A"
+     ]
+    },
+    {
+     "snapshot": "f03",
+     "quiet": 200
+    },
+    {
+     "keys": [
+      "Enter"
+     ]
+    },
+    {
+     "snapshot": "f04",
+     "quiet": 200
+    },
+    {
+     "keys": [
+      "^O"
+     ]
+    },
+    {
+     "snapshot": "f05",
+     "quiet": 200
+    },
+    {
+     "keys": [
+      "^U"
+     ]
+    },
+    {
+     "snapshot": "f06",
+     "quiet": 200
+    },
+    {
+     "text": "other.txt"
+    },
+    {
+     "snapshot": "f07",
+     "quiet": 200
+    },
+    {
+     "keys": [
+      "M-P"
+     ]
+    },
+    {
+     "snapshot": "f08",
+     "quiet": 200
+    },
+    {
+     "keys": [
+      "Enter"
+     ]
+    },
+    {
+     "snapshot": "f09",
+     "quiet": 200
+    },
+    {
+     "keys": [
+      "^X"
+     ]
+    },
+    {
+     "settle": 300
+    },
+    {
+     "text": "n"
+    },
+    {
+     "wait_exit": 3
+    }
+   ],
+   "umask": "022"
+  }
+ ]
+}

@@ -1,0 +1,4977 @@
+{
+ "argv": "-I --preserve",
+ "keys": [
+  {
+   "order": 0,
+   "keystr": "^M",
+   "keystr_bytes": [
+    94,
+    77
+   ],
+   "keycode": 13,
+   "menus_mask": 57087,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_enter",
+   "toggle": 0
+  },
+  {
+   "order": 1,
+   "keystr": "Enter",
+   "keystr_bytes": [
+    69,
+    110,
+    116,
+    101,
+    114
+   ],
+   "keycode": 343,
+   "menus_mask": 57087,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_enter",
+   "toggle": 0
+  },
+  {
+   "order": 2,
+   "keystr": "^I",
+   "keystr_bytes": [
+    94,
+    73
+   ],
+   "keycode": 9,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_tab",
+   "toggle": 0
+  },
+  {
+   "order": 3,
+   "keystr": "Tab",
+   "keystr_bytes": [
+    84,
+    97,
+    98
+   ],
+   "keycode": 9,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_tab",
+   "toggle": 0
+  },
+  {
+   "order": 4,
+   "keystr": "^B",
+   "keystr_bytes": [
+    94,
+    66
+   ],
+   "keycode": 2,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_search_backward",
+   "toggle": 0
+  },
+  {
+   "order": 5,
+   "keystr": "^F",
+   "keystr_bytes": [
+    94,
+    70
+   ],
+   "keycode": 6,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_search_forward",
+   "toggle": 0
+  },
+  {
+   "order": 6,
+   "keystr": "^G",
+   "keystr_bytes": [
+    94,
+    71
+   ],
+   "keycode": 7,
+   "menus_mask": 24319,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER"
+   ],
+   "func": "do_help",
+   "toggle": 0
+  },
+  {
+   "order": 7,
+   "keystr": "^X",
+   "keystr_bytes": [
+    94,
+    88
+   ],
+   "keycode": 24,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_exit",
+   "toggle": 0
+  },
+  {
+   "order": 8,
+   "keystr": "^O",
+   "keystr_bytes": [
+    94,
+    79
+   ],
+   "keycode": 15,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_writeout",
+   "toggle": 0
+  },
+  {
+   "order": 9,
+   "keystr": "^R",
+   "keystr_bytes": [
+    94,
+    82
+   ],
+   "keycode": 18,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_insertfile",
+   "toggle": 0
+  },
+  {
+   "order": 10,
+   "keystr": "^W",
+   "keystr_bytes": [
+    94,
+    87
+   ],
+   "keycode": 23,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_search_forward",
+   "toggle": 0
+  },
+  {
+   "order": 11,
+   "keystr": "^A",
+   "keystr_bytes": [
+    94,
+    65
+   ],
+   "keycode": 1,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_home",
+   "toggle": 0
+  },
+  {
+   "order": 12,
+   "keystr": "^E",
+   "keystr_bytes": [
+    94,
+    69
+   ],
+   "keycode": 5,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_end",
+   "toggle": 0
+  },
+  {
+   "order": 13,
+   "keystr": "^P",
+   "keystr_bytes": [
+    94,
+    80
+   ],
+   "keycode": 16,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_up",
+   "toggle": 0
+  },
+  {
+   "order": 14,
+   "keystr": "^N",
+   "keystr_bytes": [
+    94,
+    78
+   ],
+   "keycode": 14,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_down",
+   "toggle": 0
+  },
+  {
+   "order": 15,
+   "keystr": "^Y",
+   "keystr_bytes": [
+    94,
+    89
+   ],
+   "keycode": 25,
+   "menus_mask": 17665,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER",
+    "MLINTER"
+   ],
+   "func": "do_page_up",
+   "toggle": 0
+  },
+  {
+   "order": 16,
+   "keystr": "^V",
+   "keystr_bytes": [
+    94,
+    86
+   ],
+   "keycode": 22,
+   "menus_mask": 17665,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER",
+    "MLINTER"
+   ],
+   "func": "do_page_down",
+   "toggle": 0
+  },
+  {
+   "order": 17,
+   "keystr": "^C",
+   "keystr_bytes": [
+    94,
+    67
+   ],
+   "keycode": 3,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "report_cursor_position",
+   "toggle": 0
+  },
+  {
+   "order": 18,
+   "keystr": "^H",
+   "keystr_bytes": [
+    94,
+    72
+   ],
+   "keycode": 8,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_backspace",
+   "toggle": 0
+  },
+  {
+   "order": 19,
+   "keystr": "^D",
+   "keystr_bytes": [
+    94,
+    68
+   ],
+   "keycode": 4,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_delete",
+   "toggle": 0
+  },
+  {
+   "order": 20,
+   "keystr": "Bsp",
+   "keystr_bytes": [
+    66,
+    115,
+    112
+   ],
+   "keycode": 263,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_backspace",
+   "toggle": 0
+  },
+  {
+   "order": 21,
+   "keystr": "Sh-Del",
+   "keystr_bytes": [
+    83,
+    104,
+    45,
+    68,
+    101,
+    108
+   ],
+   "keycode": 1117,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_backspace",
+   "toggle": 0
+  },
+  {
+   "order": 22,
+   "keystr": "Del",
+   "keystr_bytes": [
+    68,
+    101,
+    108
+   ],
+   "keycode": 330,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_delete",
+   "toggle": 0
+  },
+  {
+   "order": 23,
+   "keystr": "Ins",
+   "keystr_bytes": [
+    73,
+    110,
+    115
+   ],
+   "keycode": 331,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_insertfile",
+   "toggle": 0
+  },
+  {
+   "order": 24,
+   "keystr": "^\\",
+   "keystr_bytes": [
+    94,
+    92
+   ],
+   "keycode": 28,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_replace",
+   "toggle": 0
+  },
+  {
+   "order": 25,
+   "keystr": "M-R",
+   "keystr_bytes": [
+    77,
+    45,
+    82
+   ],
+   "keycode": 114,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_replace",
+   "toggle": 0
+  },
+  {
+   "order": 26,
+   "keystr": "^K",
+   "keystr_bytes": [
+    94,
+    75
+   ],
+   "keycode": 11,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "cut_text",
+   "toggle": 0
+  },
+  {
+   "order": 27,
+   "keystr": "M-6",
+   "keystr_bytes": [
+    77,
+    45,
+    54
+   ],
+   "keycode": 54,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "copy_text",
+   "toggle": 0
+  },
+  {
+   "order": 28,
+   "keystr": "M-^",
+   "keystr_bytes": [
+    77,
+    45,
+    94
+   ],
+   "keycode": 94,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "copy_text",
+   "toggle": 0
+  },
+  {
+   "order": 29,
+   "keystr": "^U",
+   "keystr_bytes": [
+    94,
+    85
+   ],
+   "keycode": 21,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "paste_text",
+   "toggle": 0
+  },
+  {
+   "order": 30,
+   "keystr": "^T",
+   "keystr_bytes": [
+    94,
+    84
+   ],
+   "keycode": 20,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_execute",
+   "toggle": 0
+  },
+  {
+   "order": 31,
+   "keystr": "^T",
+   "keystr_bytes": [
+    94,
+    84
+   ],
+   "keycode": 20,
+   "menus_mask": 128,
+   "menus": [
+    "MEXECUTE"
+   ],
+   "func": "do_spell",
+   "toggle": 0
+  },
+  {
+   "order": 32,
+   "keystr": "^J",
+   "keystr_bytes": [
+    94,
+    74
+   ],
+   "keycode": 10,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_justify",
+   "toggle": 0
+  },
+  {
+   "order": 33,
+   "keystr": "^Y",
+   "keystr_bytes": [
+    94,
+    89
+   ],
+   "keycode": 25,
+   "menus_mask": 128,
+   "menus": [
+    "MEXECUTE"
+   ],
+   "func": "do_linter",
+   "toggle": 0
+  },
+  {
+   "order": 34,
+   "keystr": "^O",
+   "keystr_bytes": [
+    94,
+    79
+   ],
+   "keycode": 15,
+   "menus_mask": 128,
+   "menus": [
+    "MEXECUTE"
+   ],
+   "func": "do_formatter",
+   "toggle": 0
+  },
+  {
+   "order": 35,
+   "keystr": "^/",
+   "keystr_bytes": [
+    94,
+    47
+   ],
+   "keycode": 31,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_gotolinecolumn",
+   "toggle": 0
+  },
+  {
+   "order": 36,
+   "keystr": "M-G",
+   "keystr_bytes": [
+    77,
+    45,
+    71
+   ],
+   "keycode": 103,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_gotolinecolumn",
+   "toggle": 0
+  },
+  {
+   "order": 37,
+   "keystr": "^_",
+   "keystr_bytes": [
+    94,
+    95
+   ],
+   "keycode": 31,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_gotolinecolumn",
+   "toggle": 0
+  },
+  {
+   "order": 38,
+   "keystr": "PgUp",
+   "keystr_bytes": [
+    80,
+    103,
+    85,
+    112
+   ],
+   "keycode": 339,
+   "menus_mask": 17665,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER",
+    "MLINTER"
+   ],
+   "func": "do_page_up",
+   "toggle": 0
+  },
+  {
+   "order": 39,
+   "keystr": "PgDn",
+   "keystr_bytes": [
+    80,
+    103,
+    68,
+    110
+   ],
+   "keycode": 338,
+   "menus_mask": 17665,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER",
+    "MLINTER"
+   ],
+   "func": "do_page_down",
+   "toggle": 0
+  },
+  {
+   "order": 40,
+   "keystr": "Bsp",
+   "keystr_bytes": [
+    66,
+    115,
+    112
+   ],
+   "keycode": 263,
+   "menus_mask": 1280,
+   "menus": [
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_page_up",
+   "toggle": 0
+  },
+  {
+   "order": 41,
+   "keystr": "Sh-Del",
+   "keystr_bytes": [
+    83,
+    104,
+    45,
+    68,
+    101,
+    108
+   ],
+   "keycode": 1117,
+   "menus_mask": 1280,
+   "menus": [
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_page_up",
+   "toggle": 0
+  },
+  {
+   "order": 42,
+   "keystr": "Space",
+   "keystr_bytes": [
+    83,
+    112,
+    97,
+    99,
+    101
+   ],
+   "keycode": 32,
+   "menus_mask": 1280,
+   "menus": [
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_page_down",
+   "toggle": 0
+  },
+  {
+   "order": 43,
+   "keystr": "M-\\",
+   "keystr_bytes": [
+    77,
+    45,
+    92
+   ],
+   "keycode": 92,
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "func": "to_first_line",
+   "toggle": 0
+  },
+  {
+   "order": 44,
+   "keystr": "^Home",
+   "keystr_bytes": [
+    94,
+    72,
+    111,
+    109,
+    101
+   ],
+   "keycode": 1029,
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "func": "to_first_line",
+   "toggle": 0
+  },
+  {
+   "order": 45,
+   "keystr": "M-/",
+   "keystr_bytes": [
+    77,
+    45,
+    47
+   ],
+   "keycode": 47,
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "func": "to_last_line",
+   "toggle": 0
+  },
+  {
+   "order": 46,
+   "keystr": "^End",
+   "keystr_bytes": [
+    94,
+    69,
+    110,
+    100
+   ],
+   "keycode": 1030,
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "func": "to_last_line",
+   "toggle": 0
+  },
+  {
+   "order": 47,
+   "keystr": "M-B",
+   "keystr_bytes": [
+    77,
+    45,
+    66
+   ],
+   "keycode": 98,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_findprevious",
+   "toggle": 0
+  },
+  {
+   "order": 48,
+   "keystr": "M-F",
+   "keystr_bytes": [
+    77,
+    45,
+    70
+   ],
+   "keycode": 102,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_findnext",
+   "toggle": 0
+  },
+  {
+   "order": 49,
+   "keystr": "M-W",
+   "keystr_bytes": [
+    77,
+    45,
+    87
+   ],
+   "keycode": 119,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_findnext",
+   "toggle": 0
+  },
+  {
+   "order": 50,
+   "keystr": "M-Q",
+   "keystr_bytes": [
+    77,
+    45,
+    81
+   ],
+   "keycode": 113,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_findprevious",
+   "toggle": 0
+  },
+  {
+   "order": 51,
+   "keystr": "M-]",
+   "keystr_bytes": [
+    77,
+    45,
+    93
+   ],
+   "keycode": 93,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_find_bracket",
+   "toggle": 0
+  },
+  {
+   "order": 52,
+   "keystr": "M-A",
+   "keystr_bytes": [
+    77,
+    45,
+    65
+   ],
+   "keycode": 97,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_mark",
+   "toggle": 0
+  },
+  {
+   "order": 53,
+   "keystr": "^6",
+   "keystr_bytes": [
+    94,
+    54
+   ],
+   "keycode": -10,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_mark",
+   "toggle": 0
+  },
+  {
+   "order": 54,
+   "keystr": "^^",
+   "keystr_bytes": [
+    94,
+    94
+   ],
+   "keycode": 30,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_mark",
+   "toggle": 0
+  },
+  {
+   "order": 55,
+   "keystr": "M-}",
+   "keystr_bytes": [
+    77,
+    45,
+    125
+   ],
+   "keycode": 125,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_indent",
+   "toggle": 0
+  },
+  {
+   "order": 56,
+   "keystr": "M-{",
+   "keystr_bytes": [
+    77,
+    45,
+    123
+   ],
+   "keycode": 123,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_unindent",
+   "toggle": 0
+  },
+  {
+   "order": 57,
+   "keystr": "Sh-Tab",
+   "keystr_bytes": [
+    83,
+    104,
+    45,
+    84,
+    97,
+    98
+   ],
+   "keycode": 1119,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_unindent",
+   "toggle": 0
+  },
+  {
+   "order": 58,
+   "keystr": "M-:",
+   "keystr_bytes": [
+    77,
+    45,
+    58
+   ],
+   "keycode": 58,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "record_macro",
+   "toggle": 0
+  },
+  {
+   "order": 59,
+   "keystr": "M-;",
+   "keystr_bytes": [
+    77,
+    45,
+    59
+   ],
+   "keycode": 59,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "run_macro",
+   "toggle": 0
+  },
+  {
+   "order": 60,
+   "keystr": "M-U",
+   "keystr_bytes": [
+    77,
+    45,
+    85
+   ],
+   "keycode": 117,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_undo",
+   "toggle": 0
+  },
+  {
+   "order": 61,
+   "keystr": "M-E",
+   "keystr_bytes": [
+    77,
+    45,
+    69
+   ],
+   "keycode": 101,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_redo",
+   "toggle": 0
+  },
+  {
+   "order": 62,
+   "keystr": "M-Bsp",
+   "keystr_bytes": [
+    77,
+    45,
+    66,
+    115,
+    112
+   ],
+   "keycode": 1053,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "chop_previous_word",
+   "toggle": 0
+  },
+  {
+   "order": 63,
+   "keystr": "Sh-^Del",
+   "keystr_bytes": [
+    83,
+    104,
+    45,
+    94,
+    68,
+    101,
+    108
+   ],
+   "keycode": 1053,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "chop_previous_word",
+   "toggle": 0
+  },
+  {
+   "order": 64,
+   "keystr": "^Del",
+   "keystr_bytes": [
+    94,
+    68,
+    101,
+    108
+   ],
+   "keycode": 1037,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "chop_next_word",
+   "toggle": 0
+  },
+  {
+   "order": 65,
+   "keystr": "M-Del",
+   "keystr_bytes": [
+    77,
+    45,
+    68,
+    101,
+    108
+   ],
+   "keycode": 1069,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "zap_text",
+   "toggle": 0
+  },
+  {
+   "order": 66,
+   "keystr": "M-Ins",
+   "keystr_bytes": [
+    77,
+    45,
+    73,
+    110,
+    115
+   ],
+   "keycode": 1068,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "put_or_lift_anchor",
+   "toggle": 0
+  },
+  {
+   "order": 67,
+   "keystr": "M-Home",
+   "keystr_bytes": [
+    77,
+    45,
+    72,
+    111,
+    109,
+    101
+   ],
+   "keycode": 1061,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "to_top_row",
+   "toggle": 0
+  },
+  {
+   "order": 68,
+   "keystr": "M-End",
+   "keystr_bytes": [
+    77,
+    45,
+    69,
+    110,
+    100
+   ],
+   "keycode": 1062,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "to_bottom_row",
+   "toggle": 0
+  },
+  {
+   "order": 69,
+   "keystr": "M-PgUp",
+   "keystr_bytes": [
+    77,
+    45,
+    80,
+    103,
+    85,
+    112
+   ],
+   "keycode": 1063,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "to_prev_anchor",
+   "toggle": 0
+  },
+  {
+   "order": 70,
+   "keystr": "M-PgDn",
+   "keystr_bytes": [
+    77,
+    45,
+    80,
+    103,
+    68,
+    110
+   ],
+   "keycode": 1064,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "to_next_anchor",
+   "toggle": 0
+  },
+  {
+   "order": 71,
+   "keystr": "M-\"",
+   "keystr_bytes": [
+    77,
+    45,
+    34
+   ],
+   "keycode": 34,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "put_or_lift_anchor",
+   "toggle": 0
+  },
+  {
+   "order": 72,
+   "keystr": "M-'",
+   "keystr_bytes": [
+    77,
+    45,
+    39
+   ],
+   "keycode": 39,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "to_next_anchor",
+   "toggle": 0
+  },
+  {
+   "order": 73,
+   "keystr": "^]",
+   "keystr_bytes": [
+    94,
+    93
+   ],
+   "keycode": 29,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "complete_a_word",
+   "toggle": 0
+  },
+  {
+   "order": 74,
+   "keystr": "M-3",
+   "keystr_bytes": [
+    77,
+    45,
+    51
+   ],
+   "keycode": 51,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_comment",
+   "toggle": 0
+  },
+  {
+   "order": 75,
+   "keystr": "^B",
+   "keystr_bytes": [
+    94,
+    66
+   ],
+   "keycode": 2,
+   "menus_mask": 56062,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_left",
+   "toggle": 0
+  },
+  {
+   "order": 76,
+   "keystr": "^F",
+   "keystr_bytes": [
+    94,
+    70
+   ],
+   "keycode": 6,
+   "menus_mask": 56062,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_right",
+   "toggle": 0
+  },
+  {
+   "order": 77,
+   "keystr": "◂",
+   "keystr_bytes": [
+    226,
+    151,
+    130
+   ],
+   "keycode": 260,
+   "menus_mask": 57343,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MHELP",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_left",
+   "toggle": 0
+  },
+  {
+   "order": 78,
+   "keystr": "▸",
+   "keystr_bytes": [
+    226,
+    150,
+    184
+   ],
+   "keycode": 261,
+   "menus_mask": 57343,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MHELP",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_right",
+   "toggle": 0
+  },
+  {
+   "order": 79,
+   "keystr": "^◂",
+   "keystr_bytes": [
+    94,
+    226,
+    151,
+    130
+   ],
+   "keycode": 1025,
+   "menus_mask": 57087,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "to_prev_word",
+   "toggle": 0
+  },
+  {
+   "order": 80,
+   "keystr": "^▸",
+   "keystr_bytes": [
+    94,
+    226,
+    150,
+    184
+   ],
+   "keycode": 1026,
+   "menus_mask": 57087,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "to_next_word",
+   "toggle": 0
+  },
+  {
+   "order": 81,
+   "keystr": "M-◂",
+   "keystr_bytes": [
+    77,
+    45,
+    226,
+    151,
+    130
+   ],
+   "keycode": 1057,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "switch_to_prev_buffer",
+   "toggle": 0
+  },
+  {
+   "order": 82,
+   "keystr": "M-▸",
+   "keystr_bytes": [
+    77,
+    45,
+    226,
+    150,
+    184
+   ],
+   "keycode": 1058,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "switch_to_next_buffer",
+   "toggle": 0
+  },
+  {
+   "order": 83,
+   "keystr": "M-Space",
+   "keystr_bytes": [
+    77,
+    45,
+    83,
+    112,
+    97,
+    99,
+    101
+   ],
+   "keycode": 32,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "to_prev_word",
+   "toggle": 0
+  },
+  {
+   "order": 84,
+   "keystr": "^Space",
+   "keystr_bytes": [
+    94,
+    83,
+    112,
+    97,
+    99,
+    101
+   ],
+   "keycode": 0,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "to_next_word",
+   "toggle": 0
+  },
+  {
+   "order": 85,
+   "keystr": "Home",
+   "keystr_bytes": [
+    72,
+    111,
+    109,
+    101
+   ],
+   "keycode": 262,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_home",
+   "toggle": 0
+  },
+  {
+   "order": 86,
+   "keystr": "End",
+   "keystr_bytes": [
+    69,
+    110,
+    100
+   ],
+   "keycode": 360,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_end",
+   "toggle": 0
+  },
+  {
+   "order": 87,
+   "keystr": "▴",
+   "keystr_bytes": [
+    226,
+    150,
+    180
+   ],
+   "keycode": 259,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_up",
+   "toggle": 0
+  },
+  {
+   "order": 88,
+   "keystr": "▾",
+   "keystr_bytes": [
+    226,
+    150,
+    190
+   ],
+   "keycode": 258,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_down",
+   "toggle": 0
+  },
+  {
+   "order": 89,
+   "keystr": "^▴",
+   "keystr_bytes": [
+    94,
+    226,
+    150,
+    180
+   ],
+   "keycode": 1027,
+   "menus_mask": 17409,
+   "menus": [
+    "MMAIN",
+    "MBROWSER",
+    "MLINTER"
+   ],
+   "func": "to_prev_block",
+   "toggle": 0
+  },
+  {
+   "order": 90,
+   "keystr": "^▾",
+   "keystr_bytes": [
+    94,
+    226,
+    150,
+    190
+   ],
+   "keycode": 1028,
+   "menus_mask": 17409,
+   "menus": [
+    "MMAIN",
+    "MBROWSER",
+    "MLINTER"
+   ],
+   "func": "to_next_block",
+   "toggle": 0
+  },
+  {
+   "order": 91,
+   "keystr": "M-7",
+   "keystr_bytes": [
+    77,
+    45,
+    55
+   ],
+   "keycode": 55,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "to_prev_block",
+   "toggle": 0
+  },
+  {
+   "order": 92,
+   "keystr": "M-8",
+   "keystr_bytes": [
+    77,
+    45,
+    56
+   ],
+   "keycode": 56,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "to_next_block",
+   "toggle": 0
+  },
+  {
+   "order": 93,
+   "keystr": "M-(",
+   "keystr_bytes": [
+    77,
+    45,
+    40
+   ],
+   "keycode": 40,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "to_para_begin",
+   "toggle": 0
+  },
+  {
+   "order": 94,
+   "keystr": "M-9",
+   "keystr_bytes": [
+    77,
+    45,
+    57
+   ],
+   "keycode": 57,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "to_para_begin",
+   "toggle": 0
+  },
+  {
+   "order": 95,
+   "keystr": "M-)",
+   "keystr_bytes": [
+    77,
+    45,
+    41
+   ],
+   "keycode": 41,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "to_para_end",
+   "toggle": 0
+  },
+  {
+   "order": 96,
+   "keystr": "M-0",
+   "keystr_bytes": [
+    77,
+    45,
+    48
+   ],
+   "keycode": 48,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "to_para_end",
+   "toggle": 0
+  },
+  {
+   "order": 97,
+   "keystr": "M-▴",
+   "keystr_bytes": [
+    77,
+    45,
+    226,
+    150,
+    180
+   ],
+   "keycode": 1059,
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "func": "do_scroll_up",
+   "toggle": 0
+  },
+  {
+   "order": 98,
+   "keystr": "M-▾",
+   "keystr_bytes": [
+    77,
+    45,
+    226,
+    150,
+    190
+   ],
+   "keycode": 1060,
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "func": "do_scroll_down",
+   "toggle": 0
+  },
+  {
+   "order": 99,
+   "keystr": "M--",
+   "keystr_bytes": [
+    77,
+    45,
+    45
+   ],
+   "keycode": 45,
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "func": "do_scroll_up",
+   "toggle": 0
+  },
+  {
+   "order": 100,
+   "keystr": "M-_",
+   "keystr_bytes": [
+    77,
+    45,
+    95
+   ],
+   "keycode": 95,
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "func": "do_scroll_up",
+   "toggle": 0
+  },
+  {
+   "order": 101,
+   "keystr": "M-+",
+   "keystr_bytes": [
+    77,
+    45,
+    43
+   ],
+   "keycode": 43,
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "func": "do_scroll_down",
+   "toggle": 0
+  },
+  {
+   "order": 102,
+   "keystr": "M-=",
+   "keystr_bytes": [
+    77,
+    45,
+    61
+   ],
+   "keycode": 61,
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "func": "do_scroll_down",
+   "toggle": 0
+  },
+  {
+   "order": 103,
+   "keystr": "M-,",
+   "keystr_bytes": [
+    77,
+    45,
+    44
+   ],
+   "keycode": 44,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "switch_to_prev_buffer",
+   "toggle": 0
+  },
+  {
+   "order": 104,
+   "keystr": "M-.",
+   "keystr_bytes": [
+    77,
+    45,
+    46
+   ],
+   "keycode": 46,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "switch_to_next_buffer",
+   "toggle": 0
+  },
+  {
+   "order": 105,
+   "keystr": "M-V",
+   "keystr_bytes": [
+    77,
+    45,
+    86
+   ],
+   "keycode": 118,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_verbatim_input",
+   "toggle": 0
+  },
+  {
+   "order": 106,
+   "keystr": "M-T",
+   "keystr_bytes": [
+    77,
+    45,
+    84
+   ],
+   "keycode": 116,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "cut_till_eof",
+   "toggle": 0
+  },
+  {
+   "order": 107,
+   "keystr": "^V",
+   "keystr_bytes": [
+    94,
+    86
+   ],
+   "keycode": 22,
+   "menus_mask": 128,
+   "menus": [
+    "MEXECUTE"
+   ],
+   "func": "cut_till_eof",
+   "toggle": 0
+  },
+  {
+   "order": 108,
+   "keystr": "^Z",
+   "keystr_bytes": [
+    94,
+    90
+   ],
+   "keycode": 26,
+   "menus_mask": 128,
+   "menus": [
+    "MEXECUTE"
+   ],
+   "func": "do_suspend",
+   "toggle": 0
+  },
+  {
+   "order": 109,
+   "keystr": "^Z",
+   "keystr_bytes": [
+    94,
+    90
+   ],
+   "keycode": 26,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "suggest_ctrlT_ctrlZ",
+   "toggle": 0
+  },
+  {
+   "order": 110,
+   "keystr": "M-D",
+   "keystr_bytes": [
+    77,
+    45,
+    68
+   ],
+   "keycode": 100,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "count_lines_words_and_characters",
+   "toggle": 0
+  },
+  {
+   "order": 111,
+   "keystr": "M-J",
+   "keystr_bytes": [
+    77,
+    45,
+    74
+   ],
+   "keycode": 106,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_full_justify",
+   "toggle": 0
+  },
+  {
+   "order": 112,
+   "keystr": "^J",
+   "keystr_bytes": [
+    94,
+    74
+   ],
+   "keycode": 10,
+   "menus_mask": 128,
+   "menus": [
+    "MEXECUTE"
+   ],
+   "func": "do_full_justify",
+   "toggle": 0
+  },
+  {
+   "order": 113,
+   "keystr": "M-<",
+   "keystr_bytes": [
+    77,
+    45,
+    60
+   ],
+   "keycode": 60,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_scroll_left",
+   "toggle": 0
+  },
+  {
+   "order": 114,
+   "keystr": "M->",
+   "keystr_bytes": [
+    77,
+    45,
+    62
+   ],
+   "keycode": 62,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_scroll_right",
+   "toggle": 0
+  },
+  {
+   "order": 115,
+   "keystr": "^L",
+   "keystr_bytes": [
+    94,
+    76
+   ],
+   "keycode": 12,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_center",
+   "toggle": 0
+  },
+  {
+   "order": 116,
+   "keystr": "M-%",
+   "keystr_bytes": [
+    77,
+    45,
+    37
+   ],
+   "keycode": 37,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_cycle",
+   "toggle": 0
+  },
+  {
+   "order": 117,
+   "keystr": "^L",
+   "keystr_bytes": [
+    94,
+    76
+   ],
+   "keycode": 12,
+   "menus_mask": 65534,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MHELP",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MYESNO",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "full_refresh",
+   "toggle": 0
+  },
+  {
+   "order": 118,
+   "keystr": "M-Z",
+   "keystr_bytes": [
+    77,
+    45,
+    90
+   ],
+   "keycode": 122,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_toggle",
+   "toggle": 1
+  },
+  {
+   "order": 119,
+   "keystr": "M-X",
+   "keystr_bytes": [
+    77,
+    45,
+    88
+   ],
+   "keycode": 120,
+   "menus_mask": 32511,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MYESNO",
+    "MLINTER"
+   ],
+   "func": "do_toggle",
+   "toggle": 2
+  },
+  {
+   "order": 120,
+   "keystr": "M-C",
+   "keystr_bytes": [
+    77,
+    45,
+    67
+   ],
+   "keycode": 99,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_toggle",
+   "toggle": 3
+  },
+  {
+   "order": 121,
+   "keystr": "M-N",
+   "keystr_bytes": [
+    77,
+    45,
+    78
+   ],
+   "keycode": 110,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_toggle",
+   "toggle": 4
+  },
+  {
+   "order": 122,
+   "keystr": "M-#",
+   "keystr_bytes": [
+    77,
+    45,
+    35
+   ],
+   "keycode": 35,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_toggle",
+   "toggle": 4
+  },
+  {
+   "order": 123,
+   "keystr": "M-P",
+   "keystr_bytes": [
+    77,
+    45,
+    80
+   ],
+   "keycode": 112,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_toggle",
+   "toggle": 5
+  },
+  {
+   "order": 124,
+   "keystr": "M-Y",
+   "keystr_bytes": [
+    77,
+    45,
+    89
+   ],
+   "keycode": 121,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_toggle",
+   "toggle": 6
+  },
+  {
+   "order": 125,
+   "keystr": "M-S",
+   "keystr_bytes": [
+    77,
+    45,
+    83
+   ],
+   "keycode": 115,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_toggle",
+   "toggle": 7
+  },
+  {
+   "order": 126,
+   "keystr": "M-$",
+   "keystr_bytes": [
+    77,
+    45,
+    36
+   ],
+   "keycode": 36,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_toggle",
+   "toggle": 7
+  },
+  {
+   "order": 127,
+   "keystr": "M-L",
+   "keystr_bytes": [
+    77,
+    45,
+    76
+   ],
+   "keycode": 108,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_toggle",
+   "toggle": 8
+  },
+  {
+   "order": 128,
+   "keystr": "M-O",
+   "keystr_bytes": [
+    77,
+    45,
+    79
+   ],
+   "keycode": 111,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_toggle",
+   "toggle": 9
+  },
+  {
+   "order": 129,
+   "keystr": "M-I",
+   "keystr_bytes": [
+    77,
+    45,
+    73
+   ],
+   "keycode": 105,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_toggle",
+   "toggle": 10
+  },
+  {
+   "order": 130,
+   "keystr": "M-H",
+   "keystr_bytes": [
+    77,
+    45,
+    72
+   ],
+   "keycode": 104,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_toggle",
+   "toggle": 11
+  },
+  {
+   "order": 131,
+   "keystr": "M-K",
+   "keystr_bytes": [
+    77,
+    45,
+    75
+   ],
+   "keycode": 107,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_toggle",
+   "toggle": 12
+  },
+  {
+   "order": 132,
+   "keystr": "M-M",
+   "keystr_bytes": [
+    77,
+    45,
+    77
+   ],
+   "keycode": 109,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_toggle",
+   "toggle": 13
+  },
+  {
+   "order": 133,
+   "keystr": "^C",
+   "keystr_bytes": [
+    94,
+    67
+   ],
+   "keycode": 3,
+   "menus_mask": 64254,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MYESNO",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_cancel",
+   "toggle": 0
+  },
+  {
+   "order": 134,
+   "keystr": "M-C",
+   "keystr_bytes": [
+    77,
+    45,
+    67
+   ],
+   "keycode": 99,
+   "menus_mask": 6,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE"
+   ],
+   "func": "case_sens_void",
+   "toggle": 0
+  },
+  {
+   "order": 135,
+   "keystr": "M-R",
+   "keystr_bytes": [
+    77,
+    45,
+    82
+   ],
+   "keycode": 114,
+   "menus_mask": 6,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE"
+   ],
+   "func": "regexp_void",
+   "toggle": 0
+  },
+  {
+   "order": 136,
+   "keystr": "M-B",
+   "keystr_bytes": [
+    77,
+    45,
+    66
+   ],
+   "keycode": 98,
+   "menus_mask": 6,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE"
+   ],
+   "func": "backwards_void",
+   "toggle": 0
+  },
+  {
+   "order": 137,
+   "keystr": "^R",
+   "keystr_bytes": [
+    94,
+    82
+   ],
+   "keycode": 18,
+   "menus_mask": 6,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE"
+   ],
+   "func": "flip_replace",
+   "toggle": 0
+  },
+  {
+   "order": 138,
+   "keystr": "^T",
+   "keystr_bytes": [
+    94,
+    84
+   ],
+   "keycode": 20,
+   "menus_mask": 18,
+   "menus": [
+    "MWHEREIS",
+    "MGOTOLINE"
+   ],
+   "func": "flip_goto",
+   "toggle": 0
+  },
+  {
+   "order": 139,
+   "keystr": "^P",
+   "keystr_bytes": [
+    94,
+    80
+   ],
+   "keycode": 16,
+   "menus_mask": 34958,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MEXECUTE",
+    "MWHEREISFILE",
+    "MFINDINHELP"
+   ],
+   "func": "get_older_item",
+   "toggle": 0
+  },
+  {
+   "order": 140,
+   "keystr": "^N",
+   "keystr_bytes": [
+    94,
+    78
+   ],
+   "keycode": 14,
+   "menus_mask": 34958,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MEXECUTE",
+    "MWHEREISFILE",
+    "MFINDINHELP"
+   ],
+   "func": "get_newer_item",
+   "toggle": 0
+  },
+  {
+   "order": 141,
+   "keystr": "▴",
+   "keystr_bytes": [
+    226,
+    150,
+    180
+   ],
+   "keycode": 259,
+   "menus_mask": 34958,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MEXECUTE",
+    "MWHEREISFILE",
+    "MFINDINHELP"
+   ],
+   "func": "get_older_item",
+   "toggle": 0
+  },
+  {
+   "order": 142,
+   "keystr": "▾",
+   "keystr_bytes": [
+    226,
+    150,
+    190
+   ],
+   "keycode": 258,
+   "menus_mask": 34958,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MEXECUTE",
+    "MWHEREISFILE",
+    "MFINDINHELP"
+   ],
+   "func": "get_newer_item",
+   "toggle": 0
+  },
+  {
+   "order": 143,
+   "keystr": "^W",
+   "keystr_bytes": [
+    94,
+    87
+   ],
+   "keycode": 23,
+   "menus_mask": 16,
+   "menus": [
+    "MGOTOLINE"
+   ],
+   "func": "to_para_begin",
+   "toggle": 0
+  },
+  {
+   "order": 144,
+   "keystr": "^O",
+   "keystr_bytes": [
+    94,
+    79
+   ],
+   "keycode": 15,
+   "menus_mask": 16,
+   "menus": [
+    "MGOTOLINE"
+   ],
+   "func": "to_para_end",
+   "toggle": 0
+  },
+  {
+   "order": 145,
+   "keystr": "^Y",
+   "keystr_bytes": [
+    94,
+    89
+   ],
+   "keycode": 25,
+   "menus_mask": 32786,
+   "menus": [
+    "MWHEREIS",
+    "MGOTOLINE",
+    "MFINDINHELP"
+   ],
+   "func": "to_first_line",
+   "toggle": 0
+  },
+  {
+   "order": 146,
+   "keystr": "^V",
+   "keystr_bytes": [
+    94,
+    86
+   ],
+   "keycode": 22,
+   "menus_mask": 32786,
+   "menus": [
+    "MWHEREIS",
+    "MGOTOLINE",
+    "MFINDINHELP"
+   ],
+   "func": "to_last_line",
+   "toggle": 0
+  },
+  {
+   "order": 147,
+   "keystr": "^Y",
+   "keystr_bytes": [
+    94,
+    89
+   ],
+   "keycode": 25,
+   "menus_mask": 2048,
+   "menus": [
+    "MWHEREISFILE"
+   ],
+   "func": "to_first_file",
+   "toggle": 0
+  },
+  {
+   "order": 148,
+   "keystr": "^V",
+   "keystr_bytes": [
+    94,
+    86
+   ],
+   "keycode": 22,
+   "menus_mask": 2048,
+   "menus": [
+    "MWHEREISFILE"
+   ],
+   "func": "to_last_file",
+   "toggle": 0
+  },
+  {
+   "order": 149,
+   "keystr": "M-\\",
+   "keystr_bytes": [
+    77,
+    45,
+    92
+   ],
+   "keycode": 92,
+   "menus_mask": 3072,
+   "menus": [
+    "MBROWSER",
+    "MWHEREISFILE"
+   ],
+   "func": "to_first_file",
+   "toggle": 0
+  },
+  {
+   "order": 150,
+   "keystr": "M-/",
+   "keystr_bytes": [
+    77,
+    45,
+    47
+   ],
+   "keycode": 47,
+   "menus_mask": 3072,
+   "menus": [
+    "MBROWSER",
+    "MWHEREISFILE"
+   ],
+   "func": "to_last_file",
+   "toggle": 0
+  },
+  {
+   "order": 151,
+   "keystr": "Home",
+   "keystr_bytes": [
+    72,
+    111,
+    109,
+    101
+   ],
+   "keycode": 262,
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "func": "to_first_file",
+   "toggle": 0
+  },
+  {
+   "order": 152,
+   "keystr": "End",
+   "keystr_bytes": [
+    69,
+    110,
+    100
+   ],
+   "keycode": 360,
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "func": "to_last_file",
+   "toggle": 0
+  },
+  {
+   "order": 153,
+   "keystr": "^Home",
+   "keystr_bytes": [
+    94,
+    72,
+    111,
+    109,
+    101
+   ],
+   "keycode": 1029,
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "func": "to_first_file",
+   "toggle": 0
+  },
+  {
+   "order": 154,
+   "keystr": "^End",
+   "keystr_bytes": [
+    94,
+    69,
+    110,
+    100
+   ],
+   "keycode": 1030,
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "func": "to_last_file",
+   "toggle": 0
+  },
+  {
+   "order": 155,
+   "keystr": "^/",
+   "keystr_bytes": [
+    94,
+    47
+   ],
+   "keycode": 31,
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "func": "goto_dir",
+   "toggle": 0
+  },
+  {
+   "order": 156,
+   "keystr": "M-G",
+   "keystr_bytes": [
+    77,
+    45,
+    71
+   ],
+   "keycode": 103,
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "func": "goto_dir",
+   "toggle": 0
+  },
+  {
+   "order": 157,
+   "keystr": "^_",
+   "keystr_bytes": [
+    94,
+    95
+   ],
+   "keycode": 31,
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "func": "goto_dir",
+   "toggle": 0
+  },
+  {
+   "order": 158,
+   "keystr": "M-D",
+   "keystr_bytes": [
+    77,
+    45,
+    68
+   ],
+   "keycode": 100,
+   "menus_mask": 32,
+   "menus": [
+    "MWRITEFILE"
+   ],
+   "func": "dos_format",
+   "toggle": 0
+  },
+  {
+   "order": 159,
+   "keystr": "M-B",
+   "keystr_bytes": [
+    77,
+    45,
+    66
+   ],
+   "keycode": 98,
+   "menus_mask": 32,
+   "menus": [
+    "MWRITEFILE"
+   ],
+   "func": "back_it_up",
+   "toggle": 0
+  },
+  {
+   "order": 160,
+   "keystr": "M-A",
+   "keystr_bytes": [
+    77,
+    45,
+    65
+   ],
+   "keycode": 97,
+   "menus_mask": 32,
+   "menus": [
+    "MWRITEFILE"
+   ],
+   "func": "append_it",
+   "toggle": 0
+  },
+  {
+   "order": 161,
+   "keystr": "M-P",
+   "keystr_bytes": [
+    77,
+    45,
+    80
+   ],
+   "keycode": 112,
+   "menus_mask": 32,
+   "menus": [
+    "MWRITEFILE"
+   ],
+   "func": "prepend_it",
+   "toggle": 0
+  },
+  {
+   "order": 162,
+   "keystr": "^X",
+   "keystr_bytes": [
+    94,
+    88
+   ],
+   "keycode": 24,
+   "menus_mask": 192,
+   "menus": [
+    "MINSERTFILE",
+    "MEXECUTE"
+   ],
+   "func": "flip_execute",
+   "toggle": 0
+  },
+  {
+   "order": 163,
+   "keystr": "M-N",
+   "keystr_bytes": [
+    77,
+    45,
+    78
+   ],
+   "keycode": 110,
+   "menus_mask": 64,
+   "menus": [
+    "MINSERTFILE"
+   ],
+   "func": "flip_convert",
+   "toggle": 0
+  },
+  {
+   "order": 164,
+   "keystr": "M-F",
+   "keystr_bytes": [
+    77,
+    45,
+    70
+   ],
+   "keycode": 102,
+   "menus_mask": 192,
+   "menus": [
+    "MINSERTFILE",
+    "MEXECUTE"
+   ],
+   "func": "flip_newbuffer",
+   "toggle": 0
+  },
+  {
+   "order": 165,
+   "keystr": "M-\\",
+   "keystr_bytes": [
+    77,
+    45,
+    92
+   ],
+   "keycode": 92,
+   "menus_mask": 128,
+   "menus": [
+    "MEXECUTE"
+   ],
+   "func": "flip_pipe",
+   "toggle": 0
+  },
+  {
+   "order": 166,
+   "keystr": "^C",
+   "keystr_bytes": [
+    94,
+    67
+   ],
+   "keycode": 3,
+   "menus_mask": 1280,
+   "menus": [
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_exit",
+   "toggle": 0
+  },
+  {
+   "order": 167,
+   "keystr": "^T",
+   "keystr_bytes": [
+    94,
+    84
+   ],
+   "keycode": 20,
+   "menus_mask": 96,
+   "menus": [
+    "MWRITEFILE",
+    "MINSERTFILE"
+   ],
+   "func": "to_files",
+   "toggle": 0
+  },
+  {
+   "order": 168,
+   "keystr": "^T",
+   "keystr_bytes": [
+    94,
+    84
+   ],
+   "keycode": 20,
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "func": "do_exit",
+   "toggle": 0
+  },
+  {
+   "order": 169,
+   "keystr": "^G",
+   "keystr_bytes": [
+    94,
+    71
+   ],
+   "keycode": 7,
+   "menus_mask": 256,
+   "menus": [
+    "MHELP"
+   ],
+   "func": "do_exit",
+   "toggle": 0
+  },
+  {
+   "order": 170,
+   "keystr": "F1",
+   "keystr_bytes": [
+    70,
+    49
+   ],
+   "keycode": 265,
+   "menus_mask": 256,
+   "menus": [
+    "MHELP"
+   ],
+   "func": "do_exit",
+   "toggle": 0
+  },
+  {
+   "order": 171,
+   "keystr": "Home",
+   "keystr_bytes": [
+    72,
+    111,
+    109,
+    101
+   ],
+   "keycode": 262,
+   "menus_mask": 256,
+   "menus": [
+    "MHELP"
+   ],
+   "func": "to_first_line",
+   "toggle": 0
+  },
+  {
+   "order": 172,
+   "keystr": "End",
+   "keystr_bytes": [
+    69,
+    110,
+    100
+   ],
+   "keycode": 360,
+   "menus_mask": 256,
+   "menus": [
+    "MHELP"
+   ],
+   "func": "to_last_line",
+   "toggle": 0
+  },
+  {
+   "order": 173,
+   "keystr": "^X",
+   "keystr_bytes": [
+    94,
+    88
+   ],
+   "keycode": 24,
+   "menus_mask": 16384,
+   "menus": [
+    "MLINTER"
+   ],
+   "func": "do_cancel",
+   "toggle": 0
+  },
+  {
+   "order": 174,
+   "keystr": "F1",
+   "keystr_bytes": [
+    70,
+    49
+   ],
+   "keycode": 265,
+   "menus_mask": 23295,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER"
+   ],
+   "func": "do_help",
+   "toggle": 0
+  },
+  {
+   "order": 175,
+   "keystr": "F2",
+   "keystr_bytes": [
+    70,
+    50
+   ],
+   "keycode": 266,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_exit",
+   "toggle": 0
+  },
+  {
+   "order": 176,
+   "keystr": "F3",
+   "keystr_bytes": [
+    70,
+    51
+   ],
+   "keycode": 267,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_writeout",
+   "toggle": 0
+  },
+  {
+   "order": 177,
+   "keystr": "F4",
+   "keystr_bytes": [
+    70,
+    52
+   ],
+   "keycode": 268,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_justify",
+   "toggle": 0
+  },
+  {
+   "order": 178,
+   "keystr": "F5",
+   "keystr_bytes": [
+    70,
+    53
+   ],
+   "keycode": 269,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_insertfile",
+   "toggle": 0
+  },
+  {
+   "order": 179,
+   "keystr": "F6",
+   "keystr_bytes": [
+    70,
+    54
+   ],
+   "keycode": 270,
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "func": "do_search_forward",
+   "toggle": 0
+  },
+  {
+   "order": 180,
+   "keystr": "F7",
+   "keystr_bytes": [
+    70,
+    55
+   ],
+   "keycode": 271,
+   "menus_mask": 17665,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER",
+    "MLINTER"
+   ],
+   "func": "do_page_up",
+   "toggle": 0
+  },
+  {
+   "order": 181,
+   "keystr": "F8",
+   "keystr_bytes": [
+    70,
+    56
+   ],
+   "keycode": 272,
+   "menus_mask": 17665,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER",
+    "MLINTER"
+   ],
+   "func": "do_page_down",
+   "toggle": 0
+  },
+  {
+   "order": 182,
+   "keystr": "F9",
+   "keystr_bytes": [
+    70,
+    57
+   ],
+   "keycode": 273,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "cut_text",
+   "toggle": 0
+  },
+  {
+   "order": 183,
+   "keystr": "F10",
+   "keystr_bytes": [
+    70,
+    49,
+    48
+   ],
+   "keycode": 274,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "paste_text",
+   "toggle": 0
+  },
+  {
+   "order": 184,
+   "keystr": "F11",
+   "keystr_bytes": [
+    70,
+    49,
+    49
+   ],
+   "keycode": 275,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "report_cursor_position",
+   "toggle": 0
+  },
+  {
+   "order": 185,
+   "keystr": "F12",
+   "keystr_bytes": [
+    70,
+    49,
+    50
+   ],
+   "keycode": 276,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_spell",
+   "toggle": 0
+  },
+  {
+   "order": 186,
+   "keystr": "M-&",
+   "keystr_bytes": [
+    77,
+    45,
+    38
+   ],
+   "keycode": 38,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "show_curses_version",
+   "toggle": 0
+  },
+  {
+   "order": 187,
+   "keystr": "",
+   "keystr_bytes": [],
+   "keycode": 355,
+   "menus_mask": 64254,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MYESNO",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_cancel",
+   "toggle": 0
+  },
+  {
+   "order": 188,
+   "keystr": "",
+   "keystr_bytes": [],
+   "keycode": 1264,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_center",
+   "toggle": 0
+  },
+  {
+   "order": 189,
+   "keystr": "",
+   "keystr_bytes": [],
+   "keycode": 392,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "do_insertfile",
+   "toggle": 0
+  },
+  {
+   "order": 190,
+   "keystr": "",
+   "keystr_bytes": [],
+   "keycode": 1205,
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "func": "suck_up_input_and_paste_it",
+   "toggle": 0
+  },
+  {
+   "order": 191,
+   "keystr": "",
+   "keystr_bytes": [],
+   "keycode": 1205,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_nothing",
+   "toggle": 0
+  },
+  {
+   "order": 192,
+   "keystr": "",
+   "keystr_bytes": [],
+   "keycode": 1214,
+   "menus_mask": 56063,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "func": "do_nothing",
+   "toggle": 0
+  }
+ ],
+ "funcs": [
+  {
+   "order": 0,
+   "func": "do_help",
+   "menus_mask": 24319,
+   "menus": [
+    "MMAIN",
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MBROWSER",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MLINTER"
+   ],
+   "tag": "Help",
+   "phrase": "Display this help text",
+   "blank_after": false
+  },
+  {
+   "order": 1,
+   "func": "do_cancel",
+   "menus_mask": 64254,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MGOTOLINE",
+    "MWRITEFILE",
+    "MINSERTFILE",
+    "MEXECUTE",
+    "MSPELL",
+    "MWHEREISFILE",
+    "MGOTODIR",
+    "MYESNO",
+    "MLINTER",
+    "MFINDINHELP"
+   ],
+   "tag": "Cancel",
+   "phrase": "Cancel the current function",
+   "blank_after": true
+  },
+  {
+   "order": 2,
+   "func": "do_exit",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Exit",
+   "phrase": "Close the current buffer / Exit from nano",
+   "blank_after": false
+  },
+  {
+   "order": 3,
+   "func": "do_exit",
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "tag": "Close",
+   "phrase": "Exit from the file browser",
+   "blank_after": false
+  },
+  {
+   "order": 4,
+   "func": "do_writeout",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Write Out",
+   "phrase": "Write the current buffer (or the marked region) to disk",
+   "blank_after": false
+  },
+  {
+   "order": 5,
+   "func": "do_insertfile",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Read File",
+   "phrase": "Insert another file into current buffer (or into new buffer)",
+   "blank_after": true
+  },
+  {
+   "order": 6,
+   "func": "full_refresh",
+   "menus_mask": 256,
+   "menus": [
+    "MHELP"
+   ],
+   "tag": "Refresh",
+   "phrase": "x",
+   "blank_after": false
+  },
+  {
+   "order": 7,
+   "func": "do_exit",
+   "menus_mask": 256,
+   "menus": [
+    "MHELP"
+   ],
+   "tag": "Close",
+   "phrase": "x",
+   "blank_after": false
+  },
+  {
+   "order": 8,
+   "func": "do_search_forward",
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "tag": "Where Is",
+   "phrase": "Search forward for a string or a regular expression",
+   "blank_after": false
+  },
+  {
+   "order": 9,
+   "func": "do_replace",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Replace",
+   "phrase": "Replace a string or a regular expression",
+   "blank_after": false
+  },
+  {
+   "order": 10,
+   "func": "cut_text",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Cut",
+   "phrase": "Cut current line (or marked region) and store it in cutbuffer",
+   "blank_after": false
+  },
+  {
+   "order": 11,
+   "func": "paste_text",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Paste",
+   "phrase": "Paste the contents of cutbuffer at current cursor position",
+   "blank_after": true
+  },
+  {
+   "order": 12,
+   "func": "do_execute",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Execute",
+   "phrase": "Execute a function or an external command",
+   "blank_after": false
+  },
+  {
+   "order": 13,
+   "func": "do_justify",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Justify",
+   "phrase": "Justify the current paragraph",
+   "blank_after": true
+  },
+  {
+   "order": 14,
+   "func": "report_cursor_position",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Location",
+   "phrase": "Display the position of the cursor",
+   "blank_after": false
+  },
+  {
+   "order": 15,
+   "func": "do_gotolinecolumn",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Go To Line",
+   "phrase": "Go to line and column number",
+   "blank_after": true
+  },
+  {
+   "order": 16,
+   "func": "do_undo",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Undo",
+   "phrase": "Undo the last operation",
+   "blank_after": false
+  },
+  {
+   "order": 17,
+   "func": "do_redo",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Redo",
+   "phrase": "Redo the last undone operation",
+   "blank_after": true
+  },
+  {
+   "order": 18,
+   "func": "do_mark",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Set Mark",
+   "phrase": "Mark text starting from the cursor position",
+   "blank_after": false
+  },
+  {
+   "order": 19,
+   "func": "copy_text",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Copy",
+   "phrase": "Copy current line (or marked region) and store it in cutbuffer",
+   "blank_after": true
+  },
+  {
+   "order": 20,
+   "func": "case_sens_void",
+   "menus_mask": 6,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE"
+   ],
+   "tag": "Case sensitive",
+   "phrase": "Toggle the case sensitivity of the search",
+   "blank_after": false
+  },
+  {
+   "order": 21,
+   "func": "regexp_void",
+   "menus_mask": 6,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE"
+   ],
+   "tag": "Reg.expression",
+   "phrase": "Toggle the use of regular expressions",
+   "blank_after": false
+  },
+  {
+   "order": 22,
+   "func": "backwards_void",
+   "menus_mask": 6,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE"
+   ],
+   "tag": "Backwards",
+   "phrase": "Reverse the direction of the search",
+   "blank_after": true
+  },
+  {
+   "order": 23,
+   "func": "flip_replace",
+   "menus_mask": 2,
+   "menus": [
+    "MWHEREIS"
+   ],
+   "tag": "Replace",
+   "phrase": "Replace a string or a regular expression",
+   "blank_after": true
+  },
+  {
+   "order": 24,
+   "func": "flip_replace",
+   "menus_mask": 4,
+   "menus": [
+    "MREPLACE"
+   ],
+   "tag": "No Replace",
+   "phrase": "Search forward for a string or a regular expression",
+   "blank_after": true
+  },
+  {
+   "order": 25,
+   "func": "get_older_item",
+   "menus_mask": 2062,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MWHEREISFILE"
+   ],
+   "tag": "Older",
+   "phrase": "Recall the previous search/replace string",
+   "blank_after": false
+  },
+  {
+   "order": 26,
+   "func": "get_newer_item",
+   "menus_mask": 2062,
+   "menus": [
+    "MWHEREIS",
+    "MREPLACE",
+    "MREPLACEWITH",
+    "MWHEREISFILE"
+   ],
+   "tag": "Newer",
+   "phrase": "Recall the next search/replace string",
+   "blank_after": true
+  },
+  {
+   "order": 27,
+   "func": "get_older_item",
+   "menus_mask": 128,
+   "menus": [
+    "MEXECUTE"
+   ],
+   "tag": "Older",
+   "phrase": "Recall the previous command",
+   "blank_after": false
+  },
+  {
+   "order": 28,
+   "func": "get_newer_item",
+   "menus_mask": 128,
+   "menus": [
+    "MEXECUTE"
+   ],
+   "tag": "Newer",
+   "phrase": "Recall the next command",
+   "blank_after": true
+  },
+  {
+   "order": 29,
+   "func": "goto_dir",
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "tag": "Go To Dir",
+   "phrase": "Go to directory",
+   "blank_after": false
+  },
+  {
+   "order": 30,
+   "func": "full_refresh",
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "tag": "Refresh",
+   "phrase": "Refresh the file list",
+   "blank_after": true
+  },
+  {
+   "order": 31,
+   "func": "do_search_forward",
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "tag": "Where Is",
+   "phrase": "Search forward for a string",
+   "blank_after": false
+  },
+  {
+   "order": 32,
+   "func": "do_search_backward",
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "tag": "Where Was",
+   "phrase": "Search backward for a string",
+   "blank_after": false
+  },
+  {
+   "order": 33,
+   "func": "do_findprevious",
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "tag": "Previous",
+   "phrase": "Search next occurrence backward",
+   "blank_after": false
+  },
+  {
+   "order": 34,
+   "func": "do_findnext",
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "tag": "Next",
+   "phrase": "Search next occurrence forward",
+   "blank_after": true
+  },
+  {
+   "order": 35,
+   "func": "do_find_bracket",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "To Bracket",
+   "phrase": "Go to the matching bracket",
+   "blank_after": true
+  },
+  {
+   "order": 36,
+   "func": "do_search_backward",
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "tag": "Where Was",
+   "phrase": "Search backward for a string or a regular expression",
+   "blank_after": false
+  },
+  {
+   "order": 37,
+   "func": "do_findprevious",
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "tag": "Previous",
+   "phrase": "Search next occurrence backward",
+   "blank_after": false
+  },
+  {
+   "order": 38,
+   "func": "do_findnext",
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "tag": "Next",
+   "phrase": "Search next occurrence forward",
+   "blank_after": true
+  },
+  {
+   "order": 39,
+   "func": "do_left",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Back",
+   "phrase": "Go back one character",
+   "blank_after": false
+  },
+  {
+   "order": 40,
+   "func": "do_right",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Forward",
+   "phrase": "Go forward one character",
+   "blank_after": false
+  },
+  {
+   "order": 41,
+   "func": "do_left",
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "tag": "Back",
+   "phrase": "Go to the previous file in the list",
+   "blank_after": false
+  },
+  {
+   "order": 42,
+   "func": "do_right",
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "tag": "Forward",
+   "phrase": "Go to the next file in the list",
+   "blank_after": false
+  },
+  {
+   "order": 43,
+   "func": "to_prev_word",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Prev Word",
+   "phrase": "Go back one word",
+   "blank_after": false
+  },
+  {
+   "order": 44,
+   "func": "to_next_word",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Next Word",
+   "phrase": "Go forward one word",
+   "blank_after": false
+  },
+  {
+   "order": 45,
+   "func": "do_home",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Home",
+   "phrase": "Go to beginning of current line",
+   "blank_after": false
+  },
+  {
+   "order": 46,
+   "func": "do_end",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "End",
+   "phrase": "Go to end of current line",
+   "blank_after": false
+  },
+  {
+   "order": 47,
+   "func": "do_scroll_left",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Scroll Left",
+   "phrase": "Scroll the viewport a tabsize to the left",
+   "blank_after": false
+  },
+  {
+   "order": 48,
+   "func": "do_scroll_right",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Scroll Right",
+   "phrase": "Scroll the viewport a tabsize to the right",
+   "blank_after": true
+  },
+  {
+   "order": 49,
+   "func": "do_up",
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "tag": "Prev Line",
+   "phrase": "Go to previous line",
+   "blank_after": false
+  },
+  {
+   "order": 50,
+   "func": "do_down",
+   "menus_mask": 1281,
+   "menus": [
+    "MMAIN",
+    "MHELP",
+    "MBROWSER"
+   ],
+   "tag": "Next Line",
+   "phrase": "Go to next line",
+   "blank_after": false
+  },
+  {
+   "order": 51,
+   "func": "do_scroll_up",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Scroll Up",
+   "phrase": "Scroll up one line without moving the cursor textually",
+   "blank_after": false
+  },
+  {
+   "order": 52,
+   "func": "do_scroll_down",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Scroll Down",
+   "phrase": "Scroll down one line without moving the cursor textually",
+   "blank_after": true
+  },
+  {
+   "order": 53,
+   "func": "to_prev_block",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Prev Block",
+   "phrase": "Go to previous block of text",
+   "blank_after": false
+  },
+  {
+   "order": 54,
+   "func": "to_next_block",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Next Block",
+   "phrase": "Go to next block of text",
+   "blank_after": false
+  },
+  {
+   "order": 55,
+   "func": "to_para_begin",
+   "menus_mask": 17,
+   "menus": [
+    "MMAIN",
+    "MGOTOLINE"
+   ],
+   "tag": "Start of Paragraph",
+   "phrase": "Go to beginning of paragraph; then of previous paragraph",
+   "blank_after": false
+  },
+  {
+   "order": 56,
+   "func": "to_para_end",
+   "menus_mask": 17,
+   "menus": [
+    "MMAIN",
+    "MGOTOLINE"
+   ],
+   "tag": "End of Paragraph",
+   "phrase": "Go just beyond end of paragraph; then of next paragraph",
+   "blank_after": true
+  },
+  {
+   "order": 57,
+   "func": "to_top_row",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Top Row",
+   "phrase": "Go to first row in the viewport",
+   "blank_after": false
+  },
+  {
+   "order": 58,
+   "func": "to_bottom_row",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Bottom Row",
+   "phrase": "Go to last row in the viewport",
+   "blank_after": true
+  },
+  {
+   "order": 59,
+   "func": "do_page_up",
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "tag": "Prev Page",
+   "phrase": "Go one screenful up",
+   "blank_after": false
+  },
+  {
+   "order": 60,
+   "func": "do_page_down",
+   "menus_mask": 257,
+   "menus": [
+    "MMAIN",
+    "MHELP"
+   ],
+   "tag": "Next Page",
+   "phrase": "Go one screenful down",
+   "blank_after": false
+  },
+  {
+   "order": 61,
+   "func": "to_first_line",
+   "menus_mask": 273,
+   "menus": [
+    "MMAIN",
+    "MGOTOLINE",
+    "MHELP"
+   ],
+   "tag": "First Line",
+   "phrase": "Go to the first line of the file",
+   "blank_after": false
+  },
+  {
+   "order": 62,
+   "func": "to_last_line",
+   "menus_mask": 273,
+   "menus": [
+    "MMAIN",
+    "MGOTOLINE",
+    "MHELP"
+   ],
+   "tag": "Last Line",
+   "phrase": "Go to the last line of the file",
+   "blank_after": true
+  },
+  {
+   "order": 63,
+   "func": "switch_to_prev_buffer",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Prev File",
+   "phrase": "Switch to the previous file buffer",
+   "blank_after": false
+  },
+  {
+   "order": 64,
+   "func": "switch_to_next_buffer",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Next File",
+   "phrase": "Switch to the next file buffer",
+   "blank_after": true
+  },
+  {
+   "order": 65,
+   "func": "do_tab",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Tab",
+   "phrase": "Insert a tab at the cursor position (or indent marked lines)",
+   "blank_after": false
+  },
+  {
+   "order": 66,
+   "func": "do_enter",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Enter",
+   "phrase": "Insert a newline at the cursor position",
+   "blank_after": true
+  },
+  {
+   "order": 67,
+   "func": "do_backspace",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Backspace",
+   "phrase": "Delete the character to the left of the cursor",
+   "blank_after": false
+  },
+  {
+   "order": 68,
+   "func": "do_delete",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Delete",
+   "phrase": "Delete the character under the cursor",
+   "blank_after": true
+  },
+  {
+   "order": 69,
+   "func": "chop_previous_word",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Chop Left",
+   "phrase": "Delete backward from cursor to word start",
+   "blank_after": false
+  },
+  {
+   "order": 70,
+   "func": "chop_next_word",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Chop Right",
+   "phrase": "Delete forward from cursor to next word start",
+   "blank_after": false
+  },
+  {
+   "order": 71,
+   "func": "cut_till_eof",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Cut Till End",
+   "phrase": "Cut from the cursor position to the end of the file",
+   "blank_after": true
+  },
+  {
+   "order": 72,
+   "func": "do_full_justify",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Full Justify",
+   "phrase": "Justify the entire file",
+   "blank_after": false
+  },
+  {
+   "order": 73,
+   "func": "count_lines_words_and_characters",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Word Count",
+   "phrase": "Count the number of lines, words, and characters",
+   "blank_after": false
+  },
+  {
+   "order": 74,
+   "func": "do_verbatim_input",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Verbatim",
+   "phrase": "Insert the next keystroke verbatim",
+   "blank_after": true
+  },
+  {
+   "order": 75,
+   "func": "do_indent",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Indent",
+   "phrase": "Indent the current line (or marked lines)",
+   "blank_after": false
+  },
+  {
+   "order": 76,
+   "func": "do_unindent",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Unindent",
+   "phrase": "Unindent the current line (or marked lines)",
+   "blank_after": true
+  },
+  {
+   "order": 77,
+   "func": "do_comment",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Comment Lines",
+   "phrase": "Comment/uncomment the current line (or marked lines)",
+   "blank_after": false
+  },
+  {
+   "order": 78,
+   "func": "complete_a_word",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Complete",
+   "phrase": "Try and complete the current word",
+   "blank_after": true
+  },
+  {
+   "order": 79,
+   "func": "record_macro",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Record",
+   "phrase": "Start/stop recording a macro",
+   "blank_after": false
+  },
+  {
+   "order": 80,
+   "func": "run_macro",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Run Macro",
+   "phrase": "Run the last recorded macro",
+   "blank_after": true
+  },
+  {
+   "order": 81,
+   "func": "zap_text",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Zap",
+   "phrase": "Throw away the current line (or marked region)",
+   "blank_after": true
+  },
+  {
+   "order": 82,
+   "func": "put_or_lift_anchor",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Anchor",
+   "phrase": "Place or remove an anchor at the current line",
+   "blank_after": false
+  },
+  {
+   "order": 83,
+   "func": "to_prev_anchor",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Up to anchor",
+   "phrase": "Jump backward to the nearest anchor",
+   "blank_after": false
+  },
+  {
+   "order": 84,
+   "func": "to_next_anchor",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Down to anchor",
+   "phrase": "Jump forward to the nearest anchor",
+   "blank_after": true
+  },
+  {
+   "order": 85,
+   "func": "do_spell",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Spell Check",
+   "phrase": "Invoke the spell checker, if available",
+   "blank_after": false
+  },
+  {
+   "order": 86,
+   "func": "do_linter",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Linter",
+   "phrase": "Invoke the linter, if available",
+   "blank_after": false
+  },
+  {
+   "order": 87,
+   "func": "do_formatter",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Formatter",
+   "phrase": "Invoke a program to format/arrange/manipulate the buffer",
+   "blank_after": true
+  },
+  {
+   "order": 88,
+   "func": "do_suspend",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Suspend",
+   "phrase": "Suspend the editor (return to the shell)",
+   "blank_after": false
+  },
+  {
+   "order": 89,
+   "func": "full_refresh",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Refresh",
+   "phrase": "Refresh (redraw) the current screen",
+   "blank_after": true
+  },
+  {
+   "order": 90,
+   "func": "do_center",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Center",
+   "phrase": "Center the line where the cursor is",
+   "blank_after": false
+  },
+  {
+   "order": 91,
+   "func": "do_cycle",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Cycle",
+   "phrase": "Push the cursor line to the center, then top, then bottom",
+   "blank_after": true
+  },
+  {
+   "order": 92,
+   "func": "do_savefile",
+   "menus_mask": 1,
+   "menus": [
+    "MMAIN"
+   ],
+   "tag": "Save",
+   "phrase": "Save file without prompting",
+   "blank_after": true
+  },
+  {
+   "order": 93,
+   "func": "flip_newbuffer",
+   "menus_mask": 192,
+   "menus": [
+    "MINSERTFILE",
+    "MEXECUTE"
+   ],
+   "tag": "New Buffer",
+   "phrase": "Toggle the use of a new buffer",
+   "blank_after": false
+  },
+  {
+   "order": 94,
+   "func": "flip_pipe",
+   "menus_mask": 128,
+   "menus": [
+    "MEXECUTE"
+   ],
+   "tag": "Pipe Text",
+   "phrase": "Pipe the current buffer (or marked region) to the command",
+   "blank_after": true
+  },
+  {
+   "order": 95,
+   "func": "do_spell",
+   "menus_mask": 128,
+   "menus": [
+    "MEXECUTE"
+   ],
+   "tag": "Spell Check",
+   "phrase": "Invoke the spell checker, if available",
+   "blank_after": false
+  },
+  {
+   "order": 96,
+   "func": "do_linter",
+   "menus_mask": 128,
+   "menus": [
+    "MEXECUTE"
+   ],
+   "tag": "Linter",
+   "phrase": "Invoke the linter, if available",
+   "blank_after": true
+  },
+  {
+   "order": 97,
+   "func": "do_full_justify",
+   "menus_mask": 128,
+   "menus": [
+    "MEXECUTE"
+   ],
+   "tag": "Full Justify",
+   "phrase": "Justify the entire file",
+   "blank_after": false
+  },
+  {
+   "order": 98,
+   "func": "do_formatter",
+   "menus_mask": 128,
+   "menus": [
+    "MEXECUTE"
+   ],
+   "tag": "Formatter",
+   "phrase": "Invoke a program to format/arrange/manipulate the buffer",
+   "blank_after": true
+  },
+  {
+   "order": 99,
+   "func": "dos_format",
+   "menus_mask": 32,
+   "menus": [
+    "MWRITEFILE"
+   ],
+   "tag": "DOS Format",
+   "phrase": "Toggle the use of DOS format",
+   "blank_after": false
+  },
+  {
+   "order": 100,
+   "func": "back_it_up",
+   "menus_mask": 32,
+   "menus": [
+    "MWRITEFILE"
+   ],
+   "tag": "Backup File",
+   "phrase": "Toggle backing up of the original file",
+   "blank_after": false
+  },
+  {
+   "order": 101,
+   "func": "append_it",
+   "menus_mask": 32,
+   "menus": [
+    "MWRITEFILE"
+   ],
+   "tag": "Append",
+   "phrase": "Toggle appending",
+   "blank_after": false
+  },
+  {
+   "order": 102,
+   "func": "prepend_it",
+   "menus_mask": 32,
+   "menus": [
+    "MWRITEFILE"
+   ],
+   "tag": "Prepend",
+   "phrase": "Toggle prepending",
+   "blank_after": true
+  },
+  {
+   "order": 103,
+   "func": "flip_convert",
+   "menus_mask": 64,
+   "menus": [
+    "MINSERTFILE"
+   ],
+   "tag": "No Conversion",
+   "phrase": "Do not convert from DOS format",
+   "blank_after": true
+  },
+  {
+   "order": 104,
+   "func": "flip_execute",
+   "menus_mask": 64,
+   "menus": [
+    "MINSERTFILE"
+   ],
+   "tag": "Execute Command",
+   "phrase": "Execute a function or an external command",
+   "blank_after": true
+  },
+  {
+   "order": 105,
+   "func": "cut_till_eof",
+   "menus_mask": 128,
+   "menus": [
+    "MEXECUTE"
+   ],
+   "tag": "Cut Till End",
+   "phrase": "Cut from the cursor position to the end of the file",
+   "blank_after": true
+  },
+  {
+   "order": 106,
+   "func": "do_suspend",
+   "menus_mask": 128,
+   "menus": [
+    "MEXECUTE"
+   ],
+   "tag": "Suspend",
+   "phrase": "Suspend the editor (return to the shell)",
+   "blank_after": true
+  },
+  {
+   "order": 107,
+   "func": "discard_buffer",
+   "menus_mask": 32,
+   "menus": [
+    "MWRITEFILE"
+   ],
+   "tag": "Discard buffer",
+   "phrase": "Close buffer without saving it",
+   "blank_after": true
+  },
+  {
+   "order": 108,
+   "func": "to_files",
+   "menus_mask": 96,
+   "menus": [
+    "MWRITEFILE",
+    "MINSERTFILE"
+   ],
+   "tag": "Browse",
+   "phrase": "Go to file browser",
+   "blank_after": true
+  },
+  {
+   "order": 109,
+   "func": "do_page_up",
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "tag": "Prev Page",
+   "phrase": "Go one screenful up",
+   "blank_after": false
+  },
+  {
+   "order": 110,
+   "func": "do_page_down",
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "tag": "Next Page",
+   "phrase": "Go one screenful down",
+   "blank_after": false
+  },
+  {
+   "order": 111,
+   "func": "to_first_file",
+   "menus_mask": 3072,
+   "menus": [
+    "MBROWSER",
+    "MWHEREISFILE"
+   ],
+   "tag": "First File",
+   "phrase": "Go to the first file in the list",
+   "blank_after": false
+  },
+  {
+   "order": 112,
+   "func": "to_last_file",
+   "menus_mask": 3072,
+   "menus": [
+    "MBROWSER",
+    "MWHEREISFILE"
+   ],
+   "tag": "Last File",
+   "phrase": "Go to the last file in the list",
+   "blank_after": true
+  },
+  {
+   "order": 113,
+   "func": "to_prev_word",
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "tag": "Left Column",
+   "phrase": "Go to lefthand column",
+   "blank_after": false
+  },
+  {
+   "order": 114,
+   "func": "to_next_word",
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "tag": "Right Column",
+   "phrase": "Go to righthand column",
+   "blank_after": false
+  },
+  {
+   "order": 115,
+   "func": "to_prev_block",
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "tag": "Top Row",
+   "phrase": "Go to first row in this column",
+   "blank_after": false
+  },
+  {
+   "order": 116,
+   "func": "to_next_block",
+   "menus_mask": 1024,
+   "menus": [
+    "MBROWSER"
+   ],
+   "tag": "Bottom Row",
+   "phrase": "Go to last row in this column",
+   "blank_after": true
+  },
+  {
+   "order": 117,
+   "func": "do_page_up",
+   "menus_mask": 16384,
+   "menus": [
+    "MLINTER"
+   ],
+   "tag": "Previous Linter message",
+   "phrase": "Go to previous linter msg",
+   "blank_after": false
+  },
+  {
+   "order": 118,
+   "func": "do_page_down",
+   "menus_mask": 16384,
+   "menus": [
+    "MLINTER"
+   ],
+   "tag": "Next Linter message",
+   "phrase": "Go to next linter msg",
+   "blank_after": false
+  }
+ ],
+ "globals": {
+  "using_utf8": 1,
+  "on_a_vt": 0,
+  "flags[0]": 0,
+  "flags[1]": 1025,
+  "COLS": 80,
+  "LINES": 24,
+  "tabsize": 8
+ }
+}
