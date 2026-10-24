@@ -399,6 +399,10 @@ class Run:
         tmux("send-keys", "-t", "t:0.0", "-H", *["%02x" % b for b in data])
 
     def execute(self):
+        global SOCKET
+        # A fresh socket also isolates server teardown between consecutive
+        # scenarios on older tmux versions; kill-server is asynchronous.
+        SOCKET = "nanospec-%d-%d" % (os.getpid(), time.monotonic_ns())
         sc = self.sc
         cols, rows = sc.get("cols", 80), sc.get("rows", 24)
         term = sc.get("term", "tmux-256color")
@@ -489,6 +493,7 @@ class Run:
             "inputs": self.inputs, "snapshots": self.snapshots,
             "after_exit_screen": final,
             "exit_status": st.get("exit_status"), "exit_signal": st.get("exit_signal"),
+            "pane_state": st,
             "fixture": manifest(root), "initial_fixture": self.initial_manifest, "captured_files": self.captured, "notes": self.notes,
             "stderr": open(stderr_path, "rb").read().decode("utf-8", "replace")
                       if os.path.exists(stderr_path) else None,
@@ -680,6 +685,7 @@ def main():
                 for name, snap in res["snapshots"].items():
                     print("--- snapshot", name)
                     print(render(snap))
+                print("--- final pane state", res["pane_state"])
                 print("--- after exit / final pane")
                 print(render(res["after_exit_screen"]))
                 if res.get("stderr"):
