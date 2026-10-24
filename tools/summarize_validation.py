@@ -49,6 +49,7 @@ def version(command):
 save('environment.json', {
     'reference_commit': report['reference_commit'],
     'binary_sha256': binary_hash,
+    'source_revision': version(['git', '-C', str(ROOT), 'rev-parse', 'HEAD']),
     'system': platform.platform(),
     'rustc': version([str(Path.home() / '.cargo/bin/rustc'), '--version']),
     'cargo': version([str(Path.home() / '.cargo/bin/cargo'), '--version']),

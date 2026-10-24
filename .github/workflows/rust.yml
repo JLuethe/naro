@@ -8,9 +8,13 @@ jobs:
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable toolchain setup
         with:
           components: rustfmt, clippy
-      - run: sudo apt-get update && sudo apt-get install -y libncurses-dev libmagic-dev
+      - run: sudo apt-get update && sudo apt-get install -y libncurses-dev libmagic-dev tmux
       - run: cargo fmt --check
       - run: cargo clippy --all-targets -- -D warnings
       - run: cargo test
       - run: cargo build --release
       - run: python3 spec/tools/test_compare_runs.py
+      - name: Terminal smoke and safety assertions
+        run: |
+          python3 spec/tools/nanoharness.py spec/evidence/scenarios/smoke.json --binary "$PWD/target/release/naro" --out target/ci-smoke
+          python3 spec/tools/nanoharness.py tests/scenarios/safety.json --binary "$PWD/target/release/naro" --out target/ci-safety
