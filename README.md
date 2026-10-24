@@ -5,6 +5,11 @@ The familiar nano experience, rebuilt in Rust. GPL-3.0-or-later.
 Naro is a working terminal editor with byte-preserving buffers, nano keybindings,
 undo/redo, search and POSIX regex replacement, file operations, backups and locks,
 nanorc, syntax highlighting, tools, histories, macros, mouse input and translations.
+The tested release matches 301 of 303 fixture-safe reference scenarios exactly;
+the other two cover deliberate safety improvements. The CLI and regex suites
+match all 38 and 162 cases. Full results and limits are in
+[validation evidence](validation/README.md).
+
 Compatibility work targets GNU nano commit
 `6ed285c3ec7a1d228def4d4e7021c6ba269f620c` on Linux/glibc/ncursesw.
 It is not yet a fully compatible replacement; see [implementation status](IMPLEMENTATION.md).
@@ -34,7 +39,7 @@ cargo clippy --all-targets -- -D warnings
 python3 spec/tools/test_compare_runs.py
 python3 spec/tools/test_nanoharness.py
 python3 tools/check_regex.py --binary target/release/naro
-python3 tools/validate.py --binary target/release/naro --out spec/evidence/naro-validation
+python3 tools/validate_parallel.py --binary target/release/naro --out spec/evidence/naro-validation --jobs 4
 ```
 
 Terminal validation requires tmux, terminfo, Python 3.11 or newer, and the saved reference

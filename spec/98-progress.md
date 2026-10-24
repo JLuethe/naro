@@ -157,3 +157,41 @@ Row SGR reset semantics remain unchanged. Exit waits require reaped status,
 fixing a PTY-close/waitpid race exposed on GitHub's tmux; named signals are
 converted to numeric values. Three harness regression tests cover these cases.
 New results record the executable SHA-256 in addition to the frozen-run report.
+
+GitHub's older tmux also exposed consecutive-server teardown races; each
+scenario now has a unique server socket. Failure output includes final pane
+state and screen. The regex safety probe waits for the save confirmation before
+sending Exit. These are fixture isolation/observation fixes, not editor changes.
+
+The faster captures exposed a real cancellation bug that slower captures masked:
+a cancelled search must clear the spotlight immediately. The Rust state machine
+now does so. Final replay uses `tools/validate_parallel.py` with four disjoint ID
+partitions, a frozen executable and a combined completeness/hash check. The
+original serial `tools/validate.py` remains available for focused diagnosis.
+
+CI's tmux 3.4 intermittently reported a dead pane with neither exit status nor
+signal even after the editor restored its terminal. Signal-mask experiments
+did not resolve it. CI now builds checksum-pinned tmux 3.8 in its private runner
+directory, matching the reference emulator in ENV-BASE; no status normalization
+or weakened exit assertions are used.
+
+
+## Final build/test checkpoint (2026-10-24)
+
+The spec is complete and the editor builds in debug and optimized release modes.
+The final frozen candidate in `~/Code/naro/spec/evidence/naro-v7` has 303 fixture-
+safe recordings: 301 full matches and 302 file/exit matches. The only full
+comparison differences are TEST-CLI-057 and TEST-PROMPT-NUL-001, the declared
+safety improvements. Their six separate assertions pass. All 38 safe default
+CLI probes and 162 regex cases match. Six Rust unit tests, twelve comparator
+regressions, three harness regressions, formatting, strict Clippy and structural
+audit pass. All four disjoint replay workers exit zero.
+
+Compact results with the binary SHA-256 and source revision are checked in under
+`~/Code/naro/validation/`; raw candidate evidence remains on disk (gitignored).
+`~/Code/naro/IMPLEMENTATION.md` records known implementation limits, including
+whole-buffer external tools and optional tiny/credits. No blanket claim of
+complete source-branch or platform parity is made. The reference checkout
+remains clean at the exact pinned commit. Final Markdown/tools/data/scenario
+corrections are also synchronized back to `~/src/nano-rs/spec`; use the Git
+repository copy as the canonical location for future edits.

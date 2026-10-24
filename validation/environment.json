@@ -1,0 +1,12 @@
+{
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "binary_sha256": "454eed1099072d6f49d9f805cc4f35482d5c01e6f94296ba963a4f1d0ee13f22",
+  "source_revision": "c81ed470ba396f7e16f98b73d00ea63fa4606da3",
+  "implementation_revision": "639ab573c67a15839fe2cda9fa52561c4bd99daf",
+  "system": "Linux-7.2.8-9-omarchy-x86_64-with-glibc2.44",
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+  "cargo": "cargo 1.99.1 (5f94df478 2026-08-27)",
+  "tmux": "tmux 3.8",
+  "python": "3.14.8",
+  "terminal_report": "spec/evidence/naro-v7"
+}

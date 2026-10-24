@@ -29,9 +29,14 @@ python3 tools/audit_spec.py
 Always supply a separate `--out` when testing a candidate. `evidence/runs` is the
 original reference corpus and must not be overwritten by a candidate. The binary
 may be an executable or a directory containing `nano`/`rnano`. `--profile tiny`
-overrides the scenario profile. Run each harness invocation serially: the tmux
-socket is per harness process but the default fixture path is per test ID.
+overrides the scenario profile. Run each full harness invocation serially:
+the tmux socket is unique per scenario invocation, but the default fixture
+path is per test ID.
 Set `NANOSPEC_WORK` to a separate scratch directory for simultaneous runs.
+The repository-level `../tools/validate_parallel.py` safely partitions all IDs
+between independent processes using disjoint fixtures and one frozen executable;
+its combined report verifies complete ID coverage and identical binary hashes.
+Do not run a second suite over the same IDs concurrently.
 
 ## 2. Scenario format and observables
 

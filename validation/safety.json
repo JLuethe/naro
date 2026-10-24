@@ -1,0 +1,50 @@
+{
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "binary_sha256": "454eed1099072d6f49d9f805cc4f35482d5c01e6f94296ba963a4f1d0ee13f22",
+  "results": {
+    "TEST-NARO-NUL-SAFE": {
+      "exit_status": 0,
+      "exit_signal": null,
+      "steps_ok": true,
+      "checks": [
+        {
+          "check": "exit_status",
+          "pass": true,
+          "detail": "got 0"
+        },
+        {
+          "check": "file:work/f.txt:text",
+          "pass": true,
+          "detail": "got 'original\\n'"
+        },
+        {
+          "check": "row21~",
+          "pass": true,
+          "detail": "'Save modified buffer?                                                           '"
+        }
+      ]
+    },
+    "TEST-NARO-REGEX-SAFE": {
+      "exit_status": 0,
+      "exit_signal": null,
+      "steps_ok": true,
+      "checks": [
+        {
+          "check": "exit_status",
+          "pass": true,
+          "detail": "got 0"
+        },
+        {
+          "check": "file:work/f.txt:text",
+          "pass": true,
+          "detail": "got 'Xoriginal\\n'"
+        },
+        {
+          "check": "row21~",
+          "pass": true,
+          "detail": "'                      [ Bad regex \"(\": Unmatched ( or \\\\( ]                      '"
+        }
+      ]
+    }
+  }
+}
