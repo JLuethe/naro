@@ -1,0 +1,15 @@
+Usage: nano [OPTIONS] [[+LINE[,COLUMN]] FILE]...
+
+ -D             --boldtext              Use bold instead of reverse video text
+ -K             --rawsequences          Fix numeric keypad key confusion problem
+ -R             --restricted            Restrict access to the filesystem
+ -U             --quickblank            Wipe status bar upon next keystroke
+ -V             --version               Print version information and exit
+ -c             --constantshow          Constantly show cursor position
+ -d             --rebinddelete          Fix Backspace/Delete confusion problem
+ -h             --help                  Show this help text and exit
+ -p             --preserve              Preserve XON (^Q) and XOFF (^S) keys
+ -t             --saveonexit            Save changes on exit, don't prompt
+ -v             --view                  View mode (read-only)
+ -x             --nohelp                Don't show the two help lines
+ -/             --modernbindings        Use better-known key bindings

@@ -394,6 +394,8 @@ class Run:
         os.makedirs(os.path.join(root, "home"), exist_ok=True)
         os.makedirs(os.path.join(root, "work"), exist_ok=True)
         make_fixture(root, sc)
+        tempdir = os.path.join(work, "tmp")
+        os.makedirs(tempdir, exist_ok=True)
         self.root = root
         self.captured = {}
         self.initial_manifest = manifest(root)
@@ -404,7 +406,8 @@ class Run:
         gofile = os.path.join(work, "go")
         env = {"HOME": os.path.join(root, "home"), "TERM": term,
                "PATH": os.path.join(root, "bin") + ":/usr/bin:/bin",
-               "LANG": sc.get("lang", "en_US.UTF-8"), "SHELL": "/bin/sh", "TZ": "UTC"}
+               "LANG": sc.get("lang", "en_US.UTF-8"), "SHELL": "/bin/sh", "TZ": "UTC",
+               "TMPDIR": tempdir}
         if "locpath" in sc:
             env["LOCPATH"] = sc["locpath"]
         for k, v in sc.get("env", {}).items():
@@ -417,12 +420,12 @@ class Run:
         args = [a.replace("$FX", root) for a in sc.get("args", [])]
         cwd = os.path.join(root, sc.get("cwd", "work"))
         envs = " ".join("%s=%s" % (k, shlex.quote(v)) for k, v in sorted(env.items()))
-        redir = ""
+        redir = " 3<>/dev/tty" if sc.get("hold_tty") else ""
         if "stdin" in sc:
             stdin_path = os.path.join(work, "stdin.bin")
             with open(stdin_path, "wb") as fh:
                 fh.write(sc["stdin"].encode() if isinstance(sc["stdin"], str) else bytes(sc["stdin"]))
-            redir = " < " + shlex.quote(stdin_path)
+            redir += " < " + shlex.quote(stdin_path)
         if sc.get("stdout_redirect"):
             redir += " > " + shlex.quote(os.path.join(work, "stdout.bin"))
         stderr_path = os.path.join(work, "stderr.bin")

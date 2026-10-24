@@ -68,6 +68,17 @@ class CompareTests(unittest.TestCase):
         self.assertNotEqual(c.norm_text("Pane is dead (status 1, date)"),
                             c.norm_text("Pane is dead (status 0, date)"))
 
+    def test_tool_temp_logs_are_narrowly_normalized(self):
+        def manifest(raw):
+            import base64
+            return {'home/fmt-args': {'type': 'file', 'mode': '0o644', 'b64': base64.b64encode(raw).decode()}}
+        r={'scenario':'TEST-FEAT-007','env':{}}
+        s={'scenario':'TEST-FEAT-007','env':{'TMPDIR':'/scratch/tmp'}}
+        self.assertEqual(c.norm_manifest(manifest(b'-x /tmp/nano.abcdef.txt\n'),run=r),
+                         c.norm_manifest(manifest(b'-x /scratch/tmp/nano.qrstuv.txt\n'),run=s))
+        self.assertNotEqual(c.norm_manifest(manifest(b'-x /tmp/nano.abcdef.txt\n'),run=r),
+                            c.norm_manifest(manifest(b'/scratch/tmp/nano.qrstuv.txt\n'),run=s))
+
     def test_timeout_fails(self):
         self.cand['notes'].append('settle timed out after 5.0s')
         self.assertTrue(c.compare(self.ref, self.cand))

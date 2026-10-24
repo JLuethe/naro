@@ -108,7 +108,7 @@ See 99 for the full decision register, including remaining verification gaps.
 
 Completed comparator: live/final screens, attributes indexed by cells, cursor,
 modes, stdout/stderr, exit/signal, input bytes, fixture manifests and captured
-locks; narrow normalization documented in 16. Ten regression tests pass;
+locks; narrow normalization documented in 16. Eleven regression tests pass;
 309/309 reference self-comparisons match. Harness now reports failed wait/settle
 steps and returns nonzero for FAIL/ERROR instead of silently recording success.
 No reference sources were changed.

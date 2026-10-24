@@ -14,7 +14,7 @@ All required documents and local links validate. No failed recorded assertions
 or timeouts. Ten intentional SIGKILL observations and extensive source-only
 branches are explicitly listed, not claimed as full verification.
 
-Ten comparator regression tests pass. All 309 original runs compare equal to
+Eleven comparator regression tests pass. All 309 original runs compare equal to
 themselves. A fresh reference smoke replay passes four assertions and matches
 the original after the documented normalizations. This exposed and fixed the
 tmux dead-pane date banner and historical result-schema differences. The audit

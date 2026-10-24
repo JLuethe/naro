@@ -1,0 +1,10 @@
+Naro is licensed under GPL-3.0-or-later. See LICENSE.
+
+The behavioral specification, generated binding/help data, syntax definitions,
+and translation catalogs derive from GNU nano at commit
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c, copyright the Free Software Foundation
+and GNU nano contributors. Their original notices and per-file licenses apply.
+Syntax files include GPL-3.0-only (haskell) and CC0 (go); see file headers and
+spec/00-reference-environment.md. Translation catalogs retain the nano package
+license. Original C sources are not compiled into Naro. Native bridge code is
+limited to platform/library interoperability; editor behavior is written in Rust.

@@ -87,7 +87,7 @@ def norm_screen(screen, root=None, dead=False):
             'cursor': cursor, 'modes': screen.get('modes', {})}
 
 
-def norm_manifest(fixture, root=None, include_nlink=True):
+def norm_manifest(fixture, root=None, include_nlink=True, run=None):
     out = {}
     for path, entry in fixture.items():
         name = norm_text(path, root)
@@ -101,6 +101,13 @@ def norm_manifest(fixture, root=None, include_nlink=True):
                 raw = base64.b64decode(entry['b64'], validate=True)
                 if os.path.basename(path).startswith('.') and path.endswith('.swp'):
                     raw = norm_lock(raw)
+                # Only these fixture-owned tool argument logs contain mkstemps output.
+                aux = {'TEST-FEAT-005': 'home/spell-args', 'TEST-FEAT-007': 'home/fmt-args'}
+                if run and aux.get(run.get('scenario')) == path:
+                    tempdir = (run.get('env') or {}).get('TMPDIR') or '/tmp'
+                    value = raw.decode('utf-8', 'surrogateescape')
+                    value = re.sub(re.escape(tempdir.rstrip('/')) + r'/nano\.[A-Za-z0-9]{6}(?=\W|$)', '<TMP>/nano.XXXXXX', value)
+                    raw = value.encode('utf-8', 'surrogateescape')
                 # Ordinary file bytes are exact: never mask text that resembles a temp name.
                 # Paths in history/tool log files are normalized only when the scenario opts in.
                 item['data'] = raw.hex()
@@ -150,7 +157,7 @@ def compare(ref, cand, files_only=False):
             continue  # Early reference schema did not record initial metadata.
         rf, cf = ref.get(k, {}), cand.get(k, {})
         links = all('nlink' in e for e in rf.values())
-        check(k, norm_manifest(rf, roots[0], links), norm_manifest(cf, roots[1], links))
+        check(k, norm_manifest(rf, roots[0], links, ref), norm_manifest(cf, roots[1], links, cand))
     check('captured_files', norm_captured(ref.get('captured_files', {})), norm_captured(cand.get('captured_files', {})))
     if files_only:
         return diffs

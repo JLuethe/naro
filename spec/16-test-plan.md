@@ -91,7 +91,7 @@ is permitted.
 | ID | Allowed transformation and limits |
 |---|---|
 | N-PID | In diagnostic text and fixture **names**, `nano.<digits>.save` becomes `nano.<PID>.save`; numbered collision suffixes remain. No other numbers are masked. |
-| N-TMP | In diagnostic text and fixture names, a complete `nano.` plus six alphanumeric characters becomes `nano.XXXXXX`, preserving extensions. Ordinary saved file contents remain exact even if they contain that spelling. Tool logs containing temporary paths need explicit inspection; a mismatch is not silently waived. |
+| N-TMP | In diagnostic text and fixture names, a complete `nano.` plus six alphanumeric characters becomes `nano.XXXXXX`, preserving extensions. Ordinary saved file contents remain exact even if they contain that spelling. For the fixture-owned `home/spell-args` (TEST-FEAT-005) and `home/fmt-args` (TEST-FEAT-007) only, replace the run's actual TMPDIR (default /tmp) plus the random basename with `<TMP>/nano.XXXXXX`, preserving arguments, extension and every other byte. No other file payload is masked. |
 | N-ROOT | Replace each run's actual fixture root by `<FX>` in names, diagnostics and symlink targets; recognize `!`-encoded roots in backup names. Do not replace unrelated absolute paths or data-file bytes. |
 | N-LOCK | For recognizable 1024-byte `b0` lock files (including intermediate captures), zero PID bytes 24–27, user bytes 28–43 and host bytes 68–99. Preserve program/version bytes 2–11, filename bytes 108–875, modified byte 1007 and all remaining bytes. |
 | N-TIME | Ignore tmux-generated timestamps in the exact `Pane is dead (status/signal …, DATE)` banner, absolute inode numbers, mtimes, UID/GID, input timestamps, raw byte counts/hashes and output write fragmentation. Preserve mode, link counts and inode equivalence groups. For operations requiring mtime/inode preservation, compare before/after relationships separately; this comparator does not assert those relations. |
@@ -129,8 +129,7 @@ host merely to expand coverage.
 
 Run editor tests **only** in harness-created private fixtures. HOME, state,
 configuration, stub programs, input and output files must be fixture paths.
-Use fixture-only symlink/hardlink targets. Temporary-file probes should set
-`TMPDIR=$FX/tmp` and declare `tmp` in `dirs`. Never test against real user files,
+Use fixture-only symlink/hardlink targets. The runner now defaults TMPDIR to its per-scenario private scratch `tmp` directory, outside the captured `fx` manifest; scenarios can override it to `$FX/tmp` and declare `tmp` in `dirs`. Never test against real user files,
 `/etc`, system devices or an unrelated process. Do not invoke arbitrary destructive
 shell commands. Existing scenarios are trusted test code, not a sandbox;
 review commands before use. Cleanup is restricted to the harness's own work
@@ -150,3 +149,7 @@ Early reference results lack `initial_fixture`, `captured_files`, inode/link
 metadata. Compare these fields only where reference evidence records them; new
 fields cannot retroactively establish coverage. The dead-pane date banner is
 tmux output, not nano output, and only its date is masked (N-TIME).
+
+For a probe with both stdin and stdout redirected, `hold_tty: true` retains a
+private controlling-terminal descriptor across redirection. This avoids a PTY
+hangup before a noninteractive probe starts. Naro regex validation uses it.
