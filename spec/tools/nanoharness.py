@@ -64,9 +64,6 @@ def cwidth(ch):
 
 
 def tmux(*args, check=True, capture=True):
-    # CI supervisors can leave SIGCHLD blocked. tmux relies on it to reap
-    # pane children, even though Python's synchronous waitpid still works.
-    signal.pthread_sigmask(signal.SIG_UNBLOCK, {signal.SIGCHLD})
     cmd = ["tmux", "-L", SOCKET, "-f", "/dev/null"] + list(args)
     res = subprocess.run(cmd, stdout=subprocess.PIPE if capture else None,
                          stderr=subprocess.PIPE, check=False)
