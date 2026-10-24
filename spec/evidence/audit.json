@@ -4,10 +4,10 @@
   "requirements": 270,
   "baseline_documents": 25,
   "baseline_requirements": 248,
-  "planned_documents": [
+  "follow_up_documents": [
     "19-completion-and-release.md"
   ],
-  "planned_requirements": 22,
+  "follow_up_requirements": 22,
   "follow_up_tests": 41,
   "follow_up_statuses": {
     "planned": 41

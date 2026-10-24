@@ -247,25 +247,25 @@ BYTE-COLUMNS,18-bytes-encoding-and-coordinates.md,Coordinate conversions,TEST-BY
 BYTE-COUNT,18-bytes-encoding-and-coordinates.md,Character counts,TEST-BYTE-001 TEST-BYTE-005,baseline
 BYTE-CASE,18-bytes-encoding-and-coordinates.md,Case-insensitive comparison,TEST-BYTE-004 TEST-SRCH-019,baseline
 BYTE-INVALID,18-bytes-encoding-and-coordinates.md,Summary for invalid UTF-8,TEST-BYTE-001 TEST-BYTE-003 TEST-BYTE-004 TEST-BYTE-006 TEST-FEAT-019 TEST-FILE-011 TEST-REND-005 TEST-SRCH-019,baseline
-NEXT-SPELL-001,19-completion-and-release.md,Serialize precisely the spelling region,,planned
-NEXT-SPELL-002,19-completion-and-release.md,Replace and restore alternate-speller state,,planned
-NEXT-SPELL-003,19-completion-and-release.md,Confine internal spelling searches and replacements,,planned
-NEXT-TOOL-004,19-completion-and-release.md,Preserve formatter scope and mark-clearing order,,planned
-NEXT-TOOL-005,19-completion-and-release.md,Own tool resources and failure restoration,TEST-NEXT-SPELL-001 TEST-NEXT-TOOL-001,planned
-NEXT-EDIT-001,19-completion-and-release.md,Exercise compound edits and saved points,,planned
-NEXT-RC-002,19-completion-and-release.md,Verify precedence and lazy syntax loading,,planned
-NEXT-IO-003,19-completion-and-release.md,Inject write failures inside fixtures,,planned
-NEXT-RECOVER-004,19-completion-and-release.md,Verify signal and panic recovery,,planned
-NEXT-OBS-005,19-completion-and-release.md,Keep test results attributable and timing explicit,,planned
-NEXT-ENV-001,19-completion-and-release.md,Certify environments individually,,planned
-NEXT-I18N-002,19-completion-and-release.md,Separate catalog availability from behavior,,planned
-NEXT-TERM-003,19-completion-and-release.md,Add real-console and terminal evidence,,planned
-NEXT-PATH-004,19-completion-and-release.md,Rework excluded path cases without inventing equivalence,TEST-BROWSE-003 TEST-CLI-025 TEST-KEY-007,planned
-NEXT-DIST-001,19-completion-and-release.md,State the supported binary envelope,,planned
-NEXT-ASSET-002,19-completion-and-release.md,Install assets independently of the checkout,,planned
-NEXT-PKG-003,19-completion-and-release.md,Produce inspectable release artifacts,,planned
-NEXT-INSTALL-004,19-completion-and-release.md,Make installation reversible and testable,,planned
-NEXT-RELEASE-005,19-completion-and-release.md,Gate a preview release on evidence,,planned
-NEXT-UX-006,19-completion-and-release.md,Exercise the installed editor by hand,,planned
-NEXT-TINY-001,19-completion-and-release.md,Keep tiny optional and define it by the pinned profile,,planned
-NEXT-CREDITS-001,19-completion-and-release.md,Start with static credits and preserve compatibility,,planned
+NEXT-SPELL-001,19-completion-and-release.md,Serialize precisely the spelling region,TEST-NEXT-SPELL-002,follow-up
+NEXT-SPELL-002,19-completion-and-release.md,Replace and restore alternate-speller state,,follow-up
+NEXT-SPELL-003,19-completion-and-release.md,Confine internal spelling searches and replacements,,follow-up
+NEXT-TOOL-004,19-completion-and-release.md,Preserve formatter scope and mark-clearing order,,follow-up
+NEXT-TOOL-005,19-completion-and-release.md,Own tool resources and failure restoration,TEST-NEXT-SPELL-001 TEST-NEXT-TOOL-001,follow-up
+NEXT-EDIT-001,19-completion-and-release.md,Exercise compound edits and saved points,,follow-up
+NEXT-RC-002,19-completion-and-release.md,Verify precedence and lazy syntax loading,,follow-up
+NEXT-IO-003,19-completion-and-release.md,Inject write failures inside fixtures,,follow-up
+NEXT-RECOVER-004,19-completion-and-release.md,Verify signal and panic recovery,,follow-up
+NEXT-OBS-005,19-completion-and-release.md,Keep test results attributable and timing explicit,,follow-up
+NEXT-ENV-001,19-completion-and-release.md,Certify environments individually,,follow-up
+NEXT-I18N-002,19-completion-and-release.md,Separate catalog availability from behavior,,follow-up
+NEXT-TERM-003,19-completion-and-release.md,Add real-console and terminal evidence,,follow-up
+NEXT-PATH-004,19-completion-and-release.md,Rework excluded path cases without inventing equivalence,TEST-BROWSE-003 TEST-CLI-025 TEST-KEY-007,follow-up
+NEXT-DIST-001,19-completion-and-release.md,State the supported binary envelope,,follow-up
+NEXT-ASSET-002,19-completion-and-release.md,Install assets independently of the checkout,,follow-up
+NEXT-PKG-003,19-completion-and-release.md,Produce inspectable release artifacts,,follow-up
+NEXT-INSTALL-004,19-completion-and-release.md,Make installation reversible and testable,,follow-up
+NEXT-RELEASE-005,19-completion-and-release.md,Gate a preview release on evidence,,follow-up
+NEXT-UX-006,19-completion-and-release.md,Exercise the installed editor by hand,,follow-up
+NEXT-TINY-001,19-completion-and-release.md,Keep tiny optional and define it by the pinned profile,,follow-up
+NEXT-CREDITS-001,19-completion-and-release.md,Start with static credits and preserve compatibility,,follow-up

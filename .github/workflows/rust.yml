@@ -22,8 +22,8 @@ jobs:
           make install
           printf '%s\n' "$RUNNER_TEMP/tmux/bin" >> "$GITHUB_PATH"
       - run: cargo fmt --check
-      - run: cargo clippy --all-targets -- -D warnings
-      - run: cargo test
+      - run: cargo clippy --all-targets --all-features -- -D warnings
+      - run: cargo test --all-features
       - run: cargo build --release
       - run: python3 spec/tools/audit_spec.py
       - run: python3 spec/tools/test_compare_runs.py
@@ -33,3 +33,13 @@ jobs:
           tmux -V
           python3 spec/tools/nanoharness.py spec/evidence/scenarios/smoke.json --binary "$PWD/target/release/naro" --out target/ci-smoke
           python3 spec/tools/nanoharness.py tests/scenarios/safety.json --binary "$PWD/target/release/naro" --out target/ci-safety
+      - name: Recovery and optional credits
+        run: |
+          cargo build --features test-hooks --target-dir target/hooks
+          python3 spec/tools/nanoharness.py tests/follow-up/scenarios/panic.json --binary "$PWD/target/hooks/debug/naro" --out target/ci-panic
+          cargo build --release --features credits --target-dir target/credits
+          python3 tools/check_extensions.py --default target/release/naro --credits target/credits/release/naro --panic-runs target/ci-panic --out target/ci-extensions
+      - name: Installed assets, archive integrity and ownership
+        run: |
+          python3 tools/package.py --binary target/release/naro --out target/ci-package
+          python3 tools/check_package.py --archive target/ci-package/naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz --source-archive target/ci-package/naro-0.1.0-source.tar.gz --out target/ci-install
