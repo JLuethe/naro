@@ -29,6 +29,11 @@
         ]
       },
       {
+        "wait": {
+          "text": "Wrote 1 line"
+        }
+      },
+      {
         "keys": [
           "^X"
         ]

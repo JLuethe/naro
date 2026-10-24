@@ -680,6 +680,10 @@ def main():
                 for name, snap in res["snapshots"].items():
                     print("--- snapshot", name)
                     print(render(snap))
+                print("--- after exit / final pane")
+                print(render(res["after_exit_screen"]))
+                if res.get("stderr"):
+                    print("--- stderr", res["stderr"])
                 for c in res["checks"]:
                     if not c["pass"]:
                         print("   FAILED", c)
