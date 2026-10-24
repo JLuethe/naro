@@ -270,7 +270,7 @@ NEXT-UX-006,19-completion-and-release.md,Exercise the installed editor by hand,,
 NEXT-TINY-001,19-completion-and-release.md,Keep tiny optional and define it by the pinned profile,,follow-up
 NEXT-CREDITS-001,19-completion-and-release.md,Start with static credits and preserve compatibility,,follow-up
 ROOT-HOME-001,20-root-and-console.md,Resolve and cache the effective home precisely,,follow-up
-ROOT-CONSUMERS-002,20-root-and-console.md,Share resolution across existing consumers,,follow-up
+ROOT-CONSUMERS-002,20-root-and-console.md,Share resolution across existing consumers,TEST-ROOT-HOME-002,follow-up
 ROOT-STATE-003,20-root-and-console.md,Preserve file and failure behavior,,follow-up
 ROOT-ISOLATE-004,20-root-and-console.md,Confine root tests to a private namespace,,follow-up
 ROOT-PATH-005,20-root-and-console.md,Re-record the two deferred filesystem semantics,TEST-BROWSE-003 TEST-CLI-025,follow-up

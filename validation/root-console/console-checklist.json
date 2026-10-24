@@ -1,0 +1,87 @@
+{
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "probe": {
+    "kernel": "7.2.8-9-omarchy",
+    "TERM": "xterm-256color",
+    "locale": {
+      "LANG": "en_US.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "LC_CTYPE": "C.UTF-8"
+    },
+    "descriptors": {
+      "0": {
+        "isatty": false,
+        "tty": null,
+        "termios": null,
+        "vt_getstate": false,
+        "errno": 25,
+        "error": "Inappropriate ioctl for device"
+      },
+      "1": {
+        "isatty": false,
+        "tty": null,
+        "termios": null,
+        "vt_getstate": false,
+        "errno": 25,
+        "error": "Inappropriate ioctl for device"
+      }
+    },
+    "real_vt": false,
+    "status": "deferred",
+    "reason": "The calling descriptors do not identify a real Linux VT; no console was opened or switched."
+  },
+  "checks": {
+    "arrows-home-end-pages": {
+      "status": "unobserved",
+      "reference": null,
+      "candidate": null
+    },
+    "backspace-delete-shift-tab": {
+      "status": "unobserved",
+      "reference": null,
+      "candidate": null
+    },
+    "ctrl-arrows-home-end-delete": {
+      "status": "unobserved",
+      "reference": null,
+      "candidate": null
+    },
+    "shift-selection-arrows-delete": {
+      "status": "unobserved",
+      "reference": null,
+      "candidate": null
+    },
+    "alt-and-combined-modifiers": {
+      "status": "unobserved",
+      "reference": null,
+      "candidate": null
+    },
+    "macro-and-rc-replay": {
+      "status": "unobserved",
+      "reference": null,
+      "candidate": null
+    },
+    "combining-and-wide-display": {
+      "status": "unobserved",
+      "reference": null,
+      "candidate": null
+    },
+    "save-exit-cancel": {
+      "status": "unobserved",
+      "reference": null,
+      "candidate": null
+    },
+    "recoverable-tool-error": {
+      "status": "unobserved",
+      "reference": null,
+      "candidate": null
+    },
+    "handled-termination-restoration": {
+      "status": "unobserved",
+      "reference": null,
+      "candidate": null
+    }
+  },
+  "status": "deferred",
+  "probe_preserved_termios": true
+}

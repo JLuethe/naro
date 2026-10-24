@@ -1,0 +1,59 @@
+{
+  "checks": {
+    "format": {
+      "command": [
+        "/home/john/.cargo/bin/cargo",
+        "fmt",
+        "--check"
+      ],
+      "status": 0,
+      "output": ""
+    },
+    "clippy": {
+      "command": [
+        "/home/john/.cargo/bin/cargo",
+        "clippy",
+        "--all-targets",
+        "--all-features",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": 0,
+      "output": "   Compiling naro v0.1.0 (/home/john/Code/naro)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.54s\n"
+    },
+    "rust": {
+      "command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--all-features"
+      ],
+      "status": 0,
+      "output": "   Compiling naro v0.1.0 (/home/john/Code/naro)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.44s\n     Running unittests src/main.rs (target/debug/deps/naro-0676ad87b80ce37b)\n\nrunning 6 tests\ntest buffer::tests::region_splice ... ok\ntest buffer::tests::byte_edits_saved_and_redo ... ok\ntest buffer::tests::backspace_and_delete_are_distinct_undo_groups ... ok\ntest bytes::tests::invalid_and_boundaries ... ok\ntest bytes::tests::columns_tabs ... ok\ntest bytes::tests::nul_roundtrip ... ok\n\ntest result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n"
+    },
+    "comparator": {
+      "command": [
+        "python3",
+        "spec/tools/test_compare_runs.py"
+      ],
+      "status": 0,
+      "output": "..............\n----------------------------------------------------------------------\nRan 14 tests in 0.096s\n\nOK\n"
+    },
+    "harness": {
+      "command": [
+        "python3",
+        "spec/tools/test_nanoharness.py"
+      ],
+      "status": 0,
+      "output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.001s\n\nOK\n"
+    },
+    "namespace-and-console": {
+      "command": [
+        "python3",
+        "spec/tools/test_namespace_exec.py"
+      ],
+      "status": 0,
+      "output": ".......\n----------------------------------------------------------------------\nRan 7 tests in 0.004s\n\nOK\n"
+    }
+  }
+}

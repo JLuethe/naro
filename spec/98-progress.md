@@ -293,3 +293,41 @@ Both environments: 301/303 original terminal full matches, 51/53 new paired full
 matches (all remaining differences declared), CLI 38/38 and regex 162/162.
 The GitHub run for `eef679131cf1c16decd62dae2cd61ade497226bd` passed expanded CI.
 Root HOME precedence remains a named out-of-scope issue, Q-ENV-ROOT-001.
+
+
+## Root/home and conditional checks (2026-10-24)
+
+Spec commit: `582cb8f`. Application implementation:
+`4292ead60f1b93bc811b651a97bbfe8f46e455fd`.
+Doc 20 and `data/root-console-tests.csv` track this phase. Effective-home lookup
+now follows uid 0/passwd and non-root HOME rules, caches only successful results,
+and is shared by config, tilde, histories and backup fallback. No-home resolution
+skips cwd config/state. Tilde opening now retains the expanded filename and
+preserves a double-slash suffix. All 27 new ordinary/root namespace comparisons
+match. A separate source no-home tilde crash is safely handled (Q-ROOT-NOHOME-001).
+
+Root evidence: `../validation/root-console/`. The frozen optimized binary source
+fingerprint is `e3de64cd7995eccc549214783b542f5afa5e86e262b9026efb78fca5aa281ca8`.
+The ordinary regression remains 301/303 full matches, CLI 38/38, regex 162/162
+and passing existing safety assertions. New gates pass 16 checks. The previous
+Ubuntu archives remain historical artifacts and do not include this phase's fix.
+
+The root oracle is rebuilt from a private bootstrap copy, unchanged pinned C
+sources, with `--sysconfdir=/etc`. This makes the no-home configuration-origin
+label match the target instead of the old oracle's development installation
+prefix. It never reads host /etc during root tests: each editor has a private
+mount root. Its configure flags/source hashes are retained in the root report.
+
+Bubblewrap is available on this machine and provides genuine namespace uids 0
+and 1000, private passwd/group/NSS and null device. Backend safety guards and
+readiness checks are implemented. JSON serialization now preserves invalid-UTF-8
+path bytes and publishes only complete documents. Source and candidate backend
+hashes are checked; editing the backend during a run fails closed.
+
+The physical-console probe correctly records this tool's PTY as unavailable,
+without touching the active Linux VT. Run `tools/console_check.py` explicitly
+from an operator-owned real VT for the recorded trial; see the root validation
+README. Two physical-console rows remain deferred. Native modifier/rendering
+behavior is not certified until that trial and any resulting fixes. Optional
+tiny remains outside this task. Host-root privilege semantics beyond the listed
+namespace cases also remain untested.

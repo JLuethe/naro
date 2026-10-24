@@ -1,0 +1,284 @@
+{
+  "environment": {
+    "system": "Linux-7.2.8-9-omarchy-x86_64-with-glibc2.44",
+    "machine": "x86_64",
+    "libc": [
+      "glibc",
+      "2.44"
+    ],
+    "python": "3.14.8",
+    "tmux": "tmux 3.8",
+    "locale_inventory": "C\nC.utf8\nPOSIX\nen_US.utf8",
+    "file": "file-5.48\nmagic file from /usr/share/file/misc/magic\nseccomp support included\nLandlock support included",
+    "magic_databases": {
+      "/usr/share/file/misc/magic.mgc": "c2f4e7e55b0ee33c181ada80b065f9f8a58633c9806e8bd3353253c68324f268"
+    },
+    "locpath": null
+  },
+  "build_flags": "default",
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "scenario_sha256": "ff4a63587df96ad028c746948cbb64ff8d15b58cb4a7da7cff0ecf6353199339",
+  "results": {
+    "TEST-ROOT-HOME-001-ROOT-SET": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-001-ROOT-UNSET": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-001-ROOT-EMPTY": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-001-ROOT-MISSING-SET": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-001-ROOT-MISSING-UNSET": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-001-ROOT-PASSWD-EMPTY": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-001-USER-SET": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-001-USER-UNSET": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-001-USER-EMPTY": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-001-USER-MISSING-UNSET": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-002-RC-0": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-002-RC-1000": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-002-CACHE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-STATE-001-POSITION": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-002-TILDE-ROOT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-002-TILDE-NAMED": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-002-TILDE-BARE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-PATH-001-NULL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-PATH-001-BROWSER": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-001-NO-HOME-RC": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-STATE-002-ACCOUNT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-STATE-002-MISSING": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-002-XDG-RC": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-STATE-001-XDG": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-001-BYTE-PATH": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-HOME-002-TILDE-DOUBLE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    },
+    "TEST-ROOT-STATE-002-NO-HOME": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    }
+  },
+  "reference_sha256": "fe02ea07dc9a1e0afa009ef97dc034728995e39c65b75455985b0cf980fa3def",
+  "reference_status": 0,
+  "candidate_sha256": "212ea23a92e62aafcea7887633dedc39b55645653b1f7bea0617c2e7eae4a0ee",
+  "candidate_status": 0,
+  "candidate_build": {
+    "version": "0.1.0",
+    "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+    "source_sha256": "e3de64cd7995eccc549214783b542f5afa5e86e262b9026efb78fca5aa281ca8",
+    "revision": "4292ead60f1b93bc811b651a97bbfe8f46e455fd",
+    "features": "",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "summary": {
+    "recorded": 27,
+    "matches": 27,
+    "accepted": 27
+  },
+  "backend_sha256": "edc6cfc050f1d5a6d91a0cdeadcd391276dda9c1e679b87ae15cddd57715fcc4"
+}

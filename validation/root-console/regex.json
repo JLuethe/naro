@@ -1,0 +1,16 @@
+{
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "binary_sha256": "212ea23a92e62aafcea7887633dedc39b55645653b1f7bea0617c2e7eae4a0ee",
+  "locales": [
+    {
+      "locale": "C",
+      "cases": 81,
+      "differences": []
+    },
+    {
+      "locale": "en_US.UTF-8",
+      "cases": 81,
+      "differences": []
+    }
+  ]
+}

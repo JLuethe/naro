@@ -65,6 +65,7 @@ if a.clean_container:
     output = a.out / 'clean-environment'
     output.mkdir()
     result = subprocess.run(['podman', 'run', '--rm', '--network', 'none',
+        '--userns', 'keep-id', '--user', f'{os.getuid()}:{os.getgid()}',
         '-v', str(ROOT) + ':/test-runtime:ro', '-v', str(prefix) + ':/Prefix With Spaces:ro',
         '-v', str(output.resolve()) + ':/out', a.clean_container, 'python3',
         '/test-runtime/tools/check_installed_assets.py', '--prefix', '/Prefix With Spaces', '--out', '/out/assets'])

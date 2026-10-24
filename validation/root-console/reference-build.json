@@ -1,0 +1,32 @@
+{
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "reference_sha256": "fe02ea07dc9a1e0afa009ef97dc034728995e39c65b75455985b0cf980fa3def",
+  "configure": [
+    "--prefix=/home/john/Code/naro/target/root-reference/install",
+    "--sysconfdir=/etc"
+  ],
+  "src_sha256": {
+    "Makefile.am": "896a1c90728a1cbc8a7a6bbd0923fea7cddeae85c0bc7be678d703c82afa53a9",
+    "browser.c": "3a11f6d51e1ff51ac937c00dc1a42fa06369ce13c4d46dce51779b13bf24d39b",
+    "chars.c": "7e2243fbd027bd96d2c0d939ebbacfe28c72ae3a5105cb1fe59211c422e7b730",
+    "color.c": "dd927551eb69ecd305a7addde9194f3b0fb4c204bb8aa2bf3cae45204c7e572a",
+    "cut.c": "995700e56931087015afc65c533b24037cc422808a035c2e5118a3fb3e200c13",
+    "definitions.h": "579d185470fa4e8d6dda2f5cedf210a2fe66814a5e49b88ae17d46443fc83dbb",
+    "files.c": "ab07286b714d9b96c45460943078766bfd16a32912f1537c265f239a866615cd",
+    "global.c": "9819c8aa45b9656148a4ba9f45565d8982b9a0d69f6ae14762ce21a3ff5342a8",
+    "help.c": "dd998aebd5848c1c5bce5615a248464266af31e7961db3023db2a373b24a0e0b",
+    "history.c": "db3ecf9f909ed3bb19fb0c685c691057de5c11915a41fb6a5b260c64067c1ca5",
+    "move.c": "8a884cd3449a05d51b4b30df4c3ebff154c8d3075cf3ff5ec9cb17791048cd6a",
+    "nano.c": "f13c37afef9fc9e78d3a00f0da340e32b8677fd9f066eb703972aad0c95e7783",
+    "prompt.c": "734674c4706a2047f66d92084748b3ca8e0613eaf08d1682bbaac86cad90f26d",
+    "prototypes.h": "e5689fdc04a50bb392bbc44f8f2fa9d08d2a655e0bf10fd3e65e0b5de417e460",
+    "rcfile.c": "e38a034f54b7844e3f99e56a54884692fe907ae10338edb0fa092e29d21fa980",
+    "search.c": "30df8520afea9c4a084904fe8cd76031a74f3e7c281ab4873f169b6b58d00535",
+    "text.c": "6ae34b041a9cae3721cee141ba9a7723c1c1ba94521d8cf7264b4d6abe573500",
+    "utils.c": "2079478ac2efc6d3b2ec77d288878548495aefe3343ae72476116606b852fc55",
+    "winio.c": "cfdd498628da18c25479cca324107ed2d88b64f26b23ff53dd22e087d9c91be8"
+  },
+  "configure_log_sha256": "90fc1e494150ad33a051404b64692c34094c8cb8c218beabff5c8a3b71c8345d",
+  "backend": "bubblewrap 0.13.1",
+  "backend_sha256": "edc6cfc050f1d5a6d91a0cdeadcd391276dda9c1e679b87ae15cddd57715fcc4"
+}

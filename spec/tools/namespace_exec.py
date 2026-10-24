@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Fixture-only bubblewrap backend. Reference 6ed285c3ec7a1d228def4d4e7021c6ba269f620c."""
-import json,os,pwd,signal,stat,subprocess,sys
+import hashlib,json,os,pwd,signal,stat,subprocess,sys
 from pathlib import Path
+BACKEND_SHA256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
 
 
 def validate_fixture(root, workroot, uid):
@@ -30,7 +31,7 @@ def prepare(root,workroot,config):
         value=str(root/home)if home else''
         lines.append(f'{name}:x:{entry_uid}:{entry_uid}:Fixture:{value}:/bin/sh\n')
     (nss/'passwd').write_bytes(''.join(lines).encode('utf-8','surrogateescape'));(nss/'group').write_text(f'fixture:x:{uid}:\n');(nss/'nsswitch.conf').write_text('passwd: files\ngroup: files\nhosts: files\n')
-    state={'fixture':str(root),'root':str(tree),'uid':uid,'backend':'bubblewrap user/mount/pid/ipc/uts/network namespaces'}
+    state={'fixture':str(root),'root':str(tree),'uid':uid,'backend':'bubblewrap user/mount/pid/ipc/uts/network namespaces','backend_sha256':BACKEND_SHA256}
     path=work/'namespace.json';path.write_text(json.dumps(state))
     return path
 
@@ -59,6 +60,7 @@ def main():
     for name in ['passwd','group','nsswitch.conf']:
         path=root/'namespace-nss'/name
         if path.resolve()!=path or not path.is_file():raise ValueError('unsafe NSS fixture')
+    if state.get('backend_sha256')!=BACKEND_SHA256:raise ValueError('namespace backend changed during recording')
     env=json.loads(env_json)
     command=['/usr/bin/bwrap','--unshare-all','--uid',str(uid),'--gid',str(uid),'--die-with-parent','--new-session',
         '--ro-bind',state['root'],'/','--ro-bind','/usr','/usr','--proc','/proc','--dev','/dev',

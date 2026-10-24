@@ -35,6 +35,7 @@ exhaustive branch coverage or successful implementation.
 | [17](17-prompts-and-completion.md) | Answer editing, history and completion |
 | [18](18-bytes-encoding-and-coordinates.md) | Invalid bytes, NUL, widths, positions, classification |
 | [19](19-completion-and-release.md) | Follow-up: tool selections, edge cases, environment certification, packaging; optional tiny/credits proposal |
+| [20](20-root-and-console.md) | Effective-home resolution, isolated root/device checks, and physical-console protocol |
 | [97](97-coverage.md) | Evidence coverage and explicit verification gaps |
 | [98](98-progress.md) | Work state and reproducible resume instructions |
 | [99](99-open-questions.md) | Decisions, defects and deliberate deviations |
@@ -59,5 +60,6 @@ behavioral contract.
 Document 19 and `data/follow-up-tests.csv` track the implemented follow-up phase
 with separate audit counts and evidence-linked statuses. See
 [follow-up validation](../validation/follow-up/README.md) for the tested builds;
-conditional VT/root checks and optional tiny remain deferred. The original
+physical VT checks and optional tiny remain deferred. Doc 20 adds verified
+namespace-root cases and a console readiness/operator protocol. The original
 248 requirements and baseline observations remain separate historical evidence.

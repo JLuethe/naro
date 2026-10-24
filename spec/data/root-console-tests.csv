@@ -1,11 +1,11 @@
 reference_commit,test_id,requirement_ids,scenario,release_gate,status,evidence
-6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-ROOT-HOME-001,ROOT-HOME-001,HOME/passwd resolution across uid 0 and non-root; set/unset/empty/failure,required,planned,
-6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-ROOT-HOME-002,ROOT-HOME-001;ROOT-CONSUMERS-002,Cached home and tilde/config selection,required,planned,
-6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-ROOT-STATE-001,ROOT-CONSUMERS-002;ROOT-STATE-003,History/position state and untouched decoy home,required,planned,
-6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-ROOT-STATE-002,ROOT-CONSUMERS-002;ROOT-STATE-003,Backup fallback to effective home with bytes/mode checks,required,planned,
-6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-ROOT-ISOLATE-001,ROOT-ISOLATE-004,"Real namespace identities, private NSS/device provenance; reject unsafe backend inputs",required,planned,
-6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-ROOT-PATH-001,ROOT-PATH-005,Private real /dev/null and synthetic filesystem root browser,required,planned,
-6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-ROOT-REGRESS-001,ROOT-REGRESS-006,Frozen ordinary-user regression corpus and affected consumers,required,planned,
-6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-VT-PROBE-001,VT-PROBE-001,Read-only VT detection and explicit PTY/unavailable classification,required,planned,
-6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-VT-INPUT-001,VT-INPUT-002,Real physical keyboard modifier and selection checklist,conditional,planned,
-6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-VT-RESTORE-001,VT-RESTORE-003,Operator-owned real VT restoration and observations,conditional,planned,
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-ROOT-HOME-001,ROOT-HOME-001,HOME/passwd resolution across uid 0 and non-root; set/unset/empty/failure,required,verified,../validation/root-console/gate.json
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-ROOT-HOME-002,ROOT-HOME-001;ROOT-CONSUMERS-002,Cached home and tilde/config selection,required,verified,../validation/root-console/gate.json
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-ROOT-STATE-001,ROOT-CONSUMERS-002;ROOT-STATE-003,History/position state and untouched decoy home,required,verified,../validation/root-console/gate.json
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-ROOT-STATE-002,ROOT-CONSUMERS-002;ROOT-STATE-003,Backup fallback to effective home with bytes/mode checks,required,verified,../validation/root-console/gate.json
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-ROOT-ISOLATE-001,ROOT-ISOLATE-004,"Real namespace identities, private NSS/device provenance; reject unsafe backend inputs",required,verified,../validation/root-console/gate.json
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-ROOT-PATH-001,ROOT-PATH-005,Private real /dev/null and synthetic filesystem root browser,required,verified,../validation/root-console/gate.json
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-ROOT-REGRESS-001,ROOT-REGRESS-006,Frozen ordinary-user regression corpus and affected consumers,required,verified,../validation/root-console/gate.json
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-VT-PROBE-001,VT-PROBE-001,Read-only VT detection and explicit PTY/unavailable classification,required,verified,../validation/root-console/gate.json
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-VT-INPUT-001,VT-INPUT-002,Real physical keyboard modifier and selection checklist,conditional,deferred,../validation/root-console/console-probe.json
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-VT-RESTORE-001,VT-RESTORE-003,Operator-owned real VT restoration and observations,conditional,deferred,../validation/root-console/console-probe.json

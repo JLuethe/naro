@@ -171,6 +171,8 @@ def compare(ref, cand, files_only=False):
         check(k, norm_manifest(rf, roots[0], links, ref), norm_manifest(cf, roots[1], links, cand))
     if 'temp_files' in ref:
         check('temp_files', norm_manifest(ref['temp_files'], roots[0], run=ref), norm_manifest(cand.get('temp_files', {}), roots[1], run=cand))
+    if 'namespace_backend_sha256' in ref:
+        check('namespace_backend_sha256', ref['namespace_backend_sha256'], cand.get('namespace_backend_sha256'))
     if 'root_namespace' in ref:
         check('root_namespace', norm_text(json.dumps(ref['root_namespace'],sort_keys=True), roots[0]), norm_text(json.dumps(cand.get('root_namespace'),sort_keys=True), roots[1]))
     if 'helper_statuses' in ref:

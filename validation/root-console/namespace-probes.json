@@ -1,0 +1,758 @@
+{
+  "TEST-ROOT-HOME-001-ROOT-SET": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-SET/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-SET/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-SET/fx/account",
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-SET/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-SET/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-SET/fx/account",
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-HOME-001-ROOT-UNSET": {
+    "reference": {
+      "HOME": null,
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-UNSET/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-UNSET/fx/account",
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": null,
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-UNSET/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-UNSET/fx/account",
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-HOME-001-ROOT-EMPTY": {
+    "reference": {
+      "HOME": "",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-EMPTY/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-EMPTY/fx/account",
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": "",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-EMPTY/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-EMPTY/fx/account",
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-HOME-001-ROOT-MISSING-SET": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-MISSING-SET/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-MISSING-SET/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": null,
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-MISSING-SET/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-MISSING-SET/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": null,
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-HOME-001-ROOT-MISSING-UNSET": {
+    "reference": {
+      "HOME": null,
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-MISSING-UNSET/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": null,
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": null,
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-MISSING-UNSET/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": null,
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-HOME-001-ROOT-PASSWD-EMPTY": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-PASSWD-EMPTY/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-PASSWD-EMPTY/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "",
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-PASSWD-EMPTY/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-ROOT-PASSWD-EMPTY/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "",
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-HOME-001-USER-SET": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-001-USER-SET/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-USER-SET/fx/work",
+      "euid": 1000,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-001-USER-SET/fx/account",
+      "root": "/",
+      "uid": 1000
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-001-USER-SET/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-USER-SET/fx/work",
+      "euid": 1000,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-001-USER-SET/fx/account",
+      "root": "/",
+      "uid": 1000
+    }
+  },
+  "TEST-ROOT-HOME-001-USER-UNSET": {
+    "reference": {
+      "HOME": null,
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-USER-UNSET/fx/work",
+      "euid": 1000,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-001-USER-UNSET/fx/account",
+      "root": "/",
+      "uid": 1000
+    },
+    "candidate": {
+      "HOME": null,
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-USER-UNSET/fx/work",
+      "euid": 1000,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-001-USER-UNSET/fx/account",
+      "root": "/",
+      "uid": 1000
+    }
+  },
+  "TEST-ROOT-HOME-001-USER-EMPTY": {
+    "reference": {
+      "HOME": "",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-USER-EMPTY/fx/work",
+      "euid": 1000,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-001-USER-EMPTY/fx/account",
+      "root": "/",
+      "uid": 1000
+    },
+    "candidate": {
+      "HOME": "",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-USER-EMPTY/fx/work",
+      "euid": 1000,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-001-USER-EMPTY/fx/account",
+      "root": "/",
+      "uid": 1000
+    }
+  },
+  "TEST-ROOT-HOME-001-USER-MISSING-UNSET": {
+    "reference": {
+      "HOME": null,
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-USER-MISSING-UNSET/fx/work",
+      "euid": 1000,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": null,
+      "root": "/",
+      "uid": 1000
+    },
+    "candidate": {
+      "HOME": null,
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-USER-MISSING-UNSET/fx/work",
+      "euid": 1000,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": null,
+      "root": "/",
+      "uid": 1000
+    }
+  },
+  "TEST-ROOT-HOME-002-RC-0": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-002-RC-0/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-002-RC-0/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-002-RC-0/fx/account",
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-002-RC-0/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-002-RC-0/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-002-RC-0/fx/account",
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-HOME-002-RC-1000": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-002-RC-1000/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-002-RC-1000/fx/work",
+      "euid": 1000,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-002-RC-1000/fx/account",
+      "root": "/",
+      "uid": 1000
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-002-RC-1000/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-002-RC-1000/fx/work",
+      "euid": 1000,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-002-RC-1000/fx/account",
+      "root": "/",
+      "uid": 1000
+    }
+  },
+  "TEST-ROOT-HOME-002-CACHE": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-002-CACHE/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-002-CACHE/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-002-CACHE/fx/account",
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-002-CACHE/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-002-CACHE/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-002-CACHE/fx/account",
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-STATE-001-POSITION": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-STATE-001-POSITION/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-STATE-001-POSITION/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-STATE-001-POSITION/fx/account",
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-STATE-001-POSITION/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-STATE-001-POSITION/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-STATE-001-POSITION/fx/account",
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-HOME-002-TILDE-ROOT": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-ROOT/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-ROOT/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-ROOT/fx/account",
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-ROOT/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-ROOT/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-ROOT/fx/account",
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-HOME-002-TILDE-NAMED": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-NAMED/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-NAMED/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-NAMED/fx/account",
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-NAMED/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-NAMED/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-NAMED/fx/account",
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-HOME-002-TILDE-BARE": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-BARE/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-BARE/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-BARE/fx/account",
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-BARE/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-BARE/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-BARE/fx/account",
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-PATH-001-NULL": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-PATH-001-NULL/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-PATH-001-NULL/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-PATH-001-NULL/fx/account",
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-PATH-001-NULL/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-PATH-001-NULL/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-PATH-001-NULL/fx/account",
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-PATH-001-BROWSER": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-PATH-001-BROWSER/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-PATH-001-BROWSER/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-PATH-001-BROWSER/fx/account",
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-PATH-001-BROWSER/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-PATH-001-BROWSER/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-PATH-001-BROWSER/fx/account",
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-HOME-001-NO-HOME-RC": {
+    "reference": {
+      "HOME": null,
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-NO-HOME-RC/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": null,
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": null,
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-NO-HOME-RC/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": null,
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-STATE-002-ACCOUNT": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-STATE-002-ACCOUNT/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-STATE-002-ACCOUNT/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-STATE-002-ACCOUNT/fx/account",
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-STATE-002-ACCOUNT/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-STATE-002-ACCOUNT/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-STATE-002-ACCOUNT/fx/account",
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-STATE-002-MISSING": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-STATE-002-MISSING/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-STATE-002-MISSING/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": null,
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-STATE-002-MISSING/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-STATE-002-MISSING/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": null,
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-HOME-002-XDG-RC": {
+    "reference": {
+      "HOME": null,
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-002-XDG-RC/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": null,
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": null,
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-002-XDG-RC/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": null,
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-STATE-001-XDG": {
+    "reference": {
+      "HOME": null,
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-STATE-001-XDG/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": null,
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": null,
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-STATE-001-XDG/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": null,
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-HOME-001-BYTE-PATH": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-001-BYTE-PATH/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-BYTE-PATH/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-001-BYTE-PATH/fx/account-\udcff",
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-001-BYTE-PATH/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-001-BYTE-PATH/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-001-BYTE-PATH/fx/account-\udcff",
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-HOME-002-TILDE-DOUBLE": {
+    "reference": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-DOUBLE/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-DOUBLE/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-DOUBLE/fx/account",
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-DOUBLE/fx/home",
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-DOUBLE/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": "/tmp/nanospec-work/TEST-ROOT-HOME-002-TILDE-DOUBLE/fx/account",
+      "root": "/",
+      "uid": 0
+    }
+  },
+  "TEST-ROOT-STATE-002-NO-HOME": {
+    "reference": {
+      "HOME": null,
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-STATE-002-NO-HOME/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": null,
+      "root": "/",
+      "uid": 0
+    },
+    "candidate": {
+      "HOME": null,
+      "cwd": "/tmp/nanospec-work/TEST-ROOT-STATE-002-NO-HOME/fx/work",
+      "euid": 0,
+      "null_device": [
+        1,
+        3
+      ],
+      "null_is_character_device": true,
+      "passwd_home": null,
+      "root": "/",
+      "uid": 0
+    }
+  }
+}

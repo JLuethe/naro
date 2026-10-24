@@ -337,6 +337,18 @@ def manifest(root, inline_limit=4096):
 # ---------------------------------------------------------------- running
 
 
+def write_result(path, result):
+    # JSON escapes preserve surrogateescaped POSIX pathname bytes. Publish only
+    # a complete document, so serialization failure cannot leave a fake result.
+    temporary = path + ".tmp"
+    try:
+        with open(temporary, "w", encoding="utf-8") as stream:
+            json.dump(result, stream, indent=1, ensure_ascii=True)
+        os.replace(temporary, path)
+    finally:
+        if os.path.exists(temporary): os.unlink(temporary)
+
+
 class Run:
     def __init__(self, scenario, binary, outdir, keep=False):
         self.sc = scenario
@@ -399,6 +411,8 @@ class Run:
         tmux("send-keys", "-t", "t:0.0", "-H", *["%02x" % b for b in data])
 
     def execute(self):
+        if os.geteuid() == 0 and "root_namespace" not in self.sc:
+            raise RuntimeError("Root harness runs require a private root_namespace; use an ordinary uid otherwise")
         global SOCKET
         # A fresh socket also isolates server teardown between consecutive
         # scenarios on older tmux versions; kill-server is asynchronous.
@@ -544,11 +558,11 @@ class Run:
         if namespace_state is not None:
             probe = os.path.join(root,"namespace-nss/probe.json")
             result["root_namespace"] = json.load(open(probe)) if os.path.isfile(probe) else None
+            result["namespace_backend_sha256"] = json.load(open(namespace_state))["backend_sha256"]
         result["checks"] = self.check(result)
         result["step_checks"] = self.step_checks
         result["steps_ok"] = bool(ok) and not any("timed out" in n for n in self.notes)
-        with open(os.path.join(self.outdir, "result.json"), "w") as fh:
-            json.dump(result, fh, indent=1, ensure_ascii=False)
+        write_result(os.path.join(self.outdir, "result.json"), result)
         if not self.keep:
             shutil.rmtree(work, ignore_errors=True)
         return result

@@ -187,3 +187,26 @@ initial manifest) `home/f.txt~` plus exactly six alphanumeric characters becomes
 `home/f.txt~XXXXXX` in manifest names. Preserve all file bytes, modes and link
 relationships. Existing names and other cases remain exact. Regression tests
 cover this boundary. Q-TOOL-001 cleanup differences remain explicit.
+
+
+## Root namespace extension
+
+`root_namespace` scenarios use the guarded backend in `tools/namespace_exec.py`.
+Only canonical private harness roots and namespace uids 0/1000 are accepted.
+The backend uses an absolute bubblewrap executable path, private NSS/device
+mounts and read-only runtime inputs; it has no unisolated fallback. Each result
+includes actual namespace observations and an import-time backend source hash,
+checked again by the launcher. Root models are defined in doc 20. Direct
+`--binary` paths are resolved before changing to the fixture working directory.
+
+Result JSON is published atomically with ASCII escapes, preserving surrogateescaped
+POSIX pathname bytes without producing a partial JSON document. Parser/schema
+consumers recover the same characters/bytes after decoding. Original observations
+are unchanged. Namespace identities, device types and backend hashes are compared.
+
+N-BACKUP additionally applies only to the newly created `account/f.txt~XXXXXX`
+file in TEST-ROOT-STATE-002-ACCOUNT and `home/f.txt~XXXXXX` in
+TEST-ROOT-STATE-002-MISSING. Original names, modes, contents and hardlink groups
+remain exact. No ordinary pathname or file-content normalization is added.
+Q-ROOT-NOHOME-001 has its own source/candidate assertions and restricted decision
+rule; its exit/stderr/screen differences remain visible in raw reports.

@@ -56,3 +56,15 @@ See [completion evidence and scope](../validation/follow-up/README.md) and
 an additional known out-of-scope difference (Q-ENV-ROOT-001). No real-console,
 root-account, translation-quality or tiny parity is claimed. Artifacts are staged
 for review; a tag or GitHub release has not been published.
+
+
+## Root phase outcome
+
+Doc 20's automated work is implemented: eight verified matrix rows, 27 exact
+new namespace comparisons, one explicit no-home source-crash recovery decision,
+and unchanged ordinary-user regression results. All 16 root-phase gate checks
+pass. The prior isolated-root path deferral is closed with fresh evidence.
+The console readiness checker and operator protocol are built, but the current
+PTY cannot provide physical-key/VT evidence, so two manual rows remain deferred.
+See [current root evidence](../validation/root-console/README.md). No host console
+or passwd configuration was changed, and no new release was published.

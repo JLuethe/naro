@@ -1,0 +1,74 @@
+{
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "binary_sha256": "212ea23a92e62aafcea7887633dedc39b55645653b1f7bea0617c2e7eae4a0ee",
+  "source_sha256": "e3de64cd7995eccc549214783b542f5afa5e86e262b9026efb78fca5aa281ca8",
+  "checks": [
+    {
+      "name": "root-binary",
+      "pass": true
+    },
+    {
+      "name": "root-inventory",
+      "pass": true
+    },
+    {
+      "name": "root-differential",
+      "pass": true
+    },
+    {
+      "name": "namespace-real-uids-and-device",
+      "pass": true
+    },
+    {
+      "name": "backend-same-source",
+      "pass": true
+    },
+    {
+      "name": "reference-build",
+      "pass": true
+    },
+    {
+      "name": "no-home-recovery",
+      "pass": true
+    },
+    {
+      "name": "ordinary-binary",
+      "pass": true
+    },
+    {
+      "name": "ordinary-terminal",
+      "pass": true
+    },
+    {
+      "name": "cli",
+      "pass": true
+    },
+    {
+      "name": "regex",
+      "pass": true
+    },
+    {
+      "name": "existing-safety",
+      "pass": true
+    },
+    {
+      "name": "normal-backup",
+      "pass": true
+    },
+    {
+      "name": "rust-and-harness-checks",
+      "pass": true
+    },
+    {
+      "name": "console-probe-preserves-terminal",
+      "pass": true
+    },
+    {
+      "name": "console-gate-honest",
+      "pass": true
+    }
+  ],
+  "automated_gates_pass": true,
+  "physical_vt": "deferred; probe identified a PTY, not a real console",
+  "scope": "Fixture user/mount namespaces, effective uid 0/1000, private NSS and root/device paths; no host-root privilege certification."
+}

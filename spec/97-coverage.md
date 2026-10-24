@@ -88,3 +88,15 @@ recorded separately in the matrix and [validation](../validation/follow-up/READM
 The audit reports their counts and statuses separately from the original 248
 requirements and 309 recorded reference scenarios. Required gates, conditional
 environment checks and optional tiny work remain distinct. Runtime credits are verified in an opt-in build.
+
+
+## Root and console phase
+
+[Doc 20](20-root-and-console.md) adds nine requirements and a separate ten-row
+matrix. Eight automated rows are verified; two physical-console rows remain
+deferred. The isolated-root gate from doc 19 is now verified by fresh private
+null-device and filesystem-root browser observations. See
+[root-phase validation](../validation/root-console/README.md): 27 exact new
+comparisons, one named source-crash recovery difference, and unchanged ordinary
+regression results. This does not certify general host-root privilege behavior
+or real Linux console input. Earlier reports retain their historical scope.

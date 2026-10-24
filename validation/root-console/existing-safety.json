@@ -1,0 +1,49 @@
+{
+  "binary_sha256": "212ea23a92e62aafcea7887633dedc39b55645653b1f7bea0617c2e7eae4a0ee",
+  "results": {
+    "TEST-NARO-REGEX-SAFE": {
+      "binary_sha256": "212ea23a92e62aafcea7887633dedc39b55645653b1f7bea0617c2e7eae4a0ee",
+      "steps_ok": true,
+      "checks": [
+        {
+          "check": "exit_status",
+          "pass": true,
+          "detail": "got 0"
+        },
+        {
+          "check": "file:work/f.txt:text",
+          "pass": true,
+          "detail": "got 'Xoriginal\\n'"
+        },
+        {
+          "check": "row21~",
+          "pass": true,
+          "detail": "'                      [ Bad regex \"(\": Unmatched ( or \\\\( ]                      '"
+        }
+      ],
+      "exit_status": 0
+    },
+    "TEST-NARO-NUL-SAFE": {
+      "binary_sha256": "212ea23a92e62aafcea7887633dedc39b55645653b1f7bea0617c2e7eae4a0ee",
+      "steps_ok": true,
+      "checks": [
+        {
+          "check": "exit_status",
+          "pass": true,
+          "detail": "got 0"
+        },
+        {
+          "check": "file:work/f.txt:text",
+          "pass": true,
+          "detail": "got 'original\\n'"
+        },
+        {
+          "check": "row21~",
+          "pass": true,
+          "detail": "'Save modified buffer?                                                           '"
+        }
+      ],
+      "exit_status": 0
+    }
+  }
+}

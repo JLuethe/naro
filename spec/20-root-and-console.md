@@ -2,7 +2,8 @@ Reference commit: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`
 
 # 20 — Root home resolution, isolated paths and Linux console verification
 
-Status: specified; implementation and new evidence are tracked in
+Status: automated root/home/filesystem work implemented and verified; physical
+console validation remains deferred. Implementation and evidence are tracked in
 [data/root-console-tests.csv](data/root-console-tests.csv). This phase addresses
 steps 1 and 2 of the next-work list. Historical doc 19 results remain unchanged.
 
@@ -79,6 +80,8 @@ private /dev with an actual null character device (major 1, minor 3), not the
 host /dev/null or a regular-file substitute. Record effective uid, account home,
 namespace root, device identity, backend identity and binary/scenario hashes.
 
+The harness rejects callers running as uid 0 unless a private root namespace
+is declared. Clean-container asset checks run as an ordinary mapped uid.
 Fail closed if setup/capability checks fail; no fallback to unisolated execution.
 Bound child lifetime with the existing harness. Refuse unsafe fixture roots,
 symlink roots and unsupported namespace identities. A missing backend is a
@@ -152,3 +155,10 @@ Physical-console verification remains a conditional gate. This phase does not
 implement optional tiny or publish a release. It supplies concrete changes and
 reviewable evidence for the supported root cases without relabeling historical
 ordinary-user certification.
+
+
+Current outcome: 27 exact new comparisons and one separately asserted no-home
+recovery difference; the original 303-case corpus retains 301 full matches.
+See [root-phase validation](../validation/root-console/README.md). The physical
+VT probe identifies a PTY, so both manual VT rows stay deferred. The earlier
+isolated-root path gate is now verified by the new observations.

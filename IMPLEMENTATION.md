@@ -43,7 +43,7 @@ fallback scenario, retaining file bytes, permissions and link checks.
 Five original terminal cases still involve host paths and are excluded; one
 requires optional tiny. Three new fixture absolute-path variants have fresh
 reference observations and are mapped individually. Real VT and isolated-root
-special-device/root-browser checks remain deferred. Root-account home precedence still differs (Q-ENV-ROOT-001); root-account configuration,
+special-device/root-browser checks remain deferred. Root-account home precedence is now fixed and tested in private namespaces; broader root-account configuration,
 other architectures/OSes, static linking and translation quality are outside
 this certification. Byte-locale screens inherit tmux's UTF-8 capture limits.
 Tiny is unimplemented. Optional `credits` is implemented and default-off.
@@ -60,3 +60,13 @@ Use `tools/check_follow_up.py` for fresh paired suites and
 `tools/validate_parallel.py` for the safe original corpus. Use new output folders
 and avoid simultaneous runs sharing scenario IDs. Never overwrite original
 `spec/evidence/runs` or run editing tests against real user files.
+
+
+The newer root/home implementation (`4292ead`) is covered by
+[root-phase evidence](validation/root-console/README.md): 27 exact comparisons
+with genuine namespace uid/NSS/device observations, and a separate asserted
+no-home tilde recovery difference. Its ordinary regression retains 301/303 full
+matches, CLI 38/38 and regex 162/162. The prior release archives and two-environment
+reports identify earlier binaries; a new release requires refreshed artifact
+validation. The Linux VT probe/operator runner is implemented, while real-console
+modifier/rendering behavior remains unverified.

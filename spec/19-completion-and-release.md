@@ -3,7 +3,7 @@ Reference commit: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`
 # 19 — Compatibility completion, verification and release
 
 Status: implemented and verified for the ordinary-user default-profile preview;
-conditional real-VT/isolated-root checks and optional tiny remain deferred.
+real-VT checks and optional tiny remain deferred; doc 20 verifies isolated-root paths.
 The evidence-linked matrix and [validation](../validation/follow-up/README.md)
 record the tested binaries. The original contract in 00–18 remains authoritative.
 

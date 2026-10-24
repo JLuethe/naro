@@ -65,5 +65,12 @@ Follow-up matrix status is evidence-linked independently from requirement origin
 The requirements CSV `phase` is `baseline` or `follow-up`; phase is not a passing
 status. The original 309 reference recordings remain unchanged. New paired
 scenario revisions live in `../../tests/follow-up/scenarios`; compact reports
-are in `../../validation/follow-up`. The audit counts 248 baseline and 22
-follow-up requirements separately.
+are in `../../validation/follow-up`. The audit counts 248 baseline and 31
+follow-up requirements separately (22 in doc 19 and nine in doc 20).
+
+
+`root-console-tests.csv` adds doc 20 cases using the common identity, requirement,
+status, gate and evidence columns. Its eight verified automated rows and two
+deferred physical-console rows are audited alongside the earlier matrix.
+Namespace backend hashes and actual uid/NSS/device observations are retained in
+`../../validation/root-console`. See doc 20 for the explicit oracle build flags.

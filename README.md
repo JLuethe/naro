@@ -65,3 +65,11 @@ and removal.
 [Credits](CREDITS.md) acknowledge the upstream work and development assistance.
 Tiny mode remains optional future work. A default-off Cargo `credits` feature
 enables a separately tested `naro --credits` command.
+
+
+The [root/home phase](spec/20-root-and-console.md) now implements GNU-compatible
+home selection and verifies private root/device/browser cases. Its
+[validation](validation/root-console/README.md) reports 27 exact new comparisons
+and unchanged ordinary-user regression results. A separate no-home upstream
+crash has an asserted safe fallback. Physical Linux console verification remains
+deferred; readiness and explicit operator-trial tooling are available.
