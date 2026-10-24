@@ -33,3 +33,26 @@ The counts above describe the original completed behavioral baseline. Document
 19 is a planned follow-up covering remaining implementation, verification and
 release work; its requirements and proposed test matrix are counted separately.
 Adding that plan does not implement it or change historical validation results.
+
+## Follow-up implementation and verification (2026-10-24)
+
+The doc 19 default-profile preview requirements are implemented and verified.
+The matrix has 37 verified rows and four deferred rows: conditional real VT and
+isolated-root checks, and two optional tiny checks. Runtime credits are now
+implemented as a default-off feature. Historical counts above remain historical.
+
+The [follow-up gate](../validation/follow-up/gate.json) passes all 48 checks.
+Host and ordinary-user Ubuntu 24.04 builds each have 301/303 full terminal matches,
+38/38 CLI matches, and 162/162 local-regex matches. Each environment has 53 new
+paired cases, 51 full matches and two explicitly accepted tool-cleanup differences.
+Separate safety and named/unnamed/multibuffer panic assertions pass. All 41
+catalogs resolve from installed layouts; source archives rebuild with matching
+input fingerprints. Archive integrity, private install/removal ownership, large
+file bytes and an agent-operated interactive checklist pass. Original reference
+evidence and the pinned source worktree remain intact.
+
+See [completion evidence and scope](../validation/follow-up/README.md) and
+[limits](../validation/follow-up/limits.json). Root-account home precedence is
+an additional known out-of-scope difference (Q-ENV-ROOT-001). No real-console,
+root-account, translation-quality or tiny parity is claimed. Artifacts are staged
+for review; a tag or GitHub release has not been published.

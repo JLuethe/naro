@@ -1,0 +1,76 @@
+{
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "deferred": [
+    {
+      "test": "TEST-NEXT-TERM-002",
+      "reason": "No real Linux VT or physical keyboard available in this agent session; PTY/tmux results do not establish VT ioctl/keymap behavior."
+    },
+    {
+      "test": "TEST-NEXT-PATH-002",
+      "reason": "No dedicated fixture-root setup preserving real root browsing and /dev/null character-device semantics was established. Rootless Linux containers were used for ordinary-user tests; their system root/device paths are outside this fixture scope."
+    },
+    {
+      "test": "TEST-NEXT-TINY-001",
+      "reason": "Optional compile-time tiny profile remains unimplemented."
+    },
+    {
+      "test": "TEST-NEXT-TINY-002",
+      "reason": "No tiny artifact exists; no size/dependency reduction is claimed."
+    }
+  ],
+  "path_mapping": [
+    {
+      "original": "TEST-CLI-032",
+      "replacement": "TEST-NEXT-PATH-001-032",
+      "substitution": "/nonexistent-dir -> $FX/work/absent",
+      "semantics": "Nonexistent absolute operating directory; new reference recording, not a replay of unchanged original."
+    },
+    {
+      "original": "TEST-CLI-033",
+      "replacement": "TEST-NEXT-PATH-001-033",
+      "substitution": "/nonexistent-dir -> $FX/work/absent",
+      "semantics": "Nonexistent absolute backup directory; new reference recording."
+    },
+    {
+      "original": "TEST-CLI-035",
+      "replacement": "TEST-NEXT-PATH-001-035",
+      "substitution": "/nonexistent-dir -> $FX/work/absent",
+      "semantics": "Restricted mode with nonexistent backup directory; new reference recording."
+    },
+    {
+      "original": "TEST-CLI-025",
+      "status": "deferred",
+      "reason": "A regular fixture file is not equivalent to /dev/null."
+    },
+    {
+      "original": "TEST-BROWSE-003",
+      "status": "deferred",
+      "reason": "A fixture directory is not equivalent to filesystem root."
+    }
+  ],
+  "scope": "Ordinary-user Linux x86_64/glibc; tested tmux and xterm-compatible PTYs. No root-account configuration, real VT, other architecture/OS, static binary or translation-quality certification.",
+  "failed_attempts": [
+    {
+      "path": "target/follow-up-env-v1",
+      "reason": "Host automake symlinks unavailable in container; auxiliary files replaced only in copied build tree."
+    },
+    {
+      "path": "target/follow-up-env-v2",
+      "reason": "Reference documentation build required makeinfo; editor/library/catalog subdirectories built instead."
+    },
+    {
+      "path": "target/follow-up-env-final",
+      "reason": "uid 0 ignores fixture HOME in GNU nano; two reference scenarios timed out. All 303 observations retained, none used to certify ordinary-user behavior."
+    },
+    {
+      "path": "target/follow-up-env-user",
+      "reason": "After dropping uid, inherited build HOME still named root; Cargo could not inspect repository excludes. Runner now sets private build HOME/XDG/CARGO_HOME before compiling."
+    }
+  ],
+  "known_outside_scope": [
+    {
+      "id": "Q-ENV-ROOT-001",
+      "behavior": "GNU nano uses the passwd home for uid 0; Naro currently honors HOME. Root-account configuration parity remains unimplemented and is outside ordinary-user preview certification."
+    }
+  ]
+}

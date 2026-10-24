@@ -1,0 +1,140 @@
+{
+  "TEST-NEXT-RECOVER-002-NAMED": {
+    "pass": true,
+    "binary_sha256": "e8152b95a0a1632c8a67c388097ac1d5c25dfcc50e6d387f07c9dc9c19e15dfc",
+    "checks": [
+      {
+        "check": "trace_mode:cursor_visible",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "trace_mode:alternate_screen",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "trace_mode:bracketed_paste",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "exit_status",
+        "pass": true,
+        "detail": "got 1"
+      },
+      {
+        "check": "file:work/f.txt.save:text",
+        "pass": true,
+        "detail": "got 'Xoriginal\\n'"
+      },
+      {
+        "check": "file:work/f.txt.save:mode",
+        "pass": true,
+        "detail": "got '0o600'"
+      },
+      {
+        "check": "absent:work/.f.txt.swp",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "stderr",
+        "pass": true,
+        "detail": "'Sorry! Nano crashed!  Code: 6.  Please report a bug.\\n\\nBuffer written to f.txt.save\\n'"
+      }
+    ]
+  },
+  "TEST-NEXT-RECOVER-002-NAMELESS": {
+    "pass": true,
+    "binary_sha256": "e8152b95a0a1632c8a67c388097ac1d5c25dfcc50e6d387f07c9dc9c19e15dfc",
+    "checks": [
+      {
+        "check": "trace_mode:cursor_visible",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "trace_mode:alternate_screen",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "trace_mode:bracketed_paste",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "exit_status",
+        "pass": true,
+        "detail": "got 1"
+      },
+      {
+        "check": "stderr",
+        "pass": true,
+        "detail": "'Sorry! Nano crashed!  Code: 6.  Please report a bug.\\n\\nBuffer written to nano.55853.save\\n'"
+      }
+    ]
+  },
+  "TEST-NEXT-RECOVER-002-MULTI": {
+    "pass": true,
+    "binary_sha256": "e8152b95a0a1632c8a67c388097ac1d5c25dfcc50e6d387f07c9dc9c19e15dfc",
+    "checks": [
+      {
+        "check": "trace_mode:cursor_visible",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "trace_mode:alternate_screen",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "trace_mode:bracketed_paste",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "exit_status",
+        "pass": true,
+        "detail": "got 1"
+      },
+      {
+        "check": "file:work/f.txt.save:text",
+        "pass": true,
+        "detail": "got 'Xoriginal\\n'"
+      },
+      {
+        "check": "file:work/f.txt.save:mode",
+        "pass": true,
+        "detail": "got '0o600'"
+      },
+      {
+        "check": "absent:work/.f.txt.swp",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "file:work/g.txt.save:text",
+        "pass": true,
+        "detail": "got 'Yother\\n'"
+      },
+      {
+        "check": "file:work/g.txt.save:mode",
+        "pass": true,
+        "detail": "got '0o600'"
+      },
+      {
+        "check": "absent:work/.g.txt.swp",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "check": "stderr",
+        "pass": true,
+        "detail": "'Sorry! Nano crashed!  Code: 6.  Please report a bug.\\n\\nBuffer written to g.txt.save\\n\\nBuffer written to f.txt.save\\n'"
+      }
+    ]
+  }
+}

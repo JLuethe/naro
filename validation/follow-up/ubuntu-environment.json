@@ -1,0 +1,16 @@
+{
+  "system": "Linux-7.2.8-9-omarchy-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "libc": [
+    "glibc",
+    "2.39"
+  ],
+  "python": "3.12.3",
+  "tmux": "tmux 3.8",
+  "locale_inventory": "C\nC.utf8\nde_DE.utf8\nen_US.utf8\nfr_FR.utf8\nja_JP.utf8\nPOSIX",
+  "file": "file-5.45\nmagic file from /etc/magic:/usr/share/misc/magic",
+  "magic_databases": {
+    "/usr/lib/file/magic.mgc": "72a25195a2623fe160e926bf20952b6b74b29d6c91e0174a5fa062f02beee1aa"
+  },
+  "locpath": null
+}

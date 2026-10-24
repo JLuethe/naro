@@ -1,0 +1,25 @@
+{
+  "system": "Linux-7.2.8-9-omarchy-x86_64-with-glibc2.44",
+  "machine": "x86_64",
+  "libc": [
+    "glibc",
+    "2.44"
+  ],
+  "python": "3.14.8",
+  "tmux": "tmux 3.8",
+  "locale_inventory": "C\nC.utf8\nPOSIX\nen_US.utf8",
+  "file": "file-5.48\nmagic file from /usr/share/file/misc/magic\nseccomp support included\nLandlock support included",
+  "magic_databases": {
+    "/usr/share/file/misc/magic.mgc": "c2f4e7e55b0ee33c181ada80b065f9f8a58633c9806e8bd3353253c68324f268"
+  },
+  "locpath": null,
+  "binary_sha256": "524c97345cfca85458fa9c94ea297b0432b6f4c645f70f8a767b161b2f59f5ac",
+  "build": {
+    "version": "0.1.0",
+    "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+    "source_sha256": "742ca8b1a18bec48989e1fcabe46a71bf847fc1d7d6582b9be9c65cfd6a73aac",
+    "revision": "4952ca020e72425d04acf12639d222b7a33a9245",
+    "features": "",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  }
+}

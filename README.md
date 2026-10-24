@@ -25,8 +25,8 @@ cargo build --release
 On this machine Rust is installed under `~/.cargo/bin`; use
 `~/.cargo/bin/cargo` if it is not on PATH. No system packages were installed.
 The C bridge handles native library ABIs; editor behavior is Rust. There are no
-Cargo package dependencies. Translations live in `assets/locale`; override their
-location with `NARO_LOCALEDIR` when moving an executable away from this checkout.
+Cargo package dependencies. Installed translations resolve relative to the executable; `NARO_LOCALEDIR`
+provides an explicit override. Development builds fall back to `assets/locale`.
 Syntax definitions in `assets/syntax` can be included from a nanorc file, as in nano.
 
 Basic controls: Ctrl+O saves, Ctrl+X exits, Ctrl+G opens help, Ctrl+W searches,
@@ -57,7 +57,11 @@ The pinned nano source checkout is not modified or invoked by Naro.
 See [NOTICE](NOTICE) and the original headers for reused data and catalog licenses.
 
 
-The [follow-up specification](spec/19-completion-and-release.md) defines the next
-compatibility, verification and release work, with 41 planned test cases.
+The [follow-up specification](spec/19-completion-and-release.md) is implemented
+for the scoped default-profile preview. Its [validation reports](validation/follow-up/README.md)
+cover selection-aware spelling, failure recovery, additional environments and
+installation. See [INSTALL.md](INSTALL.md) for archives, user-level installation
+and removal.
 [Credits](CREDITS.md) acknowledge the upstream work and development assistance.
-Tiny mode and an optional runtime credits command remain future work.
+Tiny mode remains optional future work. A default-off Cargo `credits` feature
+enables a separately tested `naro --credits` command.

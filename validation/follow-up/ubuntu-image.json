@@ -1,0 +1,12 @@
+{
+  "Id": "0576b8874e002cd2cb7f781879f8cbe532f478ea7a6fb2b04fdd5c8bff56b33d",
+  "RepoTags": [
+    "localhost/naro-followup:ubuntu24"
+  ],
+  "RepoDigests": [
+    "localhost/naro-followup@sha256:7458da0ac0f8688927d517cd65ed8924372d9fc51005e05fa35c6d3fe840ed30"
+  ],
+  "Created": "2026-10-24T16:26:44.045169578Z",
+  "Architecture": "amd64",
+  "Os": "linux"
+}

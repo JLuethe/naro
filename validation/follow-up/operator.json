@@ -1,0 +1,77 @@
+{
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "operator": "Codex agent, interactive PTY; not a human usability study",
+  "fixture": "/tmp/nanospec-work/TEST-NEXT-UX-001-OPERATOR/fx",
+  "binary_sha256": "524c97345cfca85458fa9c94ea297b0432b6f4c645f70f8a767b161b2f59f5ac",
+  "terminal": "tool-owned xterm-compatible PTY, 80x24 then 40x12",
+  "sessions": [
+    88577,
+    42796,
+    83305
+  ],
+  "evidence": "Observed terminal output in agent session; file assertions below; no retained raw manual trace",
+  "checks": [
+    {
+      "name": "open/edit/save/reopen",
+      "pass": true
+    },
+    {
+      "name": "undo and redo addition",
+      "pass": true
+    },
+    {
+      "name": "multibuffer close",
+      "pass": true
+    },
+    {
+      "name": "bracketed multiline/tab paste undo/redo",
+      "pass": true
+    },
+    {
+      "name": "unsaved exit cancel",
+      "pass": true
+    },
+    {
+      "name": "partial-line selected alternate spelling",
+      "pass": true
+    },
+    {
+      "name": "formatter missing executable error, editor remains usable",
+      "pass": true
+    },
+    {
+      "name": "German UI and save prompt",
+      "pass": true
+    },
+    {
+      "name": "resize while prompt active",
+      "pass": true
+    },
+    {
+      "name": "German cancel then No discard",
+      "pass": true
+    },
+    {
+      "name": "normal and tool-error exit emits alternate-screen/keypad/paste reset",
+      "pass": true
+    },
+    {
+      "name": "named lock removal",
+      "pass": true
+    }
+  ],
+  "files": {
+    "f.txt": {
+      "sha256": "d9416b95a826a46d8b6f198cf5e67f22382124184382920d24e78d5dbc39308b",
+      "text": "Xhello the world\n"
+    },
+    "g.txt": {
+      "sha256": "5d29418f9c2973f17e02a188a73e5e0dc3a947e867096239f8b6f39178212f61",
+      "text": "one\ntwo\tthreesecond\n"
+    }
+  },
+  "limitations": [
+    "No real Linux VT or physical keyboard observations",
+    "Error restoration includes recoverable formatter error; fatal restoration is covered by the separate panic/signal traces"
+  ]
+}

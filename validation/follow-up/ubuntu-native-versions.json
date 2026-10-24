@@ -1,0 +1,5 @@
+{
+  "ncurses": "ncurses 6.4.20240113",
+  "magic_version": 545,
+  "packages": "libc6:amd64\t2.39-0ubuntu8.9\nlibmagic1t64:amd64\t1:5.45-3build1\nlibncursesw6:amd64\t6.4+20240113-1ubuntu2.2\nlibtinfo6:amd64\t6.4+20240113-1ubuntu2.2\n"
+}

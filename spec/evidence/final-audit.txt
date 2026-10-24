@@ -1,7 +1,18 @@
 {
   "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
-  "documents": 25,
-  "requirements": 248,
+  "documents": 26,
+  "requirements": 270,
+  "baseline_documents": 25,
+  "baseline_requirements": 248,
+  "follow_up_documents": [
+    "19-completion-and-release.md"
+  ],
+  "follow_up_requirements": 22,
+  "follow_up_tests": 41,
+  "follow_up_statuses": {
+    "deferred": 4,
+    "verified": 37
+  },
   "scenarios": 309,
   "recorded": 309,
   "explicit_assertions": 4,

@@ -2,65 +2,61 @@
 
 Reference: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`.
 
-The behavioral specification is complete for its documented reference envelope.
-Naro builds and runs as a Rust terminal editor on Linux/glibc/ncursesw. Complete
-compatibility with every source-derived requirement is not yet established.
+Naro builds and runs as a Rust terminal editor. The default-profile follow-up
+spec is implemented and verified for the ordinary-user Linux/tmux preview
+scope. Source-derived requirements and test evidence are distinct: these results
+do not prove every behavior on every platform.
 
-The implementation uses byte vectors and transactional undo, a Rust editor state
-machine and cell renderer, generated reference key/function data, and a small C
-bridge for ncursesw, libc locale/POSIX regex/getopt, and libmagic. It ships the
-original syntax definitions and translation catalogs, including PO sources.
-No reference executable is used at runtime.
+The editor uses byte vectors, transactional undo, a Rust state machine and cell
+renderer, generated reference key/function data, and a small C bridge for
+ncursesw, libc locale/POSIX regex/getopt, and libmagic. It ships syntax definitions,
+translation catalogs and PO sources. The GNU nano executable is an oracle for
+testing and is never used at runtime. Cargo has no package dependencies.
 
-Final release validation (see [saved reports](validation/README.md)):
+Current evidence is in [follow-up validation](validation/follow-up/README.md).
+Parent reports describe the historical first build and remain unchanged.
 
 | Check | Result |
 |---|---|
-| Fixture-safe terminal corpus | 303 recorded; 301 full matches; two declared safety deviations |
-| File/exit subset | 302/303 matches; invalid-regex recovery changes exit status |
-| Noninteractive CLI corpus | 38/38 matches; eight optional/external-path probes excluded |
-| POSIX regex corpus | 162/162 matches across C and en_US.UTF-8 |
-| Safety behavior | Six assertions pass across both deliberate deviations |
-| Rust tests | Six pass |
-| Comparator / harness regressions | Twelve / three pass |
-| Formatting / strict Clippy | Pass |
-| Baseline spec audit | 25 documents, 248 requirement headings, 309 reference recordings; no problems |
+| Host default terminal corpus | 303 recorded, 301 full matches, 302 file/exit matches |
+| New paired cases | 53 recorded, 51 full matches, two explicit tool cleanup differences |
+| Noninteractive CLI / regex | 38/38 and 162/162 |
+| Safety | Six assertions across invalid-regex recovery and NUL rejection |
+| Controlled Rust panic | Named, unnamed and multibuffer recovery; separate test-hooks build |
+| Rust / comparator / harness tests | 6 / 13 / 3 pass; formatting and strict Clippy pass |
+| Installed assets | All 41 catalogs resolve; syntax, overrides, spaces and symlink launcher checked |
+| Archives / installer | Source rebuild, checksums, rejection and ownership/removal checks pass |
+| Large files | Exact output hashes for 1 MiB and 10 MiB edit/save operations |
+| Interactive installed copy | Agent-operated PTY trial, including spelling, errors, paste and resize |
 
-There are no undeclared differences in the 303-scenario candidate replay.
-Six inherited terminal scenarios are excluded: five touch paths outside private
-fixtures and one requires the optional tiny profile. Full source-derived behavior
-beyond these observations remains subject to the limitations below.
+Selection-aware spelling preserves outside bytes and reference state. Formatting
+processes the whole buffer and clears the mark at the reference-defined point.
+New cases also cover compound wrapping/history, lazy syntax, configuration,
+ENOSPC, short/EINTR writes, backup fallback, linked files and bounded FIFOs.
 
-The release executable is `target/release/naro`; a debug build is also available.
-Rust/Cargo 1.99.1 was installed under `~/.cargo/bin` without changing shell
-profiles or installing system packages on this machine. GitHub Actions builds
-from a clean Ubuntu checkout and runs formatting, strict Clippy, Rust tests,
-release compilation, comparator/harness regressions, terminal smoke and safety
-assertions. CI builds checksum-pinned tmux 3.8 in a private runner directory.
-The local terminal corpus uses tmux 3.8 and the locales in spec 00.
+The original invalid-regex crash and NUL-as-Yes behavior remain deliberate safety
+differences. Tool HUP/TERM cleanup is a separately reported ownership improvement.
+Reference observations are retained; comparisons are not globally masked to
+hide new differences. The only new filename normalization is the named backup
+fallback scenario, retaining file bytes, permissions and link checks.
 
-Known limits: the optional tiny build and runtime credits are absent. Spell
-checking currently operates on the whole buffer; selected-region behavior still
-needs implementation. Formatting should remain whole-buffer and clear the mark
-at the reference-defined point; its selection-state behavior needs completion.
-Full hard-wrap/undo combinations, rare rc
-lazy-loading branches, real Linux VT modifiers, injected-panic recovery,
-disk-full/FIFO/interrupted writes, libmagic database variants, and all 41 locale
-catalogs need additional verification. Byte-locale screen captures also inherit
-tmux's UTF-8 model. See spec 97/99 for the broader source-only coverage boundary.
+Five original terminal cases still involve host paths and are excluded; one
+requires optional tiny. Three new fixture absolute-path variants have fresh
+reference observations and are mapped individually. Real VT and isolated-root
+special-device/root-browser checks remain deferred. Root-account home precedence still differs (Q-ENV-ROOT-001); root-account configuration,
+other architectures/OSes, static linking and translation quality are outside
+this certification. Byte-locale screens inherit tmux's UTF-8 capture limits.
+Tiny is unimplemented. Optional `credits` is implemented and default-off.
 
-The invalid-regex crash and NUL-as-Yes behavior are deliberately fixed, per
-spec 99. They remain visible as differential differences and have separate
-safety assertions. Do not update the golden reference recordings to hide them.
+The host executable is `target/release/naro`. Distribution uses the Ubuntu-built
+artifact with measured native dependencies; see [INSTALL.md](INSTALL.md).
+Rust/Cargo is installed under `~/.cargo/bin`, without shell-profile changes or
+host system-package installation. CI builds checksum-pinned tmux 3.8 and checks
+Rust, comparator/harness, terminal smoke/safety, panic recovery, optional credits,
+packaging, source rebuild and installation. It does not replace full local
+release validation or publish a release automatically.
 
-Use `tools/validate.py` for complete replays or `--ids TEST-…` for focused work.
-Use `--compare-only` to recompute an existing report without rerunning scenarios
-or replacing its frozen binary. Do not overwrite `spec/evidence/runs`.
-Run full suites serially because default fixtures are keyed by test ID.
-Set `NANOSPEC_WORK` explicitly for simultaneous experiments, recognizing that
-changed absolute paths can affect bytes in golden tool logs.
-
-The next work is specified in [spec 19](spec/19-completion-and-release.md), with
-planned cases in [the follow-up matrix](spec/data/follow-up-tests.csv). The
-static [credits page](CREDITS.md) is documentation; runtime credits remain a
-proposal. No new editor behavior is implied by adding the follow-up spec.
+Use `tools/check_follow_up.py` for fresh paired suites and
+`tools/validate_parallel.py` for the safe original corpus. Use new output folders
+and avoid simultaneous runs sharing scenario IDs. Never overwrite original
+`spec/evidence/runs` or run editing tests against real user files.

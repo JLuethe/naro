@@ -34,7 +34,7 @@ exhaustive branch coverage or successful implementation.
 | [16](16-test-plan.md) | Replay, comparison, normalization, fixture safety |
 | [17](17-prompts-and-completion.md) | Answer editing, history and completion |
 | [18](18-bytes-encoding-and-coordinates.md) | Invalid bytes, NUL, widths, positions, classification |
-| [19](19-completion-and-release.md) | Planned follow-up: tool selections, edge cases, environment certification, packaging; optional tiny/credits proposal |
+| [19](19-completion-and-release.md) | Follow-up: tool selections, edge cases, environment certification, packaging; optional tiny/credits proposal |
 | [97](97-coverage.md) | Evidence coverage and explicit verification gaps |
 | [98](98-progress.md) | Work state and reproducible resume instructions |
 | [99](99-open-questions.md) | Decisions, defects and deliberate deviations |
@@ -56,6 +56,8 @@ relevant requirements and scenario evidence. Implementation status and build
 results belong in the repository's README/status report, separate from the
 behavioral contract.
 
-Document 19 and `data/follow-up-tests.csv` describe the next phase. Their
-requirements/test cases are planned, with separate audit counts; the original
-248 requirements and saved baseline results do not establish their completion.
+Document 19 and `data/follow-up-tests.csv` track the implemented follow-up phase
+with separate audit counts and evidence-linked statuses. See
+[follow-up validation](../validation/follow-up/README.md) for the tested builds;
+conditional VT/root checks and optional tiny remain deferred. The original
+248 requirements and baseline observations remain separate historical evidence.

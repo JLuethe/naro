@@ -215,3 +215,81 @@ Tiny is explicitly an optional compile-time reduced profile. Added a static
 `CREDITS.md` with factual attribution and proposed a default-off plain-text
 runtime credits extension; no editor behavior or CLI output changed in this task.
 The next implementation milestone is doc 19 M1, not a new full-parity claim.
+
+## Follow-up implementation (2026-10-24)
+
+Implementation commit: `4952ca020e72425d04acf12639d222b7a33a9245`.
+Release runner/CI commit: `eef679131cf1c16decd62dae2cd61ade497226bd`.
+
+Implemented region-aware alternate/internal spelling, SPECIAL selection bytes,
+orientation/cursor/mark restoration, whole-buffer formatter mark clearing, RAII
+tool files, handled child termination and panic cleanup. Fresh differential
+cases found and fixed disk-full warning phases, EINTR/short writes, backup
+fallback, lazy syntax diagnostics and distinct undo/redo labels for wrapped
+paste. Test fault injection is fixture-inode/path scoped ptrace on Linux x86_64.
+Reference source stayed clean and original observations were preserved.
+
+Added installed-relative catalogs/syntax, standalone ownership-aware installer,
+source/binary archive/checksum/provenance tooling, default-off credits, and
+separate recovery test hooks rejected by the packager. Static credits are
+installed. No real user prefix/config was changed. Testing, including interactive
+operator trials and install/uninstall, stayed in harness fixtures.
+
+The current [matrix](data/follow-up-tests.csv) and
+[follow-up reports](../validation/follow-up/README.md) are authoritative for
+completion and deferred scope. Parent validation reports remain historical.
+The new default host binary SHA-256 is
+`524c97345cfca85458fa9c94ea297b0432b6f4c645f70f8a767b161b2f59f5ac`,
+source-input SHA-256
+`742ca8b1a18bec48989e1fcabe46a71bf847fc1d7d6582b9be9c65cfd6a73aac`.
+
+Reproduce the host follow-up differential gate with a **new** output directory
+per suite (do not run the same IDs concurrently):
+
+```sh
+cargo build --release
+for suite in tools edges environments supplement backup fifo-eof signal-SIGTERM signal-SIGHUP; do
+  python3 tools/check_follow_up.py --suite "$suite" --binary target/release/naro --out "target/new-$suite"
+done
+python3 tools/validate_parallel.py --binary target/release/naro --out target/new-baseline --jobs 4
+python3 tools/check_cli.py --binary target/release/naro
+python3 tools/check_regex.py --binary target/release/naro
+python3 tools/check_release_gate.py --out target/new-gate.json
+```
+
+Second-environment runner uses a rootless Ubuntu 24.04 container, private build
+HOME, and ordinary uid. uid 0 is unsuitable for HOME-isolated GNU nano tests:
+it deliberately consults passwd for root's home. Early failed setup attempts
+are preserved under `target/follow-up-env-*`; see `limits.json`. Reference
+auxiliary symlinks are replaced only in the copied bootstrap tree. The reference
+library/editor/catalogs are built without requiring Texinfo documentation tools.
+
+```sh
+podman build -f tests/follow-up/Containerfile -t localhost/naro-followup:ubuntu24 .
+mkdir -p target/new-linux-env
+podman run --rm --network none --userns=keep-id --user 0:0 \
+  -v "$PWD:/project:ro" \
+  -v "$HOME/src/nano-bootstrap:/reference-source:ro" \
+  -v "$HOME/src/nano-ref:/reference-pinned:ro" \
+  -v "$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu:/opt/rust:ro" \
+  -v "$PWD/target/new-linux-env:/out" \
+  localhost/naro-followup:ubuntu24 bash -c \
+  'mkdir -p /work /opt/nano-locales; chown 1000:1000 /work /opt/nano-locales; exec setpriv --reuid=1000 --regid=1000 --clear-groups bash /project/tests/follow-up/environment.sh'
+```
+
+Use the actual local uid/gid in place of 1000 when necessary. The completed run
+used `target/follow-up-env-user2` and reused its Ubuntu-built pinned reference
+from `target/follow-up-env-v3/reference-install-tree`, mounted `/reference-built`.
+The source C-file hash check is still performed. Fresh ordinary-user reference
+recordings are separate from all failed root runs and original host goldens.
+No Linux VT or isolated fixture-root device/browser certification was performed;
+tiny remains optional and unimplemented. Tagging/publishing remains a separate
+explicit action. Token usage cannot be inferred from these filesystem artifacts.
+
+Final follow-up outcome: 48/48 gate checks, 37 verified matrix rows and four
+explicit deferred rows. Ubuntu binary SHA-256:
+`8f29d96f25206738212f18837e526595969c9724b7d2346b54e37bb121746f01`.
+Both environments: 301/303 original terminal full matches, 51/53 new paired full
+matches (all remaining differences declared), CLI 38/38 and regex 162/162.
+The GitHub run for `eef679131cf1c16decd62dae2cd61ade497226bd` passed expanded CI.
+Root HOME precedence remains a named out-of-scope issue, Q-ENV-ROOT-001.

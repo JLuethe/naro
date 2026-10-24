@@ -61,6 +61,10 @@ python3 tools/check_follow_up.py --suite edges --binary target/release/naro --re
 for suite in environments supplement backup fifo-eof signal-SIGTERM signal-SIGHUP; do
  python3 tools/check_follow_up.py --suite "$suite" --binary target/release/naro --reference /work/reference/bin/nano --out "/out/$suite" > "/out/$suite-replay.log" 2>&1
 done
+python3 /project/tools/check_environment_extras.py --binary target/release/naro --reference /work/reference/bin/nano --out /out/extras > /out/extras.log 2>&1
+CARGO_TARGET_DIR=target/hooks cargo build --features test-hooks > /out/hooks-build.log 2>&1
+python3 spec/tools/nanoharness.py tests/follow-up/scenarios/panic.json --binary /work/naro/target/hooks/debug/naro --out /out/panic > /out/panic.log 2>&1
+python3 /project/tools/check_large_files.py --binary target/release/naro --out /out/large > /out/large.log 2>&1
 python3 - <<'PY'
 import json,sys
 sys.path.insert(0,'tools');from environment import snapshot

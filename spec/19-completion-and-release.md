@@ -2,10 +2,10 @@ Reference commit: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`
 
 # 19 — Compatibility completion, verification and release
 
-Status: planned follow-up; requirements and tests below are not implemented or
-executed by the act of writing this document. The original behavioral contract
-in 00–18 remains authoritative for reference behavior. This document specifies
-the next implementation and release work requested after the first working build.
+Status: implemented and verified for the ordinary-user default-profile preview;
+conditional real-VT/isolated-root checks and optional tiny remain deferred.
+The evidence-linked matrix and [validation](../validation/follow-up/README.md)
+record the tested binaries. The original contract in 00–18 remains authoritative.
 
 ## Scope, evidence and priorities
 
@@ -28,10 +28,9 @@ records a separate ownership improvement: handled HUP/TERM reaps the running
 tool and removes its temp file, whereas the reference leaves that file. Keep
 that field-level difference visible and assert clean candidate resources.
 
-The [planned test matrix](data/follow-up-tests.csv) assigns test IDs, requirement
-IDs, methods, oracles and gates. Every row starts as `planned`. Create executable
-cases and collect evidence during implementation; do not add invented recordings
-to `evidence/runs`. The specification audit reports baseline and planned counts
+The [follow-up test matrix](data/follow-up-tests.csv) assigns test IDs, requirement
+IDs, methods, oracles and gates. Rows retain explicit verified/deferred status and evidence paths. Do not add invented recordings
+to `evidence/runs`. The specification audit reports baseline and follow-up counts
 separately. All filesystem tests use private fixtures under doc 16's rules.
 
 ## 1. Selection-aware spelling and formatter state
@@ -298,10 +297,10 @@ reference and reused data, the native libraries, translation/syntax contributors
 and Codex-assisted development. Preserve specific notices in NOTICE/assets; do
 not invent contributor names or imply upstream endorsement.
 
-Proposed later runtime presentation: an optional `naro --credits` prints the same
+Implemented optional runtime presentation: `naro --credits` prints the same
 plain-text content to stdout and exits zero, with no network calls, terminal-mode
 changes, buffer/file writes, prompts or animation. It is a product CLI extension,
-not GNU nano parity. A proposed Cargo `credits` feature is default-off. Enable the command only in
+not GNU nano parity. The Cargo `credits` feature is default-off. Enable the command only in
 an explicitly selected product build, recorded in the deviation register with
 its CLI tests. No existing keys,
 help text, `--help`/`--version` output or save filenames change as part of this
@@ -322,3 +321,10 @@ revision/hash, then rerun the required regression gate. Use `planned`, `recorded
 `verified`, `blocked` or `deferred` precisely; only verified cases satisfy a gate.
 New observations belong under a separate follow-up evidence directory. Mirror
 finished spec changes back to `~/src/nano-rs/spec`, with this repository canonical.
+
+
+Implementation evidence: revision `4952ca020e72425d04acf12639d222b7a33a9245`,
+[follow-up reports](../validation/follow-up/README.md). The interactive checklist
+was performed by the Codex agent through its own PTY; no human usability study
+or real-console certification is implied. Runtime credits are implemented in
+an opt-in build. Tiny is not implemented. No release tag/publication is automatic.

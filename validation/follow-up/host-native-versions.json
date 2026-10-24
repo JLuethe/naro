@@ -1,0 +1,5 @@
+{
+  "ncurses": "ncurses 6.6.20251230",
+  "magic_version": 548,
+  "packages": "glibc 2.44+r50+g1848099f063e-1\nncurses 6.6-2\nfile 5.48-1\ntmux 3.8-1\n"
+}

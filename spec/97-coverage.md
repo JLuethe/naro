@@ -79,11 +79,12 @@ and additional probes for implementation-specific risks. New platform, libc,
 locale or terminal combinations need separate evidence. Native compilation,
 a smoke pass, or file-only agreement alone cannot satisfy the complete target.
 
-## Planned follow-up coverage
+## Follow-up coverage
 
 [Document 19](19-completion-and-release.md) and
-[data/follow-up-tests.csv](data/follow-up-tests.csv) add planned implementation,
-verification and release requirements. Their cases have not been executed.
+[data/follow-up-tests.csv](data/follow-up-tests.csv) add implementation,
+verification and release requirements. Their evidence-linked statuses are
+recorded separately in the matrix and [validation](../validation/follow-up/README.md).
 The audit reports their counts and statuses separately from the original 248
 requirements and 309 recorded reference scenarios. Required gates, conditional
-environment checks and optional tiny/runtime-credits work remain distinct.
+environment checks and optional tiny work remain distinct. Runtime credits are verified in an opt-in build.

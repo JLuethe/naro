@@ -1,0 +1,12 @@
+{
+  "worker_statuses": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "expected": 303,
+  "recorded": 303,
+  "missing": [],
+  "binary_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7"
+}

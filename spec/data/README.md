@@ -26,7 +26,7 @@ Empty fields mean not applicable or not populated, not verified absence.
 | syntaxes.csv | 44 | Bundled syntax selectors, strings, rule counts and license headers |
 | undo-types.csv | 22 | Native history kinds, behavior references |
 | test-runs.csv | 309 | Scenario ID/file/argv, recorded state, exit/signal, snapshot count and citing docs |
-| requirements.csv | generated | Requirement headings, owning doc, nearby explicit test references, and baseline/planned phase; coarse traceability, not a coverage proof |
+| requirements.csv | generated | Requirement headings, owning doc, nearby explicit test references, and baseline/follow-up phase; coarse traceability, not a coverage proof |
 | follow-up-tests.csv | maintained | Planned test ID, requirement IDs, area, scenario, oracle, method, release gate, status and evidence path; every row pins the reference hash |
 
 Regenerate from `spec/`:
@@ -58,4 +58,12 @@ or verified cases. The audit checks identity, coverage, status/gate values and
 path presence, not the semantic correctness of an evidence file. Review actual
 reference/candidate results before assigning verified. Planned cases never count
 as executed baseline scenarios. The requirement inventory's `phase` column
-separates the original contract from document 19's future work.
+separates the original contract from document 19's follow-up requirements.
+
+
+Follow-up matrix status is evidence-linked independently from requirement origin.
+The requirements CSV `phase` is `baseline` or `follow-up`; phase is not a passing
+status. The original 309 reference recordings remain unchanged. New paired
+scenario revisions live in `../../tests/follow-up/scenarios`; compact reports
+are in `../../validation/follow-up`. The audit counts 248 baseline and 22
+follow-up requirements separately.

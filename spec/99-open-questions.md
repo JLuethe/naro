@@ -42,8 +42,9 @@ target; a recorded deviation must never be hidden by comparison normalization.
 | Q-FEAT-001 | Internal speller uses external pipeline | Resolved target: same hunspell/spell → sort -f → uniq behavior, fixture stubs in tests. |
 | Q-FEAT-002 | Justify keeps trailing blank without trimblanks | Resolved: reproduce. |
 | Q-FEAT-003 | GNU scrolling credits Easter egg | Optional, excluded from default compatibility acceptance; static Naro attribution and the separate runtime proposal are in doc 19. |
-| Q-CRED-001 | Naro credits proposal | Static CREDITS.md is documentation. An optional plain-text --credits extension is proposed with default-off build selection and separate tests; no runtime CLI change is implemented. |
+| Q-CRED-001 | Naro credits proposal | Static CREDITS.md is documentation. The default-off `credits` feature implements plain-text `--credits`; exact stdout/status and default rejection are verified in `../validation/follow-up/host-extensions.json`. No default CLI change. |
 | Q-TOOL-001 | TEST-NEXT-TOOL-003-SIGTERM/SIGHUP: the reference leaves a tool temp file after handled termination | Target removes the file and reaps its child under NEXT-TOOL-005 ownership. This intentional resource-cleanup difference is reported explicitly; no ordinary bytes, modes or exit assertions are masked. |
+| Q-ENV-ROOT-001 | Root home-directory precedence | Reference `utils.c:get_homedir` consults passwd for uid 0; the current target uses HOME. Ordinary-user fixtures are certified; root-account configuration is deferred outside the preview envelope. Do not use root container observations as fixture-HOME parity evidence. |
 | Q-TINY-001 | Naro tiny profile | Deferred optional work; match pinned tiny feature/binding tables and measure actual size/dependencies before advertising it. |
 | Q-SIG-001 | Emergency paths relative to cwd | Clarification: normally cwd stays fixed, but `-o` changes it at startup; use filename as given relative to resulting cwd. |
 | Q-SIG-002 | Rust panic recovery equivalent | Resolved architecture in 15 §5; verify restoration and emergency bytes with injected panic tests. |

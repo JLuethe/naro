@@ -1,0 +1,209 @@
+{
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "host_binary_sha256": "524c97345cfca85458fa9c94ea297b0432b6f4c645f70f8a767b161b2f59f5ac",
+  "ubuntu_binary_sha256": "8f29d96f25206738212f18837e526595969c9724b7d2346b54e37bb121746f01",
+  "source_sha256": "742ca8b1a18bec48989e1fcabe46a71bf847fc1d7d6582b9be9c65cfd6a73aac",
+  "checks": [
+    {
+      "name": "host-terminal-binary",
+      "pass": true
+    },
+    {
+      "name": "host-terminal",
+      "pass": true
+    },
+    {
+      "name": "host-cli-binary",
+      "pass": true
+    },
+    {
+      "name": "host-cli",
+      "pass": true
+    },
+    {
+      "name": "host-regex-binary",
+      "pass": true
+    },
+    {
+      "name": "host-regex",
+      "pass": true
+    },
+    {
+      "name": "host-safety-binary",
+      "pass": true
+    },
+    {
+      "name": "host-safety",
+      "pass": true
+    },
+    {
+      "name": "host-tools-binary",
+      "pass": true
+    },
+    {
+      "name": "host-tools",
+      "pass": true
+    },
+    {
+      "name": "host-edges-binary",
+      "pass": true
+    },
+    {
+      "name": "host-edges",
+      "pass": true
+    },
+    {
+      "name": "host-environments-binary",
+      "pass": true
+    },
+    {
+      "name": "host-environments",
+      "pass": true
+    },
+    {
+      "name": "host-supplement-binary",
+      "pass": true
+    },
+    {
+      "name": "host-supplement",
+      "pass": true
+    },
+    {
+      "name": "host-backup-binary",
+      "pass": true
+    },
+    {
+      "name": "host-backup",
+      "pass": true
+    },
+    {
+      "name": "host-fifo-eof-binary",
+      "pass": true
+    },
+    {
+      "name": "host-fifo-eof",
+      "pass": true
+    },
+    {
+      "name": "host-signal-SIGTERM-binary",
+      "pass": true
+    },
+    {
+      "name": "host-signal-SIGTERM",
+      "pass": true
+    },
+    {
+      "name": "host-signal-SIGHUP-binary",
+      "pass": true
+    },
+    {
+      "name": "host-signal-SIGHUP",
+      "pass": true
+    },
+    {
+      "name": "host-large-binary",
+      "pass": true
+    },
+    {
+      "name": "host-large",
+      "pass": true
+    },
+    {
+      "name": "host-package-binary",
+      "pass": true
+    },
+    {
+      "name": "host-package",
+      "pass": true
+    },
+    {
+      "name": "host-assets-binary",
+      "pass": true
+    },
+    {
+      "name": "host-assets",
+      "pass": true
+    },
+    {
+      "name": "host-assets-without-checkout-binary",
+      "pass": true
+    },
+    {
+      "name": "host-assets-without-checkout",
+      "pass": true
+    },
+    {
+      "name": "extensions-and-panic",
+      "pass": true
+    },
+    {
+      "name": "interactive-installed-copy",
+      "pass": true
+    },
+    {
+      "name": "format-clippy-unit-comparator-harness",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-full-corpus",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-tools",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-edges",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-environments",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-supplement",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-backup",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-fifo-eof",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-signal-SIGTERM",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-signal-SIGHUP",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-cli-regex-safety",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-panic",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-large",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-archive-install-source-assets",
+      "pass": true
+    }
+  ],
+  "automated_and_agent_operator_gates_pass": true,
+  "scope": "Ordinary-user Linux x86_64/glibc; tested tmux and xterm-compatible PTYs. No root-account configuration, real VT, other architecture/OS, static binary or translation-quality certification.",
+  "deferred": [
+    "TEST-NEXT-TERM-002",
+    "TEST-NEXT-PATH-002",
+    "TEST-NEXT-TINY-001",
+    "TEST-NEXT-TINY-002"
+  ],
+  "publication": "No tag or release published; separate explicit action."
+}

@@ -1,0 +1,82 @@
+{
+  "fixture": "/tmp/nanospec-work/TEST-NEXT-PACKAGE-5e87527c2ed3/fx",
+  "archive_sha256": "230ba5a2be77b16b0f0c253586badfbb86c295526037aebd2e8c498b13690ec8",
+  "binary_sha256": "8f29d96f25206738212f18837e526595969c9724b7d2346b54e37bb121746f01",
+  "checks": [
+    {
+      "name": "install-prefix-with-spaces",
+      "pass": true,
+      "detail": "{\"installed\": 134, \"prefix\": \"/tmp/nanospec-work/TEST-NEXT-PACKAGE-5e87527c2ed3/fx/work/Prefix With Spaces\"}\n"
+    },
+    {
+      "name": "installed-hashes",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "symlink-launcher-assets",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "installed-native-catalogs-and-syntax",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "assets-without-build-checkout",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "source-archive-hashes",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "source-archive-build",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "rebuilt-source-fingerprint",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "reject-checksum-mismatch",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "reject-traversal",
+      "pass": true,
+      "detail": "unsafe package path: top/../escape\n"
+    },
+    {
+      "name": "reject-absolute",
+      "pass": true,
+      "detail": "unsafe package path: /tmp/nanospec-work/TEST-NEXT-PACKAGE-5e87527c2ed3/fx/work/escape\n"
+    },
+    {
+      "name": "reject-symlink",
+      "pass": true,
+      "detail": "unsupported/duplicate archive entry: top/link\n"
+    },
+    {
+      "name": "reject-destination-symlink",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "uninstall-preserves-conflicts",
+      "pass": true,
+      "detail": "{\"removed\": 133, \"conflicts\": [\"share/doc/naro/README.md\"]}\n"
+    },
+    {
+      "name": "uninstall-owned-only",
+      "pass": true,
+      "detail": null
+    }
+  ]
+}

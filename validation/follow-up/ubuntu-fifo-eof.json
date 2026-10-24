@@ -1,0 +1,48 @@
+{
+  "environment": {
+    "system": "Linux-7.2.8-9-omarchy-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "libc": [
+      "glibc",
+      "2.39"
+    ],
+    "python": "3.12.3",
+    "tmux": "tmux 3.8",
+    "locale_inventory": "C\nC.utf8\nde_DE.utf8\nen_US.utf8\nfr_FR.utf8\nja_JP.utf8\nPOSIX",
+    "file": "file-5.45\nmagic file from /etc/magic:/usr/share/misc/magic",
+    "magic_databases": {
+      "/usr/lib/file/magic.mgc": "72a25195a2623fe160e926bf20952b6b74b29d6c91e0174a5fa062f02beee1aa"
+    },
+    "locpath": null
+  },
+  "build_flags": "default",
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "scenario_sha256": "2f9d4c78bbf7209874ce7063881deec6a067e8f324b84314d079fdd9e046cb4f",
+  "results": {
+    "TEST-NEXT-IO-003-EOF": {
+      "match": true,
+      "declared_deviation": false,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "difference_fields": []
+    }
+  },
+  "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+  "reference_status": 0,
+  "candidate_sha256": "8f29d96f25206738212f18837e526595969c9724b7d2346b54e37bb121746f01",
+  "candidate_status": 0,
+  "candidate_build": {
+    "version": "0.1.0",
+    "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+    "source_sha256": "742ca8b1a18bec48989e1fcabe46a71bf847fc1d7d6582b9be9c65cfd6a73aac",
+    "revision": "4952ca020e72425d04acf12639d222b7a33a9245",
+    "features": "",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "summary": {
+    "recorded": 1,
+    "matches": 1,
+    "accepted": 1
+  }
+}
