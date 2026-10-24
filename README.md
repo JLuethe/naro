@@ -32,11 +32,12 @@ cargo test
 cargo fmt --check
 cargo clippy --all-targets -- -D warnings
 python3 spec/tools/test_compare_runs.py
+python3 spec/tools/test_nanoharness.py
 python3 tools/check_regex.py --binary target/release/naro
 python3 tools/validate.py --binary target/release/naro --out spec/evidence/naro-validation
 ```
 
-Terminal validation requires tmux, terminfo, Python 3, and the saved reference
+Terminal validation requires tmux, terminfo, Python 3.11 or newer, and the saved reference
 corpus. It freezes the candidate executable, records its SHA-256, creates private
 fixtures, and compares screens, attributes, cursor/modes, saved files and exit
 state. Six inherited scenarios are excluded by default: five involve absolute

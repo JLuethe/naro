@@ -149,3 +149,11 @@ kill recordings' terminal wait steps to sleeps, preserving their original
 steps in `evidence/recording-timeout-corrections.json` and raw reference output.
 Comparator now narrowly normalizes tool temp-path logs and truncated tmux dead
 banner dates. Twelve comparator regression tests cover the contract.
+
+
+Final harness checks also batch independent row captures into one tmux client,
+preventing the 400 ms spelling message from expiring during 24 client launches.
+Row SGR reset semantics remain unchanged. Exit waits require reaped status,
+fixing a PTY-close/waitpid race exposed on GitHub's tmux; named signals are
+converted to numeric values. Three harness regression tests cover these cases.
+New results record the executable SHA-256 in addition to the frozen-run report.

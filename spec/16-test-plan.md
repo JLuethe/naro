@@ -14,7 +14,7 @@ not a claim that every branch has been tested.
 
 ## 1. Running and preserving evidence
 
-Run from `spec/`. Tools require Python 3, tmux, terminfo, and the reference
+Run from `spec/`. Tools require Python 3.11 or newer, tmux, terminfo, and the reference
 executables. No third-party Python packages are needed.
 
 ```sh
@@ -71,6 +71,11 @@ scenario for an example. The runner's recorded result also includes initial
 and final manifests, input bytes and timestamps, stderr, optional redirected
 stdout, exit status/signal, notes, and final modes derived from the raw trace.
 `raw-output.bin` preserves terminal output; equal byte streams are **not** required.
+Each row starts with independent SGR state, but all row captures are batched in
+one tmux client to avoid torn snapshots during short-lived messages. A dead
+pane is complete only after tmux provides an exit status or signal, not merely
+a closed PTY. Signal names reported by older tmux are converted to numbers.
+Every new result records the executable SHA-256.
 
 ## 3. Comparison contract
 

@@ -40,7 +40,8 @@ for path in sorted((ROOT / 'spec/evidence/naro-safety').glob('TEST-*/result.json
         raise SystemExit('safety assertion failed: ' + path.parent.name)
 if len(safety) != 2:
     raise SystemExit('expected two safety scenarios')
-save('safety.json', {'binary_sha256': binary_hash, 'results': safety})
+save('safety.json', {'reference_commit': report['reference_commit'],
+                     'binary_sha256': binary_hash, 'results': safety})
 
 def version(command):
     return subprocess.check_output(command, text=True).strip()
@@ -50,6 +51,7 @@ save('environment.json', {
     'reference_commit': report['reference_commit'],
     'binary_sha256': binary_hash,
     'source_revision': version(['git', '-C', str(ROOT), 'rev-parse', 'HEAD']),
+    'implementation_revision': version(['git', '-C', str(ROOT), 'log', '-1', '--format=%H', '--', 'src', 'native']),
     'system': platform.platform(),
     'rustc': version([str(Path.home() / '.cargo/bin/rustc'), '--version']),
     'cargo': version([str(Path.home() / '.cargo/bin/cargo'), '--version']),

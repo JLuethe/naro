@@ -90,6 +90,15 @@ def pane_state():
     out = {}
     for k, v in zip(PANE_KEYS, vals):
         out[k] = int(v) if v.lstrip("-").isdigit() else (None if v == "" else v)
+    # tmux 3.4 reports signal names; newer versions may report numbers.
+    sig = out.get("exit_signal")
+    if isinstance(sig, str):
+        name = sig.upper()
+        if not name.startswith("SIG"):
+            name = "SIG" + name
+        value = getattr(signal, name, None)
+        if value is not None:
+            out["exit_signal"] = int(value)
     return out
 
 # ---------------------------------------------------------------- capture parsing
@@ -135,14 +144,16 @@ def parse_sgr(params, st):
 
 
 def capture_grid(width, height):
-    # Capture row by row: a whole-screen "capture-pane -e" carries the SGR state
-    # from one row to the next and omits codes that are already in effect, so a
-    # row cannot be decoded on its own.  Single-row captures start from the
-    # default state.
-    lines = []
+    # Each row starts from default SGR state. Batch independent row captures
+    # in one tmux client, so short-lived messages cannot change between the
+    # two dozen process launches used by the original implementation.
+    commands = []
     for row in range(height):
-        raw = tmux("capture-pane", "-p", "-e", "-N", "-t", "t:0.0", "-S", str(row), "-E", str(row))
-        lines.append(raw.split("\n")[0] if raw else "")
+        if commands:
+            commands.append(";")
+        commands.extend(("capture-pane", "-p", "-e", "-N", "-t", "t:0.0",
+                         "-S", str(row), "-E", str(row)))
+    lines = tmux(*commands).split("\n")[:height]
     rows = []
     for line in lines:
         st = {}
@@ -374,7 +385,11 @@ class Run:
     def wait_dead(self, timeout=5.0):
         deadline = time.time() + timeout
         while time.time() < deadline:
-            if pane_state().get("dead") == 1:
+            st = pane_state()
+            # The PTY may close before tmux has reaped its child. Do not
+            # mistake a dead pane without wait status for completed evidence.
+            if st.get("dead") == 1 and (st.get("exit_status") is not None or
+                                        st.get("exit_signal") is not None):
                 return True
             time.sleep(0.03)
         return False
