@@ -13,6 +13,7 @@ pub struct Key {
     pub meta: bool,
     pub shift: bool,
     pub command: Option<String>,
+    pub vt_unmodified: Option<(i32, bool)>,
 }
 impl Key {
     pub fn plain(code: i32) -> Self {
@@ -21,6 +22,7 @@ impl Key {
             meta: false,
             shift: false,
             command: None,
+            vt_unmodified: None,
         }
     }
 }
@@ -169,6 +171,13 @@ impl Input {
                 _ => {}
             }
             key.code = unsafe { native::nr_map(key.code) };
+            let unmodified = (key.code, key.shift);
+            let mut shifted = i32::from(key.shift);
+            key.code = unsafe { native::nr_vt_key(key.code, i32::from(key.meta), &mut shifted) };
+            key.shift = shifted != 0;
+            if (key.code, key.shift) != unmodified {
+                key.vt_unmodified = Some(unmodified);
+            }
             if (0x411..=0x416).contains(&key.code) {
                 key.code -= 16;
                 key.shift = true;

@@ -370,6 +370,20 @@ impl Config {
             "default-C"
         };
         (self.keys, self.funcs) = keymap(profile);
+        if unsafe { native::nr_on_vt() } != 0 {
+            self.keys.retain(|key| {
+                !(matches!(key.key, 0x421 | 0x422)
+                    && matches!(
+                        key.func.as_str(),
+                        "switch_to_prev_buffer" | "switch_to_next_buffer"
+                    ))
+            });
+            for key in &mut self.keys {
+                if key.tag == "^/" {
+                    key.tag = "^-".into();
+                }
+            }
+        }
         if self.on(MODERN_BINDINGS) && self.preserve_cli {
             self.keys
                 .retain(|k| !(k.key == 19 && k.menus == EXEC || k.key == 17 && k.menus == WRITE));

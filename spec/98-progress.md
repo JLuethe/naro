@@ -3,6 +3,10 @@
 Reference commit: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`
 
 This file lets a later session resume without the earlier conversation.
+Latest wrap-up review (2026-10-24): read `../WRAP-UP.md` before resuming.
+It records the published revision, uncommitted console work, incomplete final
+validation, and ordered completion gates. Earlier checkpoints below describe
+their recorded binaries and do not certify these newer local changes.
 When resuming, read in this order: `00-overview.md`,
 `00-reference-environment.md`, this file, `97-coverage.md`, and the relevant
 parts of `99-open-questions.md`.

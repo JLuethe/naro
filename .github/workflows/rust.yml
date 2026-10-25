@@ -34,6 +34,8 @@ jobs:
           tmux -V
           python3 spec/tools/nanoharness.py spec/evidence/scenarios/smoke.json --binary "$PWD/target/release/naro" --out target/ci-smoke
           python3 spec/tools/nanoharness.py tests/scenarios/safety.json --binary "$PWD/target/release/naro" --out target/ci-safety
+      - name: Linux console ioctl models
+        run: python3 spec/tools/nanoharness.py tests/follow-up/scenarios/vt-ioctl.json --binary "$PWD/target/release/naro" --out target/ci-vt-ioctl
       - name: Recovery and optional credits
         run: |
           cargo build --features test-hooks --target-dir target/hooks

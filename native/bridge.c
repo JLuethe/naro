@@ -16,11 +16,58 @@
 #include <wchar.h>
 #include <wctype.h>
 #include <sys/ioctl.h>
+#ifdef __linux__
+#include <linux/vt.h>
+#include <linux/tiocl.h>
+#endif
 #include <pwd.h>
 #include <magic.h>
 #include "options.inc"
 static struct termios saved;
 static int active, have_saved;
+static int on_vt=-1;
+int nr_on_vt(void) {
+    if(on_vt<0){
+#ifdef __linux__
+        struct vt_stat state;on_vt=(ioctl(STDOUT_FILENO,VT_GETSTATE,&state)==0);
+#else
+        on_vt=0;
+#endif
+    }
+    return on_vt;
+}
+int nr_vt_key(int key,int meta,int *shift) {
+#ifdef __linux__
+    unsigned char modifiers=6;
+    /* Terminfo/escape-derived modifier codes have already been resolved. */
+    if(key>=0x400||!nr_on_vt()||ioctl(STDIN_FILENO,TIOCLINUX,&modifiers)<0)return key;
+    if(modifiers&1){
+        if(key=='\t')return 0x45f;
+        if(key==KEY_DC&&modifiers==1)return 0x45d;
+        if(key==KEY_DC&&modifiers==5)return 0x41d;
+        if(!meta)*shift=1;
+    }
+    if(modifiers==8){switch(key){
+        case KEY_UP:return 0x423;case KEY_DOWN:return 0x424;
+        case KEY_HOME:return 0x425;case KEY_END:return 0x426;
+        case KEY_PPAGE:return 0x427;case KEY_NPAGE:return 0x428;
+        case KEY_DC:return 0x42d;case KEY_IC:return 0x42c;
+    }}
+    if(modifiers&4){switch(key){
+        case KEY_UP:return 0x403;case KEY_DOWN:return 0x404;
+        case KEY_LEFT:return 0x401;case KEY_RIGHT:return 0x402;
+        case KEY_HOME:return 0x405;case KEY_END:return 0x406;
+        case KEY_DC:return 0x40d;
+    }}
+    if((modifiers&9)==9){switch(key){
+        case KEY_UP:return KEY_PPAGE;case KEY_DOWN:return KEY_NPAGE;
+        case KEY_LEFT:return KEY_HOME;case KEY_RIGHT:return KEY_END;
+    }}
+#else
+    (void)meta;(void)shift;
+#endif
+    return key;
+}
 static volatile sig_atomic_t pending;
 static void handler(int sig) { pending = sig; }
 int nr_signal(void) { int s=pending; pending=0; return s; }
@@ -106,8 +153,12 @@ void nr_put(int y,int x,const uint32_t *chars,int count,int style,int fg,int bg)
         for(int i=1;i<next;i++)if(fgs[i]==fg&&bgs[i]==bg){pair=i;break;}
         if(!pair&&next<COLOR_PAIRS&&next<1024){pair=next++;fgs[pair]=fg;bgs[pair]=bg;init_pair(pair,fg,bg);}
     }
-    wchar_t w[CCHARW_MAX]={0};int n=count<CCHARW_MAX-1?count:CCHARW_MAX-1;
-    for(int i=0;i<n;i++)w[i]=(wchar_t)chars[i];
+    wchar_t w[CCHARW_MAX]={0};int n=0;
+    for(int i=0;i<count&&n<CCHARW_MAX-1;i++){
+        if(nr_on_vt()&&wcwidth((wchar_t)chars[i])==0)continue;
+        w[n++]=(wchar_t)chars[i];
+    }
+    if(n==0)return;
     cchar_t cell;setcchar(&cell,w,a,pair,NULL);mvwadd_wch(stdscr,y,x,&cell);
 }
 int nr_map(int key) {

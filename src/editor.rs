@@ -697,7 +697,12 @@ impl Editor {
                 .as_ref()
                 .is_none_or(|b| b.func != "record_macro" && b.func != "run_macro")
         {
-            self.macro_keys.push(key.clone());
+            let mut recorded = key.clone();
+            if let Some((code, shift)) = recorded.vt_unmodified.take() {
+                recorded.code = code;
+                recorded.shift = shift;
+            }
+            self.macro_keys.push(recorded);
         }
         if let Some(b) = binding.as_ref()
             && let Some(exp) = &b.expansion

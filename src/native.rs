@@ -64,6 +64,8 @@ unsafe extern "C" {
         fg: c_int,
         bg: c_int,
     );
+    pub fn nr_on_vt() -> c_int;
+    pub fn nr_vt_key(key: c_int, meta: c_int, shift: *mut c_int) -> c_int;
     pub fn nr_map(key: c_int) -> c_int;
     fn nr_regex(
         pattern: *const c_char,
