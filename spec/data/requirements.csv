@@ -285,3 +285,8 @@ CLOSE-REGRESS-004,21-console-release-closure.md,Freeze source and validate both 
 CLOSE-PACKAGE-005,21-console-release-closure.md,Deliver exactly the tested executable,TEST-CLOSE-PACKAGE-001,follow-up
 CLOSE-EVIDENCE-006,21-console-release-closure.md,Make completion auditable,TEST-CLOSE-EVIDENCE-001,follow-up
 CLOSE-CONTINUITY-007,21-console-release-closure.md,Persist progress across ordinary interruptions,TEST-CLOSE-CONTINUITY-001,follow-up
+TINY-PROFILE-001,22-tiny-profile.md,Compile a reduced editor,,follow-up
+TINY-CLI-002,22-tiny-profile.md,Match tiny startup,,follow-up
+TINY-EDIT-003,22-tiny-profile.md,Preserve the retained editing contract,,follow-up
+TINY-TERM-004,22-tiny-profile.md,Match tiny input and terminal lifecycle,,follow-up
+TINY-GATE-005,22-tiny-profile.md,Validate and measure without weakening full mode,,follow-up

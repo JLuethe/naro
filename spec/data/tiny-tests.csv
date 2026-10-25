@@ -1,0 +1,6 @@
+reference_commit,test_id,requirement_ids,scenario,release_gate,status,evidence
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-TINY-BUILD-001,TINY-PROFILE-001;TINY-GATE-005,Separate compile-time profile and measured dependency/size reduction,required,planned,
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-TINY-CLI-001,TINY-CLI-002,Fresh tiny CLI startup oracle,required,planned,
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-TINY-EDIT-001,TINY-EDIT-003,Retained commands and unavailable feature behavior,required,planned,
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-TINY-TERM-001,TINY-TERM-004,Tiny input rendering and restoration fixtures,required,planned,
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-TINY-REGRESS-001,TINY-GATE-005,Default regression and both build checks,required,planned,

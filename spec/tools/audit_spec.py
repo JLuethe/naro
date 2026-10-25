@@ -19,7 +19,7 @@ def main():
     follow_up_docs = []
     for p in docs + [ROOT / 'data/README.md']:
         text = p.read_text()
-        phase = 'follow-up' if p.name in ('19-completion-and-release.md', '20-root-and-console.md', '21-console-release-closure.md') else 'baseline'
+        phase = 'follow-up' if p.name in ('19-completion-and-release.md', '20-root-and-console.md', '21-console-release-closure.md', '22-tiny-profile.md') else 'baseline'
         if phase == 'follow-up' and p in docs:
             follow_up_docs.append(p.name)
         if COMMIT not in '\n'.join(text.splitlines()[:5]):
@@ -38,7 +38,7 @@ def main():
                 requirements.append([m[1], p.name, m[2], ' '.join(tests), phase])
     follow_up_ids = {r[0] for r in requirements if r[4] == 'follow-up'}
     follow_up_tests = []
-    matrices = [ROOT / 'data/follow-up-tests.csv', ROOT / 'data/root-console-tests.csv', ROOT / 'data/closure-tests.csv']
+    matrices = [ROOT / 'data/follow-up-tests.csv', ROOT / 'data/root-console-tests.csv', ROOT / 'data/closure-tests.csv', ROOT / 'data/tiny-tests.csv']
     if any(matrix.exists() for matrix in matrices):
         for matrix in matrices:
             if matrix.exists():

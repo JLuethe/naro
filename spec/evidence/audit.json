@@ -1,18 +1,20 @@
 {
   "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
-  "documents": 28,
-  "requirements": 286,
+  "documents": 29,
+  "requirements": 291,
   "baseline_documents": 25,
   "baseline_requirements": 248,
   "follow_up_documents": [
     "19-completion-and-release.md",
     "20-root-and-console.md",
-    "21-console-release-closure.md"
+    "21-console-release-closure.md",
+    "22-tiny-profile.md"
   ],
-  "follow_up_requirements": 38,
-  "follow_up_tests": 58,
+  "follow_up_requirements": 43,
+  "follow_up_tests": 63,
   "follow_up_statuses": {
     "deferred": 5,
+    "planned": 5,
     "verified": 53
   },
   "scenarios": 309,
