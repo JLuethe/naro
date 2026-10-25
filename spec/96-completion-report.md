@@ -79,3 +79,12 @@ passes all 15 package checks. The original corpus retains its existing declared
 differences. See `../validation/closure/README.md` for exact hashes, test counts,
 artifact locations and delivery status. Tiny and physical operator console
 certification remain deferred; no hosted release is published automatically.
+
+## Optional tiny completion (2026-10-25)
+
+The newly requested optional profile is implemented and qualified under doc 22.
+[Evidence and reproduction](../validation/tiny/README.md) record 31/31 gates,
+192/192 fresh exact comparisons, 194 CI/assertion cases, unchanged default
+regression and checked full/tiny source packages. Tiny measures 856,296 stripped
+bytes (58.07% below full) and has no libmagic dependency. No release/tag was
+published. Physical keyboard/operator checks remain deferred.

@@ -1,0 +1,571 @@
+{
+  "environment": {
+    "system": "Linux-7.2.8-9-omarchy-x86_64-with-glibc2.44",
+    "machine": "x86_64",
+    "libc": [
+      "glibc",
+      "2.44"
+    ],
+    "python": "3.14.8",
+    "tmux": "tmux 3.8",
+    "locale_inventory": "C\nC.utf8\nPOSIX\nen_US.utf8",
+    "file": "file-5.48\nmagic file from /usr/share/file/misc/magic\nseccomp support included\nLandlock support included",
+    "magic_databases": {
+      "/usr/share/file/misc/magic.mgc": "c2f4e7e55b0ee33c181ada80b065f9f8a58633c9806e8bd3353253c68324f268"
+    },
+    "locpath": null
+  },
+  "build_flags": "default",
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "scenario_sha256": "7a5b7e5c20a6204a43a31dfb6112af202122231b543a5d9011cae100b56b553e",
+  "results": {
+    "TEST-TINY-BASIC": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-UTF8": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-BYTE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CRLF": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-NOFINAL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CUT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-NAV": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-SEARCH": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-REPLACE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-REGEX": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-GOTO": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-GOTO-START": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-START-SEARCH": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-MULTI": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-DASH": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-IGNORE-RC": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-EXCLUDED": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-HELP": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-READ": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CANCEL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-VIEW": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-RESTRICTED": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-NOHELP": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CONSTANT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-MODERN": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-SAVEEXIT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-MAGIC": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-UNBOUND": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-SHIFT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-RAW-CTRL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-RAW-ALT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-BRACKET": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-RAW-CTRL-TABLE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-RAW-SHIFTCTRL-TABLE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-RAW-ALT-TABLE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-RAW-SHIFT-TABLE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-RAW-SS3-TABLE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-RAW-NUMPAD-TABLE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-RAW-F1-TABLE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-RAW-CSI-F1-TABLE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-RAW-HOME-TABLE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-RAW-CTRLHOME-TABLE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-RAW-LOWER-TABLE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-RAW-ALTDELETE-TABLE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-SEARCH-PROMPT-NOHISTORY": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-WRITE-TAB-DISPATCH": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-MODERN-PRESERVE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-REBIND": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-BOLD": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-QUICKBLANK": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-NEW": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-FIFO": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-TERM-EXIT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-TERM-HUP": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-TERM-TERM": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-PROMPT-TAB": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-PROMPT-PASTE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-PROMPT-COPY": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-PROMPT-WORD": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    }
+  },
+  "reference_sha256": "0e6343fe60e7c55f16cef7ecd99c7087885706d7065023cf12e7641728ea6439",
+  "reference_status": 0,
+  "candidate_sha256": "edb1691e800eea1392ac157945da097651859ee8834c0525a35ae3f260dab9ad",
+  "candidate_status": 0,
+  "candidate_build": {
+    "version": "0.1.0",
+    "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+    "source_sha256": "2c81a3fc062fbc6d35bb2c55f1bd1cdb903833029f53361611b1a7db7bc5a03f",
+    "revision": "e8e5d7d26eb9e5d3bfd3212898c94bff78468a8c",
+    "features": "tiny",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "summary": {
+    "recorded": 59,
+    "matches": 59,
+    "accepted": 59
+  }
+}

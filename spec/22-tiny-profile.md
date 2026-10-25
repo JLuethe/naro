@@ -2,7 +2,8 @@ Reference commit: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`
 
 # 22 — Optional tiny build
 
-Status: implementation in progress. This phase activates the optional tiny
+Status: implemented and verified; 31/31 linked gates in
+[the tiny evidence](../validation/tiny/README.md). This phase activates the optional tiny
 requirement in doc 19. The frozen default preview and its evidence remain
 historical; new shared-code changes require their own default regression.
 

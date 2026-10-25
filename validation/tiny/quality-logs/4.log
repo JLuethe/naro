@@ -1,0 +1,13 @@
+   Compiling naro v0.1.0 (/home/john/Code/naro)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.54s
+     Running unittests src/main.rs (target/debug/deps/naro-aaf6080a0db7efa5)
+
+running 5 tests
+test buffer::tests::region_splice ... ok
+test bytes::tests::columns_tabs ... ok
+test bytes::tests::nul_roundtrip ... ok
+test bytes::tests::invalid_and_boundaries ... ok
+test buffer::tests::tiny_edits_do_not_retain_buffer_snapshots ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+

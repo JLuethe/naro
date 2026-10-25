@@ -7,6 +7,12 @@ spec is implemented and verified for the ordinary-user Linux/tmux preview
 scope. Source-derived requirements and test evidence are distinct: these results
 do not prove every behavior on every platform.
 
+The optional tiny profile is also complete for the pinned contract: 192/192
+fresh exact comparisons, 194 CI/assertion cases, and 31 linked acceptance gates.
+It is 58.07% smaller after stripping and needs no libmagic. Both new profile
+packages pass source rebuilding and installation checks. See
+[tiny validation](validation/tiny/README.md) for binary hashes and limits.
+
 The editor uses byte vectors, transactional undo, a Rust state machine and cell
 renderer, generated reference key/function data, and a small C bridge for
 ncursesw, libc locale/POSIX regex/getopt, and libmagic. It ships syntax definitions,

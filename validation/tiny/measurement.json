@@ -1,0 +1,56 @@
+{
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "profiles": {
+    "full": {
+      "build": {
+        "version": "0.1.0",
+        "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+        "source_sha256": "2c81a3fc062fbc6d35bb2c55f1bd1cdb903833029f53361611b1a7db7bc5a03f",
+        "revision": "e8e5d7d26eb9e5d3bfd3212898c94bff78468a8c",
+        "features": "",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+      },
+      "bytes": 2202888,
+      "sha256": "c99f77769baf1462eecc630183b3d3e7b51da3729ea20fcc6bdc54925fe32c15",
+      "stripped_bytes": 2042368,
+      "stripped_sha256": "da57cfdc20674f5646e5c42a96de1ac571bb704771d40965533ef1acae5db2ab",
+      "needed": [
+        "libncursesw.so.6",
+        "libmagic.so.1",
+        "libgcc_s.so.1",
+        "libc.so.6"
+      ]
+    },
+    "tiny": {
+      "build": {
+        "version": "0.1.0",
+        "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+        "source_sha256": "2c81a3fc062fbc6d35bb2c55f1bd1cdb903833029f53361611b1a7db7bc5a03f",
+        "revision": "e8e5d7d26eb9e5d3bfd3212898c94bff78468a8c",
+        "features": "tiny",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+      },
+      "bytes": 969040,
+      "sha256": "edb1691e800eea1392ac157945da097651859ee8834c0525a35ae3f260dab9ad",
+      "stripped_bytes": 856296,
+      "stripped_sha256": "f7d17da3000956a3c8fbaa7f6e3c14dcb3512c242cf90abf21ed699116905419",
+      "needed": [
+        "libncursesw.so.6",
+        "libgcc_s.so.1",
+        "libc.so.6"
+      ]
+    }
+  },
+  "checks": {
+    "same_source": true,
+    "same_compiler": true,
+    "full_features": true,
+    "tiny_features": true,
+    "tiny_smaller": true,
+    "full_magic": true,
+    "tiny_no_magic": true,
+    "tiny_no_magic_header": true
+  },
+  "tiny_native_dependencies": "bridge.o: native/bridge.c /usr/include/stdc-predef.h \\\n /usr/include/curses.h /usr/include/ncurses_dll.h \\\n /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/stdint.h \\\n /usr/include/stdint.h /usr/include/bits/libc-header-start.h \\\n /usr/include/features.h /usr/include/features-time64.h \\\n /usr/include/bits/wordsize.h /usr/include/bits/timesize.h \\\n /usr/include/sys/cdefs.h /usr/include/bits/long-double.h \\\n /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \\\n /usr/include/bits/types.h /usr/include/bits/typesizes.h \\\n /usr/include/bits/time64.h /usr/include/bits/wchar.h \\\n /usr/include/bits/stdint-intn.h /usr/include/bits/stdint-uintn.h \\\n /usr/include/bits/stdint-least.h /usr/include/stdio.h \\\n /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/stddef.h \\\n /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/stdarg.h \\\n /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__mbstate_t.h \\\n /usr/include/bits/types/__fpos64_t.h /usr/include/bits/types/__FILE.h \\\n /usr/include/bits/types/FILE.h /usr/include/bits/types/struct_FILE.h \\\n /usr/include/bits/types/cookie_io_functions_t.h \\\n /usr/include/bits/stdio_lim.h /usr/include/bits/floatn.h \\\n /usr/include/bits/floatn-common.h \\\n /usr/lib/gcc/x86_64-pc-linux-gnu/16/include/stdbool.h \\\n /usr/include/wchar.h /usr/include/bits/types/wint_t.h \\\n /usr/include/bits/types/mbstate_t.h /usr/include/bits/types/locale_t.h \\\n /usr/include/bits/types/__locale_t.h /usr/include/bits/wctype-wchar.h \\\n /usr/include/bits/endian.h /usr/include/bits/endianness.h \\\n /usr/include/unctrl.h /usr/include/term.h /usr/include/termios.h \\\n /usr/include/bits/termios.h /usr/include/bits/termios-struct.h \\\n /usr/include/bits/termios-c_cc.h /usr/include/bits/termios-c_iflag.h \\\n /usr/include/bits/termios-c_oflag.h /usr/include/bits/termios-c_cflag.h \\\n /usr/include/bits/termios-cbaud.h /usr/include/bits/termios-c_lflag.h \\\n /usr/include/bits/termios-tcflow.h /usr/include/bits/termios-misc.h \\\n /usr/include/bits/termios-baud.h /usr/include/sys/ttydefaults.h \\\n /usr/include/locale.h /usr/include/bits/locale.h /usr/include/langinfo.h \\\n /usr/include/nl_types.h /usr/include/libintl.h /usr/include/regex.h \\\n /usr/include/sys/types.h /usr/include/bits/types/clock_t.h \\\n /usr/include/bits/types/clockid_t.h /usr/include/bits/types/time_t.h \\\n /usr/include/bits/types/timer_t.h /usr/include/endian.h \\\n /usr/include/bits/byteswap.h /usr/include/bits/uintn-identity.h \\\n /usr/include/sys/select.h /usr/include/bits/select.h \\\n /usr/include/bits/types/sigset_t.h /usr/include/bits/types/__sigset_t.h \\\n /usr/include/bits/types/struct_timeval.h \\\n /usr/include/bits/types/struct_timespec.h \\\n /usr/include/bits/pthreadtypes.h /usr/include/bits/thread-shared-types.h \\\n /usr/include/bits/pthreadtypes-arch.h \\\n /usr/include/bits/atomic_wide_counter.h /usr/include/bits/struct_mutex.h \\\n /usr/include/bits/struct_rwlock.h /usr/include/getopt.h \\\n /usr/include/bits/getopt_core.h /usr/include/bits/getopt_ext.h \\\n /usr/include/signal.h /usr/include/bits/signum-generic.h \\\n /usr/include/bits/signum-arch.h /usr/include/bits/types/sig_atomic_t.h \\\n /usr/include/bits/types/siginfo_t.h /usr/include/bits/types/__sigval_t.h \\\n /usr/include/bits/siginfo-arch.h /usr/include/bits/siginfo-consts.h \\\n /usr/include/bits/types/sigval_t.h /usr/include/bits/types/sigevent_t.h \\\n /usr/include/bits/sigevent-consts.h /usr/include/bits/sigaction.h \\\n /usr/include/bits/sigcontext.h /usr/include/bits/types/stack_t.h \\\n /usr/include/sys/ucontext.h /usr/include/bits/sigstack.h \\\n /usr/include/bits/sigstksz.h /usr/include/bits/ss_flags.h \\\n /usr/include/bits/types/struct_sigstack.h /usr/include/bits/sigthread.h \\\n /usr/include/bits/signal_ext.h /usr/include/stdlib.h \\\n /usr/include/bits/waitflags.h /usr/include/bits/waitstatus.h \\\n /usr/include/alloca.h /usr/include/bits/types/once_flag.h \\\n /usr/include/bits/stdlib-float.h /usr/include/string.h \\\n /usr/include/strings.h /usr/include/unistd.h \\\n /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \\\n /usr/include/bits/confname.h /usr/include/bits/getopt_posix.h \\\n /usr/include/bits/unistd_ext.h /usr/include/wctype.h \\\n /usr/include/sys/ioctl.h /usr/include/bits/ioctls.h \\\n /usr/include/asm/ioctls.h /usr/include/asm-generic/ioctls.h \\\n /usr/include/linux/ioctl.h /usr/include/asm/ioctl.h \\\n /usr/include/asm-generic/ioctl.h /usr/include/linux/sockios.h \\\n /usr/include/asm/bitsperlong.h /usr/include/asm-generic/bitsperlong.h \\\n /usr/include/asm/sockios.h /usr/include/asm-generic/sockios.h \\\n /usr/include/bits/ioctl-types.h /usr/include/linux/vt.h \\\n /usr/include/linux/types.h /usr/include/asm/types.h \\\n /usr/include/asm-generic/types.h /usr/include/asm-generic/int-ll64.h \\\n /usr/include/linux/posix_types.h /usr/include/linux/stddef.h \\\n /usr/include/asm/posix_types.h /usr/include/asm/posix_types_64.h \\\n /usr/include/asm-generic/posix_types.h /usr/include/linux/tiocl.h \\\n /usr/include/pwd.h native/options.inc /usr/include/ctype.h\n",
+  "reduction_percent": 58.07
+}

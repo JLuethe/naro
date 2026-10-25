@@ -1,0 +1,1011 @@
+{
+  "build": {
+    "version": "0.1.0",
+    "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+    "source_sha256": "2c81a3fc062fbc6d35bb2c55f1bd1cdb903833029f53361611b1a7db7bc5a03f",
+    "revision": "e8e5d7d26eb9e5d3bfd3212898c94bff78468a8c",
+    "features": "tiny",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "binary_sha256": "edb1691e800eea1392ac157945da097651859ee8834c0525a35ae3f260dab9ad",
+  "checks": {
+    "tiny_feature": true,
+    "no_libmagic": true,
+    "tiny": true,
+    "tiny-cli": true,
+    "tiny-vt": true,
+    "tiny-safety": true
+  },
+  "suites": {
+    "tiny": {
+      "status": 0,
+      "results": {
+        "TEST-TINY-BASIC": {
+          "pass": true,
+          "assertions": 80,
+          "scenario_sha256": "e3527c1ded5cf7b996e283da3e43c3f4b56aa074d04ce5c8cb3d362a40afeaec"
+        },
+        "TEST-TINY-UTF8": {
+          "pass": true,
+          "assertions": 80,
+          "scenario_sha256": "08107d5bc3f994f2fed7ea3ea64c4f3907b4e9f700593c444bed67ad903e0973"
+        },
+        "TEST-TINY-BYTE": {
+          "pass": true,
+          "assertions": 80,
+          "scenario_sha256": "4a0a136047987fa38fe27ccba01cf59390e905f1130396dc5ec429a08db66624"
+        },
+        "TEST-TINY-CRLF": {
+          "pass": true,
+          "assertions": 80,
+          "scenario_sha256": "1a6a3f0d4b0c73ace84cd35f8b2b6356877b7f654ff243879f012036c1373da5"
+        },
+        "TEST-TINY-NOFINAL": {
+          "pass": true,
+          "assertions": 80,
+          "scenario_sha256": "269dd22c1392d7352db0de8478efe21f31a4746ea7c174d9ac0cc91b379f10b5"
+        },
+        "TEST-TINY-CUT": {
+          "pass": true,
+          "assertions": 80,
+          "scenario_sha256": "6d6688e9f520eb25bc04c112a6c386c542a136214ea19acb412e78dc82f9358d"
+        },
+        "TEST-TINY-NAV": {
+          "pass": true,
+          "assertions": 55,
+          "scenario_sha256": "53364b540ef8d487578c541b76d7b5166321968784018c51c8a744f36b21abb8"
+        },
+        "TEST-TINY-SEARCH": {
+          "pass": true,
+          "assertions": 80,
+          "scenario_sha256": "d3e61ae4684ad9345e55b8c00d8a0868269a1cc743a0ab24963cfb452fb902d2"
+        },
+        "TEST-TINY-REPLACE": {
+          "pass": true,
+          "assertions": 80,
+          "scenario_sha256": "167b9ff4dfe477d0f61b5032990424fafcdbf94095badbff12bf00a27c8e3ddc"
+        },
+        "TEST-TINY-REGEX": {
+          "pass": true,
+          "assertions": 55,
+          "scenario_sha256": "4039f23b7f475cc2ef85e17b6101f6f4a3b7346a510f9f28692bb91f67ea86be"
+        },
+        "TEST-TINY-GOTO": {
+          "pass": true,
+          "assertions": 55,
+          "scenario_sha256": "e7638e03c932745fb751738bb9d2fa52d8838b610c0ceb5eedbb2c6b6ea9e7cb"
+        },
+        "TEST-TINY-GOTO-START": {
+          "pass": true,
+          "assertions": 55,
+          "scenario_sha256": "5e39abcb36ca988173142c2f55e12cbe6f1630a16c469e52c9c45375a2760f83"
+        },
+        "TEST-TINY-START-SEARCH": {
+          "pass": true,
+          "assertions": 55,
+          "scenario_sha256": "1d2bb5b37929af77de3d74906339bcea8152aed5eb9d6e4cd0e7628802d3eab9"
+        },
+        "TEST-TINY-MULTI": {
+          "pass": true,
+          "assertions": 8,
+          "scenario_sha256": "aad1df077e7e2d33238ec36daa2ba8c5dce22f30107b5b9c97febd506de89d9d"
+        },
+        "TEST-TINY-DASH": {
+          "pass": true,
+          "assertions": 58,
+          "scenario_sha256": "b118c302785dd3135956516746a6c9dca6540c4c11b6560ea91cd1ddb9d3044e"
+        },
+        "TEST-TINY-IGNORE-RC": {
+          "pass": true,
+          "assertions": 80,
+          "scenario_sha256": "1ccee233da032fea1b95be43ba9e0d8b75386be666500fc4bc7a5a815ec12714"
+        },
+        "TEST-TINY-EXCLUDED": {
+          "pass": true,
+          "assertions": 155,
+          "scenario_sha256": "6288245df66bf2d8322b62862fb0b59ef9f834ee86e0ca66e3016beecb38bdc3"
+        },
+        "TEST-TINY-HELP": {
+          "pass": true,
+          "assertions": 80,
+          "scenario_sha256": "3af7516f644bfabb2012ff199fafafc18ab149a27b09559d9dd9dcf2e3322152"
+        },
+        "TEST-TINY-READ": {
+          "pass": true,
+          "assertions": 83,
+          "scenario_sha256": "34127185c92d25d859be129e8dcb733d701c405d66ee9a3a7452640711d850b9"
+        },
+        "TEST-TINY-CANCEL": {
+          "pass": true,
+          "assertions": 55,
+          "scenario_sha256": "a5bfa76f131597384043fccb139af720d054b81172195b6cb0e7ad4bf1a32635"
+        },
+        "TEST-TINY-VIEW": {
+          "pass": true,
+          "assertions": 80,
+          "scenario_sha256": "112d2dd52737803b722d95892bd310c07fc78b7b2b039e8d061d956f3a8bf0bc"
+        },
+        "TEST-TINY-RESTRICTED": {
+          "pass": true,
+          "assertions": 80,
+          "scenario_sha256": "f164721aa12e91577686441e6c69d57e3c689abe5355b5f2ca80a17bd4ab6696"
+        },
+        "TEST-TINY-NOHELP": {
+          "pass": true,
+          "assertions": 80,
+          "scenario_sha256": "b761f28b1588e4b5b02317d80728245031250b558e10c7b69a124d4d263b9dce"
+        },
+        "TEST-TINY-CONSTANT": {
+          "pass": true,
+          "assertions": 55,
+          "scenario_sha256": "afb1abe3880466249504ec1805701da1442f6529b0b1f987039442bf8ddec0c9"
+        },
+        "TEST-TINY-MODERN": {
+          "pass": true,
+          "assertions": 55,
+          "scenario_sha256": "29e100385aa9442edf2e9318eccfa69676418efd03518bd896d4db9296d0a68f"
+        },
+        "TEST-TINY-SAVEEXIT": {
+          "pass": true,
+          "assertions": 55,
+          "scenario_sha256": "094fae0975ce9f849316849338944642c738e6ee22b9ca9866402454a59bb430"
+        },
+        "TEST-TINY-MAGIC": {
+          "pass": true,
+          "assertions": 55,
+          "scenario_sha256": "e95896ee2c0bd4f33d5473b1edabe5bdec01795b9ffb4b067a807be1746d16d7"
+        },
+        "TEST-TINY-UNBOUND": {
+          "pass": true,
+          "assertions": 80,
+          "scenario_sha256": "e7a41ebc47480c482460a44ce3eb40c31df498e365131f4118d562f991506f2c"
+        },
+        "TEST-TINY-SHIFT": {
+          "pass": true,
+          "assertions": 80,
+          "scenario_sha256": "83eef9d1295479f3f91ad172897604d9fefc2321bc76d04242be480ef21ea5e2"
+        },
+        "TEST-TINY-RAW-CTRL": {
+          "pass": true,
+          "assertions": 55,
+          "scenario_sha256": "b64d674c2efae1c226961392901dba4492bfaf8fb931989deff17e9a6e4673f4"
+        },
+        "TEST-TINY-RAW-ALT": {
+          "pass": true,
+          "assertions": 55,
+          "scenario_sha256": "52677c3c44291385d45587f4fef3543df564f916ed8fb7a72bc8b117a40183d6"
+        },
+        "TEST-TINY-BRACKET": {
+          "pass": true,
+          "assertions": 105,
+          "scenario_sha256": "1aa2dd6355cd104069ab3eaf0ad7084fbc41f03f9afe94865596a99734d50c2b"
+        },
+        "TEST-TINY-RAW-CTRL-TABLE": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "1b1a1ca7d6d6457ae2abe483f5f9a87902ecdd8c9d5a81a2e7b076d34c01c2c3"
+        },
+        "TEST-TINY-RAW-SHIFTCTRL-TABLE": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "febcdbf3bd615faf8baa1dd79dbe5273ea8bb6dd34c809381ede6126b4417230"
+        },
+        "TEST-TINY-RAW-ALT-TABLE": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "558d2680cfaa971e9a46fc1ff02273e187797924dc93caedef8b717c52080288"
+        },
+        "TEST-TINY-RAW-SHIFT-TABLE": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "1c9b0ea972f96e3f3a30ed2a1e48712948d2471f5cd80cc86f6ebb9d3e58e872"
+        },
+        "TEST-TINY-RAW-SS3-TABLE": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "0fcacad839d27e04ce494fd61789a6d4c9260ab5182db4fcf551a8196356eaad"
+        },
+        "TEST-TINY-RAW-NUMPAD-TABLE": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "7a6486a4aa3ad331fba119ae46da012306806a883702126c8577eeaf3fa1a5c7"
+        },
+        "TEST-TINY-RAW-F1-TABLE": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "943b0a0bf6a2b8f342b3af27452e73ec3cb1d411b7bb33d2ba09cdc248784456"
+        },
+        "TEST-TINY-RAW-CSI-F1-TABLE": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "3e8f6c6e4bf325244a76219fb301d4f95d0ef88c7c912f37c000c3eabfe6d523"
+        },
+        "TEST-TINY-RAW-HOME-TABLE": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "cde7295bcded500aeb8c4c55d4a58d6759cb1246fa4f1234624168b77aa8a05c"
+        },
+        "TEST-TINY-RAW-CTRLHOME-TABLE": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "f7bab9ccf596c3ec6b500b8d0cdf91a0cf6ca074653f77db8dbbd75adefeed08"
+        },
+        "TEST-TINY-RAW-LOWER-TABLE": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "4a1981fe43848da8e5d2e91eaffc051afce41c8f9219e9f60738cd55f44789a1"
+        },
+        "TEST-TINY-RAW-ALTDELETE-TABLE": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "a711e5e8907a4986cb87ca3f27355e7db69b4a01d453b9579f0c2c88aa233f45"
+        },
+        "TEST-TINY-SEARCH-PROMPT-NOHISTORY": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "ea9e34d5167a0a12701c4e51498734a6a71a39b009db82d5957a0ad3cd17910c"
+        },
+        "TEST-TINY-WRITE-TAB-DISPATCH": {
+          "pass": true,
+          "assertions": 33,
+          "scenario_sha256": "b0f7650ba22851eeeb7fe39517c31d25932c7aa299a9ec0765bc968ac6c9e4ba"
+        },
+        "TEST-TINY-MODERN-PRESERVE": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "201ec6b34d4c260bf20a1189e5e121468fe81d615d5e91580e68637ffdd58f32"
+        },
+        "TEST-TINY-REBIND": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "b6a11664ae5e64d66d4644b0d0b61cba4ef85372299c37b97342e0993626b3da"
+        },
+        "TEST-TINY-BOLD": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "8416ff52b7e6c604a6cc7697e8a2974cc1e294763f84d89f2cd48384f6612ed4"
+        },
+        "TEST-TINY-QUICKBLANK": {
+          "pass": true,
+          "assertions": 55,
+          "scenario_sha256": "bf3dd2e5970e479dd61db31a689b8695611dd5e70cd13fa8b2953f21af1c8ea0"
+        },
+        "TEST-TINY-NEW": {
+          "pass": true,
+          "assertions": 58,
+          "scenario_sha256": "f4a54579bac3b711e279d89a7a78215962cc3c6dd3fee5d4726a7fe764f0aec9"
+        },
+        "TEST-TINY-FIFO": {
+          "pass": true,
+          "assertions": 32,
+          "scenario_sha256": "84d2a7dc897b2a12c0f9730f8e6978691f93dd2f940a637445c8c5c4c1162dd9"
+        },
+        "TEST-TINY-TERM-EXIT": {
+          "pass": true,
+          "assertions": 33,
+          "scenario_sha256": "4616f366b810973fb7f63dc762f4261bd03d2d78611878d98419cbf70849922e"
+        },
+        "TEST-TINY-TERM-HUP": {
+          "pass": true,
+          "assertions": 36,
+          "scenario_sha256": "44813c4c11a61d95a0ebe33cd3ab004908f44c981c1c461caaec750c7c0bf71f"
+        },
+        "TEST-TINY-TERM-TERM": {
+          "pass": true,
+          "assertions": 36,
+          "scenario_sha256": "94cd1d54206abe1bbee2af5947e672c647ea5a1f131c8f19f5dcc2a352599fbf"
+        },
+        "TEST-TINY-PROMPT-TAB": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "b9072a5d537c09a58830c6a7ac93e9eb0ca8012ed40bef8d43790a0700d98ac9"
+        },
+        "TEST-TINY-PROMPT-PASTE": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "777e43a32c22ec3f4a6dc69b1f9d58d9652438bbc48be3666e65dd918df59f2a"
+        },
+        "TEST-TINY-PROMPT-COPY": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "a00c9a446a51ec5ef5ea4fbd07875d79cdae8ba614bb0b5c8809397f31e0fde5"
+        },
+        "TEST-TINY-PROMPT-WORD": {
+          "pass": true,
+          "assertions": 30,
+          "scenario_sha256": "fdaecb8569435aa2da0762f37e537d8cf2ec06bbed4c1ca973f8afe23a93060b"
+        }
+      }
+    },
+    "tiny-cli": {
+      "status": 0,
+      "results": {
+        "TEST-TINY-CLI-HELP": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "7a811811e5fcda8b403ad0ec238296bbd89e558cbacca942e0fc7e4b729767b5"
+        },
+        "TEST-TINY-CLI-VERSION": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "336c7fda43f933c92e3d85486530663c575ec43441a11dab25494cb4aaf128fb"
+        },
+        "TEST-TINY-CLI-BAD": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "d77982978f1e8a8eca89145cbff2907f679c9271315c3d0aa7e4ce421f92002a"
+        },
+        "TEST-TINY-CLI-MISSING": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "69bf88286c1d6b5633786d06ce9baae8e6b70468288792fd9886672b1adfe71b"
+        },
+        "TEST-TINY-CLI-RESTRICTED-HELP": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "0769f211a9e388447b9132f0607eec1a2f22ad88f753013dfe8af176fb6dd36e"
+        },
+        "TEST-TINY-CLI-SHORT-65": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "896f5825cd4cb4771ee5891d85068b8f6eddb819e10ebc16f9a5c818876f8752"
+        },
+        "TEST-TINY-CLI-SHORT-66": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "3ae8beaf36ddbca57bc53b79f11b8ba52c2f3245c15f28c37f2cfe242007b125"
+        },
+        "TEST-TINY-CLI-SHORT-67": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "c7d6d28f87762fb0b0f0aa4ffeb3ab77815372f430c6b9d9e866ae40790dd7fb"
+        },
+        "TEST-TINY-CLI-SHORT-68": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "9d0c3a99bf2bbb902d201a3bd75e10fe1ad44e92db268cfbcaf504b5549e7957"
+        },
+        "TEST-TINY-CLI-SHORT-69": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "7931e53b0783c1d6e770bf6a7f5cef5c4ebc0f40a4ef8c976a5137af5ed5cbbb"
+        },
+        "TEST-TINY-CLI-SHORT-70": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "a8491e6aca95c35913380d7dbfae57238e14761227feb8c34c94fbe704eefa5b"
+        },
+        "TEST-TINY-CLI-SHORT-71": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "361d549e140b43cd43811f06d3aafa86e17d5379dd3e7b18d05df372a5981b0d"
+        },
+        "TEST-TINY-CLI-SHORT-72": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "633e8e3ecba87468d510042a5ee39bd40ebf6faeb3d2da6f43e895d6e07c7a9e"
+        },
+        "TEST-TINY-CLI-SHORT-73": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "0687c8502bfd0bd5d2ddf5b6e6156d8d42844c08c3fbf35fd89004413367c617"
+        },
+        "TEST-TINY-CLI-SHORT-74": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "72cdf061c178c21316ce26b9e78231c983d84fee69f8dc9a8ef921703f81a7c7"
+        },
+        "TEST-TINY-CLI-SHORT-75": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "3bee64d1093fd2b2280a59130d6ca945df95853f64d9eaa7fbface595ccbf097"
+        },
+        "TEST-TINY-CLI-SHORT-76": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "ad31da2aeb7da8eb08c6730abbdc7b0bb14834fa2ca53b853fafbd562d4b1796"
+        },
+        "TEST-TINY-CLI-SHORT-77": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "780c6dae143ec7b4c8e6b510a0d239dd9767bde0c1de9e8491da6ad00bb9c155"
+        },
+        "TEST-TINY-CLI-SHORT-78": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "a66383fdef18dc5148045a03b2d6ad0b12f74475d3c985d049ee9b3203cd26ab"
+        },
+        "TEST-TINY-CLI-SHORT-79": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "1dc386edf0280af0627c5da0a3b48cd910bcd5fcbe5af0f285655a4caeca7042"
+        },
+        "TEST-TINY-CLI-SHORT-80": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "d3dec6c4656974cbfd68e30b528ebf5837267ced60a7ced47708df7cd6f61d76"
+        },
+        "TEST-TINY-CLI-SHORT-81": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "b23a8d51f36a9e6a4198b2b1cc08e4cf2a3695b28a0bf4c37e61600d4e8be5ec"
+        },
+        "TEST-TINY-CLI-SHORT-82": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "0252dcf7e4c513dc7caed915aecec69ca36fc149baad5adc912774ebfe7e2cd5"
+        },
+        "TEST-TINY-CLI-SHORT-83": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "b67df970618d558c9739cc4c78147ff8c67a78c0c2464ff6b7bb1fb441d1ea19"
+        },
+        "TEST-TINY-CLI-SHORT-84": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "fab4a3d8899b6df650a64939ca14946d5121837a819193dc9892be7c7eaef6d2"
+        },
+        "TEST-TINY-CLI-SHORT-85": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "129699db0479604f1d36551f2e584d062dfc2961e47fc426123abc31e5b0b84b"
+        },
+        "TEST-TINY-CLI-SHORT-86": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "b14e2352bea09c42452dc8537d58a8c87c6b0c749a8b94be7543d84e1b0e774b"
+        },
+        "TEST-TINY-CLI-SHORT-87": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "931393d339b7e0adef9c8a69c454642fd4bbf6cccbf87e8c0908a29384d671b0"
+        },
+        "TEST-TINY-CLI-SHORT-88": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "a952278a8a6474cbfcda746f399d889567f681b891167831ea528cb367c307f7"
+        },
+        "TEST-TINY-CLI-SHORT-89": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "5ed6e0f27aaceebc8f071957864fb255858ad7f21699fdf5402404848431ed60"
+        },
+        "TEST-TINY-CLI-SHORT-90": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "0de70a1be700be8a9244dfdce3c77246ea6459fa49cb6478d0c3f5486a29e54e"
+        },
+        "TEST-TINY-CLI-SHORT-97": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "c539e45994a4dfe7276a86d7759e16923c8146d8507461a2b59585c742157e5f"
+        },
+        "TEST-TINY-CLI-SHORT-98": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "72f7afa5ff1f31e6be402c41cbd22ddb8df059026cdc5c02110ade8d83d4c6bc"
+        },
+        "TEST-TINY-CLI-SHORT-99": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "281659e77dafd7d40f0c7d47c52d2ee7d706a4d95a3b30ca113e0a88a9bee07e"
+        },
+        "TEST-TINY-CLI-SHORT-100": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "f9baae807e1f7a4e704cf587a33072aa66012f070459438e3c81acbebc3d20c8"
+        },
+        "TEST-TINY-CLI-SHORT-101": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "366341e66acf4890ae2b954529037723117203e493fe8cf8b970e68744e879f7"
+        },
+        "TEST-TINY-CLI-SHORT-102": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "7516ca821d09e8d59f747dc89593301f40f45577553be873686fa7c4f12d2423"
+        },
+        "TEST-TINY-CLI-SHORT-103": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "b4374c6fc673892832565c15f5254d9981a29e88df8c7dac7971cd68adb76d53"
+        },
+        "TEST-TINY-CLI-SHORT-104": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "31e3d12b954af5a3d62026e2435552c1b8db842bfe975667b160666e098f823c"
+        },
+        "TEST-TINY-CLI-SHORT-105": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "38d6194fb3445b543888751f61fb3f439d9bf6163ba20552d6c329089444ebbb"
+        },
+        "TEST-TINY-CLI-SHORT-106": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "ab621c40d353e95b208152071fbcaad47217b37e45600f7b4d1cf5d3c9101057"
+        },
+        "TEST-TINY-CLI-SHORT-107": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "ab19673b531aa08806de7479eaaa7e503e1370065262bbeae0dc3cb21b10cde7"
+        },
+        "TEST-TINY-CLI-SHORT-108": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "f31d8a130922a2b0740e4b2a26eb34a60a3bda9dc30ce1d8aa26aa54de695241"
+        },
+        "TEST-TINY-CLI-SHORT-109": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "ef90610247a29b5060ec9845b5f95aafd31ce521bfa6712d1bfde57b4ea0b3ff"
+        },
+        "TEST-TINY-CLI-SHORT-110": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "24a5e64e23d33e18d727ab575a48eeb58f232912e04f74148a325399c9c91c91"
+        },
+        "TEST-TINY-CLI-SHORT-111": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "c986a68b9fd3a4c9e7cbf2608e5b063bfa64a1fc4dc0caa91babea7e50d3462e"
+        },
+        "TEST-TINY-CLI-SHORT-112": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "88ff097e7c7b383ec62367915f960ffd99f1d515b225cd9b99bd388200bde9b6"
+        },
+        "TEST-TINY-CLI-SHORT-113": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "487cb1ea567471305ef9188596db1c7197f7cb50433bf8dec3bc7277a5e56b85"
+        },
+        "TEST-TINY-CLI-SHORT-114": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "b25a2c4135149413b9fd22eeba48aeb8a27b40fa11662754a9b9be205030bc46"
+        },
+        "TEST-TINY-CLI-SHORT-115": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "cb22b3d8fe354a6d9d7cfea21661911a56b999658d01cd98e840b20707cc08d5"
+        },
+        "TEST-TINY-CLI-SHORT-116": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "32956094125a862c44c81e456b3c01d14e641cc5b59e9ad935e75f225bd31600"
+        },
+        "TEST-TINY-CLI-SHORT-117": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "083583b4035911e6947d54ab0fddcf87a4a89b5640de5595ac57227994c438f7"
+        },
+        "TEST-TINY-CLI-SHORT-118": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "fc5d90573cbda646c4d04af0b923a4405474515cfc6c758a79de54c4313886f4"
+        },
+        "TEST-TINY-CLI-SHORT-119": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "107f9a2e5f238cdc98d15c8d9144e0969861a16955b3c650c9eaf9857f1401eb"
+        },
+        "TEST-TINY-CLI-SHORT-120": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "745c0e72c5c9a17de5ac319a6c1adf586c78a1cede64a1ddf808f08bb6328b03"
+        },
+        "TEST-TINY-CLI-SHORT-121": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "a711cda42138074dea802e0a5c483c20cb964585d49261d678af03ab769277a6"
+        },
+        "TEST-TINY-CLI-SHORT-122": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "cc4ab89c914b5193981fc480962f05247c56185abce8fcde24a50f575250c076"
+        },
+        "TEST-TINY-CLI-SHORT-33": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "21c03ff21314546f22c183074b7e7bfce65f2bb7b498be86aa3ad07771dd5e6c"
+        },
+        "TEST-TINY-CLI-SHORT-64": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "473c37aa59382e0c10b3b0d81943f7091699a2c084336d0cd1a920e865c5e269"
+        },
+        "TEST-TINY-CLI-SHORT-37": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "681525c1bf12f8cf7d4715e9ed88870fe2f3bfc9df3ac28b66f671f21bc05980"
+        },
+        "TEST-TINY-CLI-SHORT-95": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "189b6d6c9924b52a8b10b5d60efb43a68d6b8741fef8de173c3fbf24d3cf2924"
+        },
+        "TEST-TINY-CLI-SHORT-48": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "06ebd6e9dff32f900a78e9e1057b2ea3c8d57ab9feac84a2bb0dedbf7fe75f0f"
+        },
+        "TEST-TINY-CLI-SHORT-49": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "86fc80696a8e4cf2c0326c11b3e34191a3226e9eeae6623054bf2843dc1a8be7"
+        },
+        "TEST-TINY-CLI-SHORT-47": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "c69d7c9481d9b20c56f7d07e799842a65cbeb2f31de90309ee70198700f92070"
+        },
+        "TEST-TINY-CLI-LONG-boldtext": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "b81dc2f950c017feab0e7d16fce4d52821a286603bca12c01dd00a360d7dc6c1"
+        },
+        "TEST-TINY-CLI-LONG-multibuffer --newbuffer": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "14f731e854993dc72eabecde0d7c4b2cb0e5b8daeecba0837bb242328fb5a757"
+        },
+        "TEST-TINY-CLI-LONG-multibuffer": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "46be1d32eeb456f9c740a17e4bf7f20b2b7d380337f6870d909e208c9038160f"
+        },
+        "TEST-TINY-CLI-LONG-ignorercfiles": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "751779b29cb3ff25a3aa58dc4e7195d801ad3f8d0e747065e5a950b650efbcf3"
+        },
+        "TEST-TINY-CLI-LONG-rawsequences": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "a1b2edeb2ad1be167de8b050551ca3b5287a9074d6095a02f6741fa8c487d727"
+        },
+        "TEST-TINY-CLI-LONG-trimblanks": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "63de7fc530b5afa5a12ea9377b8e57683a80327511079507779cd9a559c11572"
+        },
+        "TEST-TINY-CLI-LONG-quotestr": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "0c7f9129b776216792fd33664f49e9be05a5dcb510c63bc14acb11904049e524"
+        },
+        "TEST-TINY-CLI-LONG-restricted": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "16526623caeaba3c2dcbcd06366bd497f95f07eb887773ed91d53e870047b73a"
+        },
+        "TEST-TINY-CLI-LONG-quickblank": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "b597da9c87ac6d2fdac4806613c9b416a53799de952eececb062376b28744eac"
+        },
+        "TEST-TINY-CLI-LONG-version": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "a9f1a827b7bd0051e35555761996cc2b3e12d06fbf3abf027cc1fc567f1a205f"
+        },
+        "TEST-TINY-CLI-LONG-syntax": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "7d6690117f8b5e9375e076b1ff59a28ed32881077194ee1396e2ba2ab8f22d35"
+        },
+        "TEST-TINY-CLI-LONG-breaklonglines": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "a547ab95a3a2af841565e5dff6dac561aa8732aa8e3c6379b71bc58fe774b2f1"
+        },
+        "TEST-TINY-CLI-LONG-constantshow": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "8f5bfbfaadd885d21d51038e76a12d6b3bdee035978767e930ef302685fa991f"
+        },
+        "TEST-TINY-CLI-LONG-rebinddelete": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "8a56c0642408ae671da7075030513fb236aa265730cddc47943157c6761a9786"
+        },
+        "TEST-TINY-CLI-LONG-rcfile": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "5d609e04ad1aa848feb07c41b0a4669e8d5f146acef740b621d4f2dcddfd23a0"
+        },
+        "TEST-TINY-CLI-LONG-showcursor": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "f0529dd2bc0ed7b96f9981b2307718ba5092e20b7e00178494c0d2ffb451ee2b"
+        },
+        "TEST-TINY-CLI-LONG-help": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "80679c155057a071234994f6797ee8f400733c447be8361141167ab69d2a2086"
+        },
+        "TEST-TINY-CLI-LONG-linenumbers": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "265c452fcd3d225347bfa812c4c9d53c6ae642ae8ad4ad72276535a89ce39bdd"
+        },
+        "TEST-TINY-CLI-LONG-mouse": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "868ed9ffd2dcaefebe897bd0f9f1e3d2982c6ba80d8cd2a3d855f36e8e8c7ca0"
+        },
+        "TEST-TINY-CLI-LONG-operatingdir": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "fd12b2251219af5dae642538f316878388617b208c61370063bcd1524767a28b"
+        },
+        "TEST-TINY-CLI-LONG-preserve": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "e4d67ef3851f74b50b4fa1b0f44bad0a6aa162dbdf78ad59fe44af8865b97891"
+        },
+        "TEST-TINY-CLI-LONG-fill": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "e680c53d375b057aa73a3dc0a6bc5f65a378a6522fe4edaa66dfb08fd1901a9b"
+        },
+        "TEST-TINY-CLI-LONG-speller": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "2e8e63e52d209ab8ca1e9c58a84a5ba968bfe3ceab90b355b68d3058f07d70ba"
+        },
+        "TEST-TINY-CLI-LONG-saveonexit": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "982dbe106407dc6d7f40048d29ccfa39bceb60b662afb63538171eb28423c5c0"
+        },
+        "TEST-TINY-CLI-LONG-view": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "e7f0ab3f5dd3f5a6083cb3f2d88859b892b564f9074ab14ece2f9e2166a94516"
+        },
+        "TEST-TINY-CLI-LONG-nowrap": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "ecbbf34df91b8a6a838e6f3df277a4b83edd57d1df577027539722806d02b683"
+        },
+        "TEST-TINY-CLI-LONG-nohelp": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "da0b5e84bf62a54d6d9710e9a7cb396dddc48be2a093825e38fc8a426afee88c"
+        },
+        "TEST-TINY-CLI-LONG-listsyntaxes": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "a41999fc0a1b606d6d53abacc6f28f2ccbe2eca860294b965ec6547bd0d5d68e"
+        },
+        "TEST-TINY-CLI-LONG-modernbindings": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "652db6c2ca25e8ca299e0633944496bc9894ae7ed80e8626e7b44f38b271c31b"
+        },
+        "TEST-TINY-CLI-LONG-smarthome": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "552a3ccd8a8ae0a360f24c8301bb027a9c39cff4a58c81443ea103826769b3ea"
+        },
+        "TEST-TINY-CLI-LONG-backup": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "f0e8c495d49fa045d33f7515615484a4d3946223e8864ab85439f4a7dc5d176d"
+        },
+        "TEST-TINY-CLI-LONG-backupdir": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "21b1730081aab5d6933f4e3737f9d60240607e7e238ad13f3cfe310a579c33ef"
+        },
+        "TEST-TINY-CLI-LONG-tabstospaces": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "a5a292681d787717e1f3e98fcc8a6bf85ede8e4de1997090b6a8237db84fe08a"
+        },
+        "TEST-TINY-CLI-LONG-locking": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "3f46b14305330e77d49aeb87a8aa86ebd7d3b17c274de538ff6efef59c6a6cac"
+        },
+        "TEST-TINY-CLI-LONG-historylog": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "233eb2d3d71d87d746f1df8dccc8113809b9851f302da5acff6987494d895adb"
+        },
+        "TEST-TINY-CLI-LONG-guidestripe": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "71b4716b6e6c0bce4eb9bb2ab689571f9e8cd14720fbf481455112693f69a43e"
+        },
+        "TEST-TINY-CLI-LONG-nonewlines": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "f77ae20cfda0e4b681e8a1b85b2da7a27efe03d7cb14e0697e0fe46ba0b009bc"
+        },
+        "TEST-TINY-CLI-LONG-noconvert": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "aab3513cab85ab36685426426e09af231bf8e2d10e37871aa2114f8e190a3207"
+        },
+        "TEST-TINY-CLI-LONG-bookstyle": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "10245a98e30a1f994c5c047935e0645c952189c37afa5fd9268717a7ccadce17"
+        },
+        "TEST-TINY-CLI-LONG-positionlog": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "852050a11b3abf736e7831ac976f4c1a81201372a659db4defca637badb8d116"
+        },
+        "TEST-TINY-CLI-LONG-softwrap": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "7f521ef40d1560c34517ef7e15dc99d0242b5c978d0cb8ece249934b006258f3"
+        },
+        "TEST-TINY-CLI-LONG-tabsize": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "02a4a7dd553bb1d3147ee18c353cfe4e193d6f16946afc7de5c589ef680f4ba8"
+        },
+        "TEST-TINY-CLI-LONG-wordbounds": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "be41d8898e75e767e4d9face121357bc7bc663d9cbed5617f12a6c8433758595"
+        },
+        "TEST-TINY-CLI-LONG-wordchars": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "3ad041c03193fc7015e935abb79319ab7ffedb3c6dbeec7393ac907fdd6906ad"
+        },
+        "TEST-TINY-CLI-LONG-zap": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "e58248ce3e41b30ac3a3675e2ddba763a6aabad1b860a373adf4b6ff8858a80f"
+        },
+        "TEST-TINY-CLI-LONG-atblanks": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "76b5eea84fdf2b482c003dc94b8939baf42ffc290a60a7471a3d23ece2ba5c11"
+        },
+        "TEST-TINY-CLI-LONG-emptyline": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "69dc09cd715a22f140a7ecc506504be07338539906a5040bec4964d94e07474c"
+        },
+        "TEST-TINY-CLI-LONG-autoindent": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "52f8cece104b61e767893b723a96efa3c3e2be8841534dda4fab534c6ae4716d"
+        },
+        "TEST-TINY-CLI-LONG-jumpyscrolling": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "26a5188a66a6e5af45a10526573684d4eb9c449f8fbaf1b1d61529bc213fa13d"
+        },
+        "TEST-TINY-CLI-LONG-cutfromcursor": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "3b356c482f82ef5fa909588e1943ba950d0f44a6d695616165c19f3635c28f26"
+        },
+        "TEST-TINY-CLI-LONG-noread": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "890761e95ccfd65bd8b1de8050a6163837e2d9579e5cf3870852479148ceb433"
+        },
+        "TEST-TINY-CLI-LONG-indicator": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "3b435cc8933513dd335988a28502935152761cf9591f7b77d9426b232bcb3d39"
+        },
+        "TEST-TINY-CLI-LONG-unix": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "28a074ab5986fe2a6b5b5a204721fd34afa3bf461160e7494cc6a1a4150cd9e5"
+        },
+        "TEST-TINY-CLI-LONG-afterends": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "8151f5346e6d56ec42ea245496221639c1f6ff8fef73048a7d7cce39e67af079"
+        },
+        "TEST-TINY-CLI-LONG-whitespacedisplay": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "26fcf9fd13e1830d199a5db15e5832fadf7a4d86d1a126d47fe2e00908f6114e"
+        },
+        "TEST-TINY-CLI-LONG-colonparsing": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "a83e69fed8a1631e299bee1f04f5c93840e331d1ad97a225123fe9e2b7112d08"
+        },
+        "TEST-TINY-CLI-LONG-stateflags": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "b6ac62417ae2bc22d769601ac987b5e67d1d820fef6eb20fc3da7550f1a19622"
+        },
+        "TEST-TINY-CLI-LONG-minibar": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "3375810c94222d889ae456cda3b91ad74c82b327183d774716df1858a69b2cc4"
+        },
+        "TEST-TINY-CLI-LONG-zero": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "bcbfc9a72129aa376e9ff1ecb9bfaebab8a12c845c250a2cec3dfbc5f0b0972b"
+        },
+        "TEST-TINY-CLI-LONG-solosidescroll": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "61ce7d1f0ce190c7e61787531194e75f6d374a29c0556b4e57967fea01c343e0"
+        },
+        "TEST-TINY-CLI-LONG-magic": {
+          "pass": true,
+          "assertions": 1,
+          "scenario_sha256": "7b4a4f33ec20929222c7e74337ac6003657fffa8eba084bc8aad0b8fdc32ad90"
+        }
+      }
+    },
+    "tiny-vt": {
+      "status": 0,
+      "results": {
+        "TEST-VT-IOCTL-TINY-NONVT": {
+          "pass": true,
+          "assertions": 58,
+          "scenario_sha256": "bbdb697ac3cb2deb988813e650077af3dce246d174903f07a85cfc0ec55559d0"
+        },
+        "TEST-VT-IOCTL-TINY-FAIL": {
+          "pass": true,
+          "assertions": 58,
+          "scenario_sha256": "028d305864e2a9cba89d7d492602f6a3c98aa2947caf60cabb0f35f70e05515b"
+        },
+        "TEST-VT-IOCTL-TINY-SHIFT": {
+          "pass": true,
+          "assertions": 58,
+          "scenario_sha256": "2ec0f99f9441c869f26e8886fe202a3fca57310dfffc1283a143083f2abc467c"
+        },
+        "TEST-VT-IOCTL-TINY-CTRL": {
+          "pass": true,
+          "assertions": 58,
+          "scenario_sha256": "dbe64284fcfebc526ba38d85a5e4b0da9831e8e4f5131295e6adf78137aaa169"
+        },
+        "TEST-VT-IOCTL-TINY-CTRLSHIFT": {
+          "pass": true,
+          "assertions": 58,
+          "scenario_sha256": "26d7686c5ec81626d99ee12215ec7a8e0a65cd34bb3714a23f180603553a7345"
+        },
+        "TEST-VT-IOCTL-TINY-ALT": {
+          "pass": true,
+          "assertions": 58,
+          "scenario_sha256": "b1e77e4e304bbe601f368ac69989917ab5bfc426f5461422255c11eda3b19244"
+        },
+        "TEST-VT-IOCTL-TINY-SHIFTALT": {
+          "pass": true,
+          "assertions": 58,
+          "scenario_sha256": "2a8ec794f7d2b99b478383ae5fcef0482c07cb84fe91e5cdbb72fda06f9887b2"
+        },
+        "TEST-VT-IOCTL-TINY-MACRO": {
+          "pass": true,
+          "assertions": 33,
+          "scenario_sha256": "fbda0022e4c6f30ff0253dee5d28f982404dadc9a4b08ad2dce88e5a998c8b38"
+        }
+      }
+    },
+    "tiny-safety": {
+      "status": 0,
+      "results": {
+        "TEST-TINY-SAFE-REGEX-SAFE": {
+          "pass": true,
+          "assertions": 3,
+          "scenario_sha256": "98cc8d9bbc376694d9a0689e4a5f3dac7c919702e1ac6c5a772b9f4b297475bd"
+        },
+        "TEST-TINY-SAFE-NUL-SAFE": {
+          "pass": true,
+          "assertions": 3,
+          "scenario_sha256": "23d244762d71096c314e594ca72650681f20a1b662917603d051d8a708c69cb7"
+        }
+      }
+    }
+  }
+}

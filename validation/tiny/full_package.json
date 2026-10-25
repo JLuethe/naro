@@ -1,0 +1,82 @@
+{
+  "fixture": "/tmp/nanospec-work/TEST-NEXT-PACKAGE-fff746e6a31f/fx",
+  "archive_sha256": "3188da56e39bf32315276f2cfce4a7c1ab8a2f0d704c033bc81279db83352f09",
+  "binary_sha256": "c99f77769baf1462eecc630183b3d3e7b51da3729ea20fcc6bdc54925fe32c15",
+  "checks": [
+    {
+      "name": "install-prefix-with-spaces",
+      "pass": true,
+      "detail": "{\"installed\": 134, \"prefix\": \"/tmp/nanospec-work/TEST-NEXT-PACKAGE-fff746e6a31f/fx/work/Prefix With Spaces\"}\n"
+    },
+    {
+      "name": "installed-hashes",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "symlink-launcher-assets",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "installed-native-catalogs-and-syntax",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "source-archive-hashes",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "source-archive-build",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "rebuilt-source-fingerprint",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "rebuilt-features",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "reject-checksum-mismatch",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "reject-traversal",
+      "pass": true,
+      "detail": "unsafe package path: top/../escape\n"
+    },
+    {
+      "name": "reject-absolute",
+      "pass": true,
+      "detail": "unsafe package path: /tmp/nanospec-work/TEST-NEXT-PACKAGE-fff746e6a31f/fx/work/escape\n"
+    },
+    {
+      "name": "reject-symlink",
+      "pass": true,
+      "detail": "unsupported/duplicate archive entry: top/link\n"
+    },
+    {
+      "name": "reject-destination-symlink",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "uninstall-preserves-conflicts",
+      "pass": true,
+      "detail": "{\"removed\": 133, \"conflicts\": [\"share/doc/naro/README.md\"]}\n"
+    },
+    {
+      "name": "uninstall-owned-only",
+      "pass": true,
+      "detail": null
+    }
+  ]
+}

@@ -76,3 +76,9 @@ status, gate and evidence columns. Its eight verified automated rows and two
 deferred physical-console rows are audited alongside the earlier matrix.
 Namespace backend hashes and actual uid/NSS/device observations are retained in
 `../../validation/root-console`. See doc 20 for the explicit oracle build flags.
+
+`tiny-tests.csv` adds five verified doc-22 gates. The two optional tiny rows in
+`follow-up-tests.csv` now point at `../../validation/tiny/gate.json`, which links
+binary/source identities, 192 fresh oracle matches, CI assertions, full
+regression, measured dependencies/size, and both package checks. Historical
+follow-up and closure reports remain frozen under their original scopes.

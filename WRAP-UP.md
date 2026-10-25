@@ -1,5 +1,5 @@
 The default closure below was completed. On 2026-10-25 the user requested
-continued implementation of unfinished work; optional tiny is now being
+continued implementation of unfinished work; optional tiny is now complete and
 qualified under [spec 22](spec/22-tiny-profile.md). Read
 [the current checkpoint](spec/98-progress.md) before resuming. No automatic
 restart around safety blocks is installed.

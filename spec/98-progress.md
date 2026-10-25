@@ -4,15 +4,40 @@ Reference commit: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`
 
 This file lets a later session resume without the earlier conversation.
 
-## Active tiny implementation (2026-10-25)
+## Latest tiny completion checkpoint (2026-10-25)
 
-User requested continued work on unfinished items. Doc 22 now specifies the
-optional compile-time tiny profile; implementation and fresh oracle fixtures
-are in progress. The older default closure below remains historical evidence.
-Tiny target directory: `target/tiny`; use `cargo build --release --features tiny
---target-dir target/tiny`. Compare only with `~/src/nano-install/tiny/bin/nano`.
-Do not claim qualification until `data/tiny-tests.csv` is verified. Physical
-operator certification remains deferred. No automatic model restart is installed.
+The user requested continued implementation of unfinished work. Optional tiny
+(doc 22) is now implemented and verified; `../validation/tiny/gate.json` passes
+31/31 linked checks. Code commit `0a7cd514506ac59badd5f11219bfb0a108b66472` and
+GitHub CI run 40173120098 are green. A following evidence/documentation commit
+records completion. Current production input fingerprint:
+`2c81a3fc062fbc6d35bb2c55f1bd1cdb903833029f53361611b1a7db7bc5a03f`.
+
+Tiny: 59/59 terminal/editing, 125/125 CLI and 8/8 modeled VT comparisons match
+fresh pinned tiny nano exactly. The 194 pinned CI/assertion scenarios pass,
+including NUL rejection and invalid-regex recovery. Normal exit/HUP/TERM restore
+terminal attributes. No bracketed-paste mode is requested. Full regression is
+unchanged: 301/303 exact, 302/303 file-exit, CLI 38/38, regex 162/162 and both
+safety cases pass. Both package profiles pass 15 installation/source-build checks
+and 44 installed-asset checks. Rust full 6/tiny 5/all-features 5, comparator 14,
+harness 5, namespace 7, console 9, formatting and strict Clippy pass.
+
+Tiny stripped size is 856,296 bytes versus full 2,042,368 (58.07% smaller);
+it needs no libmagic library/header. Build with `cargo build --release --features
+tiny --target-dir target/tiny`. The full counterpart is `target/full/release/naro`.
+Tiny binary SHA: `edb1691e800eea1392ac157945da097651859ee8834c0525a35ae3f260dab9ad`.
+Full binary SHA: `c99f77769baf1462eecc630183b3d3e7b51da3729ea20fcc6bdc54925fe32c15`.
+Local checked archives: `target/tiny-package-v1` and `target/tiny-full-package-v1`.
+See the delivery receipt and reproduction commands in `../validation/tiny/README.md`.
+The earlier portable Ubuntu archive remains a separate historical artifact.
+
+Next: physical keyboard/operator certification still needs a human-operated
+hardware session. Broader platforms/configure combinations and source-only gaps
+in docs 97/99 are not covered by tiny qualification. Publishing a release/tag
+is separate. No automatic model restart is installed; never retry around a
+safety block. Do not rerun completed suites merely because a chat restarted.
+Inspect current git status/remote HEAD before further changes. The default
+closure below is historical; its earlier tiny deferral has now been resolved.
 
 ## Latest closure checkpoint (2026-10-24)
 

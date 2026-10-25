@@ -116,3 +116,14 @@ Final closure outcome: all seven doc 21 matrix rows are verified. Across the
 three follow-up matrices, 53 rows are verified and five optional/physical-console
 rows remain deferred. The 85-check combined gate and GitHub delivery receipt are
 in `../validation/closure`; this does not expand the original baseline corpus.
+
+## Optional tiny closure (2026-10-25)
+
+Doc 22 is verified by [31 linked gates](../validation/tiny/gate.json): 59 exact
+editing/terminal cases, 125 CLI probes, eight modeled VT cases, 194 CI/assertion
+cases and paired size/dependency measurements. Default regression remains
+301/303 exact with the two documented safety differences. Both profile packages
+pass source-rebuild/feature/installation checks. The two optional tiny rows in
+the follow-up matrix are now verified; only three physical-console operator
+rows remain deferred. Earlier tiny deferrals above describe historical scopes.
+These results do not erase source-only caveats or certify arbitrary build flags.

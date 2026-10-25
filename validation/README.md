@@ -37,3 +37,9 @@ tiny build. Eight CLI probes are excluded: six tiny and two external paths.
 Run full suites serially because fixtures are keyed by scenario ID.
 The final two safety scenarios assert intentional improvements to the reference;
 their golden observations remain unchanged.
+
+The [optional tiny qualification](tiny/README.md) completes doc 22 with 31 linked
+gates, 192 fresh exact comparisons, 194 CI/assertion cases, measured size and
+library reduction, unchanged default regression, and checked source packages.
+It does not replace historical default/Ubuntu artifacts or certify physical
+keyboards.

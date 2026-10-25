@@ -1,0 +1,50 @@
+{
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "qualification_revision": "0a7cd514506ac59badd5f11219bfb0a108b66472",
+  "github_ci": {
+    "conclusion": "success",
+    "databaseId": 40173120098,
+    "headSha": "0a7cd514506ac59badd5f11219bfb0a108b66472",
+    "status": "completed",
+    "url": "https://github.com/JLuethe/naro/actions/runs/40173120098"
+  },
+  "profiles": {
+    "tiny": {
+      "compiled_build": {
+        "version": "0.1.0",
+        "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+        "source_sha256": "2c81a3fc062fbc6d35bb2c55f1bd1cdb903833029f53361611b1a7db7bc5a03f",
+        "revision": "e8e5d7d26eb9e5d3bfd3212898c94bff78468a8c",
+        "features": "tiny",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+      },
+      "packaging_revision": "0a7cd514506ac59badd5f11219bfb0a108b66472",
+      "packaging_dirty": false,
+      "binary_sha256": "edb1691e800eea1392ac157945da097651859ee8834c0525a35ae3f260dab9ad",
+      "local_artifacts": "target/tiny-package-v1",
+      "archives": {
+        "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz": "49c9c35e8d33273863989adf0c15cc67a7e6c6a7e15581caefe30d90b4b926e3",
+        "naro-0.1.0-source.tar.gz": "3ac1bab01cde77f1fb12509f90214f6d6cc7ba6d5ac140bb6262743442c4a386"
+      }
+    },
+    "full": {
+      "compiled_build": {
+        "version": "0.1.0",
+        "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+        "source_sha256": "2c81a3fc062fbc6d35bb2c55f1bd1cdb903833029f53361611b1a7db7bc5a03f",
+        "revision": "e8e5d7d26eb9e5d3bfd3212898c94bff78468a8c",
+        "features": "",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+      },
+      "packaging_revision": "0a7cd514506ac59badd5f11219bfb0a108b66472",
+      "packaging_dirty": false,
+      "binary_sha256": "c99f77769baf1462eecc630183b3d3e7b51da3729ea20fcc6bdc54925fe32c15",
+      "local_artifacts": "target/tiny-full-package-v1",
+      "archives": {
+        "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz": "3188da56e39bf32315276f2cfce4a7c1ab8a2f0d704c033bc81279db83352f09",
+        "naro-0.1.0-source.tar.gz": "6a7aa69ae7ad8892fdb818e6437228757c0f39a62430872568bd373374d227dd"
+      }
+    }
+  },
+  "reference_worktree_clean": true
+}

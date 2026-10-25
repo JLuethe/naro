@@ -1,0 +1,140 @@
+{
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "qualification_revision": "0a7cd514506ac59badd5f11219bfb0a108b66472",
+  "reports": {
+    "terminal": {
+      "path": "target/tiny-final-v1/report.json",
+      "sha256": "37b44794cf407b63ba63eab2174a5e88820711dc0863853f7bd5e860f8cba457",
+      "tracked_copy": "validation/tiny/terminal.json"
+    },
+    "cli": {
+      "path": "target/tiny-final-cli-v1/report.json",
+      "sha256": "1dbc4a17120c83ed5068b4c1bb67ba55de8bab2518e527b4b11e8e3623e38ff3",
+      "tracked_copy": "validation/tiny/cli.json"
+    },
+    "vt": {
+      "path": "target/tiny-final-vt-v1/report.json",
+      "sha256": "c3b15070aa71f6eb3ce5ea00d807a808be4187d0ef7d448edbf74ba7045fbc42",
+      "tracked_copy": "validation/tiny/vt.json"
+    },
+    "full": {
+      "path": "target/tiny-full-regression-v2/report.json",
+      "sha256": "414a7a97662362ffa97d03c6a02ec4a5661c739f845f0d6d56b241059d46d135",
+      "tracked_copy": "validation/tiny/full.json"
+    },
+    "extras": {
+      "path": "target/tiny-full-extras-v2/report.json",
+      "sha256": "23c9d87e41352a6e76ba4af03fda20ca78e2ce2825a83cf8a2246bc608500550",
+      "tracked_copy": "validation/tiny/extras.json"
+    },
+    "ci": {
+      "path": "target/tiny-ci-local-v1/report.json",
+      "sha256": "2f5d8ec94c9eefbf45428b98a13ad75405747ef3c55ca81b035527f1145255e3",
+      "tracked_copy": "validation/tiny/ci.json"
+    },
+    "measurement": {
+      "path": "target/tiny-size-final/report.json",
+      "sha256": "34b1cf6f13b587bad95575669b48259aac2f0a5851dcee71f3c65a4d5f8a4725",
+      "tracked_copy": "validation/tiny/measurement.json"
+    },
+    "quality": {
+      "path": "target/tiny-quality-final/report.json",
+      "sha256": "ee6fbb8cf253c24a828de7d43c1bed5568142bbbc90343436253d90d63ac287b",
+      "tracked_copy": "validation/tiny/quality.json"
+    },
+    "package": {
+      "path": "target/tiny-package-check-v1/report.json",
+      "sha256": "4ece859af029e0de242449527e5da3b79e619508a6aa29a8b5957ec4dd723b5b",
+      "tracked_copy": "validation/tiny/package.json"
+    },
+    "full_package": {
+      "path": "target/tiny-full-package-check-v1/report.json",
+      "sha256": "728897f26e448c704dadc830f89558e6a85c8f07ef00668135e1d0ea6fe3f107",
+      "tracked_copy": "validation/tiny/full_package.json"
+    }
+  },
+  "checks": {
+    "measurement": true,
+    "current-source": true,
+    "terminal-identity": true,
+    "terminal-complete": true,
+    "terminal-exact": true,
+    "cli-identity": true,
+    "cli-complete": true,
+    "cli-exact": true,
+    "vt-identity": true,
+    "vt-complete": true,
+    "vt-exact": true,
+    "same-tiny-oracle": true,
+    "full-binary": true,
+    "full-corpus": true,
+    "full-only-declared-differences": true,
+    "extras-binary": true,
+    "full-cli": true,
+    "full-regex": true,
+    "full-safety": true,
+    "tiny-assertion-binary": true,
+    "tiny-ci-checks": true,
+    "tiny-assertions": true,
+    "quality": true,
+    "package-identity": true,
+    "package-checks": true,
+    "full_package-identity": true,
+    "full_package-checks": true,
+    "reference-no-bracketed-paste": true,
+    "reference-restoration": true,
+    "candidate-no-bracketed-paste": true,
+    "candidate-restoration": true
+  },
+  "profiles": {
+    "full": {
+      "build": {
+        "version": "0.1.0",
+        "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+        "source_sha256": "2c81a3fc062fbc6d35bb2c55f1bd1cdb903833029f53361611b1a7db7bc5a03f",
+        "revision": "e8e5d7d26eb9e5d3bfd3212898c94bff78468a8c",
+        "features": "",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+      },
+      "bytes": 2202888,
+      "sha256": "c99f77769baf1462eecc630183b3d3e7b51da3729ea20fcc6bdc54925fe32c15",
+      "stripped_bytes": 2042368,
+      "stripped_sha256": "da57cfdc20674f5646e5c42a96de1ac571bb704771d40965533ef1acae5db2ab",
+      "needed": [
+        "libncursesw.so.6",
+        "libmagic.so.1",
+        "libgcc_s.so.1",
+        "libc.so.6"
+      ]
+    },
+    "tiny": {
+      "build": {
+        "version": "0.1.0",
+        "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+        "source_sha256": "2c81a3fc062fbc6d35bb2c55f1bd1cdb903833029f53361611b1a7db7bc5a03f",
+        "revision": "e8e5d7d26eb9e5d3bfd3212898c94bff78468a8c",
+        "features": "tiny",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+      },
+      "bytes": 969040,
+      "sha256": "edb1691e800eea1392ac157945da097651859ee8834c0525a35ae3f260dab9ad",
+      "stripped_bytes": 856296,
+      "stripped_sha256": "f7d17da3000956a3c8fbaa7f6e3c14dcb3512c242cf90abf21ed699116905419",
+      "needed": [
+        "libncursesw.so.6",
+        "libgcc_s.so.1",
+        "libc.so.6"
+      ]
+    }
+  },
+  "tiny_reference_sha256": [
+    "0e6343fe60e7c55f16cef7ecd99c7087885706d7065023cf12e7641728ea6439"
+  ],
+  "summary": {
+    "checks": 31,
+    "passed": 31,
+    "tiny_exact": 192,
+    "default_exact": 301,
+    "default_cases": 303
+  }
+}

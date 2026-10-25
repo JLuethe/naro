@@ -1,0 +1,1165 @@
+{
+  "environment": {
+    "system": "Linux-7.2.8-9-omarchy-x86_64-with-glibc2.44",
+    "machine": "x86_64",
+    "libc": [
+      "glibc",
+      "2.44"
+    ],
+    "python": "3.14.8",
+    "tmux": "tmux 3.8",
+    "locale_inventory": "C\nC.utf8\nPOSIX\nen_US.utf8",
+    "file": "file-5.48\nmagic file from /usr/share/file/misc/magic\nseccomp support included\nLandlock support included",
+    "magic_databases": {
+      "/usr/share/file/misc/magic.mgc": "c2f4e7e55b0ee33c181ada80b065f9f8a58633c9806e8bd3353253c68324f268"
+    },
+    "locpath": null
+  },
+  "build_flags": "default",
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "scenario_sha256": "e1d27d12f46726f699865f09032e925c91faebd2d8c2cfc61f5b950aaadcf379",
+  "results": {
+    "TEST-TINY-CLI-HELP": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-VERSION": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-BAD": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-MISSING": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-RESTRICTED-HELP": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-65": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-66": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-67": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-68": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-69": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-70": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-71": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-72": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-73": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-74": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-75": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-76": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-77": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-78": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-79": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-80": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-81": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-82": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-83": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-84": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-85": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-86": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-87": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-88": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-89": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-90": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-97": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-98": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-99": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-100": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-101": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-102": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-103": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-104": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-105": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-106": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-107": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-108": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-109": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-110": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-111": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-112": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-113": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-114": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-115": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-116": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-117": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-118": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-119": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-120": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-121": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-122": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-33": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-64": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-37": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-95": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-48": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-49": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-SHORT-47": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-boldtext": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-multibuffer --newbuffer": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-multibuffer": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-ignorercfiles": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-rawsequences": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-trimblanks": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-quotestr": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-restricted": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-quickblank": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-version": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-syntax": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-breaklonglines": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-constantshow": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-rebinddelete": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-rcfile": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-showcursor": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-help": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-linenumbers": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-mouse": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-operatingdir": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-preserve": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-fill": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-speller": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-saveonexit": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-view": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-nowrap": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-nohelp": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-listsyntaxes": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-modernbindings": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-smarthome": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-backup": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-backupdir": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-tabstospaces": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-locking": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-historylog": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-guidestripe": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-nonewlines": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-noconvert": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-bookstyle": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-positionlog": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-softwrap": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-tabsize": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-wordbounds": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-wordchars": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-zap": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-atblanks": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-emptyline": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-autoindent": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-jumpyscrolling": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-cutfromcursor": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-noread": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-indicator": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-unix": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-afterends": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-whitespacedisplay": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-colonparsing": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-stateflags": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-minibar": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-zero": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-solosidescroll": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-TINY-CLI-LONG-magic": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    }
+  },
+  "reference_sha256": "0e6343fe60e7c55f16cef7ecd99c7087885706d7065023cf12e7641728ea6439",
+  "reference_status": 0,
+  "candidate_sha256": "edb1691e800eea1392ac157945da097651859ee8834c0525a35ae3f260dab9ad",
+  "candidate_status": 0,
+  "candidate_build": {
+    "version": "0.1.0",
+    "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+    "source_sha256": "2c81a3fc062fbc6d35bb2c55f1bd1cdb903833029f53361611b1a7db7bc5a03f",
+    "revision": "e8e5d7d26eb9e5d3bfd3212898c94bff78468a8c",
+    "features": "tiny",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "summary": {
+    "recorded": 125,
+    "matches": 125,
+    "accepted": 125
+  }
+}

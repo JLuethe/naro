@@ -1,0 +1,14 @@
+   Compiling naro v0.1.0 (/home/john/Code/naro)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.52s
+     Running unittests src/main.rs (target/debug/deps/naro-d08406dcf89cb638)
+
+running 6 tests
+test buffer::tests::byte_edits_saved_and_redo ... ok
+test bytes::tests::columns_tabs ... ok
+test buffer::tests::region_splice ... ok
+test bytes::tests::invalid_and_boundaries ... ok
+test buffer::tests::backspace_and_delete_are_distinct_undo_groups ... ok
+test bytes::tests::nul_roundtrip ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
