@@ -1,17 +1,19 @@
 {
   "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
-  "documents": 27,
-  "requirements": 279,
+  "documents": 28,
+  "requirements": 286,
   "baseline_documents": 25,
   "baseline_requirements": 248,
   "follow_up_documents": [
     "19-completion-and-release.md",
-    "20-root-and-console.md"
+    "20-root-and-console.md",
+    "21-console-release-closure.md"
   ],
-  "follow_up_requirements": 31,
-  "follow_up_tests": 51,
+  "follow_up_requirements": 38,
+  "follow_up_tests": 58,
   "follow_up_statuses": {
     "deferred": 5,
+    "planned": 7,
     "verified": 46
   },
   "scenarios": 309,

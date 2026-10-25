@@ -278,3 +278,10 @@ ROOT-REGRESS-006,20-root-and-console.md,Retain ordinary-user compatibility and a
 VT-PROBE-001,20-root-and-console.md,Detect a console without changing it,,follow-up
 VT-INPUT-002,20-root-and-console.md,Define the physical-key acceptance protocol,,follow-up
 VT-RESTORE-003,20-root-and-console.md,Record operator results and terminal restoration,,follow-up
+CLOSE-TRANSPORT-001,21-console-release-closure.md,Reliable private VM transport,TEST-CLOSE-TRANSPORT-001,follow-up
+CLOSE-CONSOLE-002,21-console-release-closure.md,Qualify the actual guest console,TEST-CLOSE-CONSOLE-001,follow-up
+CLOSE-MODEL-003,21-console-release-closure.md,Check modifier branch behavior,TEST-CLOSE-MODEL-001,follow-up
+CLOSE-REGRESS-004,21-console-release-closure.md,Freeze source and validate both builds,TEST-CLOSE-REGRESS-001,follow-up
+CLOSE-PACKAGE-005,21-console-release-closure.md,Deliver exactly the tested executable,TEST-CLOSE-PACKAGE-001,follow-up
+CLOSE-EVIDENCE-006,21-console-release-closure.md,Make completion auditable,TEST-CLOSE-EVIDENCE-001,follow-up
+CLOSE-CONTINUITY-007,21-console-release-closure.md,Persist progress across ordinary interruptions,TEST-CLOSE-CONTINUITY-001,follow-up

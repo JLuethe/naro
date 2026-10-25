@@ -1,0 +1,8 @@
+reference_commit,test_id,requirement_ids,scenario,release_gate,status,evidence
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-CLOSE-TRANSPORT-001,CLOSE-TRANSPORT-001,Bounded VM upload integrity and reconnect,required,planned,
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-CLOSE-CONSOLE-001,CLOSE-CONSOLE-002,19 genuine guest VT comparisons on frozen binaries,required,planned,
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-CLOSE-MODEL-001,CLOSE-MODEL-003,Eight paired fixture ioctl models,required,planned,
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-CLOSE-REGRESS-001,CLOSE-REGRESS-004,Host and Ubuntu final regressions with root namespace gate,required,planned,
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-CLOSE-PACKAGE-001,CLOSE-PACKAGE-005,Exact tested portable archive and source rebuild,required,planned,
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-CLOSE-EVIDENCE-001,CLOSE-EVIDENCE-006,Audit provenance documentation mirror push and CI,required,planned,
+6ed285c3ec7a1d228def4d4e7021c6ba269f620c,TEST-CLOSE-CONTINUITY-001,CLOSE-CONTINUITY-007,Durable checkpoint and restart instructions,required,planned,
