@@ -31,6 +31,9 @@ if not a.reuse:
  (root/'etc/passwd').write_text('root:x:0:0:Root:/root:/bin/sh\nfixture:x:1000:1000:Fixture:/fixtures:/bin/sh\n');(root/'etc/group').write_text('root:x:0:\nfixture:x:1000:\n');(root/'etc/nsswitch.conf').write_text('passwd: files\ngroup: files\n')
  copy(a.reference,root/'opt/naro/reference');copy(a.binary,root/'opt/naro/candidate');copy(ROOT/'tests/console/guest.py',root/'init');(root/'init').chmod(0o755)
 (root/'init').chmod(0o755)
+shutil.copy2(ROOT/'tests/console/upload.py',root/'upload.py')
+shutil.copy2(a.reference,root/'opt/naro/reference')
+shutil.copy2(a.binary,root/'opt/naro/candidate')
 (root/'.naro-vm-fixture').write_text('naro-console-fixture-v1\n')
 archive=fx/'initrd.cpio.gz';ino=1
 with gzip.open(archive,'wb',compresslevel=1)as stream:
@@ -45,5 +48,5 @@ with gzip.open(archive,'wb',compresslevel=1)as stream:
   elif path.is_dir():entry(name,s.st_mode)
  entry('dev/console',stat.S_IFCHR|0o600,major=5,minor=1);entry('dev/null',stat.S_IFCHR|0o666,major=1,minor=3);entry('TRAILER!!!',0)
 
-if not a.reuse:copy(a.kernel,fx/'vmlinuz')
+if a.kernel.resolve()!=(fx/'vmlinuz').resolve():shutil.copy2(a.kernel,fx/'vmlinuz')
 (fx/'inputs.json').write_text(json.dumps({p.name:hashlib.sha256(p.read_bytes()).hexdigest()for p in [a.kernel,archive,a.reference,a.binary]},indent=2)+'\n');print(archive)

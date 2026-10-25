@@ -29,6 +29,7 @@ jobs:
       - run: python3 spec/tools/test_compare_runs.py
       - run: python3 spec/tools/test_nanoharness.py
       - run: python3 spec/tools/test_namespace_exec.py
+      - run: python3 -m unittest discover -s tests/console -p 'test_*.py'
       - name: Terminal smoke and safety assertions
         run: |
           tmux -V

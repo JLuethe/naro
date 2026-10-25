@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Host control for the disposable Linux VT guest and emulated PS/2 keyboard."""
-import base64,json,os,socket,time
+import base64,hashlib,json,os,socket,time
 from pathlib import Path
 
 class VM:
@@ -47,7 +47,16 @@ class VM:
             if result is not None:return result
             time.sleep(.03)
         raise TimeoutError('guest editor did not exit')
-    def install(self,kind,binary):return self.rpc('install',name=kind,b64=base64.b64encode(Path(binary).read_bytes()).decode())
+    def install(self,kind,binary):
+        raw=Path(binary).read_bytes();digest=hashlib.sha256(raw).hexdigest()
+        self.rpc('upload-start',name=kind,size=len(raw),sha256=digest)
+        for offset in range(0,len(raw),65536):
+            part=raw[offset:offset+65536]
+            result=self.rpc('upload-chunk',offset=offset,b64=base64.b64encode(part).decode())
+            if result['offset']!=offset+len(part):raise RuntimeError('guest upload offset mismatch')
+        result=self.rpc('upload-finish')
+        if result!={'sha256':digest,'size':len(raw)}:raise RuntimeError('guest upload verification mismatch')
+        return result
     def screenshot(self,path):
         path=Path(path).absolute()
         if not path.is_relative_to(self.fixture)or path.resolve()!=path:raise ValueError('screenshot must stay inside fixture')

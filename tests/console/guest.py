@@ -3,6 +3,8 @@
 import base64,ctypes,fcntl,hashlib,json,os,pwd,signal,stat,struct,subprocess,sys,termios,time
 from pathlib import Path
 if os.getpid()!=1 or not Path("/.naro-vm-fixture").is_file():raise SystemExit("guest controller requires the disposable VM root")
+from upload import Upload
+upload=Upload('/opt/naro')
 libc=ctypes.CDLL(None,use_errno=True)
 for name in ['proc','sys','dev']:
  kind={'proc':'proc','sys':'sysfs','dev':'devtmpfs'}[name];Path('/'+name).mkdir(exist_ok=True)
@@ -67,12 +69,16 @@ def dispatch(cmd):
   result=poll()
   if result:current['exit_result']=result
   return current.get('exit_result')if current else None
- if op=='install':
+ if op.startswith('upload-'):
   if pid is not None:raise ValueError('editor running')
-  if cmd['name']not in ['reference','candidate']:raise ValueError('binary name')
-  raw=base64.b64decode(cmd['b64']);p=Path('/opt/naro')/cmd['name'];p.write_bytes(raw);p.chmod(0o755);return {'sha256':hashlib.sha256(raw).hexdigest()}
+  if op=='upload-start':return upload.begin(cmd['name'],cmd['size'],cmd['sha256'])
+  if op=='upload-chunk':return upload.chunk(cmd['offset'],cmd['b64'])
+  if op=='upload-finish':return upload.finish()
+  if op=='upload-abort':upload.abort();return True
+  raise ValueError('unknown upload operation')
  if op=='start':
   if pid is not None:raise ValueError('editor running')
+  if upload.pending is not None:raise ValueError('upload pending')
   if cmd['binary']not in ['reference','candidate']:raise ValueError('binary name')
   tid=cmd['id']
   if not tid.startswith('TEST-')or any(x in tid for x in ['/','..']):raise ValueError('test id')
@@ -104,12 +110,13 @@ def dispatch(cmd):
  if op=='shutdown':libc.reboot(0x4321fedc);return True
  raise ValueError('unknown op')
 
-buffer=b''
+buffer=bytearray()
 while True:
  try:
   chunk=channel.read(65536)
-  if not chunk:time.sleep(.01);continue
-  buffer+=chunk
+  if not chunk:buffer.clear();upload.abort();time.sleep(.01);continue
+  buffer.extend(chunk)
+  if len(buffer)>256*1024:buffer.clear();upload.abort();raise OSError('request too large')
   while b'\n'in buffer:
    line,buffer=buffer.split(b'\n',1)
    try:response={'ok':True,'result':dispatch(json.loads(line))}
@@ -117,4 +124,4 @@ while True:
    data=memoryview(json.dumps(response).encode()+b'\n')
    while data:
     written=channel.write(data);data=data[written:]
- except OSError:time.sleep(.1)
+ except OSError:buffer.clear();upload.abort();time.sleep(.1)

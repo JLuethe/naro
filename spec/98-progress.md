@@ -7,6 +7,15 @@ Latest wrap-up review (2026-10-24): read `../WRAP-UP.md` before resuming.
 It records the published revision, uncommitted console work, incomplete final
 validation, and ordered completion gates. Earlier checkpoints below describe
 their recorded binaries and do not certify these newer local changes.
+Closure checkpoint: spec 21 and its seven-row acceptance matrix were pushed in
+`ab5a532`. The private VM chunked upload passed live incomplete/offset/digest,
+disconnect/reconnect, verified install and editor-busy checks in
+`../spec/evidence/follow-up-runs/vt-transport-closure-v1/report.json`.
+Nine upload/boundary tests and six Rust tests pass; formatting and strict Clippy
+pass. Eight paired ioctl models now match in `vt-ioctl-closure-v1`.
+Next: freeze these tools, rebuild optimized binaries and run the full 19-case
+VM suite and host/Ubuntu closure regressions. No automatic model restart is
+configured; a safety block must not trigger an automatic retry around it.
 When resuming, read in this order: `00-overview.md`,
 `00-reference-environment.md`, this file, `97-coverage.md`, and the relevant
 parts of `99-open-questions.md`.
