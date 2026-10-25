@@ -1,0 +1,112 @@
+{
+  "environment": {
+    "system": "Linux-7.2.8-9-omarchy-x86_64-with-glibc2.44",
+    "machine": "x86_64",
+    "libc": [
+      "glibc",
+      "2.44"
+    ],
+    "python": "3.14.8",
+    "tmux": "tmux 3.8",
+    "locale_inventory": "C\nC.utf8\nPOSIX\nen_US.utf8",
+    "file": "file-5.48\nmagic file from /usr/share/file/misc/magic\nseccomp support included\nLandlock support included",
+    "magic_databases": {
+      "/usr/share/file/misc/magic.mgc": "c2f4e7e55b0ee33c181ada80b065f9f8a58633c9806e8bd3353253c68324f268"
+    },
+    "locpath": null
+  },
+  "build_flags": "default",
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "scenario_sha256": "6ef75f9a37c4cdee5b428d815f1fbbdbeecbda5e08995bb813abe372bf8d0a3e",
+  "results": {
+    "TEST-VT-IOCTL-NONVT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-VT-IOCTL-FAIL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-VT-IOCTL-SHIFT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-VT-IOCTL-CTRL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-VT-IOCTL-CTRLSHIFT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-VT-IOCTL-ALT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-VT-IOCTL-SHIFTALT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-VT-IOCTL-MACRO": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    }
+  },
+  "reference_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+  "reference_status": 0,
+  "candidate_sha256": "90fe82eb5ff48346959d279d3e28dfba2026448ff74afefd8399d9303e71f7b5",
+  "candidate_status": 0,
+  "candidate_build": {
+    "version": "0.1.0",
+    "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+    "source_sha256": "1c4f398661b107b55699daa63f1fcf35c22971417d67cb1a944a54718c2f7a13",
+    "revision": "ab5a532ea6482759893bb32404323ef20860b1d6",
+    "features": "",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "summary": {
+    "recorded": 8,
+    "matches": 8,
+    "accepted": 8
+  }
+}

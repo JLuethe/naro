@@ -1,0 +1,325 @@
+{
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "backend": "QEMU/KVM Linux VT1 with emulated PS/2 keyboard; no PTY for app fds",
+  "guest": {
+    "keyboard_devices": "I: Bus=0019 Vendor=0000 Product=0001 Version=0000\nN: Name=\"Power Button\"\nP: Phys=LNXPWRBN/button/input0\nS: Sysfs=/devices/platform/LNXPWRBN:00/input/input0\nU: Uniq=\nH: Handlers=kbd event0 \nB: PROP=0\nB: EV=3\nB: KEY=8000 10000000000000 0\n\nI: Bus=0011 Vendor=0001 Product=0001 Version=ab41\nN: Name=\"AT Translated Set 2 keyboard\"\nP: Phys=isa0060/serio0/input0\nS: Sysfs=/devices/platform/i8042/serio0/input/input2\nU: Uniq=\nH: Handlers=kbd leds event1 \nB: PROP=0\nB: EV=120013\nB: KEY=402000007 ff803078f800d001 feffffdfffcfffff fffffffffffffffe\nB: MSC=10\nB: LED=7\n\n",
+    "kernel_command_line": "console=tty0 console=ttyS0,115200 rdinit=/init nomodeset vt.default_utf8=1 panic=-1 quiet\n",
+    "keymap": {
+      "0": {
+        "14": 127,
+        "15": 9,
+        "26": 91,
+        "27": 93,
+        "39": 59,
+        "58": 519,
+        "102": 276,
+        "103": 1539,
+        "104": 280,
+        "105": 1537,
+        "106": 1538,
+        "107": 279,
+        "108": 1536,
+        "109": 281,
+        "110": 277,
+        "111": 278
+      },
+      "1": {
+        "14": 127,
+        "15": 9,
+        "26": 123,
+        "27": 125,
+        "39": 58,
+        "58": 519,
+        "102": 276,
+        "103": 1539,
+        "104": 523,
+        "105": 1537,
+        "106": 1538,
+        "107": 279,
+        "108": 1536,
+        "109": 522,
+        "110": 277,
+        "111": 278
+      },
+      "4": {
+        "14": 8,
+        "15": 512,
+        "26": 27,
+        "27": 29,
+        "39": 512,
+        "58": 519,
+        "102": 276,
+        "103": 1539,
+        "104": 280,
+        "105": 1537,
+        "106": 1538,
+        "107": 279,
+        "108": 1536,
+        "109": 281,
+        "110": 277,
+        "111": 278
+      },
+      "5": {
+        "14": 512,
+        "15": 512,
+        "26": 512,
+        "27": 512,
+        "39": 512,
+        "58": 519,
+        "102": 276,
+        "103": 1539,
+        "104": 280,
+        "105": 1537,
+        "106": 1538,
+        "107": 279,
+        "108": 1536,
+        "109": 281,
+        "110": 277,
+        "111": 278
+      },
+      "8": {
+        "14": 2175,
+        "15": 2057,
+        "26": 2139,
+        "27": 2141,
+        "39": 2107,
+        "58": 519,
+        "102": 276,
+        "103": 1539,
+        "104": 280,
+        "105": 528,
+        "106": 529,
+        "107": 279,
+        "108": 1536,
+        "109": 281,
+        "110": 277,
+        "111": 278
+      },
+      "9": {
+        "14": 512,
+        "15": 512,
+        "26": 512,
+        "27": 512,
+        "39": 512,
+        "58": 512,
+        "102": 512,
+        "103": 512,
+        "104": 512,
+        "105": 512,
+        "106": 512,
+        "107": 512,
+        "108": 512,
+        "109": 512,
+        "110": 512,
+        "111": 512
+      },
+      "12": {
+        "14": 512,
+        "15": 512,
+        "26": 512,
+        "27": 512,
+        "39": 512,
+        "58": 519,
+        "102": 276,
+        "103": 1539,
+        "104": 280,
+        "105": 1537,
+        "106": 1538,
+        "107": 279,
+        "108": 1536,
+        "109": 281,
+        "110": 277,
+        "111": 524
+      },
+      "13": {
+        "14": 512,
+        "15": 512,
+        "26": 512,
+        "27": 512,
+        "39": 512,
+        "58": 512,
+        "102": 512,
+        "103": 512,
+        "104": 512,
+        "105": 512,
+        "106": 512,
+        "107": 512,
+        "108": 512,
+        "109": 512,
+        "110": 512,
+        "111": 512
+      }
+    },
+    "info": {
+      "keyboard_mode": 3,
+      "meta_mode": 4,
+      "vt_state": [
+        1,
+        0,
+        3
+      ],
+      "shift_state": 0,
+      "termios": [
+        17664,
+        5,
+        1215,
+        35387,
+        15,
+        15,
+        [
+          "03",
+          "1c",
+          "7f",
+          "15",
+          "04",
+          "00",
+          "01",
+          "00",
+          "11",
+          "13",
+          "1a",
+          "00",
+          "12",
+          "0f",
+          "17",
+          "16",
+          "00",
+          "00",
+          "00",
+          "00",
+          "00",
+          "00",
+          "00",
+          "00",
+          "00",
+          "00",
+          "00",
+          "00",
+          "00",
+          "00",
+          "00",
+          "00"
+        ]
+      ],
+      "kernel": "7.2.8-9-omarchy",
+      "device": "/dev/tty1"
+    },
+    "controller_sha256": "cbc0b9fee3e0219dee05410d3d3882cfcbca47e6cca326c430a6baf381fa5436"
+  },
+  "results": {
+    "TEST-VT-VM-NAV": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-CTRL": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-SHIFT": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-CTRL-SHIFT": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-DELETE": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-TAB": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-ALT": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-SHIFT-ALT": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-ALT-HORIZONTAL": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-UNICODE": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-EXPANSION": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-CANCEL": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-TOOL": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-MACRO": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-MACRO-CTRL": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-HELP": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-MODERN": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-TERM": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    },
+    "TEST-VT-VM-HUP": {
+      "match": true,
+      "differences": [],
+      "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541"
+    }
+  }
+}
