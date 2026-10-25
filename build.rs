@@ -54,7 +54,7 @@ fn main() {
         "cargo:rustc-env=NARO_RUSTC_VERSION={}",
         String::from_utf8_lossy(&version.stdout).trim()
     );
-    let features = ["credits", "test-hooks"]
+    let features = ["credits", "test-hooks", "tiny"]
         .into_iter()
         .filter(|name| {
             env::var_os(format!(
@@ -70,6 +70,11 @@ fn main() {
         println!("cargo:rerun-if-changed={name}");
     }
     let status = Command::new(env::var("CC").unwrap_or("cc".into()))
+        .args(if env::var_os("CARGO_FEATURE_TINY").is_some() {
+            vec!["-DNARO_TINY"]
+        } else {
+            vec![]
+        })
         .args([
             "-std=c11",
             "-O2",
@@ -97,7 +102,9 @@ fn main() {
     println!("cargo:rustc-link-search=native={}", out.display());
     println!("cargo:rustc-link-lib=static=naro_native");
     println!("cargo:rustc-link-lib=ncursesw");
-    println!("cargo:rustc-link-lib=magic");
+    if env::var_os("CARGO_FEATURE_TINY").is_none() {
+        println!("cargo:rustc-link-lib=magic");
+    }
     println!("cargo:rerun-if-changed=native/bridge.c");
     println!("cargo:rerun-if-changed=native/options.inc");
 }

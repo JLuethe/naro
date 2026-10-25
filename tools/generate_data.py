@@ -15,14 +15,14 @@ for i,s in enumerate(menus):f.append(f'pub const {s}: u32 = {1<<i};')
 f+=['#[derive(Clone, Debug)]','pub struct Binding {pub key:i32,pub menus:u32,pub func:String,pub tag:String,pub toggle:usize,pub expansion:Option<String>}', '#[derive(Clone, Debug)]','pub struct Function {pub func:String,pub menus:u32,pub tag:String,pub phrase:String,pub blank:bool}']
 f.append('pub fn keymap(profile: &str) -> (Vec<Binding>,Vec<Function>) {match profile {')
 for p in sorted((ROOT/'spec/evidence/tables').glob('*.json')):
- d=json.loads(p.read_text());f.append(q(p.stem)+' => (vec![')
+ d=json.loads(p.read_text());f.append('#[cfg('+('feature = \"tiny\"' if p.stem.startswith('tiny-') else 'not(feature = \"tiny\")')+')]');f.append(q(p.stem)+' => (vec![')
  for k in d['keys']:
   f.append('Binding{key:%d,menus:%d,func:%s.into(),tag:%s.into(),toggle:%d,expansion:None},'%(k['keycode'],k['menus_mask'],q(k['func']),q(k['keystr']),k.get('toggle',0)))
  f.append('], vec![')
  for x in d['funcs']:
   f.append('Function{func:%s.into(),menus:%d,tag:%s.into(),phrase:%s.into(),blank:%s},'%(q(x['func']),x['menus_mask'],q(x['tag']),q(x.get('phrase','')),str(x.get('blank_after',False)).lower()))
  f.append(']),')
-f.append('_ => keymap("default-utf8"),}}')
+f.append('_ => keymap(if cfg!(feature="tiny") {"tiny-utf8"} else {"default-utf8"}),}}')
 f.append('pub const RC_OPTIONS: &[(&str,usize)] = &[')
 for r in csv.DictReader((ROOT/'spec/data/nanorc-options.csv').open()):
  if r['flag'] in flags:f.append('(%s,%s),'%(q(r['option']),r['flag']))
@@ -42,7 +42,8 @@ for r in sorted(rows,key=lambda r:int(r['long_source'].rsplit(':',1)[-1]) if r['
  for name in [r['long']]+r['deprecated_aliases'].split():
   if not name.startswith('--'):continue
   name=name[2:];code=ord(r['short'][1:]) if r['short'].startswith('-') else 0x700
-  options.append('{%s,%d,NULL,%d},'%(q(name),int(r['argument']!='none'),code))
+  entry='{%s,%d,NULL,%d},'%(q(name),int(r['argument']!='none'),code)
+  options.append(entry if chr(code) in 'DKRUVcdhptvx/' else '#ifndef NARO_TINY\n'+entry+'\n#endif')
 (ROOT/'native/options.inc').write_text('// Reference 6ed285c3ec7a1d228def4d4e7021c6ba269f620c\nstatic const struct option options[] = {\n'+'\n'.join(options)+'\n{NULL,0,NULL,0}};\n')
 # Exact help text is reference data, not an executable dependency.
 probes=json.loads((ROOT/'spec/evidence/cli/cli-probes.json').read_text())['results']

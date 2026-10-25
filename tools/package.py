@@ -56,14 +56,16 @@ def main():
         shutil.copy2(source, target)
 
     copy(args.binary, 'bin/naro')
-    for folder in ['locale', 'syntax']:
+    tiny = 'tiny' in build['features'].split(',')
+    for folder in (['locale'] if tiny else ['locale', 'syntax']):
         shutil.copytree(ROOT / 'assets' / folder, stage / 'share/naro' / folder)
     shutil.copytree(ROOT / 'assets/po', stage / 'share/doc/naro/po')
     for file in ['LICENSE', 'NOTICE', 'CREDITS.md', 'README.md', 'INSTALL.md', 'IMPLEMENTATION.md']:
         copy(ROOT / file, 'share/doc/naro/' + file)
-    examples = stage / 'share/doc/naro/examples'
-    examples.mkdir()
-    (examples / 'nanorc.example').write_text('# Include installed syntax files explicitly. Replace /your/prefix.\ninclude "/your/prefix/share/naro/syntax/*.nanorc"\n')
+    if not tiny:
+        examples = stage / 'share/doc/naro/examples'
+        examples.mkdir()
+        (examples / 'nanorc.example').write_text('# Include installed syntax files explicitly. Replace /your/prefix.\ninclude "/your/prefix/share/naro/syntax/*.nanorc"\n')
     metadata = {
         'format': 1, 'product_version': version, 'compiled_build':build,
         'reference_commit': '6ed285c3ec7a1d228def4d4e7021c6ba269f620c',

@@ -1,0 +1,632 @@
+{
+ "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+ "reference_sha256": "0e6343fe60e7c55f16cef7ecd99c7087885706d7065023cf12e7641728ea6439",
+ "scenario_sha256": "969f4cd3cd1f6607da88c68ab8fdb544a7e2a8b05dad3e676cea49be7a93eafd",
+ "results": {
+  "TEST-TINY-CLI-HELP": {
+   "exit_status": 0,
+   "stdout": "Usage: nano [OPTIONS] [[+LINE[,COLUMN]] FILE]...\n\n -D             --boldtext              Use bold instead of reverse video text\n -K             --rawsequences          Fix numeric keypad key confusion problem\n -R             --restricted            Restrict access to the filesystem\n -U             --quickblank            Wipe status bar upon next keystroke\n -V             --version               Print version information and exit\n -c             --constantshow          Constantly show cursor position\n -d             --rebinddelete          Fix Backspace/Delete confusion problem\n -h             --help                  Show this help text and exit\n -p             --preserve              Preserve XON (^Q) and XOFF (^S) keys\n -t             --saveonexit            Save changes on exit, don't prompt\n -v             --view                  View mode (read-only)\n -x             --nohelp                Don't show the two help lines\n -/             --modernbindings        Use better-known key bindings\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-VERSION": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-BAD": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--not-an-option'\n"
+  },
+  "TEST-TINY-CLI-MISSING": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: option requires an argument -- 'T'\n"
+  },
+  "TEST-TINY-CLI-RESTRICTED-HELP": {
+   "exit_status": 0,
+   "stdout": "Usage: nano [OPTIONS] [[+LINE[,COLUMN]] FILE]...\n\n -D             --boldtext              Use bold instead of reverse video text\n -K             --rawsequences          Fix numeric keypad key confusion problem\n -U             --quickblank            Wipe status bar upon next keystroke\n -V             --version               Print version information and exit\n -c             --constantshow          Constantly show cursor position\n -d             --rebinddelete          Fix Backspace/Delete confusion problem\n -h             --help                  Show this help text and exit\n -p             --preserve              Preserve XON (^Q) and XOFF (^S) keys\n -t             --saveonexit            Save changes on exit, don't prompt\n -v             --view                  View mode (read-only)\n -x             --nohelp                Don't show the two help lines\n -/             --modernbindings        Use better-known key bindings\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-65": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-66": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-67": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-68": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-69": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-70": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-71": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-72": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-73": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-74": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-75": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-76": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-77": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-78": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-79": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-80": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-81": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-82": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-83": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-84": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-85": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-86": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-87": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-88": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-89": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-90": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-97": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-98": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-99": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-100": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-101": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-102": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-103": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-104": {
+   "exit_status": 0,
+   "stdout": "Usage: nano [OPTIONS] [[+LINE[,COLUMN]] FILE]...\n\n -D             --boldtext              Use bold instead of reverse video text\n -K             --rawsequences          Fix numeric keypad key confusion problem\n -R             --restricted            Restrict access to the filesystem\n -U             --quickblank            Wipe status bar upon next keystroke\n -V             --version               Print version information and exit\n -c             --constantshow          Constantly show cursor position\n -d             --rebinddelete          Fix Backspace/Delete confusion problem\n -h             --help                  Show this help text and exit\n -p             --preserve              Preserve XON (^Q) and XOFF (^S) keys\n -t             --saveonexit            Save changes on exit, don't prompt\n -v             --view                  View mode (read-only)\n -x             --nohelp                Don't show the two help lines\n -/             --modernbindings        Use better-known key bindings\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-105": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-106": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-107": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-108": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-109": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-110": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-111": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-112": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-113": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-114": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-115": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-116": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-117": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-118": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-119": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-120": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-121": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-122": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-33": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-64": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-37": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-95": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-48": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-49": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-SHORT-47": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-LONG-boldtext": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-LONG-multibuffer --newbuffer": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--multibuffer --newbuffer'\n"
+  },
+  "TEST-TINY-CLI-LONG-multibuffer": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--multibuffer'\n"
+  },
+  "TEST-TINY-CLI-LONG-ignorercfiles": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--ignorercfiles'\n"
+  },
+  "TEST-TINY-CLI-LONG-rawsequences": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-LONG-trimblanks": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--trimblanks'\n"
+  },
+  "TEST-TINY-CLI-LONG-quotestr": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--quotestr'\n"
+  },
+  "TEST-TINY-CLI-LONG-restricted": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-LONG-quickblank": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-LONG-version": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-LONG-syntax": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--syntax'\n"
+  },
+  "TEST-TINY-CLI-LONG-breaklonglines": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--breaklonglines'\n"
+  },
+  "TEST-TINY-CLI-LONG-constantshow": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-LONG-rebinddelete": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-LONG-rcfile": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--rcfile'\n"
+  },
+  "TEST-TINY-CLI-LONG-showcursor": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--showcursor'\n"
+  },
+  "TEST-TINY-CLI-LONG-help": {
+   "exit_status": 0,
+   "stdout": "Usage: nano [OPTIONS] [[+LINE[,COLUMN]] FILE]...\n\n -D             --boldtext              Use bold instead of reverse video text\n -K             --rawsequences          Fix numeric keypad key confusion problem\n -R             --restricted            Restrict access to the filesystem\n -U             --quickblank            Wipe status bar upon next keystroke\n -V             --version               Print version information and exit\n -c             --constantshow          Constantly show cursor position\n -d             --rebinddelete          Fix Backspace/Delete confusion problem\n -h             --help                  Show this help text and exit\n -p             --preserve              Preserve XON (^Q) and XOFF (^S) keys\n -t             --saveonexit            Save changes on exit, don't prompt\n -v             --view                  View mode (read-only)\n -x             --nohelp                Don't show the two help lines\n -/             --modernbindings        Use better-known key bindings\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-LONG-linenumbers": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--linenumbers'\n"
+  },
+  "TEST-TINY-CLI-LONG-mouse": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--mouse'\n"
+  },
+  "TEST-TINY-CLI-LONG-operatingdir": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--operatingdir'\n"
+  },
+  "TEST-TINY-CLI-LONG-preserve": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-LONG-fill": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--fill'\n"
+  },
+  "TEST-TINY-CLI-LONG-speller": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--speller'\n"
+  },
+  "TEST-TINY-CLI-LONG-saveonexit": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-LONG-view": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-LONG-nowrap": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--nowrap'\n"
+  },
+  "TEST-TINY-CLI-LONG-nohelp": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-LONG-listsyntaxes": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--listsyntaxes'\n"
+  },
+  "TEST-TINY-CLI-LONG-modernbindings": {
+   "exit_status": 0,
+   "stdout": " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n",
+   "stderr": ""
+  },
+  "TEST-TINY-CLI-LONG-smarthome": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--smarthome'\n"
+  },
+  "TEST-TINY-CLI-LONG-backup": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--backup'\n"
+  },
+  "TEST-TINY-CLI-LONG-backupdir": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--backupdir'\n"
+  },
+  "TEST-TINY-CLI-LONG-tabstospaces": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--tabstospaces'\n"
+  },
+  "TEST-TINY-CLI-LONG-locking": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--locking'\n"
+  },
+  "TEST-TINY-CLI-LONG-historylog": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--historylog'\n"
+  },
+  "TEST-TINY-CLI-LONG-guidestripe": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--guidestripe'\n"
+  },
+  "TEST-TINY-CLI-LONG-nonewlines": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--nonewlines'\n"
+  },
+  "TEST-TINY-CLI-LONG-noconvert": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--noconvert'\n"
+  },
+  "TEST-TINY-CLI-LONG-bookstyle": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--bookstyle'\n"
+  },
+  "TEST-TINY-CLI-LONG-positionlog": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--positionlog'\n"
+  },
+  "TEST-TINY-CLI-LONG-softwrap": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--softwrap'\n"
+  },
+  "TEST-TINY-CLI-LONG-tabsize": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--tabsize'\n"
+  },
+  "TEST-TINY-CLI-LONG-wordbounds": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--wordbounds'\n"
+  },
+  "TEST-TINY-CLI-LONG-wordchars": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--wordchars'\n"
+  },
+  "TEST-TINY-CLI-LONG-zap": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--zap'\n"
+  },
+  "TEST-TINY-CLI-LONG-atblanks": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--atblanks'\n"
+  },
+  "TEST-TINY-CLI-LONG-emptyline": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--emptyline'\n"
+  },
+  "TEST-TINY-CLI-LONG-autoindent": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--autoindent'\n"
+  },
+  "TEST-TINY-CLI-LONG-jumpyscrolling": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--jumpyscrolling'\n"
+  },
+  "TEST-TINY-CLI-LONG-cutfromcursor": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--cutfromcursor'\n"
+  },
+  "TEST-TINY-CLI-LONG-noread": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--noread'\n"
+  },
+  "TEST-TINY-CLI-LONG-indicator": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--indicator'\n"
+  },
+  "TEST-TINY-CLI-LONG-unix": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--unix'\n"
+  },
+  "TEST-TINY-CLI-LONG-afterends": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--afterends'\n"
+  },
+  "TEST-TINY-CLI-LONG-whitespacedisplay": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--whitespacedisplay'\n"
+  },
+  "TEST-TINY-CLI-LONG-colonparsing": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--colonparsing'\n"
+  },
+  "TEST-TINY-CLI-LONG-stateflags": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--stateflags'\n"
+  },
+  "TEST-TINY-CLI-LONG-minibar": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--minibar'\n"
+  },
+  "TEST-TINY-CLI-LONG-zero": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--zero'\n"
+  },
+  "TEST-TINY-CLI-LONG-solosidescroll": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--solosidescroll'\n"
+  },
+  "TEST-TINY-CLI-LONG-magic": {
+   "exit_status": 1,
+   "stdout": "Type 'nano -h' for a list of available options.\n",
+   "stderr": "nano: unrecognized option '--magic'\n"
+  }
+ }
+}

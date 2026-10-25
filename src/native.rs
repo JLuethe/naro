@@ -45,6 +45,7 @@ unsafe extern "C" {
     pub fn nr_colors() -> c_int;
     pub fn nr_collate(a: *const c_char, b: *const c_char) -> c_int;
     pub fn nr_print_byte(b: c_int) -> c_int;
+    #[cfg(not(feature = "tiny"))]
     pub fn nr_child_signals();
     pub fn nr_erase();
     pub fn nr_finish(start: c_int);
@@ -54,6 +55,7 @@ unsafe extern "C" {
     pub fn nr_keypad(yes: c_int);
     pub fn nr_paste(yes: c_int);
     pub fn nr_mouse(yes: c_int);
+    #[cfg(not(feature = "tiny"))]
     pub fn nr_mouse_event(x: *mut c_int, y: *mut c_int) -> c_int;
     pub fn nr_put(
         y: c_int,

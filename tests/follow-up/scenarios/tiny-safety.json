@@ -1,0 +1,130 @@
+[
+ {
+  "id": "TEST-TINY-SAFE-REGEX-SAFE",
+  "args": [
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "original\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "^W",
+     "M-R"
+    ]
+   },
+   {
+    "text": "(\r"
+   },
+   {
+    "wait": {
+     "text": "Bad regex"
+    }
+   },
+   {
+    "snapshot": "error"
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Wrote 1 line"
+    }
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 3
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "files": {
+    "work/f.txt": {
+     "text": "Xoriginal\n"
+    }
+   },
+   "screen": [
+    {
+     "snapshot": "error",
+     "row": 21,
+     "contains": "Bad regex"
+    }
+   ]
+  }
+ },
+ {
+  "id": "TEST-TINY-SAFE-NUL-SAFE",
+  "args": [
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "original\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 300
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Save modified buffer?"
+    }
+   },
+   {
+    "hex": "00"
+   },
+   {
+    "settle": 200
+   },
+   {
+    "snapshot": "ignored"
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 3
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "files": {
+    "work/f.txt": {
+     "text": "original\n"
+    }
+   },
+   "screen": [
+    {
+     "snapshot": "ignored",
+     "row": 21,
+     "contains": "Save modified buffer?"
+    }
+   ]
+  }
+ }
+]

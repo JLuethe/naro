@@ -1003,6 +1003,25 @@ pub fn draw(ed: &mut Editor) {
         title(ed, &mut canvas, l);
         edit(ed, &mut canvas, l)
     };
+    // Tiny's filename prompt can dispatch Tab to the buffer. File-warning
+    // questions repaint their title and footer before refreshing that buffer.
+    #[cfg(feature = "tiny")]
+    if matches!(
+        &ed.mode,
+        Mode::Question(Question {
+            kind: QuestionKind::Different(_)
+                | QuestionKind::Overwrite(_)
+                | QuestionKind::Changed(_)
+                | QuestionKind::Backup(_, _),
+            ..
+        })
+    ) && let Some(previous) = &ed.last_screen
+        && previous.cols == l.cols
+        && previous.rows == l.rows
+    {
+        let span = l.top * l.cols..l.status * l.cols;
+        canvas.cells[span.clone()].clone_from_slice(&previous.cells[span]);
+    }
     if (!ed.conf.on(ZERO) && l.rows > 1) || ed.message.is_some() {
         canvas.fill(l.status, 0, l.cols, Style::NORMAL);
     }

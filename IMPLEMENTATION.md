@@ -47,7 +47,9 @@ console checks remain deferred. Isolated-root special-device/root-browser checks
 and root-account home precedence are tested in private namespaces; broader root-account configuration,
 other architectures/OSes, static linking and translation quality are outside
 this certification. Byte-locale screens inherit tmux's UTF-8 capture limits.
-Tiny is unimplemented. Optional `credits` is implemented and default-off.
+Tiny is now implemented as an optional compile-time profile; its separate
+qualification is described in [tiny validation](validation/tiny/README.md).
+Optional `credits` is implemented and default-off.
 
 The host executable is `target/release/naro`. Distribution uses the Ubuntu-built
 artifact with measured native dependencies; see [INSTALL.md](INSTALL.md).
@@ -78,5 +80,5 @@ implemented. This uses emulated PS/2 keys, not physical operator observations.
 package results to those executable hashes. Earlier tables above describe their
 historical phase. Current harness checks include 14 comparator, five harness,
 seven namespace and nine console/upload tests, plus six Rust tests. Optional
-tiny, physical-console operator certification and other platforms remain outside
+physical-console operator certification and other platforms remain outside
 the preview scope. No release tag or hosted GitHub Release is created by testing.

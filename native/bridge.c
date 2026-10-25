@@ -21,7 +21,9 @@
 #include <linux/tiocl.h>
 #endif
 #include <pwd.h>
+#ifndef NARO_TINY
 #include <magic.h>
+#endif
 #include "options.inc"
 static struct termios saved;
 static int active, have_saved;
@@ -41,6 +43,7 @@ int nr_vt_key(int key,int meta,int *shift) {
     unsigned char modifiers=6;
     /* Terminfo/escape-derived modifier codes have already been resolved. */
     if(key>=0x400||!nr_on_vt()||ioctl(STDIN_FILENO,TIOCLINUX,&modifiers)<0)return key;
+#ifndef NARO_TINY
     if(modifiers&1){
         if(key=='\t')return 0x45f;
         if(key==KEY_DC&&modifiers==1)return 0x45d;
@@ -53,16 +56,21 @@ int nr_vt_key(int key,int meta,int *shift) {
         case KEY_PPAGE:return 0x427;case KEY_NPAGE:return 0x428;
         case KEY_DC:return 0x42d;case KEY_IC:return 0x42c;
     }}
+#else
+    (void)meta;(void)shift;
+#endif
     if(modifiers&4){switch(key){
         case KEY_UP:return 0x403;case KEY_DOWN:return 0x404;
         case KEY_LEFT:return 0x401;case KEY_RIGHT:return 0x402;
         case KEY_HOME:return 0x405;case KEY_END:return 0x406;
         case KEY_DC:return 0x40d;
     }}
+#ifndef NARO_TINY
     if((modifiers&9)==9){switch(key){
         case KEY_UP:return KEY_PPAGE;case KEY_DOWN:return KEY_NPAGE;
         case KEY_LEFT:return KEY_HOME;case KEY_RIGHT:return KEY_END;
     }}
+#endif
 #else
     (void)meta;(void)shift;
 #endif
@@ -102,22 +110,31 @@ static void modes(int preserve) {
     raw();nonl();noecho();
     struct termios t; if(tcgetattr(0,&t)==0){t.c_lflag &= ~(IEXTEN|ISIG);t.c_oflag &= ~OPOST;
     if(preserve)t.c_iflag|=IXON;else t.c_iflag &= ~IXON;tcsetattr(0,TCSANOW,&t);}
+#ifndef NARO_TINY
     fputs("\033[?2004h",stdout);fflush(stdout);
+#endif
 }
 int nr_init(int preserve,int rawseq) {
     if(tcgetattr(0,&saved)==0)have_saved=1;
     if(!getenv("TERM"))setenv("TERM","vt220",1);
     if(!initscr())return 0;
     active=1;
-    start_color();use_default_colors();set_escdelay(50);typeahead(-1);
+#ifndef NARO_TINY
+    start_color();use_default_colors();
+#endif
+    set_escdelay(50);typeahead(-1);
     keypad(stdscr,!rawseq);scrollok(stdscr,FALSE);
+#ifndef NARO_TINY
     define_key("\033[200~",0x4b5);define_key("\033[201~",0x4be);
+#endif
     modes(preserve);return 1;
 }
 void nr_finish(int start) { if(active) { wattrset(stdscr,A_NORMAL); for(int y=start;y<LINES;y++){ wmove(stdscr,y,0);wclrtoeol(stdscr); } wmove(stdscr,LINES-1,0);wrefresh(stdscr); } }
 void nr_done(void) {
     if(active){curs_set(1);mousemask(0,NULL);wattrset(stdscr,A_NORMAL);wmove(stdscr,LINES-1,0);endwin();active=0;}
+#ifndef NARO_TINY
     fputs("\033[?2004l",stdout);fflush(stdout);
+#endif
     if(have_saved)tcsetattr(0,TCSANOW,&saved);
 }
 void nr_resume(int preserve) {refresh();active=1;modes(preserve);}
@@ -129,7 +146,13 @@ void nr_refresh(int row,int col,int visible) {wmove(stdscr,row,col);curs_set(vis
 void nr_beep(void) {beep();}
 int nr_get(int ms) {wtimeout(stdscr,ms);return wgetch(stdscr);}
 void nr_keypad(int yes) {keypad(stdscr,yes);}
-void nr_paste(int yes) {fputs(yes?"\033[?2004h":"\033[?2004l",stdout);fflush(stdout);}
+void nr_paste(int yes) {
+#ifndef NARO_TINY
+    fputs(yes?"\033[?2004h":"\033[?2004l",stdout);fflush(stdout);
+#else
+    (void)yes;
+#endif
+}
 void nr_mouse(int yes) {mouseinterval(50);mousemask(yes?ALL_MOUSE_EVENTS:0,NULL);}
 int nr_mouse_event(int *x,int *y) {MEVENT ev;if(getmouse(&ev)!=OK)return 0;*x=ev.x;*y=ev.y;
     if(ev.bstate & BUTTON1_CLICKED)return 1;
@@ -162,8 +185,13 @@ void nr_put(int y,int x,const uint32_t *chars,int count,int style,int fg,int bg)
     cchar_t cell;setcchar(&cell,w,a,pair,NULL);mvwadd_wch(stdscr,y,x,&cell);
 }
 int nr_map(int key) {
+#ifdef NARO_TINY
+    const char *caps[]={"kLFT5","kRIT5","kUP5","kDN5","kHOM5","kEND5",NULL};
+    const int codes[]={0x401,0x402,0x403,0x404,0x405,0x406};
+#else
     const char *caps[]={"kLFT5","kRIT5","kUP5","kDN5","kHOM5","kEND5","kDC5","kDC6", "kLFT6","kRIT6","kUP6","kDN6","kHOM6","kEND6", "kLFT3","kRIT3","kUP3","kDN3","kHOM3","kEND3","kPRV3","kNXT3","kIC3","kDC3", "kLFT4","kRIT4","kUP4","kDN4","kUP","kDN",NULL};
     const int codes[]={0x401,0x402,0x403,0x404,0x405,0x406,0x40d,0x41d,0x411,0x412,0x413,0x414,0x415,0x416,0x421,0x422,0x423,0x424,0x425,0x426,0x427,0x428,0x42c,0x42d,0x431,0x432,0x433,0x434,0x453,0x454};
+#endif
     for(int i=0;caps[i];i++){char *s=tigetstr(caps[i]);if(s&&s!=(char*)-1&&key_defined(s)==key)return codes[i];}
     switch(key){case KEY_SLEFT:return 0x451;case KEY_SRIGHT:return 0x452;case KEY_SR:return 0x453;case KEY_SF:return 0x454;case KEY_SHOME:return 0x455;case KEY_SEND:return 0x456;case KEY_SPREVIOUS:return 0x457;case KEY_SNEXT:return 0x458;case KEY_SDC:return 0x45d;case KEY_BTAB:return 0x45f;case KEY_A1:return KEY_HOME;case KEY_C1:return KEY_END;case KEY_A3:return KEY_PPAGE;case KEY_C3:return KEY_NPAGE;}
     return key;
@@ -182,7 +210,13 @@ int nr_match(void *r,const char *text,size_t len,size_t start,int notbol,int *pa
 }
 int nr_nsub(void *r) {return ((regex_t*)r)->re_nsub;}
 void nr_regex_free(void *r) {regfree(r);free(r);}
-const char *nr_magic(const char *path) {static magic_t m; if(!m){m=magic_open(MAGIC_SYMLINK);if(!m||magic_load(m,NULL))return NULL;}return magic_file(m,path);}
+const char *nr_magic(const char *path) {
+#ifndef NARO_TINY
+    static magic_t m; if(!m){m=magic_open(MAGIC_SYMLINK);if(!m||magic_load(m,NULL))return NULL;}return magic_file(m,path);
+#else
+    (void)path;return NULL;
+#endif
+}
 void nr_stop(void) {kill(0,SIGSTOP);}
 const char *nr_host(void) {static char host[256];if(gethostname(host,sizeof(host)-1))host[0]=0;return host;}
 #include <ctype.h>

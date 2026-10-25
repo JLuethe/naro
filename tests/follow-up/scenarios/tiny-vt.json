@@ -1,0 +1,2533 @@
+[
+ {
+  "id": "TEST-VT-IOCTL-TINY-NONVT",
+  "args": [
+   "sample.txt"
+  ],
+  "files": {
+   "work/sample.txt": {
+    "text": "one two\nnext\n"
+   },
+   "bin/ioctlwrap.c": {
+    "text": "/* Fixture-only ptrace ioctl model. Reference 6ed285c3ec7a1d228def4d4e7021c6ba269f620c. */\n#define _GNU_SOURCE\n#include <sys/ptrace.h>\n#include <sys/wait.h>\n#include <sys/user.h>\n#include <sys/syscall.h>\n#include <signal.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n#include <errno.h>\nstatic void poke(pid_t pid,unsigned long addr,unsigned long value,unsigned long mask){\n    errno=0;unsigned long prior=ptrace(PTRACE_PEEKDATA,pid,addr,0);if(errno)_exit(93);\n    if(ptrace(PTRACE_POKEDATA,pid,addr,(prior&~mask)|(value&mask))<0)_exit(94);\n}\nint main(int argc,char **argv){\n    (void)argc;const char *root=getenv(\"NARO_FIXTURE_ROOT\"),*binary=getenv(\"NARO_FAULT_BINARY\"),*mode=getenv(\"NARO_IOCTL_MODEL\");char resolved[4096];\n    if(!root||!binary||!mode||!realpath(root,resolved)||strcmp(root,resolved)||!strstr(root,\"/TEST-VT-IOCTL-\")||strcmp(root+strlen(root)-3,\"/fx\"))return 90;\n    int nonvt=!strcmp(mode,\"nonvt\"),fail=!strcmp(mode,\"fail\"),bits=!strcmp(mode,\"shift\")?1:!strcmp(mode,\"ctrl\")?4:!strcmp(mode,\"ctrlshift\")?5:!strcmp(mode,\"alt\")?8:!strcmp(mode,\"shiftalt\")?9:0;\n    if(!nonvt&&!fail&&!bits)return 91;\n    pid_t child=fork();if(child<0)return 92;\n    if(!child){if(ptrace(PTRACE_TRACEME,0,0,0)<0)_exit(95);raise(SIGSTOP);execv(binary,argv);_exit(96);}\n    int status,entering=1,request=0,seen_vt=0,seen_mod=0,deliver=0;unsigned long pointer=0;\n    if(waitpid(child,&status,0)<0)return 97;\n    if(ptrace(PTRACE_SETOPTIONS,child,0,PTRACE_O_TRACESYSGOOD|PTRACE_O_EXITKILL)<0)return 98;\n    while(1){\n        if(ptrace(PTRACE_SYSCALL,child,0,deliver)<0)return 99;deliver=0;\n        if(waitpid(child,&status,0)<0){if(errno==EINTR)continue;return 100;}\n        if(WIFEXITED(status)||WIFSIGNALED(status))break;\n        int sig=WSTOPSIG(status);if(sig!=(SIGTRAP|0x80)){if(sig!=SIGTRAP&&sig!=SIGSTOP)deliver=sig;continue;}\n        struct user_regs_struct regs;if(ptrace(PTRACE_GETREGS,child,0,&regs)<0)return 101;\n        if(entering){\n            request=0;\n            if(regs.orig_rax==SYS_ioctl&&regs.rdi==1&&regs.rsi==0x5603){request=1;seen_vt=1;}\n            if(regs.orig_rax==SYS_ioctl&&regs.rdi==0&&regs.rsi==0x541c){errno=0;long value=ptrace(PTRACE_PEEKDATA,child,regs.rdx,0);if(!errno&&(value&0xff)==6){request=2;seen_mod=1;}}\n            if(request){pointer=regs.rdx;regs.orig_rax=-1UL;if(ptrace(PTRACE_SETREGS,child,0,&regs)<0)return 102;}\n        }else if(request){\n            if(request==1){if(nonvt)regs.rax=-ENOTTY;else{poke(child,pointer,1,0xffffffffffffUL);regs.rax=0;}}\n            else if(fail)regs.rax=-EIO;\n            else{poke(child,pointer,bits,0xff);regs.rax=0;}\n            if(ptrace(PTRACE_SETREGS,child,0,&regs)<0)return 103;\n        }\n        entering=!entering;\n    }\n    char output[8192];snprintf(output,sizeof(output),\"%s/home/ioctl-model.json\",root);FILE *log=fopen(output,\"w\");if(!log)return 104;\n    fprintf(log,\"{\\\"model\\\":\\\"%s\\\",\\\"getstate_seen\\\":%s,\\\"modifiers_seen\\\":%s}\\n\",mode,seen_vt?\"true\":\"false\",seen_mod?\"true\":\"false\");fclose(log);\n    if(WIFSIGNALED(status)){signal(WTERMSIG(status),SIG_DFL);raise(WTERMSIG(status));}\n    return WIFEXITED(status)?WEXITSTATUS(status):105;\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "bin/ioctlwrap.c",
+    "output": "bin/ioctlwrap",
+    "shared": false
+   }
+  ],
+  "fault_supervisor": "bin/ioctlwrap",
+  "env": {
+   "NARO_FIXTURE_ROOT": "$FX",
+   "NARO_IOCTL_MODEL": "nonvt"
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "end"
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "snapshot": "home"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/ioctl-model.json": {
+     "type": "file",
+     "b64": "eyJtb2RlbCI6Im5vbnZ0IiwiZ2V0c3RhdGVfc2VlbiI6dHJ1ZSwibW9kaWZpZXJzX3NlZW4iOmZhbHNlfQo=",
+     "mode": "0o644"
+    },
+    "work/sample.txt": {
+     "type": "file",
+     "b64": "b25lIHR3bwpuZXh0Cg==",
+     "mode": "0o644"
+    }
+   },
+   "screen": [
+    {
+     "snapshot": "end",
+     "cursor": {
+      "x": 7,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "end",
+     "row": 0,
+     "equals": "  GNU nano 9.3                       sample.txt"
+    },
+    {
+     "snapshot": "end",
+     "row": 1,
+     "equals": "one two"
+    },
+    {
+     "snapshot": "end",
+     "row": 2,
+     "equals": "next"
+    },
+    {
+     "snapshot": "end",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 21,
+     "equals": "                                [ Read 2 lines ]"
+    },
+    {
+     "snapshot": "end",
+     "row": 22,
+     "equals": "^X Exit      ^O Write Out ^F Where Is  M-B Previous ^K Cut       ^C Location"
+    },
+    {
+     "snapshot": "end",
+     "row": 23,
+     "equals": "^L Refresh   ^R Read File ^\\ Replace   M-F Next     ^U Paste     ^/ Go To Line"
+    },
+    {
+     "snapshot": "home",
+     "cursor": {
+      "x": 0,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "home",
+     "row": 0,
+     "equals": "  GNU nano 9.3                       sample.txt"
+    },
+    {
+     "snapshot": "home",
+     "row": 1,
+     "equals": "one two"
+    },
+    {
+     "snapshot": "home",
+     "row": 2,
+     "equals": "next"
+    },
+    {
+     "snapshot": "home",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 21,
+     "equals": "                                [ Read 2 lines ]"
+    },
+    {
+     "snapshot": "home",
+     "row": 22,
+     "equals": "^X Exit      ^O Write Out ^F Where Is  M-B Previous ^K Cut       ^C Location"
+    },
+    {
+     "snapshot": "home",
+     "row": 23,
+     "equals": "^L Refresh   ^R Read File ^\\ Replace   M-F Next     ^U Paste     ^/ Go To Line"
+    }
+   ]
+  }
+ },
+ {
+  "id": "TEST-VT-IOCTL-TINY-FAIL",
+  "args": [
+   "sample.txt"
+  ],
+  "files": {
+   "work/sample.txt": {
+    "text": "one two\nnext\n"
+   },
+   "bin/ioctlwrap.c": {
+    "text": "/* Fixture-only ptrace ioctl model. Reference 6ed285c3ec7a1d228def4d4e7021c6ba269f620c. */\n#define _GNU_SOURCE\n#include <sys/ptrace.h>\n#include <sys/wait.h>\n#include <sys/user.h>\n#include <sys/syscall.h>\n#include <signal.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n#include <errno.h>\nstatic void poke(pid_t pid,unsigned long addr,unsigned long value,unsigned long mask){\n    errno=0;unsigned long prior=ptrace(PTRACE_PEEKDATA,pid,addr,0);if(errno)_exit(93);\n    if(ptrace(PTRACE_POKEDATA,pid,addr,(prior&~mask)|(value&mask))<0)_exit(94);\n}\nint main(int argc,char **argv){\n    (void)argc;const char *root=getenv(\"NARO_FIXTURE_ROOT\"),*binary=getenv(\"NARO_FAULT_BINARY\"),*mode=getenv(\"NARO_IOCTL_MODEL\");char resolved[4096];\n    if(!root||!binary||!mode||!realpath(root,resolved)||strcmp(root,resolved)||!strstr(root,\"/TEST-VT-IOCTL-\")||strcmp(root+strlen(root)-3,\"/fx\"))return 90;\n    int nonvt=!strcmp(mode,\"nonvt\"),fail=!strcmp(mode,\"fail\"),bits=!strcmp(mode,\"shift\")?1:!strcmp(mode,\"ctrl\")?4:!strcmp(mode,\"ctrlshift\")?5:!strcmp(mode,\"alt\")?8:!strcmp(mode,\"shiftalt\")?9:0;\n    if(!nonvt&&!fail&&!bits)return 91;\n    pid_t child=fork();if(child<0)return 92;\n    if(!child){if(ptrace(PTRACE_TRACEME,0,0,0)<0)_exit(95);raise(SIGSTOP);execv(binary,argv);_exit(96);}\n    int status,entering=1,request=0,seen_vt=0,seen_mod=0,deliver=0;unsigned long pointer=0;\n    if(waitpid(child,&status,0)<0)return 97;\n    if(ptrace(PTRACE_SETOPTIONS,child,0,PTRACE_O_TRACESYSGOOD|PTRACE_O_EXITKILL)<0)return 98;\n    while(1){\n        if(ptrace(PTRACE_SYSCALL,child,0,deliver)<0)return 99;deliver=0;\n        if(waitpid(child,&status,0)<0){if(errno==EINTR)continue;return 100;}\n        if(WIFEXITED(status)||WIFSIGNALED(status))break;\n        int sig=WSTOPSIG(status);if(sig!=(SIGTRAP|0x80)){if(sig!=SIGTRAP&&sig!=SIGSTOP)deliver=sig;continue;}\n        struct user_regs_struct regs;if(ptrace(PTRACE_GETREGS,child,0,&regs)<0)return 101;\n        if(entering){\n            request=0;\n            if(regs.orig_rax==SYS_ioctl&&regs.rdi==1&&regs.rsi==0x5603){request=1;seen_vt=1;}\n            if(regs.orig_rax==SYS_ioctl&&regs.rdi==0&&regs.rsi==0x541c){errno=0;long value=ptrace(PTRACE_PEEKDATA,child,regs.rdx,0);if(!errno&&(value&0xff)==6){request=2;seen_mod=1;}}\n            if(request){pointer=regs.rdx;regs.orig_rax=-1UL;if(ptrace(PTRACE_SETREGS,child,0,&regs)<0)return 102;}\n        }else if(request){\n            if(request==1){if(nonvt)regs.rax=-ENOTTY;else{poke(child,pointer,1,0xffffffffffffUL);regs.rax=0;}}\n            else if(fail)regs.rax=-EIO;\n            else{poke(child,pointer,bits,0xff);regs.rax=0;}\n            if(ptrace(PTRACE_SETREGS,child,0,&regs)<0)return 103;\n        }\n        entering=!entering;\n    }\n    char output[8192];snprintf(output,sizeof(output),\"%s/home/ioctl-model.json\",root);FILE *log=fopen(output,\"w\");if(!log)return 104;\n    fprintf(log,\"{\\\"model\\\":\\\"%s\\\",\\\"getstate_seen\\\":%s,\\\"modifiers_seen\\\":%s}\\n\",mode,seen_vt?\"true\":\"false\",seen_mod?\"true\":\"false\");fclose(log);\n    if(WIFSIGNALED(status)){signal(WTERMSIG(status),SIG_DFL);raise(WTERMSIG(status));}\n    return WIFEXITED(status)?WEXITSTATUS(status):105;\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "bin/ioctlwrap.c",
+    "output": "bin/ioctlwrap",
+    "shared": false
+   }
+  ],
+  "fault_supervisor": "bin/ioctlwrap",
+  "env": {
+   "NARO_FIXTURE_ROOT": "$FX",
+   "NARO_IOCTL_MODEL": "fail"
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "end"
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "snapshot": "home"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/ioctl-model.json": {
+     "type": "file",
+     "b64": "eyJtb2RlbCI6ImZhaWwiLCJnZXRzdGF0ZV9zZWVuIjp0cnVlLCJtb2RpZmllcnNfc2VlbiI6dHJ1ZX0K",
+     "mode": "0o644"
+    },
+    "work/sample.txt": {
+     "type": "file",
+     "b64": "b25lIHR3bwpuZXh0Cg==",
+     "mode": "0o644"
+    }
+   },
+   "screen": [
+    {
+     "snapshot": "end",
+     "cursor": {
+      "x": 7,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "end",
+     "row": 0,
+     "equals": "  GNU nano 9.3                       sample.txt"
+    },
+    {
+     "snapshot": "end",
+     "row": 1,
+     "equals": "one two"
+    },
+    {
+     "snapshot": "end",
+     "row": 2,
+     "equals": "next"
+    },
+    {
+     "snapshot": "end",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 21,
+     "equals": "                                [ Read 2 lines ]"
+    },
+    {
+     "snapshot": "end",
+     "row": 22,
+     "equals": "^X Exit      ^O Write Out ^F Where Is  M-B Previous ^K Cut       ^C Location"
+    },
+    {
+     "snapshot": "end",
+     "row": 23,
+     "equals": "^L Refresh   ^R Read File ^\\ Replace   M-F Next     ^U Paste     ^- Go To Line"
+    },
+    {
+     "snapshot": "home",
+     "cursor": {
+      "x": 0,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "home",
+     "row": 0,
+     "equals": "  GNU nano 9.3                       sample.txt"
+    },
+    {
+     "snapshot": "home",
+     "row": 1,
+     "equals": "one two"
+    },
+    {
+     "snapshot": "home",
+     "row": 2,
+     "equals": "next"
+    },
+    {
+     "snapshot": "home",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 21,
+     "equals": "                                [ Read 2 lines ]"
+    },
+    {
+     "snapshot": "home",
+     "row": 22,
+     "equals": "^X Exit      ^O Write Out ^F Where Is  M-B Previous ^K Cut       ^C Location"
+    },
+    {
+     "snapshot": "home",
+     "row": 23,
+     "equals": "^L Refresh   ^R Read File ^\\ Replace   M-F Next     ^U Paste     ^- Go To Line"
+    }
+   ]
+  }
+ },
+ {
+  "id": "TEST-VT-IOCTL-TINY-SHIFT",
+  "args": [
+   "sample.txt"
+  ],
+  "files": {
+   "work/sample.txt": {
+    "text": "one two\nnext\n"
+   },
+   "bin/ioctlwrap.c": {
+    "text": "/* Fixture-only ptrace ioctl model. Reference 6ed285c3ec7a1d228def4d4e7021c6ba269f620c. */\n#define _GNU_SOURCE\n#include <sys/ptrace.h>\n#include <sys/wait.h>\n#include <sys/user.h>\n#include <sys/syscall.h>\n#include <signal.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n#include <errno.h>\nstatic void poke(pid_t pid,unsigned long addr,unsigned long value,unsigned long mask){\n    errno=0;unsigned long prior=ptrace(PTRACE_PEEKDATA,pid,addr,0);if(errno)_exit(93);\n    if(ptrace(PTRACE_POKEDATA,pid,addr,(prior&~mask)|(value&mask))<0)_exit(94);\n}\nint main(int argc,char **argv){\n    (void)argc;const char *root=getenv(\"NARO_FIXTURE_ROOT\"),*binary=getenv(\"NARO_FAULT_BINARY\"),*mode=getenv(\"NARO_IOCTL_MODEL\");char resolved[4096];\n    if(!root||!binary||!mode||!realpath(root,resolved)||strcmp(root,resolved)||!strstr(root,\"/TEST-VT-IOCTL-\")||strcmp(root+strlen(root)-3,\"/fx\"))return 90;\n    int nonvt=!strcmp(mode,\"nonvt\"),fail=!strcmp(mode,\"fail\"),bits=!strcmp(mode,\"shift\")?1:!strcmp(mode,\"ctrl\")?4:!strcmp(mode,\"ctrlshift\")?5:!strcmp(mode,\"alt\")?8:!strcmp(mode,\"shiftalt\")?9:0;\n    if(!nonvt&&!fail&&!bits)return 91;\n    pid_t child=fork();if(child<0)return 92;\n    if(!child){if(ptrace(PTRACE_TRACEME,0,0,0)<0)_exit(95);raise(SIGSTOP);execv(binary,argv);_exit(96);}\n    int status,entering=1,request=0,seen_vt=0,seen_mod=0,deliver=0;unsigned long pointer=0;\n    if(waitpid(child,&status,0)<0)return 97;\n    if(ptrace(PTRACE_SETOPTIONS,child,0,PTRACE_O_TRACESYSGOOD|PTRACE_O_EXITKILL)<0)return 98;\n    while(1){\n        if(ptrace(PTRACE_SYSCALL,child,0,deliver)<0)return 99;deliver=0;\n        if(waitpid(child,&status,0)<0){if(errno==EINTR)continue;return 100;}\n        if(WIFEXITED(status)||WIFSIGNALED(status))break;\n        int sig=WSTOPSIG(status);if(sig!=(SIGTRAP|0x80)){if(sig!=SIGTRAP&&sig!=SIGSTOP)deliver=sig;continue;}\n        struct user_regs_struct regs;if(ptrace(PTRACE_GETREGS,child,0,&regs)<0)return 101;\n        if(entering){\n            request=0;\n            if(regs.orig_rax==SYS_ioctl&&regs.rdi==1&&regs.rsi==0x5603){request=1;seen_vt=1;}\n            if(regs.orig_rax==SYS_ioctl&&regs.rdi==0&&regs.rsi==0x541c){errno=0;long value=ptrace(PTRACE_PEEKDATA,child,regs.rdx,0);if(!errno&&(value&0xff)==6){request=2;seen_mod=1;}}\n            if(request){pointer=regs.rdx;regs.orig_rax=-1UL;if(ptrace(PTRACE_SETREGS,child,0,&regs)<0)return 102;}\n        }else if(request){\n            if(request==1){if(nonvt)regs.rax=-ENOTTY;else{poke(child,pointer,1,0xffffffffffffUL);regs.rax=0;}}\n            else if(fail)regs.rax=-EIO;\n            else{poke(child,pointer,bits,0xff);regs.rax=0;}\n            if(ptrace(PTRACE_SETREGS,child,0,&regs)<0)return 103;\n        }\n        entering=!entering;\n    }\n    char output[8192];snprintf(output,sizeof(output),\"%s/home/ioctl-model.json\",root);FILE *log=fopen(output,\"w\");if(!log)return 104;\n    fprintf(log,\"{\\\"model\\\":\\\"%s\\\",\\\"getstate_seen\\\":%s,\\\"modifiers_seen\\\":%s}\\n\",mode,seen_vt?\"true\":\"false\",seen_mod?\"true\":\"false\");fclose(log);\n    if(WIFSIGNALED(status)){signal(WTERMSIG(status),SIG_DFL);raise(WTERMSIG(status));}\n    return WIFEXITED(status)?WEXITSTATUS(status):105;\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "bin/ioctlwrap.c",
+    "output": "bin/ioctlwrap",
+    "shared": false
+   }
+  ],
+  "fault_supervisor": "bin/ioctlwrap",
+  "env": {
+   "NARO_FIXTURE_ROOT": "$FX",
+   "NARO_IOCTL_MODEL": "shift"
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "end"
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "snapshot": "home"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/ioctl-model.json": {
+     "type": "file",
+     "b64": "eyJtb2RlbCI6InNoaWZ0IiwiZ2V0c3RhdGVfc2VlbiI6dHJ1ZSwibW9kaWZpZXJzX3NlZW4iOnRydWV9Cg==",
+     "mode": "0o644"
+    },
+    "work/sample.txt": {
+     "type": "file",
+     "b64": "b25lIHR3bwpuZXh0Cg==",
+     "mode": "0o644"
+    }
+   },
+   "screen": [
+    {
+     "snapshot": "end",
+     "cursor": {
+      "x": 7,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "end",
+     "row": 0,
+     "equals": "  GNU nano 9.3                       sample.txt"
+    },
+    {
+     "snapshot": "end",
+     "row": 1,
+     "equals": "one two"
+    },
+    {
+     "snapshot": "end",
+     "row": 2,
+     "equals": "next"
+    },
+    {
+     "snapshot": "end",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 21,
+     "equals": "                                [ Read 2 lines ]"
+    },
+    {
+     "snapshot": "end",
+     "row": 22,
+     "equals": "^X Exit      ^O Write Out ^F Where Is  M-B Previous ^K Cut       ^C Location"
+    },
+    {
+     "snapshot": "end",
+     "row": 23,
+     "equals": "^L Refresh   ^R Read File ^\\ Replace   M-F Next     ^U Paste     ^- Go To Line"
+    },
+    {
+     "snapshot": "home",
+     "cursor": {
+      "x": 0,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "home",
+     "row": 0,
+     "equals": "  GNU nano 9.3                       sample.txt"
+    },
+    {
+     "snapshot": "home",
+     "row": 1,
+     "equals": "one two"
+    },
+    {
+     "snapshot": "home",
+     "row": 2,
+     "equals": "next"
+    },
+    {
+     "snapshot": "home",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 21,
+     "equals": "                                [ Read 2 lines ]"
+    },
+    {
+     "snapshot": "home",
+     "row": 22,
+     "equals": "^X Exit      ^O Write Out ^F Where Is  M-B Previous ^K Cut       ^C Location"
+    },
+    {
+     "snapshot": "home",
+     "row": 23,
+     "equals": "^L Refresh   ^R Read File ^\\ Replace   M-F Next     ^U Paste     ^- Go To Line"
+    }
+   ]
+  }
+ },
+ {
+  "id": "TEST-VT-IOCTL-TINY-CTRL",
+  "args": [
+   "sample.txt"
+  ],
+  "files": {
+   "work/sample.txt": {
+    "text": "one two\nnext\n"
+   },
+   "bin/ioctlwrap.c": {
+    "text": "/* Fixture-only ptrace ioctl model. Reference 6ed285c3ec7a1d228def4d4e7021c6ba269f620c. */\n#define _GNU_SOURCE\n#include <sys/ptrace.h>\n#include <sys/wait.h>\n#include <sys/user.h>\n#include <sys/syscall.h>\n#include <signal.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n#include <errno.h>\nstatic void poke(pid_t pid,unsigned long addr,unsigned long value,unsigned long mask){\n    errno=0;unsigned long prior=ptrace(PTRACE_PEEKDATA,pid,addr,0);if(errno)_exit(93);\n    if(ptrace(PTRACE_POKEDATA,pid,addr,(prior&~mask)|(value&mask))<0)_exit(94);\n}\nint main(int argc,char **argv){\n    (void)argc;const char *root=getenv(\"NARO_FIXTURE_ROOT\"),*binary=getenv(\"NARO_FAULT_BINARY\"),*mode=getenv(\"NARO_IOCTL_MODEL\");char resolved[4096];\n    if(!root||!binary||!mode||!realpath(root,resolved)||strcmp(root,resolved)||!strstr(root,\"/TEST-VT-IOCTL-\")||strcmp(root+strlen(root)-3,\"/fx\"))return 90;\n    int nonvt=!strcmp(mode,\"nonvt\"),fail=!strcmp(mode,\"fail\"),bits=!strcmp(mode,\"shift\")?1:!strcmp(mode,\"ctrl\")?4:!strcmp(mode,\"ctrlshift\")?5:!strcmp(mode,\"alt\")?8:!strcmp(mode,\"shiftalt\")?9:0;\n    if(!nonvt&&!fail&&!bits)return 91;\n    pid_t child=fork();if(child<0)return 92;\n    if(!child){if(ptrace(PTRACE_TRACEME,0,0,0)<0)_exit(95);raise(SIGSTOP);execv(binary,argv);_exit(96);}\n    int status,entering=1,request=0,seen_vt=0,seen_mod=0,deliver=0;unsigned long pointer=0;\n    if(waitpid(child,&status,0)<0)return 97;\n    if(ptrace(PTRACE_SETOPTIONS,child,0,PTRACE_O_TRACESYSGOOD|PTRACE_O_EXITKILL)<0)return 98;\n    while(1){\n        if(ptrace(PTRACE_SYSCALL,child,0,deliver)<0)return 99;deliver=0;\n        if(waitpid(child,&status,0)<0){if(errno==EINTR)continue;return 100;}\n        if(WIFEXITED(status)||WIFSIGNALED(status))break;\n        int sig=WSTOPSIG(status);if(sig!=(SIGTRAP|0x80)){if(sig!=SIGTRAP&&sig!=SIGSTOP)deliver=sig;continue;}\n        struct user_regs_struct regs;if(ptrace(PTRACE_GETREGS,child,0,&regs)<0)return 101;\n        if(entering){\n            request=0;\n            if(regs.orig_rax==SYS_ioctl&&regs.rdi==1&&regs.rsi==0x5603){request=1;seen_vt=1;}\n            if(regs.orig_rax==SYS_ioctl&&regs.rdi==0&&regs.rsi==0x541c){errno=0;long value=ptrace(PTRACE_PEEKDATA,child,regs.rdx,0);if(!errno&&(value&0xff)==6){request=2;seen_mod=1;}}\n            if(request){pointer=regs.rdx;regs.orig_rax=-1UL;if(ptrace(PTRACE_SETREGS,child,0,&regs)<0)return 102;}\n        }else if(request){\n            if(request==1){if(nonvt)regs.rax=-ENOTTY;else{poke(child,pointer,1,0xffffffffffffUL);regs.rax=0;}}\n            else if(fail)regs.rax=-EIO;\n            else{poke(child,pointer,bits,0xff);regs.rax=0;}\n            if(ptrace(PTRACE_SETREGS,child,0,&regs)<0)return 103;\n        }\n        entering=!entering;\n    }\n    char output[8192];snprintf(output,sizeof(output),\"%s/home/ioctl-model.json\",root);FILE *log=fopen(output,\"w\");if(!log)return 104;\n    fprintf(log,\"{\\\"model\\\":\\\"%s\\\",\\\"getstate_seen\\\":%s,\\\"modifiers_seen\\\":%s}\\n\",mode,seen_vt?\"true\":\"false\",seen_mod?\"true\":\"false\");fclose(log);\n    if(WIFSIGNALED(status)){signal(WTERMSIG(status),SIG_DFL);raise(WTERMSIG(status));}\n    return WIFEXITED(status)?WEXITSTATUS(status):105;\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "bin/ioctlwrap.c",
+    "output": "bin/ioctlwrap",
+    "shared": false
+   }
+  ],
+  "fault_supervisor": "bin/ioctlwrap",
+  "env": {
+   "NARO_FIXTURE_ROOT": "$FX",
+   "NARO_IOCTL_MODEL": "ctrl"
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "end"
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "snapshot": "home"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/ioctl-model.json": {
+     "type": "file",
+     "b64": "eyJtb2RlbCI6ImN0cmwiLCJnZXRzdGF0ZV9zZWVuIjp0cnVlLCJtb2RpZmllcnNfc2VlbiI6dHJ1ZX0K",
+     "mode": "0o644"
+    },
+    "work/sample.txt": {
+     "type": "file",
+     "b64": "b25lIHR3bwpuZXh0Cg==",
+     "mode": "0o644"
+    }
+   },
+   "screen": [
+    {
+     "snapshot": "end",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "end",
+     "row": 0,
+     "equals": "  GNU nano 9.3                       sample.txt"
+    },
+    {
+     "snapshot": "end",
+     "row": 1,
+     "equals": "one two"
+    },
+    {
+     "snapshot": "end",
+     "row": 2,
+     "equals": "next"
+    },
+    {
+     "snapshot": "end",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 21,
+     "equals": "                                [ Read 2 lines ]"
+    },
+    {
+     "snapshot": "end",
+     "row": 22,
+     "equals": "^X Exit      ^O Write Out ^F Where Is  M-B Previous ^K Cut       ^C Location"
+    },
+    {
+     "snapshot": "end",
+     "row": 23,
+     "equals": "^L Refresh   ^R Read File ^\\ Replace   M-F Next     ^U Paste     ^- Go To Line"
+    },
+    {
+     "snapshot": "home",
+     "cursor": {
+      "x": 0,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "home",
+     "row": 0,
+     "equals": "  GNU nano 9.3                       sample.txt"
+    },
+    {
+     "snapshot": "home",
+     "row": 1,
+     "equals": "one two"
+    },
+    {
+     "snapshot": "home",
+     "row": 2,
+     "equals": "next"
+    },
+    {
+     "snapshot": "home",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 21,
+     "equals": "                                [ Read 2 lines ]"
+    },
+    {
+     "snapshot": "home",
+     "row": 22,
+     "equals": "^X Exit      ^O Write Out ^F Where Is  M-B Previous ^K Cut       ^C Location"
+    },
+    {
+     "snapshot": "home",
+     "row": 23,
+     "equals": "^L Refresh   ^R Read File ^\\ Replace   M-F Next     ^U Paste     ^- Go To Line"
+    }
+   ]
+  }
+ },
+ {
+  "id": "TEST-VT-IOCTL-TINY-CTRLSHIFT",
+  "args": [
+   "sample.txt"
+  ],
+  "files": {
+   "work/sample.txt": {
+    "text": "one two\nnext\n"
+   },
+   "bin/ioctlwrap.c": {
+    "text": "/* Fixture-only ptrace ioctl model. Reference 6ed285c3ec7a1d228def4d4e7021c6ba269f620c. */\n#define _GNU_SOURCE\n#include <sys/ptrace.h>\n#include <sys/wait.h>\n#include <sys/user.h>\n#include <sys/syscall.h>\n#include <signal.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n#include <errno.h>\nstatic void poke(pid_t pid,unsigned long addr,unsigned long value,unsigned long mask){\n    errno=0;unsigned long prior=ptrace(PTRACE_PEEKDATA,pid,addr,0);if(errno)_exit(93);\n    if(ptrace(PTRACE_POKEDATA,pid,addr,(prior&~mask)|(value&mask))<0)_exit(94);\n}\nint main(int argc,char **argv){\n    (void)argc;const char *root=getenv(\"NARO_FIXTURE_ROOT\"),*binary=getenv(\"NARO_FAULT_BINARY\"),*mode=getenv(\"NARO_IOCTL_MODEL\");char resolved[4096];\n    if(!root||!binary||!mode||!realpath(root,resolved)||strcmp(root,resolved)||!strstr(root,\"/TEST-VT-IOCTL-\")||strcmp(root+strlen(root)-3,\"/fx\"))return 90;\n    int nonvt=!strcmp(mode,\"nonvt\"),fail=!strcmp(mode,\"fail\"),bits=!strcmp(mode,\"shift\")?1:!strcmp(mode,\"ctrl\")?4:!strcmp(mode,\"ctrlshift\")?5:!strcmp(mode,\"alt\")?8:!strcmp(mode,\"shiftalt\")?9:0;\n    if(!nonvt&&!fail&&!bits)return 91;\n    pid_t child=fork();if(child<0)return 92;\n    if(!child){if(ptrace(PTRACE_TRACEME,0,0,0)<0)_exit(95);raise(SIGSTOP);execv(binary,argv);_exit(96);}\n    int status,entering=1,request=0,seen_vt=0,seen_mod=0,deliver=0;unsigned long pointer=0;\n    if(waitpid(child,&status,0)<0)return 97;\n    if(ptrace(PTRACE_SETOPTIONS,child,0,PTRACE_O_TRACESYSGOOD|PTRACE_O_EXITKILL)<0)return 98;\n    while(1){\n        if(ptrace(PTRACE_SYSCALL,child,0,deliver)<0)return 99;deliver=0;\n        if(waitpid(child,&status,0)<0){if(errno==EINTR)continue;return 100;}\n        if(WIFEXITED(status)||WIFSIGNALED(status))break;\n        int sig=WSTOPSIG(status);if(sig!=(SIGTRAP|0x80)){if(sig!=SIGTRAP&&sig!=SIGSTOP)deliver=sig;continue;}\n        struct user_regs_struct regs;if(ptrace(PTRACE_GETREGS,child,0,&regs)<0)return 101;\n        if(entering){\n            request=0;\n            if(regs.orig_rax==SYS_ioctl&&regs.rdi==1&&regs.rsi==0x5603){request=1;seen_vt=1;}\n            if(regs.orig_rax==SYS_ioctl&&regs.rdi==0&&regs.rsi==0x541c){errno=0;long value=ptrace(PTRACE_PEEKDATA,child,regs.rdx,0);if(!errno&&(value&0xff)==6){request=2;seen_mod=1;}}\n            if(request){pointer=regs.rdx;regs.orig_rax=-1UL;if(ptrace(PTRACE_SETREGS,child,0,&regs)<0)return 102;}\n        }else if(request){\n            if(request==1){if(nonvt)regs.rax=-ENOTTY;else{poke(child,pointer,1,0xffffffffffffUL);regs.rax=0;}}\n            else if(fail)regs.rax=-EIO;\n            else{poke(child,pointer,bits,0xff);regs.rax=0;}\n            if(ptrace(PTRACE_SETREGS,child,0,&regs)<0)return 103;\n        }\n        entering=!entering;\n    }\n    char output[8192];snprintf(output,sizeof(output),\"%s/home/ioctl-model.json\",root);FILE *log=fopen(output,\"w\");if(!log)return 104;\n    fprintf(log,\"{\\\"model\\\":\\\"%s\\\",\\\"getstate_seen\\\":%s,\\\"modifiers_seen\\\":%s}\\n\",mode,seen_vt?\"true\":\"false\",seen_mod?\"true\":\"false\");fclose(log);\n    if(WIFSIGNALED(status)){signal(WTERMSIG(status),SIG_DFL);raise(WTERMSIG(status));}\n    return WIFEXITED(status)?WEXITSTATUS(status):105;\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "bin/ioctlwrap.c",
+    "output": "bin/ioctlwrap",
+    "shared": false
+   }
+  ],
+  "fault_supervisor": "bin/ioctlwrap",
+  "env": {
+   "NARO_FIXTURE_ROOT": "$FX",
+   "NARO_IOCTL_MODEL": "ctrlshift"
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "end"
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "snapshot": "home"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/ioctl-model.json": {
+     "type": "file",
+     "b64": "eyJtb2RlbCI6ImN0cmxzaGlmdCIsImdldHN0YXRlX3NlZW4iOnRydWUsIm1vZGlmaWVyc19zZWVuIjp0cnVlfQo=",
+     "mode": "0o644"
+    },
+    "work/sample.txt": {
+     "type": "file",
+     "b64": "b25lIHR3bwpuZXh0Cg==",
+     "mode": "0o644"
+    }
+   },
+   "screen": [
+    {
+     "snapshot": "end",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "end",
+     "row": 0,
+     "equals": "  GNU nano 9.3                       sample.txt"
+    },
+    {
+     "snapshot": "end",
+     "row": 1,
+     "equals": "one two"
+    },
+    {
+     "snapshot": "end",
+     "row": 2,
+     "equals": "next"
+    },
+    {
+     "snapshot": "end",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 21,
+     "equals": "                                [ Read 2 lines ]"
+    },
+    {
+     "snapshot": "end",
+     "row": 22,
+     "equals": "^X Exit      ^O Write Out ^F Where Is  M-B Previous ^K Cut       ^C Location"
+    },
+    {
+     "snapshot": "end",
+     "row": 23,
+     "equals": "^L Refresh   ^R Read File ^\\ Replace   M-F Next     ^U Paste     ^- Go To Line"
+    },
+    {
+     "snapshot": "home",
+     "cursor": {
+      "x": 0,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "home",
+     "row": 0,
+     "equals": "  GNU nano 9.3                       sample.txt"
+    },
+    {
+     "snapshot": "home",
+     "row": 1,
+     "equals": "one two"
+    },
+    {
+     "snapshot": "home",
+     "row": 2,
+     "equals": "next"
+    },
+    {
+     "snapshot": "home",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 21,
+     "equals": "                                [ Read 2 lines ]"
+    },
+    {
+     "snapshot": "home",
+     "row": 22,
+     "equals": "^X Exit      ^O Write Out ^F Where Is  M-B Previous ^K Cut       ^C Location"
+    },
+    {
+     "snapshot": "home",
+     "row": 23,
+     "equals": "^L Refresh   ^R Read File ^\\ Replace   M-F Next     ^U Paste     ^- Go To Line"
+    }
+   ]
+  }
+ },
+ {
+  "id": "TEST-VT-IOCTL-TINY-ALT",
+  "args": [
+   "sample.txt"
+  ],
+  "files": {
+   "work/sample.txt": {
+    "text": "one two\nnext\n"
+   },
+   "bin/ioctlwrap.c": {
+    "text": "/* Fixture-only ptrace ioctl model. Reference 6ed285c3ec7a1d228def4d4e7021c6ba269f620c. */\n#define _GNU_SOURCE\n#include <sys/ptrace.h>\n#include <sys/wait.h>\n#include <sys/user.h>\n#include <sys/syscall.h>\n#include <signal.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n#include <errno.h>\nstatic void poke(pid_t pid,unsigned long addr,unsigned long value,unsigned long mask){\n    errno=0;unsigned long prior=ptrace(PTRACE_PEEKDATA,pid,addr,0);if(errno)_exit(93);\n    if(ptrace(PTRACE_POKEDATA,pid,addr,(prior&~mask)|(value&mask))<0)_exit(94);\n}\nint main(int argc,char **argv){\n    (void)argc;const char *root=getenv(\"NARO_FIXTURE_ROOT\"),*binary=getenv(\"NARO_FAULT_BINARY\"),*mode=getenv(\"NARO_IOCTL_MODEL\");char resolved[4096];\n    if(!root||!binary||!mode||!realpath(root,resolved)||strcmp(root,resolved)||!strstr(root,\"/TEST-VT-IOCTL-\")||strcmp(root+strlen(root)-3,\"/fx\"))return 90;\n    int nonvt=!strcmp(mode,\"nonvt\"),fail=!strcmp(mode,\"fail\"),bits=!strcmp(mode,\"shift\")?1:!strcmp(mode,\"ctrl\")?4:!strcmp(mode,\"ctrlshift\")?5:!strcmp(mode,\"alt\")?8:!strcmp(mode,\"shiftalt\")?9:0;\n    if(!nonvt&&!fail&&!bits)return 91;\n    pid_t child=fork();if(child<0)return 92;\n    if(!child){if(ptrace(PTRACE_TRACEME,0,0,0)<0)_exit(95);raise(SIGSTOP);execv(binary,argv);_exit(96);}\n    int status,entering=1,request=0,seen_vt=0,seen_mod=0,deliver=0;unsigned long pointer=0;\n    if(waitpid(child,&status,0)<0)return 97;\n    if(ptrace(PTRACE_SETOPTIONS,child,0,PTRACE_O_TRACESYSGOOD|PTRACE_O_EXITKILL)<0)return 98;\n    while(1){\n        if(ptrace(PTRACE_SYSCALL,child,0,deliver)<0)return 99;deliver=0;\n        if(waitpid(child,&status,0)<0){if(errno==EINTR)continue;return 100;}\n        if(WIFEXITED(status)||WIFSIGNALED(status))break;\n        int sig=WSTOPSIG(status);if(sig!=(SIGTRAP|0x80)){if(sig!=SIGTRAP&&sig!=SIGSTOP)deliver=sig;continue;}\n        struct user_regs_struct regs;if(ptrace(PTRACE_GETREGS,child,0,&regs)<0)return 101;\n        if(entering){\n            request=0;\n            if(regs.orig_rax==SYS_ioctl&&regs.rdi==1&&regs.rsi==0x5603){request=1;seen_vt=1;}\n            if(regs.orig_rax==SYS_ioctl&&regs.rdi==0&&regs.rsi==0x541c){errno=0;long value=ptrace(PTRACE_PEEKDATA,child,regs.rdx,0);if(!errno&&(value&0xff)==6){request=2;seen_mod=1;}}\n            if(request){pointer=regs.rdx;regs.orig_rax=-1UL;if(ptrace(PTRACE_SETREGS,child,0,&regs)<0)return 102;}\n        }else if(request){\n            if(request==1){if(nonvt)regs.rax=-ENOTTY;else{poke(child,pointer,1,0xffffffffffffUL);regs.rax=0;}}\n            else if(fail)regs.rax=-EIO;\n            else{poke(child,pointer,bits,0xff);regs.rax=0;}\n            if(ptrace(PTRACE_SETREGS,child,0,&regs)<0)return 103;\n        }\n        entering=!entering;\n    }\n    char output[8192];snprintf(output,sizeof(output),\"%s/home/ioctl-model.json\",root);FILE *log=fopen(output,\"w\");if(!log)return 104;\n    fprintf(log,\"{\\\"model\\\":\\\"%s\\\",\\\"getstate_seen\\\":%s,\\\"modifiers_seen\\\":%s}\\n\",mode,seen_vt?\"true\":\"false\",seen_mod?\"true\":\"false\");fclose(log);\n    if(WIFSIGNALED(status)){signal(WTERMSIG(status),SIG_DFL);raise(WTERMSIG(status));}\n    return WIFEXITED(status)?WEXITSTATUS(status):105;\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "bin/ioctlwrap.c",
+    "output": "bin/ioctlwrap",
+    "shared": false
+   }
+  ],
+  "fault_supervisor": "bin/ioctlwrap",
+  "env": {
+   "NARO_FIXTURE_ROOT": "$FX",
+   "NARO_IOCTL_MODEL": "alt"
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "end"
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "snapshot": "home"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/ioctl-model.json": {
+     "type": "file",
+     "b64": "eyJtb2RlbCI6ImFsdCIsImdldHN0YXRlX3NlZW4iOnRydWUsIm1vZGlmaWVyc19zZWVuIjp0cnVlfQo=",
+     "mode": "0o644"
+    },
+    "work/sample.txt": {
+     "type": "file",
+     "b64": "b25lIHR3bwpuZXh0Cg==",
+     "mode": "0o644"
+    }
+   },
+   "screen": [
+    {
+     "snapshot": "end",
+     "cursor": {
+      "x": 7,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "end",
+     "row": 0,
+     "equals": "  GNU nano 9.3                       sample.txt"
+    },
+    {
+     "snapshot": "end",
+     "row": 1,
+     "equals": "one two"
+    },
+    {
+     "snapshot": "end",
+     "row": 2,
+     "equals": "next"
+    },
+    {
+     "snapshot": "end",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 21,
+     "equals": "                                [ Read 2 lines ]"
+    },
+    {
+     "snapshot": "end",
+     "row": 22,
+     "equals": "^X Exit      ^O Write Out ^F Where Is  M-B Previous ^K Cut       ^C Location"
+    },
+    {
+     "snapshot": "end",
+     "row": 23,
+     "equals": "^L Refresh   ^R Read File ^\\ Replace   M-F Next     ^U Paste     ^- Go To Line"
+    },
+    {
+     "snapshot": "home",
+     "cursor": {
+      "x": 0,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "home",
+     "row": 0,
+     "equals": "  GNU nano 9.3                       sample.txt"
+    },
+    {
+     "snapshot": "home",
+     "row": 1,
+     "equals": "one two"
+    },
+    {
+     "snapshot": "home",
+     "row": 2,
+     "equals": "next"
+    },
+    {
+     "snapshot": "home",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 21,
+     "equals": "                                [ Read 2 lines ]"
+    },
+    {
+     "snapshot": "home",
+     "row": 22,
+     "equals": "^X Exit      ^O Write Out ^F Where Is  M-B Previous ^K Cut       ^C Location"
+    },
+    {
+     "snapshot": "home",
+     "row": 23,
+     "equals": "^L Refresh   ^R Read File ^\\ Replace   M-F Next     ^U Paste     ^- Go To Line"
+    }
+   ]
+  }
+ },
+ {
+  "id": "TEST-VT-IOCTL-TINY-SHIFTALT",
+  "args": [
+   "sample.txt"
+  ],
+  "files": {
+   "work/sample.txt": {
+    "text": "one two\nnext\n"
+   },
+   "bin/ioctlwrap.c": {
+    "text": "/* Fixture-only ptrace ioctl model. Reference 6ed285c3ec7a1d228def4d4e7021c6ba269f620c. */\n#define _GNU_SOURCE\n#include <sys/ptrace.h>\n#include <sys/wait.h>\n#include <sys/user.h>\n#include <sys/syscall.h>\n#include <signal.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n#include <errno.h>\nstatic void poke(pid_t pid,unsigned long addr,unsigned long value,unsigned long mask){\n    errno=0;unsigned long prior=ptrace(PTRACE_PEEKDATA,pid,addr,0);if(errno)_exit(93);\n    if(ptrace(PTRACE_POKEDATA,pid,addr,(prior&~mask)|(value&mask))<0)_exit(94);\n}\nint main(int argc,char **argv){\n    (void)argc;const char *root=getenv(\"NARO_FIXTURE_ROOT\"),*binary=getenv(\"NARO_FAULT_BINARY\"),*mode=getenv(\"NARO_IOCTL_MODEL\");char resolved[4096];\n    if(!root||!binary||!mode||!realpath(root,resolved)||strcmp(root,resolved)||!strstr(root,\"/TEST-VT-IOCTL-\")||strcmp(root+strlen(root)-3,\"/fx\"))return 90;\n    int nonvt=!strcmp(mode,\"nonvt\"),fail=!strcmp(mode,\"fail\"),bits=!strcmp(mode,\"shift\")?1:!strcmp(mode,\"ctrl\")?4:!strcmp(mode,\"ctrlshift\")?5:!strcmp(mode,\"alt\")?8:!strcmp(mode,\"shiftalt\")?9:0;\n    if(!nonvt&&!fail&&!bits)return 91;\n    pid_t child=fork();if(child<0)return 92;\n    if(!child){if(ptrace(PTRACE_TRACEME,0,0,0)<0)_exit(95);raise(SIGSTOP);execv(binary,argv);_exit(96);}\n    int status,entering=1,request=0,seen_vt=0,seen_mod=0,deliver=0;unsigned long pointer=0;\n    if(waitpid(child,&status,0)<0)return 97;\n    if(ptrace(PTRACE_SETOPTIONS,child,0,PTRACE_O_TRACESYSGOOD|PTRACE_O_EXITKILL)<0)return 98;\n    while(1){\n        if(ptrace(PTRACE_SYSCALL,child,0,deliver)<0)return 99;deliver=0;\n        if(waitpid(child,&status,0)<0){if(errno==EINTR)continue;return 100;}\n        if(WIFEXITED(status)||WIFSIGNALED(status))break;\n        int sig=WSTOPSIG(status);if(sig!=(SIGTRAP|0x80)){if(sig!=SIGTRAP&&sig!=SIGSTOP)deliver=sig;continue;}\n        struct user_regs_struct regs;if(ptrace(PTRACE_GETREGS,child,0,&regs)<0)return 101;\n        if(entering){\n            request=0;\n            if(regs.orig_rax==SYS_ioctl&&regs.rdi==1&&regs.rsi==0x5603){request=1;seen_vt=1;}\n            if(regs.orig_rax==SYS_ioctl&&regs.rdi==0&&regs.rsi==0x541c){errno=0;long value=ptrace(PTRACE_PEEKDATA,child,regs.rdx,0);if(!errno&&(value&0xff)==6){request=2;seen_mod=1;}}\n            if(request){pointer=regs.rdx;regs.orig_rax=-1UL;if(ptrace(PTRACE_SETREGS,child,0,&regs)<0)return 102;}\n        }else if(request){\n            if(request==1){if(nonvt)regs.rax=-ENOTTY;else{poke(child,pointer,1,0xffffffffffffUL);regs.rax=0;}}\n            else if(fail)regs.rax=-EIO;\n            else{poke(child,pointer,bits,0xff);regs.rax=0;}\n            if(ptrace(PTRACE_SETREGS,child,0,&regs)<0)return 103;\n        }\n        entering=!entering;\n    }\n    char output[8192];snprintf(output,sizeof(output),\"%s/home/ioctl-model.json\",root);FILE *log=fopen(output,\"w\");if(!log)return 104;\n    fprintf(log,\"{\\\"model\\\":\\\"%s\\\",\\\"getstate_seen\\\":%s,\\\"modifiers_seen\\\":%s}\\n\",mode,seen_vt?\"true\":\"false\",seen_mod?\"true\":\"false\");fclose(log);\n    if(WIFSIGNALED(status)){signal(WTERMSIG(status),SIG_DFL);raise(WTERMSIG(status));}\n    return WIFEXITED(status)?WEXITSTATUS(status):105;\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "bin/ioctlwrap.c",
+    "output": "bin/ioctlwrap",
+    "shared": false
+   }
+  ],
+  "fault_supervisor": "bin/ioctlwrap",
+  "env": {
+   "NARO_FIXTURE_ROOT": "$FX",
+   "NARO_IOCTL_MODEL": "shiftalt"
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "end"
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "snapshot": "home"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/ioctl-model.json": {
+     "type": "file",
+     "b64": "eyJtb2RlbCI6InNoaWZ0YWx0IiwiZ2V0c3RhdGVfc2VlbiI6dHJ1ZSwibW9kaWZpZXJzX3NlZW4iOnRydWV9Cg==",
+     "mode": "0o644"
+    },
+    "work/sample.txt": {
+     "type": "file",
+     "b64": "b25lIHR3bwpuZXh0Cg==",
+     "mode": "0o644"
+    }
+   },
+   "screen": [
+    {
+     "snapshot": "end",
+     "cursor": {
+      "x": 7,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "end",
+     "row": 0,
+     "equals": "  GNU nano 9.3                       sample.txt"
+    },
+    {
+     "snapshot": "end",
+     "row": 1,
+     "equals": "one two"
+    },
+    {
+     "snapshot": "end",
+     "row": 2,
+     "equals": "next"
+    },
+    {
+     "snapshot": "end",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "end",
+     "row": 21,
+     "equals": "                                [ Read 2 lines ]"
+    },
+    {
+     "snapshot": "end",
+     "row": 22,
+     "equals": "^X Exit      ^O Write Out ^F Where Is  M-B Previous ^K Cut       ^C Location"
+    },
+    {
+     "snapshot": "end",
+     "row": 23,
+     "equals": "^L Refresh   ^R Read File ^\\ Replace   M-F Next     ^U Paste     ^- Go To Line"
+    },
+    {
+     "snapshot": "home",
+     "cursor": {
+      "x": 0,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "home",
+     "row": 0,
+     "equals": "  GNU nano 9.3                       sample.txt"
+    },
+    {
+     "snapshot": "home",
+     "row": 1,
+     "equals": "one two"
+    },
+    {
+     "snapshot": "home",
+     "row": 2,
+     "equals": "next"
+    },
+    {
+     "snapshot": "home",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "home",
+     "row": 21,
+     "equals": "                                [ Read 2 lines ]"
+    },
+    {
+     "snapshot": "home",
+     "row": 22,
+     "equals": "^X Exit      ^O Write Out ^F Where Is  M-B Previous ^K Cut       ^C Location"
+    },
+    {
+     "snapshot": "home",
+     "row": 23,
+     "equals": "^L Refresh   ^R Read File ^\\ Replace   M-F Next     ^U Paste     ^- Go To Line"
+    }
+   ]
+  }
+ },
+ {
+  "id": "TEST-VT-IOCTL-TINY-MACRO",
+  "args": [
+   "sample.txt"
+  ],
+  "files": {
+   "work/sample.txt": {
+    "text": "one two\nnext\n"
+   },
+   "bin/ioctlwrap.c": {
+    "text": "/* Fixture-only ptrace ioctl model. Reference 6ed285c3ec7a1d228def4d4e7021c6ba269f620c. */\n#define _GNU_SOURCE\n#include <sys/ptrace.h>\n#include <sys/wait.h>\n#include <sys/user.h>\n#include <sys/syscall.h>\n#include <signal.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n#include <errno.h>\nstatic void poke(pid_t pid,unsigned long addr,unsigned long value,unsigned long mask){\n    errno=0;unsigned long prior=ptrace(PTRACE_PEEKDATA,pid,addr,0);if(errno)_exit(93);\n    if(ptrace(PTRACE_POKEDATA,pid,addr,(prior&~mask)|(value&mask))<0)_exit(94);\n}\nint main(int argc,char **argv){\n    (void)argc;const char *root=getenv(\"NARO_FIXTURE_ROOT\"),*binary=getenv(\"NARO_FAULT_BINARY\"),*mode=getenv(\"NARO_IOCTL_MODEL\");char resolved[4096];\n    if(!root||!binary||!mode||!realpath(root,resolved)||strcmp(root,resolved)||!strstr(root,\"/TEST-VT-IOCTL-\")||strcmp(root+strlen(root)-3,\"/fx\"))return 90;\n    int nonvt=!strcmp(mode,\"nonvt\"),fail=!strcmp(mode,\"fail\"),bits=!strcmp(mode,\"shift\")?1:!strcmp(mode,\"ctrl\")?4:!strcmp(mode,\"ctrlshift\")?5:!strcmp(mode,\"alt\")?8:!strcmp(mode,\"shiftalt\")?9:0;\n    if(!nonvt&&!fail&&!bits)return 91;\n    pid_t child=fork();if(child<0)return 92;\n    if(!child){if(ptrace(PTRACE_TRACEME,0,0,0)<0)_exit(95);raise(SIGSTOP);execv(binary,argv);_exit(96);}\n    int status,entering=1,request=0,seen_vt=0,seen_mod=0,deliver=0;unsigned long pointer=0;\n    if(waitpid(child,&status,0)<0)return 97;\n    if(ptrace(PTRACE_SETOPTIONS,child,0,PTRACE_O_TRACESYSGOOD|PTRACE_O_EXITKILL)<0)return 98;\n    while(1){\n        if(ptrace(PTRACE_SYSCALL,child,0,deliver)<0)return 99;deliver=0;\n        if(waitpid(child,&status,0)<0){if(errno==EINTR)continue;return 100;}\n        if(WIFEXITED(status)||WIFSIGNALED(status))break;\n        int sig=WSTOPSIG(status);if(sig!=(SIGTRAP|0x80)){if(sig!=SIGTRAP&&sig!=SIGSTOP)deliver=sig;continue;}\n        struct user_regs_struct regs;if(ptrace(PTRACE_GETREGS,child,0,&regs)<0)return 101;\n        if(entering){\n            request=0;\n            if(regs.orig_rax==SYS_ioctl&&regs.rdi==1&&regs.rsi==0x5603){request=1;seen_vt=1;}\n            if(regs.orig_rax==SYS_ioctl&&regs.rdi==0&&regs.rsi==0x541c){errno=0;long value=ptrace(PTRACE_PEEKDATA,child,regs.rdx,0);if(!errno&&(value&0xff)==6){request=2;seen_mod=1;}}\n            if(request){pointer=regs.rdx;regs.orig_rax=-1UL;if(ptrace(PTRACE_SETREGS,child,0,&regs)<0)return 102;}\n        }else if(request){\n            if(request==1){if(nonvt)regs.rax=-ENOTTY;else{poke(child,pointer,1,0xffffffffffffUL);regs.rax=0;}}\n            else if(fail)regs.rax=-EIO;\n            else{poke(child,pointer,bits,0xff);regs.rax=0;}\n            if(ptrace(PTRACE_SETREGS,child,0,&regs)<0)return 103;\n        }\n        entering=!entering;\n    }\n    char output[8192];snprintf(output,sizeof(output),\"%s/home/ioctl-model.json\",root);FILE *log=fopen(output,\"w\");if(!log)return 104;\n    fprintf(log,\"{\\\"model\\\":\\\"%s\\\",\\\"getstate_seen\\\":%s,\\\"modifiers_seen\\\":%s}\\n\",mode,seen_vt?\"true\":\"false\",seen_mod?\"true\":\"false\");fclose(log);\n    if(WIFSIGNALED(status)){signal(WTERMSIG(status),SIG_DFL);raise(WTERMSIG(status));}\n    return WIFEXITED(status)?WEXITSTATUS(status):105;\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "bin/ioctlwrap.c",
+    "output": "bin/ioctlwrap",
+    "shared": false
+   }
+  ],
+  "fault_supervisor": "bin/ioctlwrap",
+  "env": {
+   "NARO_FIXTURE_ROOT": "$FX",
+   "NARO_IOCTL_MODEL": "ctrl"
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "M-:"
+    ]
+   },
+   {
+    "settle": 100
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "settle": 100
+   },
+   {
+    "keys": [
+     "M-:"
+    ]
+   },
+   {
+    "settle": 100
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "settle": 100
+   },
+   {
+    "keys": [
+     "M-;"
+    ]
+   },
+   {
+    "settle": 100
+   },
+   {
+    "snapshot": "replayed"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "home/ioctl-model.json": {
+     "type": "file",
+     "b64": "eyJtb2RlbCI6ImN0cmwiLCJnZXRzdGF0ZV9zZWVuIjp0cnVlLCJtb2RpZmllcnNfc2VlbiI6dHJ1ZX0K",
+     "mode": "0o644"
+    },
+    "work/sample.txt": {
+     "type": "file",
+     "b64": "b25lIHR3bwpuZXh0Cg==",
+     "mode": "0o644"
+    }
+   },
+   "screen": [
+    {
+     "snapshot": "replayed",
+     "cursor": {
+      "x": 0,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "replayed",
+     "row": 0,
+     "equals": "  GNU nano 9.3                       sample.txt"
+    },
+    {
+     "snapshot": "replayed",
+     "row": 1,
+     "equals": "one two"
+    },
+    {
+     "snapshot": "replayed",
+     "row": 2,
+     "equals": "next"
+    },
+    {
+     "snapshot": "replayed",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "replayed",
+     "row": 21,
+     "equals": "                              [ Unbound key: M-; ]"
+    },
+    {
+     "snapshot": "replayed",
+     "row": 22,
+     "equals": "^X Exit      ^O Write Out ^F Where Is  M-B Previous ^K Cut       ^C Location"
+    },
+    {
+     "snapshot": "replayed",
+     "row": 23,
+     "equals": "^L Refresh   ^R Read File ^\\ Replace   M-F Next     ^U Paste     ^- Go To Line"
+    }
+   ]
+  }
+ }
+]

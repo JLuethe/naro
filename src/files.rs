@@ -30,6 +30,7 @@ pub fn inside(c: &Config, p: &Path) -> bool {
         .unwrap_or(true)
 }
 pub fn parse(raw: &[u8], convert: bool) -> (Vec<Vec<u8>>, bool, usize) {
+    let convert = convert && !cfg!(feature = "tiny");
     let mut lines = Vec::new();
     let mut dos = false;
     let mut n = 0;
@@ -93,6 +94,13 @@ pub fn open(c: &Config, name: &[u8], noread: bool) -> Result<(Buffer, String, i3
     }
     if stat.is_none() && name.ends_with(b"/") {
         return Err(format!("'{display}' is an invalid filename"));
+    }
+    if cfg!(feature = "tiny")
+        && stat
+            .as_ref()
+            .is_some_and(|s| s.mode() & 0o170000 == 0o010000)
+    {
+        return Err(format!("'{display}' is a FIFO"));
     }
     let mut b = Buffer::new(name.to_vec(), vec![Vec::new()]);
     b.stat = stat;
@@ -383,6 +391,7 @@ impl Drop for ToolFile {
         let _ = fs::remove_file(&self.path);
     }
 }
+#[cfg(not(feature = "tiny"))]
 pub fn temp(c: &Config, b: &Buffer, selection: bool) -> Result<ToolFile, String> {
     let dir = std::env::var_os("TMPDIR")
         .map(PathBuf::from)

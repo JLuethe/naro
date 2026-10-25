@@ -4,6 +4,16 @@ Reference commit: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`
 
 This file lets a later session resume without the earlier conversation.
 
+## Active tiny implementation (2026-10-25)
+
+User requested continued work on unfinished items. Doc 22 now specifies the
+optional compile-time tiny profile; implementation and fresh oracle fixtures
+are in progress. The older default closure below remains historical evidence.
+Tiny target directory: `target/tiny`; use `cargo build --release --features tiny
+--target-dir target/tiny`. Compare only with `~/src/nano-install/tiny/bin/nano`.
+Do not claim qualification until `data/tiny-tests.csv` is verified. Physical
+operator certification remains deferred. No automatic model restart is installed.
+
 ## Latest closure checkpoint (2026-10-24)
 
 The implementation, full host/Ubuntu regression and portable package qualification

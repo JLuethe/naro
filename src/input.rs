@@ -87,7 +87,7 @@ impl Input {
                     self.esc = 0;
                     if code == 9 {
                         key.code = 0x45f;
-                    } else if matches!(code, 8 | 127 | 263) {
+                    } else if !cfg!(feature = "tiny") && matches!(code, 8 | 127 | 263) {
                         key.code = 0x41d;
                     } else if !(32..=126).contains(&code) {
                         if code < 32 && !self.last_alone {
@@ -241,6 +241,7 @@ impl Input {
             return Event::Key(key);
         }
     }
+    #[cfg(not(feature = "tiny"))]
     fn sequence(&mut self, prefix: i32) -> Key {
         let mut seq = Vec::new();
         while let Some(&b) = self.queue.front() {
@@ -390,6 +391,105 @@ impl Input {
             self.queue.clear();
         }
         key
+    }
+    /// The tiny parser consumes only the bytes recognized by its smaller
+    /// source table. In particular, unknown 200~/201~ leaves its last two
+    /// bytes as ordinary input; it never enters bracketed-paste mode.
+    #[cfg(feature = "tiny")]
+    fn sequence(&mut self, prefix: i32) -> Key {
+        let seq: Vec<i32> = self.queue.iter().copied().collect();
+        let get = |i: usize| seq.get(i).copied().unwrap_or(-1);
+        let n = seq.len();
+        let mut consumed = 1;
+        let mut code = 0x4fc;
+        let arrow = |c| match c {
+            65 => 259,
+            66 => 258,
+            67 => 261,
+            _ => 260,
+        };
+        if prefix == 79 {
+            match get(0) {
+                49 if n > 3 && get(1) == 59 => consumed = 4,
+                50..=56 if n > 1 => {
+                    consumed = 2;
+                    if get(0) != 52 && get(0) <= 53 {
+                        code = get(1) - 64;
+                    }
+                }
+                65..=68 => code = arrow(get(0)),
+                80..=83 => code = 265 + get(0) - 80,
+                _ => {}
+            }
+        } else {
+            if get(0) < 57 && n > 1 {
+                consumed = 2;
+            }
+            match get(0) {
+                49 | 50 => {
+                    if n > 1 && get(1) == 126 {
+                        code = if get(0) == 49 { 262 } else { 331 };
+                    } else if n > 2 && get(2) == 126 {
+                        consumed = 3;
+                        code = match (get(0), get(1)) {
+                            (49, 53) => 269,
+                            (49, 55..=57) => 270 + get(1) - 55,
+                            (50, 48) => 273,
+                            (50, 49) => 274,
+                            (50, 51) => 275,
+                            (50, 52) => 276,
+                            _ => 0x4fc,
+                        };
+                    } else if n > 3 && get(1) == 59 && (get(0) == 49 || get(3) == 126) {
+                        consumed = 4;
+                    } else if n > 4 && get(2) == 59 && get(4) == 126 {
+                        consumed = 5;
+                    }
+                }
+                51 | 53 | 54 => {
+                    if n > 1 && get(1) == 126 {
+                        code = match get(0) {
+                            51 => 330,
+                            53 => 339,
+                            _ => 338,
+                        };
+                    } else if n > 3 && get(1) == 59 && get(3) == 126 {
+                        consumed = 4;
+                    }
+                }
+                52 if n > 1 && get(1) == 126 => code = 360,
+                55 | 56 if n > 1 => {
+                    code = match (get(0), get(1)) {
+                        (55, 126) => 262,
+                        (56, 126) => 360,
+                        (55, 36) => 0x455,
+                        (56, 36) => 0x456,
+                        (55, 94) => 0x405,
+                        (56, 94) => 0x406,
+                        _ => 0x4fc,
+                    }
+                }
+                57 => code = 330,
+                64 | 76 => code = 331,
+                65..=68 => code = arrow(get(0)),
+                70 | 89 => code = 360,
+                71 | 85 => code = 338,
+                72 => code = 262,
+                73 | 86 => code = 339,
+                90 => code = 0x45f,
+                91 if n > 1 => {
+                    consumed = 2;
+                    if (65..=69).contains(&get(1)) {
+                        code = 265 + get(1) - 65;
+                    }
+                }
+                _ => {}
+            }
+        }
+        for _ in 0..consumed.min(n) {
+            self.queue.pop_front();
+        }
+        Key::plain(code)
     }
     pub fn paste(&mut self) -> (Vec<u8>, bool) {
         let mut bytes = Vec::new();

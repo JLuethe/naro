@@ -4,8 +4,10 @@ import argparse
 import gettext
 import hashlib
 import json
+import os
 from pathlib import Path
 import sys
+import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'spec/tools'))
@@ -17,6 +19,8 @@ p.add_argument('--out', type=Path, required=True)
 a = p.parse_args()
 a.out.mkdir(parents=True, exist_ok=False)
 binary = a.prefix / 'bin/naro'
+build = json.loads(subprocess.check_output([str(binary.resolve())], env={**os.environ, 'NARO_BUILD_INFO':'1'}, text=True))
+tiny = 'tiny' in build['features'].split(',')
 results = {}
 for catalog in sorted((a.prefix / 'share/naro/locale').glob('*/LC_MESSAGES/nano.mo')):
     with catalog.open('rb') as stream:
@@ -53,9 +57,10 @@ scenario = dict(id=tid, args=['sample.c'], files={'home/.nanorc': {'text': f'inc
                  'work/sample.c': {'text': 'int main(void) { return 0; }\n'}},
                 steps=[{'wait': {'text': 'Read 1 line'}}, {'snapshot': 'syntax'},
                        {'keys': ['^X']}, {'wait_exit': 5}],
-                expect={'exit_status': 0, 'screen': [{'snapshot': 'syntax', 'attr_at': [1, 0, 'fg=2']}]})
+                expect={'exit_status': 0, 'screen': [{'snapshot': 'syntax', 'attr_at': [1, 0, '' if tiny else 'fg=2']}]})
 result = h.Run(scenario, str(binary), str(a.out / tid)).execute()
-results['syntax'] = {'pass': result['steps_ok'] and all(c['pass'] for c in result['checks'])}
+results['syntax'] = {'pass': result['steps_ok'] and all(c['pass'] for c in result['checks']) and (not tiny or not syntax.exists()),
+                     'behavior': 'nanorc ignored, no syntax installed' if tiny else 'installed syntax applied'}
 
 (a.out / 'report.json').write_text(json.dumps({'binary_sha256': hashlib.sha256(binary.read_bytes()).hexdigest(),
     'catalogs': len(list((a.prefix / 'share/naro/locale').glob('*/LC_MESSAGES/nano.mo'))), 'results': results}, indent=2) + '\n')

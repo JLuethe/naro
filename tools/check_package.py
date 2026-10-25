@@ -87,7 +87,8 @@ if a.source_archive:
                  'RUSTUP_HOME':os.environ.get('RUSTUP_HOME',str(Path.home()/'.rustup')),
                  'CARGO_HOME':os.environ.get('CARGO_HOME',str(Path.home()/'.cargo'))}
     cargo = os.environ.get('CARGO', str(Path.home() / '.cargo/bin/cargo'))
-    result = subprocess.run([cargo, 'build', '--release', '--offline'], cwd=source,
+    feature_args = ['--features', manifest['compiled_build']['features']] if manifest['compiled_build']['features'] else []
+    result = subprocess.run([cargo, 'build', '--release', '--offline', *feature_args], cwd=source,
                             env=build_env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     (a.out / 'source-build.log').write_text(result.stdout)
     check('source-archive-build', result.returncode == 0)
@@ -95,6 +96,7 @@ if a.source_archive:
         rebuilt = fixture / 'work/rebuild/release/naro'
         info = json.loads(subprocess.check_output([str(rebuilt)],env={**env,'NARO_BUILD_INFO':'1'},text=True))
         check('rebuilt-source-fingerprint', info['source_sha256'] == manifest['compiled_build']['source_sha256'])
+        check('rebuilt-features', info['features'] == manifest['compiled_build']['features'])
 
 # A changed payload must be rejected before any prefix is written.
 tampered = fixture / 'tmp/tampered.tar'

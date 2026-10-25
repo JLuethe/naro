@@ -10,6 +10,7 @@ use crate::{
 };
 use std::{path::PathBuf, time::Instant};
 #[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "tiny", allow(dead_code))]
 pub enum PromptKind {
     Search(bool),
     ReplaceWith,
@@ -51,6 +52,7 @@ impl Prompt {
     }
 }
 #[derive(Debug)]
+#[cfg_attr(feature = "tiny", allow(dead_code))]
 pub enum QuestionKind {
     Exit,
     Different(Prompt),
@@ -68,6 +70,7 @@ pub struct Question {
     pub all: bool,
 }
 #[derive(Debug)]
+#[cfg_attr(feature = "tiny", allow(dead_code))]
 pub struct HelpState {
     pub previous: Box<Mode>,
     pub title: String,
@@ -80,6 +83,7 @@ pub struct HelpState {
     pub cursor_bottom: bool,
 }
 #[derive(Debug)]
+#[cfg_attr(feature = "tiny", allow(dead_code))]
 pub struct BrowserState {
     pub previous: Prompt,
     pub dir: PathBuf,
@@ -90,12 +94,14 @@ pub struct BrowserState {
     pub footer_cursor: bool,
 }
 #[derive(Debug)]
+#[cfg_attr(feature = "tiny", allow(dead_code))]
 pub struct LintState {
     pub entries: Vec<(Vec<u8>, usize, usize, String)>,
     pub index: usize,
     pub original_nohelp: bool,
 }
 #[derive(Debug, Default)]
+#[cfg_attr(feature = "tiny", allow(dead_code))]
 pub enum Mode {
     #[default]
     Edit,
@@ -113,6 +119,7 @@ pub struct Message {
     pub ellipsis: bool,
     pub time: Instant,
 }
+#[cfg_attr(feature = "tiny", allow(dead_code))]
 pub struct Spelling {
     pub _temp: files::ToolFile,
     pub region: Option<(usize, usize)>,
@@ -161,6 +168,7 @@ pub struct Editor {
     pub search: Vec<u8>,
     pub histories: [Vec<Vec<u8>>; 3],
     pub history_changed: bool,
+    #[cfg(not(feature = "tiny"))]
     pub state_dir: Option<PathBuf>,
     pub replacement: Option<Replacement>,
     pub spelling: Option<Spelling>,
@@ -172,12 +180,16 @@ pub struct Editor {
     pub fatal: Option<String>,
     pub cycle: usize,
     pub give_hint: bool,
+    #[cfg(not(feature = "tiny"))]
     pub completion_fragment: Vec<u8>,
+    #[cfg(not(feature = "tiny"))]
     pub completion_tried: Vec<Vec<u8>>,
+    #[cfg(not(feature = "tiny"))]
     pub completion_start: Pos,
     pub browser_saved: Option<BrowserState>,
     pub help_saved: Option<HelpState>,
     pub tool_answer: Vec<u8>,
+    #[cfg(not(feature = "tiny"))]
     pub position_entries: Vec<Vec<u8>>,
 }
 impl Editor {
@@ -205,6 +217,7 @@ impl Editor {
             search: Vec::new(),
             histories: Default::default(),
             history_changed: false,
+            #[cfg(not(feature = "tiny"))]
             state_dir: None,
             replacement: None,
             spelling: None,
@@ -216,12 +229,16 @@ impl Editor {
             fatal: None,
             cycle: 0,
             give_hint: true,
+            #[cfg(not(feature = "tiny"))]
             completion_fragment: Vec::new(),
+            #[cfg(not(feature = "tiny"))]
             completion_tried: Vec::new(),
+            #[cfg(not(feature = "tiny"))]
             completion_start: Pos::default(),
             browser_saved: None,
             help_saved: None,
             tool_answer: Vec::new(),
+            #[cfg(not(feature = "tiny"))]
             position_entries: Vec::new(),
         }
     }
@@ -314,6 +331,11 @@ impl Editor {
         let mut pending: Option<Vec<u8>> = None;
         let mut first_msg: Option<Option<Message>> = None;
         for (i, word) in args.iter().enumerate() {
+            if cfg!(feature = "tiny") && !self.buffers.is_empty() {
+                self.fatal = Some("Can open just one file\n".into());
+                self.exit = Some(1);
+                break;
+            }
             if word.starts_with(b"+") && i + 1 < args.len() {
                 pending = Some(word[1..].to_vec());
                 continue;
@@ -347,7 +369,7 @@ impl Editor {
                     position = None;
                 }
             }
-            if name == b"-" {
+            if !cfg!(feature = "tiny") && name == b"-" {
                 let mut data = Vec::new();
                 use std::io::Read;
                 let _ = std::io::stdin().read_to_end(&mut data);
@@ -415,7 +437,8 @@ impl Editor {
         {
             self.message = None;
         }
-        if self.b().name.is_empty()
+        if !cfg!(feature = "tiny")
+            && self.b().name.is_empty()
             && self.b().raw().is_empty()
             && self.action_level < 5
             && unsafe { native::nr_rows() } > 1
@@ -842,7 +865,7 @@ impl Editor {
                 | "to_top_row"
                 | "to_bottom_row"
         );
-        if movement {
+        if movement && !cfg!(feature = "tiny") {
             if key.shift && self.b().state.mark.is_none() {
                 let p = self.b().pos();
                 self.bm().state.mark = Some(p);
@@ -1265,9 +1288,9 @@ impl Editor {
     pub fn unbound(&mut self, k: &Key) {
         let msg = if k.code == 0x4fc {
             "Unknown sequence".into()
-        } else if (265..=288).contains(&k.code) {
+        } else if !cfg!(feature = "tiny") && (265..=288).contains(&k.code) {
             format!("Unbound key: F{}", k.code - 264)
-        } else if k.meta && k.code < 32 {
+        } else if !cfg!(feature = "tiny") && k.meta && k.code < 32 {
             format!("Unbindable key: M-^{}", (k.code + 64) as u8 as char)
         } else if k.meta && (65..=90).contains(&k.code) {
             format!("Unbound key: Sh-M-{}", k.code as u8 as char)

@@ -64,3 +64,10 @@ with separate audit counts and evidence-linked statuses. See
 physical VT checks and optional tiny remain deferred. Doc 20 adds verified
 namespace-root cases and a console readiness/operator protocol. The original
 248 requirements and baseline observations remain separate historical evidence.
+
+## Optional tiny phase
+
+[Doc 22](22-tiny-profile.md) specifies the separate Cargo `tiny` build and its
+fresh reference/CLI/terminal gates. This newly requested implementation follows
+the completed default closure; earlier tiny deferrals describe historical scope.
+Current results belong in [tiny validation](../validation/tiny/README.md).

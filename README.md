@@ -31,6 +31,19 @@ Cargo package dependencies. Installed translations resolve relative to the execu
 provides an explicit override. Development builds fall back to `assets/locale`.
 Syntax definitions in `assets/syntax` can be included from a nanorc file, as in nano.
 
+Build the optional tiny profile separately:
+
+```sh
+cargo build --release --features tiny --target-dir target/tiny
+./target/tiny/release/naro file.txt
+```
+
+Tiny retains basic editing, UTF-8, search/replace, POSIX regex and translations.
+It omits undo/redo, selections, nanorc/syntax, help viewer, browser, multiple
+buffers, histories, mouse and external tools. It requires ncursesw but does not
+require libmagic headers or libraries. See the [tiny specification](spec/22-tiny-profile.md)
+and [tiny validation](validation/tiny/README.md) for its measured scope.
+
 Basic controls: Ctrl+O saves, Ctrl+X exits, Ctrl+G opens help, Ctrl+W searches,
 Alt+U undoes, Alt+E redoes. Unsaved changes prompt before closing.
 
@@ -65,7 +78,7 @@ cover selection-aware spelling, failure recovery, additional environments and
 installation. See [INSTALL.md](INSTALL.md) for archives, user-level installation
 and removal.
 [Credits](CREDITS.md) acknowledge the upstream work and development assistance.
-Tiny mode remains optional future work. A default-off Cargo `credits` feature
+An optional `tiny` Cargo feature builds the reduced editor described below. A default-off Cargo `credits` feature
 enables a separately tested `naro --credits` command.
 
 

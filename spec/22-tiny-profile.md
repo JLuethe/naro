@@ -57,3 +57,25 @@ whose feature metadata agrees with the executable. Preserve prior artifacts.
 Acceptance is recorded in `data/tiny-tests.csv`. Tiny support is limited to the
 tested pinned profile, not arbitrary upstream configure feature combinations.
 The phase does not publish a release or claim physical-keyboard certification.
+
+## Observed tiny distinctions
+
+Fresh fixtures confirm that multiple file operands terminate with “Can open
+just one file”, `-` is a literal filename, CR bytes are not converted, and
+startup search syntax is treated as an invalid line/column. Empty startup has
+no help welcome message. Ordinary search has no spotlight; replacement still
+highlights its question target. Restricted help omits the `-R` description.
+
+Tiny's raw escape parser consumes fewer bytes for unsupported sequences. In
+particular, `ESC [ 200~` / `201~` are not paste delimiters; the trailing bytes
+remain input. These are recorded as exact bytes/screens, not normalized away.
+Ctrl terminfo/VT mappings remain, while several raw modified-key sequences do
+not. Eight separate ptrace ioctl models cover the modeled VT branch.
+
+At a Write prompt, Tab dispatches the buffer's tab-insertion operation because
+upstream tiny lacks TABCOMP's prompt handler. The filename answer is then
+submitted, potentially opening a different-name confirmation. That question
+retains the old edit-area display until refresh. At Search, Tab changes the
+buffer and leaves the prompt without searching. This observed source behavior
+is reproduced in `TEST-TINY-WRITE-TAB-DISPATCH` and `TEST-TINY-PROMPT-TAB`;
+these tests operate only on disposable fixture files.

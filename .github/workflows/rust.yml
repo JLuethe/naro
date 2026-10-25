@@ -23,6 +23,8 @@ jobs:
           printf '%s\n' "$RUNNER_TEMP/tmux/bin" >> "$GITHUB_PATH"
       - run: cargo fmt --check
       - run: cargo clippy --all-targets --all-features -- -D warnings
+      - run: cargo clippy --all-targets -- -D warnings
+      - run: cargo test
       - run: cargo test --all-features
       - run: cargo build --release
       - run: python3 spec/tools/audit_spec.py
@@ -37,6 +39,11 @@ jobs:
           python3 spec/tools/nanoharness.py tests/scenarios/safety.json --binary "$PWD/target/release/naro" --out target/ci-safety
       - name: Linux console ioctl models
         run: python3 spec/tools/nanoharness.py tests/follow-up/scenarios/vt-ioctl.json --binary "$PWD/target/release/naro" --out target/ci-vt-ioctl
+      - name: Optional tiny profile
+        run: |
+          cargo build --release --features tiny --target-dir target/tiny
+          python3 tools/check_tiny_ci.py --binary target/tiny/release/naro --out target/ci-tiny
+          python3 tools/measure_profiles.py --full target/release/naro --tiny target/tiny/release/naro --out target/ci-profile-sizes
       - name: Recovery and optional credits
         run: |
           cargo build --features test-hooks --target-dir target/hooks

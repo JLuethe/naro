@@ -143,6 +143,7 @@ impl Buffer {
             }
         })
     }
+    #[cfg(not(feature = "tiny"))]
     pub fn range_lines(&self) -> std::ops::RangeInclusive<usize> {
         let (a, b) = self.region().unwrap_or((self.pos(), self.pos()));
         let end = if b.line > a.line && b.x == 0 {
@@ -162,10 +163,22 @@ impl Buffer {
         self.state.anchors.resize(self.state.lines.len(), false);
     }
     pub fn begin(&self) -> State {
+        if cfg!(feature = "tiny") {
+            return State {
+                lines: Vec::new(),
+                pos: self.pos(),
+                mark: None,
+                anchors: Vec::new(),
+            };
+        }
         self.state.clone()
     }
     pub fn finish(&mut self, before: State, kind: &str, group: bool, nonew: bool) {
         self.magic(nonew);
+        if cfg!(feature = "tiny") {
+            self.modified = true;
+            return;
+        }
         self.history.truncate(self.hist);
         if self.saved.is_some_and(|s| s > self.hist) {
             self.saved = None;
@@ -196,6 +209,9 @@ impl Buffer {
         self.last_kind.clear();
     }
     pub fn undo(&mut self, redo: bool) -> Option<String> {
+        if cfg!(feature = "tiny") {
+            return None;
+        }
         let (index, state) = if redo {
             if self.hist >= self.history.len() {
                 return None;
@@ -349,8 +365,13 @@ impl Buffer {
         {
             if back {
                 self.state.pos = a;
+                let modified = self.modified;
                 self.finish(before, kind, false, nonew);
-                self.modified = self.saved != Some(self.hist - 1);
+                self.modified = if cfg!(feature = "tiny") {
+                    modified
+                } else {
+                    self.saved != Some(self.hist - 1)
+                };
                 return true;
             }
             return false;
@@ -494,6 +515,7 @@ impl Buffer {
 mod tests {
     use super::*;
     #[test]
+    #[cfg(not(feature = "tiny"))]
     fn byte_edits_saved_and_redo() {
         let mut b = Buffer::default();
         b.insert(b"a\0b", "addition", true, false);
@@ -513,6 +535,7 @@ mod tests {
         assert!(b.undo(true).is_none());
     }
     #[test]
+    #[cfg(not(feature = "tiny"))]
     fn backspace_and_delete_are_distinct_undo_groups() {
         let e = Encoding { utf8: true, tab: 8 };
         let mut b = Buffer::new(vec![], vec![b"abcdef".to_vec(), vec![]]);
@@ -525,6 +548,24 @@ mod tests {
         assert_eq!(b.raw(), b"adef\n");
         b.undo(false);
         assert_eq!(b.raw(), b"abcdef\n");
+    }
+    #[test]
+    #[cfg(feature = "tiny")]
+    fn tiny_edits_do_not_retain_buffer_snapshots() {
+        let mut b = Buffer::new(vec![], vec![vec![b'x'; 1 << 20], vec![]]);
+        for _ in 0..128 {
+            b.insert(b"a", "addition", false, false);
+        }
+        assert!(b.modified);
+        assert_eq!(b.raw().len(), (1 << 20) + 129);
+        assert!(b.history.is_empty());
+        assert_eq!(b.history.capacity(), 0);
+        assert!(b.begin().lines.is_empty());
+        b.saved();
+        assert!(!b.modified);
+        b.insert(b"z", "addition", false, false);
+        assert!(b.modified);
+        assert!(b.undo(false).is_none());
     }
     #[test]
     fn region_splice() {

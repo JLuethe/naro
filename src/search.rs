@@ -166,9 +166,10 @@ impl Editor {
             if startup || row < self.b().top || row >= self.b().top + l.edit_rows {
                 self.center();
             }
-            self.spotlight = Some((a.line, a.x, b.x));
-            self.spotlight_time = std::time::Instant::now();
-            self.spotlight_time = std::time::Instant::now();
+            if !cfg!(feature = "tiny") {
+                self.spotlight = Some((a.line, a.x, b.x));
+                self.spotlight_time = std::time::Instant::now();
+            }
             if !startup {
                 if a == p {
                     self.msg("This is the only occurrence", 2);

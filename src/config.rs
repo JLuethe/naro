@@ -76,7 +76,13 @@ pub struct Config {
 }
 impl Config {
     pub fn new(utf8: bool) -> Self {
-        let (keys, funcs) = keymap(if utf8 { "default-utf8" } else { "default-C" });
+        let (keys, funcs) = keymap(if cfg!(feature = "tiny") {
+            if utf8 { "tiny-utf8" } else { "tiny-C" }
+        } else if utf8 {
+            "default-utf8"
+        } else {
+            "default-C"
+        });
         Self {
             flags: 1 << NO_WRAP,
             cli_flags: 0,
@@ -101,6 +107,28 @@ impl Config {
         }
     }
     pub fn on(&self, f: usize) -> bool {
+        if cfg!(feature = "tiny")
+            && !matches!(
+                f,
+                NO_HELP
+                    | CONSTANT_SHOW
+                    | RESTRICTED
+                    | VIEW_MODE
+                    | SAVE_ON_EXIT
+                    | PRESERVE
+                    | REBIND_DELETE
+                    | RAW_SEQUENCES
+                    | MODERN_BINDINGS
+                    | QUICK_BLANK
+                    | BOLD_TEXT
+                    | CASE_SENSITIVE
+                    | USE_REGEXP
+                    | BACKWARDS_SEARCH
+                    | NO_WRAP
+            )
+        {
+            return false;
+        }
         self.flags & (1u64 << f) != 0
     }
     pub fn set(&mut self, f: usize, b: bool) {
@@ -120,6 +148,9 @@ impl Config {
         }
     }
     pub fn value(&self, k: &str) -> Vec<u8> {
+        if cfg!(feature = "tiny") {
+            return Vec::new();
+        }
         self.strings.get(k).cloned().unwrap_or_default()
     }
     pub fn style(&self, k: &str) -> Style {
@@ -205,11 +236,28 @@ impl Config {
             } else {
                 char::from_u32(c as u32).unwrap_or('\0')
             };
+            if cfg!(feature = "tiny") && !"DKRUVcdhptvx/1?".contains(ch) {
+                println!(
+                    "Type '{} -h' for a list of available options.",
+                    bytes::text(argv0)
+                );
+                return Ok(Some(1));
+            }
             match ch {
                 'h' => {
+                    if cfg!(feature = "tiny") && self.on(RESTRICTED) {
+                        for line in include_str!("../assets/help-tiny.txt").lines() {
+                            if !line.starts_with(" -R ") {
+                                println!("{line}");
+                            }
+                        }
+                        return Ok(Some(0));
+                    }
                     print!(
                         "{}",
-                        if self.on(RESTRICTED) {
+                        if cfg!(feature = "tiny") {
+                            include_str!("../assets/help-tiny.txt")
+                        } else if self.on(RESTRICTED) {
                             include_str!("../assets/help-restricted.txt")
                         } else {
                             include_str!("../assets/help.txt")
@@ -218,6 +266,12 @@ impl Config {
                     return Ok(Some(0));
                 }
                 'V' => {
+                    if cfg!(feature = "tiny") {
+                        println!(
+                            " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8"
+                        );
+                        return Ok(Some(0));
+                    }
                     println!(
                         " GNU nano, version 9.3\n (C) 2026 the Free Software Foundation and various contributors\n Compiled options: --enable-utf8"
                     );
@@ -350,7 +404,17 @@ impl Config {
             .collect();
         self.cli_flags = self.flags & !(1u64 << NO_WRAP);
         self.preserve_cli = self.on(PRESERVE);
-        let profile = if self.on(MODERN_BINDINGS) {
+        let profile = if cfg!(feature = "tiny") {
+            if self.on(MODERN_BINDINGS) {
+                "tiny-modern"
+            } else if self.on(RESTRICTED) {
+                "tiny-restricted"
+            } else if self.utf8 {
+                "tiny-utf8"
+            } else {
+                "tiny-C"
+            }
+        } else if self.on(MODERN_BINDINGS) {
             if std::env::var("TERM").unwrap_or_default() == "vt220" {
                 "default-modern-vt220"
             } else {
@@ -391,6 +455,9 @@ impl Config {
         Ok(None)
     }
     pub fn load_rc(&mut self) {
+        if cfg!(feature = "tiny") {
+            return;
+        }
         if self.ignore {
             return;
         }
@@ -426,6 +493,12 @@ impl Config {
         }
     }
     pub fn finish_startup(&mut self) -> Result<(), String> {
+        if cfg!(feature = "tiny") {
+            if self.on(MODERN_BINDINGS) {
+                self.set(PRESERVE, false);
+            }
+            return Ok(());
+        }
         let cli = self.cli_flags;
         let oldtab = self.tab;
         let oldfill = self.fill;
@@ -996,6 +1069,9 @@ impl Config {
         Ok(())
     }
     pub fn select_syntax(&self, name: &[u8], first: &[u8]) -> Option<usize> {
+        if cfg!(feature = "tiny") {
+            return None;
+        }
         if self.syntaxes.is_empty() || self.value("syntax") == b"none" {
             return None;
         }

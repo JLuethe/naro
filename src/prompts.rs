@@ -101,6 +101,33 @@ impl Editor {
         let frozen = self.conf.on(RESTRICTED)
             && matches!(p.kind, PromptKind::Write { .. })
             && !self.b().name.is_empty();
+        // Without TABCOMP and the full prompt-edit handlers, upstream tiny
+        // dispatches these shortcuts to the buffer and returns from the prompt.
+        // Write/Insert then use the answer; Search/Goto simply finish.
+        if cfg!(feature = "tiny")
+            && matches!(
+                fun,
+                "do_tab" | "copy_text" | "paste_text" | "to_prev_word" | "to_next_word"
+            )
+            && !(frozen && fun == "paste_text")
+        {
+            if self.conf.on(VIEW_MODE) && matches!(fun, "do_tab" | "paste_text") {
+                unsafe {
+                    native::nr_beep();
+                }
+                self.mode = Mode::Prompt(p);
+                return;
+            }
+            self.mode = Mode::Edit;
+            self.key(Key {
+                command: Some(fun.into()),
+                ..key
+            });
+            if matches!(p.kind, PromptKind::Write { .. } | PromptKind::Insert) {
+                self.submit(p);
+            }
+            return;
+        }
         let hist = match p.kind {
             PromptKind::Search(_) | PromptKind::BrowserSearch => Some(0),
             PromptKind::ReplaceWith => Some(1),
@@ -766,6 +793,9 @@ impl Editor {
         self.mode = Mode::Edit;
     }
     pub fn add_history(&mut self, h: usize, value: Vec<u8>) {
+        if cfg!(feature = "tiny") {
+            return;
+        }
         if value.is_empty() {
             return;
         }
@@ -777,6 +807,9 @@ impl Editor {
         self.history_changed = true;
     }
     pub fn filename_complete(&mut self, p: &mut Prompt) {
+        if cfg!(feature = "tiny") {
+            return;
+        }
         if p.x != p.answer.len() {
             unsafe {
                 native::nr_beep();
@@ -852,6 +885,10 @@ impl Editor {
         }
     }
     pub fn startup_position(&mut self, pos: &[u8]) {
+        if cfg!(feature = "tiny") {
+            self.goto(pos, true);
+            return;
+        }
         if pos.first().is_some_and(u8::is_ascii_alphabetic)
             || pos.starts_with(b"/")
             || pos.starts_with(b"?")

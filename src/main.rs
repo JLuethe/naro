@@ -1,13 +1,19 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 mod assets;
+mod basic_features;
 mod buffer;
 mod bytes;
 mod config;
 mod editor;
+#[cfg(not(feature = "tiny"))]
+mod features;
+#[cfg(feature = "tiny")]
+#[path = "tiny_features.rs"]
 mod features;
 mod files;
 #[rustfmt::skip]
 mod generated;
+#[cfg(not(feature = "tiny"))]
 mod help_data;
 mod input;
 mod native;

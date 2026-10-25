@@ -74,6 +74,7 @@ pub struct Binding {pub key:i32,pub menus:u32,pub func:String,pub tag:String,pub
 #[derive(Clone, Debug)]
 pub struct Function {pub func:String,pub menus:u32,pub tag:String,pub phrase:String,pub blank:bool}
 pub fn keymap(profile: &str) -> (Vec<Binding>,Vec<Function>) {match profile {
+#[cfg(not(feature = "tiny"))]
 "default-C" => (vec![
 Binding{key:13,menus:57087,func:"do_enter".into(),tag:"^M".into(),toggle:0,expansion:None},
 Binding{key:343,menus:57087,func:"do_enter".into(),tag:"Enter".into(),toggle:0,expansion:None},
@@ -393,6 +394,7 @@ Function{func:"to_next_block".into(),menus:1024,tag:"Bottom Row".into(),phrase:"
 Function{func:"do_page_up".into(),menus:16384,tag:"Previous Linter message".into(),phrase:"Go to previous linter msg".into(),blank:false},
 Function{func:"do_page_down".into(),menus:16384,tag:"Next Linter message".into(),phrase:"Go to next linter msg".into(),blank:false},
 ]),
+#[cfg(not(feature = "tiny"))]
 "default-modern-vt220" => (vec![
 Binding{key:13,menus:57087,func:"do_enter".into(),tag:"^M".into(),toggle:0,expansion:None},
 Binding{key:343,menus:57087,func:"do_enter".into(),tag:"Enter".into(),toggle:0,expansion:None},
@@ -713,6 +715,7 @@ Function{func:"to_next_block".into(),menus:1024,tag:"Bottom Row".into(),phrase:"
 Function{func:"do_page_up".into(),menus:16384,tag:"Previous Linter message".into(),phrase:"Go to previous linter msg".into(),blank:false},
 Function{func:"do_page_down".into(),menus:16384,tag:"Next Linter message".into(),phrase:"Go to next linter msg".into(),blank:false},
 ]),
+#[cfg(not(feature = "tiny"))]
 "default-modern" => (vec![
 Binding{key:13,menus:57087,func:"do_enter".into(),tag:"^M".into(),toggle:0,expansion:None},
 Binding{key:343,menus:57087,func:"do_enter".into(),tag:"Enter".into(),toggle:0,expansion:None},
@@ -1033,6 +1036,7 @@ Function{func:"to_next_block".into(),menus:1024,tag:"Bottom Row".into(),phrase:"
 Function{func:"do_page_up".into(),menus:16384,tag:"Previous Linter message".into(),phrase:"Go to previous linter msg".into(),blank:false},
 Function{func:"do_page_down".into(),menus:16384,tag:"Next Linter message".into(),phrase:"Go to next linter msg".into(),blank:false},
 ]),
+#[cfg(not(feature = "tiny"))]
 "default-preserve" => (vec![
 Binding{key:13,menus:57087,func:"do_enter".into(),tag:"^M".into(),toggle:0,expansion:None},
 Binding{key:343,menus:57087,func:"do_enter".into(),tag:"Enter".into(),toggle:0,expansion:None},
@@ -1348,6 +1352,7 @@ Function{func:"to_next_block".into(),menus:1024,tag:"Bottom Row".into(),phrase:"
 Function{func:"do_page_up".into(),menus:16384,tag:"Previous Linter message".into(),phrase:"Go to previous linter msg".into(),blank:false},
 Function{func:"do_page_down".into(),menus:16384,tag:"Next Linter message".into(),phrase:"Go to next linter msg".into(),blank:false},
 ]),
+#[cfg(not(feature = "tiny"))]
 "default-restricted" => (vec![
 Binding{key:13,menus:57087,func:"do_enter".into(),tag:"^M".into(),toggle:0,expansion:None},
 Binding{key:343,menus:57087,func:"do_enter".into(),tag:"Enter".into(),toggle:0,expansion:None},
@@ -1653,6 +1658,7 @@ Function{func:"to_next_block".into(),menus:1024,tag:"Bottom Row".into(),phrase:"
 Function{func:"do_page_up".into(),menus:16384,tag:"Previous Linter message".into(),phrase:"Go to previous linter msg".into(),blank:false},
 Function{func:"do_page_down".into(),menus:16384,tag:"Next Linter message".into(),phrase:"Go to next linter msg".into(),blank:false},
 ]),
+#[cfg(not(feature = "tiny"))]
 "default-rnano" => (vec![
 Binding{key:13,menus:57087,func:"do_enter".into(),tag:"^M".into(),toggle:0,expansion:None},
 Binding{key:343,menus:57087,func:"do_enter".into(),tag:"Enter".into(),toggle:0,expansion:None},
@@ -1958,6 +1964,7 @@ Function{func:"to_next_block".into(),menus:1024,tag:"Bottom Row".into(),phrase:"
 Function{func:"do_page_up".into(),menus:16384,tag:"Previous Linter message".into(),phrase:"Go to previous linter msg".into(),blank:false},
 Function{func:"do_page_down".into(),menus:16384,tag:"Next Linter message".into(),phrase:"Go to next linter msg".into(),blank:false},
 ]),
+#[cfg(not(feature = "tiny"))]
 "default-saveonexit" => (vec![
 Binding{key:13,menus:57087,func:"do_enter".into(),tag:"^M".into(),toggle:0,expansion:None},
 Binding{key:343,menus:57087,func:"do_enter".into(),tag:"Enter".into(),toggle:0,expansion:None},
@@ -2277,6 +2284,7 @@ Function{func:"to_next_block".into(),menus:1024,tag:"Bottom Row".into(),phrase:"
 Function{func:"do_page_up".into(),menus:16384,tag:"Previous Linter message".into(),phrase:"Go to previous linter msg".into(),blank:false},
 Function{func:"do_page_down".into(),menus:16384,tag:"Next Linter message".into(),phrase:"Go to next linter msg".into(),blank:false},
 ]),
+#[cfg(not(feature = "tiny"))]
 "default-utf8" => (vec![
 Binding{key:13,menus:57087,func:"do_enter".into(),tag:"^M".into(),toggle:0,expansion:None},
 Binding{key:343,menus:57087,func:"do_enter".into(),tag:"Enter".into(),toggle:0,expansion:None},
@@ -2596,6 +2604,7 @@ Function{func:"to_next_block".into(),menus:1024,tag:"Bottom Row".into(),phrase:"
 Function{func:"do_page_up".into(),menus:16384,tag:"Previous Linter message".into(),phrase:"Go to previous linter msg".into(),blank:false},
 Function{func:"do_page_down".into(),menus:16384,tag:"Next Linter message".into(),phrase:"Go to next linter msg".into(),blank:false},
 ]),
+#[cfg(not(feature = "tiny"))]
 "default-view" => (vec![
 Binding{key:13,menus:57087,func:"do_enter".into(),tag:"^M".into(),toggle:0,expansion:None},
 Binding{key:343,menus:57087,func:"do_enter".into(),tag:"Enter".into(),toggle:0,expansion:None},
@@ -2907,6 +2916,7 @@ Function{func:"to_next_block".into(),menus:1024,tag:"Bottom Row".into(),phrase:"
 Function{func:"do_page_up".into(),menus:16384,tag:"Previous Linter message".into(),phrase:"Go to previous linter msg".into(),blank:false},
 Function{func:"do_page_down".into(),menus:16384,tag:"Next Linter message".into(),phrase:"Go to next linter msg".into(),blank:false},
 ]),
+#[cfg(feature = "tiny")]
 "tiny-C" => (vec![
 Binding{key:13,menus:57087,func:"do_enter".into(),tag:"^M".into(),toggle:0,expansion:None},
 Binding{key:343,menus:57087,func:"do_enter".into(),tag:"Enter".into(),toggle:0,expansion:None},
@@ -3042,6 +3052,7 @@ Function{func:"do_search_backward".into(),menus:1,tag:"Where Was".into(),phrase:
 Function{func:"do_savefile".into(),menus:1,tag:"Save".into(),phrase:"".into(),blank:false},
 Function{func:"discard_buffer".into(),menus:32,tag:"Discard buffer".into(),phrase:"".into(),blank:false},
 ]),
+#[cfg(feature = "tiny")]
 "tiny-modern" => (vec![
 Binding{key:13,menus:57087,func:"do_enter".into(),tag:"^M".into(),toggle:0,expansion:None},
 Binding{key:343,menus:57087,func:"do_enter".into(),tag:"Enter".into(),toggle:0,expansion:None},
@@ -3175,6 +3186,7 @@ Function{func:"do_search_backward".into(),menus:1,tag:"Where Was".into(),phrase:
 Function{func:"do_savefile".into(),menus:1,tag:"Save".into(),phrase:"".into(),blank:false},
 Function{func:"discard_buffer".into(),menus:32,tag:"Discard buffer".into(),phrase:"".into(),blank:false},
 ]),
+#[cfg(feature = "tiny")]
 "tiny-restricted" => (vec![
 Binding{key:13,menus:57087,func:"do_enter".into(),tag:"^M".into(),toggle:0,expansion:None},
 Binding{key:343,menus:57087,func:"do_enter".into(),tag:"Enter".into(),toggle:0,expansion:None},
@@ -3310,6 +3322,7 @@ Function{func:"do_search_backward".into(),menus:1,tag:"Where Was".into(),phrase:
 Function{func:"do_savefile".into(),menus:1,tag:"Save".into(),phrase:"".into(),blank:false},
 Function{func:"discard_buffer".into(),menus:32,tag:"Discard buffer".into(),phrase:"".into(),blank:false},
 ]),
+#[cfg(feature = "tiny")]
 "tiny-utf8" => (vec![
 Binding{key:13,menus:57087,func:"do_enter".into(),tag:"^M".into(),toggle:0,expansion:None},
 Binding{key:343,menus:57087,func:"do_enter".into(),tag:"Enter".into(),toggle:0,expansion:None},
@@ -3445,7 +3458,7 @@ Function{func:"do_search_backward".into(),menus:1,tag:"Where Was".into(),phrase:
 Function{func:"do_savefile".into(),menus:1,tag:"Save".into(),phrase:"".into(),blank:false},
 Function{func:"discard_buffer".into(),menus:32,tag:"Discard buffer".into(),phrase:"".into(),blank:false},
 ]),
-_ => keymap("default-utf8"),}}
+_ => keymap(if cfg!(feature="tiny") {"tiny-utf8"} else {"default-utf8"}),}}
 pub const RC_OPTIONS: &[(&str,usize)] = &[
 ("boldtext",BOLD_TEXT),
 ("breaklonglines",BREAK_LONG_LINES),

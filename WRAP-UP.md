@@ -1,3 +1,9 @@
+The default closure below was completed. On 2026-10-25 the user requested
+continued implementation of unfinished work; optional tiny is now being
+qualified under [spec 22](spec/22-tiny-profile.md). Read
+[the current checkpoint](spec/98-progress.md) before resuming. No automatic
+restart around safety blocks is installed.
+
 # Naro wrap up plan
 
 Reviewed 2026-10-24. GNU nano reference commit:

@@ -53,5 +53,18 @@ path traversal, checksum mismatches and destination symlinks are rejected.
 
 The optional `credits` Cargo feature enables `naro --credits`. Default builds
 retain the existing nano-compatible CLI. The `test-hooks` feature is for isolated
-recovery tests and must never be included in distributed artifacts. Tiny remains
-an optional future profile.
+recovery tests and must never be included in distributed artifacts.
+
+For the reduced editor, build and package the same `tiny` feature:
+
+```sh
+cargo build --release --features tiny --target-dir target/tiny
+python3 tools/package.py --binary target/tiny/release/naro --features tiny --out target/package-tiny
+```
+
+Tiny needs Rust, a C compiler and ncursesw headers/library; libmagic is omitted.
+It installs translations and their sources but no syntax definitions or nanorc
+example. Configuration files are ignored. Use separate output directories for
+full and tiny packages; their archive names and installed executable name are
+the same. The manifest identifies the compiled features. Package checking
+rebuilds source with those exact features.

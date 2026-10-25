@@ -1,0 +1,2392 @@
+[
+ {
+  "id": "TEST-TINY-CLI-HELP",
+  "argv0": "nano",
+  "args": [
+   "--help"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-VERSION",
+  "argv0": "nano",
+  "args": [
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-BAD",
+  "argv0": "nano",
+  "args": [
+   "--not-an-option"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-MISSING",
+  "argv0": "nano",
+  "args": [
+   "-T"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-RESTRICTED-HELP",
+  "argv0": "rnano",
+  "args": [
+   "--help"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-65",
+  "argv0": "nano",
+  "args": [
+   "-A",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-66",
+  "argv0": "nano",
+  "args": [
+   "-B",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-67",
+  "argv0": "nano",
+  "args": [
+   "-C",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-68",
+  "argv0": "nano",
+  "args": [
+   "-D",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-69",
+  "argv0": "nano",
+  "args": [
+   "-E",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-70",
+  "argv0": "nano",
+  "args": [
+   "-F",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-71",
+  "argv0": "nano",
+  "args": [
+   "-G",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-72",
+  "argv0": "nano",
+  "args": [
+   "-H",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-73",
+  "argv0": "nano",
+  "args": [
+   "-I",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-74",
+  "argv0": "nano",
+  "args": [
+   "-J",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-75",
+  "argv0": "nano",
+  "args": [
+   "-K",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-76",
+  "argv0": "nano",
+  "args": [
+   "-L",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-77",
+  "argv0": "nano",
+  "args": [
+   "-M",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-78",
+  "argv0": "nano",
+  "args": [
+   "-N",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-79",
+  "argv0": "nano",
+  "args": [
+   "-O",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-80",
+  "argv0": "nano",
+  "args": [
+   "-P",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-81",
+  "argv0": "nano",
+  "args": [
+   "-Q",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-82",
+  "argv0": "nano",
+  "args": [
+   "-R",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-83",
+  "argv0": "nano",
+  "args": [
+   "-S",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-84",
+  "argv0": "nano",
+  "args": [
+   "-T",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-85",
+  "argv0": "nano",
+  "args": [
+   "-U",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-86",
+  "argv0": "nano",
+  "args": [
+   "-V",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-87",
+  "argv0": "nano",
+  "args": [
+   "-W",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-88",
+  "argv0": "nano",
+  "args": [
+   "-X",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-89",
+  "argv0": "nano",
+  "args": [
+   "-Y",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-90",
+  "argv0": "nano",
+  "args": [
+   "-Z",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-97",
+  "argv0": "nano",
+  "args": [
+   "-a",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-98",
+  "argv0": "nano",
+  "args": [
+   "-b",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-99",
+  "argv0": "nano",
+  "args": [
+   "-c",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-100",
+  "argv0": "nano",
+  "args": [
+   "-d",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-101",
+  "argv0": "nano",
+  "args": [
+   "-e",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-102",
+  "argv0": "nano",
+  "args": [
+   "-f",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-103",
+  "argv0": "nano",
+  "args": [
+   "-g",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-104",
+  "argv0": "nano",
+  "args": [
+   "-h",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-105",
+  "argv0": "nano",
+  "args": [
+   "-i",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-106",
+  "argv0": "nano",
+  "args": [
+   "-j",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-107",
+  "argv0": "nano",
+  "args": [
+   "-k",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-108",
+  "argv0": "nano",
+  "args": [
+   "-l",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-109",
+  "argv0": "nano",
+  "args": [
+   "-m",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-110",
+  "argv0": "nano",
+  "args": [
+   "-n",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-111",
+  "argv0": "nano",
+  "args": [
+   "-o",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-112",
+  "argv0": "nano",
+  "args": [
+   "-p",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-113",
+  "argv0": "nano",
+  "args": [
+   "-q",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-114",
+  "argv0": "nano",
+  "args": [
+   "-r",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-115",
+  "argv0": "nano",
+  "args": [
+   "-s",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-116",
+  "argv0": "nano",
+  "args": [
+   "-t",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-117",
+  "argv0": "nano",
+  "args": [
+   "-u",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-118",
+  "argv0": "nano",
+  "args": [
+   "-v",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-119",
+  "argv0": "nano",
+  "args": [
+   "-w",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-120",
+  "argv0": "nano",
+  "args": [
+   "-x",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-121",
+  "argv0": "nano",
+  "args": [
+   "-y",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-122",
+  "argv0": "nano",
+  "args": [
+   "-z",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-33",
+  "argv0": "nano",
+  "args": [
+   "-!",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-64",
+  "argv0": "nano",
+  "args": [
+   "-@",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-37",
+  "argv0": "nano",
+  "args": [
+   "-%",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-95",
+  "argv0": "nano",
+  "args": [
+   "-_",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-48",
+  "argv0": "nano",
+  "args": [
+   "-0",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-49",
+  "argv0": "nano",
+  "args": [
+   "-1",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-SHORT-47",
+  "argv0": "nano",
+  "args": [
+   "-/",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-boldtext",
+  "argv0": "nano",
+  "args": [
+   "--boldtext",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-multibuffer --newbuffer",
+  "argv0": "nano",
+  "args": [
+   "--multibuffer --newbuffer",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-multibuffer",
+  "argv0": "nano",
+  "args": [
+   "--multibuffer",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-ignorercfiles",
+  "argv0": "nano",
+  "args": [
+   "--ignorercfiles",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-rawsequences",
+  "argv0": "nano",
+  "args": [
+   "--rawsequences",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-trimblanks",
+  "argv0": "nano",
+  "args": [
+   "--trimblanks",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-quotestr",
+  "argv0": "nano",
+  "args": [
+   "--quotestr",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-restricted",
+  "argv0": "nano",
+  "args": [
+   "--restricted",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-quickblank",
+  "argv0": "nano",
+  "args": [
+   "--quickblank",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-version",
+  "argv0": "nano",
+  "args": [
+   "--version",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-syntax",
+  "argv0": "nano",
+  "args": [
+   "--syntax",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-breaklonglines",
+  "argv0": "nano",
+  "args": [
+   "--breaklonglines",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-constantshow",
+  "argv0": "nano",
+  "args": [
+   "--constantshow",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-rebinddelete",
+  "argv0": "nano",
+  "args": [
+   "--rebinddelete",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-rcfile",
+  "argv0": "nano",
+  "args": [
+   "--rcfile",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-showcursor",
+  "argv0": "nano",
+  "args": [
+   "--showcursor",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-help",
+  "argv0": "nano",
+  "args": [
+   "--help",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-linenumbers",
+  "argv0": "nano",
+  "args": [
+   "--linenumbers",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-mouse",
+  "argv0": "nano",
+  "args": [
+   "--mouse",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-operatingdir",
+  "argv0": "nano",
+  "args": [
+   "--operatingdir",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-preserve",
+  "argv0": "nano",
+  "args": [
+   "--preserve",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-fill",
+  "argv0": "nano",
+  "args": [
+   "--fill",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-speller",
+  "argv0": "nano",
+  "args": [
+   "--speller",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-saveonexit",
+  "argv0": "nano",
+  "args": [
+   "--saveonexit",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-view",
+  "argv0": "nano",
+  "args": [
+   "--view",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-nowrap",
+  "argv0": "nano",
+  "args": [
+   "--nowrap",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-nohelp",
+  "argv0": "nano",
+  "args": [
+   "--nohelp",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-listsyntaxes",
+  "argv0": "nano",
+  "args": [
+   "--listsyntaxes",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-modernbindings",
+  "argv0": "nano",
+  "args": [
+   "--modernbindings",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-smarthome",
+  "argv0": "nano",
+  "args": [
+   "--smarthome",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-backup",
+  "argv0": "nano",
+  "args": [
+   "--backup",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-backupdir",
+  "argv0": "nano",
+  "args": [
+   "--backupdir",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-tabstospaces",
+  "argv0": "nano",
+  "args": [
+   "--tabstospaces",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-locking",
+  "argv0": "nano",
+  "args": [
+   "--locking",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-historylog",
+  "argv0": "nano",
+  "args": [
+   "--historylog",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-guidestripe",
+  "argv0": "nano",
+  "args": [
+   "--guidestripe",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-nonewlines",
+  "argv0": "nano",
+  "args": [
+   "--nonewlines",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-noconvert",
+  "argv0": "nano",
+  "args": [
+   "--noconvert",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-bookstyle",
+  "argv0": "nano",
+  "args": [
+   "--bookstyle",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-positionlog",
+  "argv0": "nano",
+  "args": [
+   "--positionlog",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-softwrap",
+  "argv0": "nano",
+  "args": [
+   "--softwrap",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-tabsize",
+  "argv0": "nano",
+  "args": [
+   "--tabsize",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-wordbounds",
+  "argv0": "nano",
+  "args": [
+   "--wordbounds",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-wordchars",
+  "argv0": "nano",
+  "args": [
+   "--wordchars",
+   "8",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-zap",
+  "argv0": "nano",
+  "args": [
+   "--zap",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-atblanks",
+  "argv0": "nano",
+  "args": [
+   "--atblanks",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-emptyline",
+  "argv0": "nano",
+  "args": [
+   "--emptyline",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-autoindent",
+  "argv0": "nano",
+  "args": [
+   "--autoindent",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-jumpyscrolling",
+  "argv0": "nano",
+  "args": [
+   "--jumpyscrolling",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-cutfromcursor",
+  "argv0": "nano",
+  "args": [
+   "--cutfromcursor",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-noread",
+  "argv0": "nano",
+  "args": [
+   "--noread",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-indicator",
+  "argv0": "nano",
+  "args": [
+   "--indicator",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-unix",
+  "argv0": "nano",
+  "args": [
+   "--unix",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-afterends",
+  "argv0": "nano",
+  "args": [
+   "--afterends",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-whitespacedisplay",
+  "argv0": "nano",
+  "args": [
+   "--whitespacedisplay",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-colonparsing",
+  "argv0": "nano",
+  "args": [
+   "--colonparsing",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-stateflags",
+  "argv0": "nano",
+  "args": [
+   "--stateflags",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-minibar",
+  "argv0": "nano",
+  "args": [
+   "--minibar",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-zero",
+  "argv0": "nano",
+  "args": [
+   "--zero",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-solosidescroll",
+  "argv0": "nano",
+  "args": [
+   "--solosidescroll",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ },
+ {
+  "id": "TEST-TINY-CLI-LONG-magic",
+  "argv0": "nano",
+  "args": [
+   "--magic",
+   "--version"
+  ],
+  "stdin": "",
+  "stdout_redirect": true,
+  "hold_tty": true,
+  "steps": [
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 1
+  }
+ }
+]
