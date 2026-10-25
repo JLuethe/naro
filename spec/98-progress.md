@@ -3,7 +3,8 @@
 Reference commit: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`
 
 This file lets a later session resume without the earlier conversation.
-Latest wrap-up review (2026-10-24): read `../WRAP-UP.md` before resuming.
+Latest wrap-up review (2026-10-24): read `21-console-release-closure.md` and
+`../WRAP-UP.md` before resuming.
 It records the published revision, uncommitted console work, incomplete final
 validation, and ordered completion gates. Earlier checkpoints below describe
 their recorded binaries and do not certify these newer local changes.
@@ -13,8 +14,18 @@ disconnect/reconnect, verified install and editor-busy checks in
 `../spec/evidence/follow-up-runs/vt-transport-closure-v1/report.json`.
 Nine upload/boundary tests and six Rust tests pass; formatting and strict Clippy
 pass. Eight paired ioctl models now match in `vt-ioctl-closure-v1`.
-Next: freeze these tools, rebuild optimized binaries and run the full 19-case
-VM suite and host/Ubuntu closure regressions. No automatic model restart is
+Frozen code/tools checkpoint: `390a72dc63da0f0f5b6d516282033fb1c4d6adad`;
+GitHub CI passed. All 19 optimized host console cases match in
+`spec/evidence/follow-up-runs/vt-closure-host-v1` (repository-relative).
+Host binary: `283abffeda8ab42a6fe982ba54c355c459c7378632d50f8f132201fd76a2059d`.
+Ubuntu binary: `eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541`.
+The ongoing host qualification checkpoint is `target/host-closure-v1/checkpoint.json`;
+Ubuntu outputs are `target/ubuntu-closure-v1`, owned by rootless container
+`naro-ubuntu-closure-v1`. Inspect their actual state before starting replacements.
+The bounded disposable VM is under `/tmp/nanospec-work/TEST-VT-VM/fx`.
+Next: finish host/Ubuntu suites, run the full console suite on the Ubuntu binary,
+package that exact binary and collect evidence with `tools/collect_closure.py`.
+No automatic model restart is
 configured; a safety block must not trigger an automatic retry around it.
 When resuming, read in this order: `00-overview.md`,
 `00-reference-environment.md`, this file, `97-coverage.md`, and the relevant

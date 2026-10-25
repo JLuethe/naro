@@ -36,6 +36,7 @@ exhaustive branch coverage or successful implementation.
 | [18](18-bytes-encoding-and-coordinates.md) | Invalid bytes, NUL, widths, positions, classification |
 | [19](19-completion-and-release.md) | Follow-up: tool selections, edge cases, environment certification, packaging; optional tiny/credits proposal |
 | [20](20-root-and-console.md) | Effective-home resolution, isolated root/device checks, and physical-console protocol |
+| [21](21-console-release-closure.md) | Genuine guest console qualification, frozen regression builds, portable artifact and delivery gates |
 | [97](97-coverage.md) | Evidence coverage and explicit verification gaps |
 | [98](98-progress.md) | Work state and reproducible resume instructions |
 | [99](99-open-questions.md) | Decisions, defects and deliberate deviations |
