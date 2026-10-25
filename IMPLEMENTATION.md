@@ -42,8 +42,9 @@ fallback scenario, retaining file bytes, permissions and link checks.
 
 Five original terminal cases still involve host paths and are excluded; one
 requires optional tiny. Three new fixture absolute-path variants have fresh
-reference observations and are mapped individually. Real VT and isolated-root
-special-device/root-browser checks remain deferred. Root-account home precedence is now fixed and tested in private namespaces; broader root-account configuration,
+reference observations and are mapped individually. Physical keyboard/operator
+console checks remain deferred. Isolated-root special-device/root-browser checks
+and root-account home precedence are tested in private namespaces; broader root-account configuration,
 other architectures/OSes, static linking and translation quality are outside
 this certification. Byte-locale screens inherit tmux's UTF-8 capture limits.
 Tiny is unimplemented. Optional `credits` is implemented and default-off.
@@ -68,5 +69,14 @@ with genuine namespace uid/NSS/device observations, and a separate asserted
 no-home tilde recovery difference. Its ordinary regression retains 301/303 full
 matches, CLI 38/38 and regex 162/162. The prior release archives and two-environment
 reports identify earlier binaries; a new release requires refreshed artifact
-validation. The Linux VT probe/operator runner is implemented, while real-console
-modifier/rendering behavior remains unverified.
+validation. The newer [console qualification](validation/console-vm/README.md)
+records 19 exact comparisons on a genuine guest Linux VT for each optimized host
+and Ubuntu candidate. Modifiers, console rendering and raw-key macro replay are
+implemented. This uses emulated PS/2 keys, not physical operator observations.
+
+[Closure evidence](validation/closure/README.md) links final regression and
+package results to those executable hashes. Earlier tables above describe their
+historical phase. Current harness checks include 14 comparator, five harness,
+seven namespace and nine console/upload tests, plus six Rust tests. Optional
+tiny, physical-console operator certification and other platforms remain outside
+the preview scope. No release tag or hosted GitHub Release is created by testing.

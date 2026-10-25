@@ -3,6 +3,12 @@
 Reviewed 2026-10-24. GNU nano reference commit:
 `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`.
 
+Execution update: the initial snapshot below is historical. Its local changes
+were pushed, spec 21 was added, the upload issue was fixed, and all 19 console
+cases passed on both frozen optimized candidates. Current regression/package
+state is in `spec/98-progress.md` and `validation/closure/README.md`. Resume from
+those checkpoints rather than repeating the completed console investigation.
+
 Finish the current console compatibility and Ubuntu packaging work, then deliver
 one reproducible, tested preview with matching source, binary, evidence and GitHub
 revision. The editor and behavioral specification already exist. This plan closes

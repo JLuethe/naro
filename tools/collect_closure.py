@@ -6,7 +6,9 @@ ROOT=Path(__file__).resolve().parents[1]
 REF='6ed285c3ec7a1d228def4d4e7021c6ba269f620c'
 p=argparse.ArgumentParser()
 for name in ['host','ubuntu','vm-host','vm-ubuntu','transport','package','package-check','out']:p.add_argument('--'+name,type=Path,required=True)
-a=p.parse_args();a.out.mkdir(parents=True,exist_ok=False);checks=[]
+a=p.parse_args()
+if a.out.exists() and any(p.name!='README.md'for p in a.out.iterdir()):raise SystemExit('preserve evidence: output may contain only README.md before collection')
+a.out.mkdir(parents=True,exist_ok=True);checks=[]
 def read(path):return json.loads(path.read_text())
 def copy(path,name):
     value=read(path);(a.out/(name+'.json')).write_text(json.dumps(value,indent=2)+'\n');return value

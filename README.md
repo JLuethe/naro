@@ -76,6 +76,14 @@ and unchanged ordinary-user regression results. A separate no-home upstream
 crash has an asserted safe fallback. Physical Linux console verification remains
 deferred; readiness and explicit operator-trial tooling are available.
 
+Linux console modifiers, rendering and macro replay are implemented. Both the
+host and Ubuntu optimized candidates match all 19 cases on a genuine guest VT
+with emulated PS/2 keys; see [console evidence](validation/console-vm/README.md).
+Physical keyboard/operator testing remains separate. The
+[closure specification](spec/21-console-release-closure.md) defines final
+regression, packaging and delivery acceptance; [closure evidence](validation/closure/README.md)
+identifies the exact binaries and artifact provenance.
+
 Naro contributions are licensed under GPL-3.0-or-later. Upstream portions,
 assets and native dependencies retain their original license terms and notices.
 See [LICENSE](LICENSE), [NOTICE](NOTICE), [credits](CREDITS.md), and the original

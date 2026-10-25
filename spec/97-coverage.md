@@ -100,3 +100,14 @@ null-device and filesystem-root browser observations. See
 comparisons, one named source-crash recovery difference, and unchanged ordinary
 regression results. This does not certify general host-root privilege behavior
 or real Linux console input. Earlier reports retain their historical scope.
+
+## Console and delivery closure
+
+[Doc 21](21-console-release-closure.md) adds seven requirements and the
+[closure matrix](data/closure-tests.csv). The full guest-console suite has 19
+exact matches for each optimized host and Ubuntu candidate; transport and ioctl
+model evidence are separate. See [console evidence](../validation/console-vm/README.md).
+This closes the recorded guest-VT scope, while physical keyboard/operator rows
+remain deferred. Final cross-environment regression, artifact verification and
+delivery outcomes are linked from [closure evidence](../validation/closure/README.md).
+The audit now counts 248 baseline and 38 follow-up requirements, 286 total.

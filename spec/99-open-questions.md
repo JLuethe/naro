@@ -18,7 +18,7 @@ target; a recorded deviation must never be hidden by comparison normalization.
 | Q-ENV-001 | No separately installed nano | Remains an environmental limitation L-3; pinned default/tiny builds suffice. No system install needed. |
 | Q-ENV-002 | Reference built from export, empty revision.h | Resolved: target reference `GNU nano 9.3` branding for compatibility. Product README identifies Naro. |
 | Q-IN-001 | Terminfo/keypad timing | Resolved architecture: ncursesw; Rust decoder handles nano's additional sequences. |
-| Q-IN-002 / Q-KEY-003 | Linux VT modifier/ioctl paths | Open verification gap L-2, source-specified; needs a real VT. |
+| Q-IN-002 / Q-KEY-003 | Linux VT modifier/ioctl paths | Implemented and qualified on a genuine guest Linux VT with emulated PS/2 input: 19 exact cases on both optimized builds, plus separate ioctl models. See ../validation/console-vm/README.md. Physical keyboard/operator scope remains deferred under L-2. |
 | Q-IN-003 | Malformed CSI 2 consumes burst | Resolved: reproduce deterministic behavior. |
 | Q-KEY-001 | Arbitrary `{function}` in string binds can crash source | Resolved: inapplicable functions do nothing safely; broader combinations not exhaustively inventoried. |
 | Q-KEY-002 | Rc `preserve` leaves bindings present | Resolved: reproduce command-line/rc distinction. |
