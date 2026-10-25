@@ -1,0 +1,139 @@
+{
+  "candidate_sha256": "283abffeda8ab42a6fe982ba54c355c459c7378632d50f8f132201fd76a2059d",
+  "reference_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+  "cli": {
+    "CLI-P-001": {
+      "pass": true
+    },
+    "CLI-P-002": {
+      "pass": true
+    },
+    "CLI-P-003": {
+      "pass": true
+    },
+    "CLI-P-004": {
+      "pass": true
+    },
+    "CLI-P-005": {
+      "pass": true
+    },
+    "CLI-P-006": {
+      "pass": true
+    },
+    "CLI-P-009": {
+      "pass": true
+    },
+    "CLI-P-010": {
+      "pass": true
+    },
+    "CLI-P-011": {
+      "pass": true
+    },
+    "CLI-P-012": {
+      "pass": true
+    },
+    "CLI-P-013": {
+      "pass": true
+    },
+    "CLI-P-014": {
+      "pass": true
+    },
+    "CLI-P-015": {
+      "pass": true
+    },
+    "CLI-P-016": {
+      "pass": true
+    },
+    "CLI-P-017": {
+      "pass": true
+    },
+    "CLI-P-018": {
+      "pass": true
+    },
+    "CLI-P-019": {
+      "pass": true
+    },
+    "CLI-P-020": {
+      "pass": true
+    },
+    "CLI-P-021": {
+      "pass": true
+    },
+    "CLI-P-022": {
+      "pass": true
+    },
+    "CLI-P-023": {
+      "pass": true
+    },
+    "CLI-P-024": {
+      "pass": true
+    },
+    "CLI-P-025": {
+      "pass": true
+    },
+    "CLI-P-027": {
+      "pass": true
+    },
+    "CLI-P-028": {
+      "pass": true
+    },
+    "CLI-P-033": {
+      "pass": true
+    },
+    "CLI-P-034": {
+      "pass": true
+    },
+    "CLI-P-035": {
+      "pass": true
+    },
+    "CLI-P-036": {
+      "pass": true
+    },
+    "CLI-P-037": {
+      "pass": true
+    },
+    "CLI-P-038": {
+      "pass": true
+    },
+    "CLI-P-039": {
+      "pass": true
+    },
+    "CLI-P-040": {
+      "pass": true
+    },
+    "CLI-P-041": {
+      "pass": true
+    },
+    "CLI-P-042": {
+      "pass": true
+    },
+    "CLI-P-043": {
+      "pass": true
+    },
+    "CLI-P-044": {
+      "pass": true
+    },
+    "CLI-P-045": {
+      "pass": true
+    }
+  },
+  "regex": {
+    "C": {
+      "pass": true,
+      "cases": 81
+    },
+    "en_US.UTF-8": {
+      "pass": true,
+      "cases": 81
+    }
+  },
+  "safety": {
+    "TEST-NARO-REGEX-SAFE": {
+      "pass": true
+    },
+    "TEST-NARO-NUL-SAFE": {
+      "pass": true
+    }
+  },
+  "regex_probe_sha256": "0db627040e16556ec5870c54503f5c14109b4a8e4d30de5dc4c2f14bd5faab8a"
+}

@@ -1,0 +1,68 @@
+{
+  "environment": {
+    "system": "Linux-7.2.8-9-omarchy-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "libc": [
+      "glibc",
+      "2.39"
+    ],
+    "python": "3.12.3",
+    "tmux": "tmux 3.8",
+    "locale_inventory": "C\nC.utf8\nde_DE.utf8\nen_US.utf8\nfr_FR.utf8\nja_JP.utf8\nPOSIX",
+    "file": "file-5.45\nmagic file from /etc/magic:/usr/share/misc/magic",
+    "magic_databases": {
+      "/usr/lib/file/magic.mgc": "72a25195a2623fe160e926bf20952b6b74b29d6c91e0174a5fa062f02beee1aa"
+    },
+    "locpath": null
+  },
+  "build_flags": "default",
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "scenario_sha256": "cf91f4d26a53d3bc3206088fe35bb1db87f145aa60c319d9b9152498b56200e8",
+  "results": {
+    "TEST-NEXT-TOOL-003-SIGHUP": {
+      "match": false,
+      "declared_deviation": true,
+      "deviation_id": "Q-TOOL-001",
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": [
+        {
+          "field": "temp_files",
+          "reference": {
+            "entries": {
+              "nano.XXXXXX.txt": {
+                "type": "file",
+                "mode": "0o600",
+                "nlink": 1,
+                "data": "586f726967696e616c0a"
+              }
+            },
+            "hardlinks": []
+          },
+          "candidate": {
+            "entries": {},
+            "hardlinks": []
+          }
+        }
+      ]
+    }
+  },
+  "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+  "reference_status": 0,
+  "candidate_sha256": "eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541",
+  "candidate_status": 0,
+  "candidate_build": {
+    "version": "0.1.0",
+    "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+    "source_sha256": "1c4f398661b107b55699daa63f1fcf35c22971417d67cb1a944a54718c2f7a13",
+    "revision": "390a72dc63da0f0f5b6d516282033fb1c4d6adad",
+    "features": "",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "summary": {
+    "recorded": 1,
+    "matches": 0,
+    "accepted": 1
+  }
+}

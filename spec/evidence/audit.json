@@ -13,8 +13,8 @@
   "follow_up_tests": 58,
   "follow_up_statuses": {
     "deferred": 5,
-    "planned": 4,
-    "verified": 49
+    "recorded": 1,
+    "verified": 52
   },
   "scenarios": 309,
   "recorded": 309,

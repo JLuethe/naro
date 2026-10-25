@@ -5,9 +5,10 @@ Reviewed 2026-10-24. GNU nano reference commit:
 
 Execution update: the initial snapshot below is historical. Its local changes
 were pushed, spec 21 was added, the upload issue was fixed, and all 19 console
-cases passed on both frozen optimized candidates. Current regression/package
-state is in `spec/98-progress.md` and `validation/closure/README.md`. Resume from
-those checkpoints rather than repeating the completed console investigation.
+cases passed on both frozen optimized candidates. The final regression/package
+gate now passes all 85 checks. Delivery/CI state is in `spec/98-progress.md` and
+`validation/closure/README.md`. Resume from those checkpoints rather than
+repeating the completed implementation or qualification work.
 
 Finish the current console compatibility and Ubuntu packaging work, then deliver
 one reproducible, tested preview with matching source, binary, evidence and GitHub

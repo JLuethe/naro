@@ -3,10 +3,27 @@
 GNU reference: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`.
 Production source was frozen at `390a72dc63da0f0f5b6d516282033fb1c4d6adad`.
 
-This directory collects the final host/Ubuntu regression and packaging gate for
-spec 21. Until `gate.json` exists with `pass: true`, this directory is a
-qualification workspace, not a completed release certification. The executable
-fingerprint is independent of later documentation and evidence commits.
+The final host/Ubuntu regression and packaging gate for spec 21 passes all
+85 checks in `gate.json`. The executable fingerprint is independent of later
+documentation and evidence commits. GitHub delivery/CI is tracked separately.
+
+| Check | Result |
+| --- | --- |
+| Host and Ubuntu terminal corpus | Each 301/303 full, 302/303 file/exit matches; existing declared differences |
+| Follow-up suites | Each 51/53 exact; two declared cleanup differences |
+| CLI and regex | Each 38/38 and 162/162 |
+| Root/home namespace cases | 27 exact plus asserted no-home recovery deviation |
+| Guest VT | Each optimized candidate 19/19 exact |
+| Ioctl models | Each optimized candidate 8/8 exact |
+| Unit/harness checks | Rust 6, comparator 14, harness 5, namespace 7, console/upload 9 |
+| Recovery and extensions | Panic scenarios, safety assertions and optional credits pass |
+| Large files | Exact saved hashes for 1 MiB and 10 MiB |
+| Portable package | 15/15, including all 41 catalogs, syntax and offline source rebuild |
+
+Final local archives are in `target/closure-artifacts-v1/package/`. Packaging
+used a clean checkout at `3e3c221750076a6063852afe28643a8e172c41b1`; the compiled
+binary is from the frozen production revision above. `SHA256SUMS` records both
+archive hashes. These are scoped previews, not claims of exhaustive compatibility.
 
 The tested host executable SHA-256 is
 `283abffeda8ab42a6fe982ba54c355c459c7378632d50f8f132201fd76a2059d`.
@@ -26,7 +43,7 @@ successful process exit alone does not establish behavioral equivalence.
 the packaged executable and source archive; `ubuntu-package.json` records clean
 installation, all catalogs/syntax, offline source rebuild, archive rejection and
 ownership/removal checks. `SHA256SUMS` identifies the local binary/source archives.
-These files are added only when their source runs finish. Delivery/CI status is
+These files were collected after their source runs finished. Delivery/CI status is
 reported separately because a tested executable can predate documentation commits.
 
 Raw recordings remain in `target/host-closure-v1`, `target/ubuntu-closure-v1` and

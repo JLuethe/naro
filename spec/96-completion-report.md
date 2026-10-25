@@ -68,3 +68,14 @@ The console readiness checker and operator protocol are built, but the current
 PTY cannot provide physical-key/VT evidence, so two manual rows remain deferred.
 See [current root evidence](../validation/root-console/README.md). No host console
 or passwd configuration was changed, and no new release was published.
+
+
+## Console and preview closure (2026-10-24)
+
+Spec 21's implementation and final host/Ubuntu package qualification pass the
+85-check combined gate in `../validation/closure/gate.json`. Both optimized
+candidates pass all 19 genuine guest-VT cases, and the final Ubuntu archive
+passes all 15 package checks. The original corpus retains its existing declared
+differences. See `../validation/closure/README.md` for exact hashes, test counts,
+artifact locations and delivery status. Tiny and physical operator console
+certification remain deferred; no hosted release is published automatically.

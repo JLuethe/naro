@@ -3,33 +3,52 @@
 Reference commit: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`
 
 This file lets a later session resume without the earlier conversation.
-Latest wrap-up review (2026-10-24): read `21-console-release-closure.md` and
-`../WRAP-UP.md` before resuming.
-It records the published revision, uncommitted console work, incomplete final
-validation, and ordered completion gates. Earlier checkpoints below describe
-their recorded binaries and do not certify these newer local changes.
-Closure checkpoint: spec 21 and its seven-row acceptance matrix were pushed in
-`ab5a532`. The private VM chunked upload passed live incomplete/offset/digest,
-disconnect/reconnect, verified install and editor-busy checks in
-`../spec/evidence/follow-up-runs/vt-transport-closure-v1/report.json`.
-Nine upload/boundary tests and six Rust tests pass; formatting and strict Clippy
-pass. Eight paired ioctl models now match in `vt-ioctl-closure-v1`.
-Frozen code/tools checkpoint: `390a72dc63da0f0f5b6d516282033fb1c4d6adad`;
-GitHub CI passed. All 19 optimized host console cases match in
-`spec/evidence/follow-up-runs/vt-closure-host-v1` (repository-relative).
-Host binary: `283abffeda8ab42a6fe982ba54c355c459c7378632d50f8f132201fd76a2059d`.
-Ubuntu binary: `eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541`.
-The ongoing host qualification checkpoint is `target/host-closure-v1/checkpoint.json`;
-Ubuntu outputs are `target/ubuntu-closure-v1`, owned by rootless container
-`naro-ubuntu-closure-v1`. Inspect their actual state before starting replacements.
-The bounded disposable VM is under `/tmp/nanospec-work/TEST-VT-VM/fx`.
-Next: finish host/Ubuntu suites, run the full console suite on the Ubuntu binary,
-package that exact binary and collect evidence with `tools/collect_closure.py`.
-No automatic model restart is
-configured; a safety block must not trigger an automatic retry around it.
-When resuming, read in this order: `00-overview.md`,
-`00-reference-environment.md`, this file, `97-coverage.md`, and the relevant
-parts of `99-open-questions.md`.
+
+## Latest closure checkpoint (2026-10-24)
+
+The implementation, full host/Ubuntu regression and portable package qualification
+are complete. The combined gate in `../validation/closure/gate.json` passes all
+85 checks. Production code/tools were frozen at
+`390a72dc63da0f0f5b6d516282033fb1c4d6adad`; subsequent commits contain documentation,
+reproduction tools and evidence. The packaging checkout was clean at
+`3e3c221750076a6063852afe28643a8e172c41b1` (its GitHub CI passed).
+
+Host executable SHA-256:
+`283abffeda8ab42a6fe982ba54c355c459c7378632d50f8f132201fd76a2059d`.
+Ubuntu executable SHA-256:
+`eeb8ebb50fd3709aaa004897df3e589364e536a6a1eaf006ae3b8be5f6031541`.
+Shared production source fingerprint:
+`1c4f398661b107b55699daa63f1fcf35c22971417d67cb1a944a54718c2f7a13`.
+
+Both builds retain 301/303 full and 302/303 file-exit matches, CLI 38/38,
+regex 162/162, 51/53 exact follow-up matches plus two declared cleanup differences,
+and eight exact ioctl models. Both pass all 19 genuine guest-VT cases. Host
+root/home passes 27 exact cases plus the asserted no-home recovery deviation.
+Rust six, comparator 14, harness five, namespace seven and console/upload nine
+tests pass; formatting, Clippy, recovery, optional credits, large files and
+installed assets pass. The portable package passes all 15 installation/source/
+clean-container/ownership checks. No new production discrepancy remains.
+
+Raw host checkpoint: `target/host-closure-v1/checkpoint.json` (state complete).
+Ubuntu run: `target/ubuntu-closure-v1/complete`. Final portable binary and source
+archives: `target/closure-artifacts-v1/package/`, with `SHA256SUMS` and `build.json`.
+These paths are relative to `~/Code/naro`; large artifacts stay local.
+Console evidence: `spec/evidence/follow-up-runs/vt-closure-{host,ubuntu}-v1`.
+The disposable VM was shut down; the Ubuntu run exited and removed its container.
+No validation job or automatic model restart remains active.
+
+Next delivery action: commit/push the consolidated evidence, mirror the spec,
+and check final GitHub CI. Record that delivery receipt before marking the last
+matrix row verified. If resuming, inspect `git status`, remote HEAD and
+`validation/closure/delivery.json` first; do not rerun completed suites merely
+because the chat restarted. Production changes require affected revalidation.
+Tiny and physical keyboard/operator certification remain deferred. Publishing a
+GitHub Release/tag is a separate action. A safety block must not trigger an
+automatic retry around it. See spec 21 and `../validation/closure/README.md`.
+
+Earlier checkpoints below describe historical binaries and scopes. Read
+`00-overview.md`, `00-reference-environment.md`, this checkpoint, `97-coverage.md`
+and relevant decisions in `99-open-questions.md` before new implementation work.
 
 ## Resume commands
 
