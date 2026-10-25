@@ -5,7 +5,10 @@ Production source was frozen at `390a72dc63da0f0f5b6d516282033fb1c4d6adad`.
 
 The final host/Ubuntu regression and packaging gate for spec 21 passes all
 85 checks in `gate.json`. The executable fingerprint is independent of later
-documentation and evidence commits. GitHub delivery/CI is tracked separately.
+documentation and evidence commits. `delivery.json` records successful CI and
+remote verification for the qualification commit. All seven closure matrix
+requirements are verified; five earlier optional/physical-console rows remain
+deferred. The final receipt-only commit receives a separate CI check.
 
 | Check | Result |
 | --- | --- |

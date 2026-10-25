@@ -35,13 +35,19 @@ archives: `target/closure-artifacts-v1/package/`, with `SHA256SUMS` and `build.j
 These paths are relative to `~/Code/naro`; large artifacts stay local.
 Console evidence: `spec/evidence/follow-up-runs/vt-closure-{host,ubuntu}-v1`.
 The disposable VM was shut down; the Ubuntu run exited and removed its container.
-No validation job or automatic model restart remains active.
+No local validation job or automatic model restart remains active.
 
-Next delivery action: commit/push the consolidated evidence, mirror the spec,
-and check final GitHub CI. Record that delivery receipt before marking the last
-matrix row verified. If resuming, inspect `git status`, remote HEAD and
-`validation/closure/delivery.json` first; do not rerun completed suites merely
-because the chat restarted. Production changes require affected revalidation.
+Delivery completed: source and consolidated evidence were pushed in
+`b67b1b9ce9a6b9f953fa395d90750097dc689c8f`; GitHub CI run 40170119664 passed.
+`../validation/closure/delivery.json` records remote equality, the clean
+qualification worktree, mirror verification and CI. All seven closure matrix
+rows are verified. A final documentation-only receipt commit follows that
+qualification commit, with its CI checked at delivery.
+
+Next action: none for this scoped closure. A later session should read this
+checkpoint and the delivery receipt, inspect `git status` and remote HEAD, and
+start only newly requested work. Do not rerun completed suites merely because
+chat restarted. Production changes require affected revalidation.
 Tiny and physical keyboard/operator certification remain deferred. Publishing a
 GitHub Release/tag is a separate action. A safety block must not trigger an
 automatic retry around it. See spec 21 and `../validation/closure/README.md`.

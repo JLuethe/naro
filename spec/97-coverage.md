@@ -111,3 +111,8 @@ This closes the recorded guest-VT scope, while physical keyboard/operator rows
 remain deferred. Final cross-environment regression, artifact verification and
 delivery outcomes are linked from [closure evidence](../validation/closure/README.md).
 The audit now counts 248 baseline and 38 follow-up requirements, 286 total.
+
+Final closure outcome: all seven doc 21 matrix rows are verified. Across the
+three follow-up matrices, 53 rows are verified and five optional/physical-console
+rows remain deferred. The 85-check combined gate and GitHub delivery receipt are
+in `../validation/closure`; this does not expand the original baseline corpus.

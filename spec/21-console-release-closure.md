@@ -2,8 +2,8 @@ Reference commit: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`
 
 # 21 — Console qualification and final preview delivery
 
-Status: implementation and 85-check qualification complete; final evidence
-delivery/CI is tracked in the closure matrix. The checkpoint
+Status: complete for the scoped preview: implementation, 85-check qualification
+and evidence delivery are verified in the closure matrix. The checkpoint
 before this specification is `62fca5b`. This document completes the remaining
 work described in [the wrap-up plan](../WRAP-UP.md). It supplements docs 19–20;
 their historical evidence stays attached to the binaries actually tested.

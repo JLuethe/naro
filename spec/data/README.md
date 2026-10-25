@@ -65,10 +65,9 @@ Follow-up matrix status is evidence-linked independently from requirement origin
 The requirements CSV `phase` is `baseline` or `follow-up`; phase is not a passing
 status. The original 309 reference recordings remain unchanged. New paired
 scenario revisions live in `../../tests/follow-up/scenarios`; compact reports
-are in `../../validation/follow-up`. The audit counts 248 baseline and 31
-follow-up requirements separately (22 in doc 19 and nine in doc 20).
-Doc 21 adds seven closure requirements and `closure-tests.csv`; the current
-total is 38 follow-up requirements. Its statuses advance only after final
+are in `../../validation/follow-up`. The audit counts 248 baseline and 38
+follow-up requirements separately (22 in doc 19, nine in doc 20 and seven in
+doc 21). Doc 21 uses `closure-tests.csv`. Its statuses advance only after final
 binary-linked evidence is reviewed, independently of historical phase results.
 
 

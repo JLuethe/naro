@@ -1,0 +1,22 @@
+{
+  "checked_at_utc": "2026-10-25T06:47:58.877482+00:00",
+  "qualification_commit": "b67b1b9ce9a6b9f953fa395d90750097dc689c8f",
+  "remote_main_at_check": "b67b1b9ce9a6b9f953fa395d90750097dc689c8f",
+  "qualification_ci": {
+    "conclusion": "success",
+    "headSha": "b67b1b9ce9a6b9f953fa395d90750097dc689c8f",
+    "status": "completed",
+    "updatedAt": "2026-10-25T06:47:07Z",
+    "url": "https://github.com/JLuethe/naro/actions/runs/40170119664"
+  },
+  "local_gate_pass": true,
+  "local_gate_checks": 85,
+  "spec_mirror": "/home/john/src/nano-rs",
+  "mirror_verified_byte_for_byte": true,
+  "local_worktree_clean_at_check": true,
+  "local_validation_jobs": "completed; disposable VM stopped",
+  "automatic_model_restart_configured": false,
+  "publication": "source and evidence pushed; no tag or hosted GitHub Release",
+  "artifact_directory": "target/closure-artifacts-v1/package",
+  "note": "This receipt and final matrix status are a subsequent documentation-only commit; its CI is checked separately at final delivery."
+}
