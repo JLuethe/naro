@@ -46,5 +46,11 @@
       }
     }
   },
-  "reference_worktree_clean": true
+  "reference_worktree_clean": true,
+  "evidence_revision": "3fce053d625c03a54e5ac891e1bfb6a4ed7081d5",
+  "mirror": {
+    "path": "/home/john/src/nano-rs",
+    "tracked_spec_validation_docs_verified": 893,
+    "original_goldens_preserved": true
+  }
 }

@@ -37,6 +37,7 @@ exhaustive branch coverage or successful implementation.
 | [19](19-completion-and-release.md) | Follow-up: tool selections, edge cases, environment certification, packaging; optional tiny/credits proposal |
 | [20](20-root-and-console.md) | Effective-home resolution, isolated root/device checks, and physical-console protocol |
 | [21](21-console-release-closure.md) | Genuine guest console qualification, frozen regression builds, portable artifact and delivery gates |
+| [22](22-tiny-profile.md) | Optional compile-time tiny editor, retained behavior, exact comparisons and size/dependency gates |
 | [97](97-coverage.md) | Evidence coverage and explicit verification gaps |
 | [98](98-progress.md) | Work state and reproducible resume instructions |
 | [99](99-open-questions.md) | Decisions, defects and deliberate deviations |
@@ -61,7 +62,7 @@ behavioral contract.
 Document 19 and `data/follow-up-tests.csv` track the implemented follow-up phase
 with separate audit counts and evidence-linked statuses. See
 [follow-up validation](../validation/follow-up/README.md) for the tested builds;
-physical VT checks and optional tiny remain deferred. Doc 20 adds verified
+physical VT checks and optional tiny were deferred at that checkpoint. Doc 20 adds verified
 namespace-root cases and a console readiness/operator protocol. The original
 248 requirements and baseline observations remain separate historical evidence.
 
