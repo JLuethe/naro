@@ -127,3 +127,58 @@ pass source-rebuild/feature/installation checks. The two optional tiny rows in
 the follow-up matrix are now verified; only three physical-console operator
 rows remain deferred. Earlier tiny deferrals above describe historical scopes.
 These results do not erase source-only caveats or certify arbitrary build flags.
+
+## Hard-wrap undo/redo combinations (2026-10-28, updated again)
+
+The documented runtime gap **Q-UNDO-002** (hard-wrap undo in all chunk
+combinations) is **partially covered** for the default profile by
+thirty-nine fresh differential scenarios in
+[`tests/follow-up/scenarios/wrap-undo.json`](../tests/follow-up/scenarios/wrap-undo.json),
+replayed against the pinned GNU nano 9.3 default build. See
+[`../validation/wrap-undo/README.md`](../validation/wrap-undo/README.md):
+39/39 exact matches across file bytes, modified/saved state, cursor and
+screen through undo and redo, with `capture_file` saved-byte checks for the
+structural, save, prefix, NUL, cut, mark, quote, fill, indent and
+production-NUL-join scenarios. No declared deviations. A machine-checked
+manifest ([`tools/check_wrap_undo.py`](../tools/check_wrap_undo.py))
+validates the exact 39 scenario IDs, no gaps, the per-side assertions of a
+recorded report, the pinned reference and candidate provenance and the
+scenario digest; it is CI-checked via `.github/workflows/rust.yml` together
+with its negative tests (`tools/test_check_wrap_undo.py`).
+
+The cases cover mid-line wrap; group break; two separate wraps; autoindent;
+spillage join with redo and continued editing; short-overflow/non-matching
+prefix; the spillage **generation identity** model through structural
+undo/redo (Delete/Backspace join with a fill-accepted remainder), whole-line
+cut of the target, and ordinary-addition redo; divergent edit; save/
+`Modified` round trip; autoindent+spillage; mismatching nonempty prefix; an
+empty and a one-character target; tabs; UTF-8; whitespace at the join point;
+fill-rejected join; trimblanks; embedded NUL before/after the wrap point and
+through a production live-overflow join; the explicit mark through a join;
+the quote prefix; the continuation indent; the nonpositive fill geometry;
+and a paste that edits or shifts the live target.
+
+The spillage marker is a stable per-line generation and every splice states
+which node survives (a join keeps the top node, a whole-line cut keeps the
+bottom node, a partial multiline cut keeps the top node), so a freed line's
+identity is not restored when text is recreated by undo/redo and a detached
+(cut) target does not retarget the following line. The explicit mark now
+follows the reference's `expunge`/`do_enter` rules through the join, the
+added space, the prefix removal, the blank trimming and the split instead
+of collapsing to column zero. F1 unsafe prefix removal (crash), F2
+embedded-NUL corruption (including the production join path), F3/R1 stale
+spillage identity across structural edits and whole-line cut, F4/R2
+structural and ordinary spillage lifetime through history, R3 trimblanks
+cursor hazard, the explicit-mark corruption, the operation-specific survivor
+identity, the missing quote prefix, the reduced-width fill geometry and the
+continuation indent sampling were reproduced and fixed in
+`src/features.rs`/`src/buffer.rs`/`src/files.rs`. The formerly ineffective
+branches (`007`, `008`, `012`, `013`, `014`, `015`, `017`) were repaired so
+that each one reaches its advertised branch. Default regression remains
+301/303 exact with the two documented safety differences.
+
+Remaining limits: the interactions of hard wrapping with soft wrap, view
+mode, terminal resize and the magic-line `WAS_BACKSPACE_AT_EOF` undo quirk
+are not separately verified. The **tiny profile** has no undo/redo or hard
+wrap by design (doc 22). Q-UNDO-002 remains partially open until those are
+covered or explicitly scoped out.

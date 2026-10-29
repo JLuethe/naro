@@ -11,12 +11,12 @@
     "22-tiny-profile.md"
   ],
   "follow_up_requirements": 43,
-  "follow_up_tests": 63,
+  "follow_up_tests": 64,
   "follow_up_statuses": {
     "deferred": 3,
-    "verified": 60
+    "verified": 61
   },
-  "scenarios": 309,
+  "scenarios": 646,
   "recorded": 309,
   "explicit_assertions": 4,
   "intentional_sigkill": [
@@ -56,6 +56,8 @@
     "syntax.json": 10,
     "undo.json": 11
   },
-  "warnings": [],
+  "warnings": [
+    "cited test IDs without a recorded scenario: CLI-001: TEST-CLI-P003, CLI-001: TEST-CLI-P042, CLI-001: TEST-KEY-RESTR-001, CLI-004: TEST-CLI-P009, CLI-014: TEST-RC-PREC-001, CLI-020: TEST-KEY-MODPRES-001, CLI-050: TEST-FILE-EXIT-002, INPUT-014: TEST-INPUT-020, KEY-003: TEST-KEY-TABLE-001"
+  ],
   "problems": []
 }

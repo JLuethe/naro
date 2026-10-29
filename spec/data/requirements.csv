@@ -1,5 +1,5 @@
 requirement,document,title,explicit_test_ids,phase
-CLI-001,01-cli.md,Restricted mode by invocation name,TEST-KEY-RESTR-001,baseline
+CLI-001,01-cli.md,Restricted mode by invocation name,,baseline
 CLI-002,01-cli.md,Option syntax and parser,TEST-CLI-017 TEST-CLI-058 TEST-CLI-059,baseline
 CLI-003,01-cli.md,Option effects,TEST-CLI-028,baseline
 CLI-004,01-cli.md,Unknown options and missing arguments,,baseline
@@ -10,9 +10,9 @@ CLI-010,01-cli.md,`--help`,,baseline
 CLI-011,01-cli.md,`--version`,,baseline
 CLI-012,01-cli.md,`--listsyntaxes`,,baseline
 CLI-013,01-cli.md,Startup order,,baseline
-CLI-014,01-cli.md,Merging command line and nanorc,TEST-RC-PREC-001,baseline
+CLI-014,01-cli.md,Merging command line and nanorc,,baseline
 CLI-015,01-cli.md,`-b` versus `-w`,,baseline
-CLI-020,01-cli.md,"Order-sensitive interactions of `-p`, `-/`, `-R`, `-v`",TEST-KEY-MODPRES-001,baseline
+CLI-020,01-cli.md,"Order-sensitive interactions of `-p`, `-/`, `-R`, `-v`",,baseline
 CLI-021,01-cli.md,Post-processing rules,TEST-CLI-033,baseline
 CLI-022,01-cli.md,`-o` operating directory,TEST-CLI-032,baseline
 CLI-023,01-cli.md,Quoting regex,TEST-CLI-034,baseline
@@ -28,11 +28,11 @@ CLI-037,01-cli.md,No file opened,TEST-CLI-029,baseline
 CLI-038,01-cli.md,Startup messages,TEST-CLI-037,baseline
 CLI-040,01-cli.md,Not a terminal,TEST-CLI-036,baseline
 CLI-041,01-cli.md,TERM handling,TEST-CLI-060 TEST-CLI-061 TEST-CLI-064,baseline
-CLI-050,01-cli.md,Exit status,TEST-FILE-EXIT-002,baseline
+CLI-050,01-cli.md,Exit status,,baseline
 CLI-060,01-cli.md,Environment variables read by nano,TEST-CLI-001 TEST-CLI-017 TEST-CLI-032,baseline
 KEY-001,02-keybindings.md,Contexts,,baseline
 KEY-002,02-keybindings.md,Key notation (display strings),,baseline
-KEY-003,02-keybindings.md,Default bindings,TEST-KEY-TABLE-001,baseline
+KEY-003,02-keybindings.md,Default bindings,,baseline
 KEY-010,02-keybindings.md,Shortcut lookup,,baseline
 KEY-020,02-keybindings.md,Main-window dispatch,TEST-CLI-028 TEST-KEY-001,baseline
 KEY-021,02-keybindings.md,Cut-chain bookkeeping,,baseline
@@ -70,7 +70,7 @@ INPUT-010,03-terminal-input.md,Mouse,TEST-INPUT-009,baseline
 INPUT-011,03-terminal-input.md,Window resize as an input event,TEST-INPUT-010,baseline
 INPUT-012,03-terminal-input.md,Cancelling long operations with ^C,,baseline
 INPUT-013,03-terminal-input.md,Timed waits for messages,,baseline
-INPUT-014,03-terminal-input.md,Keys with no meaning in a context,TEST-INPUT-001 TEST-INPUT-003 TEST-INPUT-005 TEST-INPUT-006 TEST-INPUT-007 TEST-INPUT-008 TEST-INPUT-009 TEST-INPUT-010 TEST-INPUT-012 TEST-INPUT-020,baseline
+INPUT-014,03-terminal-input.md,Keys with no meaning in a context,TEST-INPUT-001 TEST-INPUT-003 TEST-INPUT-005 TEST-INPUT-006 TEST-INPUT-007 TEST-INPUT-008 TEST-INPUT-009 TEST-INPUT-010 TEST-INPUT-012,baseline
 REND-001,04-rendering.md,Window layout,TEST-CLI-038 TEST-REND-010 TEST-REND-014,baseline
 REND-002,04-rendering.md,Title bar,TEST-KEY-008 TEST-REND-011 TEST-SMOKE-001,baseline
 REND-003,04-rendering.md,State flags,,baseline
@@ -102,7 +102,7 @@ EDIT-003,05-buffer-and-editing.md,Modified flag,,baseline
 EDIT-010,05-buffer-and-editing.md,Typing (inject),,baseline
 EDIT-011,05-buffer-and-editing.md,Enter (*enter*),TEST-EDIT-008,baseline
 EDIT-012,05-buffer-and-editing.md,Tab (*tab*),TEST-EDIT-011,baseline
-EDIT-015,05-buffer-and-editing.md,Automatic hard wrapping (*breaklonglines*),TEST-EDIT-WRAP-001,baseline
+EDIT-015,05-buffer-and-editing.md,Automatic hard wrapping (*breaklonglines*),TEST-NEXT-UNDO-WRAP-001-MID TEST-NEXT-UNDO-WRAP-039-MARK-SHIFT,baseline
 EDIT-020,05-buffer-and-editing.md,Delete (*delete*) and Backspace (*backspace*),TEST-EDIT-003 TEST-EDIT-004 TEST-EDIT-005 TEST-EDIT-019,baseline
 EDIT-021,05-buffer-and-editing.md,"Chop word left/right (`Sh-^Del`, `M-Bsp`; `^Del`)",TEST-EDIT-020,baseline
 EDIT-030,05-buffer-and-editing.md,When there is nothing to cut,TEST-EDIT-014,baseline
@@ -130,7 +130,7 @@ EDIT-068,05-buffer-and-editing.md,"Paragraphs (`M-(`/`M-9`, `M-)`/`M-0`; justify
 EDIT-069,05-buffer-and-editing.md,"Top/bottom row, scrolling, centering",TEST-MOVE-008,baseline
 EDIT-070,05-buffer-and-editing.md,Scroll left/right (`M-<`/`M->`),TEST-MOVE-013,baseline
 EDIT-071,05-buffer-and-editing.md,"Anchors (`M-Ins`, `M-""`; `M-PgUp`; `M-PgDn`, `M-'`)",TEST-MOVE-016,baseline
-EDIT-072,05-buffer-and-editing.md,"Go to line/column (`^/`, `^_`, `M-G`)",TEST-BYTE-004 TEST-EDIT-001 TEST-EDIT-003 TEST-EDIT-012 TEST-EDIT-022 TEST-INPUT-012 TEST-MOVE-001,baseline
+EDIT-072,05-buffer-and-editing.md,"Go to line/column (`^/`, `^_`, `M-G`)",TEST-BYTE-004 TEST-EDIT-001 TEST-EDIT-003 TEST-EDIT-012 TEST-EDIT-022 TEST-INPUT-012 TEST-MOVE-001 TEST-NEXT-UNDO-WRAP-001-MID,baseline
 UNDO-001,06-undo-redo.md,Per-buffer history,,baseline
 UNDO-002,06-undo-redo.md,New edits discard redo,TEST-UNDO-004,baseline
 UNDO-003,06-undo-redo.md,Grouping,TEST-EDIT-025 TEST-INPUT-005 TEST-UNDO-001 TEST-UNDO-002,baseline
@@ -138,7 +138,7 @@ UNDO-004,06-undo-redo.md,Item contents (normative effect),TEST-UNDO-001,baseline
 UNDO-005,06-undo-redo.md,Messages and side effects,TEST-UNDO-001,baseline
 UNDO-006,06-undo-redo.md,Saved state,TEST-UNDO-001 TEST-UNDO-003,baseline
 UNDO-007,06-undo-redo.md,Backspace at the start of the magic line (quirk),TEST-UNDO-009,baseline
-UNDO-008,06-undo-redo.md,Interaction with other features,TEST-EDIT-025 TEST-INPUT-005 TEST-UNDO-001 TEST-UNDO-004 TEST-UNDO-009 TEST-UNDO-010,baseline
+UNDO-008,06-undo-redo.md,Interaction with other features,TEST-EDIT-025 TEST-INPUT-005 TEST-NEXT-UNDO-WRAP-001-MID TEST-NEXT-UNDO-WRAP-039-MARK-SHIFT TEST-UNDO-001 TEST-UNDO-004 TEST-UNDO-009,baseline
 SRCH-001,07-search-replace.md,Search prompt,TEST-SRCH-001 TEST-SRCH-016,baseline
 SRCH-002,07-search-replace.md,Case sensitivity and literal matching,TEST-SRCH-019,baseline
 SRCH-003,07-search-replace.md,Where a search starts and how it proceeds,TEST-SRCH-001 TEST-SRCH-004 TEST-SRCH-018,baseline
@@ -247,7 +247,7 @@ BYTE-COLUMNS,18-bytes-encoding-and-coordinates.md,Coordinate conversions,TEST-BY
 BYTE-COUNT,18-bytes-encoding-and-coordinates.md,Character counts,TEST-BYTE-001 TEST-BYTE-005,baseline
 BYTE-CASE,18-bytes-encoding-and-coordinates.md,Case-insensitive comparison,TEST-BYTE-004 TEST-SRCH-019,baseline
 BYTE-INVALID,18-bytes-encoding-and-coordinates.md,Summary for invalid UTF-8,TEST-BYTE-001 TEST-BYTE-003 TEST-BYTE-004 TEST-BYTE-006 TEST-FEAT-019 TEST-FILE-011 TEST-REND-005 TEST-SRCH-019,baseline
-NEXT-SPELL-001,19-completion-and-release.md,Serialize precisely the spelling region,TEST-NEXT-SPELL-002,follow-up
+NEXT-SPELL-001,19-completion-and-release.md,Serialize precisely the spelling region,TEST-NEXT-SPELL-002-INTERNAL,follow-up
 NEXT-SPELL-002,19-completion-and-release.md,Replace and restore alternate-speller state,,follow-up
 NEXT-SPELL-003,19-completion-and-release.md,Confine internal spelling searches and replacements,,follow-up
 NEXT-TOOL-004,19-completion-and-release.md,Preserve formatter scope and mark-clearing order,,follow-up
@@ -270,7 +270,7 @@ NEXT-UX-006,19-completion-and-release.md,Exercise the installed editor by hand,,
 NEXT-TINY-001,19-completion-and-release.md,Keep tiny optional and define it by the pinned profile,,follow-up
 NEXT-CREDITS-001,19-completion-and-release.md,Start with static credits and preserve compatibility,,follow-up
 ROOT-HOME-001,20-root-and-console.md,Resolve and cache the effective home precisely,,follow-up
-ROOT-CONSUMERS-002,20-root-and-console.md,Share resolution across existing consumers,TEST-ROOT-HOME-002,follow-up
+ROOT-CONSUMERS-002,20-root-and-console.md,Share resolution across existing consumers,TEST-ROOT-HOME-002-NO-HOME-TILDE,follow-up
 ROOT-STATE-003,20-root-and-console.md,Preserve file and failure behavior,,follow-up
 ROOT-ISOLATE-004,20-root-and-console.md,Confine root tests to a private namespace,,follow-up
 ROOT-PATH-005,20-root-and-console.md,Re-record the two deferred filesystem semantics,TEST-BROWSE-003 TEST-CLI-025,follow-up
@@ -289,4 +289,4 @@ TINY-PROFILE-001,22-tiny-profile.md,Compile a reduced editor,,follow-up
 TINY-CLI-002,22-tiny-profile.md,Match tiny startup,,follow-up
 TINY-EDIT-003,22-tiny-profile.md,Preserve the retained editing contract,,follow-up
 TINY-TERM-004,22-tiny-profile.md,Match tiny input and terminal lifecycle,,follow-up
-TINY-GATE-005,22-tiny-profile.md,Validate and measure without weakening full mode,,follow-up
+TINY-GATE-005,22-tiny-profile.md,Validate and measure without weakening full mode,TEST-TINY-PROMPT-TAB TEST-TINY-WRITE-TAB-DISPATCH,follow-up

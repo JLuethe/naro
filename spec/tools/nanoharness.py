@@ -697,6 +697,10 @@ class Run:
                     add("row%d==" % item["row"], text.rstrip() == item["equals"].rstrip(), repr(text))
                 if "contains" in item:
                     add("row%d~" % item["row"], item["contains"] in text, repr(text))
+                if "not_contains" in item:
+                    want = item["not_contains"]
+                    want = want if isinstance(want, list) else [want]
+                    add("row%d!~" % item["row"], all(s not in text for s in want), repr(text))
             if "cursor" in item:
                 cur = snap["cursor"]
                 ok = all(cur.get(k) == v for k, v in item["cursor"].items())

@@ -1,0 +1,90 @@
+[
+  {
+    "id": "NUL-JOIN-TARGET",
+    "args": [
+      "-I",
+      "-b",
+      "-r",
+      "12",
+      "f.txt"
+    ],
+    "files": {
+      "work/f.txt": {
+        "hex": "61616120626262206363632064640064640a"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "text": "X"
+      },
+      {
+        "snapshot": "wrap1",
+        "quiet": 80
+      },
+      {
+        "keys": [
+          "Up"
+        ]
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "text": " eee"
+      },
+      {
+        "snapshot": "wrap2",
+        "quiet": 80
+      },
+      {
+        "keys": [
+          "^O"
+        ]
+      },
+      {
+        "sleep": 100
+      },
+      {
+        "keys": [
+          "Enter"
+        ]
+      },
+      {
+        "snapshot": "saved",
+        "quiet": 200
+      },
+      {
+        "capture_file": "work/f.txt"
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "sleep": 100
+      },
+      {
+        "text": "n"
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true
+    },
+    "note": "Production NUL-join: fixture 'aaa bbb ccc dd\\0dd' (NUL in the 'dd' overflow). Typing X at End triggers the first wrap, whose spillage target 'd\\0ddX' carries a payload NUL. Returning to the predecessor and typing ' eee' triggers an accepted second-wrap join whose assembled current line + spillage target contains the NUL. The production join path (hard_wrap -> decode_nuls -> replace) must preserve the NUL as a payload byte (0x00) in the saved file, not reinterpret it as a line separator. Removing decode_nuls from the production join would corrupt the line structure."
+  }
+]

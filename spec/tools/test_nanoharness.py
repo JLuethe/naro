@@ -47,6 +47,34 @@ class HarnessTests(unittest.TestCase):
         with patch.object(h, 'tmux', return_value='\t'.join(fields) + '\n'):
             self.assertEqual(h.pane_state()['exit_signal'], 15)
 
+    def test_not_contains_screen_assertion(self):
+        # The `not_contains` screen assertion supports a scalar or a list of
+        # strings; each must be absent from the snapshot row's text. A passing
+        # check reports pass=True; a present string reports pass=False with the
+        # row text as the detail. Exercised indirectly by 011-SAVE; covered
+        # here directly for both forms and the failure case.
+        rows = [{"text": "aaa bbb ccc", "attrs": []}]
+        snap = {"rows": rows, "cursor": {"x": 0, "y": 0}}
+        result = {"snapshots": {"s": snap}}
+        sc_scalar = {"expect": {"screen": [
+            {"snapshot": "s", "row": 0, "not_contains": "Modified"}]}}
+        r_scalar = h.Run(sc_scalar, "/usr/bin/true", "/unused")
+        checks = r_scalar.check(result)
+        self.assertTrue(any(c["check"] == "row0!~" and c["pass"] for c in checks))
+        sc_list = {"expect": {"screen": [
+            {"snapshot": "s", "row": 0, "not_contains": ["Modified", "Saved"]}]}}
+        r_list = h.Run(sc_list, "/usr/bin/true", "/unused")
+        checks = r_list.check(result)
+        self.assertTrue(any(c["check"] == "row0!~" and c["pass"] for c in checks))
+        sc_fail = {"expect": {"screen": [
+            {"snapshot": "s", "row": 0, "not_contains": ["bbb"]}]}}
+        r_fail = h.Run(sc_fail, "/usr/bin/true", "/unused")
+        checks = r_fail.check(result)
+        fail = [c for c in checks if c["check"] == "row0!~"]
+        self.assertEqual(len(fail), 1)
+        self.assertFalse(fail[0]["pass"])
+        self.assertIn("aaa bbb ccc", fail[0]["detail"])
+
 
 if __name__ == '__main__':
     unittest.main()

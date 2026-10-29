@@ -1,0 +1,374 @@
+{
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "suite": "wrap-undo",
+  "scenario_sha256_canonical": "7856d86bb29371f3948ac5e176f24d225469f40d807a201efc27a8fb01b140c6",
+  "scenario_sha256_raw": "0089d12b1b64a775241cb42687ddfc42883991e3711a576e92fb7ef784dfaef6",
+  "scenario_sha256_runner": "0ab3bcd81f9069d7eb9bda10199680ab6c0f75c4b0e7f61be5c725993cd2d6a6",
+  "source_sha256": "522a6c33202ed6de6abe209bbe86e5f86a7ff49d0de0f41da11dca9f75a45e4e",
+  "source_revision": "823cb96cc6aba9281b58da7ad33dfa3dd4a6a138",
+  "build_config": "cargo build --release --target-dir target/next-default (default profile, features \"\")",
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+  "candidate_sha256": "ebb1f6b4b731a8340d4e2ead9e9e82a8e2220297018dab2685271f9948054d52",
+  "reference_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+  "reference_status": 0,
+  "candidate_status": 0,
+  "report_path": "target/next-wrap2/report.json",
+  "summary": {
+    "recorded": 39,
+    "matches": 39,
+    "accepted": 39
+  },
+  "results": {
+    "TEST-NEXT-UNDO-WRAP-001-MID": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-002-CHAIN": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-003-MULTI": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-004-INDENT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-005-SPILL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-006-PREFIX": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-007-INSERT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-008-DELETE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-009-REDO": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-010-UNDO-ONE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-011-SAVE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-012-AUTOSpill": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-013-MISMATCH": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-014-EMPTY": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-015-TABS": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-016-UTF8": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-017-WSTRAIL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-018-REJECT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-019-TRIM": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-020-DELJOIN": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-024-BSPJOIN": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-021-DIVERGE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-022-NULBEFORE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-023-NULAFTER": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-025-CHAIN-REDO": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-026-CUT-TAIL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-027-NUL-JOIN": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-028-MARK": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-029-EMPTY-DEL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-030-EMPTY-BSP": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-031-PARTIAL-CUT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-032-QUOTE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-033-CONT-INDENT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-034-FILL-ZERO": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-035-FILL-NEG": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-036-ONECHAR": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-037-PASTE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-038-PASTE-SHIFT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-039-MARK-SHIFT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    }
+  }
+}

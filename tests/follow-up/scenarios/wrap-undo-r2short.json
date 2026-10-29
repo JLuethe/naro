@@ -1,0 +1,245 @@
+[
+  {
+    "id": "R2-DELJOIN-SHORT",
+    "args": [
+      "-I",
+      "-b",
+      "-r",
+      "12",
+      "f.txt"
+    ],
+    "files": {
+      "work/f.txt": {
+        "hex": "0a"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "text": "aaa bbb ccc ddd"
+      },
+      {
+        "keys": [
+          "Up"
+        ]
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "text": " eee"
+      },
+      {
+        "snapshot": "spill",
+        "quiet": 80
+      },
+      {
+        "keys": [
+          "Up"
+        ]
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "keys": [
+          "Del"
+        ]
+      },
+      {
+        "snapshot": "joined",
+        "quiet": 80
+      },
+      {
+        "keys": [
+          "M-U"
+        ]
+      },
+      {
+        "snapshot": "undo-join",
+        "quiet": 80
+      },
+      {
+        "keys": [
+          "Up"
+        ]
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "text": " fff"
+      },
+      {
+        "snapshot": "wrap-after",
+        "quiet": 80
+      },
+      {
+        "keys": [
+          "^O"
+        ]
+      },
+      {
+        "sleep": 100
+      },
+      {
+        "keys": [
+          "Enter"
+        ]
+      },
+      {
+        "snapshot": "saved",
+        "quiet": 200
+      },
+      {
+        "capture_file": "work/f.txt"
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "sleep": 100
+      },
+      {
+        "text": "n"
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true
+    },
+    "note": "Decisive R2 structural reproducer (Del join): shorten the final remainder to ' fff' (3 bytes) so 3 + 7 (eee ddd) = 10 <= fill 12, making marker validity determine acceptance. The reference does not restore the spillage pointer when undoing the Delete-join (undo JOIN creates a new node), so the subsequent wrap must split (fff above eee ddd), not join into 'fff eee ddd'."
+  },
+  {
+    "id": "R2-BSPJOIN-SHORT",
+    "args": [
+      "-I",
+      "-b",
+      "-r",
+      "12",
+      "f.txt"
+    ],
+    "files": {
+      "work/f.txt": {
+        "hex": "0a"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "text": "aaa bbb ccc ddd"
+      },
+      {
+        "keys": [
+          "Up"
+        ]
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "text": " eee"
+      },
+      {
+        "snapshot": "spill",
+        "quiet": 80
+      },
+      {
+        "keys": [
+          "Home"
+        ]
+      },
+      {
+        "keys": [
+          "Bsp"
+        ]
+      },
+      {
+        "snapshot": "joined",
+        "quiet": 80
+      },
+      {
+        "keys": [
+          "M-U"
+        ]
+      },
+      {
+        "snapshot": "undo-join",
+        "quiet": 80
+      },
+      {
+        "keys": [
+          "Up"
+        ]
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "text": " fff"
+      },
+      {
+        "snapshot": "wrap-after",
+        "quiet": 80
+      },
+      {
+        "keys": [
+          "^O"
+        ]
+      },
+      {
+        "sleep": 100
+      },
+      {
+        "keys": [
+          "Enter"
+        ]
+      },
+      {
+        "snapshot": "saved",
+        "quiet": 200
+      },
+      {
+        "capture_file": "work/f.txt"
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "sleep": 100
+      },
+      {
+        "text": "n"
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true
+    },
+    "note": "Decisive R2 structural reproducer (Backspace equivalent): position at the start of the spillage target line and Backspace to join it into the predecessor. The reference does not restore the spillage pointer when undoing the Backspace-join (undo JOIN creates a new node), so the subsequent wrap must split (fff above eee ddd), not join into 'fff eee ddd'."
+  }
+]

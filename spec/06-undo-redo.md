@@ -90,6 +90,7 @@ Reproduce as observed.
 - External commands at the Execute prompt: inserted output is one INSERT item. With `|` (filter), COUPLE(CUT + INSERT) named `filtering`. If the command fails (ALERT), the operation is undone **and discarded** from the history (`12` FEAT-EXEC).
 - Spell check with the internal speller: each replacement is a REPLACE item. With an alternative speller: COUPLE named `spelling correction`.
 - Macros replay keystrokes and create ordinary items.
+- Automatic hard wrapping and the spillage-line join are covered by fresh differential cases `TEST-NEXT-UNDO-WRAP-001-MID` through `TEST-NEXT-UNDO-WRAP-039-MARK-SHIFT`; see `../validation/wrap-undo/README.md`.
 - **Source:** `src/files.c:1128-1132`; `src/text.c:2064-2107`.
 
 ## 2. Original implementation notes
@@ -101,12 +102,12 @@ Reproduce as observed.
 | Requirement | Evidence |
 |---|---|
 | UNDO-002 | runtime TEST-UNDO-004 |
-| UNDO-003 | runtime TEST-UNDO-001/-002/-005/-006/-008, TEST-INPUT-005, TEST-EDIT-025 |
-| UNDO-004/005 | runtime TEST-UNDO-001…011, source |
+| UNDO-003 | runtime TEST-UNDO-001/-002/-005/-006/-008, TEST-INPUT-005, TEST-EDIT-025; fresh `TEST-NEXT-UNDO-WRAP-001-MID`…`039-MARK-SHIFT` |
+| UNDO-004/005 | runtime TEST-UNDO-001…011, source; fresh `TEST-NEXT-UNDO-WRAP-001-MID`…`039-MARK-SHIFT` |
 | UNDO-006 | runtime TEST-UNDO-001/-003 |
 | UNDO-007 | runtime TEST-UNDO-009 |
-| UNDO-008 | source; runtime tests planned |
+| UNDO-008 | source; fresh `TEST-NEXT-UNDO-WRAP-001-MID`…`039-MARK-SHIFT` |
 
 ## 4. Open questions
 - **Q-UNDO-001:** the redo of a no-op Backspace at EOF setting *modified* (UNDO-007) looks unintended, but it is deterministic and harmless. Proposed: reproduce.
-- **Q-UNDO-002:** whether undo after hard-wrap restores the cursor exactly in every chunk case was not probed in depth (TEST-UNDO-010 shows the wrap only).
+- **Q-UNDO-002:** hard-wrap undo in all chunk combinations. **Partially covered** for the default profile by the 39-case differential suite `TEST-NEXT-UNDO-WRAP-001-MID` … `039-MARK-SHIFT` (mid-line wrap; group break; two separate wraps; autoindent; spillage join with redo and continued editing; short-overflow/non-matching-prefix; spillage generation identity through structural undo/redo, whole-line cut and ordinary-addition redo; divergent edit; save/`Modified` round trip; autoindent+spillage; mismatching nonempty prefix; empty and one-character targets; tabs; UTF-8; whitespace at the join point; fill-rejected join; trimblanks; undo of Delete/Backspace join; whole-line cut of the target; production NUL join; the explicit mark through a join; the quote prefix; the continuation indent; the nonpositive fill geometry; a paste that edits or shifts the live target); see `../validation/wrap-undo/README.md`. All 39 cases match the pinned reference exactly. The spillage marker is a stable per-line generation, every splice states which node survives (a join keeps the top node, a whole-line cut keeps the bottom node, a partial multiline cut keeps the top node), and the explicit mark follows the reference's `expunge`/`do_enter` rules through the join, the added space, the prefix removal, the blank trimming and the split. Reproduced and fixed: F1 unsafe prefix removal (crash), F2 embedded-NUL corruption (including the production join path), F3/R1 stale spillage identity across structural edits and whole-line cut, F4/R2 structural and ordinary spillage lifetime through history, R3 trimblanks cursor hazard, the explicit-mark corruption, the operation-specific survivor identity, the missing quote prefix, the reduced-width fill geometry and the continuation indent sampling. A machine-checked manifest (`tools/check_wrap_undo.py`) validates the exact 39 scenario IDs, no gaps, the report's per-side assertions, the pinned reference and candidate provenance and the scenario digest; `tools/test_check_wrap_undo.py` covers the failure modes. Remaining limits: the interactions of hard wrapping with soft wrap, view mode, terminal resize and the magic-line `WAS_BACKSPACE_AT_EOF` undo quirk are not separately verified; the **tiny profile** has no undo/redo or hard wrap by design (doc 22).

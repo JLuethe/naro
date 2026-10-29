@@ -1,6 +1,13 @@
 //! POSIX search, interactive replace and bracket matching.
 use crate::native;
-use crate::{buffer::Pos, bytes, config::Config, editor::*, generated::*, native::Regex};
+use crate::{
+    buffer::{Pos, Splice},
+    bytes,
+    config::Config,
+    editor::*,
+    generated::*,
+    native::Regex,
+};
 pub fn literal(
     c: &Config,
     hay: &[u8],
@@ -309,7 +316,7 @@ impl Editor {
                 {
                     *end = end.saturating_add_signed(raw.len() as isize - (b.x - a.x) as isize);
                 }
-                self.bm().replace(a, b, &raw);
+                self.bm().replace(a, b, &raw, Splice::Plain);
                 let no = self.conf.on(NO_NEWLINES);
                 self.bm().finish(before, "replacement", false, no);
                 let delta = raw.len() as isize - (b.x - a.x) as isize;

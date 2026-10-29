@@ -1,0 +1,99 @@
+[
+  {
+    "id": "R1-CUT-TAIL",
+    "args": [
+      "-I",
+      "-b",
+      "-r",
+      "12",
+      "f.txt"
+    ],
+    "files": {
+      "work/f.txt": {
+        "hex": "6161612062626220636363206464640a5441494c0a"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "text": "X"
+      },
+      {
+        "snapshot": "wrap1",
+        "quiet": 80
+      },
+      {
+        "keys": [
+          "^K"
+        ]
+      },
+      {
+        "snapshot": "cut",
+        "quiet": 80
+      },
+      {
+        "keys": [
+          "Up"
+        ]
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "text": " eee"
+      },
+      {
+        "snapshot": "wrap2",
+        "quiet": 80
+      },
+      {
+        "keys": [
+          "^O"
+        ]
+      },
+      {
+        "sleep": 100
+      },
+      {
+        "keys": [
+          "Enter"
+        ]
+      },
+      {
+        "snapshot": "saved",
+        "quiet": 200
+      },
+      {
+        "capture_file": "work/f.txt"
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "sleep": 100
+      },
+      {
+        "text": "n"
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true
+    },
+    "note": "Decisive R1 whole-line cut: fixture has 'aaa bbb ccc ddd' then 'TAIL'. Type X at End of line0 to create an overflow (spillage line 'dddX'); cut that overflow as a whole line, leaving TAIL below the predecessor. The reference detaches the spillage node into the cutbuffer, so a subsequent fill-accepted wrap of the predecessor must split (eee above TAIL), not join into 'eee TAIL'."
+  }
+]

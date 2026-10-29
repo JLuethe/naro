@@ -1,6 +1,6 @@
 //! Editing operations, movement, browser/help, tools and persisted state.
 use crate::{
-    buffer::{Buffer, Pos},
+    buffer::{Buffer, Pos, Splice},
     bytes,
     config::{self, io_error},
     editor::*,
@@ -292,7 +292,7 @@ impl Editor {
         } else if self.b().pos().x > self.completion_start.x {
             let a = self.completion_start;
             let z = self.b().pos();
-            self.bm().replace(a, z, b"");
+            self.bm().replace(a, z, b"", Splice::Plain);
             if self.b().hist > 0 {
                 self.bm().undo(false);
             }
@@ -415,23 +415,40 @@ impl Editor {
             3,
         );
     }
+    /// Wrap the current line at the last blank that fits within the wrap
+    /// column, following the reference's `do_wrap`.
+    ///
+    /// The reference's sequence is: find the wrap point, join the overflow
+    /// line when the live spillage pointer names it, trim the blanks before
+    /// the wrap point and finally split the line with `do_enter`. Every step
+    /// has an effect on the explicit mark and on the identity of the lines,
+    /// so the steps are reproduced here in the same order instead of
+    /// replacing the two lines in one generic splice.
     pub fn hard_wrap(&mut self) {
         if !self.conf.on(BREAK_LONG_LINES) {
             return;
         }
         let layout = render::layout(self);
+        // The reference wraps at the terminal width, not at the margin-reduced
+        // edit width, when the fill is not positive (`wrap_at = COLS + fill`).
         let wrap = if self.conf.fill > 0 {
             self.conf.fill as usize
         } else {
-            layout.width.saturating_add_signed(self.conf.fill)
+            layout.cols.saturating_add_signed(self.conf.fill)
         };
         let e = self.conf.enc();
         let p = self.b().pos();
-        let s = self.b().line().to_vec();
+        let line0 = p.line;
+        let s = self.b().state.lines[line0].clone();
         if e.breadth(&s) <= wrap {
             return;
         }
-        let lead = e.indent(&s);
+        // The reference's quote prefix and indentation (`quote_length` and
+        // `indent_length` in `do_wrap`). The quote prefix belongs to the
+        // line's lead and is copied to the continuation line.
+        let (quot_len, lead) = self.para_lead(line0);
+        // Find the wrap point: the last run of blanks that still fits within
+        // the wrap column (the reference's `break_line`).
         let mut x = lead;
         let mut split = None;
         while x < s.len() {
@@ -457,40 +474,212 @@ impl Editor {
         if split >= s.len() {
             return;
         }
+        let rest_length = s.len() - split;
+        let spillage = self.b().state.spillage;
+        let next_breadth = if line0 + 1 < self.b().state.lines.len() {
+            e.breadth(&self.b().state.lines[line0 + 1])
+        } else {
+            0
+        };
+        // The reference joins only when `spillage_line == line->next` (a node
+        // pointer comparison). With generations, compare the live spillage
+        // generation to the generation currently at the successor line.
+        let join = spillage.is_some()
+            && line0 + 1 < self.b().state.lines.len()
+            && self.b().state.generations[line0 + 1] == spillage.unwrap()
+            && rest_length + next_breadth <= wrap;
+        // The cursor position in the original line, like the reference's
+        // `cursor_x`.
+        let cursor_x = p.x;
+        // The joined line and the mark, following the reference's sequence:
+        // an optional added space, the join with the overflow line, the
+        // removal of the duplicated prefix and of the extra blanks.
+        let mut merged = s.clone();
+        let mut mark = self.b().state.mark;
+        if join {
+            let next = self.b().state.lines[line0 + 1].clone();
+            let remainder = &s[split..];
+            let ends_blank = e.blank(remainder, e.left(remainder, remainder.len()));
+            if !ends_blank {
+                // The remainder does not end in a blank: the reference adds a
+                // space before joining the overflow line.
+                merged.push(b' ');
+            }
+            // The position where the overflow line's content is joined.
+            let join_x = merged.len();
+            // Strip the duplicated leading part only when the overflow line
+            // starts with the same prefix as the current line (the
+            // reference's `strncmp`). The previous code started at `lead`
+            // unconditionally, which panicked when the overflow line was
+            // shorter than `lead` and silently deleted real text when the
+            // prefixes differed.
+            let mut ni = 0;
+            if next.len() >= lead && next[..lead] == s[..lead] {
+                ni = lead;
+            }
+            let strip = ni;
+            while ni < next.len() && e.blank(&next, ni) {
+                ni = e.right(&next, ni);
+            }
+            let blanks = ni - strip;
+            // A mark on the eaten line moves onto the joined line; a mark
+            // behind the join point shifts back over the removed prefix and
+            // blanks (the reference's `expunge` rules).
+            if let Some(m) = mark {
+                if m.line == line0 + 1 {
+                    mark = Some(Pos {
+                        line: line0,
+                        x: m.x + join_x,
+                    });
+                } else if m.line == line0 && m.x > join_x {
+                    mark = Some(Pos {
+                        line: line0,
+                        x: join_x.max(m.x - strip - blanks),
+                    });
+                }
+            }
+            merged.extend(&next[strip + blanks..]);
+        }
+        // Trim the blanks before the wrap point (the reference's
+        // `TRIM_BLANKS`). The guard keeps the typed character: the trim
+        // stops before the character just before the cursor unless the
+        // cursor is at or after the wrap point.
         let mut cut = split;
         if self.conf.on(TRIM_BLANKS) {
-            while cut > lead && e.blank(&s, e.left(&s, cut)) {
-                cut = e.left(&s, cut);
+            let typed_x = e.left(&merged, cursor_x);
+            let mut rear_x = e.left(&merged, split);
+            while (rear_x != typed_x || cursor_x >= split) && e.blank(&merged, rear_x) {
+                let end = e.right(&merged, rear_x);
+                merged.drain(rear_x..end);
+                cut = rear_x;
+                if let Some(m) = mark
+                    && m.line == line0
+                    && m.x > rear_x
+                {
+                    mark = Some(Pos {
+                        line: line0,
+                        x: m.x - (end - rear_x),
+                    });
+                }
+                rear_x = e.left(&merged, rear_x);
             }
         }
-        let mut replacement = vec![10];
-        if self.conf.on(AUTOINDENT) {
-            replacement.extend(&s[..lead]);
-        }
-        let a = Pos {
-            line: p.line,
-            x: cut,
-        };
-        let b = Pos {
-            line: p.line,
-            x: split,
-        };
-        self.bm().replace(a, b, &replacement);
-        if p.x >= split {
-            self.bm().state.pos = Pos {
-                line: p.line + 1,
-                x: p.x - split + replacement.len() - 1,
+        // The reference's `do_enter`: the continuation line's indentation. A
+        // quoted line suspends automatic indentation and copies its quote
+        // prefix (quote plus indentation) to the continuation instead.
+        let mut extra = 0usize;
+        let mut quote_prefix: Vec<u8> = Vec::new();
+        let mut sample_indent: Vec<u8> = Vec::new();
+        let mut allblanks = false;
+        if quot_len > 0 {
+            quote_prefix = merged[..lead].to_vec();
+        } else if self.conf.on(AUTOINDENT) {
+            // When the next line is in the same paragraph and is not a
+            // paragraph start, its indentation is the model. After a
+            // spillage join the overflow line is gone, so the model is the
+            // line that follows it.
+            let next_index = if join { line0 + 2 } else { line0 + 1 };
+            let sample = if next_index < self.b().state.lines.len()
+                && self.in_para(next_index)
+                && !self.para_start(next_index, 0)
+            {
+                next_index
+            } else {
+                line0
             };
-        } else {
-            self.bm().state.pos = p;
+            let sample_data = if sample == line0 {
+                merged.clone()
+            } else {
+                self.b().state.lines[sample].clone()
+            };
+            extra = e.indent(&sample_data);
+            sample_indent = sample_data[..extra].to_vec();
+            if extra > cut {
+                extra = cut;
+                sample_indent.truncate(extra);
+            } else if extra == cut {
+                allblanks = e.indent(&merged) == extra;
+            }
         }
-        let after = self.b().state.clone();
+        // A mark behind the wrap point moves to the continuation line.
+        if let Some(m) = mark
+            && m.line == line0
+            && m.x > cut
+        {
+            mark = Some(Pos {
+                line: line0 + 1,
+                x: m.x - cut + extra,
+            });
+        }
+        if allblanks {
+            cut = 0;
+            if let Some(m) = mark
+                && m.line == line0
+            {
+                mark = Some(Pos { line: line0, x: 0 });
+            }
+        }
+        let first = merged[..cut].to_vec();
+        let mut second = Vec::new();
+        second.extend_from_slice(&quote_prefix);
+        second.extend_from_slice(&sample_indent);
+        second.extend_from_slice(&merged[cut..]);
+        // The reference keeps the cursor on the first line when it was
+        // before the wrap point and moves it to the continuation otherwise.
+        let pos = if cursor_x < split {
+            Pos {
+                line: line0,
+                x: cursor_x,
+            }
+        } else {
+            Pos {
+                line: line0 + 1,
+                x: extra + quote_prefix.len() + (cursor_x - split),
+            }
+        };
+        // Without a join the continuation line is inserted, so the lines
+        // below the wrap shift down by one. (With a join the overflow line is
+        // consumed and the continuation takes its place, so they keep their
+        // index.)
+        if !join
+            && let Some(m) = mark
+            && m.line > line0
+        {
+            mark = Some(Pos {
+                line: m.line + 1,
+                x: m.x,
+            });
+        }
+        self.bm().wrap_split(line0, first, second, join);
+        self.bm().state.mark = mark;
+        self.bm().state.pos = pos;
+        let mut after = self.b().state.clone();
+        // The reference clears `spillage_line` only in delete_node (when the
+        // wrap-created line is freed) and does not restore it on redo: redo
+        // re-applies the inner ENTER without setting the spillage pointer.
+        // Record `None` in both the before- and after-state of a wrap item so
+        // undo and redo of a wrap yield no spillage, matching the reference.
+        // The live marker is set below for the next wrap's join decision.
+        after.spillage = None;
         if let Some(last) = self.bm().history.last_mut() {
             last.after = after;
+            last.before.spillage = None;
+            last.is_wrap = true;
             if last.kind == "paste" {
                 last.redo_kind = Some("addition".into());
             }
         }
+        // A successful wrap creates the spillage line for the next wrap: the
+        // new continuation line's generation (assigned by the split).
+        self.bm().state.spillage = self.bm().state.generations.get(line0 + 1).copied();
+        // A hard wrap ends the current addition group: nano's do_wrap closes
+        // the wrap with a SPLIT_END item and resets last_action, so the next
+        // typed character (even at the wrapped cursor) starts a new ADD item
+        // instead of continuing the item that triggered the wrap. Without this
+        // reset, a movement that returns to the wrap cursor (Home/End) would
+        // let later typing undo together with the wrap+trigger, diverging from
+        // the reference. See spec 06 UNDO-003 and Q-UNDO-002.
+        self.bm().last_kind.clear();
         self.preferred();
     }
     fn para_lead(&self, line: usize) -> (usize, usize) {
@@ -648,6 +837,11 @@ impl Editor {
             }
             let count = output.len();
             self.bm().state.lines.splice(first..end, output);
+            // The paragraph's old lines are all replaced by rewrapped output;
+            // none survive, so a spillage marker in the range is cleared and a
+            // marker below shifts (R1). `replace` is not used here, so maintain
+            // the marker explicitly.
+            self.bm().spillage_no_survivors(first, end, count);
             let n = self.b().state.lines.len();
             self.bm().state.anchors.resize(n, false);
             line = first + count;
@@ -1410,7 +1604,7 @@ impl Editor {
                         .b()
                         .region()
                         .unwrap_or((Pos::default(), self.b().end()));
-                    self.bm().replace(a, b, &raw);
+                    self.bm().replace(a, b, &raw, Splice::Replace);
                     self.bm().state.pos = Pos {
                         line: original.line.min(self.b().state.lines.len() - 1),
                         x: 0,
@@ -1555,7 +1749,7 @@ impl Editor {
                 let corrected = Buffer::new(Vec::new(), lines).raw();
                 let mut wanted = pos;
                 if let Some((a, b)) = region {
-                    self.bm().replace(a, b, &corrected);
+                    self.bm().replace(a, b, &corrected, Splice::Plain);
                     let end = self.b().pos();
                     if mark.is_some_and(|m| m < pos) {
                         wanted.x = end.x;
@@ -1571,6 +1765,9 @@ impl Editor {
                 } else {
                     let (lines, _, _) = files::parse(&raw, !self.conf.on(NO_CONVERT));
                     self.bm().state.lines = lines;
+                    // Whole-buffer replacement frees every old line; the
+                    // spillage marker cannot survive (R1).
+                    self.bm().spillage_clear();
                 }
                 self.bm().set_pos(wanted);
                 if at_eol {

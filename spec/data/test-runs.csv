@@ -1,7 +1,7 @@
 test_id,scenario_file,argv,status,exit_status,exit_signal,snapshots,note,cited_in_docs
 TEST-BROWSE-001,browser.json,-I f.txt,recorded,0,,14,,09
 TEST-BROWSE-002,browser.json,-I f.txt,recorded,,9,11,harness-killed,09
-TEST-BROWSE-003,browser.json,-I f.txt,recorded,,9,6,harness-killed,09
+TEST-BROWSE-003,browser.json,-I f.txt,recorded,,9,6,harness-killed,09 19 20
 TEST-BROWSE-004,browser.json,-I f.txt,recorded,,9,7,harness-killed,09
 TEST-BYTE-001,bytes.json,-I m.txt,recorded,0,,30,,18
 TEST-BYTE-002,bytes.json,-I m.txt,recorded,0,,9,,18
@@ -33,17 +33,17 @@ TEST-CLI-021,cli.json,-I f.txt:7,recorded,0,,1,,01
 TEST-CLI-022,cli.json,-I -@ +2 f.txt:7,recorded,0,,1,,01
 TEST-CLI-023,cli.json,-I newfile.txt,recorded,0,,1,,01 08
 TEST-CLI-024,cli.json,-I .,recorded,0,,1,,01 08
-TEST-CLI-025,cli.json,-I /dev/null,recorded,0,,1,,01 08
+TEST-CLI-025,cli.json,-I /dev/null,recorded,0,,1,,01 08 19 20
 TEST-CLI-026,cli.json,-I dir/,recorded,0,,1,,01 08
 TEST-CLI-027,cli.json,-I f.txt w.txt,recorded,0,,2,,01 08
 TEST-CLI-028,cli.json,-I -v f.txt,recorded,0,,2,,01 02
 TEST-CLI-029,cli.json,-I -v,recorded,0,,1,,01
 TEST-CLI-030,cli.json,-I -,recorded,0,,2,,01 08
 TEST-CLI-031,cli.json,-I - f.txt,recorded,,9,1,harness-killed,01
-TEST-CLI-032,cli.json,-I -o /nonexistent-dir,recorded,1,,1,,01
-TEST-CLI-033,cli.json,-I -B -C /nonexistent-dir,recorded,1,,1,,01
+TEST-CLI-032,cli.json,-I -o /nonexistent-dir,recorded,1,,1,,01 19
+TEST-CLI-033,cli.json,-I -B -C /nonexistent-dir,recorded,1,,1,,01 19
 TEST-CLI-034,cli.json,-I -Q (,recorded,1,,1,,01
-TEST-CLI-035,cli.json,-I -R -B -C /nonexistent-dir,recorded,0,,1,,01
+TEST-CLI-035,cli.json,-I -R -B -C /nonexistent-dir,recorded,0,,1,,01 19
 TEST-CLI-036,cli.json,-I,recorded,1,,1,,01
 TEST-CLI-037,cli.json,,recorded,0,,1,,01 10
 TEST-CLI-038,cli.json,-I -x -c,recorded,0,,1,,01 04
@@ -65,7 +65,7 @@ TEST-CLI-053,cli.json,-I +2.5 f.txt,recorded,0,,1,,01
 TEST-CLI-054,cli.json,-I +2:5 f.txt,recorded,0,,1,,01
 TEST-CLI-055,cli.json,-I +cr/F.o w.txt,recorded,0,,1,,01
 TEST-CLI-056,cli-extra.json,"-I +3, f.txt",recorded,0,,1,,01
-TEST-CLI-057,cli-extra.json,-I +r/( w.txt,recorded,1,,1,,01 97 99
+TEST-CLI-057,cli-extra.json,-I +r/( w.txt,recorded,1,,1,,01 97 98 99
 TEST-CLI-058,cli-extra.json,-I w.txt -v,recorded,0,,1,,01
 TEST-CLI-059,cli-extra.json,-I w.txt -v,recorded,0,,1,,01
 TEST-CLI-060,cli-extra.json,-I,recorded,0,,1,,01
@@ -119,7 +119,7 @@ TEST-FEAT-014,features2.json,-I -P f.txt,recorded,0,,6,,12
 TEST-FEAT-015,features2.json,-I -P f.txt,recorded,0,,1,,12
 TEST-FEAT-016,features2.json,-I f.txt,recorded,0,,6,,12 13
 TEST-FEAT-017,features2.json,-I f.txt,recorded,,9,12,harness-killed,12
-TEST-FEAT-018,features2.json,-I f.txt,recorded,0,,9,,12
+TEST-FEAT-018,features2.json,-I f.txt,recorded,0,,9,,04 12
 TEST-FEAT-019,features2.json,-I -l f.txt,recorded,0,,5,,12 18
 TEST-FEAT-020,features2.json,-I f.txt,recorded,0,,5,,12
 TEST-FILE-001,files.json,-I f.txt,recorded,0,,3,,08
@@ -182,7 +182,7 @@ TEST-KEY-003,keys.json,,recorded,0,,1,,02 10
 TEST-KEY-004,keys.json,,recorded,1,,1,,02 10
 TEST-KEY-005,keys.json,,recorded,0,,3,,02 10
 TEST-KEY-006,keys.json,-I --modernbindings,recorded,0,,2,,02
-TEST-KEY-007,keys.json,,recorded,0,,1,,02
+TEST-KEY-007,keys.json,,recorded,0,,1,,02 19
 TEST-KEY-008,keys.json,-I,recorded,0,,18,,02 04
 TEST-KEY-009,keys.json,-I -x,recorded,0,,3,,02
 TEST-KEY-010,keys.json,-I -p --modernbindings,recorded,0,,2,,02 04
@@ -216,7 +216,7 @@ TEST-PROMPT-009,prompts.json,-I -R f.txt,recorded,0,,9,,17
 TEST-PROMPT-010,prompts.json,-I -m f.txt,recorded,0,,7,,17
 TEST-PROMPT-011,prompts.json,-I f.txt,recorded,0,,5,,17
 TEST-PROMPT-012,prompts.json,-I f.txt,recorded,0,,5,,17
-TEST-PROMPT-NUL-001,prompt-nul.json,-I f.txt,recorded,0,,1,,14 17 99
+TEST-PROMPT-NUL-001,prompt-nul.json,-I f.txt,recorded,0,,1,,14 17 98 99
 TEST-RC-001,rc.json,t.txt,recorded,0,,1,,10
 TEST-RC-002,rc.json,t.txt,recorded,0,,1,,10
 TEST-RC-003,rc.json,t.txt,recorded,0,,1,,10

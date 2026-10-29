@@ -1,0 +1,82 @@
+[
+  {
+    "id": "NUL-BEFORE",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "616161206262622063006363630a"}},
+    "steps": [
+      {"settle": 200},
+      {"keys": ["End"]},
+      {"text": " d"},
+      {"snapshot": "wrap", "quiet": 80},
+      {"keys": ["M-U"]},
+      {"snapshot": "undo", "quiet": 80},
+      {"keys": ["M-E"]},
+      {"snapshot": "redo", "quiet": 80},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 200},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"sleep": 100},
+      {"text": "n"},
+      {"wait_exit": 5}
+    ],
+    "expect": {"exit_status": 0, "temp_empty": true},
+    "note": "NUL before the wrap point: fixture 'aaa bbb c\\0ccc' (NUL in the pre-wrap text); typing ' d' at End triggers a wrap. The NUL must survive the wrap and undo/redo as a payload byte, not a line separator."
+  },
+  {
+    "id": "NUL-AFTER",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "61616120626262206363636300640a"}},
+    "steps": [
+      {"settle": 200},
+      {"keys": ["End"]},
+      {"text": "d"},
+      {"snapshot": "wrap", "quiet": 80},
+      {"keys": ["M-U"]},
+      {"snapshot": "undo", "quiet": 80},
+      {"keys": ["M-E"]},
+      {"snapshot": "redo", "quiet": 80},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 200},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"sleep": 100},
+      {"text": "n"},
+      {"wait_exit": 5}
+    ],
+    "expect": {"exit_status": 0, "temp_empty": true},
+    "note": "NUL after the wrap point: fixture 'aaa bbb ccccc\\0d' (NUL in the remainder); typing 'd' at End triggers a wrap. The NUL must survive the wrap split and undo/redo as a payload byte."
+  },
+  {
+    "id": "NUL-OVERFLOW",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "0a"}},
+    "steps": [
+      {"settle": 200},
+      {"text": "aaa bbb ccc ddd"},
+      {"keys": ["Up"]},
+      {"keys": ["End"]},
+      {"text": " eee"},
+      {"snapshot": "spill", "quiet": 80},
+      {"keys": ["M-U"]},
+      {"snapshot": "undo", "quiet": 80},
+      {"keys": ["M-E"]},
+      {"snapshot": "redo", "quiet": 80},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 200},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"sleep": 100},
+      {"text": "n"},
+      {"wait_exit": 5}
+    ],
+    "expect": {"exit_status": 0, "temp_empty": true},
+    "note": "Spillage join control (no NUL): confirms the join path and undo/redo are exercised end-to-end through hard_wrap, so the F2 decode_nuls guard is on the production path. Paired with the NUL unit test for the byte-domain guarantee."
+  }
+]

@@ -87,7 +87,7 @@ After each insertion on a line (and after a paste that stays on one line):
 6. The cursor stays where the typed text logically is (on the first or second line). The new line becomes the spillage line.
 7. The whole wrap is one undoable unit (SPLIT_BEGIN … SPLIT_END, `06`).
 - **Source:** `src/text.c:1233-1455`.
-- **Evidence:** source-confirmed; runtime tests TEST-EDIT-WRAP-001…004 planned.
+- **Evidence:** source-confirmed; 39 runtime differential cases `TEST-NEXT-UNDO-WRAP-001-MID` … `TEST-NEXT-UNDO-WRAP-039-MARK-SHIFT` (file bytes, modified/saved state, cursor and screen through undo and redo) match the pinned reference; see `../validation/wrap-undo/README.md`. The spillage marker is a stable per-line generation and every splice states which node survives. The quote prefix (`032-QUOTE`), the terminal-width wrap geometry with a nonpositive fill (`034-FILL-ZERO`, `035-FILL-NEG`), the continuation indent sampled from the next line (`033-CONT-INDENT`), the live explicit mark through a join (`028-MARK`) and a paste that edits or shifts the live target (`037-PASTE`, `038-PASTE-SHIFT`) are covered at runtime.
 
 ---
 
@@ -362,7 +362,7 @@ directly; `^W`/`^O` go to paragraph start/end.
 | Requirement | Evidence |
 |---|---|
 | EDIT-001, 010, 011, 012 | runtime TEST-EDIT-001/-002/-008…011 |
-| EDIT-015 | source only (tests planned) |
+| EDIT-015 | partially covered (39 runtime `TEST-NEXT-UNDO-WRAP-001-MID`…`039-MARK-SHIFT` cases; the quote prefix, the nonpositive fill geometry, the continuation indent and the live explicit mark are covered; the interactions with soft wrap, view mode and terminal resize are not separately verified) |
 | EDIT-020/021 | runtime TEST-EDIT-003…007, -019, -020, -027 |
 | EDIT-030…035 | runtime TEST-EDIT-012…021 |
 | EDIT-036/037 | runtime TEST-EDIT-022 (messages), TEST-INPUT-012 |

@@ -111,6 +111,9 @@ pub fn open(c: &Config, name: &[u8], noread: bool) -> Result<(Buffer, String, i3
             Ok(raw) => {
                 let (lines, dos, n) = parse(&raw, !c.on(NO_CONVERT));
                 b.state.lines = lines;
+                let nl = b.state.lines.len() as u64;
+                b.state.generations = (b.next_gen..b.next_gen + nl).collect();
+                b.next_gen += nl;
                 b.dos = dos && !c.on(MAKE_IT_UNIX);
                 msg = line_message("Read", n, dos);
                 if b.stat.as_ref().is_some_and(|s| s.mode() & 0o222 == 0) {
