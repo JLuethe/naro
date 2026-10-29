@@ -11,12 +11,12 @@
     "22-tiny-profile.md"
   ],
   "follow_up_requirements": 43,
-  "follow_up_tests": 64,
+  "follow_up_tests": 65,
   "follow_up_statuses": {
     "deferred": 3,
-    "verified": 61
+    "verified": 62
   },
-  "scenarios": 646,
+  "scenarios": 671,
   "recorded": 309,
   "explicit_assertions": 4,
   "intentional_sigkill": [

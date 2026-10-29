@@ -1,22 +1,26 @@
 {
   "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
   "suite": "wrap-undo",
-  "scenario_sha256_canonical": "7856d86bb29371f3948ac5e176f24d225469f40d807a201efc27a8fb01b140c6",
-  "scenario_sha256_raw": "0089d12b1b64a775241cb42687ddfc42883991e3711a576e92fb7ef784dfaef6",
-  "scenario_sha256_runner": "0ab3bcd81f9069d7eb9bda10199680ab6c0f75c4b0e7f61be5c725993cd2d6a6",
-  "source_sha256": "522a6c33202ed6de6abe209bbe86e5f86a7ff49d0de0f41da11dca9f75a45e4e",
-  "source_revision": "a59f3900a29e31a5e868839fa10782019c9e4d96",
-  "build_config": "cargo build --release --target-dir target/next-default (default profile, features \"\")",
+  "scenario_sha256_canonical": "b67c3f612c38e419420dbd59752bdc48f6c52e04b06adbdb767a3d2116bc62c4",
+  "scenario_sha256_raw": "4fd099983e45b4979347dc5415e593423051c8f5a99633bed698825252278f7e",
+  "scenario_sha256_runner": "1cd5aee65f91c760d478b9ca43adf4660862392b2e370f309f8afc0b4341f6a5",
+  "source_sha256": "75b568359917f7f4ad084906606b79435cac5e82d99fcc7f6e590b41714d3d74",
+  "source_revision_at_build": "dfcb38a8a480df32432760885b0f179dbfeb821f",
+  "source_changes_at_build": "reviewed working-tree src/features.rs changes; implementation commit recorded in NARO_DEVELOPMENT_PROGRESS.md",
+  "features": "",
   "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
-  "candidate_sha256": "eeb23513046dffe86526b39c8333e6609ca9bf6959f3241ca2707502b12d59e2",
+  "candidate_sha256": "c1860f2a9f880ae3ae64e3cee6f7e7b50c99fc27502be972aa1269c13e23d538",
   "reference_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+  "verification_sha256": "b1dddee51616209e287157c4dd4ac1f5cd7aeeec06bb3972a48da46b563b5ee1",
   "reference_status": 0,
   "candidate_status": 0,
-  "report_path": "target/next-wrap3/report.json",
+  "report_path": "/tmp/naro-codex-review/acceptance/report.json",
+  "report_sha256": "e56164f0cffad591cb3151e5d2bf5be5bcfda7962273320059ebcc425497ae70",
+  "artifact_gate_exit": 0,
   "summary": {
-    "recorded": 39,
-    "matches": 39,
-    "accepted": 39
+    "recorded": 58,
+    "matches": 58,
+    "accepted": 58
   },
   "results": {
     "TEST-NEXT-UNDO-WRAP-001-MID": {
@@ -369,6 +373,253 @@
       "reference_checks": true,
       "candidate_checks": true,
       "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-040-MARK-SPLIT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-041-MARK-EOF": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-042-MARK-PREFIX": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-043-MARK-BLANKS": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-044-TRAILING-SPACE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-045-MARK-FWD": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-046-MARK-IN-PREFIX": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-047-SPLIT-MARK-0": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-048-SPLIT-MARK-8": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-049-SPLIT-MARK-12": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-050-SPLIT-MARK-14": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-051-PREFIX-MARK-0": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-052-PREFIX-MARK-1": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-053-PREFIX-MARK-4": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-054-PREFIX-MARK-6": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-055-PREFIX-MARK-7": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-056-MARK-UTF8": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-057-MARK-QUOTE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-058-MARK-TRIM": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
     }
+  },
+  "limits": "Finite input coverage; Q-UNDO-002 remains partial. This is a summary, not the required evidence bundle.",
+  "other_suites": {
+    "filter-final": {
+      "report_path": "/tmp/naro-codex-review/filter-final/report.json",
+      "report_sha256": "0f5c9a8d902554181ee50df9ad2e14a7739a56de37fc5fbdb2359c644944947e",
+      "candidate_sha256": "c1860f2a9f880ae3ae64e3cee6f7e7b50c99fc27502be972aa1269c13e23d538",
+      "verification_sha256": "3da3924670c4569de56bda452feb5b9293a0a317903942618cbd226363afa146",
+      "summary": {
+        "recorded": 6,
+        "matches": 6,
+        "accepted": 6
+      },
+      "reference_status": 0,
+      "candidate_status": 0
+    },
+    "edges": {
+      "report_path": "/tmp/naro-codex-review/edges/report.json",
+      "report_sha256": "0b9c08fa25bdce652ba6c60b6188674285032235dfa0e975120dbc50ef7dbc51",
+      "candidate_sha256": "c1860f2a9f880ae3ae64e3cee6f7e7b50c99fc27502be972aa1269c13e23d538",
+      "verification_sha256": "3da3924670c4569de56bda452feb5b9293a0a317903942618cbd226363afa146",
+      "summary": {
+        "recorded": 13,
+        "matches": 13,
+        "accepted": 13
+      },
+      "reference_status": 0,
+      "candidate_status": 0
+    },
+    "tools": {
+      "report_path": "/tmp/naro-codex-review/tools/report.json",
+      "report_sha256": "14a4aad1f5d4f3f77b1625ce9a365cf2786e46e81de121f009f1f65874de1f11",
+      "candidate_sha256": "c1860f2a9f880ae3ae64e3cee6f7e7b50c99fc27502be972aa1269c13e23d538",
+      "verification_sha256": "3da3924670c4569de56bda452feb5b9293a0a317903942618cbd226363afa146",
+      "summary": {
+        "recorded": 20,
+        "matches": 20,
+        "accepted": 20
+      },
+      "reference_status": 0,
+      "candidate_status": 0
+    },
+    "supplement": {
+      "report_path": "/tmp/naro-codex-review/supplement/report.json",
+      "report_sha256": "4e36f4546486e80de902b57958de86783d848fdfa39ae7c685796768dc6e6196",
+      "candidate_sha256": "c1860f2a9f880ae3ae64e3cee6f7e7b50c99fc27502be972aa1269c13e23d538",
+      "verification_sha256": "3da3924670c4569de56bda452feb5b9293a0a317903942618cbd226363afa146",
+      "summary": {
+        "recorded": 3,
+        "matches": 3,
+        "accepted": 3
+      },
+      "reference_status": 0,
+      "candidate_status": 0
+    }
+  },
+  "retained_baseline": {
+    "report_path": "/tmp/naro-codex-review/baseline/report.json",
+    "report_sha256": "20bbde569ac503ad5748ef36de5ad66cbc2c779a70266622327b3209998c511d",
+    "binary_sha256": "c1860f2a9f880ae3ae64e3cee6f7e7b50c99fc27502be972aa1269c13e23d538",
+    "summary": {
+      "recorded": 303,
+      "full_matches": 301,
+      "files_matches": 302,
+      "skipped": 6
+    },
+    "worker_statuses": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "declared_deviations": [
+      "TEST-CLI-057",
+      "TEST-PROMPT-NUL-001"
+    ]
   }
 }

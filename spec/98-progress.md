@@ -4,6 +4,21 @@ Reference commit: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`
 
 This file lets a later session resume without the earlier conversation.
 
+## Codex Pi-review checkpoint (2026-10-28)
+
+The prior “final” checkpoint below is historical. Its 39 matching cases missed
+split-origin mark double movement and join-origin prefix/blank mapping, including
+two caught crashes. Codex fixed those transforms and generic marked-filter
+sequencing/cursor/failure cleanup, added 19 wrap regressions/controls and six
+filter cases, and made the report gate require and recompute its evidence.
+
+The current authoritative review, results, remaining work and testing-only
+handoff are `../NARO_PI_TEST_REVIEW.md`, `../NARO_DEVELOPMENT_PROGRESS.md`,
+`../NARO_NEXT_STEPS.md` and `../NARO_TEST_AGENT_HANDOFF.md`. Q-UNDO-002 stays
+partial. A burst ending in a blank reaches the no-added-space branch; earlier
+claims that it was unreachable were wrong. Binary hashes change when the
+embedded Git revision changes even if production inputs are unchanged.
+
 ## Hard-wrap undo/redo parity checkpoint (2026-10-28, final)
 
 This checkpoint supersedes the generation-model checkpoint below: the same

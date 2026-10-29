@@ -494,7 +494,7 @@
       {"wait_exit": 5}
     ],
     "expect": {"exit_status": 0, "temp_empty": true},
-    "note": "Whitespace at the join: the live overflow 'ccc ddd' gets a leading blank, so the target starts with a blank. The next wrap types ' eee fff': the remainder 'fff' is 3 bytes and the target is 8 columns, so 3 + 8 = 11 <= fill 12 and the join is accepted. The reference removes the extra blanks at the join point, so exactly one space separates the remainder from the target and the saved continuation is 'fff ccc ddd'; without the removal it would be 'fff  ccc ddd'. The reference's other whitespace guard, which skips the separating space when the remainder itself ends in a blank, is not reachable through typing: the wrap point is always the end of the last blank run inside the wrap column, so the remainder starts with a non-blank, and the wrap triggers at exactly one column past the wrap column, so the remainder cannot end with a blank either."
+    "note": "The live target begins with a blank; an accepted join strips it and saves aa bb ccc  / eee fff ddd (see oracle recordings)."
   },
   {
     "id": "TEST-NEXT-UNDO-WRAP-018-REJECT",
@@ -673,7 +673,7 @@
       {"wait_exit": 5}
     ],
     "expect": {"exit_status": 0, "temp_empty": true},
-    "note": "Embedded NUL before the wrap point: fixture 'aaa\\0bbb cccc' (NUL at byte 3, in the part that stays on the first line). The NUL is a payload byte and must survive the wrap split on the first line (before the actual split at byte 8) and undo/redo, not be reinterpreted as a line separator. The previous fixture 'aaa bbb c\\0ccc' placed the NUL after the actual split despite the name."
+    "note": "Embedded NUL at byte offset 4 in fixture aaab\\0bbb cccc remains before the actual split at byte 9; it must survive as a payload byte through wrapping and undo/redo."
   },
   {
     "id": "TEST-NEXT-UNDO-WRAP-023-NULAFTER",
@@ -1140,6 +1140,725 @@
       {"wait_exit": 5}
     ],
     "expect": {"exit_status": 0, "temp_empty": true},
-    "note": "Explicit mark on a line below the wrapped line: the mark is set on 'TAIL' and the predecessor 'aaa bbb ccc' then wraps, so the continuation is inserted above the marked line and the marked node moves down by one. The reference keeps the mark on the same node, so the cut of the marked region removes the continuation and 'TAIL'; a mark whose line index was not shifted would cut a different region."
+    "note": "A pre-existing mark on TAIL shifts down exactly once when a continuation is inserted above it; the marked cut removes only the selected newline, saving aaa bbb / cccdeTAIL."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-040-MARK-SPLIT",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "6161612062626220636363206464640a5441494c0a"}},
+    "steps": [
+      {"settle": 200},
+      {"keys": ["End"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Home"]},
+      {"text": "X"},
+      {"snapshot": "wrapped", "quiet": 100},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "580a5441494c0a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "wrapped", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "wrapped", "attr_at": [1, 1, "reverse=True"]},
+        {"snapshot": "wrapped", "attr_at": [2, 0, "reverse=True"]},
+        {"snapshot": "cut", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 1, "y": 1, "visible": true}}
+      ]
+    },
+    "note": "Mark originally after the split follows the continuation once; marked cut keeps TAIL."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-041-MARK-EOF",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "6161612062626220636363206464640a"}},
+    "steps": [
+      {"settle": 200},
+      {"keys": ["End"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Home"]},
+      {"text": "X"},
+      {"snapshot": "wrapped", "quiet": 100},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "580a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "wrapped", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "wrapped", "attr_at": [1, 1, "reverse=True"]},
+        {"snapshot": "wrapped", "attr_at": [2, 0, "reverse=True"]},
+        {"snapshot": "cut", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 1, "y": 1, "visible": true}}
+      ]
+    },
+    "note": "Mark after a split at EOF stays within the continuation; subsequent cut must not panic."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-042-MARK-PREFIX",
+    "args": ["-I", "-b", "-i", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "20202020616161206262620a"}},
+    "steps": [
+      {"settle": 200},
+      {"keys": ["End"]},
+      {"text": " ccc"},
+      {"snapshot": "first-wrap", "quiet": 100},
+      {"keys": ["Home"]},
+      {"keys": ["Right", "Right", "Right", "Right", "Right"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Up"]},
+      {"keys": ["End"]},
+      {"text": " eee"},
+      {"snapshot": "joined-mark", "quiet": 100},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "202020206161612062626220200a2020202065656563630a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "first-wrap", "cursor": {"x": 7, "y": 2, "visible": true}},
+        {"snapshot": "joined-mark", "cursor": {"x": 7, "y": 2, "visible": true}},
+        {"snapshot": "joined-mark", "attr_at": [2, 7, "reverse=True"]},
+        {"snapshot": "cut", "cursor": {"x": 7, "y": 2, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 7, "y": 2, "visible": true}}
+      ]
+    },
+    "note": "Join-origin mark after duplicated indentation receives prefix removal before the split."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-043-MARK-BLANKS",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "0a"}},
+    "steps": [
+      {"settle": 200},
+      {"text": "aaa bbb ccc ddd"},
+      {"keys": ["Home"]},
+      {"paste": "  "},
+      {"keys": ["Home"]},
+      {"keys": ["Right", "Right", "Right"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Up"]},
+      {"keys": ["End"]},
+      {"text": " eee"},
+      {"snapshot": "joined-mark", "quiet": 100},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "616161206262622063636320200a65656564640a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "joined-mark", "cursor": {"x": 3, "y": 2, "visible": true}},
+        {"snapshot": "joined-mark", "attr_at": [2, 3, "reverse=True"]},
+        {"snapshot": "cut", "cursor": {"x": 3, "y": 2, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 3, "y": 2, "visible": true}}
+      ]
+    },
+    "note": "Join-origin mark after extra blanks receives blank removal before the split."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-044-TRAILING-SPACE",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "0a"}},
+    "steps": [
+      {"settle": 200},
+      {"text": "aaa bbb ccc ddd"},
+      {"keys": ["Up", "End"]},
+      {"text": " eee "},
+      {"snapshot": "joined", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "616161206262622063636320200a656565206464640a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "joined", "cursor": {"x": 4, "y": 2, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 4, "y": 2, "visible": true}}
+      ]
+    },
+    "note": "A typing burst ending in a blank reaches the no-added-space join branch."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-045-MARK-FWD",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "term": "tmux-256color",
+    "cols": 80,
+    "rows": 24,
+    "lang": "en_US.UTF-8",
+    "files": {"work/f.txt": {"hex": "61616120626262206363630a5441494c0a"}},
+    "steps": [
+      {"settle": 200},
+      {"keys": ["End"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Up"]},
+      {"keys": ["End"]},
+      {"text": "ddd"},
+      {"snapshot": "wrap", "quiet": 80},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 80},
+      {"keys": ["^O"]},
+      {"sleep": 120},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 150},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"sleep": 100},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "61616120626262200a6363630a5441494c0a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "wrap", "cursor": {"x": 6, "y": 2, "visible": true}},
+        {"snapshot": "cut", "cursor": {"x": 3, "y": 2, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 3, "y": 2, "visible": true}}
+      ]
+    },
+    "note": "Forward selection after wrap cuts the typed suffix and preserves the following TAIL node."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-046-MARK-IN-PREFIX",
+    "args": ["-I", "-b", "-i", "-r", "12", "f.txt"],
+    "term": "tmux-256color",
+    "cols": 80,
+    "rows": 24,
+    "lang": "en_US.UTF-8",
+    "files": {"work/f.txt": {"hex": "20202020616161206262620a"}},
+    "steps": [
+      {"settle": 200},
+      {"keys": ["End"]},
+      {"text": " ccc"},
+      {"snapshot": "first-wrap", "quiet": 80},
+      {"keys": ["Home"]},
+      {"keys": ["Right", "Right", "Right"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Up"]},
+      {"keys": ["End"]},
+      {"text": " eee"},
+      {"snapshot": "joined", "quiet": 80},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 80},
+      {"keys": ["^O"]},
+      {"sleep": 120},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 150},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"sleep": 100},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "202020206161612062626220200a202020206565656363630a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "first-wrap", "cursor": {"x": 7, "y": 2, "visible": true}},
+        {"snapshot": "joined", "cursor": {"x": 7, "y": 2, "visible": true}},
+        {"snapshot": "cut", "cursor": {"x": 7, "y": 2, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 7, "y": 2, "visible": true}}
+      ]
+    },
+    "note": "Mark inside the stripped indentation maps to the join point rather than cutting surviving ccc."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-047-SPLIT-MARK-0",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "6161612062626220636363206464640a5441494c0a"}},
+    "steps": [
+      {"settle": 200},
+      {"keys": ["Home"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Home"]},
+      {"text": "X"},
+      {"snapshot": "wrapped", "quiet": 100},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "6161612062626220636363200a6464640a5441494c0a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "wrapped", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "wrapped", "attr_at": [1, 0, "reverse=True"]},
+        {"snapshot": "cut", "cursor": {"x": 0, "y": 1, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 0, "y": 1, "visible": true}}
+      ]
+    },
+    "note": "Mark originally at byte 0 of the wrapping line; verify split boundary and direction, then cut."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-048-SPLIT-MARK-8",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "6161612062626220636363206464640a5441494c0a"}},
+    "steps": [
+      {"settle": 200},
+      {"keys": ["Home"]},
+      {"keys": ["Right", "Right", "Right", "Right", "Right", "Right", "Right", "Right"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Home"]},
+      {"text": "X"},
+      {"snapshot": "wrapped", "quiet": 100},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "58636363200a6464640a5441494c0a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "wrapped", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "wrapped", "attr_at": [1, 1, "reverse=True"]},
+        {"snapshot": "cut", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 1, "y": 1, "visible": true}}
+      ]
+    },
+    "note": "Mark originally at byte 8 of the wrapping line; verify split boundary and direction, then cut."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-049-SPLIT-MARK-12",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "6161612062626220636363206464640a5441494c0a"}},
+    "steps": [
+      {"settle": 200},
+      {"keys": ["Home"]},
+      {"keys": ["Right", "Right", "Right", "Right", "Right", "Right", "Right", "Right", "Right", "Right", "Right", "Right"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Home"]},
+      {"text": "X"},
+      {"snapshot": "wrapped", "quiet": 100},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "580a6464640a5441494c0a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "wrapped", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "wrapped", "attr_at": [1, 1, "reverse=True"]},
+        {"snapshot": "cut", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 1, "y": 1, "visible": true}}
+      ]
+    },
+    "note": "Mark originally at byte 12 of the wrapping line; verify split boundary and direction, then cut."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-050-SPLIT-MARK-14",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "6161612062626220636363206464640a5441494c0a"}},
+    "steps": [
+      {"settle": 200},
+      {"keys": ["Home"]},
+      {"keys": ["Right", "Right", "Right", "Right", "Right", "Right", "Right", "Right", "Right", "Right", "Right", "Right", "Right", "Right"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Home"]},
+      {"text": "X"},
+      {"snapshot": "wrapped", "quiet": 100},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "58640a5441494c0a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "wrapped", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "wrapped", "attr_at": [1, 1, "reverse=True"]},
+        {"snapshot": "wrapped", "attr_at": [2, 0, "reverse=True"]},
+        {"snapshot": "cut", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 1, "y": 1, "visible": true}}
+      ]
+    },
+    "note": "Mark originally at byte 14 of the wrapping line; verify split boundary and direction, then cut."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-051-PREFIX-MARK-0",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "0a"}},
+    "steps": [
+      {"settle": 200},
+      {"text": "aaa bbb ccc ddd"},
+      {"keys": ["Home"]},
+      {"paste": "  "},
+      {"keys": ["Home"]},
+      {"keys": ["Right", "Right", "Right"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Up"]},
+      {"keys": ["End"]},
+      {"text": " eee"},
+      {"snapshot": "joined-mark", "quiet": 100},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "616161206262622063636320200a65656564640a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "joined-mark", "cursor": {"x": 3, "y": 2, "visible": true}},
+        {"snapshot": "joined-mark", "attr_at": [2, 3, "reverse=True"]},
+        {"snapshot": "cut", "cursor": {"x": 3, "y": 2, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 3, "y": 2, "visible": true}}
+      ]
+    },
+    "note": "Mark at byte 0 of live indented successor, before/inside/after stripped prefix; join then cut."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-052-PREFIX-MARK-1",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "0a"}},
+    "steps": [
+      {"settle": 200},
+      {"text": "aaa bbb ccc ddd"},
+      {"keys": ["Home"]},
+      {"paste": "  "},
+      {"keys": ["Home"]},
+      {"keys": ["Right", "Right", "Right"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Up"]},
+      {"keys": ["End"]},
+      {"text": " eee"},
+      {"snapshot": "joined-mark", "quiet": 100},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "616161206262622063636320200a65656564640a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "joined-mark", "cursor": {"x": 3, "y": 2, "visible": true}},
+        {"snapshot": "joined-mark", "attr_at": [2, 3, "reverse=True"]},
+        {"snapshot": "cut", "cursor": {"x": 3, "y": 2, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 3, "y": 2, "visible": true}}
+      ]
+    },
+    "note": "Mark at byte 1 of live indented successor, before/inside/after stripped prefix; join then cut."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-053-PREFIX-MARK-4",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "0a"}},
+    "steps": [
+      {"settle": 200},
+      {"text": "aaa bbb ccc ddd"},
+      {"keys": ["Home"]},
+      {"paste": "  "},
+      {"keys": ["Home"]},
+      {"keys": ["Right", "Right", "Right"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Up"]},
+      {"keys": ["End"]},
+      {"text": " eee"},
+      {"snapshot": "joined-mark", "quiet": 100},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "616161206262622063636320200a65656564640a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "joined-mark", "cursor": {"x": 3, "y": 2, "visible": true}},
+        {"snapshot": "joined-mark", "attr_at": [2, 3, "reverse=True"]},
+        {"snapshot": "cut", "cursor": {"x": 3, "y": 2, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 3, "y": 2, "visible": true}}
+      ]
+    },
+    "note": "Mark at byte 4 of live indented successor, before/inside/after stripped prefix; join then cut."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-054-PREFIX-MARK-6",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "0a"}},
+    "steps": [
+      {"settle": 200},
+      {"text": "aaa bbb ccc ddd"},
+      {"keys": ["Home"]},
+      {"paste": "  "},
+      {"keys": ["Home"]},
+      {"keys": ["Right", "Right", "Right"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Up"]},
+      {"keys": ["End"]},
+      {"text": " eee"},
+      {"snapshot": "joined-mark", "quiet": 100},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "616161206262622063636320200a65656564640a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "joined-mark", "cursor": {"x": 3, "y": 2, "visible": true}},
+        {"snapshot": "joined-mark", "attr_at": [2, 3, "reverse=True"]},
+        {"snapshot": "cut", "cursor": {"x": 3, "y": 2, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 3, "y": 2, "visible": true}}
+      ]
+    },
+    "note": "Mark at byte 6 of live indented successor, before/inside/after stripped prefix; join then cut."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-055-PREFIX-MARK-7",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "0a"}},
+    "steps": [
+      {"settle": 200},
+      {"text": "aaa bbb ccc ddd"},
+      {"keys": ["Home"]},
+      {"paste": "  "},
+      {"keys": ["Home"]},
+      {"keys": ["Right", "Right", "Right"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Up"]},
+      {"keys": ["End"]},
+      {"text": " eee"},
+      {"snapshot": "joined-mark", "quiet": 100},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "616161206262622063636320200a65656564640a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "joined-mark", "cursor": {"x": 3, "y": 2, "visible": true}},
+        {"snapshot": "joined-mark", "attr_at": [2, 3, "reverse=True"]},
+        {"snapshot": "cut", "cursor": {"x": 3, "y": 2, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 3, "y": 2, "visible": true}}
+      ]
+    },
+    "note": "Mark at byte 7 of live indented successor, before/inside/after stripped prefix; join then cut."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-056-MARK-UTF8",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "6161612062626220c3a9c3a9c3a9206464640a5441494c0a"}},
+    "steps": [
+      {"settle": 200},
+      {"keys": ["End"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Home"]},
+      {"text": "X"},
+      {"snapshot": "wrapped", "quiet": 100},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 100},
+      {"keys": ["M-U"]},
+      {"snapshot": "undo-cut", "quiet": 100},
+      {"keys": ["M-E"]},
+      {"snapshot": "redo-cut", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "580a5441494c0a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "wrapped", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "wrapped", "attr_at": [1, 1, "reverse=True"]},
+        {"snapshot": "wrapped", "attr_at": [2, 0, "reverse=True"]},
+        {"snapshot": "cut", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "undo-cut", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "redo-cut", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 1, "y": 1, "visible": true}}
+      ]
+    },
+    "note": "Mark moved by a pure split with utf8; subsequent cut, undo and redo."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-057-MARK-QUOTE",
+    "args": ["-I", "-b", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "3e206161612062626220636363206464640a5441494c0a"}},
+    "steps": [
+      {"settle": 200},
+      {"keys": ["End"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Home"]},
+      {"text": "X"},
+      {"snapshot": "wrapped", "quiet": 100},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 100},
+      {"keys": ["M-U"]},
+      {"snapshot": "undo-cut", "quiet": 100},
+      {"keys": ["M-E"]},
+      {"snapshot": "redo-cut", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "580a5441494c0a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "wrapped", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "wrapped", "attr_at": [1, 1, "reverse=True"]},
+        {"snapshot": "wrapped", "attr_at": [2, 0, "reverse=True"]},
+        {"snapshot": "cut", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "undo-cut", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "redo-cut", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 1, "y": 1, "visible": true}}
+      ]
+    },
+    "note": "Mark moved by a pure split with quote; subsequent cut, undo and redo."
+  },
+  {
+    "id": "TEST-NEXT-UNDO-WRAP-058-MARK-TRIM",
+    "args": ["-I", "-b", "-M", "-r", "12", "f.txt"],
+    "files": {"work/f.txt": {"hex": "6161612062626220636363206464640a5441494c0a"}},
+    "steps": [
+      {"settle": 200},
+      {"keys": ["End"]},
+      {"keys": ["M-A"]},
+      {"keys": ["Home"]},
+      {"text": "X"},
+      {"snapshot": "wrapped", "quiet": 100},
+      {"keys": ["^K"]},
+      {"snapshot": "cut", "quiet": 100},
+      {"keys": ["M-U"]},
+      {"snapshot": "undo-cut", "quiet": 100},
+      {"keys": ["M-E"]},
+      {"snapshot": "redo-cut", "quiet": 100},
+      {"keys": ["^O"]},
+      {"sleep": 100},
+      {"keys": ["Enter"]},
+      {"snapshot": "saved", "quiet": 100},
+      {"capture_file": "work/f.txt"},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {"work/f.txt": {"hex": "580a5441494c0a"}, "work/f.txt.save": null},
+      "screen": [
+        {"snapshot": "wrapped", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "wrapped", "attr_at": [1, 1, "reverse=True"]},
+        {"snapshot": "wrapped", "attr_at": [2, 0, "reverse=True"]},
+        {"snapshot": "cut", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "undo-cut", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "redo-cut", "cursor": {"x": 1, "y": 1, "visible": true}},
+        {"snapshot": "saved", "cursor": {"x": 1, "y": 1, "visible": true}}
+      ]
+    },
+    "note": "Mark moved by a pure split with trim; subsequent cut, undo and redo."
   }
 ]

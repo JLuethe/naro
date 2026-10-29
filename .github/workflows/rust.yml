@@ -44,6 +44,10 @@ jobs:
           python3 spec/tools/nanoharness.py tests/scenarios/safety.json --binary "$PWD/target/release/naro" --out target/ci-safety
       - name: Linux console ioctl models
         run: python3 spec/tools/nanoharness.py tests/follow-up/scenarios/vt-ioctl.json --binary "$PWD/target/release/naro" --out target/ci-vt-ioctl
+      - name: Hard-wrap marks and command filters
+        run: |
+          python3 spec/tools/nanoharness.py tests/follow-up/scenarios/wrap-undo.json --binary "$PWD/target/release/naro" --out target/ci-wrap
+          python3 spec/tools/nanoharness.py tests/follow-up/scenarios/filter.json --binary "$PWD/target/release/naro" --out target/ci-filter
       - name: Optional tiny profile
         run: |
           cargo build --release --features tiny --target-dir target/tiny

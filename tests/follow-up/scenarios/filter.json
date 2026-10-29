@@ -1,0 +1,914 @@
+[
+ {
+  "id": "TEST-NEXT-FILTER-001",
+  "args": [
+   "-I",
+   "-b",
+   "-r",
+   "12",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "6161612062626220636363206464642065656520666666206767670a"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "sleep": 200
+   },
+   {
+    "text": "|cat"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "sleep": 300
+   },
+   {
+    "snapshot": "filtered",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 150
+   },
+   {
+    "capture_file": "work/f.txt"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "hex": "6161612062626220636363206464642065656520666666206767670a0a"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "filtered",
+     "cursor": {
+      "x": 0,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 0,
+      "y": 2,
+      "visible": true
+     }
+    }
+   ]
+  },
+  "note": "Identity filter over a region spanning the line break."
+ },
+ {
+  "id": "TEST-NEXT-FILTER-002",
+  "args": [
+   "-I",
+   "-b",
+   "-r",
+   "12",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "6161612062626220636363206464642065656520666666206767670a"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "keys": [
+     "Right",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "sleep": 200
+   },
+   {
+    "text": "|tr a-z A-Z"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "sleep": 300
+   },
+   {
+    "snapshot": "filtered",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 150
+   },
+   {
+    "capture_file": "work/f.txt"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "hex": "6141412062626220636363206464642065656520666666206767670a"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "filtered",
+     "cursor": {
+      "x": 4,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 4,
+      "y": 1,
+      "visible": true
+     }
+    }
+   ]
+  },
+  "note": "Filter region within one line (no line break)."
+ },
+ {
+  "id": "TEST-NEXT-FILTER-003",
+  "args": [
+   "-I",
+   "-b",
+   "-r",
+   "12",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "61616120626262206363630a"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "paste": "ZZZ\n"
+   },
+   {
+    "snapshot": "pasted",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 150
+   },
+   {
+    "capture_file": "work/f.txt"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "hex": "61616120626262206363635a5a5a0a0a"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "pasted",
+     "cursor": {
+      "x": 0,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 0,
+      "y": 2,
+      "visible": true
+     }
+    }
+   ]
+  },
+  "note": "Bracketed paste ending in a newline, to isolate insertion-of-trailing-newline behavior."
+ },
+ {
+  "id": "TEST-NEXT-FILTER-004",
+  "args": [
+   "-I",
+   "-b",
+   "-r",
+   "12",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "61616120626262206363632064646420656565206666660a"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "text": " ggg"
+   },
+   {
+    "snapshot": "first-wrap",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "sleep": 200
+   },
+   {
+    "text": "|tr a-z A-Z"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "sleep": 300
+   },
+   {
+    "snapshot": "filtered",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo_filter",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo_filter",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 150
+   },
+   {
+    "capture_file": "work/f.txt"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "hex": "6161612062626220636363200a6444442045454520464646204747470a0a"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "first-wrap",
+     "cursor": {
+      "x": 15,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "selection",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "filtered",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "undo_filter",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "redo_filter",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    }
+   ]
+  },
+  "note": "External filter over a region spanning a live wrap target; then undo/redo (Splice::Replace node lifetime)."
+ },
+ {
+  "id": "TEST-NEXT-FILTER-005",
+  "args": [
+   "-I",
+   "-b",
+   "-r",
+   "12",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "61616120626262206363632064646420656565206666660a"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "text": " ggg"
+   },
+   {
+    "snapshot": "first-wrap",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "sleep": 200
+   },
+   {
+    "text": "|false"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "sleep": 400
+   },
+   {
+    "snapshot": "failed_tool",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "sleep": 200
+   },
+   {
+    "snapshot": "dismissed",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo_after_fail",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 150
+   },
+   {
+    "capture_file": "work/f.txt"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "hex": "6161612062626220636363200a6464642065656520666666206767670a"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "first-wrap",
+     "cursor": {
+      "x": 15,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "selection",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "failed_tool",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "dismissed",
+     "cursor": {
+      "x": 0,
+      "y": 4,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "undo_after_fail",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "failed_tool",
+     "attr_at": [
+      2,
+      2,
+      ""
+     ]
+    }
+   ]
+  },
+  "note": "Failed external filter must roll back and discard its history item; then undo."
+ },
+ {
+  "id": "TEST-NEXT-FILTER-006",
+  "args": [
+   "-I",
+   "-b",
+   "-r",
+   "12",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "61616120626262206363632064646420656565206666660a"
+   }
+  },
+  "steps": [
+   {
+    "settle": 200
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "text": " ggg"
+   },
+   {
+    "snapshot": "first-wrap",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "selection",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^T"
+    ]
+   },
+   {
+    "sleep": 200
+   },
+   {
+    "text": "|false"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "sleep": 400
+   },
+   {
+    "snapshot": "failed_tool",
+    "quiet": 80
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 150
+   },
+   {
+    "capture_file": "work/f.txt"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "hex": "6161612062626220636363200a6464642065656520666666206767670a"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "first-wrap",
+     "cursor": {
+      "x": 15,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "selection",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "failed_tool",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "failed_tool",
+     "attr_at": [
+      2,
+      2,
+      ""
+     ]
+    }
+   ]
+  },
+  "note": "Failed marked filter clears the selection and allows an ordinary full save without a selection prompt."
+ }
+]

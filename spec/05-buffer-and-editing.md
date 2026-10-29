@@ -78,6 +78,8 @@ verbatim character; Tab's expansion) are inserted at the cursor:
 - **Source:** `src/text.c:52-81`.
 
 ### EDIT-015 — Automatic hard wrapping (*breaklonglines*)
+Current qualification: the 58-case suite includes split-origin and join-origin marked cuts, prefix boundaries, quoted/UTF-8/trimmed marks, and the reachable trailing-space burst. The previous 39-case checkpoint missed two mark-transform defects; see `../NARO_PI_TEST_REVIEW.md` and `../validation/wrap-undo/README.md`. Runtime evidence is limited to measured inputs.
+
 After each insertion on a line (and after a paste that stays on one line):
 1. `lead` = the quote prefix (`12` FEAT-QUOTE) plus following blanks. Find the last blank after `lead` whose display end is at most `wrap_at` columns from the line start (`wrap_at` = fill if > 0, else `COLS + fill`, minimum 0; default fill −8). If none is found before the limit, the first blank after it is used. Leading blanks after `lead` are never break points. Of a run of blanks, the break comes after the last one.
 2. If there is no such blank, or it is at the end of the line, or the text after it is empty, nothing happens.
@@ -87,7 +89,7 @@ After each insertion on a line (and after a paste that stays on one line):
 6. The cursor stays where the typed text logically is (on the first or second line). The new line becomes the spillage line.
 7. The whole wrap is one undoable unit (SPLIT_BEGIN … SPLIT_END, `06`).
 - **Source:** `src/text.c:1233-1455`.
-- **Evidence:** source-confirmed; 39 runtime differential cases `TEST-NEXT-UNDO-WRAP-001-MID` … `TEST-NEXT-UNDO-WRAP-039-MARK-SHIFT` (file bytes, modified/saved state, cursor and screen through undo and redo) match the pinned reference; see `../validation/wrap-undo/README.md`. The spillage marker is a stable per-line generation and every splice states which node survives. The quote prefix (`032-QUOTE`), the terminal-width wrap geometry with a nonpositive fill (`034-FILL-ZERO`, `035-FILL-NEG`), the continuation indent sampled from the next line (`033-CONT-INDENT`), the live explicit mark through a join (`028-MARK`) and a paste that edits or shifts the live target (`037-PASTE`, `038-PASTE-SHIFT`) are covered at runtime.
+- **Evidence:** source-confirmed; 58 runtime differential cases `TEST-NEXT-UNDO-WRAP-001-MID` … `TEST-NEXT-UNDO-WRAP-058-MARK-TRIM` (file bytes, modified/saved state, cursor and screen through undo and redo) match the pinned reference; see `../validation/wrap-undo/README.md`. The spillage marker is a stable per-line generation and every splice states which node survives. The quote prefix (`032-QUOTE`), the terminal-width wrap geometry with a nonpositive fill (`034-FILL-ZERO`, `035-FILL-NEG`), the continuation indent sampled from the next line (`033-CONT-INDENT`), the live explicit mark through a join (`028-MARK`) and a paste that edits or shifts the live target (`037-PASTE`, `038-PASTE-SHIFT`) are covered at runtime.
 
 ---
 

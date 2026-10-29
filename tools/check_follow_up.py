@@ -4,6 +4,7 @@ import argparse,copy,hashlib,json,os,pathlib,shutil,subprocess,sys
 ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'spec/tools'))
 from compare_runs import compare
 from environment import snapshot
+from check_wrap_undo import verification_fingerprint
 from follow_up_policy import deviation
 p=argparse.ArgumentParser();p.add_argument('--suite',required=True);p.add_argument('--binary',type=pathlib.Path,default=ROOT/'target/debug/naro');p.add_argument('--reference',type=pathlib.Path,default=pathlib.Path.home()/'src/nano-install/default/bin/nano');p.add_argument('--out',type=pathlib.Path,required=True);p.add_argument('--ids',nargs='*');p.add_argument('--reference-only',action='store_true');a=p.parse_args()
 if a.out.exists():raise SystemExit('preserve evidence: use a new output directory')
@@ -12,7 +13,7 @@ cases=json.loads((ROOT/f'tests/follow-up/scenarios/{a.suite}.json').read_text())
 if not cases:raise SystemExit('no cases selected')
 scenario=a.out/'scenarios.json';scenario.write_text(json.dumps(cases,indent=1)+'\n')
 env=os.environ.copy();env['PYTHONUNBUFFERED']='1'
-report={'environment':snapshot(),'build_flags':os.environ.get('NARO_BUILD_FLAGS','default'),'reference_commit':'6ed285c3ec7a1d228def4d4e7021c6ba269f620c','scenario_sha256':hashlib.sha256(scenario.read_bytes()).hexdigest(),'results':{}}
+report={'verification_sha256':verification_fingerprint(),'environment':snapshot(),'build_flags':os.environ.get('NARO_BUILD_FLAGS','default'),'reference_commit':'6ed285c3ec7a1d228def4d4e7021c6ba269f620c','scenario_sha256':hashlib.sha256(scenario.read_bytes()).hexdigest(),'results':{}}
 for kind,source in [('reference',a.reference),('candidate',a.binary)]:
  if kind=='candidate'and a.reference_only:break
  binary=(a.out/(kind+'.bin')).resolve();shutil.copy2(source.resolve(),binary);report[kind+'_sha256']=hashlib.sha256(binary.read_bytes()).hexdigest()

@@ -102,7 +102,7 @@ EDIT-003,05-buffer-and-editing.md,Modified flag,,baseline
 EDIT-010,05-buffer-and-editing.md,Typing (inject),,baseline
 EDIT-011,05-buffer-and-editing.md,Enter (*enter*),TEST-EDIT-008,baseline
 EDIT-012,05-buffer-and-editing.md,Tab (*tab*),TEST-EDIT-011,baseline
-EDIT-015,05-buffer-and-editing.md,Automatic hard wrapping (*breaklonglines*),TEST-NEXT-UNDO-WRAP-001-MID TEST-NEXT-UNDO-WRAP-039-MARK-SHIFT,baseline
+EDIT-015,05-buffer-and-editing.md,Automatic hard wrapping (*breaklonglines*),TEST-NEXT-UNDO-WRAP-001-MID TEST-NEXT-UNDO-WRAP-058-MARK-TRIM,baseline
 EDIT-020,05-buffer-and-editing.md,Delete (*delete*) and Backspace (*backspace*),TEST-EDIT-003 TEST-EDIT-004 TEST-EDIT-005 TEST-EDIT-019,baseline
 EDIT-021,05-buffer-and-editing.md,"Chop word left/right (`Sh-^Del`, `M-Bsp`; `^Del`)",TEST-EDIT-020,baseline
 EDIT-030,05-buffer-and-editing.md,When there is nothing to cut,TEST-EDIT-014,baseline
@@ -138,7 +138,7 @@ UNDO-004,06-undo-redo.md,Item contents (normative effect),TEST-UNDO-001,baseline
 UNDO-005,06-undo-redo.md,Messages and side effects,TEST-UNDO-001,baseline
 UNDO-006,06-undo-redo.md,Saved state,TEST-UNDO-001 TEST-UNDO-003,baseline
 UNDO-007,06-undo-redo.md,Backspace at the start of the magic line (quirk),TEST-UNDO-009,baseline
-UNDO-008,06-undo-redo.md,Interaction with other features,TEST-EDIT-025 TEST-INPUT-005 TEST-NEXT-UNDO-WRAP-001-MID TEST-NEXT-UNDO-WRAP-039-MARK-SHIFT TEST-UNDO-001 TEST-UNDO-004 TEST-UNDO-009,baseline
+UNDO-008,06-undo-redo.md,Interaction with other features,TEST-EDIT-025 TEST-INPUT-005 TEST-NEXT-UNDO-WRAP-001-MID TEST-NEXT-UNDO-WRAP-058-MARK-TRIM TEST-UNDO-001 TEST-UNDO-004 TEST-UNDO-009,baseline
 SRCH-001,07-search-replace.md,Search prompt,TEST-SRCH-001 TEST-SRCH-016,baseline
 SRCH-002,07-search-replace.md,Case sensitivity and literal matching,TEST-SRCH-019,baseline
 SRCH-003,07-search-replace.md,Where a search starts and how it proceeds,TEST-SRCH-001 TEST-SRCH-004 TEST-SRCH-018,baseline
@@ -202,7 +202,7 @@ FEAT-TEMP,12-features.md,Temporary file for tools,TEST-FEAT-005,baseline
 FEAT-SPELL,12-features.md,Spell checking (`^T` then `^T`/`^S` at the Execute prompt; F12),TEST-FEAT-004 TEST-FEAT-005 TEST-FEAT-010,baseline
 FEAT-LINT,12-features.md,Linter (`^T ^Y` at the Execute prompt),TEST-FEAT-006 TEST-FEAT-011,baseline
 FEAT-FORMAT,12-features.md,Formatter (`^T ^O`),TEST-FEAT-007,baseline
-FEAT-EXEC,12-features.md,Execute command (`^T`),TEST-FEAT-012 TEST-FEAT-017,baseline
+FEAT-EXEC,12-features.md,Execute command (`^T`),TEST-FEAT-012 TEST-FEAT-017 TEST-NEXT-FILTER-001 TEST-NEXT-FILTER-005,baseline
 FEAT-MACRO,12-features.md,Record (`M-:`) and run (`M-;`),TEST-FEAT-008 TEST-FEAT-009,baseline
 FEAT-POS,12-features.md,Cursor position (`^C`) and word count (`M-D`),TEST-FEAT-019,baseline
 FEAT-STATEDIR,12-features.md,Where state files live,TEST-FEAT-014,baseline

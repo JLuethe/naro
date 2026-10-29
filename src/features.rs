@@ -525,18 +525,18 @@ impl Editor {
             // A mark on the eaten line moves onto the joined line; a mark
             // behind the join point shifts back over the removed prefix and
             // blanks (the reference's `expunge` rules).
-            if let Some(m) = mark {
+            if let Some(mut m) = mark {
                 if m.line == line0 + 1 {
-                    mark = Some(Pos {
-                        line: line0,
-                        x: m.x + join_x,
-                    });
-                } else if m.line == line0 && m.x > join_x {
-                    mark = Some(Pos {
-                        line: line0,
-                        x: join_x.max(m.x - strip - blanks),
-                    });
+                    m.line = line0;
+                    m.x += join_x;
                 }
+                // Joining and deleting the duplicated lead are successive
+                // operations. A mark from the eaten node must receive both;
+                // a mark inside the deleted prefix stops at the join point.
+                if m.line == line0 && m.x > join_x {
+                    m.x = join_x + (m.x - join_x).saturating_sub(strip + blanks);
+                }
+                mark = Some(m);
             }
             merged.extend(&next[strip + blanks..]);
         }
@@ -601,6 +601,15 @@ impl Editor {
                 allblanks = e.indent(&merged) == extra;
             }
         }
+        // Shift pre-existing lower nodes before moving a mark from the
+        // wrapping line onto its new continuation. Doing this afterward
+        // would shift that newly moved mark a second time.
+        if !join
+            && let Some(m) = mark.as_mut()
+            && m.line > line0
+        {
+            m.line += 1;
+        }
         // A mark behind the wrap point moves to the continuation line.
         if let Some(m) = mark
             && m.line == line0
@@ -637,19 +646,6 @@ impl Editor {
                 x: extra + quote_prefix.len() + (cursor_x - split),
             }
         };
-        // Without a join the continuation line is inserted, so the lines
-        // below the wrap shift down by one. (With a join the overflow line is
-        // consumed and the continuation takes its place, so they keep their
-        // index.)
-        if !join
-            && let Some(m) = mark
-            && m.line > line0
-        {
-            mark = Some(Pos {
-                line: m.line + 1,
-                x: m.x,
-            });
-        }
         self.bm().wrap_split(line0, first, second, join);
         self.bm().state.mark = mark;
         self.bm().state.pos = pos;
@@ -1600,16 +1596,26 @@ impl Editor {
                 }
                 let no = self.conf.on(NO_NEWLINES);
                 if filter && !new {
+                    let marked = self.b().state.mark.is_some();
                     let (a, b) = self
                         .b()
                         .region()
                         .unwrap_or((Pos::default(), self.b().end()));
-                    self.bm().replace(a, b, &raw, Splice::Replace);
-                    self.bm().state.pos = Pos {
-                        line: original.line.min(self.b().state.lines.len() - 1),
-                        x: 0,
-                    };
                     self.bm().state.mark = None;
+                    // Nano cuts first (including restoring the magic line),
+                    // then inserts the command output. A single replacement
+                    // loses that intermediate newline and the cut's node
+                    // survivor policy when the selection reaches EOF.
+                    self.bm().replace(a, b, &[], Splice::Cut);
+                    self.bm().magic(no);
+                    let start = self.b().pos();
+                    self.bm().replace(start, start, &raw, Splice::Plain);
+                    if !marked {
+                        self.bm().set_pos(Pos {
+                            line: original.line,
+                            x: 0,
+                        });
+                    }
                     self.bm().finish(before, "filtering", false, no);
                 } else {
                     self.bm().insert(&raw, "insertion", false, no);
@@ -1622,6 +1628,13 @@ impl Editor {
                 self.msg(files::line_message("Read", n, false), 2);
             }
             Ok((status, raw)) => {
+                if filter && !self.conf.on(NEW_BUFFER) {
+                    // Nano undoes and discards the failed compound edit;
+                    // undo clears the selection even though text is restored.
+                    self.bm().state.mark = None;
+                    self.bm().softmark = false;
+                    self.bm().last_kind.clear();
+                }
                 let line = raw
                     .split(|b| *b == 10)
                     .rfind(|s| !s.is_empty())

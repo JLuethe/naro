@@ -1,5 +1,7 @@
 Reference commit: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`
 
+Current Pi-review qualification is recorded in `../NARO_DEVELOPMENT_PROGRESS.md`: 58 wrap and six filter cases, with explicit remaining gaps in `../NARO_TEST_AGENT_HANDOFF.md`. Earlier 39-case coverage did not detect all mark failures. Historical inventories below remain distinct from runtime qualification.
+
 # 97 — Coverage and confidence
 
 The behavioral spec is complete as a documented implementation contract for the
