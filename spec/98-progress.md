@@ -99,7 +99,7 @@ the cited IDs without a recorded scenario are reported as an audit warning.
 ### Verification against the frozen default binary
 
 One frozen default build (`target/next-default/release/naro`, SHA-256
-`ebb1f6b4b731a8340d4e2ead9e9e82a8e2220297018dab2685271f9948054d52`, source
+`eeb23513046dffe86526b39c8333e6609ca9bf6959f3241ca2707502b12d59e2`, source
 fingerprint `522a6c33202ed6de6abe209bbe86e5f86a7ff49d0de0f41da11dca9f75a45e4e`,
 features `""`) was used for every comparison:
 

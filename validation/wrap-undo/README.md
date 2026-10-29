@@ -59,7 +59,7 @@ These scenarios address the documented runtime gap **Q-UNDO-002** in
 
 39/39 exact matches: screen rows, cursor, terminal modes, exit status, fixture
 bytes and `capture_file` saved-byte checks. No declared deviations. Both
-harness statuses are 0. The report is `target/next-wrap2/report.json`; the
+harness statuses are 0. The report is `target/next-wrap3/report.json`; the
 machine-checked manifest accepts it (`python3 tools/check_wrap_undo.py
 --report target/next-wrap/report.json`).
 
@@ -142,7 +142,7 @@ existing evidence):
 ```sh
 cargo build --release --target-dir target/next-default
 python3 tools/check_follow_up.py --suite wrap-undo \
-    --binary target/next-default/release/naro --out target/next-wrap2
+    --binary target/next-default/release/naro --out target/next-wrap3
 python3 tools/check_wrap_undo.py --report target/next-wrap/report.json
 ```
 
@@ -181,11 +181,11 @@ preserved for traceability. The runner hash is the one the report binds to.
 
 | Identity | SHA-256 |
 |---|---|
-| Candidate binary | `ebb1f6b4b731a8340d4e2ead9e9e82a8e2220297018dab2685271f9948054d52` |
+| Candidate binary | `eeb23513046dffe86526b39c8333e6609ca9bf6959f3241ca2707502b12d59e2` |
 | Source fingerprint (build.rs convention) | `522a6c33202ed6de6abe209bbe86e5f86a7ff49d0de0f41da11dca9f75a45e4e` |
 | Pinned reference | `b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2` |
 
-The candidate was built from the current working tree (revision `823cb96`)
+The candidate was built from the committed tree (revision `a59f390`)
 with `cargo build --release --target-dir target/next-default` (default
 profile, features `""`). The source fingerprint is the complete `src`,
 `native`, `assets`, `Cargo.toml`, `Cargo.lock`, `build.rs` and `CREDITS.md`
