@@ -124,3 +124,27 @@ user. Only reviewed source/tests/tools/CI/specs and requested documents are
 included. Prior untracked reviews/handoffs, raw session exports, binaries,
 archives, logs and credentials are excluded. No history rewrite or force push.
 A documentation delivery receipt records the implementation commit and frozen-build provenance after verification.
+
+## Delivery receipt
+
+Implementation/test/tooling/specification commit:
+[`859d8084af11a42c0a9c18006e148e61e5f2026d`](https://github.com/JLuethe/naro/commit/859d8084af11a42c0a9c18006e148e61e5f2026d)
+— `Fix wrap mark transforms and filter parity; verify replay artifacts`.
+Delivery branch is the existing `main`, remote `https://github.com/JLuethe/naro`.
+This receipt and coverage metadata are a following documentation-only commit;
+its hash is reported in the final delivery report and repository history.
+
+Final `acceptance/report.json`: 58/58 exact, reference/candidate harness 0,
+artifact checker 0; final scenario raw/canonical/runner and verification hashes
+are in `validation/wrap-undo/coverage.json`. A complete copied bundle with a
+nested candidate exit changed to 99 is rejected (checker 1), as is a standalone
+fabricated report with current metadata and absent artifacts. The 43 checker
+unit tests pass. Filter 6/6, follow-ups 13/13 + 20/20 + 3/3, retained baseline,
+Rust/lint/Python and ASan results remain as recorded above.
+
+The source commit has the same production fingerprint as the frozen tested
+binary; that executable still correctly reports build revision `dfcb38a…` and
+its reviewed working-tree inputs. It has not been rebuilt or relabeled after
+commit. No release artifact, tag, system editor or physical-console claim is
+part of this delivery. The tracked working tree is clean after these commits;
+pre-existing untracked historical inputs remain preserved and excluded.
