@@ -1,0 +1,27 @@
+[
+  {
+    "reviewer_model": "gpt-6-luna",
+    "report": "LUNA_SAVE_PROGRESS_REPORT.md",
+    "report_sha256": "db72ecfc56682d715df2c730249cc8224b2b7f356ec8cb1bc84da0d881994853",
+    "archive": "/home/john/Backups/naro/2026-10-30-save-progress/luna-save-progress-verify-2026-10-30.tar.gz",
+    "archive_sha256": "6a4476e554d84814a7644139afe0116e6163b70d16abc1d332069455ee9fa1c9",
+    "archive_bytes": 82401518,
+    "manifest_sha256": "48c1b6b511586cc59569508802ea9e881a83623a314a9765592b726d89144673",
+    "manifest_entries_verified": 9555,
+    "scope": "Independent review evidence preserved and reopened byte-for-byte; not a Claude review or publication approval.",
+    "all_archived_file_payloads_verified": 9556
+  },
+  {
+    "reviewer_model": "gpt-5.6-luna",
+    "report": "ASSET_REVIEW_REPORT.md",
+    "report_sha256": "f29d3dbfce9dc344af5f691bb851a0767e15c03f487f5a06e5cfd9279d35db0d",
+    "archive": "/home/john/Backups/naro/2026-10-30-save-progress/asset-independent-verify-2026-10-30.tar.gz",
+    "archive_sha256": "25c1ae80cda63d44676dbf1916598d50b6d8b1b0b50f1a89959ca4a0ee634c00",
+    "archive_bytes": 11997,
+    "manifest_sha256": "85fabee5f1baf0c2e7ebf7189b9ad144d4e39c0e0a7da19f3eb3732d115a2775",
+    "manifest_entries_verified": 11,
+    "scope": "Independent review evidence preserved and reopened byte-for-byte; not a Claude review or publication approval.",
+    "all_archived_file_payloads_verified": 13,
+    "manifest_note": "Agent manifest omits the preserved EVIDENCE-SHA256SUMS_attempt01 file; Codex separately verified that file, the current manifest, and every other archived payload against the live evidence inventory."
+  }
+]

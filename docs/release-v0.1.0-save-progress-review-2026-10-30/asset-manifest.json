@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "repository": "JLuethe/naro",
+  "tag": "v0.1.0",
+  "tag_target": "d5ddabe592d50912aa7b9fb932267783a9867190",
+  "release_title": "NARO 0.1.0 \u2014 experimental Linux x86_64 release",
+  "prerelease": true,
+  "published": false,
+  "status": "Technically verified; independent review and publication approval pending",
+  "release_body": "RELEASE_BODY.md",
+  "release_body_sha256": "119f99662f4b5bc2bb8d21dcf3784c4e5850e8a6b806288e7c815375d0ddfb43",
+  "assets": [
+    {
+      "name": "BUILD-ENVIRONMENT.json",
+      "bytes": 10003,
+      "sha256": "723fd03ffa605c037749082e2ff7544a1e0b4e019c6ee3e40854ae4ad3c76f92",
+      "working_path": "/home/john/Code/naro/target/save-progress-release-2026-10-30/downloads/BUILD-ENVIRONMENT.json",
+      "preserved_path": "/home/john/Backups/naro/2026-10-30-save-progress/downloads/BUILD-ENVIRONMENT.json"
+    },
+    {
+      "name": "QUALIFICATION.json",
+      "bytes": 4382,
+      "sha256": "7148cbc0ecf014f10ea732c263cb977e94c987e63e2e2ccee9b06f51bbb87224",
+      "working_path": "/home/john/Code/naro/target/save-progress-release-2026-10-30/downloads/QUALIFICATION.json",
+      "preserved_path": "/home/john/Backups/naro/2026-10-30-save-progress/downloads/QUALIFICATION.json"
+    },
+    {
+      "name": "RUNTIME-REQUIREMENTS.md",
+      "bytes": 3732,
+      "sha256": "95850a2807382452d792c80e7eaebfda1c2f150ad0252d1e544e6c80a2c74397",
+      "working_path": "/home/john/Code/naro/target/save-progress-release-2026-10-30/downloads/RUNTIME-REQUIREMENTS.md",
+      "preserved_path": "/home/john/Backups/naro/2026-10-30-save-progress/downloads/RUNTIME-REQUIREMENTS.md"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 541,
+      "sha256": "8668811f5652fdeb1a2ba48e85bf7a7eb590e79db766ccadf7dc3a7d0cc569c3",
+      "working_path": "/home/john/Code/naro/target/save-progress-release-2026-10-30/downloads/SHA256SUMS",
+      "preserved_path": "/home/john/Backups/naro/2026-10-30-save-progress/downloads/SHA256SUMS"
+    },
+    {
+      "name": "build.json",
+      "bytes": 187215,
+      "sha256": "5f6219095285ec1c83c604b13ae97d632328f85e70afcbace914dc9b25c5e171",
+      "working_path": "/home/john/Code/naro/target/save-progress-release-2026-10-30/downloads/build.json",
+      "preserved_path": "/home/john/Backups/naro/2026-10-30-save-progress/downloads/build.json"
+    },
+    {
+      "name": "naro-0.1.0-source.tar.gz",
+      "bytes": 3730731,
+      "sha256": "47098664a548d3d351cadf8c228a186e5e413f2465dcf10e2532019e2d739aa6",
+      "working_path": "/home/john/Code/naro/target/save-progress-release-2026-10-30/downloads/naro-0.1.0-source.tar.gz",
+      "preserved_path": "/home/john/Backups/naro/2026-10-30-save-progress/downloads/naro-0.1.0-source.tar.gz"
+    },
+    {
+      "name": "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz",
+      "bytes": 2701476,
+      "sha256": "f39ecdb36dfa47e5b45777af2ed7d967bd0ac74c040a4da40f503de6c45dcaac",
+      "working_path": "/home/john/Code/naro/target/save-progress-release-2026-10-30/downloads/naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz",
+      "preserved_path": "/home/john/Backups/naro/2026-10-30-save-progress/downloads/naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz"
+    }
+  ]
+}

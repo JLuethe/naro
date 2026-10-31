@@ -1,0 +1,36 @@
+{
+  "archive_sha256": "f39ecdb36dfa47e5b45777af2ed7d967bd0ac74c040a4da40f503de6c45dcaac",
+  "installer_sha256": "3350386cae90db70600ac4e1bed2a7257bcf0df12d510f37ff9c1dc9cc0cda3c",
+  "build": {
+    "version": "0.1.0",
+    "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+    "source_sha256": "0786e7d32514c2eea5bf55e56164462a412e11dc39276acaf3baba458a08492c",
+    "revision": "16f6398968adc1f815055a4413cf0465aed28126",
+    "features": "",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "checks": [
+    {
+      "name": "ordinary-prefix-install",
+      "pass": true
+    },
+    {
+      "name": "ordinary-prefix-installed-hashes",
+      "pass": true
+    },
+    {
+      "name": "ordinary-prefix-frozen-identity",
+      "pass": true
+    },
+    {
+      "name": "ordinary-prefix-installed-translation",
+      "pass": true
+    },
+    {
+      "name": "ordinary-prefix-uninstall-ownership",
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "scope": "Ordinary private prefix in clean Ubuntu container; uses installer extracted from refreshed download archive."
+}

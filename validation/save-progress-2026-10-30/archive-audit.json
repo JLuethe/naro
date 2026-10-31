@@ -1,0 +1,106 @@
+{
+  "pass": true,
+  "checks": [
+    {
+      "name": "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz-checksum",
+      "pass": true
+    },
+    {
+      "name": "naro-0.1.0-source.tar.gz-checksum",
+      "pass": true
+    },
+    {
+      "name": "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz-safe-member-inventory",
+      "pass": true
+    },
+    {
+      "name": "naro-0.1.0-source.tar.gz-safe-member-inventory",
+      "pass": true
+    },
+    {
+      "name": "archive-payload-inventory",
+      "pass": true
+    },
+    {
+      "name": "every-binary-payload-hash-and-mode",
+      "pass": true
+    },
+    {
+      "name": "exact-qualified-ubuntu-binary",
+      "pass": true
+    },
+    {
+      "name": "default-without-test-hooks",
+      "pass": true
+    },
+    {
+      "name": "manifest-build-record-agreement",
+      "pass": true
+    },
+    {
+      "name": "clean-frozen-source-revision",
+      "pass": true
+    },
+    {
+      "name": "exact-tracked-source-inventory",
+      "pass": true
+    },
+    {
+      "name": "all-corresponding-source-file-hashes",
+      "pass": true
+    },
+    {
+      "name": "archive-production-fingerprint",
+      "pass": true
+    },
+    {
+      "name": "standalone-installer-equals-frozen-source",
+      "pass": true
+    },
+    {
+      "name": "licenses-attribution-and-po-sources-present",
+      "pass": true
+    },
+    {
+      "name": "all-frozen-runtime-assets-present",
+      "pass": true
+    },
+    {
+      "name": "native-linkage-and-symbol-requirements-recorded",
+      "pass": true
+    },
+    {
+      "name": "fresh-checks-bound-to-exact-archive",
+      "pass": true
+    },
+    {
+      "name": "all-catalog-and-asset-checks-passed",
+      "pass": true
+    },
+    {
+      "name": "offline-source-build-evidence",
+      "pass": true
+    },
+    {
+      "name": "synchronized-save-test-in-source",
+      "pass": true
+    },
+    {
+      "name": "save-progress-suite-in-source",
+      "pass": true
+    }
+  ],
+  "archives": {
+    "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz": "f39ecdb36dfa47e5b45777af2ed7d967bd0ac74c040a4da40f503de6c45dcaac",
+    "naro-0.1.0-source.tar.gz": "47098664a548d3d351cadf8c228a186e5e413f2465dcf10e2532019e2d739aa6"
+  },
+  "binary_sha256": "b95bb4f9984f8e321fbd69e2a4e3058c7f184d6b35a8ae7650f6f5b7897f90bf",
+  "production_source_sha256": "0786e7d32514c2eea5bf55e56164462a412e11dc39276acaf3baba458a08492c",
+  "source_files": 1348,
+  "binary_payload_files": 138,
+  "catalogs": 41,
+  "syntax_files": 44,
+  "package_report_sha256": "2b93a2cd5ba774dde359ac7e99808fd27667f7d4cc9f1fecec245a90551352a6",
+  "source_build_log_sha256": "f03e879c5791639aae6dd7506ccd03f20f6ed16c210d4a4033da4c44bd9d983e",
+  "scope": "Refreshed documentation packages; unchanged frozen production source and executable; fresh package checks."
+}
