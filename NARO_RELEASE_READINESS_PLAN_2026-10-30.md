@@ -141,15 +141,22 @@ saved bytes, cursor/history state, and the intended operation are checked.
 
 ## 4. Freeze a release candidate with unambiguous provenance
 
+Status: complete. See [the frozen-build record](NARO_STEP4_FREEZE_2026-10-30.md)
+and [Claude step 5 handoff](NARO_CLAUDE_QUALIFICATION_HANDOFF_2026-10-30.md).
+Source `fd91763` is pushed with successful CI; fresh default host and Ubuntu
+builds and independent Ubuntu nano reference are preserved. Smoke checks pass.
+Full qualification remains pending.
+
 Priority: required after necessary development is complete.
 
-- [ ] Build from a clean, committed checkout.
-- [ ] Keep host, portable Ubuntu, tiny, and sanitizer builds separate.
-- [ ] Record commit, production-source fingerprint, compiler, features, native
+- [x] Build from a clean, committed checkout.
+- [x] Keep host and portable Ubuntu candidates separate from historical tiny and
+  sanitizer builds; no new optional-profile candidate is required for this scope.
+- [x] Record commit, production-source fingerprint, compiler, features, native
   dependencies, executable hash, and reference identity.
-- [ ] Preserve existing tester exports and historical attempts; use fresh
+- [x] Preserve existing tester exports and historical attempts; use fresh
   output directories.
-- [ ] Preserve the original identity of `candidate-v2.bin`; do not relabel it as
+- [x] Preserve the original identity of `candidate-v2.bin`; do not relabel it as
   a build of the later delivery commit.
 
 **Completion:** every report identifies its exact executable, and the eventual

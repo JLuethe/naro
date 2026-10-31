@@ -1,0 +1,64 @@
+{
+  "source_commit": "fd91763c4f14d9bed8187d64d44f2136440b7b3e",
+  "production_source_sha256": "4cabd71741ffc8ee0357d945c67904c8a2fd0089c12e9b32a1c5b3e35c394ae6",
+  "verification_sha256": "604c032c865701dac6f5fc0f0c9ce5e3764ed3e434b51e2ccea5fdf8172d45aa",
+  "ubuntu_image_id": "093817959dc26bb88c4f8df915372db75dee73f9356eb94f2ba428ea04fe9735",
+  "ubuntu_image_digest": "sha256:7434f9d20c1d41cfd2d5ecd98ed8228b424910d51be7640a06262ccd3650c3ee",
+  "host_binary_sha256": "cae387c78619520aacbf61690e675496b82f8ccf04af2824beb9e864004f0a96",
+  "ubuntu_binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+  "host_reference_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+  "ubuntu_reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+  "scope": "Frozen build inputs and binaries; not final qualification or a published release",
+  "date": "2026-10-30",
+  "timezone": "America/Los_Angeles",
+  "freeze_directory": "/home/john/Code/naro/target/release-freeze-2026-10-30",
+  "manifest_sha256": "d404c22dc97a5554c47004fb25d21e7c96b510023fddfd25307a8118603409ea",
+  "source_ci": {
+    "id": 41164011073,
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/JLuethe/naro/actions/runs/41164011073",
+    "head_sha": "fd91763c4f14d9bed8187d64d44f2136440b7b3e"
+  },
+  "toolchain": {
+    "path": "/home/john/.rustup/toolchains/stable-x86_64-unknown-linux-gnu",
+    "executables": {
+      "cargo": "a670e02cfa39ac2e53f77a2d911ca1fc9e2c479b0603ec956625be1daf24e3af",
+      "rustc": "b53b780f77f952062f8ca8a3b70aef2390b1e45ad91939be94afdc9543026853",
+      "rustdoc": "832e53ca262db3d3fcaca659dc6e71f0f5a924a48adc580ee4278acac75f3e80",
+      "rustfmt": "68cb47a2a38daa8ff2ec6d623a2374b0a165d77ec74f1f654216665018c04598",
+      "clippy-driver": "89b6cc8d0d988b00a3f65bc90c76fedbaedb6bcb442b34563aefe3621f26544b"
+    }
+  },
+  "helpers": {
+    "build-ubuntu.sh": "17e5095c62d80ed06a18f13877267b80400a141ddd46afc72e085c20861ebd4a",
+    "qualify-ubuntu.sh": "493e59bbc4243203c12272c3f3fedfd569ec794c0ba2fdf71b45d1a7a4265de1",
+    "run-host-qualification.sh": "99a362dbdfb798f31b1d8fd9d5c40294ae4adfd5c71d622dd804ba6b9e7bdc20",
+    "run-ubuntu-qualification.sh": "91eb5b9b1d7b7e9971e0845b50a7c3637aac151631957c210f135d9b4795e4bc",
+    "smoke-ubuntu.sh": "f09e411b3f35e16430062ea7607277a27bba32484fa03e23b990e39a63b9723a",
+    "run-ubuntu-package-check.sh": "1f65a7ac9080af84cf8bc6146fa95165f9ddc2f4287d6b46840d4482c9b4d9e9"
+  },
+  "smoke": {
+    "host": {
+      "assertions": 4,
+      "passed": 4
+    },
+    "ubuntu": {
+      "assertions": 4,
+      "passed": 4,
+      "minimal_paging_comparisons": 2,
+      "exact_matches": 2
+    }
+  },
+  "qualification": {
+    "step4": "complete",
+    "step5": "not run",
+    "step6": "not run",
+    "step7": "not run"
+  },
+  "limitations": [
+    "Local full bundle is ignored and not in a normal GitHub clone.",
+    "Full qualification wrappers syntax-checked, not executed.",
+    "No release, tag, or system installation performed."
+  ]
+}

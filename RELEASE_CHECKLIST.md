@@ -39,7 +39,7 @@ passes do not qualify a newly built executable automatically.
   runners and the final collector, separately from historical follow-ups.
 - [x] Complete the bounded step 3 host matrix: 40/40 exact, with the newly
   discovered paging defect fixed. See [results](NARO_STEP3_RESULTS_2026-10-30.md).
-- [ ] Freeze committed production source; record source fingerprint, revision,
+- [x] Freeze committed production source; record source fingerprint, revision,
   compiler/features, native environment, candidate hashes, and pinned reference.
 - [ ] Pass formatting, Clippy, Rust/Python tests, specification audit, and CI for
   the delivered changes. Resolve or disclose remaining audit citations.
@@ -129,8 +129,10 @@ testing must still be assessed against release safety and integrity criteria.
 
 ## Next action
 
-Continue with step 4: commit and freeze the release source, then step 5's host
-and Ubuntu qualification. Steps 1–3 establish scope, enforce the gate, and close
-the bounded behavioral gaps; they do not complete final host/Ubuntu, console,
-or packaging qualification. Codex owns implementation and permanent tests;
+Step 4 is complete: [frozen source and builds](NARO_STEP4_FREEZE_2026-10-30.md),
+with successful source CI and separate host/Ubuntu smoke results. Continue with
+[Claude step 5 qualification](NARO_CLAUDE_QUALIFICATION_HANDOFF_2026-10-30.md).
+Final host/Ubuntu, console, and packaging qualification remain pending. The
+broader checks/CI gate above stays open for subsequent release-delivery changes
+and audit reconciliation. Codex owns implementation and permanent tests;
 independent testers report against frozen candidates.

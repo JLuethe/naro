@@ -1,5 +1,25 @@
 # NARO next steps — Codex development ownership
 
+## Step 4 complete — committed freeze, 2026-10-30
+
+Source `fd91763c4f14d9bed8187d64d44f2136440b7b3e` is pushed and its
+[GitHub CI passed](https://github.com/JLuethe/naro/actions/runs/41164011073).
+Fresh default host and Ubuntu binaries were built from the same clean detached
+checkout and production fingerprint. Ubuntu has a separately built pinned nano
+reference. Both candidates pass 4/4 smoke assertions; Ubuntu also passes both
+minimal paging comparisons against its own reference. Complete provenance and
+hashes are in [the freeze record](NARO_STEP4_FREEZE_2026-10-30.md) and
+[compact receipt](validation/release-freeze-2026-10-30.json).
+
+Next: [Claude step 5 qualification](NARO_CLAUDE_QUALIFICATION_HANDOFF_2026-10-30.md),
+using the frozen binaries and prepared local launchers. The
+[start prompt](NARO_CLAUDE_QUALIFICATION_START_PROMPT_2026-10-30.md) is ready to
+paste into Claude. Full host/Ubuntu, guest-VT, and package qualification remain
+pending; no release was published. The local bundle is
+`target/release-freeze-2026-10-30/`; preserve it and all older attempts.
+
+The sections below are historical checkpoints and do not override this handoff.
+
 ## Step 3 complete locally — 2026-10-30
 
 The [targeted plan](NARO_STEP3_PLAN_2026-10-30.md) and
