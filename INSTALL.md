@@ -1,8 +1,8 @@
 # Installing NARO
 
-The technically qualified 0.1.0 candidate uses the default Linux x86_64
-GNU/glibc profile. Publication is pending; these instructions do not imply
-that a hosted release is available. Tiny is source-build only for this release.
+[NARO 0.1.0 is available as an experimental prerelease](https://github.com/JLuethe/naro/releases/tag/v0.1.0).
+The qualified binary uses the default Linux x86_64 GNU/glibc profile.
+Tiny is source-build only for this release.
 
 ## Requirements
 
