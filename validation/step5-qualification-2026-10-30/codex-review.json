@@ -1,0 +1,28 @@
+{
+  "original_manifest_sha256": "3b535e5d530cb8f4136586bf7d1c3180e0be4546bbb6dc7c8e7fcf84591f4f88",
+  "entries_checked": 5653,
+  "mismatching_entries": [
+    {
+      "path": "./ATTEMPTS.md",
+      "expected": "cbf332047baca9a0aae96802381c77b2ba833ee3f22e7bf4974541125f662a19",
+      "actual": "1c42524a95d0ffc53d692b057655697204dea2f862f5772699e720b7f428484a"
+    },
+    {
+      "path": "./PROGRESS.md",
+      "expected": "7d07105e85b22c53b5ab9c0faa04bded37c62debffb8b791e2b70bb601371b64",
+      "actual": "fcdb566bae28446775a2c2a416ee628b39987c99758a6e56283da26031a571a7"
+    },
+    {
+      "path": "ATTEMPTS.md",
+      "expected": "9ee6121af89927a01a010e04b90c50b5010c767e7982d6da74b1585fc9b78481",
+      "actual": "1c42524a95d0ffc53d692b057655697204dea2f862f5772699e720b7f428484a"
+    }
+  ],
+  "unique_paths_checked": 5648,
+  "test_artifact_hash_mismatches": 0,
+  "assessment": "All original listed test artifacts match. Three stale checksum entries affect only two mutable ledgers; the original manifest and ledgers are preserved. A new manifest captures current complete files.",
+  "current_manifest_sha256": "3608611bc27ba173935bf8fb24989dc552ea83e20366b856da1a00f2e67c744b",
+  "source_report_sha256": "f8a484d0de1b8350ea0f6e6109d0a5af8afe2e11920cfa565468e10ba64b9ae2",
+  "matrix_re_evaluation": "passed",
+  "freeze_verification": "passed"
+}

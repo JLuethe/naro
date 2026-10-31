@@ -1,0 +1,8 @@
+{
+  "host_console": 0,
+  "ubuntu_console": 0,
+  "transport": 0,
+  "vm_shutdown_requested": true,
+  "vm_exit": 0,
+  "disposable_export_container_removed": true
+}

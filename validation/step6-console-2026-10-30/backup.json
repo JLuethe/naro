@@ -1,0 +1,11 @@
+{
+  "destination": "/home/john/Backups/naro/2026-10-30-step6",
+  "scope": "Local same-disk backup outside the repository and target; not off-machine or disk-failure protection.",
+  "archives": {
+    "step6-console.tar.gz": {
+      "sha256": "687d488374cffb0e20766b62849c4f90c4daa96c29ce259644874c82255c546c",
+      "bytes": 487597667,
+      "verified_files": 10780
+    }
+  }
+}

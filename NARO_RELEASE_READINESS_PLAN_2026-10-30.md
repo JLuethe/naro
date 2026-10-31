@@ -165,20 +165,23 @@ may be recorded separately without claiming they produced that binary.
 
 ## 5. Refresh host and portable Linux qualification
 
+Status: passed for both frozen candidates. See [the qualification receipt](validation/step5-qualification-2026-10-30/README.md).
+No new editor findings; all required stages exited zero.
+
 Priority: required for the final artifacts.
 
 Build host and Ubuntu candidates from the same frozen production source.
 
-- [ ] Run the 303-case terminal corpus, CLI checks, and regex checks on both.
-- [ ] Run historical follow-ups plus wrap, filter, and release-fixes on both.
-- [ ] Refresh file-write failure, backup, recovery, signal, and terminal-mode
+- [x] Run the 303-case terminal corpus, CLI checks, and regex checks on both.
+- [x] Run historical follow-ups plus wrap, filter, release-fixes, and step3-gaps on both.
+- [x] Refresh file-write failure, backup, recovery, signal, and terminal-mode
   restoration checks.
-- [ ] Refresh installed assets, locale behavior, and existing 1 MiB/10 MiB file
+- [x] Refresh installed assets, locale behavior, and existing 1 MiB/10 MiB file
   checks.
-- [ ] Run host-only isolated root/home cases and the separate no-home assertion.
-- [ ] Build and use the portable environment's own reference executable and
+- [x] Run host-only isolated root/home cases and the separate no-home assertion.
+- [x] Build and use the portable environment's own reference executable and
   observations; host results do not certify another libc or locale setup.
-- [ ] Record measured runtime and native-library requirements.
+- [x] Record measured runtime and native-library requirements.
 
 Keep existing declared differences visible. Any new unexplained mismatch blocks
 qualification rather than being absorbed into comparison normalization.
@@ -188,14 +191,18 @@ unexplained failures.
 
 ## 6. Refresh genuine console qualification
 
+Status: passed. Both frozen candidates matched 19/19 genuine guest-VT cases,
+with all six transport checks passing. See [results](NARO_STEP6_RESULTS_2026-10-30.md).
+The separate ioctl models already passed 8/8 per candidate in step 5.
+
 Priority: required by the existing scoped release contract.
 
-- [ ] Run all 19 guest-VT cases against each optimized host and portable
+- [x] Run all 19 guest-VT cases against each optimized host and portable
   candidate.
-- [ ] Separately run the eight ioctl-model scenarios.
-- [ ] Check keyboard handling, cursor position, screen attributes, saved bytes,
+- [x] Separately run the eight ioctl-model scenarios.
+- [x] Check keyboard handling, cursor position, screen attributes, saved bytes,
   and restoration of terminal and keyboard modes.
-- [ ] Use the isolated VM fixtures in the console release specification.
+- [x] Use the isolated VM fixtures in the console release specification.
 
 **Completion:** current-binary results for both environments. Describe them as
 guest Linux VT testing with emulated keyboard input. Physical keyboard/operator

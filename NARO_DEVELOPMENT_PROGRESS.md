@@ -1,5 +1,31 @@
 # NARO development progress
 
+## Steps 5–6 passed — 2026-10-30
+
+Claude qualified both frozen candidates with no new editor findings: the 303-case
+corpus, historical 53-case follow-ups, all 119 exact regressions, CLI/regex/safety,
+recovery, assets, large files and applicable root/home checks passed. See the
+[step 5 receipt](validation/step5-qualification-2026-10-30/README.md).
+Codex verified the test artifact hashes and freeze, re-evaluated the matrix,
+and recorded stale checksum entries affecting only the two mutable ledgers.
+The original tester evidence was preserved.
+
+Codex then completed [step 6](NARO_STEP6_RESULTS_2026-10-30.md): 19/19 genuine
+guest-VT matches per candidate and all six VM transport checks passed. Raw
+terminal/keyboard/meta restoration assertions pass for all 76 editor runs.
+The frozen binaries and production source remain unchanged. The owned VM exited
+zero; no owned processes remain. An initial preparation permissions issue was
+resolved only in disposable fixture copies and retained in the attempts ledger.
+
+Verified same-disk backups outside the repository are under
+`/home/john/Backups/naro/2026-10-30-step5/` and `2026-10-30-step6/`.
+These protect against repository cleanup, not disk loss. Full step 6 evidence:
+`target/step6-console-2026-10-30/`.
+
+Next: step 7 final package/closure review, then public documentation, attribution,
+and release-decision gates. No tag or GitHub Release has been published.
+Earlier handoffs below are historical and do not override this checkpoint.
+
 ## Step 4 complete — committed freeze, 2026-10-30
 
 Source `fd91763c4f14d9bed8187d64d44f2136440b7b3e` is pushed and its

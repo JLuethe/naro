@@ -1,0 +1,29 @@
+{
+  "source_commit": "fd91763c4f14d9bed8187d64d44f2136440b7b3e",
+  "production_source_sha256": "4cabd71741ffc8ee0357d945c67904c8a2fd0089c12e9b32a1c5b3e35c394ae6",
+  "host_binary_sha256": "cae387c78619520aacbf61690e675496b82f8ccf04af2824beb9e864004f0a96",
+  "ubuntu_binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+  "guest_reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+  "host_console": {
+    "cases": 19,
+    "matches": 19,
+    "exit": 0
+  },
+  "ubuntu_console": {
+    "cases": 19,
+    "matches": 19,
+    "exit": 0
+  },
+  "transport": {
+    "checks": 6,
+    "passed": 6,
+    "exit": 0
+  },
+  "restoration_raw_runs_verified": 76,
+  "evidence": "/home/john/Code/naro/target/step6-console-2026-10-30",
+  "evidence_manifest_sha256": "1342a7d11b8fb6ee9f925d34a904721b7b139e008dc962186d740a349d9e0d26",
+  "scope": "Guest Linux VT1, emulated PS/2 keyboard, Ubuntu 24.04 userspace, Linux 7.2.8-9-omarchy kernel; no physical keyboard certification.",
+  "preparation_issue": "First preparation hit a duplicate copy of 0555 executables; made private fixture copies owner-writable and resumed with --reuse. Original frozen binaries unchanged.",
+  "production_changes": false,
+  "owned_processes_running": false
+}

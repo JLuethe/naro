@@ -43,19 +43,19 @@ passes do not qualify a newly built executable automatically.
   compiler/features, native environment, candidate hashes, and pinned reference.
 - [ ] Pass formatting, Clippy, Rust/Python tests, specification audit, and CI for
   the delivered changes. Resolve or disclose remaining audit citations.
-- [ ] Qualify host and Ubuntu terminal corpora: 303 recorded, 301 full matches,
+- [x] Qualify host and Ubuntu terminal corpora: 303 recorded, 301 full matches,
   302 file/exit matches, and six explicit exclusions; no new unexplained mismatch.
-- [ ] Pass CLI 38 and regex 162 checks in each environment.
-- [ ] Preserve historical follow-up acceptance: 53 cases, 51 exact, only the
+- [x] Pass CLI 38 and regex 162 checks in each environment.
+- [x] Preserve historical follow-up acceptance: 53 cases, 51 exact, only the
   two named tool-cleanup differences. Pass all eight ioctl-model comparisons.
-- [ ] Pass all 119 additional exact comparisons in **each** environment:
+- [x] Pass all 119 additional exact comparisons in **each** environment:
   wrap-undo 58, filter 6, release-fixes 15, step3-gaps 40. Both harnesses must exit zero, all
   assertions and steps must pass, and complete evidence must validate.
-- [ ] Pass host isolated-root/home cases (27 exact), with the separate asserted
+- [x] Pass host isolated-root/home cases (27 exact), with the separate asserted
   no-home recovery deviation.
-- [ ] Refresh safety, controlled write failures, backup/lock behavior, recovery,
+- [x] Refresh safety, controlled write failures, backup/lock behavior, recovery,
   signals, installed assets/locales, and 1 MiB/10 MiB file checks.
-- [ ] Pass all 19 genuine guest-VT comparisons for each optimized host and
+- [x] Pass all 19 genuine guest-VT comparisons for each optimized host and
   Ubuntu candidate, including terminal/keyboard restoration and VM provenance.
 - [ ] Package the exact qualified Ubuntu executable and corresponding source.
   Verify hash linkage, source rebuild, all shipped catalogs/syntax, private and
@@ -129,10 +129,10 @@ testing must still be assessed against release safety and integrity criteria.
 
 ## Next action
 
-Step 4 is complete: [frozen source and builds](NARO_STEP4_FREEZE_2026-10-30.md),
-with successful source CI and separate host/Ubuntu smoke results. Continue with
-[Claude step 5 qualification](NARO_CLAUDE_QUALIFICATION_HANDOFF_2026-10-30.md).
-Final host/Ubuntu, console, and packaging qualification remain pending. The
-broader checks/CI gate above stays open for subsequent release-delivery changes
-and audit reconciliation. Codex owns implementation and permanent tests;
-independent testers report against frozen candidates.
+Steps 4–6 are complete: [frozen builds](NARO_STEP4_FREEZE_2026-10-30.md),
+[host/Ubuntu qualification](validation/step5-qualification-2026-10-30/README.md),
+and [guest-VT results](NARO_STEP6_RESULTS_2026-10-30.md).
+Continue with step 7 final packaging and complete closure collection. The broader
+checks/CI gate above stays open for subsequent release-delivery changes and audit
+reconciliation. Codex owns implementation and permanent tests; independent
+testers report against frozen candidates.
