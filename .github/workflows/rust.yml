@@ -36,6 +36,13 @@ jobs:
       - run: python3 spec/tools/test_nanoharness.py
       - run: python3 spec/tools/test_candidate_expectations.py
       - run: python3 spec/tools/test_namespace_exec.py
+      - name: Identity-aware qualification tooling contracts
+        run: |
+          python3 spec/tools/test_identity_review.py
+          python3 tools/test_release_gate_evidence.py
+          python3 tools/test_console_identity.py
+          python3 tools/test_frozen_launchers.py
+          python3 tools/test_frozen_process.py
       - run: python3 -m unittest discover -s tests/console -p 'test_*.py'
       - name: Hard-wrap undo/redo scenario manifest
         run: |

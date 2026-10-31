@@ -19,6 +19,17 @@ def counts(n,declared=0):
 
 
 class GateEvidenceTests(unittest.TestCase):
+    def test_seeded_history_probe_really_restores_position(self):
+        from release_gate_evidence import corpus_coverage_problems
+        observed = json.loads((collector.ROOT / 'spec/evidence/runs/TEST-FEAT-015/result.json').read_text())
+        self.assertEqual(corpus_coverage_problems(observed, 'TEST-FEAT-015'), [])
+        missed = copy.deepcopy(observed)
+        missed['snapshots']['s0']['cursor'] = {'x': 0, 'y': 1, 'visible': True}
+        self.assertTrue(corpus_coverage_problems(missed, 'TEST-FEAT-015'))
+        wrong_line = copy.deepcopy(observed)
+        wrong_line['snapshots']['s0']['rows'][11]['text'] = 'l11'.ljust(80)
+        self.assertTrue(corpus_coverage_problems(wrong_line, 'TEST-FEAT-015'))
+
     def test_fixed_corpus_membership(self):
         cases=corpus_cases()
         self.assertEqual(len(cases),303);self.assertEqual(len(CORPUS_EXCLUSIONS),6)
@@ -129,6 +140,8 @@ class GateEvidenceTests(unittest.TestCase):
             write(inputs['package']/'build.json',{'binary_sha256':ud,'compiled_build':build,'reference_commit':collector.REF})
             (inputs['package']/'SHA256SUMS').write_text('checksums')
             (inputs['ubuntu']/'complete').write_text('completed')
+            for stage in collector.REQUIRED_UBUNTU_STAGES:
+                (inputs['ubuntu']/(stage+'.status')).write_text('0\n')
             write(inputs['ubuntu']/'runtime-inputs.json',{'verification_fingerprint':collector.verification_fingerprint(),'candidate_sha256':ud,'reference_sha256':ur,'source_fingerprint':'source'})
             historical=['tools','edges','environments','supplement','backup','fifo-eof','signal-SIGTERM','signal-SIGHUP','vt-ioctl']
             for label,digest in [('host',hd),('ubuntu',ud)]:
@@ -159,6 +172,20 @@ class GateEvidenceTests(unittest.TestCase):
                 self.assertEqual(gate['accounting']['host-historical']['raw_exact'],0)
                 self.assertEqual(gate['accounting']['host-historical']['identity_reviewed'],51)
                 self.assertEqual(gate['accounting']['host-terminal']['raw_exact'],0)
+                self.assertEqual(gate['ubuntu_stage_statuses'],{stage:'0'for stage in collector.REQUIRED_UBUNTU_STAGES})
+                for stage in sorted(collector.REQUIRED_UBUNTU_STAGES):
+                    receipt=inputs['ubuntu']/(stage+'.status');receipt.unlink()
+                    with self.subTest(missing_stage=stage):
+                        failed=collector.collect_evidence(inputs)
+                        self.assertFalse(failed['pass'])
+                        self.assertIsNone(failed['ubuntu_stage_statuses'][stage])
+                    receipt.write_text('0\n')
+                receipt=inputs['ubuntu']/'branding.status'
+                for malformed in ['1','false','00','', '0\n1']:
+                    receipt.write_text(malformed)
+                    with self.subTest(status=malformed):
+                        self.assertFalse(collector.collect_evidence(inputs)['pass'])
+                receipt.write_text('0\n')
                 checkpoint=inputs['host']/'checkpoint.json';saved=json.loads(checkpoint.read_text())
                 missing=copy.deepcopy(saved);missing['checks'].pop('fmt');checkpoint.write_text(json.dumps(missing))
                 self.assertFalse(collector.collect_evidence(inputs)['pass'])

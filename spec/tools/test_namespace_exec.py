@@ -45,16 +45,27 @@ class IsolationTests(unittest.TestCase):
 
     def test_crash_decision_cannot_hide_file_or_identity_changes(self):
         tid='TEST-ROOT-HOME-002-NO-HOME-TILDE'
-        source={'reference_commit':h.REFERENCE_COMMIT,'scenario':tid,'fixture':{'x':{'type':'file','mode':'0o644','b64':'YWJj'}},'exit_status':1,'stderr':'Sorry! Nano crashed!  Code: 11.','steps_ok':True,'checks':[{'pass':True}],'root_namespace':{'euid':0,'passwd_home':None,'HOME':None}}
-        target=copy.deepcopy(source);target.update(exit_status=0,stderr='')
-        differences=[{'field':'exit_status'},{'field':'stderr'}]
+        fixture=json.loads((Path(__file__).parent/'fixtures/namespace-nohome-reviewed.json').read_text())
+        source,target=(fixture['records'][side]for side in ('reference','candidate'))
+        # Whole reference-derived differences replace the old toy field whitelist.
+        # This pair comes from the reviewed old qualification, not current output.
+        from compare_runs import compare
+        differences=compare(source,target)
         self.assertEqual(policy.deviation(tid,source,target,differences),'Q-ROOT-NOHOME-001')
-        changed=copy.deepcopy(target);changed['fixture']['x']['mode']='0o600'
+        changed=copy.deepcopy(target);changed['fixture']['work/f.txt']['mode']='0o600'
         self.assertIsNone(policy.deviation(tid,source,changed,differences))
+        self.assertIsNone(policy.deviation(tid,source,changed,compare(source,changed)))
+        changed=copy.deepcopy(target);changed['root_namespace']['euid']=1000
+        self.assertIsNone(policy.deviation(tid,source,changed,differences))
+        self.assertIsNone(policy.deviation(tid,source,changed,compare(source,changed)))
         changed=copy.deepcopy(source);changed['root_namespace']['euid']=1000
-        self.assertIsNone(policy.deviation(tid,changed,target,differences))
+        self.assertIsNone(policy.deviation(tid,changed,target,compare(changed,target)))
+        changed=copy.deepcopy(target);changed['inputs'][0]['hex']='00'
+        self.assertIsNone(policy.deviation(tid,source,changed,differences))
+        self.assertIsNone(policy.deviation(tid,source,changed,compare(source,changed)))
         self.assertIsNone(policy.deviation('TEST-UNRELATED-001',source,target,differences))
         self.assertIsNone(policy.deviation(tid,source,target,differences+[{'field':'inputs'}]))
+        self.assertIsNone(policy.deviation(tid,source,target,[{'field':d['field']}for d in differences]))
 
     def test_term_linux_on_pty_does_not_certify_vt(self):
         with patch.object(console.os,'isatty',return_value=True),patch.object(console.os,'ttyname',return_value='/dev/pts/123'),patch.object(console,'attrs',return_value=[]),patch.object(console.fcntl,'ioctl',side_effect=OSError(errno.ENOTTY,'not a VT'))as ioctl,patch.dict(console.os.environ,{'TERM':'linux'}):

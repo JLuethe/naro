@@ -44,12 +44,39 @@ The six regression command keys are their suite names, plus `closure-regressions
 
 Ubuntu output contains `naro`, `reference.bin`, `reference/`, `candidate/`, the
 same suite directory names, and a `complete` file containing `completed`.
+The collector also reopens every required Ubuntu `<stage>.status` receipt; each
+must contain exactly `0` after stripping whitespace. A completion marker cannot
+substitute for missing execution evidence. The gate retains these values in
+`ubuntu_stage_statuses`, and verification reopens them again. Required stage names
+are defined by `REQUIRED_UBUNTU_STAGES` in `tools/collect_closure.py`: reference
+replay and terminal corpus, eight historical follow-ups, six regression suites
+and their evidence checker, ioctl, extras, CLI, large files, panic and credits
+builds, panic recovery, extensions, packaging and package checks, and tmux cleanup.
+Both host and Ubuntu must additionally execute default Rust tests, candidate
+expectation unit tests, the branding checks, and the 21-case identity-layout suite.
+On Ubuntu these receipts are `rust-default`, `identity-expectations-unit`,
+`branding`, and `identity-layout`. Collection follows container exit so the final
+`tmux-cleanup.status` receipt is available. Launcher contract tests check actual
+command membership against these required sets, in addition to the collector's
+layout and missing/nonzero receipt tests.
+
 Both corpus reports retain their actual `reference_runs` provenance and the
 portable `reference_runs_relative` value `../reference`. The collector reopens
 that canonical sibling directory, including its fresh replay inventory. Fresh
 host reference observations are required in addition to fresh Ubuntu observations
 so both sides carry executable/scenario hashes and complete step evidence. The
 historical reference baseline remains untouched.
+
+Both launchers use the established `/tmp/nanospec-work` fixture root. Several
+original scenarios embed that literal path in history data; changing the root
+can skip the named operation while preserving parity. Do not run competing host
+matrices against those fixture IDs. Ubuntu has its own isolated container `/tmp`.
+Builds, reports and owned tmux sockets still use separate private locations; VM
+fixtures use their separately recorded short `/tmp/nv*` paths.
+
+The gate additionally proves `TEST-FEAT-015` restored its seeded position:
+snapshot `s0` must have cursor `(1,11)` and display `l40` on row 11, as observed in
+the retained GNU run. A matching pair that missed restoration fails coverage.
 
 For Ubuntu only, the collector derives the established `/opt/nano-locales`
 replacement for existing nonempty `locpath` fields before checking complete

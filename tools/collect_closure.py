@@ -19,6 +19,23 @@ REQUIRED_HOST_STAGES = frozenset([
  'identity-layout','hooks-build','credits-build','panic','extensions','large',
  'package','package-check',*SUITES])
 
+REQUIRED_UBUNTU_STAGES = frozenset([
+ 'rust-default','identity-expectations-unit','branding','identity-layout',
+ 'reference-replay','terminal','closure-regressions','vt-ioctl','extras','cli',
+ 'large','panic-hooks-build','panic','credits-build','extensions','package',
+ 'package-check','tmux-cleanup',
+ *('followup-'+suite for suite in ['tools','edges','environments','supplement',
+                                 'backup','fifo-eof','signal-SIGTERM','signal-SIGHUP']),
+ *('closure-'+suite for suite in SUITES)])
+
+def ubuntu_stage_statuses(directory):
+ """Read execution receipts; missing, malformed, and nonzero remain failures."""
+ statuses={}
+ for name in sorted(REQUIRED_UBUNTU_STAGES):
+  try:statuses[name]=(Path(directory)/(name+'.status')).read_text().strip()
+  except OSError:statuses[name]=None
+ return statuses
+
 def collect_evidence(inputs, output=None):
  a=SimpleNamespace(**{key:Path(value) for key,value in inputs.items()},out=Path(output) if output is not None else None)
  if a.out is not None and a.out.exists() and any(p.name!='README.md'for p in a.out.iterdir()):raise SystemExit('preserve evidence: output may contain only README.md before collection')
@@ -43,6 +60,8 @@ def collect_evidence(inputs, output=None):
  check('release-version',h['build']['version']==u['compiled_build']['version']=='0.1.1')
  check('reference-identity',u['reference_commit']==REF)
  check('ubuntu-pipeline-complete',(a.ubuntu/'complete').read_text().strip()=='completed')
+ ubuntu_stages=ubuntu_stage_statuses(a.ubuntu)
+ check('ubuntu-command-completion',all(value=='0'for value in ubuntu_stages.values()))
  check('host-frozen-binary',hashlib.sha256((a.host/'naro').read_bytes()).hexdigest()==hd)
  check('host-root-reference',hashlib.sha256((a.host/'root-reference.bin').read_bytes()).hexdigest()==h['root_reference_sha256'])
  check('ubuntu-frozen-binary',hashlib.sha256((a.ubuntu/'naro').read_bytes()).hexdigest()==ud)
@@ -108,6 +127,7 @@ def collect_evidence(inputs, output=None):
  if a.out is not None:shutil.copy2(a.package/'SHA256SUMS',a.out/'SHA256SUMS')
  gate={'schema':GATE_SCHEMA,'verification_sha256':verification_fingerprint(),'identity_policy':policy_identity(),'inputs':{key:str(Path(value).resolve())for key,value in inputs.items()},'accounting':accounting,'reference_commit':REF,'source_sha256':source,'host_binary_sha256':hd,'ubuntu_binary_sha256':ud,'checks':checks,'pass':all(v['pass']for v in checks),'deferred':['optional tiny profile','physical keyboard/operator console certification'],'scope':'Recorded Linux host and Ubuntu userspace; genuine guest VT with emulated PS/2 keys; private root namespaces. No physical hardware or general host-root certification.'}
  gate['required_regression_inventory']=SUITES
+ gate['ubuntu_stage_statuses']=ubuntu_stages
  if a.out is not None:(a.out/'gate.json').write_text(json.dumps(gate,indent=2)+'\n')
  return gate
 

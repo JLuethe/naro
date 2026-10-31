@@ -166,6 +166,7 @@ VERIFICATION_FILES = (
     "tools/environment.py", "tools/follow_up_policy.py",
     "spec/tools/compare_runs.py", "spec/tools/nanoharness.py",
     "spec/tools/candidate_expectations.py", "tests/naro/identity-overrides.json",
+    "tests/naro/identity-layout.json",
     "spec/tools/identity_review.py", "tests/naro/legacy-deviations.json",
     "docs/NARO_IDENTITY_POLICY.md", "tools/validate.py", "tools/validate_parallel.py",
     "tools/collect_closure.py", "tools/check_release_gate.py", "tools/release_gate_evidence.py",
@@ -177,7 +178,11 @@ VERIFICATION_FILES = (
     "docs/RELEASE_GATE_V2.md", "spec/tools/test_identity_review.py",
     "spec/tools/test_candidate_expectations.py", "tools/test_check_wrap_undo.py",
     "tools/test_release_gate_evidence.py", "tools/test_console_identity.py",
+    "tools/test_closure_regressions.py",
     "tools/test_frozen_launchers.py", "tools/test_frozen_process.py",
+    "spec/tools/namespace_exec.py", "spec/tools/test_namespace_exec.py",
+    "spec/tools/fixtures/namespace-nohome-reviewed.json",
+    "tests/console/guest.py", "tests/console/upload.py", ".github/workflows/rust.yml",
 
 
 )

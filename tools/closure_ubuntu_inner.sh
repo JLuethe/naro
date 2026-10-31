@@ -11,7 +11,7 @@ export RUSTDOC=/opt/rust/bin/rustdoc
 export CARGO_BUILD_JOBS=1
 export CARGO_NET_OFFLINE=true
 export PYTHONDONTWRITEBYTECODE=1
-export NANOSPEC_WORK=/work/nanospec-work
+export NANOSPEC_WORK=/tmp/nanospec-work
 export LOCPATH=/opt/nano-locales
 export TMUX_TMPDIR=/work/tmux-sockets
 mkdir -p "$HOME" "$XDG_CONFIG_HOME" "$NANOSPEC_WORK" /work/naro /work/reference /work/package-source
@@ -81,7 +81,7 @@ for folder in ('spec/evidence/scenarios','tests/follow-up/scenarios'):
    file_hashes.append({'file':path.as_posix(),'before_sha256':hashlib.sha256(raw).hexdigest(),'after_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'changed_cases':changes})
 Path('/out/source-adaptations.json').write_text(json.dumps({'source_commit':commit,'changes':adaptations,'file_hashes':file_hashes},indent=2)+'\n')
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
-record={'source_commit':commit,'source_status_before_adaptation':status,'source_fingerprint':source_fingerprint(copy),'verification_fingerprint':verification_fingerprint(),'candidate_build_info':candidate_info,'candidate_sha256':sha('/work/naro/target/release/naro'),'reference_sha256':sha('/work/reference/bin/nano'),'root_reference_sha256':sha('/root-reference.bin'),'reference_version':subprocess.check_output(['/work/reference/bin/nano','--version'],text=True),'locale_inventory':subprocess.check_output(['locale','-a'],text=True),'locpath':os.environ.get('LOCPATH')}
+record={'source_commit':commit,'source_status_before_adaptation':status,'source_fingerprint':source_fingerprint(copy),'verification_fingerprint':verification_fingerprint(),'candidate_build_info':candidate_info,'candidate_sha256':sha('/work/naro/target/release/naro'),'reference_sha256':sha('/work/reference/bin/nano'),'root_reference_sha256':sha('/root-reference.bin'),'reference_version':subprocess.check_output(['/work/reference/bin/nano','--version'],text=True),'locale_inventory':subprocess.check_output(['locale','-a'],text=True),'locpath':os.environ.get('LOCPATH'),'nanospec_work':os.environ.get('NANOSPEC_WORK')}
 Path('/out/runtime-inputs.json').write_text(json.dumps(record,indent=2)+'\n')
 cases=[]
 for path in sorted(Path('spec/evidence/scenarios').glob('*.json')):
@@ -102,6 +102,11 @@ run() {
   echo "$name status=$status"
   [[ "$status" == 0 ]]
 }
+
+run rust-default env CARGO_TARGET_DIR=/work/naro-target/rust-default cargo test --offline --locked
+run identity-expectations-unit python3 spec/tools/test_candidate_expectations.py
+run branding python3 tools/check_branding.py --binary /work/naro/target/release/naro --out /out/branding
+run identity-layout python3 spec/tools/nanoharness.py tests/naro/identity-layout.json --candidate-expectations --binary /work/naro/target/release/naro --out /out/identity-layout
 
 run reference-replay python3 tools/replay_reference.py --scenarios /out/reference-cases.json --binary /work/reference/bin/nano --out /out/reference
 run terminal env NARO_REFERENCE_RUNS=/out/reference python3 tools/validate_parallel.py --binary /work/naro/target/release/naro --out /out/candidate --jobs 4
@@ -141,6 +146,13 @@ from pathlib import Path
 runtime=Path('/work/naro');package=Path('/work/package-source')
 runtime_status=subprocess.check_output(['git','status','--porcelain','--untracked-files=all'],cwd=runtime,text=True)
 package_status=subprocess.check_output(['git','status','--porcelain','--untracked-files=all'],cwd=package,text=True)
+required=['rust-default','identity-expectations-unit','branding','identity-layout']
+statuses={name:int((Path('/out')/(name+'.status')).read_text().strip()) for name in required}
+assert all(status==0 for status in statuses.values()),statuses
+inputs=json.loads(Path('/out/runtime-inputs.json').read_text())
+inputs['required_stage_statuses']=statuses
+inputs['required_stages']=required
+Path('/out/runtime-inputs.json').write_text(json.dumps(inputs,indent=2)+'\n')
 Path('/out/private-source-status-after.json').write_text(json.dumps({'runtime_copy':runtime_status,'package_source_copy':package_status},indent=2)+'\n')
 Path('/out/complete').write_text('completed\n')
 PY_FINISH

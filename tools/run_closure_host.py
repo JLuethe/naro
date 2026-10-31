@@ -19,6 +19,8 @@ from pathlib import Path
 sys.dont_write_bytecode = True
 from frozen_process import make_private_tmux_tmpdir, remove_private_tmux_tmpdir, run_owned_process
 
+CANONICAL_NANOSPEC_WORK = Path("/tmp/nanospec-work")
+
 def sha256(path: Path) -> str:
     h = hashlib.sha256()
     with path.open("rb") as stream:
@@ -29,6 +31,23 @@ def sha256(path: Path) -> str:
 
 def git(path: Path, *args: str) -> str:
     return subprocess.check_output(["git", *args], cwd=path, text=True).strip()
+
+
+def required_identity_review_stages(python: str, candidate: Path, out: Path) -> list[tuple[str, list[str]]]:
+    """Commands for collector-required source and frozen-binary review stages.
+
+    The launcher executes this exact list, and its unit test inspects these
+    commands so a successful checkpoint cannot omit an entire required stage.
+    """
+    return [
+        ("rust-default", ["cargo", "test", "--locked", "--offline"]),
+        ("identity-expectations-unit", [python, "spec/tools/test_candidate_expectations.py"]),
+        ("branding", [python, "tools/check_branding.py", "--binary", str(candidate),
+                      "--out", str(out / "branding")]),
+        ("identity-layout", [python, "spec/tools/nanoharness.py", "tests/naro/identity-layout.json",
+                             "--candidate-expectations", "--binary", str(candidate),
+                             "--out", str(out / "identity-layout")]),
+    ]
 
 
 def main() -> int:
@@ -100,12 +119,12 @@ def main() -> int:
         "PATH": str(Path.home() / ".cargo/bin") + os.pathsep + env.get("PATH", ""),
         "CARGO_NET_OFFLINE": "true",
         "CARGO_TARGET_DIR": str(work / "target/checks"),
-        "NANOSPEC_WORK": str(work / "nanospec-work"),
+        "NANOSPEC_WORK": str(CANONICAL_NANOSPEC_WORK),
         "TMUX_TMPDIR": str(tmux_tmpdir),
         "PYTHONDONTWRITEBYTECODE": "1",
         "RUSTUP_TOOLCHAIN": env.get("RUSTUP_TOOLCHAIN", "stable-x86_64-unknown-linux-gnu"),
     })
-    Path(env["NANOSPEC_WORK"]).mkdir()
+    Path(env["NANOSPEC_WORK"]).mkdir(parents=True, exist_ok=True)
     candidate = out / "naro"
     nano = out / "reference.bin"
     package_version = subprocess.check_output(
@@ -121,6 +140,7 @@ def main() -> int:
         "verification_sha256": manifest["verification_sha256"],
         "tmux_tmpdir": str(tmux_tmpdir),
         "tmux_owner_token": tmux_owner,
+        "nanospec_work": str(CANONICAL_NANOSPEC_WORK),
         "binary_sha256": actual["binary"],
         "reference_sha256": actual["reference"],
         "root_reference_sha256": actual["root_reference"],
@@ -172,6 +192,8 @@ def main() -> int:
         ("rust", ["cargo", "test", "--locked", "--offline", "--all-features"]),
     ]
     for name, command in checks:
+        run(name, command)
+    for name, command in required_identity_review_stages(sys.executable, candidate, out):
         run(name, command)
     for name, script in (("comparator", "spec/tools/test_compare_runs.py"),
                          ("harness", "spec/tools/test_nanoharness.py"),

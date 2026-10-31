@@ -44,6 +44,25 @@ def classification_counts(results):
             'accepted': sum(r['accepted'] for r in results)}
 
 
+def corpus_coverage_problems(run, tid):
+    """Prove the seeded history probe restored its recorded GNU position.
+
+    Its fixture contains a literal /tmp/nanospec-work path. A different work
+    root makes both editors ignore that entry while still comparing equal.
+    The retained GNU observation independently establishes cursor 1,11 on l40.
+    """
+    if tid != 'TEST-FEAT-015':
+        return []
+    screen = run.get('snapshots', {}).get('s0', {})
+    problems = []
+    if not same_json(screen.get('cursor'), {'x': 1, 'y': 11, 'visible': True}):
+        problems.append('seeded position-history cursor was not restored; canonical fixture root required')
+    rows = screen.get('rows', [])
+    if len(rows) <= 11 or rows[11].get('text', '').rstrip() != 'l40':
+        problems.append('seeded position-history probe did not reach line 40')
+    return problems
+
+
 def recording_problems(run, case, side, digest, directory):
     """Recompute assertions and bind fresh recordings to inputs and raw bytes."""
     problems = []
@@ -82,6 +101,7 @@ def recording_problems(run, case, side, digest, directory):
     raw = Path(directory) / 'raw-output.bin'
     if not raw.is_file() or sha256(raw) != run.get('raw_output_sha256') or raw.stat().st_size != run.get('raw_output_bytes'):
         problems.append(side + ': raw terminal bytes/hash mismatch')
+    problems.extend(side + ': ' + problem for problem in corpus_coverage_problems(run, case['id']))
     return problems
 
 

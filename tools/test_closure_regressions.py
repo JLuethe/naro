@@ -3,7 +3,6 @@
 import copy
 import io
 import json
-import runpy
 import sys
 import tempfile
 import unittest
@@ -12,6 +11,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import check_closure_regressions as closure
+import collect_closure as collector
 import check_wrap_undo as wrap
 from test_check_wrap_undo import valid_artifacts
 
@@ -157,16 +157,25 @@ class ClosureRegressionsTest(unittest.TestCase):
             self.assertEqual(closure.main(), 1)
 
     def test_final_collector_requires_new_suites_for_both_environments(self):
-        """Run the real collector with synthetic historical and new evidence."""
+        """Reopen real regression artifacts; isolate unrelated evidence validators."""
         host, ubuntu = self.root / 'host', self.root / 'ubuntu'
         self.make_bundle(host)
         self.make_bundle(ubuntu)
-        build = {'source_sha256': self.source, 'features': ''}
+        build = {'source_sha256': self.source, 'features': '', 'version': '0.1.1'}
         historical = ['tools','edges','environments','supplement','backup','fifo-eof','signal-SIGTERM','signal-SIGHUP','vt-ioctl','root','root-nohome-tilde']
         checkpoint = {'binary_sha256': self.candidate, 'reference_sha256': self.reference,
+                      'root_reference_sha256': self.reference,
+                      'verification_sha256': wrap.verification_fingerprint(),
                       'build': build, 'state': 'complete', 'active': None,
-                      'checks': {name: {'status': 0} for name in [*closure.SUITES, 'closure-regressions']}}
+                      'checks': {name: {'status': 0} for name in collector.REQUIRED_HOST_STAGES}}
         self.write(host / 'checkpoint.json', checkpoint)
+        (host / 'root-reference.bin').write_bytes(b'reference fixture')
+        for stage in collector.REQUIRED_UBUNTU_STAGES:
+            (ubuntu / (stage + '.status')).write_text('0\n')
+        self.write(ubuntu / 'runtime-inputs.json', {
+            'verification_fingerprint': wrap.verification_fingerprint(),
+            'candidate_sha256': self.candidate, 'reference_sha256': self.reference,
+            'source_fingerprint': self.source})
         package = self.root / 'package'
         self.write(package / 'build.json', {'binary_sha256': self.candidate,
                    'compiled_build': build, 'reference_commit': wrap.REFERENCE_COMMIT})
@@ -204,16 +213,24 @@ class ClosureRegressionsTest(unittest.TestCase):
                 'package-check':ubuntu/'package-check','transport':self.root/'transport',
                 'vm-host':self.root/'vm-host','vm-ubuntu':self.root/'vm-ubuntu'}
 
+        def counts(n, declared=0):
+            return dict(recorded=n,raw_exact=n-declared,identity_reviewed=0,
+                        declared_deviations=declared,unexpected=0,accepted=n)
+
+        def follow(directory, suite, *args, **kwargs):
+            cases = json.loads((wrap.ROOT / f'tests/follow-up/scenarios/{suite}.json').read_text())
+            declared = int(suite.startswith('signal-') or suite == 'root-nohome-tilde')
+            return {}, counts(len(cases), declared), []
+
         def collect(name, expected):
             out = self.root / name
             argv = ['collector', *[v for k,p in args.items() for v in ('--'+k,str(p))], '--out',str(out)]
-            with patch.object(closure,'ROOT',self.root), patch.object(wrap,'REFERENCE_SHA256',self.reference), patch.object(sys,'argv',argv), redirect_stdout(io.StringIO()):
-                with self.assertRaises(SystemExit) as result:
-                    runpy.run_path(str(wrap.ROOT/'tools/collect_closure.py'),run_name='__main__')
-            self.assertEqual(result.exception.code, expected)
+            with patch.object(closure,'ROOT',self.root), patch.object(collector,'REFERENCE_SHA256',self.reference), patch.object(collector,'validate_corpus',return_value=({},dict(counts(303,2),excluded=6,files_matches=302),[])), patch.object(collector,'validate_follow_up',side_effect=follow), patch.object(collector,'validate_console_evidence',return_value=({},counts(19),[])), patch.object(sys,'argv',argv), redirect_stdout(io.StringIO()):
+                status = collector.main()
+            self.assertEqual(status, expected)
             gate = json.loads((out/'gate.json').read_text())
             self.assertEqual(gate['pass'], expected == 0)
-            self.assertEqual(gate['required_exact_regressions'], closure.SUITES)
+            self.assertEqual(gate['required_regression_inventory'], closure.SUITES)
 
         collect('valid', 0)
         for label, base in [('host', host), ('ubuntu', ubuntu)]:
@@ -223,6 +240,15 @@ class ClosureRegressionsTest(unittest.TestCase):
                 path.unlink()
                 collect(label+'-missing-'+suite, 1)
                 path.write_bytes(data)
+                report = json.loads(data)
+                tid = next(iter(report['results']))
+                recording = base / suite / 'candidate' / tid / 'result.json'
+                original = recording.read_bytes()
+                tampered = json.loads(original)
+                tampered['snapshots']['edited']['cursor']['x'] += 1
+                self.write(recording, tampered)
+                collect(label+'-tampered-recording-'+suite, 1)
+                recording.write_bytes(original)
         checkpoint['checks'].pop('release-fixes')
         self.write(host / 'checkpoint.json',checkpoint)
         collect('missing-command-status',1)
