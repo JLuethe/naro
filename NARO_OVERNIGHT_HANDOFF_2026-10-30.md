@@ -1,3 +1,7 @@
+> Published and verified: [NARO v0.1.0](https://github.com/JLuethe/naro/releases/tag/v0.1.0).
+> See the [publication record](NARO_RELEASE_PUBLICATION_2026-10-31.md).
+> The preparation and approval text below is retained as historical context.
+
 # NARO overnight handoff — completed release preparation
 
 Updated October 31, 2026. Start with [the final approval packet](NARO_RELEASE_REVIEW_2026-10-31.md).

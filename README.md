@@ -5,16 +5,16 @@ experimental terminal editor for Linux, with familiar nano keybindings,
 byte-preserving editing, undo/redo, search and regex replacement, multiple
 buffers, nanorc configuration, syntax highlighting, macros and translations.
 
-The 0.1.0 candidate has completed technical qualification and independent release
-review. Publication awaits approval. The primary binary package targets Linux
+[NARO 0.1.0 is published as an experimental prerelease](https://github.com/JLuethe/naro/releases/tag/v0.1.0).
+Technical qualification and independent release review are complete. The primary binary package targets Linux
 x86_64 with GNU/glibc and was built and tested under Ubuntu 24.04/glibc 2.39.
 Other distributions and platforms are not certified by these results.
 
 ## Get started
 
-Read [installation instructions](INSTALL.md) for the candidate archives,
-dependencies, source builds and removal. No public download is announced here
-until the release is published.
+Download the binary archive and matching source from the [v0.1.0 release](https://github.com/JLuethe/naro/releases/tag/v0.1.0).
+Download all seven release files and run `sha256sum -c SHA256SUMS` before installing.
+Read [installation instructions](INSTALL.md) for dependencies, source builds and removal.
 
 To build the default editor from a source checkout, provide Rust/Cargo, a C
 compiler, pkg-config, ncursesw development files and libmagic development files:

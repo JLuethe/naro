@@ -1,6 +1,6 @@
 # Validation evidence
 
-## Current 0.1.0 candidate
+## Published 0.1.0 prerelease
 
 The [save-hardening qualification](save-hardening-2026-10-31/README.md) identifies
 the current candidates and complete 101/101 gate. Both environments pass the
@@ -8,6 +8,8 @@ fresh 303-case corpus contract and 151 newer exact regressions, including 22
 progress and 10 save-safety cases. Guest-VT 19/19 each and transport 6/6 pass.
 Ubuntu uses its own pinned reference and fresh observations.
 
+The [public release](https://github.com/JLuethe/naro/releases/tag/v0.1.0) was anonymously downloaded and verified; see
+[publication receipts](publication-2026-10-31/PUBLICATION_RECEIPT.json).
 Final downloadable archive hashes, package checks, independent reviews and CI
 are recorded in the release review packet and QUALIFICATION.json. Technical
 qualification does not authorize publication. Prior steps 5–10 and October 30

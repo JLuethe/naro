@@ -1,7 +1,7 @@
-# NARO 0.1.0 candidate release notes
+# NARO 0.1.0 release notes
 
-Status: refreshed candidate wording for review; publication pending. No release tag,
-publication date or hosted download is announced by this document.
+Published as an [experimental GitHub prerelease](https://github.com/JLuethe/naro/releases/tag/v0.1.0) on 2026-10-31.
+All seven public assets were downloaded anonymously and verified against the approved hashes.
 
 NARO is an independent Rust port of GNU nano 9.3. The first release is an
 experimental Linux x86_64 GNU/glibc editor with familiar nano bindings,

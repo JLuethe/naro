@@ -1,0 +1,78 @@
+{
+  "published": true,
+  "verified": true,
+  "repository": "JLuethe/naro",
+  "tag": "v0.1.0",
+  "tag_target": "6473fe2043f8a7c3805e2994fea3f4f1bc8d4b50",
+  "tag_object": "2e97d3108df2449cb36342eb0eae2eee52697d4f",
+  "release_id": 430020086,
+  "release_url": "https://github.com/JLuethe/naro/releases/tag/v0.1.0",
+  "prerelease": true,
+  "published_at": "2026-10-31T15:34:04Z",
+  "verified_at": 1793460877.9848268,
+  "release_body_sha256": "b1cfd14f02b8e91069ccbd64ea7ff8b334b59abaad04b3daa2644e539ddbbdcd",
+  "assets": [
+    {
+      "name": "BUILD-ENVIRONMENT.json",
+      "id": 695748578,
+      "url": "https://github.com/JLuethe/naro/releases/download/v0.1.0/BUILD-ENVIRONMENT.json",
+      "bytes": 10039,
+      "sha256": "c108bd27258f15e9bc1d679ab25cc7c78f770a3703a4c6f3fc6612ad29350935",
+      "verified": true
+    },
+    {
+      "name": "QUALIFICATION.json",
+      "id": 695748585,
+      "url": "https://github.com/JLuethe/naro/releases/download/v0.1.0/QUALIFICATION.json",
+      "bytes": 23003,
+      "sha256": "55431b7f7b0e8da96ff8224c75b999d13e818550ff240606be37efb9ae2e0ce3",
+      "verified": true
+    },
+    {
+      "name": "RUNTIME-REQUIREMENTS.md",
+      "id": 695748581,
+      "url": "https://github.com/JLuethe/naro/releases/download/v0.1.0/RUNTIME-REQUIREMENTS.md",
+      "bytes": 3734,
+      "sha256": "7bc65b15d0c290fe9a3bd6f41b24e7e822ec580a936496f2019be5a524592433",
+      "verified": true
+    },
+    {
+      "name": "SHA256SUMS",
+      "id": 695748577,
+      "url": "https://github.com/JLuethe/naro/releases/download/v0.1.0/SHA256SUMS",
+      "bytes": 541,
+      "sha256": "d6ceb5f7b73862d35ad34eb5715dca73bd218ceba668a85e9901b8bacd18d228",
+      "verified": true
+    },
+    {
+      "name": "build.json",
+      "id": 695748584,
+      "url": "https://github.com/JLuethe/naro/releases/download/v0.1.0/build.json",
+      "bytes": 198965,
+      "sha256": "cbe187075e192cf64cc83ca1994686c6244cd0f73bfd623b72e815df82814f46",
+      "verified": true
+    },
+    {
+      "name": "naro-0.1.0-source.tar.gz",
+      "id": 695748606,
+      "url": "https://github.com/JLuethe/naro/releases/download/v0.1.0/naro-0.1.0-source.tar.gz",
+      "bytes": 3876132,
+      "sha256": "062b8f73b3d6aaa6b32f421a0cc182e142804ea8b6c295a01af707c8023362be",
+      "verified": true
+    },
+    {
+      "name": "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz",
+      "id": 695748610,
+      "url": "https://github.com/JLuethe/naro/releases/download/v0.1.0/naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz",
+      "bytes": 2702797,
+      "sha256": "3d6b4d4f67fa97060993d31f4e75b6a83f65f52a465ce3efaf7334dead42179f",
+      "verified": true
+    }
+  ],
+  "anonymous_downloads": true,
+  "SHA256SUMS": "6/6 verified",
+  "documentation": "7 anonymous immutable source-document links verified",
+  "qualification_metadata": "The approved QUALIFICATION.json is retained byte-identical as a prepublication qualification snapshot. This receipt records the subsequent approval and publication.",
+  "attempts": "Draft tag lookup404 retained; resumed the same draft by release ID; no artifact or tag was replaced.",
+  "announcement_posted": false
+}

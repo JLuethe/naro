@@ -1,3 +1,7 @@
+> Published and verified: [NARO v0.1.0](https://github.com/JLuethe/naro/releases/tag/v0.1.0).
+> See the [publication record](NARO_RELEASE_PUBLICATION_2026-10-31.md).
+> The preparation and approval text below is retained as historical context.
+
 # NARO 0.1.0 — final save-hardening candidate
 
 Prepared October 31, 2026. The rebuilt candidates passed full qualification and

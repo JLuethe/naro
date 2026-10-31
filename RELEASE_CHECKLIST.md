@@ -13,7 +13,7 @@ environment and the expanded 101-check gate. See the
 [new qualification record](validation/save-hardening-2026-10-31/README.md).
 Final archives and independent Claude review passed, including the metadata
 check. See the [approval packet](NARO_RELEASE_REVIEW_2026-10-31.md). Publication
-approval remains separate; no release is published.
+approval was given; the experimental prerelease is published and its public downloads verified.
 
 ## Release scope
 
@@ -78,8 +78,10 @@ passes do not qualify a newly built executable automatically.
 - [x] Complete independent archive/evidence review and final metadata verification.
 - [x] Verify successful production and proposed-tag CI. Final review-delivery CI
   is recorded after that commit in the delivery receipt.
-- [ ] Obtain John’s publication approval for the exact tag, release description
+- [x] Obtain John’s publication approval for the exact tag, release description
   and seven assets, then recheck remote refs, CI and hashes before publication.
+- [x] Publish the annotated tag and experimental prerelease; anonymously download
+  and verify all seven assets, checksums, tag resolution and documentation links.
 
 ## Accepted differences and exclusions
 
@@ -142,8 +144,7 @@ testing must still be assessed against release safety and integrity criteria.
 
 ## Next action
 
-Review [the final approval packet](NARO_RELEASE_REVIEW_2026-10-31.md). Technical
-qualification, packaging and independent reviews are complete. Final delivery CI
-is verified after its commit and recorded in the outside-target delivery receipt.
-John must approve the exact prerelease/tag/body/assets proposal before publication.
-All earlier candidates and evidence remain historical under their original identities.
+The [v0.1.0 prerelease](https://github.com/JLuethe/naro/releases/tag/v0.1.0) is published and verified.
+See [publication receipts](validation/publication-2026-10-31/PUBLICATION_RECEIPT.json).
+Community announcements require separate authorization. Track user reports and
+follow-up work without replacing the published tag or verified assets.

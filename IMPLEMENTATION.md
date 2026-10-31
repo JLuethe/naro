@@ -2,8 +2,8 @@
 
 NARO 0.1.0 is an experimental independent port of GNU nano 9.3. The pinned
 reference is `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`.
-Technical qualification and independent review are complete; publication is not
-authorized.
+Technical qualification and independent review are complete.
+[NARO 0.1.0 is published as an experimental prerelease](https://github.com/JLuethe/naro/releases/tag/v0.1.0).
 
 ## Candidate identity
 
