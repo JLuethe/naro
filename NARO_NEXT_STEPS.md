@@ -1,5 +1,15 @@
 # NARO next steps — Codex development ownership
 
+## Release preparation complete — October 31, 2026
+
+The [final approval packet](NARO_RELEASE_REVIEW_2026-10-31.md) supersedes the
+historical checkpoints below. Both candidates passed full qualification, the
+final technical gate passed 101/101, packages passed 15/15 plus 5 ordinary-prefix
+checks, and Claude’s evidence and final metadata reviews passed. Required
+publication approval remains with John. No tag, release or upload was performed.
+Final review-delivery CI and preservation receipts are recorded after the commit.
+
+
 ## Save hardening and final qualification — October 31, 2026
 
 Production `b934b1f` repairs save progress and the independently found safety and

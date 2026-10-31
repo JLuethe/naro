@@ -28,6 +28,6 @@
     "save-safety": 10
   },
   "expected_gate_checks": 101,
-  "status": "Development evidence only; fresh frozen qualification pending",
+  "status": "Historical development evidence; fresh frozen qualification subsequently passed 101/101. See README.md and closure/gate.json for the exact frozen identities.",
   "attempts": "All setup failures, interim identities and disproved static hypotheses retained in target evidence; never substituted for a passing frozen run."
 }

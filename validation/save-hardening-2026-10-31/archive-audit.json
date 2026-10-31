@@ -1,0 +1,110 @@
+{
+  "pass": true,
+  "checks": [
+    {
+      "name": "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz-checksum",
+      "pass": true
+    },
+    {
+      "name": "naro-0.1.0-source.tar.gz-checksum",
+      "pass": true
+    },
+    {
+      "name": "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz-safe-member-inventory",
+      "pass": true
+    },
+    {
+      "name": "naro-0.1.0-source.tar.gz-safe-member-inventory",
+      "pass": true
+    },
+    {
+      "name": "archive-payload-inventory",
+      "pass": true
+    },
+    {
+      "name": "every-binary-payload-hash-and-mode",
+      "pass": true
+    },
+    {
+      "name": "exact-qualified-ubuntu-binary",
+      "pass": true
+    },
+    {
+      "name": "default-without-test-hooks",
+      "pass": true
+    },
+    {
+      "name": "manifest-build-record-agreement",
+      "pass": true
+    },
+    {
+      "name": "clean-frozen-source-revision",
+      "pass": true
+    },
+    {
+      "name": "exact-tracked-source-inventory",
+      "pass": true
+    },
+    {
+      "name": "all-corresponding-source-file-hashes",
+      "pass": true
+    },
+    {
+      "name": "archive-production-fingerprint",
+      "pass": true
+    },
+    {
+      "name": "standalone-installer-equals-frozen-source",
+      "pass": true
+    },
+    {
+      "name": "licenses-attribution-and-po-sources-present",
+      "pass": true
+    },
+    {
+      "name": "all-frozen-runtime-assets-present",
+      "pass": true
+    },
+    {
+      "name": "native-linkage-and-symbol-requirements-recorded",
+      "pass": true
+    },
+    {
+      "name": "fresh-checks-bound-to-exact-archive",
+      "pass": true
+    },
+    {
+      "name": "all-catalog-and-asset-checks-passed",
+      "pass": true
+    },
+    {
+      "name": "offline-source-build-evidence",
+      "pass": true
+    },
+    {
+      "name": "synchronized-save-test-in-source",
+      "pass": true
+    },
+    {
+      "name": "save-progress-suite-in-source",
+      "pass": true
+    },
+    {
+      "name": "save-safety-suite-in-source",
+      "pass": true
+    }
+  ],
+  "archives": {
+    "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz": "3d6b4d4f67fa97060993d31f4e75b6a83f65f52a465ce3efaf7334dead42179f",
+    "naro-0.1.0-source.tar.gz": "062b8f73b3d6aaa6b32f421a0cc182e142804ea8b6c295a01af707c8023362be"
+  },
+  "binary_sha256": "9af710dbb614423b53425c093a41a95b4733cfd539bfe40047b1bdac0bd7419d",
+  "production_source_sha256": "3ce5c0ee2d62983b32c1d71664c3404c799ff8fc08c16f6bfdb0b90d2acc21bd",
+  "source_files": 1433,
+  "binary_payload_files": 138,
+  "catalogs": 41,
+  "syntax_files": 44,
+  "package_report_sha256": "be240e5d40da030ae1a5c45d3743cb096eef0009d855b404931eee6cac051569",
+  "source_build_log_sha256": "02ff213c4f89d782f477c3baa0998dfca2e6ccf4f242f80da4775b8515a66b44",
+  "scope": "Refreshed documentation packages; unchanged frozen production source and executable; fresh package checks."
+}

@@ -2,7 +2,8 @@
 
 NARO 0.1.0 is an experimental independent port of GNU nano 9.3. The pinned
 reference is `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`.
-Technical candidate qualification is complete; final publication review is not.
+Technical qualification and independent review are complete; publication is not
+authorized.
 
 ## Candidate identity
 
@@ -46,7 +47,7 @@ finite tested matrix; it is not a claim of exhaustive compatibility.
 | Private VM transport | Six checks pass |
 | Recovery and large files | Separate panic instrumentation, write/signal cases, 1 MiB/10 MiB checks pass |
 | Ubuntu package | 15 checks; offline source rebuild; 41 catalogs and 44 asset checks pass |
-| Final-archive ordinary-prefix install | Recorded separately with final package evidence |
+| Final-archive ordinary-prefix install | Five checks pass on the exact final archive |
 | Complete technical collector | 101/101 checks pass |
 
 Ubuntu used its own built reference executable and fresh observations. The host

@@ -1,0 +1,19 @@
+{
+  "pass": true,
+  "status": 0,
+  "checks": 94,
+  "recomputed_and_inspected_checks": 94,
+  "packaging_source_revision": "6473fe2043f8a7c3805e2994fea3f4f1bc8d4b50",
+  "production_commit": "b934b1fcefa74adcf631c39b20ecd133c70edc59",
+  "production_fingerprint": "3ce5c0ee2d62983b32c1d71664c3404c799ff8fc08c16f6bfdb0b90d2acc21bd",
+  "ubuntu_binary_sha256": "9af710dbb614423b53425c093a41a95b4733cfd539bfe40047b1bdac0bd7419d",
+  "archive_checks": "23/23",
+  "package_checks": "15/15",
+  "ordinary_prefix_checks": "5/5",
+  "asset_checks": "44/44",
+  "catalogs": 41,
+  "final_gate_checks": 101,
+  "required_regression_map": {"wrap-undo": 58, "filter": 6, "release-fixes": 15, "step3-gaps": 40, "save-progress": 22, "save-safety": 10},
+  "external_links_fetched": false,
+  "runtime_groups": "package/ordinary/archive/assets/offline-rebuild/final-gate outcomes were inspected from recorded reports; identities, inventories, hashes, fingerprints, links, and asset bodies were recomputed"
+}

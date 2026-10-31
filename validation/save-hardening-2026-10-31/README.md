@@ -33,3 +33,30 @@ and does not qualify these new bytes. Optional tiny is covered by separate CI
 assertions, not this downloadable candidate or a full terminal parity claim.
 Physical keyboard trials, other platforms and a security audit remain outside
 scope. Nine historical unresolved specification citations remain disclosed.
+
+## Final package and independent review
+
+The final corresponding-source archive matches packaging commit
+`6473fe2043f8a7c3805e2994fea3f4f1bc8d4b50`; the exact frozen Ubuntu executable
+is reused. Final package 15/15, ordinary-prefix 5/5, archive 23/23 and the
+[final package gate](final-package-gate.json) 101/101 pass. Production and proposed
+tag CI succeeded; their exact receipts are retained here.
+
+[Claude's final review](CLAUDE_FINAL_REPORT.md) passes with no technical blocker.
+It independently reran the complete 101-check collector, revalidated both 151-case
+raw evidence sets, and checked source, downloads, CI and backup payloads.
+[Separately attributed reviews](reconciled-reviews.json) include fresh host 22 and
+Ubuntu 10 replays, bounded console provenance and package/source/asset audits.
+Failed setup and reviewer-script attempts are preserved, not counted as passes.
+Host replay command timestamps were unavailable and explicitly disclosed.
+
+The old pending status in development-checks.json is now clearly labeled as a
+historical checkpoint; it never replaced current frozen qualification. One
+obsolete task-owned polling loop was identified and stopped. No unrelated
+process was stopped. No tag, release, upload or community announcement was made.
+See [the final approval packet](../../NARO_RELEASE_REVIEW_2026-10-31.md).
+
+[Final narrow metadata review](CLAUDE_METADATA_REPORT.md) verifies the reconciled
+qualification sidecar, checksums and manifest, with both archives unchanged.
+The final delivery CI and complete preservation receipts are written after the
+review-delivery commit, outside target as described in the approval packet.

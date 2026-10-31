@@ -11,8 +11,9 @@ The save-progress repair is committed as `b934b1f`. Both replacement candidates
 passed fresh complete qualification, including all 151 newer exact cases per
 environment and the expanded 101-check gate. See the
 [new qualification record](validation/save-hardening-2026-10-31/README.md).
-Final archive verification, independent Claude review, and publication approval
-are recorded separately. No release is published.
+Final archives and independent Claude review passed, including the metadata
+check. See the [approval packet](NARO_RELEASE_REVIEW_2026-10-31.md). Publication
+approval remains separate; no release is published.
 
 ## Release scope
 
@@ -74,8 +75,11 @@ passes do not qualify a newly built executable automatically.
   compact tracked reports and back up full evidence outside `target/`.
 - [x] Update public documentation, attribution/license review, release notes,
   support/reporting routes, and the final download list.
-- [ ] Verify final remote commit and successful GitHub CI. Obtain separate
-  publication authorization for the tag, release description, and exact assets.
+- [x] Complete independent archive/evidence review and final metadata verification.
+- [x] Verify successful production and proposed-tag CI. Final review-delivery CI
+  is recorded after that commit in the delivery receipt.
+- [ ] Obtain John’s publication approval for the exact tag, release description
+  and seven assets, then recheck remote refs, CI and hashes before publication.
 
 ## Accepted differences and exclusions
 
@@ -138,8 +142,8 @@ testing must still be assessed against release safety and integrity criteria.
 
 ## Next action
 
-Complete final archive checks and independent review of the replacement
-candidates. Verify successful CI for the exact proposed tag and final review
-commit. John must approve the exact prerelease/tag/body/assets proposal before
-publication. The previous step 10 target and archives are superseded; all older
-evidence remains available under its original identity.
+Review [the final approval packet](NARO_RELEASE_REVIEW_2026-10-31.md). Technical
+qualification, packaging and independent reviews are complete. Final delivery CI
+is verified after its commit and recorded in the outside-target delivery receipt.
+John must approve the exact prerelease/tag/body/assets proposal before publication.
+All earlier candidates and evidence remain historical under their original identities.

@@ -1,0 +1,10 @@
+{
+  "timestamp": 1793433982.7694347,
+  "pid": 1390429,
+  "command": "/usr/bin/bash -c while pgrep -f 'tiny-builds/source-old/Cargo.toml' >/dev/null; do sleep 2; done; tail -10 target/fifo-interrupt-2026-10-31/tiny-builds/old/build.log; ls -l target/fifo-interrupt-2026-10-31/tiny-builds/old/naro 2>/dev/null || true ",
+  "children": [
+    1954464
+  ],
+  "parent_removed": true,
+  "reason": "Owned historical tiny-build polling loop matched its own command text; old build is complete. Only this exact monitor and its sleep child were stopped."
+}

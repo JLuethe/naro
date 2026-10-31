@@ -1,0 +1,212 @@
+{
+  "pass": true,
+  "source_revision": "6473fe2043f8a7c3805e2994fea3f4f1bc8d4b50",
+  "installed_markdown_links": 45,
+  "immutable_repository_links": 11,
+  "links": [
+    {
+      "document": "CREDITS.md",
+      "destination": "https://github.com/JLuethe/naro"
+    },
+    {
+      "document": "CREDITS.md",
+      "destination": "LICENSE"
+    },
+    {
+      "document": "CREDITS.md",
+      "destination": "NOTICE"
+    },
+    {
+      "document": "README.md",
+      "destination": "INSTALL.md"
+    },
+    {
+      "document": "README.md",
+      "destination": "https://github.com/JLuethe/naro/blob/6473fe2043f8a7c3805e2994fea3f4f1bc8d4b50/validation/README.md"
+    },
+    {
+      "document": "README.md",
+      "destination": "IMPLEMENTATION.md"
+    },
+    {
+      "document": "README.md",
+      "destination": "COVERAGE_REVIEW.md"
+    },
+    {
+      "document": "README.md",
+      "destination": "INSTALL.md#optional-tools-and-profiles"
+    },
+    {
+      "document": "README.md",
+      "destination": "https://github.com/JLuethe/naro/issues"
+    },
+    {
+      "document": "README.md",
+      "destination": "SECURITY.md"
+    },
+    {
+      "document": "README.md",
+      "destination": "CONTRIBUTING.md"
+    },
+    {
+      "document": "README.md",
+      "destination": "LICENSE"
+    },
+    {
+      "document": "README.md",
+      "destination": "NOTICE"
+    },
+    {
+      "document": "README.md",
+      "destination": "CREDITS.md"
+    },
+    {
+      "document": "README.md",
+      "destination": "RELEASE_NOTES.md"
+    },
+    {
+      "document": "README.md",
+      "destination": "https://github.com/JLuethe/naro/blob/6473fe2043f8a7c3805e2994fea3f4f1bc8d4b50/RELEASE_CHECKLIST.md"
+    },
+    {
+      "document": "INSTALL.md",
+      "destination": "https://github.com/JLuethe/naro/blob/6473fe2043f8a7c3805e2994fea3f4f1bc8d4b50/validation/README.md"
+    },
+    {
+      "document": "INSTALL.md",
+      "destination": "IMPLEMENTATION.md"
+    },
+    {
+      "document": "IMPLEMENTATION.md",
+      "destination": "https://github.com/JLuethe/naro/blob/6473fe2043f8a7c3805e2994fea3f4f1bc8d4b50/validation/README.md"
+    },
+    {
+      "document": "IMPLEMENTATION.md",
+      "destination": "COVERAGE_REVIEW.md"
+    },
+    {
+      "document": "IMPLEMENTATION.md",
+      "destination": "INSTALL.md"
+    },
+    {
+      "document": "IMPLEMENTATION.md",
+      "destination": "https://github.com/JLuethe/naro/blob/6473fe2043f8a7c3805e2994fea3f4f1bc8d4b50/validation/tiny/README.md"
+    },
+    {
+      "document": "RELEASE_NOTES.md",
+      "destination": "INSTALL.md"
+    },
+    {
+      "document": "RELEASE_NOTES.md",
+      "destination": "https://github.com/JLuethe/naro/blob/6473fe2043f8a7c3805e2994fea3f4f1bc8d4b50/validation/README.md"
+    },
+    {
+      "document": "RELEASE_NOTES.md",
+      "destination": "COVERAGE_REVIEW.md"
+    },
+    {
+      "document": "RELEASE_NOTES.md",
+      "destination": "https://github.com/JLuethe/naro/issues"
+    },
+    {
+      "document": "RELEASE_NOTES.md",
+      "destination": "SECURITY.md"
+    },
+    {
+      "document": "RELEASE_NOTES.md",
+      "destination": "LICENSE"
+    },
+    {
+      "document": "RELEASE_NOTES.md",
+      "destination": "NOTICE"
+    },
+    {
+      "document": "RELEASE_NOTES.md",
+      "destination": "CREDITS.md"
+    },
+    {
+      "document": "COVERAGE_REVIEW.md",
+      "destination": "https://github.com/JLuethe/naro/blob/6473fe2043f8a7c3805e2994fea3f4f1bc8d4b50/validation/README.md"
+    },
+    {
+      "document": "COVERAGE_REVIEW.md",
+      "destination": "https://github.com/JLuethe/naro/blob/6473fe2043f8a7c3805e2994fea3f4f1bc8d4b50/spec/97-coverage.md"
+    },
+    {
+      "document": "CONTRIBUTING.md",
+      "destination": "https://github.com/JLuethe/naro/blob/6473fe2043f8a7c3805e2994fea3f4f1bc8d4b50/spec/00-overview.md"
+    },
+    {
+      "document": "CONTRIBUTING.md",
+      "destination": "IMPLEMENTATION.md"
+    },
+    {
+      "document": "CONTRIBUTING.md",
+      "destination": "https://github.com/JLuethe/naro/blob/6473fe2043f8a7c3805e2994fea3f4f1bc8d4b50/validation/README.md"
+    },
+    {
+      "document": "CONTRIBUTING.md",
+      "destination": "https://github.com/JLuethe/naro/issues"
+    },
+    {
+      "document": "CONTRIBUTING.md",
+      "destination": "SECURITY.md"
+    },
+    {
+      "document": "CONTRIBUTING.md",
+      "destination": "https://github.com/JLuethe/naro/blob/6473fe2043f8a7c3805e2994fea3f4f1bc8d4b50/spec/16-test-plan.md"
+    },
+    {
+      "document": "CONTRIBUTING.md",
+      "destination": "COVERAGE_REVIEW.md"
+    },
+    {
+      "document": "CONTRIBUTING.md",
+      "destination": "INSTALL.md"
+    },
+    {
+      "document": "CONTRIBUTING.md",
+      "destination": "LICENSE"
+    },
+    {
+      "document": "CONTRIBUTING.md",
+      "destination": "NOTICE"
+    },
+    {
+      "document": "CONTRIBUTING.md",
+      "destination": "CREDITS.md"
+    },
+    {
+      "document": "SECURITY.md",
+      "destination": "https://github.com/JLuethe/naro/issues/new"
+    },
+    {
+      "document": "SECURITY.md",
+      "destination": "https://github.com/JLuethe/naro"
+    }
+  ],
+  "packaged_documents": [
+    "LICENSE",
+    "NOTICE",
+    "CREDITS.md",
+    "README.md",
+    "INSTALL.md",
+    "IMPLEMENTATION.md",
+    "RELEASE_NOTES.md",
+    "COVERAGE_REVIEW.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md"
+  ],
+  "source_files": 1433,
+  "explicitly_excluded_local_artifacts": [
+    "opencode-session.json",
+    "opencode-hardwrap-parity.json",
+    "opencode-testing-report.json",
+    "NARO_HARDWRAP_REVIEW.md",
+    "NARO_MINIMAX_SESSION_REVIEW.md",
+    "PI_AGENT_HANDOFF.md",
+    "PI_AGENT_START_PROMPT.md"
+  ],
+  "common_credential_pattern_files": [],
+  "scope": "Archive inventory and documentation link destinations verified against matching source. Bounded credential-format scan is not a security audit."
+}

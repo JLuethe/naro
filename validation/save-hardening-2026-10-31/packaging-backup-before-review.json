@@ -1,0 +1,8 @@
+{
+  "archive": "packaging-before-independent-review.tar.gz",
+  "sha256": "138bf106f6d5d07521d9b0d08c8993ccc7358755aa8fb7563d8eb4c96a24229f",
+  "bytes": 20967571,
+  "files_verified": 1762,
+  "manifest_sha256": "d098f5f7af36df031f406d57c6cf72e74411811484a61a1c9b79aa4432b8be1b",
+  "scope": "Verified final package bytes and package checks before independent Claude review; qualification metadata correctly still marks review pending. Git administrative metadata excluded; exact tracked source is retained in the source archive."
+}

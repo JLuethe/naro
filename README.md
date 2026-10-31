@@ -5,8 +5,8 @@ experimental terminal editor for Linux, with familiar nano keybindings,
 byte-preserving editing, undo/redo, search and regex replacement, multiple
 buffers, nanorc configuration, syntax highlighting, macros and translations.
 
-The 0.1.0 candidate has completed its technical qualification. Publication and
-final release review are pending. The primary binary package targets Linux
+The 0.1.0 candidate has completed technical qualification and independent release
+review. Publication awaits approval. The primary binary package targets Linux
 x86_64 with GNU/glibc and was built and tested under Ubuntu 24.04/glibc 2.39.
 Other distributions and platforms are not certified by these results.
 

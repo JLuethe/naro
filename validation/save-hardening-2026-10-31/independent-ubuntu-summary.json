@@ -1,0 +1,33 @@
+{
+  "pass": true,
+  "source_commit": "b934b1fcefa74adcf631c39b20ecd133c70edc59",
+  "production_source_sha256": "3ce5c0ee2d62983b32c1d71664c3404c799ff8fc08c16f6bfdb0b90d2acc21bd",
+  "candidate_sha256": "9af710dbb614423b53425c093a41a95b4733cfd539bfe40047b1bdac0bd7419d",
+  "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+  "ubuntu_image_id": "093817959dc26bb88c4f8df915372db75dee73f9356eb94f2ba428ea04fe9735",
+  "reopened_required_suites": {
+    "wrap-undo": 58,
+    "filter": 6,
+    "release-fixes": 15,
+    "step3-gaps": 40,
+    "save-progress": 22,
+    "save-safety": 10
+  },
+  "reopened_required_cases": 151,
+  "fresh_safety": {
+    "recorded": 10,
+    "matches": 10,
+    "assertions": {
+      "reference": 642,
+      "candidate": 642
+    },
+    "reference_status": 0,
+    "candidate_status": 0,
+    "strict_evidence_problems": []
+  },
+  "freeze_before_after": "passed",
+  "outer_commands": 3,
+  "inner_commands": 2,
+  "failed_attempts": 0,
+  "scope": "Independent raw-evidence revalidation of all six new suites and fresh safety replay in a separate offline Ubuntu container; full release qualification remains recorded by the established runner."
+}

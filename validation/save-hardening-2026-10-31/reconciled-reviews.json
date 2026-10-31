@@ -1,0 +1,77 @@
+{
+  "technical_conclusion": "no unresolved technical blockers",
+  "reports": {
+    "host_behavior": {
+      "repository_path": "validation/save-hardening-2026-10-31/LUNA_HOST_REPORT.md",
+      "sha256": "b4df0206b925645f26191230fa25b9318a24ceab8bbb8fc92ccdf952c73fa75f",
+      "scope": "Strict151 evidence audit and fresh22 host replay; initial sandbox setup failure retained; timestamps unavailable and disclosed.",
+      "evidence": {
+        "path": "/home/john/Code/naro/target/luna-narrow-progress-verify-2026-10-31/LUNA_NARROW_PROGRESS_REPORT.md",
+        "sha256": "b4df0206b925645f26191230fa25b9318a24ceab8bbb8fc92ccdf952c73fa75f",
+        "manifest_path": "/home/john/Code/naro/target/luna-narrow-progress-verify-2026-10-31/SHA256SUMS",
+        "manifest_sha256": "05f3fcd209c6d7377eae8a77cf1bfad3756289553df2f69f224335ba424857cb"
+      }
+    },
+    "ubuntu_behavior": {
+      "repository_path": "validation/save-hardening-2026-10-31/INDEPENDENT_UBUNTU_REPORT.md",
+      "sha256": "af2a17bd9daca12050676dd5f035b9ebf86229e0b37f7640ca10a85e1d7de782",
+      "scope": "Strict151 evidence audit and fresh10 Ubuntu safety replay with642 assertions per side.",
+      "evidence": {
+        "path": "/home/john/Code/naro/target/ubuntu-safety-independent-2026-10-31/REPORT.md",
+        "sha256": "af2a17bd9daca12050676dd5f035b9ebf86229e0b37f7640ca10a85e1d7de782",
+        "manifest_path": "/home/john/Code/naro/target/ubuntu-safety-independent-2026-10-31/EVIDENCE-SHA256SUMS",
+        "manifest_sha256": "8c863ca31d8b601033a5b24afe3054629002a91810bae33d6a616a25acf70ed3"
+      }
+    },
+    "console_provenance": {
+      "repository_path": "validation/save-hardening-2026-10-31/INDEPENDENT_CONSOLE_REPORT.md",
+      "sha256": "75959dec4ed8fa163fe47de6f06fa183605a538d171238fdd96706e2c5af0088",
+      "scope": "47 report, artifact and provenance checks; no raw console comparator replay.",
+      "evidence": {
+        "path": "/home/john/Code/naro/target/frozen-console-review-2026-10-31/ASSET_REVIEW_REPORT.md",
+        "sha256": "75959dec4ed8fa163fe47de6f06fa183605a538d171238fdd96706e2c5af0088",
+        "manifest_path": "/home/john/Code/naro/target/frozen-console-review-2026-10-31/EVIDENCE-SHA256SUMS",
+        "manifest_sha256": "5840dad655c9399e96663ac7aa383ad8b7e03620c3781da52655d36b1a3cc2c9"
+      }
+    },
+    "package_source": {
+      "repository_path": "validation/save-hardening-2026-10-31/INDEPENDENT_PACKAGE_REPORT.md",
+      "sha256": "e7d697b3c005cf58070a073ac2e13fa945dd5fdaae466889bc013ed4bc9ae849",
+      "scope": "41 checks:32 recomputed archive/Git identities and9 inspections of recorded runtime groups; one checker schema error retained.",
+      "evidence": {
+        "path": "/home/john/Code/naro/target/package-source-independent-2026-10-31/REPORT.md",
+        "sha256": "e7d697b3c005cf58070a073ac2e13fa945dd5fdaae466889bc013ed4bc9ae849",
+        "manifest_path": "/home/john/Code/naro/target/package-source-independent-2026-10-31/EVIDENCE-SHA256SUMS",
+        "manifest_sha256": "93e67b68e6d7b1fac9794878c8d4c61d913e595b4f386c4445bdce140c0d5941"
+      }
+    },
+    "assets": {
+      "repository_path": "validation/save-hardening-2026-10-31/INDEPENDENT_ASSET_REPORT.md",
+      "sha256": "cbd14ee7d2b83b046d45be73b39a1a07abebfd2ecd8416af3ca48e80bbb8d1f4",
+      "scope": "94 checks combining recomputed download/archive identities with inspected runtime evidence; no runtime replay.",
+      "evidence": {
+        "path": "/home/john/Code/naro/target/final-assets-independent-2026-10-31/ASSET_REVIEW_REPORT.md",
+        "sha256": "cbd14ee7d2b83b046d45be73b39a1a07abebfd2ecd8416af3ca48e80bbb8d1f4",
+        "manifest_path": "/home/john/Code/naro/target/final-assets-independent-2026-10-31/EVIDENCE-SHA256SUMS",
+        "manifest_sha256": "4d01a83e80e748bab98e0c83013541bdb1e9a2e751feae8524d70c7cd9cbe902"
+      }
+    },
+    "claude": {
+      "repository_path": "validation/save-hardening-2026-10-31/CLAUDE_FINAL_REPORT.md",
+      "sha256": "0aab1680758b474b6add660efbdb6092a75c62f7a169288b0949330de49429e6",
+      "scope": "54 command records; full101 collector rerun, own raw audit and strict151 validators for both environments, archive/source/CI/manifest/backup checks; original permission-blocked attempt and corrected reviewer scripts retained.",
+      "evidence": {
+        "path": "/home/john/Code/naro/target/claude-save-hardening-final-2026-10-31/attempt02/CLAUDE_FINAL_REPORT.md",
+        "manifest_path": "/home/john/Code/naro/target/claude-save-hardening-final-2026-10-31/attempt02/EVIDENCE-SHA256SUMS",
+        "manifest_sha256": "a4afeff9cb1a2db98b2cf658c4f032b390f2f06e1bdc70beb80e0275e02cf9a9"
+      }
+    }
+  },
+  "limitations": [
+    "No publication approval implied",
+    "Runtime scopes are separately attributed; no independent rerun of the full303 corpus or full guest-VT matrix is claimed",
+    "Host subagent per-command timestamps were unavailable and disclosed",
+    "All failed setup/reviewer script attempts are preserved"
+  ],
+  "final_metadata_verification": "Separate narrow Claude metadata receipt follows reconciliation; it is not included in this sidecar hash to avoid circular checksums."
+}

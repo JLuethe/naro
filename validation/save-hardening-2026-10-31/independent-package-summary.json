@@ -1,0 +1,34 @@
+{
+  "pass": true,
+  "archives": {
+    "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz": {
+      "members": 233,
+      "files": 140,
+      "sha256": "3d6b4d4f67fa97060993d31f4e75b6a83f65f52a465ce3efaf7334dead42179f"
+    },
+    "naro-0.1.0-source.tar.gz": {
+      "members": 1433,
+      "files": 1433,
+      "sha256": "062b8f73b3d6aaa6b32f421a0cc182e142804ea8b6c295a01af707c8023362be"
+    }
+  },
+  "source_revision": "6473fe2043f8a7c3805e2994fea3f4f1bc8d4b50",
+  "compiled_revision": "b934b1fcefa74adcf631c39b20ecd133c70edc59",
+  "production_source_sha256": "3ce5c0ee2d62983b32c1d71664c3404c799ff8fc08c16f6bfdb0b90d2acc21bd",
+  "binary_sha256": "9af710dbb614423b53425c093a41a95b4733cfd539bfe40047b1bdac0bd7419d",
+  "source_files": 1433,
+  "binary_payload_files": 138,
+  "root_audit_checks": 23,
+  "runtime_repeated": false,
+  "runtime_evidence_scope": "Inspected original successful commands, checker source, reports and logs; no installed-tree or source-rebuild replay was performed. Rebuild byte identity is not claimed.",
+  "pending_scope": "Download sidecars and final CI/publication approval are outside this package/source audit.",
+  "checks": 41,
+  "verification_scope_counts": {
+    "recomputed": 32,
+    "recorded-runtime": 9
+  },
+  "attempts": 2,
+  "unsuccessful_checker_attempts": 1,
+  "package_blockers": [],
+  "root_audit_overclaims_found": []
+}

@@ -1,0 +1,7 @@
+{
+  "archive": "/home/john/Backups/naro/2026-10-31-narrow-progress/independent-behavior-reviews.tar.gz",
+  "sha256": "acd58b20bb8a032f1df8df460ffe0b4d393ededb947050da0537927fc94fd060",
+  "bytes": 4909791,
+  "files_verified": 203,
+  "scope": "Frozen host151 evidence+fresh22, Ubuntu151 evidence+fresh10, and bounded47 console/provenance review. Includes all retained attempts and previous manifests. Host per-command timestamps were unavailable and disclosed. Outside target on same filesystem."
+}
