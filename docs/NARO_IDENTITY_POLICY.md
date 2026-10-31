@@ -72,3 +72,36 @@ deriving the NARO expectation; it does not infer expectations from captures.
 
 Full host/Ubuntu/guest-VT/package qualification and patch publication are later
 steps. This policy does not change the published 0.1.0 tag or assets.
+
+## Reviewed narrow and translated title layouts
+
+Title painting uses terminal display cells, including the two-cell Japanese
+state `変更済み`; codepoint counts do not determine terminal width or padding.
+State text is selected only from the reviewed English/German names, exact
+requested-catalog translations, and the known German ISO capture spellings.
+Unknown non-ASCII filenames and unknown states remain unsupported.
+
+An unbranded reference row receives no general title-row detector.
+`tests/naro/identity-title-contexts.json` authorizes only the three original
+`TEST-NEXT-TERM-001-*` cases' `small` snapshots at 30 columns and nine rows. Each
+context binds the complete original case SHA-256 and package version and names
+the original filename and state. Physical width, physical row count and effective
+application width must all match before any empty-grid return, width slicing or
+GNU-branded title branch. Explicit height metadata must agree too. The independent
+GNU C titlebar model must reproduce the entire original row before calculating
+whether the shorter NARO label fits. A changed case, version, geometry, filename or state fails closed.
+
+A requested catalog is not proof that gettext selected it. For clean titles,
+the oracle tries only the reviewed requested-catalog and C Modified-reservation
+widths. Each possibility must reproduce the complete reference row exactly,
+and every successful possibility must produce the same full NARO row. Zero or
+multiple different projections fail. Selection never examines the candidate's
+capture or the machine running the collector. This covers a requested French
+locale falling back to C as well as a genuinely selected French catalog.
+
+Identity classification preserves the state word's right-edge position, full
+row attributes, cursor, modes, other rows, file bytes, input bytes and exit
+checks. Literal C-derived tests cover clean, modified and view boundaries at
+28, 29, 30 and 31 columns, Japanese and ISO states, French selection/fallback,
+stale contexts and negative corruption controls. Historical raw observations
+and raw exact-match counts remain unchanged.

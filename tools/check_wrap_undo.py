@@ -168,6 +168,7 @@ VERIFICATION_FILES = (
     "spec/tools/candidate_expectations.py", "tests/naro/identity-overrides.json",
     "tests/naro/identity-layout.json",
     "spec/tools/identity_review.py", "tests/naro/legacy-deviations.json",
+    "tests/naro/identity-title-contexts.json",
     "docs/NARO_IDENTITY_POLICY.md", "tools/validate.py", "tools/validate_parallel.py",
     "tools/collect_closure.py", "tools/check_release_gate.py", "tools/release_gate_evidence.py",
     "tools/check_console_vm.py", "tools/run_closure_host.py", "tests/follow-up/environment.sh",

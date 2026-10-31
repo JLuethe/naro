@@ -5,9 +5,8 @@ import gettext
 import json
 import re
 import tomllib
-import unicodedata
 from compare_runs import compare, fixture_root
-from candidate_expectations import ROOT, POLICY, candidate_title, expected_cli_output
+from candidate_expectations import ROOT, POLICY, candidate_title, expected_cli_output, case_sha256, display_width, display_slice, display_pad, title_row, DEFAULT_STATES
 
 WELCOME = 'Welcome to nano.  For basic help, type Ctrl+G.'
 HELP_TITLE = 'Main nano help text'
@@ -15,7 +14,7 @@ HELP_TITLE = 'Main nano help text'
 
 def policy_identity():
     names = ['spec/tools/identity_review.py', 'spec/tools/candidate_expectations.py',
-             'tests/naro/identity-overrides.json', 'tests/naro/legacy-deviations.json', 'docs/NARO_IDENTITY_POLICY.md']
+             'tests/naro/identity-overrides.json', 'tests/naro/legacy-deviations.json', 'tests/naro/identity-title-contexts.json', 'docs/NARO_IDENTITY_POLICY.md']
     payload = b''.join(n.encode() + bytes([0]) + (ROOT / n).read_bytes() + bytes([0]) for n in names)
     return {'id': POLICY, 'schema': 'naro-identity-review-v1',
             'version': tomllib.loads((ROOT / 'Cargo.toml').read_text())['package']['version'],
@@ -36,13 +35,24 @@ def _help_caption(width, caption):
     return (' ' * (3 + (width - 5 - len(caption)) // 2) + caption).ljust(width)
 
 
+def _context_geometry(rows,width,context,app_width=None):
+    """Bound contexts authorize one physical grid and one effective app width."""
+    if (type(width)is not int or width!=context['width']
+        or len(rows)!=context['height'] or not rows
+        or display_width(rows[0])!=width
+        or (app_width is not None and (type(app_width)is not int or app_width!=context['width']))):
+        raise ValueError('reviewed title context geometry changed')
+
+
 def project_identity_rows(reference_rows, width, *, allow_help=False, status_rows=(),
-                          reference_root=None, candidate_root=None, language='C', stateflags=False):
+                          reference_root=None, candidate_root=None, language='C', stateflags=False, title_context=None):
     """Return (expected rows,evidence), using only reference text and frozen context."""
     expected, evidence = list(reference_rows), []
+    if title_context is not None:
+        _context_geometry(reference_rows,width,title_context)
     if not reference_rows or width < 1:
         return expected, evidence
-    if len(reference_rows[0]) != width:
+    if display_width(reference_rows[0]) != width:
         if 'GNU nano' in reference_rows[0]:raise ValueError('unreviewed identity title width')
         return expected,evidence
     version = policy_identity()['version']
@@ -53,16 +63,21 @@ def project_identity_rows(reference_rows, width, *, allow_help=False, status_row
     first = reference_rows[0]
     if first.startswith('  GNU nano') and not first.startswith('  GNU nano '):
         raise ValueError('unsupported identity title')
-    if first.startswith('  GNU nano '):
+    if title_context is not None:
+        fields={k:title_context[k]for k in ('filename','state')}
+        if display_pad(title_row(width,label='GNU nano 9.3',**fields),width)!=first:
+            raise ValueError('unbranded reference title failed independent oracle')
+        change(0,display_pad(title_row(width,label='NARO '+version,**fields),width),'editing-title')
+    elif first.startswith('  GNU nano '):
         if not first.startswith('  GNU nano 9.3'):
             raise ValueError('unsupported reference title version')
         if language.lower().startswith('de_de.iso') and first[-3:] == ' t ':
             # ISO-8859-1 terminal trace leaves the final translated-state cell.
             # Preserve that cell; independently validate all clean-title cells.
             clean=first[:-2]+'  '
-            new=candidate_title(clean.rstrip(),width,version,reserved=_modified_reserve(language)).ljust(width)[:-2]+'t '
+            new=_reference_title(clean,width,version,language)[:-2]+'t '
         else:
-            new = _stateflags_title(first, width, version) if stateflags else candidate_title(first.rstrip(), width, version, reserved=_modified_reserve(language)).ljust(width)
+            new = _stateflags_title(first, width, version) if stateflags else _reference_title(first,width,version,language)
         change(0, new, 'editing-title')
     if allow_help:
         heading, title, pairs = _help_rows(width, language)
@@ -111,24 +126,30 @@ def _attrs(row, width):
 
 
 def project_screen(reference, *, allow_help=False, status_rows=(), reference_root=None, candidate_root=None,
-                   app_width=None, language='C', stateflags=False, boldtext=False):
+                   app_width=None, language='C', stateflags=False, boldtext=False, title_context=None):
     projected = copy.deepcopy(reference)
     rows = reference.get('rows', [])
-    width = reference.get('width') or (len(rows[0]['text']) if rows else 0)
+    width = reference.get('width') or (display_width(rows[0]['text']) if rows else 0)
+    if title_context is not None and 'width'in reference:width=reference['width']
     app_width = width if app_width is None else app_width
+    if title_context is not None:
+        _context_geometry([row['text']for row in rows],width,title_context,app_width)
+        height=reference.get('height',len(rows))
+        if type(height)is not int or height!=title_context['height']:
+            raise ValueError('reviewed title context physical height changed')
     if app_width < 1 or app_width > width:
         raise ValueError('unsupported application width')
-    texts, evidence = project_identity_rows([row['text'][:app_width] for row in rows], app_width,
+    texts, evidence = project_identity_rows([display_slice(row['text'],0,app_width) for row in rows], app_width,
         allow_help=allow_help, status_rows=status_rows, reference_root=reference_root,
-        candidate_root=candidate_root, language=language, stateflags=stateflags)
+        candidate_root=candidate_root, language=language, stateflags=stateflags, title_context=title_context)
     for change in evidence:
         index = change['row']
-        projected['rows'][index]['text'] = texts[index] + rows[index]['text'][app_width:]
+        projected['rows'][index]['text'] = texts[index] + display_slice(rows[index]['text'],app_width)
         if boldtext and index == 0:
-            old_end = len(rows[index]['text'].rstrip())
+            old_end = display_width(rows[index]['text'].rstrip())
             attrs = [{'start': 0, 'end': old_end, 'attr': 'bold=True'}]
             if rows[index].get('attrs') == attrs:
-                projected['rows'][index]['attrs'] = [{'start': 0, 'end': len(projected['rows'][index]['text'].rstrip()), 'attr': 'bold=True'}]
+                projected['rows'][index]['attrs'] = [{'start': 0, 'end': display_width(projected['rows'][index]['text'].rstrip()), 'attr': 'bold=True'}]
     return projected, evidence
 
 
@@ -150,6 +171,7 @@ def classify(reference, candidate, case_id=None, case=None):
                 language=env.get('LANGUAGE') or env.get('LC_ALL') or env.get('LANG', 'C'),
                 stateflags='-%' in args or '--stateflags' in args,
                 boldtext='-D' in args or '--boldtext' in args,
+                title_context=_title_context(case,name),
                 reference_root=fixture_root(reference), candidate_root=fixture_root(candidate))
         except ValueError as exc:
             projection_errors.append({'field': f'snapshot.{name}.identity_projection', 'reference': str(exc), 'candidate': 'unreviewed'})
@@ -158,7 +180,7 @@ def classify(reference, candidate, case_id=None, case=None):
         for change in changes:
             evidence.append({'snapshot': name, **change})
             actual = candidate.get('snapshots', {}).get(name)
-            width = screen.get('width') or len(screen['rows'][change['row']]['text'])
+            width = screen.get('width') or display_width(screen['rows'][change['row']]['text'])
             if not actual or len(actual.get('rows', [])) <= change['row']:
                 continue
             if _attrs(expected['rows'][change['row']], width) != _attrs(actual['rows'][change['row']], width):
@@ -288,11 +310,48 @@ def _help_rows(width, language):
     return heading,title,dict(zip(original,new))
 
 
-def _modified_reserve(language):
+
+def _reviewed_states(language):
+    states=set(DEFAULT_STATES);reserves={9}
+    # LANGUAGE is a request, not evidence of a successful message locale. Each
+    # requested catalog and C is only a possibility until the complete original
+    # row round-trips. Candidate output and the collector's locale are unused.
     for part in language.split(':'):
         lang=part.split('_')[0].split('.')[0]
         path=ROOT/'assets/locale'/lang/'LC_MESSAGES/nano.mo'
         if path.exists():
-            with path.open('rb') as stream:message=gettext.GNUTranslations(stream).gettext('Modified')
-            return sum(0 if unicodedata.combining(c) else 2 if unicodedata.east_asian_width(c) in ('W','F') else 1 for c in message)+1
-    return 9
+            with path.open('rb') as stream:translation=gettext.GNUTranslations(stream)
+            values=[translation.gettext(word)for word in ('Modified','View','Restricted')]
+            states.update(values);reserves.add(display_width(values[0])+1)
+    if language.lower().startswith('de_de.iso'):
+        states.add('Ver�ndert')
+    return states,reserves
+
+
+def _unique_projection(projections):
+    choices=set(projections)
+    if len(choices)!=1:raise ValueError('reference title projection absent or ambiguous')
+    return choices.pop()
+
+
+def _reference_title(reference,width,version,language):
+    states,reserves=_reviewed_states(language);projections=[]
+    for reserved in reserves:
+        try:
+            expected=candidate_title(reference.rstrip(),width,version,reserved=reserved,states=states)
+            projections.append(display_pad(expected,width))
+        except ValueError:continue
+    return _unique_projection(projections)
+
+
+def _title_context(case,snapshot):
+    if not case:return None
+    data=json.loads((ROOT/'tests/naro/identity-title-contexts.json').read_text())
+    if data.get('schema')!='naro-identity-title-context-v1':
+        raise ValueError('unknown reviewed title context schema')
+    entry=data['cases'].get(case.get('id'))
+    if not entry or snapshot not in entry['snapshots']:return None
+    if (data['policy']!=POLICY or data['package_version']!=policy_identity()['version']
+        or entry['reference_case_sha256']!=case_sha256(case)):
+        raise ValueError('stale reviewed title context')
+    return entry['snapshots'][snapshot]

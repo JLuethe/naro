@@ -1,0 +1,41 @@
+{
+  "schema": "naro-identity-title-context-v1",
+  "policy": "Q-IDENTITY-001",
+  "package_version": "0.1.1",
+  "reference": "GNU nano 9.3 winio.c:titlebar normal editing algorithm; original environments cases",
+  "cases": {
+    "TEST-NEXT-TERM-001-1": {
+      "reference_case_sha256": "615b7c205db526895ce2909041d005a90bb90f35d570112472b2ff2378a44301",
+      "snapshots": {
+        "small": {
+          "width": 30,
+          "height": 9,
+          "filename": "f.txt",
+          "state": "Modified"
+        }
+      }
+    },
+    "TEST-NEXT-TERM-001-2": {
+      "reference_case_sha256": "9aa1a0c63dae61c9b8b0a8e45a12afb1231c919762a97c47a34aa7697ae254ed",
+      "snapshots": {
+        "small": {
+          "width": 30,
+          "height": 9,
+          "filename": "f.txt",
+          "state": "Modified"
+        }
+      }
+    },
+    "TEST-NEXT-TERM-001-3": {
+      "reference_case_sha256": "409f77ef8ee8e17fdb4ae3966c9b7f8f93feaeae2557f57d5a092cb3953a524e",
+      "snapshots": {
+        "small": {
+          "width": 30,
+          "height": 9,
+          "filename": "f.txt",
+          "state": "Modified"
+        }
+      }
+    }
+  }
+}

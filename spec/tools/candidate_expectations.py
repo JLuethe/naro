@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import re
 import tomllib
+import unicodedata
 
 ROOT = Path(__file__).resolve().parents[2]
 OVERLAYS = ROOT / 'tests/naro/identity-overrides.json'
@@ -60,55 +61,84 @@ def expected_cli_output(reference, profile='default'):
     return reference
 
 
-def title_row(cols, filename, state='', label='NARO 0.1.1', reserved=9):
-    """Independent ASCII title-layout oracle used to review identity fixtures.
+def display_width(text):
+    """Reviewed terminal widths: controls forbidden, combining zero, W/F two."""
+    if any(ord(c)<32 or 0x7f<=ord(c)<0xa0 for c in text):
+        raise ValueError('control in display text')
+    return sum(0 if unicodedata.combining(c) else 2 if unicodedata.east_asian_width(c) in ('W','F') else 1 for c in text)
 
-    Covers normal file/new-buffer titles; refuses non-ASCII filename layouts.
-    German state words are single-column Unicode and are permitted.
-    """
-    if (not filename.isascii() and filename != 'New·Buffer') or not filename or any(ord(c) < 32 for c in filename):
+
+def display_slice(text, start=0, stop=None):
+    """Slice whole glyphs by display cells; refuse cuts through wide glyphs."""
+    result=[];column=0;previous_selected=False
+    for char in text:
+        span=display_width(char)
+        if span==0:
+            if previous_selected:result.append(char)
+            continue
+        if (column<start<column+span) or (stop is not None and column<stop<column+span):
+            raise ValueError('display slice crosses a wide glyph')
+        previous_selected=column>=start and (stop is None or column<stop)
+        if previous_selected:result.append(char)
+        column+=span
+    return ''.join(result)
+
+
+def display_pad(text, width):
+    cells=display_width(text)
+    if cells>width:raise ValueError('display text exceeds width')
+    return text+' '*(width-cells)
+
+
+def title_row(cols, filename, state='', label='NARO 0.1.1', reserved=9):
+    """Independent GNU C titlebar algorithm; ASCII names, reviewed Unicode states."""
+    if (not filename.isascii() and filename != 'New·Buffer') or not filename or any(ord(c)<32 for c in filename):
         raise ValueError('title oracle needs a printable ASCII filename')
-    row = [' '] * cols
-    def put(start, text):
-        for i, ch in enumerate(text):
-            if 0 <= start + i < cols:
-                row[start + i] = ch
-    plug = 0 if state else reserved  # English Modified is eight display columns.
-    ver = len(label) + 3
-    path = len(filename) + bool(state)
-    stat = (9 if state == '�Ver�ndert' else len(state)) + 2
-    if ver + path + plug + stat <= cols:
-        put(2, label)
+    row=[' ']*cols
+    def put(start,text):
+        column=start;previous=None
+        for char in text:
+            span=display_width(char)
+            if column+span>cols:break
+            if span==0:
+                if previous is not None:row[previous]+=char
+                continue
+            if column>=0:
+                row[column]=char;previous=column
+                for tail in range(1,span):row[column+tail]=''
+            column+=span
+    plug=0 if state else reserved
+    ver=display_width(label)+3
+    path=display_width(filename)+bool(state)
+    # This historical ISO trace has an extra decoder replacement cell; its
+    # original gettext state still occupies nine terminal columns.
+    stat=(9 if state=='�Ver�ndert' else display_width(state))+2
+    if ver+path+plug+stat<=cols:put(2,label)
     else:
-        ver = 2
-        if ver + path + plug + stat > cols:
-            plug = 0
-        if ver + path + plug + stat > cols:
-            ver = 0
-            stat = max(0, stat - 2)
-    offset = ver + max(0, cols - ver - plug - stat - path) // 2 if ver else 0
-    if path + plug + stat <= cols:
-        put(offset, filename)
-    elif 5 + stat <= cols:
-        put(offset, '...')
-        start = max(0, 3 + path + stat - cols)
-        put(offset + 3, filename[start:start + max(0, cols - stat - 3)])
-    put(max(0, cols - stat), state)
+        ver=2
+        if ver+path+plug+stat>cols:plug=0
+        if ver+path+plug+stat>cols:ver=0;stat=max(0,stat-2)
+    offset=ver+max(0,cols-ver-plug-stat-path)//2 if ver else 0
+    if path+plug+stat<=cols:put(offset,filename)
+    elif 5+stat<=cols:
+        put(offset,'...')
+        start=max(0,3+path+stat-cols)
+        put(offset+3,display_slice(filename,start,start+max(0,cols-stat-3)))
+    put(max(0,cols-stat),state)
     return ''.join(row).rstrip()
 
 
-def candidate_title(reference, cols=80, version='0.1.1', reserved=9):
-    prefix = '  GNU nano 9.3'
-    if not reference.startswith(prefix):
-        raise ValueError('not a full nano title assertion')
-    rest = reference[len(prefix):]
-    match = re.fullmatch(r' +(.*?)(?: {2,}(Modified|View|Restricted|Verändert|�Ver�ndert))?', rest)
-    if not match:
-        raise ValueError('unrecognized nano title assertion')
-    filename, state = match.group(1), match.group(2) or ''
-    # A translated Modified word affects only an unmodified title's reserved gap.
-    # Existing English/German full-title fixture rows share the English nine-cell
-    # reservation when clean; explicitly validate instead of assuming it.
-    if title_row(cols, filename, state, 'GNU nano 9.3', reserved) != reference:
-        raise ValueError('reference title does not match independent layout oracle: ' + repr(reference))
-    return title_row(cols, filename, state, 'NARO ' + version, reserved)
+DEFAULT_STATES=('Modified','View','Restricted','Verändert','�Ver�ndert')
+
+
+def candidate_title(reference, cols=80, version='0.1.1', reserved=9, states=DEFAULT_STATES):
+    prefix='  GNU nano 9.3'
+    if not reference.startswith(prefix):raise ValueError('not a full nano title assertion')
+    rest=reference[len(prefix):]
+    names='|'.join(re.escape(state) for state in sorted(states,key=len,reverse=True))
+    match=re.fullmatch(r' +(.*?)(?: {2,}('+names+r'))?',rest)
+    if not match:raise ValueError('unrecognized nano title assertion')
+    filename,state=match.group(1),match.group(2)or''
+    if title_row(cols,filename,state,'GNU nano 9.3',reserved)!=reference:
+        raise ValueError('reference title does not match independent layout oracle: '+repr(reference))
+    return title_row(cols,filename,state,'NARO '+version,reserved)
