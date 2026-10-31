@@ -1,3 +1,7 @@
+> Superseded candidate checkpoint: a confirmed narrow-terminal hidden-cursor
+> mismatch requires a replacement freeze and full qualification. See
+> `NARO_OVERNIGHT_HANDOFF_2026-10-30.md`. The results below remain historical.
+
 # NARO 0.1.0 — replacement candidate release review
 
 Preparation began October 30, 2026. Technical qualification and packaging pass.
@@ -35,8 +39,9 @@ substituted during final documentation packaging.
 
 The complete technical gate passes **99/99** with the final packages.
 Transport passes 6/6; final ordinary-prefix checks 5/5; archive audit 22/22;
-41 catalogs and 44 asset checks; 45 installed documentation links resolve,
-including 11 links pinned to the packaging revision.
+41 catalogs and 44 asset checks; 45 installed documentation links audited,
+including 11 repository links pinned to the packaging revision. Archive/source
+destinations were checked; external endpoints were not fetched by that audit.
 
 No new difference was accepted. The existing invalid-regex, NUL-as-Yes, two
 signal-cleanup and isolated-root no-home differences remain explicit. The six

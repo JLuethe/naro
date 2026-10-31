@@ -1,8 +1,8 @@
 # Coverage review for the 0.1.0 candidate
 
-Reviewed October 30, 2026. Production source: `16f6398`.
+Reviewed October 31, 2026. Production source: `b934b1f`.
 
-The complete technical gate passed 99/99 checks for the named candidate.
+The complete technical gate passed 101/101 checks for the named candidate.
 Separately, the specification audit reports nine unresolved test-ID citations.
 These are not nine observed editor failures, and a clean structural audit does
 not establish complete requirement coverage. This review does not remove
@@ -35,7 +35,7 @@ dumps, paired scenarios and explicit assertions are different evidence types.
 Keep their inventories and provenance separate.
 
 The 303 recorded corpus cases have six additional exclusions; the two deliberate
-non-full matches are not exclusions. The 132 newer exact regressions are separate
+non-full matches are not exclusions. The 151 newer exact regressions are separate
 from the historical 53 follow-up cases. Guest-VT observations are separate from
 eight ioctl-model tests and from deferred physical keyboard trials.
 

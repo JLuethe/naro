@@ -7,10 +7,10 @@ authorize publication. Historical reports retain their original identities.
 
 ## Current candidate status
 
-The save-progress repair is committed as `16f6398`. Both replacement candidates
-passed fresh complete qualification, including all 132 newer exact cases per
-environment and the expanded 99-check gate. See the
-[new qualification record](validation/save-progress-2026-10-30/README.md).
+The save-progress repair is committed as `b934b1f`. Both replacement candidates
+passed fresh complete qualification, including all 151 newer exact cases per
+environment and the expanded 101-check gate. See the
+[new qualification record](validation/save-hardening-2026-10-31/README.md).
 Final archive verification, independent Claude review, and publication approval
 are recorded separately. No release is published.
 
@@ -57,8 +57,8 @@ passes do not qualify a newly built executable automatically.
 - [x] Pass CLI 38 and regex 162 checks in each environment.
 - [x] Preserve historical follow-up acceptance: 53 cases, 51 exact, only the
   two named tool-cleanup differences. Pass all eight ioctl-model comparisons.
-- [x] Pass all 132 additional exact comparisons in **each** environment:
-  wrap-undo 58, filter 6, release-fixes 15, step3-gaps 40, save-progress 13. Both harnesses must exit zero, all
+- [x] Pass all 151 additional exact comparisons in **each** environment:
+  wrap-undo 58, filter 6, release-fixes 15, step3-gaps 40, save-progress 22, save-safety 10. Both harnesses must exit zero, all
   assertions and steps must pass, and complete evidence must validate.
 - [x] Pass host isolated-root/home cases (27 exact), with the separate asserted
   no-home recovery deviation.
@@ -107,12 +107,12 @@ insufficient. No executable named by a report is run during collection.
 Each runner freezes its environment reference as `reference.bin` at the run
 root. Host qualification requires the existing pinned host executable hash;
 Ubuntu uses its own built reference hash rather than the host's executable.
-The collector binds all five suites to the corresponding frozen reference and
+The collector binds all six suites to the corresponding frozen reference and
 candidate. Missing reports fail the gate even when old closure checks pass.
 This is evidence integrity checking, not signed build authentication.
 
 The historical 53-case totals remain unchanged. The final gate records the
-additional 58/6/15/40/13 inventory separately. New checker/tool identities require
+additional 58/6/15/40/22/10 inventory separately. New checker/tool identities require
 fresh qualification records; historical bundles are not relabeled.
 
 Useful entry points after the source freeze:

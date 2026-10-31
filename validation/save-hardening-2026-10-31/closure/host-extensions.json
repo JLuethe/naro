@@ -1,0 +1,25 @@
+{
+  "default": {
+    "pass": true,
+    "binary_sha256": "5767ed4938e25b0b49c0a9c546959a88260a9e2cbffb6dd472fe160c4ea666a7"
+  },
+  "credits": {
+    "pass": true,
+    "binary_sha256": "dc19800ee7ed91c66d926dee0c596d18eb0cfd28f71a17a159b017c45788438c"
+  },
+  "production-no-panic-hook": {
+    "pass": true
+  },
+  "TEST-NEXT-RECOVER-002-MULTI": {
+    "pass": true,
+    "binary_sha256": "83fb5589f1e48ed623d873d5897c46e930bbb4ab16311cd5fbed01909ab9b542"
+  },
+  "TEST-NEXT-RECOVER-002-NAMED": {
+    "pass": true,
+    "binary_sha256": "83fb5589f1e48ed623d873d5897c46e930bbb4ab16311cd5fbed01909ab9b542"
+  },
+  "TEST-NEXT-RECOVER-002-NAMELESS": {
+    "pass": true,
+    "binary_sha256": "83fb5589f1e48ed623d873d5897c46e930bbb4ab16311cd5fbed01909ab9b542"
+  }
+}

@@ -16,9 +16,9 @@ ncursesw and libmagic; this is not a pure-Rust or static executable.
 The supported envelope is the recorded build/runtime environment, not every
 Linux distribution or operating system. See [INSTALL.md](INSTALL.md).
 
-The qualified source is `16f6398968adc1f815055a4413cf0465aed28126`.
+The qualified source is `b934b1fcefa74adcf631c39b20ecd133c70edc59`.
 The Ubuntu executable SHA-256 is
-`b95bb4f9984f8e321fbd69e2a4e3058c7f184d6b35a8ae7650f6f5b7897f90bf`.
+`9af710dbb614423b53425c093a41a95b4733cfd539bfe40047b1bdac0bd7419d`.
 The selected archive names are `naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz` and
 `naro-0.1.0-source.tar.gz`. Use the checksum file accompanying the final approved
 archive set. Documentation repackaging can change archive hashes without changing
@@ -29,8 +29,11 @@ with the refreshed archives; the step 7 archive hashes identify the older packag
 
 - Regular saves display `Writing...` before writing/syncing; FIFO saves also
   display `Writing to FIFO...` before blocking open, with translated status and
-  nano-compatible cursor behavior. Thirteen deterministic transient tests cover
-  the repaired feedback and failure paths.
+  nano-compatible cursor behavior. Backup creation also displays
+  `Making backup...`. Twenty-two progress and ten save-safety regressions cover
+  translated clipping, completion removal, narrow layouts, backup fallback and
+  interruption. Prepend read failures preserve the destination; unreadable backup
+  sources require explicit confirmation before saving.
 - Bracketed paste now follows nano's hard-wrap behavior in the reproduced cases.
 - Soft-wrap vertical movement and page navigation preserve the expected cursor
   position and viewport behavior.
@@ -46,9 +49,9 @@ been exhaustively verified.
 
 ## Qualification
 
-The complete technical gate passed 99/99 checks. Both frozen candidates passed
+The complete technical gate passed 101/101 checks. Both frozen candidates passed
 the 303-case corpus at the retained 301 full / 302 file-exit expectations,
-132/132 newer exact regressions, 38 CLI and 162 regex checks, and 19/19 genuine
+151/151 newer exact regressions, 38 CLI and 162 regex checks, and 19/19 genuine
 guest-VT comparisons. Ubuntu used its own nano reference and observations.
 
 Package checks cover offline source rebuilding, installed hashes, ordinary and

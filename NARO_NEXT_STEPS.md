@@ -1,5 +1,15 @@
 # NARO next steps — Codex development ownership
 
+## Save hardening and final qualification — October 31, 2026
+
+Production `b934b1f` repairs save progress and the independently found safety and
+terminal-state edges. Both new frozen candidates passed the full fresh matrix
+and 101/101 gate, including 151 newer exact cases per environment and 19/19 guest-VT
+each. See [current qualification](validation/save-hardening-2026-10-31/README.md).
+Final package verification and independent asset review follow on these exact
+bytes. Earlier proposals below are superseded; no publication is authorized.
+
+
 ## Save-progress repair and renewed qualification — October 30, 2026
 
 Claude confirmed the earlier CI synchronization fix, then found missing save

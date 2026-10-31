@@ -2,34 +2,16 @@
 
 ## Current 0.1.0 candidate
 
-The save-progress repair supersedes the previous candidate and step 10 proposal.
-See [renewed qualification](save-progress-2026-10-30/README.md) and its
-[complete technical gate](save-progress-2026-10-30/closure/gate.json).
-Production commit: `16f6398968adc1f815055a4413cf0465aed28126`.
-Primary Ubuntu executable: `b95bb4f9984f8e321fbd69e2a4e3058c7f184d6b35a8ae7650f6f5b7897f90bf`.
-Host qualification executable: `4a97874ca06d2e3093f81769c5e0989554a5c87cf8f95ef7d43d9074102c0d7d`.
-Reference source: GNU nano `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`.
+The [save-hardening qualification](save-hardening-2026-10-31/README.md) identifies
+the current candidates and complete 101/101 gate. Both environments pass the
+fresh 303-case corpus contract and 151 newer exact regressions, including 22
+progress and 10 save-safety cases. Guest-VT 19/19 each and transport 6/6 pass.
+Ubuntu uses its own pinned reference and fresh observations.
 
-Both candidates passed full fresh qualification: 303 recorded corpus cases,
-301 full / 302 file-exit matches and six exclusions; CLI 38 / regex 162;
-historical follow-ups 53 with 51 exact; 132 newer exact regressions; 19 guest-VT
-comparisons each. The complete gate passes 99/99. Host root/home retains 27 exact
-cases plus its separately asserted no-home difference. No new mismatch was
-accepted or normalized. Ubuntu used its own reference and fresh observations.
-
-The primary archives are repackaged after documentation refresh; final archive
-hashes, package checks and independent review are identified by the release
-review packet and downloadable qualification sidecar. Source and binary hashes
-must be matched to those exact assets. Publication is not implied.
-
-[Step 5](step5-qualification-2026-10-30/README.md),
-[step 6](step6-console-2026-10-30/README.md),
-[step 7](step7-package-2026-10-30/README.md),
-[steps 8–9](step8-9-release-2026-10-30/README.md), and
-[earlier step 10](step10-ci-2026-10-30/README.md) retain their historical identities.
-The earlier independent Claude review confirmed the synchronization repair and
-found missing save feedback; its decision led to this production repair and full
-requalification. Historical success does not qualify the replacement binaries.
+Final downloadable archive hashes, package checks, independent reviews and CI
+are recorded in the release review packet and QUALIFICATION.json. Technical
+qualification does not authorize publication. Prior steps 5–10 and October 30
+save-progress records remain historical under their original identities.
 
 ## Evidence interpretation and preservation
 

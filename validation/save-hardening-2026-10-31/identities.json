@@ -1,0 +1,9 @@
+{
+  "source_commit": "b934b1fcefa74adcf631c39b20ecd133c70edc59",
+  "production_source_sha256": "3ce5c0ee2d62983b32c1d71664c3404c799ff8fc08c16f6bfdb0b90d2acc21bd",
+  "verification_sha256": "604c032c865701dac6f5fc0f0c9ce5e3764ed3e434b51e2ccea5fdf8172d45aa",
+  "host_binary_sha256": "5767ed4938e25b0b49c0a9c546959a88260a9e2cbffb6dd472fe160c4ea666a7",
+  "ubuntu_binary_sha256": "9af710dbb614423b53425c093a41a95b4733cfd539bfe40047b1bdac0bd7419d",
+  "host_reference_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+  "ubuntu_reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7"
+}

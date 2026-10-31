@@ -1,0 +1,18 @@
+{
+  "archive": "/home/john/Backups/naro/2026-10-31-narrow-progress/development-evidence.tar.gz",
+  "sha256": "2664608d293e01b4932f04fdeaae993bd8f49459baf72b0b502a0fde47ba1173",
+  "bytes": 49751660,
+  "files_verified": 6822,
+  "symlinks_verified": 0,
+  "inventory_sha256": "7ae0ba3c1aeb885282cb6e4ae27eb20fcd5d1da79b3e29d20db20fb00b836d78",
+  "directories": [
+    "luna-save-progress-narrow-2026-10-30",
+    "progress-completion-2026-10-31",
+    "save-safety-2026-10-31",
+    "save-safety-fallback-2026-10-31",
+    "save-safety-short-footer-2026-10-31",
+    "save-safety-footer-layout-2026-10-31",
+    "fifo-interrupt-2026-10-31"
+  ],
+  "location_note": "Verified outside-target on the same filesystem; not off-device."
+}
