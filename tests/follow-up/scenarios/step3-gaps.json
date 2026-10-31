@@ -10148,12 +10148,21 @@
     ]
    },
    {
-    "sleep": 150
+    "wait": {
+     "text": "Write to File:",
+     "timeout": 5
+    }
    },
    {
     "keys": [
      "Enter"
     ]
+   },
+   {
+    "wait": {
+     "text": "Wrote 2 lines",
+     "timeout": 5
+    }
    },
    {
     "snapshot": "saved",

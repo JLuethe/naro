@@ -1,0 +1,206 @@
+[
+  {
+    "id": "TEST-STEP3-EOF-NOFINAL-LIVE",
+    "args": [
+      "-I",
+      "-b",
+      "-r",
+      "12",
+      "-L",
+      "f.txt"
+    ],
+    "files": {
+      "work/f.txt": {
+        "hex": "0a"
+      }
+    },
+    "steps": [
+      {
+        "settle": 250
+      },
+      {
+        "text": "aaa bbb ccc ddd"
+      },
+      {
+        "snapshot": "wrapped",
+        "quiet": 150
+      },
+      {
+        "keys": [
+          "^Home"
+        ]
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "text": " eee"
+      },
+      {
+        "snapshot": "join",
+        "quiet": 150
+      },
+      {
+        "keys": [
+          "Up"
+        ]
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "text": " zz"
+      },
+      {
+        "snapshot": "second-join",
+        "quiet": 150
+      },
+      {
+        "keys": [
+          "^O"
+        ]
+      },
+      {
+        "wait": {
+          "text": "Write to File:",
+          "timeout": 5
+        }
+      },
+      {
+        "keys": [
+          "Enter"
+        ]
+      },
+      {
+        "wait": {
+          "text": "Wrote 2 lines",
+          "timeout": 5
+        }
+      },
+      {
+        "snapshot": "saved",
+        "quiet": 150
+      },
+      {
+        "capture_file": "work/f.txt"
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/f.txt": {
+          "hex": "61616120626262206363632020200a7a7a20656565206464640a"
+        },
+        "work/f.txt.save": null
+      },
+      "screen": [
+        {
+          "snapshot": "wrapped",
+          "cursor": {
+            "x": 3,
+            "y": 2,
+            "visible": true
+          }
+        },
+        {
+          "snapshot": "wrapped",
+          "row": 1,
+          "equals": "aaa bbb ccc"
+        },
+        {
+          "snapshot": "wrapped",
+          "row": 2,
+          "equals": "ddd"
+        },
+        {
+          "snapshot": "wrapped",
+          "row": 3,
+          "equals": ""
+        },
+        {
+          "snapshot": "join",
+          "cursor": {
+            "x": 3,
+            "y": 2,
+            "visible": true
+          }
+        },
+        {
+          "snapshot": "join",
+          "row": 1,
+          "equals": "aaa bbb ccc"
+        },
+        {
+          "snapshot": "join",
+          "row": 2,
+          "equals": "eee ddd"
+        },
+        {
+          "snapshot": "join",
+          "row": 3,
+          "equals": ""
+        },
+        {
+          "snapshot": "second-join",
+          "cursor": {
+            "x": 2,
+            "y": 2,
+            "visible": true
+          }
+        },
+        {
+          "snapshot": "second-join",
+          "row": 1,
+          "equals": "aaa bbb ccc"
+        },
+        {
+          "snapshot": "second-join",
+          "row": 2,
+          "equals": "zz eee ddd"
+        },
+        {
+          "snapshot": "second-join",
+          "row": 3,
+          "equals": ""
+        },
+        {
+          "snapshot": "saved",
+          "cursor": {
+            "x": 2,
+            "y": 2,
+            "visible": true
+          }
+        },
+        {
+          "snapshot": "saved",
+          "row": 1,
+          "equals": "aaa bbb ccc"
+        },
+        {
+          "snapshot": "saved",
+          "row": 2,
+          "equals": "zz eee ddd"
+        },
+        {
+          "snapshot": "saved",
+          "row": 3,
+          "equals": ""
+        }
+      ]
+    },
+    "note": "Step 3 exploratory probe; oracle expectations to be frozen after branch inspection. Explicit expectations measured from pinned GNU nano 6ed285c3 during step 3."
+  }
+]

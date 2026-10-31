@@ -1,0 +1,653 @@
+[
+  {
+    "id": "TEST-STEP10-SYNCHRONIZED-0",
+    "args": [
+      "-I",
+      "-b",
+      "-r",
+      "12",
+      "-L",
+      "f.txt"
+    ],
+    "files": {
+      "work/f.txt": {
+        "hex": "0a"
+      },
+      "delay.c": {
+        "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdlib.h>\n#include <unistd.h>\n#include <stdio.h>\n#include <time.h>\n#include <errno.h>\nint fsync(int fd) {\n    int (*real_fsync)(int) = dlsym(RTLD_NEXT, \"fsync\");\n    const char *s=getenv(\"NARO_PROBE_DELAY_MS\");\n    long ms=s?strtol(s,0,10):0;\n    fprintf(stderr,\"probe fsync enter delay=%ldms\\n\",ms); fflush(stderr);\n    struct timespec pause={ms/1000,(ms%1000)*1000000};\n    while(nanosleep(&pause,&pause) && errno==EINTR) {}\n    int result=real_fsync(fd), saved=errno;\n    fprintf(stderr,\"probe fsync returned %d\\n\",result); fflush(stderr);\n    errno=saved; return result;\n}\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 250
+      },
+      {
+        "text": "aaa bbb ccc ddd"
+      },
+      {
+        "snapshot": "wrapped",
+        "quiet": 150
+      },
+      {
+        "keys": [
+          "^Home"
+        ]
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "text": " eee"
+      },
+      {
+        "snapshot": "join",
+        "quiet": 150
+      },
+      {
+        "keys": [
+          "Up"
+        ]
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "text": " zz"
+      },
+      {
+        "snapshot": "second-join",
+        "quiet": 150
+      },
+      {
+        "keys": [
+          "^O"
+        ]
+      },
+      {
+        "wait": {
+          "text": "Write to File:",
+          "timeout": 5
+        }
+      },
+      {
+        "keys": [
+          "Enter"
+        ]
+      },
+      {
+        "wait": {
+          "text": "Wrote 2 lines",
+          "timeout": 5
+        }
+      },
+      {
+        "snapshot": "saved",
+        "quiet": 150
+      },
+      {
+        "capture_file": "work/f.txt"
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/f.txt": {
+          "hex": "61616120626262206363632020200a7a7a20656565206464640a"
+        },
+        "work/f.txt.save": null
+      },
+      "screen": [
+        {
+          "snapshot": "wrapped",
+          "cursor": {
+            "x": 3,
+            "y": 2,
+            "visible": true
+          }
+        },
+        {
+          "snapshot": "wrapped",
+          "row": 1,
+          "equals": "aaa bbb ccc"
+        },
+        {
+          "snapshot": "wrapped",
+          "row": 2,
+          "equals": "ddd"
+        },
+        {
+          "snapshot": "wrapped",
+          "row": 3,
+          "equals": ""
+        },
+        {
+          "snapshot": "join",
+          "cursor": {
+            "x": 3,
+            "y": 2,
+            "visible": true
+          }
+        },
+        {
+          "snapshot": "join",
+          "row": 1,
+          "equals": "aaa bbb ccc"
+        },
+        {
+          "snapshot": "join",
+          "row": 2,
+          "equals": "eee ddd"
+        },
+        {
+          "snapshot": "join",
+          "row": 3,
+          "equals": ""
+        },
+        {
+          "snapshot": "second-join",
+          "cursor": {
+            "x": 2,
+            "y": 2,
+            "visible": true
+          }
+        },
+        {
+          "snapshot": "second-join",
+          "row": 1,
+          "equals": "aaa bbb ccc"
+        },
+        {
+          "snapshot": "second-join",
+          "row": 2,
+          "equals": "zz eee ddd"
+        },
+        {
+          "snapshot": "second-join",
+          "row": 3,
+          "equals": ""
+        },
+        {
+          "snapshot": "saved",
+          "cursor": {
+            "x": 2,
+            "y": 2,
+            "visible": true
+          }
+        },
+        {
+          "snapshot": "saved",
+          "row": 1,
+          "equals": "aaa bbb ccc"
+        },
+        {
+          "snapshot": "saved",
+          "row": 2,
+          "equals": "zz eee ddd"
+        },
+        {
+          "snapshot": "saved",
+          "row": 3,
+          "equals": ""
+        }
+      ]
+    },
+    "note": "Step 3 exploratory probe; oracle expectations to be frozen after branch inspection. Explicit expectations measured from pinned GNU nano 6ed285c3 during step 3.",
+    "build_helpers": [
+      {
+        "source": "delay.c",
+        "output": "delay.so"
+      }
+    ],
+    "env": {
+      "LD_PRELOAD": "$FX/delay.so",
+      "NARO_PROBE_DELAY_MS": "0"
+    }
+  },
+  {
+    "id": "TEST-STEP10-SYNCHRONIZED-600",
+    "args": [
+      "-I",
+      "-b",
+      "-r",
+      "12",
+      "-L",
+      "f.txt"
+    ],
+    "files": {
+      "work/f.txt": {
+        "hex": "0a"
+      },
+      "delay.c": {
+        "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdlib.h>\n#include <unistd.h>\n#include <stdio.h>\n#include <time.h>\n#include <errno.h>\nint fsync(int fd) {\n    int (*real_fsync)(int) = dlsym(RTLD_NEXT, \"fsync\");\n    const char *s=getenv(\"NARO_PROBE_DELAY_MS\");\n    long ms=s?strtol(s,0,10):0;\n    fprintf(stderr,\"probe fsync enter delay=%ldms\\n\",ms); fflush(stderr);\n    struct timespec pause={ms/1000,(ms%1000)*1000000};\n    while(nanosleep(&pause,&pause) && errno==EINTR) {}\n    int result=real_fsync(fd), saved=errno;\n    fprintf(stderr,\"probe fsync returned %d\\n\",result); fflush(stderr);\n    errno=saved; return result;\n}\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 250
+      },
+      {
+        "text": "aaa bbb ccc ddd"
+      },
+      {
+        "snapshot": "wrapped",
+        "quiet": 150
+      },
+      {
+        "keys": [
+          "^Home"
+        ]
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "text": " eee"
+      },
+      {
+        "snapshot": "join",
+        "quiet": 150
+      },
+      {
+        "keys": [
+          "Up"
+        ]
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "text": " zz"
+      },
+      {
+        "snapshot": "second-join",
+        "quiet": 150
+      },
+      {
+        "keys": [
+          "^O"
+        ]
+      },
+      {
+        "wait": {
+          "text": "Write to File:",
+          "timeout": 5
+        }
+      },
+      {
+        "keys": [
+          "Enter"
+        ]
+      },
+      {
+        "wait": {
+          "text": "Wrote 2 lines",
+          "timeout": 5
+        }
+      },
+      {
+        "snapshot": "saved",
+        "quiet": 150
+      },
+      {
+        "capture_file": "work/f.txt"
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/f.txt": {
+          "hex": "61616120626262206363632020200a7a7a20656565206464640a"
+        },
+        "work/f.txt.save": null
+      },
+      "screen": [
+        {
+          "snapshot": "wrapped",
+          "cursor": {
+            "x": 3,
+            "y": 2,
+            "visible": true
+          }
+        },
+        {
+          "snapshot": "wrapped",
+          "row": 1,
+          "equals": "aaa bbb ccc"
+        },
+        {
+          "snapshot": "wrapped",
+          "row": 2,
+          "equals": "ddd"
+        },
+        {
+          "snapshot": "wrapped",
+          "row": 3,
+          "equals": ""
+        },
+        {
+          "snapshot": "join",
+          "cursor": {
+            "x": 3,
+            "y": 2,
+            "visible": true
+          }
+        },
+        {
+          "snapshot": "join",
+          "row": 1,
+          "equals": "aaa bbb ccc"
+        },
+        {
+          "snapshot": "join",
+          "row": 2,
+          "equals": "eee ddd"
+        },
+        {
+          "snapshot": "join",
+          "row": 3,
+          "equals": ""
+        },
+        {
+          "snapshot": "second-join",
+          "cursor": {
+            "x": 2,
+            "y": 2,
+            "visible": true
+          }
+        },
+        {
+          "snapshot": "second-join",
+          "row": 1,
+          "equals": "aaa bbb ccc"
+        },
+        {
+          "snapshot": "second-join",
+          "row": 2,
+          "equals": "zz eee ddd"
+        },
+        {
+          "snapshot": "second-join",
+          "row": 3,
+          "equals": ""
+        },
+        {
+          "snapshot": "saved",
+          "cursor": {
+            "x": 2,
+            "y": 2,
+            "visible": true
+          }
+        },
+        {
+          "snapshot": "saved",
+          "row": 1,
+          "equals": "aaa bbb ccc"
+        },
+        {
+          "snapshot": "saved",
+          "row": 2,
+          "equals": "zz eee ddd"
+        },
+        {
+          "snapshot": "saved",
+          "row": 3,
+          "equals": ""
+        }
+      ]
+    },
+    "note": "Step 3 exploratory probe; oracle expectations to be frozen after branch inspection. Explicit expectations measured from pinned GNU nano 6ed285c3 during step 3.",
+    "build_helpers": [
+      {
+        "source": "delay.c",
+        "output": "delay.so"
+      }
+    ],
+    "env": {
+      "LD_PRELOAD": "$FX/delay.so",
+      "NARO_PROBE_DELAY_MS": "600"
+    }
+  },
+  {
+    "id": "TEST-STEP10-SYNCHRONIZED-1200",
+    "args": [
+      "-I",
+      "-b",
+      "-r",
+      "12",
+      "-L",
+      "f.txt"
+    ],
+    "files": {
+      "work/f.txt": {
+        "hex": "0a"
+      },
+      "delay.c": {
+        "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdlib.h>\n#include <unistd.h>\n#include <stdio.h>\n#include <time.h>\n#include <errno.h>\nint fsync(int fd) {\n    int (*real_fsync)(int) = dlsym(RTLD_NEXT, \"fsync\");\n    const char *s=getenv(\"NARO_PROBE_DELAY_MS\");\n    long ms=s?strtol(s,0,10):0;\n    fprintf(stderr,\"probe fsync enter delay=%ldms\\n\",ms); fflush(stderr);\n    struct timespec pause={ms/1000,(ms%1000)*1000000};\n    while(nanosleep(&pause,&pause) && errno==EINTR) {}\n    int result=real_fsync(fd), saved=errno;\n    fprintf(stderr,\"probe fsync returned %d\\n\",result); fflush(stderr);\n    errno=saved; return result;\n}\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 250
+      },
+      {
+        "text": "aaa bbb ccc ddd"
+      },
+      {
+        "snapshot": "wrapped",
+        "quiet": 150
+      },
+      {
+        "keys": [
+          "^Home"
+        ]
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "text": " eee"
+      },
+      {
+        "snapshot": "join",
+        "quiet": 150
+      },
+      {
+        "keys": [
+          "Up"
+        ]
+      },
+      {
+        "keys": [
+          "End"
+        ]
+      },
+      {
+        "text": " zz"
+      },
+      {
+        "snapshot": "second-join",
+        "quiet": 150
+      },
+      {
+        "keys": [
+          "^O"
+        ]
+      },
+      {
+        "wait": {
+          "text": "Write to File:",
+          "timeout": 5
+        }
+      },
+      {
+        "keys": [
+          "Enter"
+        ]
+      },
+      {
+        "wait": {
+          "text": "Wrote 2 lines",
+          "timeout": 5
+        }
+      },
+      {
+        "snapshot": "saved",
+        "quiet": 150
+      },
+      {
+        "capture_file": "work/f.txt"
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/f.txt": {
+          "hex": "61616120626262206363632020200a7a7a20656565206464640a"
+        },
+        "work/f.txt.save": null
+      },
+      "screen": [
+        {
+          "snapshot": "wrapped",
+          "cursor": {
+            "x": 3,
+            "y": 2,
+            "visible": true
+          }
+        },
+        {
+          "snapshot": "wrapped",
+          "row": 1,
+          "equals": "aaa bbb ccc"
+        },
+        {
+          "snapshot": "wrapped",
+          "row": 2,
+          "equals": "ddd"
+        },
+        {
+          "snapshot": "wrapped",
+          "row": 3,
+          "equals": ""
+        },
+        {
+          "snapshot": "join",
+          "cursor": {
+            "x": 3,
+            "y": 2,
+            "visible": true
+          }
+        },
+        {
+          "snapshot": "join",
+          "row": 1,
+          "equals": "aaa bbb ccc"
+        },
+        {
+          "snapshot": "join",
+          "row": 2,
+          "equals": "eee ddd"
+        },
+        {
+          "snapshot": "join",
+          "row": 3,
+          "equals": ""
+        },
+        {
+          "snapshot": "second-join",
+          "cursor": {
+            "x": 2,
+            "y": 2,
+            "visible": true
+          }
+        },
+        {
+          "snapshot": "second-join",
+          "row": 1,
+          "equals": "aaa bbb ccc"
+        },
+        {
+          "snapshot": "second-join",
+          "row": 2,
+          "equals": "zz eee ddd"
+        },
+        {
+          "snapshot": "second-join",
+          "row": 3,
+          "equals": ""
+        },
+        {
+          "snapshot": "saved",
+          "cursor": {
+            "x": 2,
+            "y": 2,
+            "visible": true
+          }
+        },
+        {
+          "snapshot": "saved",
+          "row": 1,
+          "equals": "aaa bbb ccc"
+        },
+        {
+          "snapshot": "saved",
+          "row": 2,
+          "equals": "zz eee ddd"
+        },
+        {
+          "snapshot": "saved",
+          "row": 3,
+          "equals": ""
+        }
+      ]
+    },
+    "note": "Step 3 exploratory probe; oracle expectations to be frozen after branch inspection. Explicit expectations measured from pinned GNU nano 6ed285c3 during step 3.",
+    "build_helpers": [
+      {
+        "source": "delay.c",
+        "output": "delay.so"
+      }
+    ],
+    "env": {
+      "LD_PRELOAD": "$FX/delay.so",
+      "NARO_PROBE_DELAY_MS": "1200"
+    }
+  }
+]

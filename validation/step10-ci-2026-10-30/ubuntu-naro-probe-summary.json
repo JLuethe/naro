@@ -1,0 +1,110 @@
+[
+  {
+    "mode": "original",
+    "exit": 1,
+    "results": [
+      {
+        "id": "TEST-STEP10-ORIGINAL-0",
+        "steps_ok": true,
+        "failed": [],
+        "saved_cursor": {
+          "x": 2,
+          "y": 2,
+          "visible": true
+        },
+        "saved_status": "                               [ Wrote 2 lines ]                                ",
+        "stderr": "probe fsync enter delay=0ms\nprobe fsync returned 0\n",
+        "binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+        "raw_output_sha256": "10f7f86839a08591149342aa6f6529b5166c8013b3f42d976e92b665713658b7"
+      },
+      {
+        "id": "TEST-STEP10-ORIGINAL-1200",
+        "steps_ok": true,
+        "failed": [
+          {
+            "check": "cursor",
+            "pass": false,
+            "detail": "{'x': 20, 'y': 21, 'visible': True}"
+          }
+        ],
+        "saved_cursor": {
+          "x": 20,
+          "y": 21,
+          "visible": true
+        },
+        "saved_status": "Write to File: f.txt                                                            ",
+        "stderr": "probe fsync enter delay=1200ms\nprobe fsync returned 0\n",
+        "binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+        "raw_output_sha256": "10f7f86839a08591149342aa6f6529b5166c8013b3f42d976e92b665713658b7"
+      },
+      {
+        "id": "TEST-STEP10-ORIGINAL-600",
+        "steps_ok": true,
+        "failed": [
+          {
+            "check": "cursor",
+            "pass": false,
+            "detail": "{'x': 20, 'y': 21, 'visible': True}"
+          }
+        ],
+        "saved_cursor": {
+          "x": 20,
+          "y": 21,
+          "visible": true
+        },
+        "saved_status": "Write to File: f.txt                                                            ",
+        "stderr": "probe fsync enter delay=600ms\nprobe fsync returned 0\n",
+        "binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+        "raw_output_sha256": "10f7f86839a08591149342aa6f6529b5166c8013b3f42d976e92b665713658b7"
+      }
+    ]
+  },
+  {
+    "mode": "synchronized",
+    "exit": 0,
+    "results": [
+      {
+        "id": "TEST-STEP10-SYNCHRONIZED-0",
+        "steps_ok": true,
+        "failed": [],
+        "saved_cursor": {
+          "x": 2,
+          "y": 2,
+          "visible": true
+        },
+        "saved_status": "                               [ Wrote 2 lines ]                                ",
+        "stderr": "probe fsync enter delay=0ms\nprobe fsync returned 0\n",
+        "binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+        "raw_output_sha256": "10f7f86839a08591149342aa6f6529b5166c8013b3f42d976e92b665713658b7"
+      },
+      {
+        "id": "TEST-STEP10-SYNCHRONIZED-1200",
+        "steps_ok": true,
+        "failed": [],
+        "saved_cursor": {
+          "x": 2,
+          "y": 2,
+          "visible": true
+        },
+        "saved_status": "                               [ Wrote 2 lines ]                                ",
+        "stderr": "probe fsync enter delay=1200ms\nprobe fsync returned 0\n",
+        "binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+        "raw_output_sha256": "10f7f86839a08591149342aa6f6529b5166c8013b3f42d976e92b665713658b7"
+      },
+      {
+        "id": "TEST-STEP10-SYNCHRONIZED-600",
+        "steps_ok": true,
+        "failed": [],
+        "saved_cursor": {
+          "x": 2,
+          "y": 2,
+          "visible": true
+        },
+        "saved_status": "                               [ Wrote 2 lines ]                                ",
+        "stderr": "probe fsync enter delay=600ms\nprobe fsync returned 0\n",
+        "binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+        "raw_output_sha256": "10f7f86839a08591149342aa6f6529b5166c8013b3f42d976e92b665713658b7"
+      }
+    ]
+  }
+]
