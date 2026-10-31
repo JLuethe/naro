@@ -246,7 +246,10 @@ impl Config {
             match ch {
                 'h' => {
                     if cfg!(feature = "tiny") && self.on(RESTRICTED) {
-                        for line in include_str!("../assets/help-tiny.txt").lines() {
+                        for line in
+                            crate::identity::cli_help(include_str!("../assets/help-tiny.txt"))
+                                .lines()
+                        {
                             if !line.starts_with(" -R ") {
                                 println!("{line}");
                             }
@@ -255,26 +258,18 @@ impl Config {
                     }
                     print!(
                         "{}",
-                        if cfg!(feature = "tiny") {
+                        crate::identity::cli_help(if cfg!(feature = "tiny") {
                             include_str!("../assets/help-tiny.txt")
                         } else if self.on(RESTRICTED) {
                             include_str!("../assets/help-restricted.txt")
                         } else {
                             include_str!("../assets/help.txt")
-                        }
+                        })
                     );
                     return Ok(Some(0));
                 }
                 'V' => {
-                    if cfg!(feature = "tiny") {
-                        println!(
-                            " GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8"
-                        );
-                        return Ok(Some(0));
-                    }
-                    println!(
-                        " GNU nano, version 9.3\n (C) 2026 the Free Software Foundation and various contributors\n Compiled options: --enable-utf8"
-                    );
+                    print!("{}", crate::identity::version());
                     return Ok(Some(0));
                 }
                 'z' => {
@@ -593,7 +588,7 @@ impl Config {
                     "No key is bound to function '{}' in menu '{}'.  Exiting.\n\nIf needed, use nano with the -I option to adjust your nanorc settings.",
                     if fun == "do_exit" { "Exit" } else { "Cancel" },
                     menu_name(menu)
-                ));
+                ).replace("use nano with the -I option", "use naro with the -I option"));
             }
         }
         Ok(())

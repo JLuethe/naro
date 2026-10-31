@@ -897,8 +897,14 @@ impl Editor {
         let intro = parts
             .map(|(_, parts)| parts.iter().map(|s| native::tr(s)).collect::<String>())
             .unwrap_or_else(|| "Main nano help text\n\n".into());
+        let intro = crate::identity::brand_program_name(&intro);
         let mut paragraphs = intro.splitn(2, '\n');
-        let title = paragraphs.next().unwrap_or("").to_string();
+        let title = paragraphs.next().unwrap_or("");
+        let title = if menu == MAIN {
+            crate::identity::main_help_title(title)
+        } else {
+            title.to_owned()
+        };
         let body = paragraphs
             .next()
             .unwrap_or("")

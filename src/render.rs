@@ -364,7 +364,7 @@ fn title(ed: &Editor, canvas: &mut Canvas, l: Layout) {
             upper = if ed.multiple {
                 format!("[{}/{}]", ed.current + 1, ed.buffers.len())
             } else {
-                "GNU nano 9.3".into()
+                crate::identity::TITLE.into()
             };
             state = if ed.conf.on(VIEW_MODE) {
                 native::tr("View")
@@ -1393,4 +1393,79 @@ pub fn flash_warning(config: &Config, canvas: &mut Canvas, l: Layout, text: &str
     unsafe { native::nr_beep() };
     write_progress(canvas, l, config.style("errorcolor"), text);
     std::thread::sleep(std::time::Duration::from_millis(1500));
+}
+
+#[cfg(test)]
+mod branding_tests {
+    use super::*;
+
+    #[test]
+    fn editing_header_identifies_naro_and_preserves_file_state() {
+        let mut ed = Editor::new(Config::new(true));
+        ed.buffers
+            .push(Buffer::new(b"notes.txt".to_vec(), vec![Vec::new()]));
+        for cols in [40, 80, 120] {
+            for modified in [false, true] {
+                ed.bm().modified = modified;
+                let mut canvas = Canvas::new(cols, 24);
+                let l = Layout {
+                    cols,
+                    rows: 24,
+                    top: 1,
+                    edit_rows: 20,
+                    status: 21,
+                    help: true,
+                    margin: 0,
+                    sidebar: 0,
+                    width: cols,
+                };
+                title(&ed, &mut canvas, l);
+                let row: String = canvas.cells[..cols]
+                    .iter()
+                    .map(|c| c.text.as_str())
+                    .collect();
+                assert!(
+                    row.starts_with(concat!("  NARO ", env!("CARGO_PKG_VERSION"))),
+                    "{row}"
+                );
+                assert!(!row.contains("GNU nano"));
+                assert!(row.contains("notes.txt"), "{row}");
+                assert_eq!(row.find("notes.txt"), Some(cols / 2 - 4), "{row}");
+                assert_eq!(row.contains("Modified"), modified, "{row}");
+            }
+        }
+    }
+
+    #[test]
+    fn narrow_header_identity_and_filename_boundaries() {
+        let mut ed = Editor::new(Config::new(true));
+        ed.buffers
+            .push(Buffer::new(b"notes.txt".to_vec(), vec![Vec::new()]));
+        for (cols, branded, filename_column) in [
+            (32, false, 7),
+            (33, true, 13),
+            (34, true, 13),
+            (35, true, 14),
+        ] {
+            let mut canvas = Canvas::new(cols, 24);
+            let layout = Layout {
+                cols,
+                rows: 24,
+                top: 1,
+                edit_rows: 20,
+                status: 21,
+                help: true,
+                margin: 0,
+                sidebar: 0,
+                width: cols,
+            };
+            title(&ed, &mut canvas, layout);
+            let row: String = canvas.cells[..cols]
+                .iter()
+                .map(|cell| cell.text.as_str())
+                .collect();
+            assert_eq!(row.contains(crate::identity::TITLE), branded, "{row}");
+            assert_eq!(row.find("notes.txt"), Some(filename_column), "{row}");
+        }
+    }
 }

@@ -33,6 +33,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "spec/tools"))
 from compare_runs import compare, fixture_root  # noqa: E402
 from nanoharness import Keys, Run  # noqa: E402
+from candidate_expectations import candidate_case  # noqa: E402
 SUITE = ROOT / "tests/follow-up/scenarios/wrap-undo.json"
 REFERENCE_COMMIT = "6ed285c3ec7a1d228def4d4e7021c6ba269f620c"
 # SHA-256 of the pinned reference executable
@@ -163,6 +164,7 @@ VERIFICATION_FILES = (
     "tools/check_follow_up.py", "tools/check_wrap_undo.py",
     "tools/environment.py", "tools/follow_up_policy.py",
     "spec/tools/compare_runs.py", "spec/tools/nanoharness.py",
+    "spec/tools/candidate_expectations.py", "tests/naro/identity-overrides.json",
 )
 
 
@@ -363,7 +365,8 @@ def artifact_problems(report, hashes, directory, *, suite=None,
     except (OSError, ValueError) as exc:
         return problems + [f"cannot read current suite: {exc}"]
     for side in ("reference", "candidate"):
-        if read_json(directory / (side + "-scenarios.json")) != cases:
+        selected = [candidate_case(case) for case in cases] if side == "candidate" else cases
+        if read_json(directory / (side + "-scenarios.json")) != selected:
             problems.append(f"{side}-scenarios.json differs from frozen suite")
     # Do not follow IDs from untrusted JSON as filesystem paths.
     by_id = {c.get("id"): c for c in cases if isinstance(c, dict)
@@ -400,6 +403,8 @@ def artifact_problems(report, hashes, directory, *, suite=None,
 
 
 def recording_problems(run, case, side, report, directory, keys):
+    if side == "candidate":
+        case = candidate_case(case)
     label = f"{side}/{case['id']}"
     problems = []
     for key, expected in (("scenario", case["id"]),

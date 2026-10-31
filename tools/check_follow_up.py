@@ -3,6 +3,7 @@
 import argparse,copy,hashlib,json,os,pathlib,shutil,subprocess,sys
 ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'spec/tools'))
 from compare_runs import compare
+from candidate_expectations import candidate_case
 from environment import snapshot
 from check_wrap_undo import verification_fingerprint
 from follow_up_policy import deviation
@@ -19,8 +20,7 @@ for kind,source in [('reference',a.reference),('candidate',a.binary)]:
  binary=(a.out/(kind+'.bin')).resolve();shutil.copy2(source.resolve(),binary);report[kind+'_sha256']=hashlib.sha256(binary.read_bytes()).hexdigest()
  selected=copy.deepcopy(cases)
  if kind=='candidate':
-  for case in selected:
-   if 'candidate_expect'in case:case['expect']=case['candidate_expect']
+  selected=[candidate_case(case)for case in selected]
  scenario=a.out/(kind+'-scenarios.json');scenario.write_text(json.dumps(selected,indent=1)+'\n')
  log=(a.out/(kind+'.log')).open('w');status=subprocess.run([sys.executable,str(ROOT/'spec/tools/nanoharness.py'),str(scenario.resolve()),'--binary',str(binary),'--out',str((a.out/kind).resolve())],env=env,stdout=log,stderr=log).returncode;log.close();report[kind+'_status']=status
  if status:print(kind,'harness failure; see',a.out/(kind+'.log'))

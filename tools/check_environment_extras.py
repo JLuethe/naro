@@ -4,6 +4,7 @@ import argparse,copy,hashlib,json,os,subprocess,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'spec/tools'))
 import nanoharness as h
+from candidate_expectations import expected_cli_output
 p=argparse.ArgumentParser();p.add_argument('--binary',type=Path,required=True);p.add_argument('--reference',type=Path,required=True);p.add_argument('--out',type=Path,required=True);a=p.parse_args();a.out.mkdir(parents=True,exist_ok=False)
 report={'candidate_sha256':hashlib.sha256(a.binary.read_bytes()).hexdigest(),'reference_sha256':hashlib.sha256(a.reference.read_bytes()).hexdigest(),'cli':{},'regex':{},'safety':{}}
 reference=json.loads((ROOT/'spec/evidence/cli/cli-probes.json').read_text())
@@ -15,7 +16,8 @@ for r in reference['results']:
  sc=dict(id='TEST-NEXT-ENV-CLI-'+r['id'][-3:],argv0=r['argv0'],args=[x.replace('$TMP/','$FX/work/')for x in r['args']],dirs=['work/rcdir'],files=files,stdin='',stdout_redirect=True,hold_tty=True,steps=[{'wait_exit':5}])
  results={}
  for name,binary in [('reference',a.reference),('candidate',a.binary)]:results[name]=h.Run(sc,str(binary.resolve()),str(a.out/name/sc['id'])).execute()
- ok=all(results['reference'][k]==results['candidate'][k]for k in ['stdout','stderr','exit_status'])and all(x['steps_ok']for x in results.values())
+ expected=dict(results['reference']);expected['stdout']=expected_cli_output(expected.get('stdout',''))
+ ok=all(expected[k]==results['candidate'][k]for k in ['stdout','stderr','exit_status'])and all(x['steps_ok']for x in results.values())
  report['cli'][r['id']]={'pass':ok}
 source=(ROOT/'spec/tools/regex/regex_probe.c').read_text();report['regex_probe_sha256']=hashlib.sha256(source.encode()).hexdigest()
 for lang in ['C','en_US.UTF-8']:

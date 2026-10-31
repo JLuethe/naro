@@ -15,6 +15,7 @@ mod files;
 mod generated;
 #[cfg(not(feature = "tiny"))]
 mod help_data;
+mod identity;
 mod input;
 mod native;
 mod prompts;
@@ -108,7 +109,9 @@ fn main() {
             code
         }
         Err(_) => {
-            editor.fatal_save("Sorry! Nano crashed!  Code: 6.  Please report a bug.\n");
+            editor.fatal_save(&identity::brand_program_name(
+                "Sorry! Nano crashed!  Code: 6.  Please report a bug.\n",
+            ));
             1
         }
     };

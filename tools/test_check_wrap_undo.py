@@ -27,7 +27,8 @@ def valid_artifacts(directory, cases):
     for name, data in (("reference.bin", ref), ("candidate.bin", cand)):
         (directory / name).write_bytes(data)
     for name in ("scenarios.json", "reference-scenarios.json", "candidate-scenarios.json"):
-        (directory / name).write_text(json.dumps(cases, indent=1) + "\n")
+        selected = [checker.candidate_case(c) for c in cases] if name == "candidate-scenarios.json" else cases
+        (directory / name).write_text(json.dumps(selected, indent=1) + "\n")
     report = {
         "reference_commit": checker.REFERENCE_COMMIT,
         "reference_sha256": checker.sha256(ref),
@@ -48,6 +49,7 @@ def valid_artifacts(directory, cases):
     for case in cases:
         tid = case["id"]
         for side in ("reference", "candidate"):
+            selected = checker.candidate_case(case) if side == "candidate" else case
             d = directory / side / tid
             d.mkdir(parents=True)
             raw = b"terminal trace"
@@ -56,7 +58,7 @@ def valid_artifacts(directory, cases):
                 "scenario": tid, "reference_commit": checker.REFERENCE_COMMIT,
                 "binary_sha256": report[side + "_sha256"],
                 "scenario_sha256": checker.sha256(json.dumps(
-                    case, sort_keys=True, separators=(",", ":")).encode()),
+                    selected, sort_keys=True, separators=(",", ":")).encode()),
                 "cwd": "/tmp/fixture/fx/work", "env": {}, "notes": [],
                 "fixture": {"work/f.txt": entry(b"ok\n")},
                 "initial_fixture": {"work/f.txt": entry(b"\n")},
@@ -68,7 +70,7 @@ def valid_artifacts(directory, cases):
                 "step_checks": [{"step": i, "pass": True} for i in range(len(case["steps"]))],
                 "raw_output_sha256": checker.sha256(raw), "raw_output_bytes": len(raw),
             }
-            runner = checker.Run(case, "unused", "unused")
+            runner = checker.Run(selected, "unused", "unused")
             runner.root = "/tmp/fixture/fx"
             run["checks"] = runner.check(run)
             (d / "result.json").write_text(json.dumps(run))
@@ -117,6 +119,31 @@ class WrapUndoCheckerTest(unittest.TestCase):
 
     def test_valid_report_is_accepted(self):
         self.assertEqual(self.problems(), [])
+
+    def test_candidate_expectation_identity_is_independently_bound(self):
+        cases = json.loads(checker.SUITE.read_text())
+        cases[0]['candidate_expect'] = copy.deepcopy(cases[0]['expect'])
+        cases[0]['candidate_expect']['stdout_contains'] = ''
+        checker.SUITE.write_text(json.dumps(cases))
+        directory = self.directory / 'candidate-policy'
+        directory.mkdir()
+        report = valid_artifacts(directory, cases)
+        hashes = checker.scenario_hashes(cases)
+
+        def problems():
+            return checker.report_problems(report, hashes, checker.source_fingerprint(), directory)
+
+        self.assertEqual(problems(), [])
+        candidate_path = directory / 'candidate-scenarios.json'
+        correct = candidate_path.read_text()
+        candidate_path.write_text(json.dumps(cases))
+        self.assertTrue(any('candidate-scenarios.json' in p for p in problems()))
+        candidate_path.write_text(correct)
+        record = directory / 'candidate' / cases[0]['id'] / 'result.json'
+        value = json.loads(record.read_text())
+        value['scenario_sha256'] = checker.sha256(json.dumps(cases[0], sort_keys=True, separators=(',', ':')).encode())
+        record.write_text(json.dumps(value))
+        self.assertTrue(any('scenario_sha256 identity mismatch' in p for p in problems()))
 
     def test_manifest_has_no_problems(self):
         with patch.object(checker, "EXPECTED_IDS", self.real_ids):

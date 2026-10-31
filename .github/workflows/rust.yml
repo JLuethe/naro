@@ -27,9 +27,14 @@ jobs:
       - run: cargo test
       - run: cargo test --all-features
       - run: cargo build --release
+      - name: NARO command-line identity
+        run: python3 tools/check_branding.py --binary target/release/naro --out target/ci-branding
+      - name: NARO identity and title fit boundaries
+        run: python3 spec/tools/nanoharness.py --candidate-expectations tests/naro/identity-layout.json --binary "$PWD/target/release/naro" --out target/ci-identity-layout
       - run: python3 spec/tools/audit_spec.py
       - run: python3 spec/tools/test_compare_runs.py
       - run: python3 spec/tools/test_nanoharness.py
+      - run: python3 spec/tools/test_candidate_expectations.py
       - run: python3 spec/tools/test_namespace_exec.py
       - run: python3 -m unittest discover -s tests/console -p 'test_*.py'
       - name: Hard-wrap undo/redo scenario manifest
@@ -41,35 +46,36 @@ jobs:
       - name: Terminal smoke and safety assertions
         run: |
           tmux -V
-          python3 spec/tools/nanoharness.py spec/evidence/scenarios/smoke.json --binary "$PWD/target/release/naro" --out target/ci-smoke
-          python3 spec/tools/nanoharness.py tests/scenarios/safety.json --binary "$PWD/target/release/naro" --out target/ci-safety
+          python3 spec/tools/nanoharness.py --candidate-expectations spec/evidence/scenarios/smoke.json --binary "$PWD/target/release/naro" --out target/ci-smoke
+          python3 spec/tools/nanoharness.py --candidate-expectations tests/scenarios/safety.json --binary "$PWD/target/release/naro" --out target/ci-safety
       - name: Linux console ioctl models
-        run: python3 spec/tools/nanoharness.py tests/follow-up/scenarios/vt-ioctl.json --binary "$PWD/target/release/naro" --out target/ci-vt-ioctl
+        run: python3 spec/tools/nanoharness.py --candidate-expectations tests/follow-up/scenarios/vt-ioctl.json --binary "$PWD/target/release/naro" --out target/ci-vt-ioctl
       - name: Hard-wrap marks and command filters
         run: |
-          python3 spec/tools/nanoharness.py tests/follow-up/scenarios/wrap-undo.json --binary "$PWD/target/release/naro" --out target/ci-wrap
-          python3 spec/tools/nanoharness.py tests/follow-up/scenarios/filter.json --binary "$PWD/target/release/naro" --out target/ci-filter
+          python3 spec/tools/nanoharness.py --candidate-expectations tests/follow-up/scenarios/wrap-undo.json --binary "$PWD/target/release/naro" --out target/ci-wrap
+          python3 spec/tools/nanoharness.py --candidate-expectations tests/follow-up/scenarios/filter.json --binary "$PWD/target/release/naro" --out target/ci-filter
       - name: Paste, soft-wrap, replacement and rcfile regressions
-        run: python3 spec/tools/nanoharness.py tests/follow-up/scenarios/release-fixes.json --binary "$PWD/target/release/naro" --out target/ci-release-fixes
+        run: python3 spec/tools/nanoharness.py --candidate-expectations tests/follow-up/scenarios/release-fixes.json --binary "$PWD/target/release/naro" --out target/ci-release-fixes
       - name: EOF, paging, view-mode paste, selection and Unicode quote regressions
-        run: python3 spec/tools/nanoharness.py tests/follow-up/scenarios/step3-gaps.json --binary "$PWD/target/release/naro" --out target/ci-step3-gaps
+        run: python3 spec/tools/nanoharness.py --candidate-expectations tests/follow-up/scenarios/step3-gaps.json --binary "$PWD/target/release/naro" --out target/ci-step3-gaps
       - name: In-progress regular and FIFO save feedback
-        run: python3 spec/tools/nanoharness.py tests/follow-up/scenarios/save-progress.json --binary "$PWD/target/release/naro" --out target/ci-save-progress
+        run: python3 spec/tools/nanoharness.py --candidate-expectations tests/follow-up/scenarios/save-progress.json --binary "$PWD/target/release/naro" --out target/ci-save-progress
       - name: Prepend preservation and backup feedback
-        run: python3 spec/tools/nanoharness.py tests/follow-up/scenarios/save-safety.json --binary "$PWD/target/release/naro" --out target/ci-save-safety
+        run: python3 spec/tools/nanoharness.py --candidate-expectations tests/follow-up/scenarios/save-safety.json --binary "$PWD/target/release/naro" --out target/ci-save-safety
       - name: Optional tiny profile
         run: |
           cargo build --release --features tiny --target-dir target/tiny
+          python3 tools/check_branding.py --binary target/tiny/release/naro --profile tiny --out target/ci-branding-tiny
           python3 tools/check_tiny_ci.py --binary target/tiny/release/naro --out target/ci-tiny
           python3 tools/measure_profiles.py --full target/release/naro --tiny target/tiny/release/naro --out target/ci-profile-sizes
       - name: Recovery and optional credits
         run: |
           cargo build --features test-hooks --target-dir target/hooks
-          python3 spec/tools/nanoharness.py tests/follow-up/scenarios/panic.json --binary "$PWD/target/hooks/debug/naro" --out target/ci-panic
+          python3 spec/tools/nanoharness.py --candidate-expectations tests/follow-up/scenarios/panic.json --binary "$PWD/target/hooks/debug/naro" --out target/ci-panic
           cargo build --release --features credits --target-dir target/credits
           python3 tools/check_extensions.py --default target/release/naro --credits target/credits/release/naro --panic-runs target/ci-panic --out target/ci-extensions
       - name: Installed assets, archive integrity and ownership
         run: |
           python3 -m unittest discover -s tools -p 'test_package_docs.py'
           python3 tools/package.py --binary target/release/naro --out target/ci-package
-          python3 tools/check_package.py --archive target/ci-package/naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz --source-archive target/ci-package/naro-0.1.0-source.tar.gz --out target/ci-install
+          python3 tools/check_package.py --archive target/ci-package/naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz --source-archive target/ci-package/naro-0.1.1-source.tar.gz --out target/ci-install

@@ -737,12 +737,17 @@ def main():
     ap.add_argument("--out", default=os.path.join(SPEC, "evidence", "runs"))
     ap.add_argument("--keep", action="store_true", help="keep fixture work dir")
     ap.add_argument("--show", action="store_true", help="print snapshots")
+    ap.add_argument("--candidate-expectations", action="store_true",
+                    help="use reviewed NARO identity expectations; GNU reference cases stay unchanged")
     args = ap.parse_args()
     summary = []
     for path in args.scenarios:
         with open(path) as fh:
             doc = json.load(fh)
         for sc in (doc if isinstance(doc, list) else [doc]):
+            if args.candidate_expectations:
+                from candidate_expectations import candidate_case
+                sc = candidate_case(sc)
             binary = args.binary or PROFILES[args.profile or sc.get("profile", "default")]
             outdir = os.path.join(args.out, sc["id"])
             runner = Run(sc, binary, outdir, keep=args.keep)

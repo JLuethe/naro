@@ -10,6 +10,12 @@ Technical qualification and independent release review are complete. The primary
 x86_64 with GNU/glibc and was built and tested under Ubuntu 24.04/glibc 2.39.
 Other distributions and platforms are not certified by these results.
 
+The development tree is preparing **0.1.1**, which corrects NARO's product
+identity in the title, CLI and help. The qualification results below describe
+the published **0.1.0** artifacts; they do not qualify the new source. See the
+[0.1.1 preparation record](NARO_0.1.1_PREPARATION_2026-10-31.md) for completed work
+and the remaining build and release gates.
+
 ## Get started
 
 Download the binary archive and matching source from the [v0.1.0 release](https://github.com/JLuethe/naro/releases/tag/v0.1.0).

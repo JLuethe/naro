@@ -452,7 +452,12 @@ impl Editor {
                 .find(|k| k.func == "do_help" && k.menus & MAIN != 0)
                 .is_some_and(|k| k.key == 7)
         {
-            self.msg("Welcome to nano.  For basic help, type Ctrl+G.", 1);
+            self.msg(
+                crate::identity::brand_program_name(&native::tr(
+                    "Welcome to nano.  For basic help, type Ctrl+G.",
+                )),
+                1,
+            );
         }
         let syntaxes: Vec<usize> = self.buffers.iter().filter_map(|b| b.syntax).collect();
         for syntax in syntaxes {
@@ -661,7 +666,10 @@ impl Editor {
         unsafe {
             native::nr_done();
         }
-        print!("\n\nUse \"fg\" to return to nano.\n");
+        print!(
+            "{}",
+            crate::identity::brand_program_name("\n\nUse \"fg\" to return to nano.\n")
+        );
         use std::io::Write;
         let _ = std::io::stdout().flush();
         unsafe {

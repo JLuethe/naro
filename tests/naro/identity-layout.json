@@ -1,0 +1,1157 @@
+[
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-32-CLEAN",
+    "cols": 32,
+    "args": [
+      "-I",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "       notes.txt"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "original"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-32-MODIFIED",
+    "cols": 32,
+    "args": [
+      "-I",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "text": "X"
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait": {
+          "text": "Save modified buffer?"
+        }
+      },
+      {
+        "text": "n"
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "       notes.txt      Modified"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "Xoriginal"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-32-VIEW",
+    "cols": 32,
+    "args": [
+      "-I",
+      "-v",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1  notes.txt   View"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "original"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-33-CLEAN",
+    "cols": 33,
+    "args": [
+      "-I",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1 notes.txt"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "original"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-33-MODIFIED",
+    "cols": 33,
+    "args": [
+      "-I",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "text": "X"
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait": {
+          "text": "Save modified buffer?"
+        }
+      },
+      {
+        "text": "n"
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1 notes.txt Modified"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "Xoriginal"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-33-VIEW",
+    "cols": 33,
+    "args": [
+      "-I",
+      "-v",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1   notes.txt   View"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "original"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-34-CLEAN",
+    "cols": 34,
+    "args": [
+      "-I",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1 notes.txt"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "original"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-34-MODIFIED",
+    "cols": 34,
+    "args": [
+      "-I",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "text": "X"
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait": {
+          "text": "Save modified buffer?"
+        }
+      },
+      {
+        "text": "n"
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1 notes.txt  Modified"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "Xoriginal"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-34-VIEW",
+    "cols": 34,
+    "args": [
+      "-I",
+      "-v",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1   notes.txt    View"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "original"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-35-CLEAN",
+    "cols": 35,
+    "args": [
+      "-I",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1  notes.txt"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "original"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-35-MODIFIED",
+    "cols": 35,
+    "args": [
+      "-I",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "text": "X"
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait": {
+          "text": "Save modified buffer?"
+        }
+      },
+      {
+        "text": "n"
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1  notes.txt  Modified"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "Xoriginal"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-35-VIEW",
+    "cols": 35,
+    "args": [
+      "-I",
+      "-v",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1    notes.txt    View"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "original"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-40-CLEAN",
+    "cols": 40,
+    "args": [
+      "-I",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1    notes.txt"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "original"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-40-MODIFIED",
+    "cols": 40,
+    "args": [
+      "-I",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "text": "X"
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait": {
+          "text": "Save modified buffer?"
+        }
+      },
+      {
+        "text": "n"
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1    notes.txt     Modified"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "Xoriginal"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-40-VIEW",
+    "cols": 40,
+    "args": [
+      "-I",
+      "-v",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1      notes.txt       View"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "original"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-80-CLEAN",
+    "cols": 80,
+    "args": [
+      "-I",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1                        notes.txt"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "original"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-80-MODIFIED",
+    "cols": 80,
+    "args": [
+      "-I",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "text": "X"
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait": {
+          "text": "Save modified buffer?"
+        }
+      },
+      {
+        "text": "n"
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1                        notes.txt                         Modified"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "Xoriginal"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-80-VIEW",
+    "cols": 80,
+    "args": [
+      "-I",
+      "-v",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1                          notes.txt                           View"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "original"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-120-CLEAN",
+    "cols": 120,
+    "args": [
+      "-I",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1                                            notes.txt"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "original"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-120-MODIFIED",
+    "cols": 120,
+    "args": [
+      "-I",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "text": "X"
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait": {
+          "text": "Save modified buffer?"
+        }
+      },
+      {
+        "text": "n"
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1                                            notes.txt                                             Modified"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "Xoriginal"
+        }
+      ]
+    }
+  },
+  {
+    "id": "TEST-NARO-IDENTITY-LAYOUT-120-VIEW",
+    "cols": 120,
+    "args": [
+      "-I",
+      "-v",
+      "notes.txt"
+    ],
+    "files": {
+      "work/notes.txt": {
+        "text": "original\n"
+      }
+    },
+    "steps": [
+      {
+        "settle": 200
+      },
+      {
+        "snapshot": "title",
+        "quiet": 120
+      },
+      {
+        "keys": [
+          "^X"
+        ]
+      },
+      {
+        "wait_exit": 5
+      }
+    ],
+    "expect": {
+      "exit_status": 0,
+      "temp_empty": true,
+      "files": {
+        "work/notes.txt": {
+          "text": "original\n"
+        }
+      },
+      "screen": [
+        {
+          "snapshot": "title",
+          "row": 0,
+          "equals": "  NARO 0.1.1                                              notes.txt                                               View"
+        },
+        {
+          "snapshot": "title",
+          "row": 1,
+          "equals": "original"
+        }
+      ]
+    }
+  }
+]

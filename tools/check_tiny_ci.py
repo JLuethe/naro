@@ -12,6 +12,8 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'spec/tools'))
+from candidate_expectations import candidate_case, expected_cli_output
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument('--binary', type=Path, required=True)
 p.add_argument('--out', type=Path, required=True)
@@ -25,10 +27,12 @@ report = {'build': build, 'binary_sha256': hashlib.sha256(binary.read_bytes()).h
 oracle = json.loads((ROOT / 'tests/follow-up/tiny-cli-oracle.json').read_text())
 for suite in ['tiny', 'tiny-cli', 'tiny-vt', 'tiny-safety']:
     scenarios = ROOT / 'tests/follow-up/scenarios' / (suite + '.json')
-    cases = json.loads(scenarios.read_text())
+    cases = [candidate_case(case) for case in json.loads(scenarios.read_text())]
+    selected = a.out / (suite + '-candidate-scenarios.json')
+    selected.write_text(json.dumps(cases, indent=1) + '\n')
     out = a.out / suite
     with (a.out / (suite + '.log')).open('w') as log:
-        status = subprocess.run([sys.executable, str(ROOT / 'spec/tools/nanoharness.py'), str(scenarios),
+        status = subprocess.run([sys.executable, str(ROOT / 'spec/tools/nanoharness.py'), str(selected),
             '--binary', str(binary), '--out', str(out.resolve())], stdout=log, stderr=log).returncode
     results = {}
     for case in cases:
@@ -40,7 +44,10 @@ for suite in ['tiny', 'tiny-cli', 'tiny-vt', 'tiny-safety']:
         r = json.loads(path.read_text())
         ok = r['steps_ok'] and all(c['pass'] for c in r['checks'])
         if suite == 'tiny-cli':
-            ok &= all(r.get(k) == v for k, v in oracle['results'][tid].items())
+            expected = dict(oracle['results'][tid])
+            if 'stdout' in expected:
+                expected['stdout'] = expected_cli_output(expected['stdout'], 'tiny')
+            ok &= all(r.get(k) == v for k, v in expected.items())
         # Tiny must neither enable nor disable a bracketed-paste mode it does
         # not own. Raw escape-input fixtures are included in this assertion.
         ok &= not r.get('bracketed_paste_set') and not r.get('bracketed_paste_reset')
