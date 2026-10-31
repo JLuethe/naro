@@ -1,5 +1,27 @@
 # NARO development progress
 
+## Step 7 complete — exact packages and full gate, 2026-10-30
+
+The unchanged frozen Ubuntu executable is selected as the primary Linux x86_64
+download. Its binary and corresponding-source archives are byte-identical to
+Claude's checked packages. The [complete technical gate](validation/step7-package-2026-10-30/closure/gate.json)
+passes **97/97** checks; archive audit **20/20**, and a new ordinary-prefix
+install/uninstall check **5/5**. Existing 15/15 package checks, 41 catalogs,
+44/44 asset checks and offline source rebuild remain valid for these exact inputs.
+
+[Step 7 results](NARO_STEP7_RESULTS_2026-10-30.md) identify the seven download files,
+including runtime/provenance sidecars and checksums. Downloads and full evidence
+are preserved at `/home/john/Backups/naro/2026-10-30-step7/`, with all copied
+contents verified. Prior full raw-evidence backups were also rehashed. These
+are same-disk backups. The archive source remains fd91763; no production code,
+permanent tests, normalization or executable bytes changed. No owned processes
+remain and nothing was published.
+
+Next: step 8 public documentation, step 9 attribution/reporting review, and
+step 10 final delivery/CI and publication approval. Do not treat a passing
+technical gate as authorization to publish. Earlier checkpoints below remain
+historical and do not override this state.
+
 ## Steps 5–6 passed — 2026-10-30
 
 Claude qualified both frozen candidates with no new editor findings: the 303-case

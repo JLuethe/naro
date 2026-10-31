@@ -1,0 +1,98 @@
+{
+  "pass": true,
+  "checks": [
+    {
+      "name": "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz-checksum",
+      "pass": true
+    },
+    {
+      "name": "naro-0.1.0-source.tar.gz-checksum",
+      "pass": true
+    },
+    {
+      "name": "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz-safe-member-inventory",
+      "pass": true
+    },
+    {
+      "name": "naro-0.1.0-source.tar.gz-safe-member-inventory",
+      "pass": true
+    },
+    {
+      "name": "archive-payload-inventory",
+      "pass": true
+    },
+    {
+      "name": "every-binary-payload-hash-and-mode",
+      "pass": true
+    },
+    {
+      "name": "exact-qualified-ubuntu-binary",
+      "pass": true
+    },
+    {
+      "name": "default-without-test-hooks",
+      "pass": true
+    },
+    {
+      "name": "manifest-build-record-agreement",
+      "pass": true
+    },
+    {
+      "name": "clean-frozen-source-revision",
+      "pass": true
+    },
+    {
+      "name": "exact-tracked-source-inventory",
+      "pass": true
+    },
+    {
+      "name": "all-corresponding-source-file-hashes",
+      "pass": true
+    },
+    {
+      "name": "archive-production-fingerprint",
+      "pass": true
+    },
+    {
+      "name": "standalone-installer-equals-frozen-source",
+      "pass": true
+    },
+    {
+      "name": "licenses-attribution-and-po-sources-present",
+      "pass": true
+    },
+    {
+      "name": "all-frozen-runtime-assets-present",
+      "pass": true
+    },
+    {
+      "name": "native-linkage-and-symbol-requirements-recorded",
+      "pass": true
+    },
+    {
+      "name": "reuse-checks-bound-to-exact-archive",
+      "pass": true
+    },
+    {
+      "name": "all-catalog-and-asset-checks-passed",
+      "pass": true
+    },
+    {
+      "name": "offline-source-build-evidence",
+      "pass": true
+    }
+  ],
+  "archives": {
+    "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz": "a42e7dbfe39d24e3fe3b005e1d115fd52310f6fe6c6275baca7ea57985c04f80",
+    "naro-0.1.0-source.tar.gz": "2bbb757b0d73577aa1c2ba0f32c16a36b22300e2fb2dc9a5aeb1d48913dd7460"
+  },
+  "binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+  "production_source_sha256": "4cabd71741ffc8ee0357d945c67904c8a2fd0089c12e9b32a1c5b3e35c394ae6",
+  "source_files": 1143,
+  "binary_payload_files": 134,
+  "catalogs": 41,
+  "syntax_files": 44,
+  "reused_package_report_sha256": "25b416c23cb77dd88246ddd649d7eaf3cb0df76ac3bc09704ff6efaf703d19f8",
+  "reused_source_build_log_sha256": "3f889c577d8b7a92b31cb4fd46d835cef99194f5886143aaf95169743d399898",
+  "scope": "Technical payload/identity audit; comprehensive publication and licensing review remain steps 8\u201310."
+}

@@ -210,17 +210,24 @@ testing remains deferred.
 
 ## 7. Build and verify distribution packages
 
+Status: complete for the exact frozen Ubuntu download set. See
+[step 7 results](NARO_STEP7_RESULTS_2026-10-30.md). The complete collector passes
+97/97; archive audit 20/20; ordinary-prefix checks 5/5. Existing 15/15 package
+checks and offline source rebuilding are reused for byte-identical archives.
+Downloads and evidence are preserved and verified outside target/.
+
 Priority: required after artifact qualification.
 
-- [ ] Package the qualified portable binary with matching source, checksums,
+- [x] Package the qualified portable binary with matching source, checksums,
   provenance, licenses, credits, translations, syntax files, and installer.
-- [ ] Test private-prefix installation, paths containing spaces, symlink
+- [x] Test private-prefix installation, paths containing spaces, symlink
   launching, catalog discovery, and syntax loading.
-- [ ] Verify offline source rebuild and malformed archive rejection.
-- [ ] Verify uninstall ownership and preservation of modified/unrelated files.
-- [ ] Confirm distributed artifacts do not enable `test-hooks`.
-- [ ] Verify the packaged executable is byte-identical to the qualified one.
-- [ ] Resolve full/tiny archive naming before distributing both profiles.
+- [x] Verify offline source rebuild and malformed archive rejection.
+- [x] Verify uninstall ownership and preservation of modified/unrelated files.
+- [x] Confirm distributed artifacts do not enable `test-hooks`.
+- [x] Verify the packaged executable is byte-identical to the qualified one.
+- [x] Retain default-only binary distribution; no tiny archive is selected.
+  Naming separation remains required before any future dual-profile distribution.
 
 Full and tiny currently produce identical archive names and install the same
 executable name. Either publish only the default package for 0.1 or establish
@@ -276,9 +283,9 @@ guidance, and working public/private reporting routes.
 
 Priority: required for continuity and publication.
 
-- [ ] Back up final evidence and artifacts outside `target/`. That directory
+- [x] Back up current qualified evidence and artifacts outside `target/`. That directory
   survives a reboot but not `cargo clean` or disk loss.
-- [ ] Keep compact reports in Git with hashes and locations for larger
+- [x] Keep compact reports in Git with hashes and locations for larger
   recordings.
 - [ ] After each stage, record completed work, failures, owned running
   processes, and the exact next action.

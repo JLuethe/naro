@@ -1,0 +1,47 @@
+{
+  "destination": "/home/john/Backups/naro/2026-10-30-step7",
+  "scope": "Verified local same-disk preservation outside repository/target; not off-machine protection.",
+  "downloads": {
+    "BUILD-ENVIRONMENT.json": {
+      "sha256": "59a18a16bd92564b8f2eb26019c91aa7f0a37ea59e19d8a811a555d424ecad36",
+      "bytes": 9719
+    },
+    "QUALIFICATION.json": {
+      "sha256": "7822105c7a1672429273474ec636943edb438547bf2fe3d7516f20e8b6a5c079",
+      "bytes": 1613
+    },
+    "RUNTIME-REQUIREMENTS.md": {
+      "sha256": "0e2f81750d52dc62981e90f117b802826ba8c21d8065a6d31c21fbd3b2dc726f",
+      "bytes": 3709
+    },
+    "SHA256SUMS": {
+      "sha256": "735e4cf8ca3f3f80702156328a27e4134bb460ad7202b86628d111180f6bc3d9",
+      "bytes": 541
+    },
+    "build.json": {
+      "sha256": "13174077596550bb8ee50b655ff9adac52d6dc6bcf0ea9d6afe9f27d34a38674",
+      "bytes": 159086
+    },
+    "naro-0.1.0-source.tar.gz": {
+      "sha256": "2bbb757b0d73577aa1c2ba0f32c16a36b22300e2fb2dc9a5aeb1d48913dd7460",
+      "bytes": 3050388
+    },
+    "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz": {
+      "sha256": "a42e7dbfe39d24e3fe3b005e1d115fd52310f6fe6c6275baca7ea57985c04f80",
+      "bytes": 2695727
+    }
+  },
+  "evidence_archive": {
+    "name": "step7-evidence.tar.gz",
+    "sha256": "ef90953b30c1b71d9d252a4fd144020faf8a2a5b09001dfe52a07508da25033f",
+    "bytes": 5843887,
+    "verified_files": 70
+  },
+  "evidence_manifest_sha256": "f790506cd77c08f2d867886428c90bb9ceb83c7d3c7da08a5414fd5671863078",
+  "verified_full_evidence_dependencies": {
+    "/home/john/Backups/naro/2026-10-30-step5/step5-attempt.tar.gz": "195615e270c9b7ccb20c1e49889e9a6876d28ed15bc9038dff44c7f53d6ed9e8",
+    "/home/john/Backups/naro/2026-10-30-step5/release-freeze.tar.gz": "d75557346efcaa5faa9e10154a333816ce22135bad449c1b3da84f907cda3a33",
+    "/home/john/Backups/naro/2026-10-30-step5/codex-review.tar.gz": "dc37026c349b75f34c14dcaa2a4bff26ad5436b80148e2d1dc30b4ecedb5816d",
+    "/home/john/Backups/naro/2026-10-30-step6/step6-console.tar.gz": "687d488374cffb0e20766b62849c4f90c4daa96c29ce259644874c82255c546c"
+  }
+}

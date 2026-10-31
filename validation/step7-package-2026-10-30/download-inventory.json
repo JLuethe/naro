@@ -1,0 +1,30 @@
+{
+  "BUILD-ENVIRONMENT.json": {
+    "sha256": "59a18a16bd92564b8f2eb26019c91aa7f0a37ea59e19d8a811a555d424ecad36",
+    "bytes": 9719
+  },
+  "QUALIFICATION.json": {
+    "sha256": "7822105c7a1672429273474ec636943edb438547bf2fe3d7516f20e8b6a5c079",
+    "bytes": 1613
+  },
+  "RUNTIME-REQUIREMENTS.md": {
+    "sha256": "0e2f81750d52dc62981e90f117b802826ba8c21d8065a6d31c21fbd3b2dc726f",
+    "bytes": 3709
+  },
+  "SHA256SUMS": {
+    "sha256": "735e4cf8ca3f3f80702156328a27e4134bb460ad7202b86628d111180f6bc3d9",
+    "bytes": 541
+  },
+  "build.json": {
+    "sha256": "13174077596550bb8ee50b655ff9adac52d6dc6bcf0ea9d6afe9f27d34a38674",
+    "bytes": 159086
+  },
+  "naro-0.1.0-source.tar.gz": {
+    "sha256": "2bbb757b0d73577aa1c2ba0f32c16a36b22300e2fb2dc9a5aeb1d48913dd7460",
+    "bytes": 3050388
+  },
+  "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz": {
+    "sha256": "a42e7dbfe39d24e3fe3b005e1d115fd52310f6fe6c6275baca7ea57985c04f80",
+    "bytes": 2695727
+  }
+}

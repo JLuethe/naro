@@ -1,0 +1,20 @@
+{
+  "binary_sha256": "cae387c78619520aacbf61690e675496b82f8ccf04af2824beb9e864004f0a96",
+  "timing_scope": "whole harness startup, load, edit, save, exit and capture; no performance budget",
+  "results": {
+    "TEST-NEXT-UX-002-1MiB": {
+      "pass": true,
+      "input_bytes": 1048576,
+      "output_bytes": 1048577,
+      "elapsed_seconds": 0.5133999079989735,
+      "output_sha256": "6d20b47ce91f88764e2a51fde7675a85b2574b560ad542ee80ae8707a2f66483"
+    },
+    "TEST-NEXT-UX-002-10MiB": {
+      "pass": true,
+      "input_bytes": 10485760,
+      "output_bytes": 10485761,
+      "elapsed_seconds": 1.0645603840002877,
+      "output_sha256": "7128cf7c8e7b83bc886036dc82deb8d8acf40a700f5a8fd63392336a579cd460"
+    }
+  }
+}

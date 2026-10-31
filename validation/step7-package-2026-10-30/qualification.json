@@ -1,0 +1,47 @@
+{
+  "product": "NARO",
+  "version": "0.1.0",
+  "status": "technically qualified candidate; not published",
+  "primary_download": "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz",
+  "source_download": "naro-0.1.0-source.tar.gz",
+  "source_commit": "fd91763c4f14d9bed8187d64d44f2136440b7b3e",
+  "production_source_sha256": "4cabd71741ffc8ee0357d945c67904c8a2fd0089c12e9b32a1c5b3e35c394ae6",
+  "binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+  "archives": {
+    "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz": "a42e7dbfe39d24e3fe3b005e1d115fd52310f6fe6c6275baca7ea57985c04f80",
+    "naro-0.1.0-source.tar.gz": "2bbb757b0d73577aa1c2ba0f32c16a36b22300e2fb2dc9a5aeb1d48913dd7460"
+  },
+  "features": [],
+  "closure": {
+    "checks": 97,
+    "passed": 97,
+    "gate_sha256": "0757e43a7f17992fa20f6e11f28aedd8e0167b42e7bc17807b1e9ee112a13af4"
+  },
+  "archive_audit": {
+    "checks": 20,
+    "passed": 20
+  },
+  "package_checks": {
+    "checks": 15,
+    "passed": 15,
+    "reused_unchanged_archives": true,
+    "report_sha256": "25b416c23cb77dd88246ddd649d7eaf3cb0df76ac3bc09704ff6efaf703d19f8"
+  },
+  "ordinary_prefix": {
+    "checks": 5,
+    "passed": 5
+  },
+  "source_rebuild": "offline passed, production fingerprint and features match; not a claim of byte-for-byte reproducibility",
+  "catalogs": 41,
+  "asset_checks": 44,
+  "guest_vt": {
+    "host_matches": 19,
+    "ubuntu_matches": 19,
+    "transport_checks": 6
+  },
+  "pending_release_gates": [
+    "public documentation reconciliation",
+    "attribution and reporting review",
+    "final delivery/CI and publication approval"
+  ]
+}

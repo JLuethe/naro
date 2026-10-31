@@ -1,0 +1,455 @@
+{
+  "binary_sha256": "cae387c78619520aacbf61690e675496b82f8ccf04af2824beb9e864004f0a96",
+  "reference_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+  "build": {
+    "version": "0.1.0",
+    "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+    "source_sha256": "4cabd71741ffc8ee0357d945c67904c8a2fd0089c12e9b32a1c5b3e35c394ae6",
+    "revision": "fd91763c4f14d9bed8187d64d44f2136440b7b3e",
+    "features": "",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "checks": {
+    "fmt": {
+      "status": 0,
+      "seconds": 0.32,
+      "command": [
+        "cargo",
+        "fmt",
+        "--check"
+      ]
+    },
+    "clippy": {
+      "status": 0,
+      "seconds": 1.27,
+      "command": [
+        "cargo",
+        "clippy",
+        "--all-targets",
+        "--all-features",
+        "--",
+        "-D",
+        "warnings"
+      ]
+    },
+    "rust": {
+      "status": 0,
+      "seconds": 1.52,
+      "command": [
+        "cargo",
+        "test",
+        "--all-features"
+      ]
+    },
+    "comparator": {
+      "status": 0,
+      "seconds": 0.27,
+      "command": [
+        "/usr/bin/python3",
+        "spec/tools/test_compare_runs.py"
+      ]
+    },
+    "harness": {
+      "status": 0,
+      "seconds": 0.17,
+      "command": [
+        "/usr/bin/python3",
+        "spec/tools/test_nanoharness.py"
+      ]
+    },
+    "namespace": {
+      "status": 0,
+      "seconds": 0.17,
+      "command": [
+        "/usr/bin/python3",
+        "spec/tools/test_namespace_exec.py"
+      ]
+    },
+    "console-unit": {
+      "status": 0,
+      "seconds": 0.22,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/console",
+        "-p",
+        "test_*.py"
+      ]
+    },
+    "closure-unit": {
+      "status": 0,
+      "seconds": 7.29,
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_closure_regressions.py"
+      ]
+    },
+    "terminal": {
+      "status": 0,
+      "seconds": 186.98,
+      "command": [
+        "/usr/bin/python3",
+        "tools/validate_parallel.py",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/terminal",
+        "--jobs",
+        "4"
+      ]
+    },
+    "tools": {
+      "status": 0,
+      "seconds": 53.81,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_follow_up.py",
+        "--suite",
+        "tools",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/tools"
+      ]
+    },
+    "edges": {
+      "status": 0,
+      "seconds": 53.12,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_follow_up.py",
+        "--suite",
+        "edges",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/edges"
+      ]
+    },
+    "environments": {
+      "status": 0,
+      "seconds": 34.41,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_follow_up.py",
+        "--suite",
+        "environments",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/environments"
+      ]
+    },
+    "supplement": {
+      "status": 0,
+      "seconds": 8.75,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_follow_up.py",
+        "--suite",
+        "supplement",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/supplement"
+      ]
+    },
+    "backup": {
+      "status": 0,
+      "seconds": 8.1,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_follow_up.py",
+        "--suite",
+        "backup",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/backup"
+      ]
+    },
+    "fifo-eof": {
+      "status": 0,
+      "seconds": 1.27,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_follow_up.py",
+        "--suite",
+        "fifo-eof",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/fifo-eof"
+      ]
+    },
+    "signal-SIGTERM": {
+      "status": 0,
+      "seconds": 1.72,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_follow_up.py",
+        "--suite",
+        "signal-SIGTERM",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/signal-SIGTERM"
+      ]
+    },
+    "signal-SIGHUP": {
+      "status": 0,
+      "seconds": 1.72,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_follow_up.py",
+        "--suite",
+        "signal-SIGHUP",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/signal-SIGHUP"
+      ]
+    },
+    "vt-ioctl": {
+      "status": 0,
+      "seconds": 22.25,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_follow_up.py",
+        "--suite",
+        "vt-ioctl",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/vt-ioctl"
+      ]
+    },
+    "root": {
+      "status": 0,
+      "seconds": 69.89,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_follow_up.py",
+        "--suite",
+        "root",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/root",
+        "--reference",
+        "/home/john/Code/naro/target/release-freeze-2026-10-30/source/target/root-reference/install/bin/nano"
+      ]
+    },
+    "root-nohome-tilde": {
+      "status": 0,
+      "seconds": 2.32,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_follow_up.py",
+        "--suite",
+        "root-nohome-tilde",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/root-nohome-tilde",
+        "--reference",
+        "/home/john/Code/naro/target/release-freeze-2026-10-30/source/target/root-reference/install/bin/nano"
+      ]
+    },
+    "wrap-undo": {
+      "status": 0,
+      "seconds": 163.11,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_follow_up.py",
+        "--suite",
+        "wrap-undo",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--reference",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/reference.bin",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/wrap-undo"
+      ]
+    },
+    "filter": {
+      "status": 0,
+      "seconds": 23.21,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_follow_up.py",
+        "--suite",
+        "filter",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--reference",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/reference.bin",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/filter"
+      ]
+    },
+    "release-fixes": {
+      "status": 0,
+      "seconds": 57.79,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_follow_up.py",
+        "--suite",
+        "release-fixes",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--reference",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/reference.bin",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/release-fixes"
+      ]
+    },
+    "step3-gaps": {
+      "status": 0,
+      "seconds": 225.93,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_follow_up.py",
+        "--suite",
+        "step3-gaps",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--reference",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/reference.bin",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/step3-gaps"
+      ]
+    },
+    "closure-regressions": {
+      "status": 0,
+      "seconds": 2.97,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_closure_regressions.py",
+        "--base",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--reference",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/reference.bin"
+      ]
+    },
+    "extras": {
+      "status": 0,
+      "seconds": 25.05,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_environment_extras.py",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--reference",
+        "/home/john/src/nano-install/default/bin/nano",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/extras"
+      ]
+    },
+    "hooks-build": {
+      "status": 0,
+      "seconds": 3.48,
+      "command": [
+        "cargo",
+        "build",
+        "--features",
+        "test-hooks",
+        "--target-dir",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/hooks"
+      ]
+    },
+    "panic": {
+      "status": 0,
+      "seconds": 2.17,
+      "command": [
+        "/usr/bin/python3",
+        "spec/tools/nanoharness.py",
+        "tests/follow-up/scenarios/panic.json",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/hooks/debug/naro",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/panic"
+      ]
+    },
+    "credits-build": {
+      "status": 0,
+      "seconds": 30.26,
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--features",
+        "credits",
+        "--target-dir",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/credits"
+      ]
+    },
+    "extensions": {
+      "status": 0,
+      "seconds": 0.67,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_extensions.py",
+        "--default",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--credits",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/credits/release/naro",
+        "--panic-runs",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/panic",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/extensions"
+      ]
+    },
+    "large": {
+      "status": 0,
+      "seconds": 1.77,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_large_files.py",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/large"
+      ]
+    },
+    "package": {
+      "status": 0,
+      "seconds": 2.47,
+      "command": [
+        "/usr/bin/python3",
+        "tools/package.py",
+        "--binary",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/package"
+      ]
+    },
+    "package-check": {
+      "status": 0,
+      "seconds": 46.11,
+      "command": [
+        "/usr/bin/python3",
+        "tools/check_package.py",
+        "--archive",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/package/naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz",
+        "--source-archive",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/package/naro-0.1.0-source.tar.gz",
+        "--out",
+        "/home/john/Code/naro/target/naro-test-runs/claude-step5-2026-10-30-attempt01/host/package-check"
+      ]
+    }
+  },
+  "state": "complete",
+  "active": null
+}

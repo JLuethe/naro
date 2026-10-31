@@ -57,11 +57,11 @@ passes do not qualify a newly built executable automatically.
   signals, installed assets/locales, and 1 MiB/10 MiB file checks.
 - [x] Pass all 19 genuine guest-VT comparisons for each optimized host and
   Ubuntu candidate, including terminal/keyboard restoration and VM provenance.
-- [ ] Package the exact qualified Ubuntu executable and corresponding source.
+- [x] Package the exact qualified Ubuntu executable and corresponding source.
   Verify hash linkage, source rebuild, all shipped catalogs/syntax, private and
   spaced-prefix installation, symlink launch, archive rejection, and uninstall
   ownership/conflicts. Exclude test hooks.
-- [ ] Pass the updated final closure collector with complete inputs. Retain
+- [x] Pass the updated final closure collector with complete inputs. Retain
   compact tracked reports and back up full evidence outside `target/`.
 - [ ] Update public documentation, attribution/license review, release notes,
   support/reporting routes, and the final download list.
@@ -129,10 +129,10 @@ testing must still be assessed against release safety and integrity criteria.
 
 ## Next action
 
-Steps 4–6 are complete: [frozen builds](NARO_STEP4_FREEZE_2026-10-30.md),
-[host/Ubuntu qualification](validation/step5-qualification-2026-10-30/README.md),
-and [guest-VT results](NARO_STEP6_RESULTS_2026-10-30.md).
-Continue with step 7 final packaging and complete closure collection. The broader
-checks/CI gate above stays open for subsequent release-delivery changes and audit
-reconciliation. Codex owns implementation and permanent tests; independent
-testers report against frozen candidates.
+Steps 4–7 are complete: frozen builds, host/Ubuntu and guest-VT qualification,
+and [technically accepted packages](NARO_STEP7_RESULTS_2026-10-30.md).
+The complete collector passes 97/97 checks; the exact download set and evidence
+are verified outside target/. Continue with step 8 public documentation, then
+step 9 attribution/reporting review and step 10 final delivery/publication
+approval. The broader checks/CI gate above stays open for subsequent delivery
+changes and audit reconciliation. No release has been published.

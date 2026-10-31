@@ -1,0 +1,8 @@
+{
+  "collector_commit": "1806b2e8466d72f9c66f5c3c9660b80d9a48982c",
+  "collector_sha256": "7eefe827b8e19091e92cc63fb2dd59c1422c2b93b11dd171615dd705540c911d",
+  "regression_checker_sha256": "325c68912d3484b954ebaf744f2770f86a4f6bd6e538707f585c20a767dd8059",
+  "freeze_manifest_sha256": "d404c22dc97a5554c47004fb25d21e7c96b510023fddfd25307a8118603409ea",
+  "source_commit": "fd91763c4f14d9bed8187d64d44f2136440b7b3e",
+  "note": "Later documentation/evidence commits do not change compiled source identity."
+}
