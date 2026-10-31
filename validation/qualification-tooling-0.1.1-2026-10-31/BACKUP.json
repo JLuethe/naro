@@ -1,0 +1,10 @@
+{
+  "archive": "/home/john/Backups/naro/2026-10-31-qualification-tooling-0.1.1/qualification-tooling-freeze-and-evidence.tar.gz",
+  "sha256": "ebdfd767ba5729511233abd71ddfa0cb50af71cfac24d829473e702aa62b39e4",
+  "bytes": 1130003320,
+  "members_verified": 75583,
+  "files_verified": 70014,
+  "symlinks_verified": 645,
+  "scope": "Tooling repair, replacement freeze and readiness proof",
+  "location": "Outside target on same filesystem; not off-device"
+}

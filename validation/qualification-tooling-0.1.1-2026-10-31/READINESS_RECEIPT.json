@@ -1,0 +1,55 @@
+{
+  "schema": "naro-frozen-readiness/v1",
+  "freeze": "/home/john/Code/naro/target/qualification-tooling-0.1.1-2026-10-31/work/freeze-attempt03",
+  "freeze_manifest_sha256": "95945d92088c1f34f38eea03f26900e63dbb33586a4e492e34b7c25db574acd6",
+  "source_commit": "eb9ae23a128d291a47af0ab463f322b5a36c6fd1",
+  "source_tree": "08b669a448b41591da6197a24c34f4451196ac7d",
+  "production_source_sha256": "63936243e73d0a3fb536d3c0a0fb0e6fe57be09da5f5bc0387ee10250b3d7093",
+  "verification_sha256": "2e0d1804f37816018425c8e84c8d0b743ac16b75a5d6c46f98b7403d2de83a2d",
+  "host_binary_sha256": "9c118168ff0903f9b7de8606ced7fcbe5aa48386fff17f76a7b31e960f0871cc",
+  "ubuntu_binary_sha256": "2d3f20f2ab4ed66b9b04a6d47bda8b6e3b5c79664150074a423fa792905d5dba",
+  "host_reference_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+  "ubuntu_reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+  "root_reference_sha256": "fe02ea07dc9a1e0afa009ef97dc034728995e39c65b75455985b0cf980fa3def",
+  "ci": {
+    "run": 41235061226,
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/JLuethe/naro/actions/runs/41235061226",
+    "head_sha": "eb9ae23a128d291a47af0ab463f322b5a36c6fd1"
+  },
+  "host_readiness": "/home/john/Code/naro/target/qualification-tooling-0.1.1-2026-10-31/work/readiness-frozen-host/RESULTS.md",
+  "ubuntu_readiness": "/home/john/Code/naro/target/qualification-tooling-0.1.1-2026-10-31/work/readiness-frozen-ubuntu/REPORT.md",
+  "readiness_manifest_verification": [
+    {
+      "manifest": "target/qualification-tooling-0.1.1-2026-10-31/work/readiness-frozen-host/execution/SHA256SUMS",
+      "sha256": "481ad3ad37d76846cfec38452a62c3836522f2a6ac77829aac012e41d9e3a0cb",
+      "files_verified": 135
+    },
+    {
+      "manifest": "target/qualification-tooling-0.1.1-2026-10-31/work/readiness-frozen-ubuntu/execution-attempt02/EVIDENCE-SHA256SUMS",
+      "sha256": "04d043a308269f9eee13cb8a35a34c674f5dee79a97e56a0d7bf26085819a3b5",
+      "files_verified": 445
+    },
+    {
+      "manifest": "target/qualification-tooling-0.1.1-2026-10-31/work/readiness-frozen-ubuntu/EVIDENCE-SHA256SUMS",
+      "sha256": "b0e99b8c5ab9fb4b7cf35abffb623318e41b89af82511ea28bb47cbffbedd2b3",
+      "files_verified": 462
+    }
+  ],
+  "fixture_receipt": "/home/john/Code/naro/target/qualification-tooling-0.1.1-2026-10-31/work/FINAL03-FIXTURE-RECEIPT.json",
+  "full_qualification": "not run; Claude Phase B required",
+  "version_0_1_1_publication": "not published; not authorized",
+  "backup_receipt": "/home/john/Backups/naro/2026-10-31-qualification-tooling-0.1.1/BACKUP.json",
+  "backup": {
+    "archive": "/home/john/Backups/naro/2026-10-31-qualification-tooling-0.1.1/qualification-tooling-freeze-and-evidence.tar.gz",
+    "sha256": "ebdfd767ba5729511233abd71ddfa0cb50af71cfac24d829473e702aa62b39e4",
+    "bytes": 1130003320,
+    "members_verified": 75583,
+    "files_verified": 70014,
+    "symlinks_verified": 645,
+    "scope": "Tooling repair, replacement freeze and readiness proof",
+    "location": "Outside target on same filesystem; not off-device"
+  },
+  "scope": "Frozen tooling and focused readiness complete; full Claude Phase B qualification remains required"
+}

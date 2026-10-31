@@ -1,0 +1,17 @@
+[
+  {
+    "manifest": "target/qualification-tooling-0.1.1-2026-10-31/work/readiness-frozen-host/execution/SHA256SUMS",
+    "sha256": "481ad3ad37d76846cfec38452a62c3836522f2a6ac77829aac012e41d9e3a0cb",
+    "files_verified": 135
+  },
+  {
+    "manifest": "target/qualification-tooling-0.1.1-2026-10-31/work/readiness-frozen-ubuntu/execution-attempt02/EVIDENCE-SHA256SUMS",
+    "sha256": "04d043a308269f9eee13cb8a35a34c674f5dee79a97e56a0d7bf26085819a3b5",
+    "files_verified": 445
+  },
+  {
+    "manifest": "target/qualification-tooling-0.1.1-2026-10-31/work/readiness-frozen-ubuntu/EVIDENCE-SHA256SUMS",
+    "sha256": "b0e99b8c5ab9fb4b7cf35abffb623318e41b89af82511ea28bb47cbffbedd2b3",
+    "files_verified": 462
+  }
+]
