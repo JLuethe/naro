@@ -310,7 +310,10 @@ impl Editor {
                     raw.push(r.replacement[i]);
                     i += 1;
                 }
-                let before = self.b().begin();
+                let mut before = self.b().begin();
+                // Replacement history returns to the match head in both
+                // directions, independently of the live search cursor.
+                before.pos = a;
                 if let Some(session) = self.spelling.as_mut()
                     && let Some((_, ref mut end)) = session.region
                 {
@@ -319,6 +322,11 @@ impl Editor {
                 self.bm().replace(a, b, &raw, Splice::Plain);
                 let no = self.conf.on(NO_NEWLINES);
                 self.bm().finish(before, "replacement", false, no);
+                if !cfg!(feature = "tiny")
+                    && let Some(item) = self.bm().history.last_mut()
+                {
+                    item.after.pos = a;
+                }
                 let delta = raw.len() as isize - (b.x - a.x) as isize;
                 for (x, y, g) in r.matches.iter_mut().skip(r.next + 1) {
                     if x.line == a.line && x.x >= b.x {

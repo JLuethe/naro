@@ -26,6 +26,10 @@ Unless `-I` (`--ignorercfiles`):
   - The home directory is `$HOME`. If HOME is unset, or nano runs as root (euid 0), the passwd entry's directory is used.
   - A file that exists but cannot be opened: error `Error reading <path>: <reason>`. A missing file is silently skipped.
 - After reading, the vital-key check runs (`02` KEY-035).
+- Explicit rcfile diagnostic paths use the canonical absolute pathname, including
+  in the deferred stderr error and the `Mistakes in` status message. The relative
+  invalid-file regression and valid-file control are TEST-NEXT-RELEASE-RC-01-RELATIVE-PATH
+  and TEST-NEXT-RELEASE-RC-02-ABS-CONTROL in `../tests/follow-up/scenarios/release-fixes.json`.
 - With `--enable-altrcname=NAME` builds, `.nanorc` and `nanorc` are replaced by NAME.
 - **Source:** `src/rcfile.c:1691-1749, 881-897`; `src/utils.c:31-52`.
 - **Evidence:** runtime TEST-RC-001…003, CLI-P-026, TEST-CLI-051.

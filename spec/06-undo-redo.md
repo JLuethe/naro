@@ -58,6 +58,10 @@ before and after, the affected text and flags. Requirements per kind:
 - An inherited anchor at the start of a cut is cleared on undo, unless the user placed it.
 - **Source:** `src/text.c:452-845, 954-1230`.
 - **Evidence:** runtime TEST-UNDO-001…011.
+- Replacement cursor regressions also cover a single match, a longer replacement
+  in midline and successive undo/redo of replace-all across two lines:
+  TEST-NEXT-RELEASE-REPL-01-ONE, TEST-NEXT-RELEASE-REPL-02-MIDLINE and
+  TEST-NEXT-RELEASE-REPL-03-ALL-TWO-LINES in `../tests/follow-up/scenarios/release-fixes.json`.
 
 ### UNDO-005 — Messages and side effects
 - Undo: HUSH `Undid <noun>`; redo: HUSH `Redid <noun>`. Nouns: `addition`, `line break`, `deletion`, `line join`, `replacement`, `erasure`, `cut`, `paste`, `insertion`, `indent`, `unindent`, `comment`, `uncomment`, or the compound name (`justification`, `filtering`, `spelling correction`, `formatting`). Translated. No message in *zero* mode, and no undo message while a word-completion run is active.

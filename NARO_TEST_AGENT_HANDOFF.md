@@ -1,4 +1,30 @@
-# NARO independent testing handoff — Pi / DeepSeek V4.1 Flash
+# NARO independent testing handoff — Claude, Pi, OpenCode or GLM
+
+**Latest status:** Claude's completed report led to six local Codex fixes and
+the new `release-fixes` regression suite. Read the current checkpoint in
+[NARO_NEXT_STEPS.md](NARO_NEXT_STEPS.md) and the latest
+[development progress](NARO_DEVELOPMENT_PROGRESS.md) before selecting a
+candidate. The October 30 restart notice below describes the pre-fix assignment.
+
+Claude starts with [NARO_CLAUDE_HANDOFF.md](NARO_CLAUDE_HANDOFF.md) and
+[NARO_CLAUDE_START_PROMPT.md](NARO_CLAUDE_START_PROMPT.md). That assignment
+allows new scratch evidence in a fresh ignored `target/naro-test-runs/` directory
+for reboot persistence; all implementation and permanent-test work stays with Codex.
+
+**Restart notice (2026-10-30):** Read the restart review at the top of
+[NARO_NEXT_STEPS.md](NARO_NEXT_STEPS.md) first. The interrupted OpenCode export
+preserves 35 scratch probes with nine reported differences (paste/redo bytes,
+soft-wrap movement/resize, and soft-wrap attributes). Original `/tmp` bundles
+are absent. Recover and freshly reproduce those probes after the unchanged
+controls, before expanding the matrix below. They are transcript findings,
+not newly verified defects. Codex must preserve completed evidence batches
+outside `/tmp`; see the restart review's checkpoint procedure.
+
+OpenCode uses [NARO_OPENCODE_TEST_AGENT_START_PROMPT.md](NARO_OPENCODE_TEST_AGENT_START_PROMPT.md).
+For OpenCode, create a fresh `/tmp/naro-opencode-*` run directory and keep the
+`NARO_PI_RUN` and `NARO_PI_CANDIDATE` variable names used in the commands below;
+they are command aliases, not a requirement to use Pi. Deliver
+`$NARO_PI_RUN/OPENCODE_TEST_REPORT.md` instead of `PI_TEST_REPORT.md`.
 
 Codex owns all implementation, permanent tests, specifications and GitHub work.
 The fixes and measured limits are in [development progress](NARO_DEVELOPMENT_PROGRESS.md)
@@ -24,7 +50,8 @@ These restrictions include implementation/native code, existing scenarios and
 expectations, comparators, generators, manifests, CI, docs and configuration.
 Do not reset, clean, stash, switch branches, restore files or mutate source for
 instrumentation. New proposed scenarios, private synthetic fixtures, scripts,
-logs and reports may be written only under your fresh `/tmp/naro-pi-*` directory.
+logs and reports may be written only under your fresh `/tmp/naro-pi-*` or
+`/tmp/naro-opencode-*` directory.
 Generated build output may use your private directory or ignored `target/`.
 Never use real user files or edit the pinned reference. If you need hooks,
 instrumentation or a harness fix, provide Codex a proposal and wait for its build.
@@ -48,7 +75,9 @@ harness `term`, `cols`, `rows`, `lang` and `resize` fields for alternate probes.
 
 ```sh
 cd /home/john/Code/naro
-export NARO_PI_RUN="$(mktemp -d /tmp/naro-pi-XXXXXX)"
+if [ -z "${NARO_PI_RUN:-}" ]; then
+    export NARO_PI_RUN="$(mktemp -d /tmp/naro-pi-XXXXXX)"
+fi
 git status --short > "$NARO_PI_RUN/initial-status.txt"
 git diff > "$NARO_PI_RUN/initial.diff"
 git diff --cached > "$NARO_PI_RUN/initial-cached.diff"

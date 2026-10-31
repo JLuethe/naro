@@ -149,6 +149,12 @@ maps these to the codes `START_OF_PASTE`/`END_OF_PASTE` (`define_key`); if that
 fails, nano's CSI table does the same (INPUT-005).
 - **Edit window:** the start marker triggers *paste mode*: all following codes are read until a code that is neither a byte 0x20–0xFF (except 0x7F), nor Tab, nor CR/LF. Bytes and Tabs are collected, CR and LF start a new line, and the end marker stops collection. The collected text is pasted with the regular paste operation, as **one undoable PASTE action** (`06` UNDO-PASTE). It does not go through auto-indent, tab conversion, hard-wrapping per character or the cutbuffer; the cutbuffer is left unchanged. Tabs stay tabs (TEST-INPUT-005). In view mode: `Key is invalid in view mode`. If collection stopped at anything other than the end marker (for example ESC, or a control code such as ^K inside the paste): ALERT `Flawed paste`, and the code that stopped it is lost. NUL bytes inside a paste end the paste the same way (code 0x00 is outside the accepted set).
 - **Prompts:** between the markers, every byte is inserted into the answer, including Tab (no completion), and every command key is ignored with a beep (TEST-INPUT-011).
+- After inserting the collected edit-window text, the regular paste operation
+  performs one hard-wrap attempt when hard wrapping is enabled and the cursor
+  remains on the original line. CR/LF paste input moves to another line and
+  skips this attempt. A wrapping paste undoes with `Undid paste` and redoes
+  with `Redid addition`. Oracle regressions: TEST-NEXT-RELEASE-PASTE-01-BRACKETED-WRAP
+  and TEST-NEXT-RELEASE-PASTE-02-P2-02-FULL in `../tests/follow-up/scenarios/release-fixes.json`.
 - **Yes/No questions:** the first code after the start marker is taken as the answer, and the rest up to the end marker is discarded.
 - **Help viewer and browser:** everything up to the end marker is discarded; AHEM `Paste is ignored`.
 - Tiny builds have no bracketed-paste support: the markers arrive as unknown sequences and the text as typed keys.

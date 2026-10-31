@@ -1,0 +1,2270 @@
+[
+ {
+  "id": "TEST-NEXT-RELEASE-PASTE-01-BRACKETED-WRAP",
+  "args": [
+   "-I",
+   "-b",
+   "-r",
+   "12",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "0a"
+   }
+  },
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "text": "aaa bbb ccc"
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "paste": "pp "
+   },
+   {
+    "snapshot": "pasted",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "sleep": 150
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 200
+   },
+   {
+    "capture_file": "work/f.txt"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "hex": "70702061616120626262200a6363630a"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "pasted",
+     "cursor": {
+      "x": 3,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "pasted",
+     "row": 1,
+     "equals": "pp aaa bbb"
+    },
+    {
+     "snapshot": "pasted",
+     "row": 2,
+     "equals": "ccc"
+    },
+    {
+     "snapshot": "undo",
+     "cursor": {
+      "x": 0,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "undo",
+     "row": 1,
+     "equals": "aaa bbb ccc"
+    },
+    {
+     "snapshot": "undo",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "undo",
+     "row": 21,
+     "equals": "                                [ Undid paste ]"
+    },
+    {
+     "snapshot": "redo",
+     "cursor": {
+      "x": 3,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "redo",
+     "row": 1,
+     "equals": "pp aaa bbb"
+    },
+    {
+     "snapshot": "redo",
+     "row": 2,
+     "equals": "ccc"
+    },
+    {
+     "snapshot": "redo",
+     "row": 21,
+     "equals": "                               [ Redid addition ]"
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 3,
+      "y": 1,
+      "visible": true
+     }
+    }
+   ]
+  },
+  "note": "Claude regression proposal; oracle-derived expectations preserved. history grouping for paste+wrap | proposal from MIN-PASTE-05-BRACKETED-UNDO-REDO; expectations from pinned nano run runs/min-paste/ref"
+ },
+ {
+  "id": "TEST-NEXT-RELEASE-PASTE-02-P2-02-FULL",
+  "args": [
+   "-I",
+   "-b",
+   "-r",
+   "12",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "0a"
+   }
+  },
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "text": "aaa bbb ccc ddd"
+   },
+   {
+    "snapshot": "first-wrap",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "text": " eee"
+   },
+   {
+    "snapshot": "overflow",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "up",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Home"
+    ]
+   },
+   {
+    "snapshot": "home",
+    "quiet": 120
+   },
+   {
+    "paste": "pp "
+   },
+   {
+    "snapshot": "pasted",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo-op",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo-op",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^_"
+    ]
+   },
+   {
+    "text": "1"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "end1",
+    "quiet": 120
+   },
+   {
+    "text": " zz"
+   },
+   {
+    "snapshot": "accepted-wrap",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo-accepted",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo-accepted",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "sleep": 150
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 200
+   },
+   {
+    "capture_file": "work/f.txt"
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "hex": "7070206161612062626220200a7a7a0a6363632020656565206464640a"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "first-wrap",
+     "cursor": {
+      "x": 3,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "overflow",
+     "cursor": {
+      "x": 3,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "up",
+     "cursor": {
+      "x": 3,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "home",
+     "cursor": {
+      "x": 0,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "pasted",
+     "cursor": {
+      "x": 3,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "pasted",
+     "row": 1,
+     "equals": "pp aaa bbb"
+    },
+    {
+     "snapshot": "pasted",
+     "row": 2,
+     "equals": "ccc  eee ddd"
+    },
+    {
+     "snapshot": "undo-op",
+     "cursor": {
+      "x": 0,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "redo-op",
+     "cursor": {
+      "x": 3,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "redo-op",
+     "row": 1,
+     "equals": "pp aaa bbb"
+    },
+    {
+     "snapshot": "redo-op",
+     "row": 2,
+     "equals": "ccc  eee ddd"
+    },
+    {
+     "snapshot": "redo-op",
+     "row": 21,
+     "equals": "                               [ Redid addition ]"
+    },
+    {
+     "snapshot": "end1",
+     "cursor": {
+      "x": 11,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "accepted-wrap",
+     "cursor": {
+      "x": 2,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "accepted-wrap",
+     "row": 1,
+     "equals": "pp aaa bbb"
+    },
+    {
+     "snapshot": "accepted-wrap",
+     "row": 2,
+     "equals": "zz"
+    },
+    {
+     "snapshot": "accepted-wrap",
+     "row": 3,
+     "equals": "ccc  eee ddd"
+    },
+    {
+     "snapshot": "undo-accepted",
+     "cursor": {
+      "x": 11,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "redo-accepted",
+     "cursor": {
+      "x": 2,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 2,
+      "y": 2,
+      "visible": true
+     }
+    }
+   ]
+  },
+  "note": "Claude regression proposal; oracle-derived expectations preserved. P2-02 steps unchanged, plus snapshots after each action | proposal from MIN-PASTE-00-ORIG-SNAPS; expectations from pinned nano run runs/min-paste/ref"
+ },
+ {
+  "id": "TEST-NEXT-RELEASE-MOVE-01-SOFT-REBASE",
+  "args": [
+   "-I",
+   "-S",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "73686f72740a6162636465666768696a6b6c6d6e6f707172737475767778797a303132330a73686f72740a"
+   }
+  },
+  "cols": 20,
+  "rows": 8,
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "end-long",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "up-short",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "down-long",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "down-chunk2",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "down-short3",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "screen": [
+    {
+     "snapshot": "end-long",
+     "cursor": {
+      "x": 19,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "up-short",
+     "cursor": {
+      "x": 5,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "down-long",
+     "cursor": {
+      "x": 19,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "down-chunk2",
+     "cursor": {
+      "x": 10,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "down-short3",
+     "cursor": {
+      "x": 5,
+      "y": 4,
+      "visible": true
+     }
+    }
+   ]
+  },
+  "note": "Claude regression proposal; oracle-derived expectations preserved. End on 2nd chunk (col 30), Up to a 5-col line, Down: nano re-bases placewewant | proposal from MIN-MOVE-01-SOFT-REBASE; expectations from pinned nano run runs/min-move/ref"
+ },
+ {
+  "id": "TEST-NEXT-RELEASE-MOVE-02-SOFT-TOPROW",
+  "args": [
+   "-I",
+   "-S",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "6162636465666768696a6b6c6d6e6f707172737475767778797a303132330a6162636465666768696a6b6c6d6e6f707172737475767778797a303132330a"
+   }
+  },
+  "cols": 20,
+  "rows": 8,
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "end",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "up1",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "up2",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "up3",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "down1",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "screen": [
+    {
+     "snapshot": "end",
+     "cursor": {
+      "x": 10,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "up1",
+     "cursor": {
+      "x": 10,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "up2",
+     "cursor": {
+      "x": 10,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "up3",
+     "cursor": {
+      "x": 10,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "down1",
+     "cursor": {
+      "x": 10,
+      "y": 2,
+      "visible": true
+     }
+    }
+   ]
+  },
+  "note": "Claude regression proposal; oracle-derived expectations preserved. two 30-col lines, up from end of second | proposal from MIN-MOVE-04-SOFT-LONG-LONG; expectations from pinned nano run runs/min-move/ref"
+ },
+ {
+  "id": "TEST-NEXT-RELEASE-MOVE-03-SOFT-TAB4",
+  "args": [
+   "-I",
+   "-S",
+   "-T",
+   "4",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "726f77333809616c70686120626574612067616d6d612064656c74610a726f77333909616c70686120626574612067616d6d610a"
+   }
+  },
+  "cols": 20,
+  "rows": 8,
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "end",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "down",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "up",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "right-up",
+    "quiet": 120
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "screen": [
+    {
+     "snapshot": "end",
+     "cursor": {
+      "x": 19,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "down",
+     "cursor": {
+      "x": 10,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "up",
+     "cursor": {
+      "x": 19,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "right-up",
+     "cursor": {
+      "x": 0,
+      "y": 1,
+      "visible": true
+     }
+    }
+   ]
+  },
+  "note": "Claude regression proposal; oracle-derived expectations preserved. proposal from MIN-MOVE-05-SOFT-TAB4; expectations from pinned nano run runs/min-move/ref"
+ },
+ {
+  "id": "TEST-NEXT-RELEASE-VIEW-01-WIDEN-TOP",
+  "args": [
+   "-I",
+   "-S",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "726f773031206162636465666768696a6b6c6d0a726f773032206162636465666768696a6b6c6d0a726f773033206162636465666768696a6b6c6d0a726f773034206162636465666768696a6b6c6d0a726f773035206162636465666768696a6b6c6d0a726f773036206162636465666768696a6b6c6d0a726f773037206162636465666768696a6b6c6d0a726f773038206162636465666768696a6b6c6d0a726f773039206162636465666768696a6b6c6d0a726f773130206162636465666768696a6b6c6d0a726f773131206162636465666768696a6b6c6d0a726f773132206162636465666768696a6b6c6d0a726f773133206162636465666768696a6b6c6d0a726f773134206162636465666768696a6b6c6d0a726f773135206162636465666768696a6b6c6d0a726f773136206162636465666768696a6b6c6d0a726f773137206162636465666768696a6b6c6d0a726f773138206162636465666768696a6b6c6d0a726f773139206162636465666768696a6b6c6d0a726f773230206162636465666768696a6b6c6d0a726f773231206162636465666768696a6b6c6d0a726f773232206162636465666768696a6b6c6d0a726f773233206162636465666768696a6b6c6d0a726f773234206162636465666768696a6b6c6d0a726f773235206162636465666768696a6b6c6d0a726f773236206162636465666768696a6b6c6d0a726f773237206162636465666768696a6b6c6d0a726f773238206162636465666768696a6b6c6d0a726f773239206162636465666768696a6b6c6d0a726f773330206162636465666768696a6b6c6d0a726f773331206162636465666768696a6b6c6d0a726f773332206162636465666768696a6b6c6d0a726f773333206162636465666768696a6b6c6d0a726f773334206162636465666768696a6b6c6d0a726f773335206162636465666768696a6b6c6d0a726f773336206162636465666768696a6b6c6d0a726f773337206162636465666768696a6b6c6d0a726f773338206162636465666768696a6b6c6d0a726f773339206162636465666768696a6b6c6d0a726f773430206162636465666768696a6b6c6d0a"
+   }
+  },
+  "cols": 16,
+  "rows": 10,
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "keys": [
+     "^_"
+    ]
+   },
+   {
+    "text": "20"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "snapshot": "narrow",
+    "quiet": 150
+   },
+   {
+    "resize": [
+     24,
+     10
+    ]
+   },
+   {
+    "settle": 150
+   },
+   {
+    "snapshot": "wide",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "screen": [
+    {
+     "snapshot": "narrow",
+     "cursor": {
+      "x": 0,
+      "y": 4,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "wide",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "wide",
+     "row": 1,
+     "equals": "row18 abcdefghijklm"
+    },
+    {
+     "snapshot": "wide",
+     "row": 2,
+     "equals": "row19 abcdefghijklm"
+    },
+    {
+     "snapshot": "wide",
+     "row": 3,
+     "equals": "row20 abcdefghijklm"
+    }
+   ]
+  },
+  "note": "Claude regression proposal; oracle-derived expectations preserved. lines above top shrink 2->1 chunks on widening | proposal from MIN-VIEW-06-WIDEN-CHUNKS-MERGE; expectations from pinned nano run runs/min-view2/ref"
+ },
+ {
+  "id": "TEST-NEXT-RELEASE-GUTTER-01-CONTINUATION",
+  "args": [
+   "-I",
+   "-l",
+   "-S",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "hex": "73686f72740a6162636465666768696a6b6c6d6e6f707172737475767778797a6162636465666768696a6b6c6d6e6f7071727374757677780a656e640a"
+   }
+  },
+  "cols": 20,
+  "rows": 8,
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "snapshot": "start",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^L"
+    ]
+   },
+   {
+    "snapshot": "after-ctrl-l",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^L"
+    ]
+   },
+   {
+    "snapshot": "after-ctrl-l-2",
+    "quiet": 400
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "screen": [
+    {
+     "snapshot": "start",
+     "cursor": {
+      "x": 3,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "start",
+     "attr_at": [
+      1,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "start",
+     "attr_at": [
+      1,
+      1,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "start",
+     "attr_at": [
+      2,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "start",
+     "attr_at": [
+      2,
+      1,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "start",
+     "attr_at": [
+      3,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "start",
+     "attr_at": [
+      3,
+      1,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "start",
+     "attr_at": [
+      4,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "start",
+     "attr_at": [
+      4,
+      1,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "start",
+     "attr_at": [
+      6,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "start",
+     "attr_at": [
+      6,
+      1,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "start",
+     "attr_at": [
+      7,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "start",
+     "attr_at": [
+      7,
+      1,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "after-ctrl-l",
+     "cursor": {
+      "x": 3,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "after-ctrl-l",
+     "attr_at": [
+      1,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "after-ctrl-l",
+     "attr_at": [
+      1,
+      1,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "after-ctrl-l",
+     "attr_at": [
+      2,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "after-ctrl-l",
+     "attr_at": [
+      2,
+      1,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "after-ctrl-l",
+     "attr_at": [
+      3,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "after-ctrl-l",
+     "attr_at": [
+      3,
+      1,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "after-ctrl-l",
+     "attr_at": [
+      4,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "after-ctrl-l",
+     "attr_at": [
+      4,
+      1,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "after-ctrl-l",
+     "attr_at": [
+      6,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "after-ctrl-l",
+     "attr_at": [
+      6,
+      1,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "after-ctrl-l",
+     "attr_at": [
+      7,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "after-ctrl-l",
+     "attr_at": [
+      7,
+      1,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "after-ctrl-l-2",
+     "cursor": {
+      "x": 3,
+      "y": 1,
+      "visible": true
+     }
+    }
+   ]
+  },
+  "note": "Claude regression proposal; oracle-derived expectations preserved. continuation rows of a 3-chunk line; fixed size; explicit redraws | proposal from MIN-GUTTER-01-FIXED; expectations from pinned nano run runs/min-view/ref"
+ },
+ {
+  "id": "TEST-NEXT-RELEASE-REPL-01-ONE",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "top\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "keys": [
+     "^\\"
+    ]
+   },
+   {
+    "sleep": 150
+   },
+   {
+    "text": "top"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "sleep": 150
+   },
+   {
+    "text": "TOP"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "sleep": 250
+   },
+   {
+    "text": "y"
+   },
+   {
+    "sleep": 250
+   },
+   {
+    "snapshot": "replaced",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "screen": [
+    {
+     "snapshot": "undo",
+     "cursor": {
+      "x": 0,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "redo",
+     "cursor": {
+      "x": 0,
+      "y": 1,
+      "visible": true
+     }
+    }
+   ]
+  },
+  "note": ""
+ },
+ {
+  "id": "TEST-NEXT-RELEASE-REPL-02-MIDLINE",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "ab top cd\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "keys": [
+     "^\\"
+    ]
+   },
+   {
+    "sleep": 150
+   },
+   {
+    "text": "top"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "sleep": 150
+   },
+   {
+    "text": "TOPPER"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "sleep": 250
+   },
+   {
+    "text": "y"
+   },
+   {
+    "sleep": 250
+   },
+   {
+    "snapshot": "replaced",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "screen": [
+    {
+     "snapshot": "undo",
+     "cursor": {
+      "x": 3,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "redo",
+     "cursor": {
+      "x": 3,
+      "y": 1,
+      "visible": true
+     }
+    }
+   ]
+  },
+  "note": ""
+ },
+ {
+  "id": "TEST-NEXT-RELEASE-REPL-03-ALL-TWO-LINES",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x top\ny top\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "keys": [
+     "^\\"
+    ]
+   },
+   {
+    "sleep": 150
+   },
+   {
+    "text": "top"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "sleep": 150
+   },
+   {
+    "text": "Q"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "sleep": 250
+   },
+   {
+    "text": "a"
+   },
+   {
+    "sleep": 250
+   },
+   {
+    "snapshot": "replaced",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo1",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-U"
+    ]
+   },
+   {
+    "snapshot": "undo2",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo1",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "M-E"
+    ]
+   },
+   {
+    "snapshot": "redo2",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "screen": [
+    {
+     "snapshot": "undo1",
+     "cursor": {
+      "x": 2,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "undo2",
+     "cursor": {
+      "x": 2,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "redo1",
+     "cursor": {
+      "x": 2,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "redo2",
+     "cursor": {
+      "x": 2,
+      "y": 2,
+      "visible": true
+     }
+    }
+   ]
+  },
+  "note": ""
+ },
+ {
+  "id": "TEST-NEXT-RELEASE-RC-01-RELATIVE-PATH",
+  "args": [
+   "--rcfile=../home/bad.rc",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   },
+   "home/bad.rc": {
+    "text": "bogus\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "snapshot": "start",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "stderr_contains": "Error in /",
+   "screen": [
+    {
+     "snapshot": "start",
+     "row": 21,
+     "not_contains": "../home/bad.rc"
+    }
+   ]
+  },
+  "note": "error message names the rcfile; nano canonicalizes with get_full_path"
+ },
+ {
+  "id": "TEST-NEXT-RELEASE-RC-02-ABS-CONTROL",
+  "args": [
+   "--rcfile=../home/bad.rc",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "x\n"
+   },
+   "home/bad.rc": {
+    "text": "set tabsize 4\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "snapshot": "start",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 120
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true
+  },
+  "note": "valid rcfile control (no message)"
+ },
+ {
+  "id": "TEST-NEXT-RELEASE-TAB-BOUNDARY-10-8",
+  "cols": 10,
+  "rows": 10,
+  "args": [
+   "-I",
+   "-S",
+   "-T",
+   "8",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abcdefgh\tijklmnop\nabc\tdefghijklmnop\nend\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "move0",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "move1",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "move2",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "move3",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "move4",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "move5",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "move6",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "move7",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "move8",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "screen": [
+    {
+     "snapshot": "move0",
+     "cursor": {
+      "x": 8,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move1",
+     "cursor": {
+      "x": 9,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move2",
+     "cursor": {
+      "x": 4,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move3",
+     "cursor": {
+      "x": 9,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move4",
+     "cursor": {
+      "x": 8,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move5",
+     "cursor": {
+      "x": 6,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move6",
+     "cursor": {
+      "x": 4,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move7",
+     "cursor": {
+      "x": 6,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move8",
+     "cursor": {
+      "x": 6,
+      "y": 1,
+      "visible": true
+     }
+    }
+   ]
+  },
+  "note": "End retains the desired chunk edge inside a tab; subsequent vertical moves match the oracle."
+ },
+ {
+  "id": "TEST-NEXT-RELEASE-TAB-BOUNDARY-12-8",
+  "cols": 12,
+  "rows": 10,
+  "args": [
+   "-I",
+   "-S",
+   "-T",
+   "8",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abcdefgh\tijklmnop\nabc\tdefghijklmnop\nend\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "move0",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "move1",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "move2",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "move3",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "move4",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "move5",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "move6",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "move7",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "move8",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "screen": [
+    {
+     "snapshot": "move0",
+     "cursor": {
+      "x": 8,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move1",
+     "cursor": {
+      "x": 11,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move2",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move3",
+     "cursor": {
+      "x": 11,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move4",
+     "cursor": {
+      "x": 8,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move5",
+     "cursor": {
+      "x": 4,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move6",
+     "cursor": {
+      "x": 0,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move7",
+     "cursor": {
+      "x": 4,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move8",
+     "cursor": {
+      "x": 4,
+      "y": 1,
+      "visible": true
+     }
+    }
+   ]
+  },
+  "note": "End retains the desired chunk edge inside a tab; subsequent vertical moves match the oracle."
+ },
+ {
+  "id": "TEST-NEXT-RELEASE-TAB-BOUNDARY-10-16",
+  "cols": 10,
+  "rows": 10,
+  "args": [
+   "-I",
+   "-S",
+   "-T",
+   "16",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "abcdefgh\tijklmnop\nabc\tdefghijklmnop\nend\n"
+   }
+  },
+  "steps": [
+   {
+    "settle": 250
+   },
+   {
+    "keys": [
+     "End"
+    ]
+   },
+   {
+    "snapshot": "move0",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "move1",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "move2",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "move3",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "move4",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Right"
+    ]
+   },
+   {
+    "snapshot": "move5",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Down"
+    ]
+   },
+   {
+    "snapshot": "move6",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "move7",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "Up"
+    ]
+   },
+   {
+    "snapshot": "move8",
+    "quiet": 150
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "screen": [
+    {
+     "snapshot": "move0",
+     "cursor": {
+      "x": 8,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move1",
+     "cursor": {
+      "x": 9,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move2",
+     "cursor": {
+      "x": 4,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move3",
+     "cursor": {
+      "x": 9,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move4",
+     "cursor": {
+      "x": 8,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move5",
+     "cursor": {
+      "x": 6,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move6",
+     "cursor": {
+      "x": 4,
+      "y": 3,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move7",
+     "cursor": {
+      "x": 6,
+      "y": 2,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "move8",
+     "cursor": {
+      "x": 6,
+      "y": 1,
+      "visible": true
+     }
+    }
+   ]
+  },
+  "note": "End retains the desired chunk edge inside a tab; subsequent vertical moves match the oracle."
+ }
+]

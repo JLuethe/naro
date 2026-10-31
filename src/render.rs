@@ -583,6 +583,16 @@ fn edit(ed: &mut Editor, canvas: &mut Canvas, l: Layout) -> (usize, usize, bool)
     let rows = visual_rows(ed.b(), c, l.width);
     let cursor = visual_cursor(ed.b(), c, &rows);
     let mut top = ed.b().top.min(rows.len() - 1);
+    if c.on(SOFTWRAP) && ed.b().viewport_width != 0 && ed.b().viewport_width != l.width {
+        // Retain the top logical line and align its old chunk column to the
+        // new geometry; a flat row index changes meaning when lines reflow.
+        let previous = visual_rows(ed.b(), c, ed.b().viewport_width);
+        let anchor = &previous[ed.b().top.min(previous.len() - 1)];
+        top = rows
+            .iter()
+            .rposition(|r| r.line == anchor.line && r.from <= anchor.from)
+            .unwrap_or(top);
+    }
     if cursor < top {
         top = if c.on(JUMPY_SCROLLING) {
             cursor.saturating_sub(l.edit_rows / 2)
@@ -631,8 +641,12 @@ fn edit(ed: &mut Editor, canvas: &mut Canvas, l: Layout) -> (usize, usize, bool)
     for row in 0..l.edit_rows {
         if let Some(v) = rows.get(top + row) {
             let s = &ed.b().state.lines[v.line];
-            if l.margin > 0 && v.from == 0 {
-                let number = format!("{:>width$}", v.line + 1, width = l.margin - 1);
+            if l.margin > 0 {
+                let number = if v.from == 0 {
+                    format!("{:>width$}", v.line + 1, width = l.margin - 1)
+                } else {
+                    " ".repeat(l.margin - 1)
+                };
                 canvas.text(
                     l.top + row,
                     0,
@@ -640,7 +654,7 @@ fn edit(ed: &mut Editor, canvas: &mut Canvas, l: Layout) -> (usize, usize, bool)
                     c.style("numbercolor"),
                     l.margin - 1,
                 );
-                if ed.b().state.anchors[v.line] {
+                if v.from == 0 && ed.b().state.anchors[v.line] {
                     canvas.text(
                         l.top + row,
                         l.margin - 1,
@@ -790,6 +804,7 @@ fn edit(ed: &mut Editor, canvas: &mut Canvas, l: Layout) -> (usize, usize, bool)
         ed.spotlight.is_none() || c.on(SHOW_CURSOR),
     );
     ed.bm().top = top;
+    ed.bm().viewport_width = l.width;
     ed.bm().brink = brink;
     result
 }

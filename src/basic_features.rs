@@ -21,13 +21,45 @@ impl Editor {
         let rows = render::visual_rows(self.b(), &self.conf, l.width);
         let row = render::visual_cursor(self.b(), &self.conf, &rows);
         let target = row.saturating_add_signed(delta).min(rows.len() - 1);
-        let col = self.b().preferred.saturating_sub(rows[row].from);
-        let v = &rows[target];
-        let x = e.actual(
-            &self.b().state.lines[v.line],
-            (v.from + col).min(v.to.saturating_sub(usize::from(v.to > v.from))),
-        );
-        self.bm().state.pos = Pos { line: v.line, x };
+        if target == row {
+            return;
+        }
+        // Preserve the desired column within a chunk, then rebase it onto
+        // the destination chunk. A short final chunk permits its end-of-line.
+        let col = (self.b().preferred % l.width + l.width - rows[row].from % l.width) % l.width;
+        let line = rows[target].line;
+        let text = &self.b().state.lines[line];
+        let proper_x = |index: usize| {
+            let v = &rows[index];
+            let last = index + 1 == rows.len() || rows[index + 1].line != line;
+            let column = (v.from + col).min(v.to.saturating_sub(usize::from(!last)));
+            let mut x = e.actual(text, column);
+            // A tab spanning a chunk boundary can otherwise send the cursor
+            // back a row when moving down, or skip a row when moving up.
+            let shifted = text.get(x) == Some(&b'\t')
+                && if delta > 0 {
+                    e.column(text, x) < v.from
+                } else {
+                    v.from > 0
+                        && column / e.tab == (v.from - 1) / e.tab
+                        && column / e.tab < (v.from + l.width - 1) / e.tab
+                };
+            if shifted {
+                x += 1;
+            }
+            let actual_col = e.column(text, x);
+            let actual_row = rows
+                .iter()
+                .rposition(|r| r.line == line && r.from <= actual_col)
+                .unwrap_or(index);
+            (x, actual_row, shifted)
+        };
+        let (mut x, mut actual_row, shifted) = proper_x(target);
+        if shifted || rows[actual_row].from < rows[target].from {
+            (x, actual_row, _) = proper_x(actual_row);
+        }
+        self.bm().state.pos = Pos { line, x };
+        self.bm().preferred = rows[actual_row].from + col;
     }
     pub fn page(&mut self, down: bool) {
         let l = render::layout(self);

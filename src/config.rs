@@ -462,10 +462,10 @@ impl Config {
             return;
         }
         if let Some(p) = self.rc.clone() {
-            if !p.exists() {
+            let Ok(p) = std::fs::canonicalize(expand(p.as_os_str().as_bytes())) else {
                 self.errors.push("Specified rcfile does not exist".into());
                 return;
-            }
+            };
             self.read_rc(&p, false);
             return;
         }

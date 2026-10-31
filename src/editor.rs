@@ -673,7 +673,11 @@ impl Editor {
                 Mode::Edit => {
                     if self.can_change() {
                         let no = self.conf.on(NO_NEWLINES);
+                        let line = self.b().pos().line;
                         self.bm().insert(&raw, "paste", false, no);
+                        if !raw.is_empty() && self.b().pos().line == line {
+                            self.hard_wrap();
+                        }
                         if ok {
                             self.clear();
                         }
@@ -1013,20 +1017,27 @@ impl Editor {
                 let rows = render::visual_rows(self.b(), &self.conf, l.width);
                 let row = render::visual_cursor(self.b(), &self.conf, &rows);
                 let v = &rows[row];
-                let target = if self.conf.on(SOFTWRAP)
+                let column = if self.conf.on(SOFTWRAP)
                     && row + 1 < rows.len()
                     && rows[row + 1].line == v.line
                 {
-                    e.actual(self.b().line(), v.to.saturating_sub(1))
+                    v.to.saturating_sub(1)
                 } else {
-                    self.b().line().len()
+                    e.breadth(self.b().line())
                 };
-                self.bm().state.pos.x = if self.b().pos().x == target {
+                let target = e.actual(self.b().line(), column);
+                let at_edge = self.b().pos().x == target;
+                self.bm().state.pos.x = if at_edge {
                     self.b().line().len()
                 } else {
                     target
                 };
                 self.preferred();
+                if self.conf.on(SOFTWRAP) && !at_edge {
+                    // End can land on a tab before the chunk's right edge.
+                    // Keep the desired edge column for the next vertical move.
+                    self.bm().preferred = column;
+                }
             }
             "to_prev_word" | "to_next_word" => {
                 let p = self.b().word_target(

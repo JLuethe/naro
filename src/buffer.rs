@@ -78,6 +78,8 @@ pub struct Buffer {
     pub dos: bool,
     pub preferred: usize,
     pub top: usize,
+    /// Width used to interpret the visual-row index in `top` at the last draw.
+    pub viewport_width: usize,
     pub firstcol: usize,
     pub brink: usize,
     pub softmark: bool,
@@ -116,6 +118,7 @@ impl Buffer {
             dos: false,
             preferred: 0,
             top: 0,
+            viewport_width: 0,
             firstcol: 0,
             brink: 0,
             softmark: false,

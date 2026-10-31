@@ -1,0 +1,127 @@
+{
+  "scope": "Local Codex repair of six Claude findings plus End/tab desired-column boundary; no release publication",
+  "evidence_root": "/home/john/Code/naro/target/naro-test-runs/codex-claude-x1n2fz12",
+  "candidate_sha256": "cb8e5566abeae2e18b2cb38ea5f67fc77e20aa197eb9fee00a971b691d2cdad2",
+  "candidate_build": {
+    "version": "0.1.0",
+    "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+    "source_sha256": "735264926d90c259fdaeb662c1c9c6e08a44a479110e60593460aeda4efd024c",
+    "revision": "56d2cc2d44b89bc0606f378e7f32fc6adef5a205",
+    "features": "",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "source_state": "Built at revision 56d2cc2 with reviewed working-tree fixes before the source-delivery commit; production.patch retained with evidence",
+  "reference_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+  "reports": {
+    "release-fixes": {
+      "summary": {
+        "recorded": 15,
+        "matches": 15,
+        "accepted": 15
+      },
+      "path": "final-release-fixes/report.json",
+      "sha256": "f58ed1f3e65e180b6862d6171aabf21ecbc10cda398e15b49f46c57458be21b5"
+    },
+    "wrap-undo": {
+      "summary": {
+        "recorded": 58,
+        "matches": 58,
+        "accepted": 58
+      },
+      "path": "final-wrap-undo/report.json",
+      "sha256": "1eb6fed84223d403792639ad2d22c8b5453bea8bba85233fe69cccde0a8b5ec4"
+    },
+    "filter": {
+      "summary": {
+        "recorded": 6,
+        "matches": 6,
+        "accepted": 6
+      },
+      "path": "final-filter/report.json",
+      "sha256": "a895e536133c6a0209140a8556e235c5d1a04f861ae54ee4b16a15a8e10ae834"
+    },
+    "edges": {
+      "summary": {
+        "recorded": 13,
+        "matches": 13,
+        "accepted": 13
+      },
+      "path": "final-edges/report.json",
+      "sha256": "27252f34aedb1d08016c66a6aad2a1a12ab6ea60c46fec14f8bd77913438231a"
+    },
+    "tools": {
+      "summary": {
+        "recorded": 20,
+        "matches": 20,
+        "accepted": 20
+      },
+      "path": "final-tools/report.json",
+      "sha256": "4abe76630cd32d3663e9c5daac890d54e3ad3b2904b736ef30721d7c766f448d"
+    },
+    "supplement": {
+      "summary": {
+        "recorded": 3,
+        "matches": 3,
+        "accepted": 3
+      },
+      "path": "final-supplement/report.json",
+      "sha256": "aa458ebdf2cf8b92e02119cf4b23e55da6c38728963401876e03e1196d3cacdc"
+    },
+    "broader-final": {
+      "summary": {
+        "count": 86,
+        "matches": 86
+      },
+      "path": "broader-final/report.json",
+      "reused_oracle": "/home/john/Code/naro/target/naro-test-runs/codex-claude-x1n2fz12/broader-after",
+      "sha256": "38595acde2947100c9f798e1ff3ec9eb649f17c66601785651969019898d0ca7"
+    },
+    "asan-final-v2": {
+      "summary": {
+        "count": 86,
+        "matches": 86
+      },
+      "path": "asan-final-v2/report.json",
+      "reused_oracle": "/home/john/Code/naro/target/naro-test-runs/codex-claude-x1n2fz12/broader-after",
+      "sha256": "e376848aadd762fb5045a52a29bd530f0a108cd348bd225ca8e7bb9bd4bd078f"
+    },
+    "baseline": {
+      "summary": {
+        "recorded": 303,
+        "full_matches": 301,
+        "files_matches": 302,
+        "skipped": 6
+      },
+      "worker_statuses": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "path": "baseline-v2/report.json",
+      "sha256": "5e8ab4760e0a6133121a8c1f184f7b1e2d8db2b6d61fd8df3fdfced38fd265e5"
+    }
+  },
+  "cli": {
+    "compared": 38,
+    "matches": 38,
+    "skipped": 8
+  },
+  "regex_cases": 162,
+  "rust_tests": {
+    "default_debug": 9,
+    "default_release": 9,
+    "tiny_release": 5,
+    "all_features_debug": 5
+  },
+  "python_tests": 88,
+  "lint_and_format": "default/all-features Clippy warnings denied and fmt pass",
+  "asan_scope": "Nightly Rust and native bridge instrumented; external native libraries not rebuilt",
+  "remaining": [
+    "portable package and console/VT qualification for final release",
+    "physical keyboard and other-platform scope",
+    "remaining coverage combinations in Claude report; three tab-spanning probes now covered",
+    "nine pre-existing unresolved spec audit citations"
+  ],
+  "note": "Compact summary; complete ignored local artifacts are needed to recheck evidence. Hashes are integrity identifiers, not signatures."
+}

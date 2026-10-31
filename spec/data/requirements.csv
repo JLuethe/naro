@@ -65,7 +65,7 @@ INPUT-005,03-terminal-input.md,nano's own escape-sequence tables,TEST-INPUT-012 
 INPUT-006,03-terminal-input.md,Decimal byte entry (Esc Esc + three digits),TEST-INPUT-003 TEST-INPUT-004,baseline
 INPUT-007,03-terminal-input.md,Final mapping,TEST-INPUT-007,baseline
 INPUT-008,03-terminal-input.md,Verbatim input (`M-V`),TEST-INPUT-006,baseline
-INPUT-009,03-terminal-input.md,Bracketed paste,TEST-INPUT-005 TEST-INPUT-011,baseline
+INPUT-009,03-terminal-input.md,Bracketed paste,TEST-INPUT-005 TEST-INPUT-011 TEST-NEXT-RELEASE-PASTE-01-BRACKETED-WRAP TEST-NEXT-RELEASE-PASTE-02-P2-02-FULL,baseline
 INPUT-010,03-terminal-input.md,Mouse,TEST-INPUT-009,baseline
 INPUT-011,03-terminal-input.md,Window resize as an input event,TEST-INPUT-010,baseline
 INPUT-012,03-terminal-input.md,Cancelling long operations with ^C,,baseline
@@ -80,10 +80,10 @@ REND-006,04-rendering.md,Yes/No question layout,,baseline
 REND-020,04-rendering.md,Converting a line to cells,TEST-REND-001 TEST-REND-005,baseline
 REND-021,04-rendering.md,`^@` versus `^J`,,baseline
 REND-022,04-rendering.md,Horizontal scrolling (no soft wrap),TEST-REND-001 TEST-REND-002,baseline
-REND-023,04-rendering.md,Soft wrapping (`-S`),TEST-REND-003 TEST-REND-004,baseline
+REND-023,04-rendering.md,Soft wrapping (`-S`),TEST-NEXT-RELEASE-MOVE-01-SOFT-REBASE TEST-NEXT-RELEASE-MOVE-02-SOFT-TOPROW TEST-NEXT-RELEASE-MOVE-03-SOFT-TAB4 TEST-NEXT-RELEASE-TAB-BOUNDARY-10-16 TEST-NEXT-RELEASE-TAB-BOUNDARY-10-8 TEST-NEXT-RELEASE-TAB-BOUNDARY-12-8 TEST-REND-003 TEST-REND-004,baseline
 REND-024,04-rendering.md,Whitespace display (`M-P`),TEST-REND-006,baseline
 REND-025,04-rendering.md,Byte Order Mark notice,,baseline
-REND-030,04-rendering.md,"Line numbers (`-l`, `M-N`)",TEST-CLI-043 TEST-REND-007,baseline
+REND-030,04-rendering.md,"Line numbers (`-l`, `M-N`)",TEST-CLI-043 TEST-NEXT-RELEASE-GUTTER-01-CONTINUATION TEST-REND-007,baseline
 REND-031,04-rendering.md,"Indicator (""scroll bar"", `-q`)",TEST-CLI-044 TEST-REND-008,baseline
 REND-032,04-rendering.md,Guide stripe (`-J N`),TEST-CLI-045 TEST-REND-021,baseline
 REND-033,04-rendering.md,Selected text,TEST-REND-020,baseline
@@ -95,7 +95,7 @@ REND-050,04-rendering.md,Interface attributes,TEST-CLI-046 TEST-REND-013 TEST-RE
 REND-060,04-rendering.md,Importance and priority,TEST-CLI-008 TEST-REND-013,baseline
 REND-061,04-rendering.md,Warnings with pause,,baseline
 REND-070,04-rendering.md,Small sizes,TEST-REND-014 TEST-REND-015 TEST-REND-016 TEST-REND-018,baseline
-REND-071,04-rendering.md,Resize,TEST-CLI-043 TEST-CLI-046 TEST-INPUT-010 TEST-REND-001 TEST-REND-007 TEST-REND-014 TEST-REND-022,baseline
+REND-071,04-rendering.md,Resize,TEST-CLI-043 TEST-CLI-046 TEST-INPUT-010 TEST-NEXT-RELEASE-VIEW-01-WIDEN-TOP TEST-REND-001 TEST-REND-007 TEST-REND-014 TEST-REND-022,baseline
 EDIT-001,05-buffer-and-editing.md,Buffer state,TEST-EDIT-001,baseline
 EDIT-002,05-buffer-and-editing.md,Global (cross-buffer) state,,baseline
 EDIT-003,05-buffer-and-editing.md,Modified flag,,baseline
@@ -134,7 +134,7 @@ EDIT-072,05-buffer-and-editing.md,"Go to line/column (`^/`, `^_`, `M-G`)",TEST-B
 UNDO-001,06-undo-redo.md,Per-buffer history,,baseline
 UNDO-002,06-undo-redo.md,New edits discard redo,TEST-UNDO-004,baseline
 UNDO-003,06-undo-redo.md,Grouping,TEST-EDIT-025 TEST-INPUT-005 TEST-UNDO-001 TEST-UNDO-002,baseline
-UNDO-004,06-undo-redo.md,Item contents (normative effect),TEST-UNDO-001,baseline
+UNDO-004,06-undo-redo.md,Item contents (normative effect),TEST-NEXT-RELEASE-REPL-01-ONE TEST-NEXT-RELEASE-REPL-02-MIDLINE TEST-NEXT-RELEASE-REPL-03-ALL-TWO-LINES TEST-UNDO-001,baseline
 UNDO-005,06-undo-redo.md,Messages and side effects,TEST-UNDO-001,baseline
 UNDO-006,06-undo-redo.md,Saved state,TEST-UNDO-001 TEST-UNDO-003,baseline
 UNDO-007,06-undo-redo.md,Backspace at the start of the magic line (quirk),TEST-UNDO-009,baseline
@@ -175,7 +175,7 @@ BROWSE-004,09-file-browser.md,Searching names,TEST-BROWSE-001,baseline
 BROWSE-005,09-file-browser.md,Choosing (Enter),TEST-BROWSE-001 TEST-BROWSE-002 TEST-BROWSE-003,baseline
 BROWSE-006,09-file-browser.md,Go to directory,TEST-BROWSE-002,baseline
 BROWSE-007,09-file-browser.md,Mouse,TEST-BROWSE-001,baseline
-RC-LOOKUP,10-nanorc.md,Which files are read,TEST-CLI-051 TEST-RC-001,baseline
+RC-LOOKUP,10-nanorc.md,Which files are read,TEST-CLI-051 TEST-NEXT-RELEASE-RC-01-RELATIVE-PATH TEST-NEXT-RELEASE-RC-02-ABS-CONTROL TEST-RC-001,baseline
 RC-LINE,10-nanorc.md,Line grammar,TEST-RC-004,baseline
 RC-SET,10-nanorc.md,`set` and `unset`,TEST-RC-004 TEST-RC-010,baseline
 RC-COLOR,10-nanorc.md,Color specifications,TEST-RC-004,baseline

@@ -1,4 +1,86 @@
-# NARO development progress — Codex Pi-review cycle
+# NARO development progress
+
+## Claude-review fixes — 2026-10-30/31
+
+Claude's independent report is retained at
+`target/naro-test-runs/claude-zSR4qq/CLAUDE_TEST_REPORT.md`.
+Codex reproduced the seven proposed failures and expanded them to a permanent
+initial 12-case suite: seven original cases, three replacement-history cases, one
+relative rcfile error and one valid-rc control. Before fixes, 11 differ and the
+valid-rc control matches; afterward, 12/12 match with both harnesses and all
+assertions passing. Oracle expectations were preserved, not weakened.
+
+Six causes were repaired:
+
+- Bracketed paste attempts hard wrap after insertion if the cursor remains on
+  the original line, matching the ordinary paste path. Multiline paste skips
+  the attempt; the existing compound wrap history supplies the undo/redo names.
+- Soft-wrap vertical movement permits the final chunk's end-of-line position,
+  rebases the desired column, preserves position on impossible boundary moves,
+  and adjusts byte indices when a tab crosses a chunk boundary.
+  Three additional probes isolated a related End defect: it discarded the
+  desired right-edge column when the actual cursor landed on a tab. That is
+  also fixed, with three further permanent oracle-asserted regressions, bringing
+  the suite to 15 cases.
+- A width change remaps the old viewport top through its logical line and chunk
+  column before normal cursor visibility adjustment.
+- Continuation rows paint the blank line-number field using the number style.
+- Replacement history stores the match head as both undo and redo cursor;
+  the live replacement/search cursor is unchanged.
+- Explicit rcfiles are expanded and canonicalized before reading, so diagnostics
+  name the canonical absolute path.
+
+Permanent scenarios: `tests/follow-up/scenarios/release-fixes.json`.
+CI runs their assertions on the default executable. Specs 03/04/06/10 and the
+generated requirements index now cite the measured cases. The specification
+audit passes, retaining the nine previously unresolved citations.
+
+Codex evidence is durable under `target/naro-test-runs/codex-claude-x1n2fz12/`.
+`candidate-v2.bin` is the final default release build from HEAD `56d2cc2` with
+the working-tree fixes, production fingerprint
+`735264926d90c259fdaeb662c1c9c6e08a44a479110e60593460aeda4efd024c`,
+executable SHA-256
+`cb8e5566abeae2e18b2cb38ea5f67fc77e20aa197eb9fee00a971b691d2cdad2`.
+Build metadata are in `candidate-v2-build-info.json`. This is not a committed or
+published release. V1 and the accidentally premature `candidate-final.bin` copy
+remain preserved; neither is the final candidate. `ATTEMPTS.md` explains that
+copy and an earlier process-precheck mistake; neither was an editor failure.
+
+V1 passed the initial 12 regressions, 83 Claude probes/controls, all old follow-up
+suites, the retained baseline, CLI/regex and 34 ASan cases. It failed the three
+new End/tab probes, retained in `broader-after/`. V2 passes those three probes
+and all Rust/lint configurations. Final V2 verification is complete for this fix
+cycle; the [compact summary](validation/claude-review.json) records report hashes.
+The two broader V2 replays reuse the unchanged
+oracle recordings from `broader-after/`, verifying identical scenario inputs
+and reference binary hashes, and record that provenance explicitly.
+Nightly Rust and the native bridge are instrumented for ASan; external
+ncurses/libmagic/system libraries are not rebuilt with instrumentation.
+
+| Final candidate check | Result |
+|---|---|
+| Permanent release-fixes suite | 15/15 exact, both harnesses 0, all assertions pass |
+| Original 35 probes, corrected structural/multibyte cases, minimized controls, three tab-boundary probes | 86/86 exact, all checks pass |
+| Instrumented ASan build, same 86 cases | 86/86 exact, all checks pass, no sanitizer diagnostic |
+| Wrap / filter / edges / tools / supplement | 58/58, 6/6, 13/13, 20/20, 3/3 exact; all harnesses 0 |
+| Full wrap evidence checker | 0 |
+| Retained baseline | 303 recorded; 301 full / 302 file-exit matches; six skips; workers [0,0,0,0]; runner 0 |
+| CLI / regex | 38/38 and 162/162 |
+| Rust | Default debug/release 9 each; tiny release/all-features debug 5 each |
+| fmt / Clippy | Default and all-features pass with warnings denied |
+| Python / spec audit | 88 tests pass; audit 0, same nine unresolved citations |
+
+Only TEST-CLI-057 and TEST-PROMPT-NUL-001 differ in the retained baseline.
+Existing assertions, comparison normalization and deviation policy were not
+weakened. These local results precede the source-delivery commit; remote CI
+status is verified separately after pushing. The frozen binary retains its
+original build revision and hash even after the reviewed source is committed.
+Source delivery does not publish a release/tag or replace a system editor.
+Portable packaging and genuine console/VT qualification must be refreshed for
+the release candidate. Remaining combinations and physical/other-platform scope
+stay open; this finite verification does not establish exhaustive nano parity.
+
+## Historical Pi-review cycle
 
 Codex independently reproduced and fixed the confirmed Pi findings. Full GNU
 nano parity remains incomplete. The next independent assignment is

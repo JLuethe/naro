@@ -148,6 +148,18 @@ A line is split into **chunks** of at most `editwincols` columns:
 - When `editwincols == 1`, each chunk is one character.
 - No `<`/`>` markers are shown. Line numbers appear only on the first chunk; continuation chunks get a blank margin (anchors only on the first chunk).
 - The viewport may start in the middle of a line (`firstcolumn` = start column of the top chunk).
+- Up/Down retain a desired column within the chunk and rebase the preferred
+  column onto the destination chunk. The last chunk permits the end-of-line
+  position; earlier chunks clamp before the breakpoint. At the first/last
+  buffer chunk, an impossible move leaves the cursor unchanged. A tab crossing
+  the chunk boundary requires the reference's proper-index adjustment.
+  Regressions: TEST-NEXT-RELEASE-MOVE-01-SOFT-REBASE,
+  TEST-NEXT-RELEASE-MOVE-02-SOFT-TOPROW and TEST-NEXT-RELEASE-MOVE-03-SOFT-TAB4.
+- End on a nonfinal chunk retains the desired right-edge column even when the
+  actual byte index falls on a tab before that edge. Subsequent Up/Down use
+  that desired column. Tests TEST-NEXT-RELEASE-TAB-BOUNDARY-10-8,
+  TEST-NEXT-RELEASE-TAB-BOUNDARY-12-8 and TEST-NEXT-RELEASE-TAB-BOUNDARY-10-16
+  cover tabs spanning chunk boundaries.
 - **Source:** `src/winio.c:3116-3251, 2853-2911`.
 - **Evidence:** runtime-observed TEST-REND-003/-004.
 
@@ -176,7 +188,9 @@ otherwise their decimal length (so the margin is at least 3). The margin is 0
 when line numbering is off or `margin > COLS − 4`. Each line's number is drawn
 right-aligned in `margin − 1` columns in the LINE_NUMBER attribute. The last margin
 column holds `†` (UTF-8) / `+` for a line with an anchor, else a space (normal
-attribute). Soft-wrapped continuation rows have a blank number field. The margin
+attribute). Soft-wrapped continuation rows have a blank number field with the
+same LINE_NUMBER attribute (reverse by default); see
+TEST-NEXT-RELEASE-GUTTER-01-CONTINUATION. The margin
 is re-evaluated before every keystroke and changes when the line count crosses a
 power of ten; a change forces a full redraw.
 - **Source:** `src/nano.c:1256-1282`; `src/winio.c:2544-2565`; `src/utils.c:78-105`.
@@ -329,6 +343,9 @@ On SIGWINCH (`13` SIG-WINCH) curses re-reads the size, windows are recreated
 with REND-001, the indicator and margin are re-evaluated, the first soft-wrap
 column is re-aligned, and everything is redrawn (title, edit window or browser,
 help lines). An active prompt is redrawn with the same answer (TEST-INPUT-010).
+Reflow retains the logical top line and re-aligns its chunk column, rather than
+retaining a global wrapped-row index. Widening regression:
+TEST-NEXT-RELEASE-VIEW-01-WIDEN-TOP in `../tests/follow-up/scenarios/release-fixes.json`.
 
 ## 8. Redraw correctness
 - After every keystroke, once nano is waiting for the next one, the screen must equal what a full redraw from the current state would produce. That is: title bar, edit rows (REND-020…035), status row (current message or blank), help lines, cursor.
