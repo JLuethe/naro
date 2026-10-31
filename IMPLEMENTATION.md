@@ -1,90 +1,94 @@
-# Implementation status
+# Implementation and qualification status
 
-Reference: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`.
+NARO 0.1.0 is an experimental independent port of GNU nano 9.3. The pinned
+reference is `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`.
+Technical candidate qualification is complete; final publication review is not.
 
-Naro builds and runs as a Rust terminal editor. The default-profile follow-up
-spec is implemented and verified for the ordinary-user Linux/tmux preview
-scope. Source-derived requirements and test evidence are distinct: these results
-do not prove every behavior on every platform.
+## Candidate identity
 
-The optional tiny profile is also complete for the pinned contract: 192/192
-fresh exact comparisons, 194 CI/assertion cases, and 31 linked acceptance gates.
-It is 58.07% smaller after stripping and needs no libmagic. Both new profile
-packages pass source rebuilding and installation checks. See
-[tiny validation](validation/tiny/README.md) for binary hashes and limits.
+Production commit: `fd91763c4f14d9bed8187d64d44f2136440b7b3e`.
+Production-source SHA-256:
+`4cabd71741ffc8ee0357d945c67904c8a2fd0089c12e9b32a1c5b3e35c394ae6`.
 
-The editor uses byte vectors, transactional undo, a Rust state machine and cell
-renderer, generated reference key/function data, and a small C bridge for
-ncursesw, libc locale/POSIX regex/getopt, and libmagic. It ships syntax definitions,
-translation catalogs and PO sources. The GNU nano executable is an oracle for
-testing and is never used at runtime. Cargo has no package dependencies.
+| Role | Executable SHA-256 |
+| --- | --- |
+| Primary Ubuntu default candidate | `33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1` |
+| Host qualification candidate | `cae387c78619520aacbf61690e675496b82f8ccf04af2824beb9e864004f0a96` |
 
-Current evidence is in [follow-up validation](validation/follow-up/README.md).
-Parent reports describe the historical first build and remain unchanged.
+Both report default/empty features and version 0.1.0. Later documentation commits
+are distinct from this compiled source. [The validation index](validation/README.md)
+links the current reports; older reports retain their original identities.
 
-| Check | Result |
-|---|---|
-| Host default terminal corpus | 303 recorded, 301 full matches, 302 file/exit matches |
-| New paired cases | 53 recorded, 51 full matches, two explicit tool cleanup differences |
-| Noninteractive CLI / regex | 38/38 and 162/162 |
-| Safety | Six assertions across invalid-regex recovery and NUL rejection |
-| Controlled Rust panic | Named, unnamed and multibuffer recovery; separate test-hooks build |
-| Rust / comparator / harness tests | 6 / 13 / 3 pass; formatting and strict Clippy pass |
-| Installed assets | All 41 catalogs resolve; syntax, overrides, spaces and symlink launcher checked |
-| Archives / installer | Source rebuild, checksums, rejection and ownership/removal checks pass |
-| Large files | Exact output hashes for 1 MiB and 10 MiB edit/save operations |
-| Interactive installed copy | Agent-operated PTY trial, including spelling, errors, paste and resize |
+## Architecture and implemented behavior
 
-Selection-aware spelling preserves outside bytes and reference state. Formatting
-processes the whole buffer and clears the mark at the reference-defined point.
-New cases also cover compound wrapping/history, lazy syntax, configuration,
-ENOSPC, short/EINTR writes, backup fallback, linked files and bounded FIFOs.
+The editor uses byte-vector buffers, transactional undo, a Rust state machine
+and cell renderer, generated binding/help data, and a small native C bridge.
+Native services include ncursesw, libc locale/POSIX regex/getopt and libmagic.
+GNU nano itself is not invoked at runtime. There are no Cargo package dependencies.
 
-The original invalid-regex crash and NUL-as-Yes behavior remain deliberate safety
-differences. Tool HUP/TERM cleanup is a separately reported ownership improvement.
-Reference observations are retained; comparisons are not globally masked to
-hide new differences. The only new filename normalization is the named backup
-fallback scenario, retaining file bytes, permissions and link checks.
+Implemented areas include byte-preserving editing, UTF-8 and byte-locale
+handling, hard and soft wrapping, undo/redo, selections, search/replace, backups
+and locks, multiple buffers, nanorc, syntax, browser, histories, macros, mouse
+input, external tools and translations. Implementation is broader than the
+finite tested matrix; it is not a claim of exhaustive compatibility.
 
-Five original terminal cases still involve host paths and are excluded; one
-requires optional tiny. Three new fixture absolute-path variants have fresh
-reference observations and are mapped individually. Physical keyboard/operator
-console checks remain deferred. Isolated-root special-device/root-browser checks
-and root-account home precedence are tested in private namespaces; broader root-account configuration,
-other architectures/OSes, static linking and translation quality are outside
-this certification. Byte-locale screens inherit tmux's UTF-8 capture limits.
-Tiny is now implemented as an optional compile-time profile; its separate
-qualification is described in [tiny validation](validation/tiny/README.md).
-Optional `credits` is implemented and default-off.
+## Current qualification
 
-The host executable is `target/release/naro`. Distribution uses the Ubuntu-built
-artifact with measured native dependencies; see [INSTALL.md](INSTALL.md).
-Rust/Cargo is installed under `~/.cargo/bin`, without shell-profile changes or
-host system-package installation. CI builds checksum-pinned tmux 3.8 and checks
-Rust, comparator/harness, terminal smoke/safety, panic recovery, optional credits,
-packaging, source rebuild and installation. It does not replace full local
-release validation or publish a release automatically.
+| Area | Recorded result |
+| --- | --- |
+| Terminal corpus, each environment | 303 recorded; 301 full and 302 file/exit matches; six exclusions |
+| CLI / regex, each environment | 38 / 162 pass |
+| Historical follow-ups, each environment | 53 cases, 51 exact; two accepted signal cleanup differences |
+| Additional regressions, each environment | wrap 58, filter 6, release-fixes 15, step3-gaps 40: all 119 exact |
+| Isolated root/home, host only | 27 exact plus a separately asserted no-home deviation |
+| Guest Linux VT, each candidate | 19 exact comparisons, with terminal/keyboard/meta restoration |
+| Ioctl models, each candidate | Eight exact comparisons; distinct from guest-VT testing |
+| Private VM transport | Six checks pass |
+| Recovery and large files | Separate panic instrumentation, write/signal cases, 1 MiB/10 MiB checks pass |
+| Ubuntu package | 15 checks; offline source rebuild; 41 catalogs and 44 asset checks pass |
+| Additional ordinary-prefix install | Five checks pass |
+| Complete technical collector | 97/97 checks pass |
 
-Use `tools/check_follow_up.py` for fresh paired suites and
-`tools/validate_parallel.py` for the safe original corpus. Use new output folders
-and avoid simultaneous runs sharing scenario IDs. Never overwrite original
-`spec/evidence/runs` or run editing tests against real user files.
+Ubuntu used its own built reference executable and fresh observations. The host
+and Ubuntu results do not substitute for one another. Guest-VT testing used the
+Ubuntu reference in the recorded guest userspace, kernel and keymap with emulated
+PS/2 input. It is not physical keyboard/operator certification.
 
+## Declared differences and limits
 
-The newer root/home implementation (`4292ead`) is covered by
-[root-phase evidence](validation/root-console/README.md): 27 exact comparisons
-with genuine namespace uid/NSS/device observations, and a separate asserted
-no-home tilde recovery difference. Its ordinary regression retains 301/303 full
-matches, CLI 38/38 and regex 162/162. The prior release archives and two-environment
-reports identify earlier binaries; a new release requires refreshed artifact
-validation. The newer [console qualification](validation/console-vm/README.md)
-records 19 exact comparisons on a genuine guest Linux VT for each optimized host
-and Ubuntu candidate. Modifiers, console rendering and raw-key macro replay are
-implemented. This uses emulated PS/2 keys, not physical operator observations.
+- `TEST-CLI-057` / `Q-DEF-001`: established invalid-regex recovery difference.
+- `TEST-PROMPT-NUL-001` / `Q-PROMPT-001`: NUL is rejected as a Yes response.
+- `Q-TOOL-001`: the two bounded HUP/TERM external-tool cleanup differences.
+- `Q-ROOT-NOHOME-001`: asserted isolated-root no-home tilde recovery behavior.
 
-[Closure evidence](validation/closure/README.md) links final regression and
-package results to those executable hashes. Earlier tables above describe their
-historical phase. Current harness checks include 14 comparator, five harness,
-seven namespace and nine console/upload tests, plus six Rust tests. Optional
-physical-console operator certification and other platforms remain outside
-the preview scope. No release tag or hosted GitHub Release is created by testing.
+The six excluded baseline cases are TEST-BROWSE-003, TEST-CLI-025/032/033/035
+and TEST-KEY-007. They are exclusions, not passes. Existing normalization and
+field-level exception policies are documented in the evidence; new unexplained
+mismatches block qualification.
+
+Nine specification citations remain unresolved by the recorded-scenario audit.
+[The coverage review](COVERAGE_REVIEW.md) distinguishes historical probe/table
+observations from missing scenario IDs. A structurally passing audit does not
+mean all requirements have runtime coverage.
+
+Other architectures/OSes, static binaries, broad native-root certification,
+physical keyboard trials, exhaustive locale/tool combinations and a security
+audit are not established by these results. The portable binary's support is
+bounded by its measured native runtime. See [INSTALL.md](INSTALL.md).
+
+## Optional profiles and historical evidence
+
+Tiny remains a source-build profile. It retains basic editing, UTF-8,
+search/replace, POSIX regex and translations, while omitting undo/redo,
+selections, nanorc/syntax, help, browser, multiple buffers, histories, mouse and
+external tools. It uses ncursesw without libmagic. Its [earlier qualification](validation/tiny/README.md)
+belongs to the binaries named there; it does not certify a new 0.1.0 tiny download.
+
+Optional credits and recovery test-hooks are separate features. Neither is
+included in the primary candidate. Follow-up, root, console and closure reports
+predating the dated step 5–7 records are historical. Their counts, sizes and
+executable hashes must not be presented as measurements of this candidate.
+
+CI checks selected build, unit, terminal and packaging behavior. Full local
+host/Ubuntu/VM qualification is separate; a green CI job alone is not the
+97-check release gate. Testing never publishes a release automatically.

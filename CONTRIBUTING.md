@@ -1,47 +1,66 @@
-# Contributing to Naro
+# Contributing to NARO
 
-Naro is an independent Rust port of GNU nano, based on GNU nano 9.3 at reference
-commit `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`. Read the
-[behavioral specification](spec/00-overview.md) and
-[implementation status](IMPLEMENTATION.md) before changing editor behavior.
+NARO is an independent Rust port of GNU nano 9.3, referencing upstream commit
+`6ed285c3ec7a1d228def4d4e7021c6ba269f620c`. Start with the
+[behavioral specification](spec/00-overview.md), [implementation status](IMPLEMENTATION.md)
+and [current validation index](validation/README.md).
 
-Report ordinary bugs or propose changes through
-[GitHub issues](https://github.com/JLuethe/naro/issues). Include the Naro commit,
-operating system, terminal, locale, exact reproduction steps and expected result.
-Use synthetic input and avoid posting private files. Follow [SECURITY.md](SECURITY.md)
-for suspected vulnerabilities.
+## Reports and changes
 
-Contributions are licensed under GPL-3.0-or-later, consistent with the project's
-[license](LICENSE) and Cargo metadata. Contribute only material you have the right
-to submit under those terms. Reused upstream material and dependencies retain
-their original terms; preserve copyright, license and attribution notices.
-Describe provenance and any additional licensing requirements in your pull
-request. See [NOTICE](NOTICE) and [CREDITS.md](CREDITS.md).
+For ordinary bugs, use [GitHub issues](https://github.com/JLuethe/naro/issues).
+Include `NARO_BUILD_INFO=1 /path/to/naro` output, OS, terminal, locale, exact
+keys/commands, synthetic input, and expected versus observed results. Include
+nano's version if comparing editors. Do not post private documents or sensitive
+security details; follow [SECURITY.md](SECURITY.md) for suspected vulnerabilities.
 
-Build with Rust, a C compiler, ncursesw development headers and libmagic
-development headers. For ordinary code changes, run the relevant checks:
+Describe a proposed behavior change with its trigger, resulting behavior,
+relevant requirements and validation. Distinguish intentional NARO differences
+from compatibility defects. Fixes should include focused regressions that
+actually execute the operation being tested; a no-op comparison is not coverage.
+
+## Development checks
+
+Provide Rust/Cargo, a C compiler, pkg-config, ncursesw and libmagic development
+files. Run checks appropriate to the change, for example:
 
 ```sh
 cargo fmt --check
 cargo clippy --all-targets --all-features -- -D warnings
+cargo test
 cargo test --all-features
 python3 spec/tools/test_compare_runs.py
 python3 spec/tools/test_nanoharness.py
 ```
 
-For behavior changes, add or update fixture-based scenarios and run the relevant
-comparison checks described in the [test plan](spec/16-test-plan.md) and
-[README](README.md). Terminal validation needs tmux, terminfo, Python 3.11 or
-newer, and the reference corpus. Keep all editor tests inside harness-owned
-fixtures. Never test against real user or system files, modify the pinned GNU
-nano source checkout, or overwrite the original reference recordings. Use a
-fresh output directory and retain binary hashes and comparison results.
+Terminal testing requires the recorded tmux/terminfo/locale setup, Python,
+reference inputs and private fixtures; see [the test plan](spec/16-test-plan.md).
+The dated release reports show exact environments and commands. CI is useful
+coverage but does not replace the full host/Ubuntu/guest-VT release matrix.
 
-In a pull request, describe the trigger, resulting behavior, relevant spec
-requirements, checks performed and remaining limitations. Distinguish intended
-Naro differences from GNU nano compatibility defects. Documentation-only changes
-need link and content review; they do not require rebuilding the editor.
+Keep tests inside owned fixtures and use fresh output directories. Preserve
+pinned upstream source, original reference recordings, failed attempts and
+candidate hashes. Never test against real user/system files or weaken
+normalization to conceal a new difference. [COVERAGE_REVIEW.md](COVERAGE_REVIEW.md)
+explains unresolved citation mappings.
 
-Packaging and installation instructions are in [INSTALL.md](INSTALL.md).
-Distributed artifacts must not enable the `test-hooks` feature. Building or
-testing does not authorize publishing a release or replacing a system editor.
+## Documentation and packaging
+
+Documentation edits normally need link/content review rather than an editor
+rebuild. However README, INSTALL, IMPLEMENTATION and other selected files ship
+inside packages. Changing archived documentation changes archive hashes and
+requires updated package/source receipts and relevant package verification.
+Keep qualified executables unchanged when repackaging only documentation, and
+record documentation revisions separately from compiled source identity.
+
+Use [INSTALL.md](INSTALL.md) for source builds and packaging. Default and tiny
+have different scope; the primary 0.1.0 binary is default only. Never distribute
+test-hooks instrumentation. Testing, committing or packaging does not authorize
+release publication or replacement of the system editor.
+
+## Licensing and provenance
+
+Contributions follow the project's GPL-3.0-or-later terms. Contribute only
+material you have the right to submit under those terms. Reused upstream files
+and dependencies retain their own terms and notices. Preserve attribution and
+state the provenance of reused material in your change description. See
+[LICENSE](LICENSE), [NOTICE](NOTICE), [CREDITS.md](CREDITS.md) and original headers.

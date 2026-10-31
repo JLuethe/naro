@@ -1,0 +1,74 @@
+{
+  "base_commit": "3629b8f4a3dc3e817ad19edb0cae16f781fdd7cd",
+  "status": "draft only; not applied",
+  "files": {
+    ".github/ISSUE_TEMPLATE/bug_report.md": {
+      "original_sha256": null,
+      "draft_sha256": "682984431dd6014fa53cf24e4859865156aabf82b89745aa3900132e9821caa9"
+    },
+    "CONTRIBUTING.md": {
+      "original_sha256": "3c22d64053fe187b0383639daa2b4694e85dba6f92ae4a2a9cba7c7332647204",
+      "draft_sha256": "b1c760c069525c3f79cdb7c65f1762c3df0012c10978c697fda04f81e3e0f009"
+    },
+    "COVERAGE_REVIEW.md": {
+      "original_sha256": null,
+      "draft_sha256": "5ad05fc001adafe4ef834fbbab8af1535e212b9ae598f312a0c01022235fea75"
+    },
+    "IMPLEMENTATION.md": {
+      "original_sha256": "4e1cd09bfc6b9b715ae9b884c79979bcbfec8a8f0b8fed05be7cbab20915626f",
+      "draft_sha256": "345ef41f1234d2e6057b56fdb0503c431ae245e144edf39dfdee020430e11b84"
+    },
+    "INSTALL.md": {
+      "original_sha256": "7e87c7edc08a94404484a8defb0b689a6453b97be5243d4af09ca3f24872c984",
+      "draft_sha256": "0c12d8bb507963f6e7162578c322412643702d41ce1c3762db811f055322901e"
+    },
+    "NARO_CLAUDE_HANDOFF.md": {
+      "original_sha256": "43a18a6ee1bfb7d5643739972aac1c4e73e6200194f967c3fe4153cf2f248407",
+      "draft_sha256": "4b868fe28ae8471c76e45eee0780a8e64967f90a9143edba805a8a80fa4992be"
+    },
+    "NARO_CLAUDE_QUALIFICATION_HANDOFF_2026-10-30.md": {
+      "original_sha256": "c05ab9d63e876d7671c3fd54b13cbe0956f986f916520e796d4f87df07719552",
+      "draft_sha256": "97ed59cd9c7aafc27ee92f6a14eed18af856e7f48f5f95e328b1b31945fcfbeb"
+    },
+    "NARO_CLAUDE_QUALIFICATION_START_PROMPT_2026-10-30.md": {
+      "original_sha256": "83cd4f471361ca1b3d3a26fd832053318055b23faa89c1efa05f613c5d125f1f",
+      "draft_sha256": "ae1d18fa2c2a34f6c5c5623ce5da6ce1510152c4897d6caacff39f14b27e14d2"
+    },
+    "NARO_CLAUDE_START_PROMPT.md": {
+      "original_sha256": "d5314ed6c1b471a4119ab1acf71352308a4745481e70ce1b2d28c33114e31130",
+      "draft_sha256": "752dbfddb648ff5370f75c561746f3bac04eb8ca6c8f6f609ed32794e75a98c2"
+    },
+    "NARO_DEVELOPMENT_PROGRESS.md": {
+      "original_sha256": "d9c65415b0015568138f17b775ffd7fb93c7a85eafaa4594a195255c3ae69a80",
+      "draft_sha256": "5fde7312760db5505ca306237be8cdf2397d4aa5368fcf01331c60e4ab8fa006"
+    },
+    "NARO_NEXT_STEPS.md": {
+      "original_sha256": "07485fb0766e2d0e66e1eff865e8bdd41bb52a79d04cf4092d52f70bdfd708c1",
+      "draft_sha256": "1f7100c02650c77c746334f99a92d1e56a21da77028e277acef8e678d210530e"
+    },
+    "NARO_TEST_AGENT_HANDOFF.md": {
+      "original_sha256": "a340879de8834836e91a8993ace692df9b6c8228d77dac5dca1dc125f8d70e63",
+      "draft_sha256": "edcd96cba63ef952d88ca7813d5e3a15714139c028fb2d213d611f36eeb16cac"
+    },
+    "README.md": {
+      "original_sha256": "bb1d58fd5b790d163d450aa7a87bbb80a1dc7e782e5c102151661702dd1f7e6a",
+      "draft_sha256": "1b8064b04ce8f028aa3789036e4f7728417fcb519ad7eedc2c85383049e7bd12"
+    },
+    "RELEASE_NOTES.md": {
+      "original_sha256": null,
+      "draft_sha256": "24d5796ccdd69938dbf12cf8cc1a5912e3a0d0d26d02341b9e2996cbe3970468"
+    },
+    "SECURITY.md": {
+      "original_sha256": "44c4638d81df34ac0a05504c411e333954699ad663493bb947913c527226265b",
+      "draft_sha256": "94115909f86a620a019e8b614a5482a38a3fbbc22ab81ec612b80d2fa757da24"
+    },
+    "spec/97-coverage.md": {
+      "original_sha256": "a6e5a9c03326d1ec3e7f706c9e5cb0f30fc4783058742db4d8cbf7fb804494cf",
+      "draft_sha256": "2ac3b2a3833184925c7c61dd33875b64fc753334e2c77ae27b3d5a3d6ff1abc2"
+    },
+    "validation/README.md": {
+      "original_sha256": "54492d1dd0d73134036670e2478ce3246b551fcdd1d122e3217acd2bb0725501",
+      "draft_sha256": "0ace56df902f486b4ee19a74c79c88c34fbda74ec859f7588066a6477e7e5ed7"
+    }
+  }
+}

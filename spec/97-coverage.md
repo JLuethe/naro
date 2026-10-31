@@ -1,8 +1,27 @@
 Reference commit: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`
 
-Current Pi-review qualification is recorded in `../NARO_DEVELOPMENT_PROGRESS.md`: 58 wrap and six filter cases, with explicit remaining gaps in `../NARO_TEST_AGENT_HANDOFF.md`. Earlier 39-case coverage did not detect all mark failures. Historical inventories below remain distinct from runtime qualification.
+Historical Pi-review checkpoint: the paragraph and inventory below predate the final 0.1.0 qualification.
 
 # 97 — Coverage and confidence
+
+## Current candidate coverage
+
+The frozen fd91763 production source and exact host/Ubuntu binaries are identified
+in [the current validation index](../validation/README.md). The complete technical
+gate passes 97/97, with 119 newer exact regressions per environment and 19 genuine
+guest-VT comparisons per candidate. These results are scoped, not exhaustive.
+
+[The coverage review](../COVERAGE_REVIEW.md) explicitly retains all nine unresolved
+audit citations and distinguishes historical probes/table dumps from scenario
+execution. Physical keyboard testing remains deferred.
+
+## Historical baseline inventory
+
+The following table and observations describe the original specification-era
+baseline. Statements such as guest-VT or catalog coverage being absent are
+historical; use the current index above for subsequent qualification. Original
+reference artifacts and their limitations remain intact.
+
 
 The behavioral spec is complete as a documented implementation contract for the
 reference envelope. Runtime verification is broad but not exhaustive. There are

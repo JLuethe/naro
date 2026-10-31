@@ -1,3 +1,9 @@
+> Historical testing assignment — superseded for the fd91763 release candidate.
+> Steps 5–7 are complete; see [current next steps](NARO_NEXT_STEPS.md) and
+> [package/gate results](NARO_STEP7_RESULTS_2026-10-30.md). Do not rerun this
+> assignment or replace its candidate paths without a new testing request.
+> The original instructions below are preserved as historical evidence.
+
 # NARO independent testing handoff — Claude, Pi, OpenCode or GLM
 
 **Latest status:** Claude's completed report led to six local Codex fixes and

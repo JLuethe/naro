@@ -1,45 +1,75 @@
 # Validation evidence
 
-These compact reports describe one frozen optimized Naro executable, identified
-by SHA-256 in every report. The reference is GNU nano commit
-`6ed285c3ec7a1d228def4d4e7021c6ba269f620c`. See
-[implementation status](../IMPLEMENTATION.md) for the current outcome and limits.
+## Current 0.1.0 candidate
 
-- `terminal.json`: full screen/cursor/mode/file/exit comparisons for 303 default
-  scenarios; lists every differing field and explicitly declared deviation.
-- `cli.json`: exact stdout/stderr/status comparisons for 38 noninteractive probes.
-- `regex.json`: the 81-case corpus in each of C and en_US.UTF-8.
-- `safety.json`: six assertions across the invalid-regex and NUL-answer cases.
-- `environment.json`: build/runtime versions and the frozen executable hash.
+The current qualified production commit is
+`fd91763c4f14d9bed8187d64d44f2136440b7b3e`. The primary Ubuntu default binary is
+`33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1`;
+the host qualification binary is
+`cae387c78619520aacbf61690e675496b82f8ccf04af2824beb9e864004f0a96`.
+The reference source is GNU nano `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`.
+Documentation and evidence commits may be newer than these build identities.
 
-Full candidate recordings, raw terminal streams, frozen executables and detailed
-value-by-value diffs remain on disk under `spec/evidence/naro-v7/part-*`
-(gitignored). The combined report checks that partitions are disjoint, complete,
-and use the same executable hash.
-Original reference evidence is checked in under `spec/evidence/runs`.
-A `RECORDED` harness line alone does not establish a passing comparison.
+| Record | What it establishes |
+| --- | --- |
+| [Source/build freeze](../NARO_STEP4_FREEZE_2026-10-30.md) | Clean committed source, separate binaries, references and build provenance |
+| [Step 5 qualification](step5-qualification-2026-10-30/README.md) | Host and independent Ubuntu matrices, accepted differences and integrity review |
+| [Step 6 console](step6-console-2026-10-30/README.md) | 19/19 guest-VT comparisons per candidate and six transport checks |
+| [Step 7 packages](step7-package-2026-10-30/README.md) | Exact archive linkage, installed assets, source rebuild and preservation |
+| [Complete technical gate](step7-package-2026-10-30/closure/gate.json) | All 97 required checks passed |
+| [Coverage review](../COVERAGE_REVIEW.md) | Nine unresolved citations and the limits of audit coverage |
 
-From the repository root, reproduce with:
+Each environment recorded 303 baseline cases: 301 full matches and 302 file/exit
+matches, with six exclusions. The separate historical follow-ups have 53 cases,
+51 exact; the newer suites add 119 exact cases per environment. Do not merge
+these inventories into an unexplained aggregate or count excluded cases as passes.
 
-```sh
-cargo build --release
-python3 tools/validate_parallel.py --binary target/release/naro --out spec/evidence/naro-v7-new --jobs 4
-python3 tools/check_cli.py --binary target/release/naro
-python3 tools/check_regex.py --binary target/release/naro
-python3 spec/tools/nanoharness.py tests/scenarios/safety.json --binary "$PWD/target/release/naro" --out spec/evidence/naro-safety
-python3 tools/summarize_validation.py spec/evidence/naro-v7-new
-```
+The package archives identified in step 7 are technically qualified, not an
+announcement of publication. [The release checklist](../RELEASE_CHECKLIST.md)
+tracks the remaining public-documentation, attribution and release-decision gates.
+If later packaging changes archive bytes, use the newer reviewed artifact receipt
+and checksums rather than attributing old package results to new inputs.
 
-The differential runner returns nonzero for any undeclared difference, while
-still writing the complete report. Six inherited terminal cases are excluded:
-five require absolute paths outside private fixtures and one needs the optional
-tiny build. Eight CLI probes are excluded: six tiny and two external paths.
-Run full suites serially because fixtures are keyed by scenario ID.
-The final two safety scenarios assert intentional improvements to the reference;
-their golden observations remain unchanged.
+## Evidence interpretation and preservation
 
-The [optional tiny qualification](tiny/README.md) completes doc 22 with 31 linked
-gates, 192 fresh exact comparisons, 194 CI/assertion cases, measured size and
-library reduction, unchanged default regression, and checked source packages.
-It does not replace historical default/Ubuntu artifacts or certify physical
-keyboards.
+A recorded run or successful harness exit alone is not a passing comparison.
+Required results include assertions, candidate/reference identity, complete
+inventories, raw traces, saved bytes and subprocess statuses. The newer suite
+checker reopens its evidence and recomputes comparisons. Declared exceptions
+remain bounded; unknown differences are not normalized away.
+
+Full recordings are local and are not included in a normal GitHub clone:
+
+- `target/release-freeze-2026-10-30/`
+- `target/naro-test-runs/claude-step5-2026-10-30-attempt01/`
+- `target/step6-console-2026-10-30/`
+- `target/step7-package-2026-10-30/`
+
+Verified preservation outside the repository is documented in the dated backup
+receipts. Those backups are on the same disk, not off-machine protection.
+Claude's original step 5 checksum list has three stale entries for two mutable
+ledgers; the [Codex review](step5-qualification-2026-10-30/codex-review.json)
+records the discrepancy. All listed test artifacts matched. The original files
+were preserved, and a separate complete manifest captures the final state.
+
+To reproduce qualification, use the dated plans and fresh output directories,
+record your exact executable/environment, and keep tests inside owned fixtures.
+Never rerun a historical command into an existing evidence folder or assume a
+local rebuild inherits qualification. [CONTRIBUTING.md](../CONTRIBUTING.md)
+describes ordinary development checks.
+
+## Historical records
+
+The top-level `terminal.json`, `cli.json`, `regex.json`, `safety.json` and
+`environment.json` describe an earlier frozen build; they are not the current
+candidate's evidence. Earlier directories remain useful history:
+
+- [Follow-up qualification](follow-up/README.md)
+- [Root/home qualification](root-console/README.md)
+- [Earlier guest-VT qualification](console-vm/README.md)
+- [Earlier closure gate](closure/README.md)
+- [Optional tiny qualification](tiny/README.md)
+
+Use the hashes and scope in each historical report. Keep original reference
+recordings and failed attempts intact. Historical profile sizes, test counts,
+package successes and CI outcomes do not certify different later artifacts.

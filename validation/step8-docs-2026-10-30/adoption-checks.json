@@ -1,0 +1,30 @@
+{
+  "files": [
+    ".github/ISSUE_TEMPLATE/bug_report.md",
+    "CONTRIBUTING.md",
+    "COVERAGE_REVIEW.md",
+    "IMPLEMENTATION.md",
+    "INSTALL.md",
+    "NARO_CLAUDE_HANDOFF.md",
+    "NARO_CLAUDE_QUALIFICATION_HANDOFF_2026-10-30.md",
+    "NARO_CLAUDE_QUALIFICATION_START_PROMPT_2026-10-30.md",
+    "NARO_CLAUDE_START_PROMPT.md",
+    "NARO_DEVELOPMENT_PROGRESS.md",
+    "NARO_NEXT_STEPS.md",
+    "NARO_TEST_AGENT_HANDOFF.md",
+    "README.md",
+    "RELEASE_NOTES.md",
+    "SECURITY.md",
+    "spec/97-coverage.md",
+    "validation/README.md",
+    "NARO_STEP8_PLAN_2026-10-30.md",
+    "NARO_STEP8_REVIEW_2026-10-30.md",
+    "NARO_STEP9_REVIEW_2026-10-30.md"
+  ],
+  "local_links_checked": 162,
+  "missing_links": [],
+  "package_document_links": "all resolve before conversion",
+  "spec_audit": "passes; same nine unresolved citations",
+  "package_link_unit_tests": 3,
+  "production_source_changed": false
+}

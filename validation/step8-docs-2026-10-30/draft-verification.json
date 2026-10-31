@@ -1,0 +1,30 @@
+{
+  "draft_files": 17,
+  "patch_check": "passed; not applied",
+  "local_links_checked": 132,
+  "new_broken_local_links": [],
+  "preexisting_broken_links_retained_in_historical_bodies": [],
+  "spec_audit": "passed in isolated preview; active generated reports untouched",
+  "audit_warnings": [
+    "cited test IDs without a recorded scenario: CLI-001: TEST-CLI-P003, CLI-001: TEST-CLI-P042, CLI-001: TEST-KEY-RESTR-001, CLI-004: TEST-CLI-P009, CLI-014: TEST-RC-PREC-001, CLI-020: TEST-KEY-MODPRES-001, CLI-050: TEST-FILE-EXIT-002, INPUT-014: TEST-INPUT-020, KEY-003: TEST-KEY-TABLE-001"
+  ],
+  "current_claims": "97-check gate and candidate identity checked against tracked qualification receipts",
+  "active_tracked_files_unchanged": true,
+  "archives_rebuilt": false,
+  "committed_or_pushed": false,
+  "publication": false,
+  "preview_tree": "/home/john/Code/naro/target/step8-doc-preview-2026-10-30",
+  "patch_sha256": "4ee0455fcd496610fe3d4af8d5dfbcc31fb70776f94fb2e30d1c7a9fb46d9037",
+  "review_updates": [
+    {
+      "file": "README.md",
+      "change": "Added John Luethe authorship and user-requested thanks to OpenAI for generous support.",
+      "validation": "Patch and draft hashes refreshed; no links, spec files, or artifacts changed."
+    },
+    {
+      "file": "SECURITY.md",
+      "change": "User-selected GitHub issues as the security reporting channel; title prefix Security: and private follow-up for confidential details.",
+      "validation": "Patch check passed; hashes refreshed; no local links, spec files, repository settings or release artifacts changed."
+    }
+  ]
+}

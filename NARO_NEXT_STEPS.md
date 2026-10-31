@@ -1,5 +1,16 @@
 # NARO next steps — Codex development ownership
 
+## Step 8 adoption — October 30, 2026
+
+The reviewed public documentation is applied. John Luethe's attribution,
+OpenAI acknowledgment, and public GitHub security reporting are included.
+Production source and the primary qualified executable remain unchanged.
+Package documentation is being refreshed and checked before step 8 closure;
+step 9 reviews attribution, corresponding source, and reporting. See the
+[adoption receipt](NARO_STEP8_REVIEW_2026-10-30.md).
+Publication remains a separate step 10 decision. Earlier checkpoints below
+are historical and do not override the newest results.
+
 ## Step 7 complete — exact packages and full gate, 2026-10-30
 
 The unchanged frozen Ubuntu executable is selected as the primary Linux x86_64

@@ -1,3 +1,9 @@
+> Historical testing assignment — superseded for the fd91763 release candidate.
+> Steps 5–7 are complete; see [current next steps](NARO_NEXT_STEPS.md) and
+> [package/gate results](NARO_STEP7_RESULTS_2026-10-30.md). Do not rerun this
+> assignment or replace its candidate paths without a new testing request.
+> The original instructions below are preserved as historical evidence.
+
 # Claude handoff — step 5 host and portable Linux qualification
 
 Date: October 30, 2026 (America/Los_Angeles).

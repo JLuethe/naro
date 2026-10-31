@@ -6,12 +6,34 @@ import json
 from pathlib import Path
 import os
 import platform
+import re
 import shutil
 import subprocess
 import tarfile
 import tomllib
 
 ROOT = Path(__file__).resolve().parents[1]
+DOCUMENTS = ('LICENSE', 'NOTICE', 'CREDITS.md', 'README.md', 'INSTALL.md',
+             'IMPLEMENTATION.md', 'RELEASE_NOTES.md', 'COVERAGE_REVIEW.md',
+             'CONTRIBUTING.md', 'SECURITY.md')
+
+
+def installed_document(text, revision):
+    """Keep shipped links local; pin repository-only links to the source commit."""
+    def replace(match):
+        destination = match.group(1)
+        if destination.startswith('#') or re.match(r'[a-zA-Z][a-zA-Z0-9+.-]*:', destination):
+            return match.group(0)
+        path, separator, fragment = destination.partition('#')
+        target = (ROOT / path).resolve()
+        relative = target.relative_to(ROOT).as_posix()
+        if not target.exists():
+            raise ValueError(f'missing documentation target: {destination}')
+        if relative in DOCUMENTS:
+            return match.group(0)
+        kind = 'tree' if target.is_dir() else 'blob'
+        return f'](https://github.com/JLuethe/naro/{kind}/{revision}/{relative}{separator}{fragment})'
+    return re.sub(r'\]\(([^\s)]+)\)', replace, text)
 
 
 def run(args):
@@ -60,8 +82,12 @@ def main():
     for folder in (['locale'] if tiny else ['locale', 'syntax']):
         shutil.copytree(ROOT / 'assets' / folder, stage / 'share/naro' / folder)
     shutil.copytree(ROOT / 'assets/po', stage / 'share/doc/naro/po')
-    for file in ['LICENSE', 'NOTICE', 'CREDITS.md', 'README.md', 'INSTALL.md', 'IMPLEMENTATION.md']:
+    revision = run(['git', 'rev-parse', 'HEAD'])
+    for file in DOCUMENTS:
         copy(ROOT / file, 'share/doc/naro/' + file)
+        if file.endswith('.md'):
+            (stage / 'share/doc/naro' / file).write_text(
+                installed_document((ROOT / file).read_text(), revision))
     if not tiny:
         examples = stage / 'share/doc/naro/examples'
         examples.mkdir()
@@ -69,7 +95,9 @@ def main():
     metadata = {
         'format': 1, 'product_version': version, 'compiled_build':build,
         'reference_commit': '6ed285c3ec7a1d228def4d4e7021c6ba269f620c',
-        'source_revision': run(['git', 'rev-parse', 'HEAD']),
+        'source_revision': revision,
+        'documentation': {'files': list(DOCUMENTS),
+                          'repository_links': 'immutable source revision; source archive text unchanged'},
         'dirty': bool(run(['git', 'status', '--porcelain'])),
         'target': args.target, 'features': args.features,
         'rustc': build['rustc'],

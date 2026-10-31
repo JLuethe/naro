@@ -66,5 +66,6 @@ jobs:
           python3 tools/check_extensions.py --default target/release/naro --credits target/credits/release/naro --panic-runs target/ci-panic --out target/ci-extensions
       - name: Installed assets, archive integrity and ownership
         run: |
+          python3 -m unittest discover -s tools -p 'test_package_docs.py'
           python3 tools/package.py --binary target/release/naro --out target/ci-package
           python3 tools/check_package.py --archive target/ci-package/naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz --source-archive target/ci-package/naro-0.1.0-source.tar.gz --out target/ci-install
