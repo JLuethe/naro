@@ -1,0 +1,401 @@
+{
+  "verification_sha256": "604c032c865701dac6f5fc0f0c9ce5e3764ed3e434b51e2ccea5fdf8172d45aa",
+  "environment": {
+    "system": "Linux-7.2.8-9-omarchy-x86_64-with-glibc2.44",
+    "machine": "x86_64",
+    "libc": [
+      "glibc",
+      "2.44"
+    ],
+    "python": "3.14.8",
+    "tmux": "tmux 3.8",
+    "locale_inventory": "C\nC.utf8\nPOSIX\nen_US.utf8",
+    "file": "file-5.48\nmagic file from /usr/share/file/misc/magic\nseccomp support included\nLandlock support included",
+    "magic_databases": {
+      "/usr/share/file/misc/magic.mgc": "c2f4e7e55b0ee33c181ada80b065f9f8a58633c9806e8bd3353253c68324f268"
+    },
+    "locpath": null
+  },
+  "build_flags": "default",
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "scenario_sha256": "1c5898120a2f8c3c70e062ff412595237228d56a116727f2b71a57ea735a10da",
+  "results": {
+    "TEST-STEP3-EOF-L-STRUCT-00-CONTROL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-EOF-L-STRUCT-01-NAV-ONLY": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-EOF-L-STRUCT-02-READFILE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-EOF-L-STRUCT-03-COMMANDINSERT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-EOF-L-STRUCT-04-REPLACE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-EOF-L-STRUCT-05-JUSTIFY-CORRECTED": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-EOF-L-STRUCT-06-FORMATTER": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-EOF-L-STRUCT-07-FORMATTER-FAIL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-EOF-L-STRUCT-08-SPELLER": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-EOF-L-STRUCT-09-SPELLER-FAIL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-EOF-L-STRUCT-10-FILTER-MARKED": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-EOF-L-STRUCT-11-CUT-PASTE-ABOVE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-EOF-L-STRUCT-12-BRACKETED-PASTE-ABOVE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-BOUNDARY-LF-READ": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-BOUNDARY-LF-COMMAND": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-BOUNDARY-LF-PASTE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-BOUNDARY-LF-CUTPASTE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-EOF-LF-LIVE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-EOF-LF-HISTORY-CORRECTED": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-BOUNDARY-NOFINAL-READ": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-BOUNDARY-NOFINAL-COMMAND": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-BOUNDARY-NOFINAL-PASTE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-BOUNDARY-NOFINAL-CUTPASTE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-EOF-NOFINAL-LIVE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-EOF-NOFINAL-HISTORY-CORRECTED": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-VIEW-1": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-VIEW-2": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-PAGE-TAB3-PLAIN": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-PAGE-TAB3-GUTTER": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-PAGE-TAB4-PLAIN": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-PAGE-TAB4-GUTTER": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-PAGE-TAB8-PLAIN": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-PAGE-TAB8-GUTTER": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-MARK-REVERSE-8": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-MARK-REVERSE-15": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-QUOTE-NBSP": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-QUOTE-EM": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-QUOTE-IDEOGRAPHIC": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-PAGE-MIN-DOWN": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-STEP3-PAGE-MIN-UP": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    }
+  },
+  "reference_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+  "reference_status": 0,
+  "candidate_sha256": "4a97874ca06d2e3093f81769c5e0989554a5c87cf8f95ef7d43d9074102c0d7d",
+  "candidate_status": 0,
+  "candidate_build": {
+    "version": "0.1.0",
+    "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+    "source_sha256": "0786e7d32514c2eea5bf55e56164462a412e11dc39276acaf3baba458a08492c",
+    "revision": "16f6398968adc1f815055a4413cf0465aed28126",
+    "features": "",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "summary": {
+    "recorded": 40,
+    "matches": 40,
+    "accepted": 40
+  }
+}

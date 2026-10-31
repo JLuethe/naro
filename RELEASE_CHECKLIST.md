@@ -7,12 +7,12 @@ authorize publication. Historical reports retain their original identities.
 
 ## Current candidate status
 
-The prior step 10 proposal is superseded by the save-progress repair authorized
-on October 30. Historical checked gates below describe the previous frozen
-candidates; the new executables must pass the complete matrix again. Track the
-renewed work in [the repair plan](NARO_SAVE_PROGRESS_PLAN_2026-10-30.md).
-The mandatory exact suites now total 132 cases per environment, including
-13 deterministic transient save-progress comparisons. Publication is not approved.
+The save-progress repair is committed as `16f6398`. Both replacement candidates
+passed fresh complete qualification, including all 132 newer exact cases per
+environment and the expanded 99-check gate. See the
+[new qualification record](validation/save-progress-2026-10-30/README.md).
+Final archive verification, independent Claude review, and publication approval
+are recorded separately. No release is published.
 
 ## Release scope
 
@@ -50,15 +50,15 @@ passes do not qualify a newly built executable automatically.
   discovered paging defect fixed. See [results](NARO_STEP3_RESULTS_2026-10-30.md).
 - [x] Freeze committed production source; record source fingerprint, revision,
   compiler/features, native environment, candidate hashes, and pinned reference.
-- [ ] Pass formatting, Clippy, Rust/Python tests, specification audit, and CI for
+- [x] Pass formatting, Clippy, Rust/Python tests, specification audit, and CI for
   the delivered changes. Resolve or disclose remaining audit citations.
 - [x] Qualify host and Ubuntu terminal corpora: 303 recorded, 301 full matches,
   302 file/exit matches, and six explicit exclusions; no new unexplained mismatch.
 - [x] Pass CLI 38 and regex 162 checks in each environment.
 - [x] Preserve historical follow-up acceptance: 53 cases, 51 exact, only the
   two named tool-cleanup differences. Pass all eight ioctl-model comparisons.
-- [x] Pass all 119 additional exact comparisons in **each** environment:
-  wrap-undo 58, filter 6, release-fixes 15, step3-gaps 40. Both harnesses must exit zero, all
+- [x] Pass all 132 additional exact comparisons in **each** environment:
+  wrap-undo 58, filter 6, release-fixes 15, step3-gaps 40, save-progress 13. Both harnesses must exit zero, all
   assertions and steps must pass, and complete evidence must validate.
 - [x] Pass host isolated-root/home cases (27 exact), with the separate asserted
   no-home recovery deviation.
@@ -107,12 +107,12 @@ insufficient. No executable named by a report is run during collection.
 Each runner freezes its environment reference as `reference.bin` at the run
 root. Host qualification requires the existing pinned host executable hash;
 Ubuntu uses its own built reference hash rather than the host's executable.
-The collector binds all four suites to the corresponding frozen reference and
+The collector binds all five suites to the corresponding frozen reference and
 candidate. Missing reports fail the gate even when old closure checks pass.
 This is evidence integrity checking, not signed build authentication.
 
 The historical 53-case totals remain unchanged. The final gate records the
-additional 58/6/15/40 inventory separately. New checker/tool identities require
+additional 58/6/15/40/13 inventory separately. New checker/tool identities require
 fresh qualification records; historical bundles are not relabeled.
 
 Useful entry points after the source freeze:
@@ -138,10 +138,8 @@ testing must still be assessed against release safety and integrity criteria.
 
 ## Next action
 
-Review the [step 10 packet](NARO_STEP10_REVIEW_2026-10-30.md). The earlier CI
-saved-cursor failure is reproduced and fixed through explicit save-completion
-waits; all cursor/file assertions remain intact. Fresh 40-case suites per
-environment and the complete 97-check collector pass. Verify CI for the exact
-6004fa8 tag target and final review delivery, obtain Claude's independent report,
-then seek approval for the exact prerelease/tag/body/assets proposal. Nothing
-has been published. Historical qualification records retain their original scope.
+Complete final archive checks and independent review of the replacement
+candidates. Verify successful CI for the exact proposed tag and final review
+commit. John must approve the exact prerelease/tag/body/assets proposal before
+publication. The previous step 10 target and archives are superseded; all older
+evidence remains available under its original identity.

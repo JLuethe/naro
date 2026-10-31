@@ -6,14 +6,14 @@ Technical candidate qualification is complete; final publication review is not.
 
 ## Candidate identity
 
-Production commit: `fd91763c4f14d9bed8187d64d44f2136440b7b3e`.
+Production commit: `16f6398968adc1f815055a4413cf0465aed28126`.
 Production-source SHA-256:
-`4cabd71741ffc8ee0357d945c67904c8a2fd0089c12e9b32a1c5b3e35c394ae6`.
+`0786e7d32514c2eea5bf55e56164462a412e11dc39276acaf3baba458a08492c`.
 
 | Role | Executable SHA-256 |
 | --- | --- |
-| Primary Ubuntu default candidate | `33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1` |
-| Host qualification candidate | `cae387c78619520aacbf61690e675496b82f8ccf04af2824beb9e864004f0a96` |
+| Primary Ubuntu default candidate | `b95bb4f9984f8e321fbd69e2a4e3058c7f184d6b35a8ae7650f6f5b7897f90bf` |
+| Host qualification candidate | `4a97874ca06d2e3093f81769c5e0989554a5c87cf8f95ef7d43d9074102c0d7d` |
 
 Both report default/empty features and version 0.1.0. Later documentation commits
 are distinct from this compiled source. [The validation index](validation/README.md)
@@ -39,7 +39,7 @@ finite tested matrix; it is not a claim of exhaustive compatibility.
 | Terminal corpus, each environment | 303 recorded; 301 full and 302 file/exit matches; six exclusions |
 | CLI / regex, each environment | 38 / 162 pass |
 | Historical follow-ups, each environment | 53 cases, 51 exact; two accepted signal cleanup differences |
-| Additional regressions, each environment | wrap 58, filter 6, release-fixes 15, step3-gaps 40: all 119 exact |
+| Additional regressions, each environment | wrap 58, filter 6, release-fixes 15, step3-gaps 40, save-progress 13: all 132 exact |
 | Isolated root/home, host only | 27 exact plus a separately asserted no-home deviation |
 | Guest Linux VT, each candidate | 19 exact comparisons, with terminal/keyboard/meta restoration |
 | Ioctl models, each candidate | Eight exact comparisons; distinct from guest-VT testing |
@@ -47,7 +47,7 @@ finite tested matrix; it is not a claim of exhaustive compatibility.
 | Recovery and large files | Separate panic instrumentation, write/signal cases, 1 MiB/10 MiB checks pass |
 | Ubuntu package | 15 checks; offline source rebuild; 41 catalogs and 44 asset checks pass |
 | Additional ordinary-prefix install | Five checks pass |
-| Complete technical collector | 97/97 checks pass |
+| Complete technical collector | 99/99 checks pass |
 
 Ubuntu used its own built reference executable and fresh observations. The host
 and Ubuntu results do not substitute for one another. Guest-VT testing used the
@@ -91,4 +91,4 @@ executable hashes must not be presented as measurements of this candidate.
 
 CI checks selected build, unit, terminal and packaging behavior. Full local
 host/Ubuntu/VM qualification is separate; a green CI job alone is not the
-97-check release gate. Testing never publishes a release automatically.
+99-check release gate. Testing never publishes a release automatically.

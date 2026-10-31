@@ -1,5 +1,11 @@
 # NARO step 10 — release preparation and review
 
+Historical proposal, superseded by the [save-progress repair and renewed
+qualification](validation/save-progress-2026-10-30/README.md). Claude completed
+this review and identified missing transient save feedback. John selected a fix,
+new builds and full requalification. The original packet below retains its
+preparation-time state; its old tag target and archives are not current.
+
 Prepared October 30, 2026. Nothing is published. This packet prepares items 1–4:
 CI diagnosis, delivery verification, exact download verification, and a concrete
 publication proposal. Claude's independent verification and John's publication

@@ -38,9 +38,9 @@ example for your selected profile.
 
 ## What has been tested
 
-The qualified production source is `fd91763c4f14d9bed8187d64d44f2136440b7b3e`.
+The qualified production source is `16f6398968adc1f815055a4413cf0465aed28126`.
 The primary Ubuntu executable's SHA-256 is
-`33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1`.
+`b95bb4f9984f8e321fbd69e2a4e3058c7f184d6b35a8ae7650f6f5b7897f90bf`.
 Documentation commits may be newer than the compiled source.
 
 For both the frozen host and Ubuntu candidates:
@@ -49,10 +49,10 @@ For both the frozen host and Ubuntu candidates:
   matches, with six separately excluded cases.
 - CLI and regex checks: 38 and 162 passed.
 - Historical follow-ups: 53 cases, 51 exact and two declared cleanup differences.
-- Additional regressions: 119/119 exact comparisons.
+- Additional regressions: 132/132 exact comparisons.
 - Genuine guest Linux VT: 19/19 exact comparisons using emulated PS/2 input.
 
-The complete technical collector passed 97/97 checks. Packaging includes
+The complete technical collector passed 99/99 checks. Packaging includes
 corresponding-source rebuilding, installation/removal, all 41 catalogs, syntax
 loading and archive rejection checks. These results are scoped evidence, not
 proof of complete nano compatibility or a security audit.

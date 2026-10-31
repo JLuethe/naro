@@ -1,0 +1,9 @@
+{
+  "archive": "frozen-candidates.tar.gz",
+  "sha256": "39038bcfbc7374cc7bcd79f27832b9553e7ae131b82607f8dd93b587e36b3cbf",
+  "bytes": 143023200,
+  "files_verified": 14972,
+  "freeze_manifest_sha256": "ad0220314ff5be5896d1c499565d69facb765e5e3ec3b37ad42a6bd5b5577bba",
+  "source_commit": "16f6398968adc1f815055a4413cf0465aed28126",
+  "location_note": "Outside target on the same physical filesystem; not an off-device backup."
+}

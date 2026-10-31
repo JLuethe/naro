@@ -1,0 +1,8 @@
+{
+  "archive": "qualification-evidence.tar.gz",
+  "bytes": 125384305,
+  "sha256": "c9d36c441755ec2120eea3c5cc229de0e9119c514cbf9b610a219b9615ddd135",
+  "files_verified": 5907,
+  "manifest_sha256": "308830ccd5479ea29671cf26ba56fa4d8a46f68262ea48954c0163b54a8a60fb",
+  "location_note": "Verified outside-target preservation on the same physical filesystem."
+}

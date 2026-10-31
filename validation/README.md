@@ -1,42 +1,35 @@
 # Validation evidence
 
-Latest release preparation: [step 10 review](../NARO_STEP10_REVIEW_2026-10-30.md)
-and [CI synchronization diagnosis](step10-ci-2026-10-30/README.md). New 40-case
-host/Ubuntu evidence and the 97-check collector supplement the unchanged frozen
-qualification. Independent Claude verification and publication remain separate.
-
-
 ## Current 0.1.0 candidate
 
-The current qualified production commit is
-`fd91763c4f14d9bed8187d64d44f2136440b7b3e`. The primary Ubuntu default binary is
-`33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1`;
-the host qualification binary is
-`cae387c78619520aacbf61690e675496b82f8ccf04af2824beb9e864004f0a96`.
-The reference source is GNU nano `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`.
-Documentation and evidence commits may be newer than these build identities.
+The save-progress repair supersedes the previous candidate and step 10 proposal.
+See [renewed qualification](save-progress-2026-10-30/README.md) and its
+[complete technical gate](save-progress-2026-10-30/closure/gate.json).
+Production commit: `16f6398968adc1f815055a4413cf0465aed28126`.
+Primary Ubuntu executable: `b95bb4f9984f8e321fbd69e2a4e3058c7f184d6b35a8ae7650f6f5b7897f90bf`.
+Host qualification executable: `4a97874ca06d2e3093f81769c5e0989554a5c87cf8f95ef7d43d9074102c0d7d`.
+Reference source: GNU nano `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`.
 
-| Record | What it establishes |
-| --- | --- |
-| [Source/build freeze](../NARO_STEP4_FREEZE_2026-10-30.md) | Clean committed source, separate binaries, references and build provenance |
-| [Step 5 qualification](step5-qualification-2026-10-30/README.md) | Host and independent Ubuntu matrices, accepted differences and integrity review |
-| [Step 6 console](step6-console-2026-10-30/README.md) | 19/19 guest-VT comparisons per candidate and six transport checks |
-| [Refreshed step 8/9 packages](step8-9-release-2026-10-30/README.md) | Approved documentation, fresh package/rebuild/link checks, full gate and backup |
-| [Step 7 packages](step7-package-2026-10-30/README.md) | Exact archive linkage, installed assets, source rebuild and preservation |
-| [Complete technical gate](step7-package-2026-10-30/closure/gate.json) | All 97 required checks passed |
-| [Coverage review](../COVERAGE_REVIEW.md) | Nine unresolved citations and the limits of audit coverage |
+Both candidates passed full fresh qualification: 303 recorded corpus cases,
+301 full / 302 file-exit matches and six exclusions; CLI 38 / regex 162;
+historical follow-ups 53 with 51 exact; 132 newer exact regressions; 19 guest-VT
+comparisons each. The complete gate passes 99/99. Host root/home retains 27 exact
+cases plus its separately asserted no-home difference. No new mismatch was
+accepted or normalized. Ubuntu used its own reference and fresh observations.
 
-Each environment recorded 303 baseline cases: 301 full matches and 302 file/exit
-matches, with six exclusions. The separate historical follow-ups have 53 cases,
-51 exact; the newer suites add 119 exact cases per environment. Do not merge
-these inventories into an unexplained aggregate or count excluded cases as passes.
+The primary archives are repackaged after documentation refresh; final archive
+hashes, package checks and independent review are identified by the release
+review packet and downloadable qualification sidecar. Source and binary hashes
+must be matched to those exact assets. Publication is not implied.
 
-The refreshed step 8/9 archives supersede step 7 as the selected download set;
-step 7 remains historical evidence. This is not an announcement of publication. [The release checklist](../RELEASE_CHECKLIST.md)
-tracks remaining final CI and release-decision gates, including the earlier
-saved-cursor CI failure retained in the step 8/9 receipt.
-If later packaging changes archive bytes, use the newer reviewed artifact receipt
-and checksums rather than attributing old package results to new inputs.
+[Step 5](step5-qualification-2026-10-30/README.md),
+[step 6](step6-console-2026-10-30/README.md),
+[step 7](step7-package-2026-10-30/README.md),
+[steps 8–9](step8-9-release-2026-10-30/README.md), and
+[earlier step 10](step10-ci-2026-10-30/README.md) retain their historical identities.
+The earlier independent Claude review confirmed the synchronization repair and
+found missing save feedback; its decision led to this production repair and full
+requalification. Historical success does not qualify the replacement binaries.
 
 ## Evidence interpretation and preservation
 

@@ -1,6 +1,6 @@
 # NARO 0.1.0 candidate release notes
 
-Status: approved candidate wording; publication pending. No release tag,
+Status: refreshed candidate wording for review; publication pending. No release tag,
 publication date or hosted download is announced by this document.
 
 NARO is an independent Rust port of GNU nano 9.3. The first release is an
@@ -16,9 +16,9 @@ ncursesw and libmagic; this is not a pure-Rust or static executable.
 The supported envelope is the recorded build/runtime environment, not every
 Linux distribution or operating system. See [INSTALL.md](INSTALL.md).
 
-The qualified source is `fd91763c4f14d9bed8187d64d44f2136440b7b3e`.
+The qualified source is `16f6398968adc1f815055a4413cf0465aed28126`.
 The Ubuntu executable SHA-256 is
-`33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1`.
+`b95bb4f9984f8e321fbd69e2a4e3058c7f184d6b35a8ae7650f6f5b7897f90bf`.
 The selected archive names are `naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz` and
 `naro-0.1.0-source.tar.gz`. Use the checksum file accompanying the final approved
 archive set. Documentation repackaging can change archive hashes without changing
@@ -27,6 +27,10 @@ with the refreshed archives; the step 7 archive hashes identify the older packag
 
 ## Fixes included during candidate testing
 
+- Regular saves display `Writing...` before writing/syncing; FIFO saves also
+  display `Writing to FIFO...` before blocking open, with translated status and
+  nano-compatible cursor behavior. Thirteen deterministic transient tests cover
+  the repaired feedback and failure paths.
 - Bracketed paste now follows nano's hard-wrap behavior in the reproduced cases.
 - Soft-wrap vertical movement and page navigation preserve the expected cursor
   position and viewport behavior.
@@ -42,9 +46,9 @@ been exhaustively verified.
 
 ## Qualification
 
-The complete technical gate passed 97/97 checks. Both frozen candidates passed
+The complete technical gate passed 99/99 checks. Both frozen candidates passed
 the 303-case corpus at the retained 301 full / 302 file-exit expectations,
-119/119 newer exact regressions, 38 CLI and 162 regex checks, and 19/19 genuine
+132/132 newer exact regressions, 38 CLI and 162 regex checks, and 19/19 genuine
 guest-VT comparisons. Ubuntu used its own nano reference and observations.
 
 Package checks cover offline source rebuilding, installed hashes, ordinary and

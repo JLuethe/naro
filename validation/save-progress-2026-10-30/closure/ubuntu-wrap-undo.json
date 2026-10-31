@@ -1,0 +1,563 @@
+{
+  "verification_sha256": "604c032c865701dac6f5fc0f0c9ce5e3764ed3e434b51e2ccea5fdf8172d45aa",
+  "environment": {
+    "system": "Linux-7.2.8-9-omarchy-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "libc": [
+      "glibc",
+      "2.39"
+    ],
+    "python": "3.12.3",
+    "tmux": "tmux 3.8",
+    "locale_inventory": "C\nC.utf8\nde_DE.utf8\nen_US.utf8\nfr_FR.utf8\nja_JP.utf8\nPOSIX",
+    "file": "file-5.45\nmagic file from /etc/magic:/usr/share/misc/magic",
+    "magic_databases": {
+      "/usr/lib/file/magic.mgc": "72a25195a2623fe160e926bf20952b6b74b29d6c91e0174a5fa062f02beee1aa"
+    },
+    "locpath": null
+  },
+  "build_flags": "default",
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "scenario_sha256": "1cd5aee65f91c760d478b9ca43adf4660862392b2e370f309f8afc0b4341f6a5",
+  "results": {
+    "TEST-NEXT-UNDO-WRAP-001-MID": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-002-CHAIN": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-003-MULTI": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-004-INDENT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-005-SPILL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-006-PREFIX": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-007-INSERT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-008-DELETE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-009-REDO": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-010-UNDO-ONE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-011-SAVE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-012-AUTOSpill": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-013-MISMATCH": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-014-EMPTY": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-015-TABS": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-016-UTF8": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-017-WSTRAIL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-018-REJECT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-019-TRIM": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-020-DELJOIN": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-024-BSPJOIN": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-021-DIVERGE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-022-NULBEFORE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-023-NULAFTER": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-025-CHAIN-REDO": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-026-CUT-TAIL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-027-NUL-JOIN": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-028-MARK": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-029-EMPTY-DEL": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-030-EMPTY-BSP": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-031-PARTIAL-CUT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-032-QUOTE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-033-CONT-INDENT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-034-FILL-ZERO": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-035-FILL-NEG": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-036-ONECHAR": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-037-PASTE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-038-PASTE-SHIFT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-039-MARK-SHIFT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-040-MARK-SPLIT": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-041-MARK-EOF": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-042-MARK-PREFIX": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-043-MARK-BLANKS": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-044-TRAILING-SPACE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-045-MARK-FWD": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-046-MARK-IN-PREFIX": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-047-SPLIT-MARK-0": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-048-SPLIT-MARK-8": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-049-SPLIT-MARK-12": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-050-SPLIT-MARK-14": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-051-PREFIX-MARK-0": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-052-PREFIX-MARK-1": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-053-PREFIX-MARK-4": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-054-PREFIX-MARK-6": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-055-PREFIX-MARK-7": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-056-MARK-UTF8": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-057-MARK-QUOTE": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    },
+    "TEST-NEXT-UNDO-WRAP-058-MARK-TRIM": {
+      "match": true,
+      "declared_deviation": false,
+      "deviation_id": null,
+      "accepted": true,
+      "reference_checks": true,
+      "candidate_checks": true,
+      "differences": []
+    }
+  },
+  "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+  "reference_status": 0,
+  "candidate_sha256": "b95bb4f9984f8e321fbd69e2a4e3058c7f184d6b35a8ae7650f6f5b7897f90bf",
+  "candidate_status": 0,
+  "candidate_build": {
+    "version": "0.1.0",
+    "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+    "source_sha256": "0786e7d32514c2eea5bf55e56164462a412e11dc39276acaf3baba458a08492c",
+    "revision": "16f6398968adc1f815055a4413cf0465aed28126",
+    "features": "",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "summary": {
+    "recorded": 58,
+    "matches": 58,
+    "accepted": 58
+  }
+}

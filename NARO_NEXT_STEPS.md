@@ -1,5 +1,24 @@
 # NARO next steps — Codex development ownership
 
+## Save-progress repair and renewed qualification — October 30, 2026
+
+Claude confirmed the earlier CI synchronization fix, then found missing save
+feedback. John chose implementation and full requalification. Codex added
+`Writing...` and `Writing to FIFO...` with 13 deterministic regressions in
+production commit `16f6398968adc1f815055a4413cf0465aed28126`.
+Both newly frozen candidates passed the complete fresh matrix and 99/99 gate,
+including 132 newer exact cases per environment and 19/19 guest-VT each. The
+production commit's GitHub CI passed. See the
+[current qualification record](validation/save-progress-2026-10-30/README.md).
+
+The old candidate, tag proposal and archives below are superseded. Final
+refreshed archive identities and independent Claude verification are recorded
+in the final release packet and QUALIFICATION.json sidecar. No publication is
+authorized; John must approve the exact tag, prerelease setting, body and assets.
+Codex owns implementation; Claude independently tests and reports. All earlier
+checkpoints retain their historical scope.
+
+
 ## Step 10 preparation — October 30, 2026
 
 The CI saved-cursor failure is reproduced as a save-completion synchronization
