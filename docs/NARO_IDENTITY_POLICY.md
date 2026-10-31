@@ -43,12 +43,18 @@ arbitrary replacement.
 ## No broad comparison normalization
 
 `spec/tools/compare_runs.py` is unchanged. Raw grids, attributes, cursor, files,
-inputs, exits and help text remain strictly compared. This policy does not turn
-a branding mismatch into a raw exact match. The existing exact-count collector
-therefore does not qualify the changed source by itself. The next qualification
-must explicitly review the raw identity differences and adjust acceptance/count
-reporting while retaining every other assertion. Old 0.1.0 qualification is not
-evidence for new 0.1.1 bytes.
+inputs, exits and help text remain strictly compared. Identity acceptance is a
+separate, reference-derived decision; it never turns a branding difference into
+a raw exact match. Reports distinguish raw exact, reviewed identity, declared
+historical deviations and unexpected results. Unsupported title shapes fail
+closed until the independent oracle is extended and reviewed.
+
+The versioned release gate reopens recordings, verifies their provenance and
+recomputes both assertions and identity decisions. Fixed suite membership and
+the named historical deviations remain required; unexplained differences block
+qualification. Fresh observations from each environment's own pinned nano are
+required for the terminal corpus. The old 0.1.0 exact-count gate and qualification
+are historical evidence, not evidence for new 0.1.1 bytes.
 
 ## Focused regression coverage
 

@@ -51,6 +51,9 @@ def main():
                                        if not line.startswith(" -R "))
                 expected = expected.replace("Usage: nano ", "Usage: naro ")
                 expected = expected.replace(", nano reads data", ", naro reads data")
+                expected = expected.replace("configuring nano", "configuring NARO")
+                if "configuring nano" in (ROOT / "assets" / asset).read_text():
+                    assert "configuring NARO" in expected
             results.append(dict(name=name, argv=argv, exit_status=run.returncode,
                                 stdout=run.stdout, stderr=run.stderr, expected=expected,
                                 passed=run.returncode == 0 and run.stdout == expected

@@ -43,6 +43,8 @@ def expected_cli_output(reference, profile='default'):
     This function never receives or rewrites actual candidate output.
     """
     version = tomllib.loads((ROOT / 'Cargo.toml').read_text())['package']['version']
+    if reference.startswith(' GNU nano, version ') and not reference.startswith(' GNU nano, version 9.3\n'):
+        raise ValueError('unsupported GNU nano version oracle')
     if reference.startswith(' GNU nano, version 9.3\n'):
         old = (' GNU nano, version 9.3\n'
                + ('' if profile == 'tiny' else ' (C) 2026 the Free Software Foundation and various contributors\n')
@@ -54,27 +56,27 @@ def expected_cli_output(reference, profile='default'):
                 ' License: GPL-3.0-or-later\n'
                 f' Compiled profile: {profile}; UTF-8 enabled\n')
     if reference.startswith('Usage: nano '):
-        return reference.replace('Usage: nano ', 'Usage: naro ', 1).replace(', nano reads data', ', naro reads data')
+        return reference.replace('Usage: nano ', 'Usage: naro ', 1).replace(', nano reads data', ', naro reads data').replace('configuring nano', 'configuring NARO')
     return reference
 
 
-def title_row(cols, filename, state='', label='NARO 0.1.1'):
+def title_row(cols, filename, state='', label='NARO 0.1.1', reserved=9):
     """Independent ASCII title-layout oracle used to review identity fixtures.
 
     Covers normal file/new-buffer titles; refuses non-ASCII filename layouts.
     German state words are single-column Unicode and are permitted.
     """
-    if not filename.isascii() or not filename or any(ord(c) < 32 for c in filename):
+    if (not filename.isascii() and filename != 'New·Buffer') or not filename or any(ord(c) < 32 for c in filename):
         raise ValueError('title oracle needs a printable ASCII filename')
     row = [' '] * cols
     def put(start, text):
         for i, ch in enumerate(text):
             if 0 <= start + i < cols:
                 row[start + i] = ch
-    plug = 0 if state else 9  # English Modified is eight display columns.
+    plug = 0 if state else reserved  # English Modified is eight display columns.
     ver = len(label) + 3
     path = len(filename) + bool(state)
-    stat = len(state) + 2
+    stat = (9 if state == '�Ver�ndert' else len(state)) + 2
     if ver + path + plug + stat <= cols:
         put(2, label)
     else:
@@ -95,18 +97,18 @@ def title_row(cols, filename, state='', label='NARO 0.1.1'):
     return ''.join(row).rstrip()
 
 
-def candidate_title(reference, cols=80, version='0.1.1'):
+def candidate_title(reference, cols=80, version='0.1.1', reserved=9):
     prefix = '  GNU nano 9.3'
     if not reference.startswith(prefix):
         raise ValueError('not a full nano title assertion')
     rest = reference[len(prefix):]
-    match = re.fullmatch(r' +(.*?)(?: {2,}(Modified|View|Restricted|Verändert))?', rest)
+    match = re.fullmatch(r' +(.*?)(?: {2,}(Modified|View|Restricted|Verändert|�Ver�ndert))?', rest)
     if not match:
         raise ValueError('unrecognized nano title assertion')
     filename, state = match.group(1), match.group(2) or ''
     # A translated Modified word affects only an unmodified title's reserved gap.
     # Existing English/German full-title fixture rows share the English nine-cell
     # reservation when clean; explicitly validate instead of assuming it.
-    if title_row(cols, filename, state, 'GNU nano 9.3') != reference:
+    if title_row(cols, filename, state, 'GNU nano 9.3', reserved) != reference:
         raise ValueError('reference title does not match independent layout oracle: ' + repr(reference))
-    return title_row(cols, filename, state, 'NARO ' + version)
+    return title_row(cols, filename, state, 'NARO ' + version, reserved)

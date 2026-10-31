@@ -7,12 +7,15 @@ at the same time: each partition is disjoint, but fixtures are keyed by test ID.
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/'spec/tools'))
+from identity_review import policy_identity,summary_counts
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument('--binary', type=Path, required=True)
 p.add_argument('--out', type=Path, required=True)
@@ -47,9 +50,10 @@ for process, log, part in workers:
     skipped.update(report['skipped'])
 if set(results) | set(skipped) != set(ids):
     raise SystemExit('incomplete partition results')
-summary = dict(recorded=len(results), full_matches=sum(v['full_match'] for v in results.values()),
-               files_matches=sum(v['files_match'] for v in results.values()), skipped=len(skipped))
-report = dict(reference_commit='6ed285c3ec7a1d228def4d4e7021c6ba269f620c',
+summary=summary_counts(results)
+summary.update(full_matches=sum(v['full_match']for v in results.values()),files_matches=sum(v['files_match']for v in results.values()),skipped=len(skipped))
+reference_runs=Path(os.environ.get('NARO_REFERENCE_RUNS',str(ROOT/'spec/evidence/runs'))).resolve()
+report = dict(identity_policy=policy_identity(),reference_runs=str(reference_runs),reference_runs_relative=os.path.relpath(reference_runs,a.out),reference_commit='6ed285c3ec7a1d228def4d4e7021c6ba269f620c',
               binary_sha256=digest, skipped=skipped, results=dict(sorted(results.items())),
               summary=summary, partitions=a.jobs, worker_statuses=statuses)
 (a.out / 'report.json').write_text(json.dumps(report, indent=2) + '\n')

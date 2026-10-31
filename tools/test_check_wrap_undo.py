@@ -30,6 +30,7 @@ def valid_artifacts(directory, cases):
         selected = [checker.candidate_case(c) for c in cases] if name == "candidate-scenarios.json" else cases
         (directory / name).write_text(json.dumps(selected, indent=1) + "\n")
     report = {
+        "identity_policy": checker.policy_identity(),
         "reference_commit": checker.REFERENCE_COMMIT,
         "reference_sha256": checker.sha256(ref),
         "candidate_sha256": checker.sha256(cand),
@@ -74,10 +75,11 @@ def valid_artifacts(directory, cases):
             runner.root = "/tmp/fixture/fx"
             run["checks"] = runner.check(run)
             (d / "result.json").write_text(json.dumps(run))
-        report["results"][tid] = {"match": True, "accepted": True,
-                                  "reference_checks": True, "candidate_checks": True,
-                                  "differences": [], "declared_deviation": False,
-                                  "deviation_id": None}
+        runs=[json.loads((directory/side/tid/'result.json').read_text())for side in ('reference','candidate')]
+        result=checker.classify(*runs,case_id=tid,case=case)
+        result.update(match=result['raw_exact'],reference_checks=True,candidate_checks=True)
+        report['results'][tid]=result
+    report['summary']=checker.summary_counts(report['results']);report['summary']['matches']=len(cases)
     return report
 
 
@@ -160,8 +162,8 @@ class WrapUndoCheckerTest(unittest.TestCase):
             value["candidate_checks"] = False
         problems = self.problems(report)
         self.assertTrue(problems)
-        self.assertTrue(any("not an exact match" in p for p in problems))
-        self.assertTrue(any("summary matches" in p for p in problems))
+        self.assertTrue(any("recomputed" in p or "differences were not identity reviewed" in p for p in problems))
+        self.assertTrue(any("raw match differs" in p for p in problems))
 
     def test_failed_side_checks_are_rejected(self):
         report = copy.deepcopy(self.report)
@@ -364,6 +366,19 @@ class WrapUndoCheckerTest(unittest.TestCase):
     def test_malformed_recording_is_rejected(self):
         self.recording(lambda r: r.update(fixture=None))
         self.assertTrue(self.problems())
+
+    def test_identity_classification_claims_are_recomputed(self):
+        for key,value in [('identity_reviewed',True),('raw_exact',1),('policy_sha256','0'*64),('unexpected_differences',[{'field':'extra'}])]:
+            report=copy.deepcopy(self.report)
+            report['results'][sorted(report['results'])[0]][key]=value
+            self.assertTrue(self.problems(report),key)
+
+    def test_identity_summary_and_policy_tampering_is_rejected(self):
+        for key in ['raw_matches','identity_reviewed','declared_deviations','unexpected','accepted']:
+            report=copy.deepcopy(self.report);report['summary'][key]=True
+            self.assertTrue(self.problems(report),key)
+        report=copy.deepcopy(self.report);report['identity_policy']['sha256']='0'*64
+        self.assertTrue(self.problems(report))
 
     def test_status_booleans_are_rejected(self):
         self.report["candidate_status"] = False

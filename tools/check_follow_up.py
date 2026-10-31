@@ -6,7 +6,7 @@ from compare_runs import compare
 from candidate_expectations import candidate_case
 from environment import snapshot
 from check_wrap_undo import verification_fingerprint
-from follow_up_policy import deviation
+from identity_review import classify, policy_identity, summary_counts
 p=argparse.ArgumentParser();p.add_argument('--suite',required=True);p.add_argument('--binary',type=pathlib.Path,default=ROOT/'target/debug/naro');p.add_argument('--reference',type=pathlib.Path,default=pathlib.Path.home()/'src/nano-install/default/bin/nano');p.add_argument('--out',type=pathlib.Path,required=True);p.add_argument('--ids',nargs='*');p.add_argument('--reference-only',action='store_true');a=p.parse_args()
 if a.out.exists():raise SystemExit('preserve evidence: use a new output directory')
 a.out.mkdir(parents=True)
@@ -14,7 +14,7 @@ cases=json.loads((ROOT/f'tests/follow-up/scenarios/{a.suite}.json').read_text())
 if not cases:raise SystemExit('no cases selected')
 scenario=a.out/'scenarios.json';scenario.write_text(json.dumps(cases,indent=1)+'\n')
 env=os.environ.copy();env['PYTHONUNBUFFERED']='1'
-report={'verification_sha256':verification_fingerprint(),'environment':snapshot(),'build_flags':os.environ.get('NARO_BUILD_FLAGS','default'),'reference_commit':'6ed285c3ec7a1d228def4d4e7021c6ba269f620c','scenario_sha256':hashlib.sha256(scenario.read_bytes()).hexdigest(),'results':{}}
+report={'identity_policy':policy_identity(),'verification_sha256':verification_fingerprint(),'environment':snapshot(),'build_flags':os.environ.get('NARO_BUILD_FLAGS','default'),'reference_commit':'6ed285c3ec7a1d228def4d4e7021c6ba269f620c','scenario_sha256':hashlib.sha256(scenario.read_bytes()).hexdigest(),'results':{}}
 for kind,source in [('reference',a.reference),('candidate',a.binary)]:
  if kind=='candidate'and a.reference_only:break
  binary=(a.out/(kind+'.bin')).resolve();shutil.copy2(source.resolve(),binary);report[kind+'_sha256']=hashlib.sha256(binary.read_bytes()).hexdigest()
@@ -29,11 +29,13 @@ for kind,source in [('reference',a.reference),('candidate',a.binary)]:
   for s in cases:
    tid=s['id']
    if any(not (a.out/k/tid/'result.json').exists()for k in ['reference','candidate']):
-    report['results'][tid]={'match':False,'accepted':False,'reference_checks':False,'candidate_checks':False,'differences':[{'field':'missing recording'}]};continue
+    report['results'][tid]={'match':False,'raw_exact':False,'identity_reviewed':False,'declared_deviation':False,'deviation_id':None,'accepted':False,'reference_checks':False,'candidate_checks':False,'differences':[{'field':'missing recording'}],'unexpected_differences':[{'field':'missing recording'}],'classification':'unexpected'};continue
    r=json.loads((a.out/'reference'/tid/'result.json').read_text());c=json.loads((a.out/'candidate'/tid/'result.json').read_text());diff=compare(r,c)
-   issue=deviation(tid,r,c,diff);declared=bool(issue)
-   report['results'][tid]={'match':not diff,'declared_deviation':declared,'deviation_id':issue,'accepted':not diff or declared,'reference_checks':all(x['pass']for x in r['checks'])and r['steps_ok'],'candidate_checks':all(x['pass']for x in c['checks'])and c['steps_ok'],'differences':diff}
-   print(tid,'MATCH'if not diff else 'EXPECTED '+issue+' difference'if declared else ', '.join(x['field']for x in diff))
-report['summary']={'recorded':len(cases),'matches':sum(x['match']for x in report['results'].values()),'accepted':sum(x['accepted']for x in report['results'].values())}
+   result=classify(r,c,tid,s)
+   result.update(match=result['raw_exact'],reference_checks=all(x['pass']for x in r['checks'])and r['steps_ok'],candidate_checks=all(x['pass']for x in c['checks'])and c['steps_ok'])
+   if not result['reference_checks'] or not result['candidate_checks']:result['accepted']=False
+   report['results'][tid]=result
+   print(tid,result['classification'])
+report['summary']=summary_counts(report['results']);report['summary']['matches']=sum(x['match']for x in report['results'].values())
 (a.out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(report['summary'])
 raise SystemExit(int(any(report.get(k+'_status',0)for k in ['reference','candidate'])or any(not r['accepted']for r in report['results'].values())))

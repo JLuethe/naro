@@ -34,6 +34,7 @@ sys.path.insert(0, str(ROOT / "spec/tools"))
 from compare_runs import compare, fixture_root  # noqa: E402
 from nanoharness import Keys, Run  # noqa: E402
 from candidate_expectations import candidate_case  # noqa: E402
+from identity_review import classify,policy_identity,summary_counts
 SUITE = ROOT / "tests/follow-up/scenarios/wrap-undo.json"
 REFERENCE_COMMIT = "6ed285c3ec7a1d228def4d4e7021c6ba269f620c"
 # SHA-256 of the pinned reference executable
@@ -165,6 +166,20 @@ VERIFICATION_FILES = (
     "tools/environment.py", "tools/follow_up_policy.py",
     "spec/tools/compare_runs.py", "spec/tools/nanoharness.py",
     "spec/tools/candidate_expectations.py", "tests/naro/identity-overrides.json",
+    "spec/tools/identity_review.py", "tests/naro/legacy-deviations.json",
+    "docs/NARO_IDENTITY_POLICY.md", "tools/validate.py", "tools/validate_parallel.py",
+    "tools/collect_closure.py", "tools/check_release_gate.py", "tools/release_gate_evidence.py",
+    "tools/check_console_vm.py", "tools/run_closure_host.py", "tests/follow-up/environment.sh",
+    "tools/check_cli.py", "tools/check_branding.py", "tools/check_tiny_ci.py",
+    "tools/run_closure_ubuntu.py", "tools/closure_ubuntu_inner.sh", "tools/frozen_process.py",
+    "tools/prepare_console_vm_fixtures.py", "tools/prepare_console_vm.py",
+    "tools/run_console_vm.py", "tools/console_vm.py", "tools/check_closure_regressions.py",
+    "docs/RELEASE_GATE_V2.md", "spec/tools/test_identity_review.py",
+    "spec/tools/test_candidate_expectations.py", "tools/test_check_wrap_undo.py",
+    "tools/test_release_gate_evidence.py", "tools/test_console_identity.py",
+    "tools/test_frozen_launchers.py", "tools/test_frozen_process.py",
+
+
 )
 
 
@@ -243,6 +258,8 @@ def report_problems(report, hashes, fingerprint=None, report_dir=None, *,
                         % (report.get("reference_commit"), REFERENCE_COMMIT))
     if report.get("verification_sha256") != verification_fingerprint():
         problems.append("report verification tools fingerprint does not match this tree")
+    if report.get("identity_policy") != policy_identity():
+        problems.append("identity policy does not match this tree")
     ref_sha = report.get("reference_sha256")
     if ref_sha != reference_sha256:
         problems.append("report reference executable %r is not the pinned %s"
@@ -286,8 +303,8 @@ def report_problems(report, hashes, fingerprint=None, report_dir=None, *,
         if not isinstance(value, dict):
             problems.append("%s: result is not an object" % tid)
             continue
-        if value.get("match") is not True:
-            problems.append("%s: result is not an exact match" % tid)
+        if type(value.get("match")) is not bool:
+            problems.append("%s: match is not a boolean" % tid)
         if value.get("accepted") is not True:
             problems.append("%s: result is not accepted" % tid)
         if value.get("reference_checks") is not True:
@@ -301,8 +318,8 @@ def report_problems(report, hashes, fingerprint=None, report_dir=None, *,
         diff = value.get("differences")
         if not isinstance(diff, list):
             problems.append("%s: result has no differences list" % tid)
-        elif diff:
-            problems.append("%s: result has %d difference(s)" % (tid, len(diff)))
+        elif diff and value.get("identity_reviewed") is not True:
+            problems.append("%s: differences were not identity reviewed" % tid)
     summary = report.get("summary")
     if not isinstance(summary, dict):
         problems.append("report has no summary")
@@ -312,7 +329,7 @@ def report_problems(report, hashes, fingerprint=None, report_dir=None, *,
         accepted = summary.get("accepted")
         if type(recorded) is not int or recorded != len(expected_ids):
             problems.append("summary recorded %r, expected %d" % (recorded, len(expected_ids)))
-        if type(matches) is not int or matches != len(expected_ids):
+        if type(matches) is not int or matches != sum(v.get("match") is True for v in res.values()):
             problems.append("summary matches %r, expected %d" % (matches, len(expected_ids)))
         if type(accepted) is not int or accepted != len(expected_ids):
             problems.append("summary accepted %r, expected %d" % (accepted, len(expected_ids)))
@@ -393,12 +410,22 @@ def artifact_problems(report, hashes, directory, *, suite=None,
                 problems.append(f"{side}/{tid}: malformed recording: {exc}")
         if len(runs) == 2:
             try:
-                diffs = compare(*runs)
-                if diffs:
-                    problems.append(f"{tid}: recomputed comparison has differences: "
-                                    + ", ".join(d["field"] for d in diffs[:8]))
+                computed=classify(*runs,case_id=tid,case=case)
+                saved=report.get('results',{}).get(tid,{})
+                for key,value in computed.items():
+                    if type(saved.get(key)) is not type(value) or saved.get(key)!=value:
+                        problems.append(f"{tid}: recomputed {key} differs from report")
+                if saved.get('match') is not computed['raw_exact']:
+                    problems.append(f"{tid}: raw match differs from report")
+                if not computed['accepted'] or computed['declared_deviation']:
+                    problems.append(f"{tid}: recomputed comparison not accepted identity/exact")
             except (KeyError, TypeError, ValueError, IndexError, AttributeError) as exc:
                 problems.append(f"{tid}: cannot compare recordings: {exc}")
+    if isinstance(report.get('summary'),dict):
+        expected=summary_counts(report.get('results',{}))
+        for key,value in expected.items():
+            if type(report['summary'].get(key)) is not int or report['summary'].get(key)!=value:
+                problems.append(f"summary {key} differs from recomputation")
     return problems
 
 
