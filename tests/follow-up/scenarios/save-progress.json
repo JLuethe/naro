@@ -1,0 +1,6972 @@
+[
+ {
+  "id": "TEST-SAVE-PROGRESS-REGULAR",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Write to File:"
+    }
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "wait": {
+     "text": "Wrote 1 line"
+    }
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "Xhello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 47,
+      "y": 21,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt                          Modified"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "writing",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "                                 [ Writing... ]"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      33,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 22,
+     "equals": "^G Help             M-D DOS Format      M-A Append          ^Q Discard buffer"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 23,
+     "equals": "^C Cancel           M-B Backup File     M-P Prepend         ^T Browse"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 1,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "saved",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 21,
+     "equals": "                                [ Wrote 1 line ]"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      21,
+      32,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 22,
+     "equals": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      65,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 23,
+     "equals": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      65,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Write progress is captured while the private syscall gate is closed. Expected cells, attributes and cursor measured from pinned GNU nano 6ed285c3, reference02; no sleeps substitute for operation entry."
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-NARROW",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Write to Fi"
+    }
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "wait": {
+     "text": "Wrote 1 line"
+    }
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "Xhello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 15,
+      "y": 5,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 0,
+     "equals": "f.txt   Modified"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "writing",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 5,
+     "equals": " [ Writing... ]"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      5,
+      1,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 6,
+     "equals": "^G Help M-D DOS"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      6,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      6,
+      8,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 7,
+     "equals": "^C CanceM-B Back"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      7,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      7,
+      8,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 1,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "row": 0,
+     "equals": "     f.txt"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "saved",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 5,
+     "equals": "[ Wrote 1 line ]"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      5,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 6,
+     "equals": "^G Help ^O Write"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      6,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      6,
+      8,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 7,
+     "equals": "^X Exit ^R Read"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      7,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      7,
+      8,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "cols": 16,
+  "rows": 8,
+  "note": "Write progress is captured while the private syscall gate is closed. Expected cells, attributes and cursor measured from pinned GNU nano 6ed285c3, reference02; no sleeps substitute for operation entry."
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-MINIBAR",
+  "args": [
+   "-I",
+   "--minibar",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Write to File:"
+    }
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "wait": {
+     "text": "f.txt   (1 line)"
+    }
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "Xhello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 47,
+      "y": 21,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 0,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "writing",
+     "row": 1,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "                                 [ Writing... ]"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      33,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 22,
+     "equals": "^G Help             M-D DOS Format      M-A Append          ^Q Discard buffer"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 23,
+     "equals": "^C Cancel           M-B Backup File     M-P Prepend         ^T Browse"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 1,
+      "y": 0,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "row": 0,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "saved",
+     "row": 1,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 21,
+     "equals": "  f.txt   (1 line)                                                         50%"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      21,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 22,
+     "equals": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      65,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 23,
+     "equals": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      65,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Write progress is captured while the private syscall gate is closed. Expected cells, attributes and cursor measured from pinned GNU nano 6ed285c3, reference02; no sleeps substitute for operation entry."
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-ZERO",
+  "args": [
+   "-I",
+   "--zero",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Write to File:"
+    }
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "wait": {
+     "text": "Wrote 1 line"
+    }
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "Xhello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 47,
+      "y": 23,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 0,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "writing",
+     "row": 1,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 22,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 23,
+     "equals": "                                 [ Writing... ]"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      33,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 1,
+      "y": 0,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "row": 0,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "saved",
+     "row": 1,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 21,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 22,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 23,
+     "equals": "                                [ Wrote 1 line ]"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      32,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Write progress is captured while the private syscall gate is closed. Expected cells, attributes and cursor measured from pinned GNU nano 6ed285c3, reference02; no sleeps substitute for operation entry."
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-GERMAN",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1",
+   "LANGUAGE": "de"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "wait": {
+     "text": "In Datei schreiben:"
+    }
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "wait": {
+     "text": "1 Zeile geschrieben"
+    }
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "Xhello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 51,
+      "y": 21,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt                         Verändert"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "writing",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "                             [ Wird geschrieben … ]"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      29,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 22,
+     "equals": "^G Hilfe            M-D DOS-Format      M-A Anhängen        ^Q Puffer verwerfen"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 23,
+     "equals": "^C Abbrechen        M-B Sicherungsdatei M-P Vorn anfügen    ^T Dateien …"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 1,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "saved",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 21,
+     "equals": "                            [ 1 Zeile geschrieben ]"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      21,
+      28,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 22,
+     "equals": "^G Hilfe     ^O Speichern ^F Wo ist    ^K Ausschneid^T Ausführen ^C Position"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      65,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 23,
+     "equals": "^X Beenden   ^R Öffnen    ^\\ Ersetzen  ^U Einfügen  ^J Ausrichten^/ Zu Zeile"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      65,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Write progress is captured while the private syscall gate is closed. Expected cells, attributes and cursor measured from pinned GNU nano 6ed285c3, reference02; no sleeps substitute for operation entry."
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-ERROR-OPEN",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_OPEN": "1",
+   "FAIL_OPEN": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Write to File:"
+    }
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/OPEN.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/OPEN.release",
+    "content": ""
+   },
+   {
+    "wait": {
+     "text": "Error writing f.txt:"
+    }
+   },
+   {
+    "snapshot": "error",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Save modified buffer?"
+    }
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "hello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 20,
+      "y": 21,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt                          Modified"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "writing",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "Write to File: f.txt"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 22,
+     "equals": "^G Help             M-D DOS Format      M-A Append          ^Q Discard buffer"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 23,
+     "equals": "^C Cancel           M-B Backup File     M-P Prepend         ^T Browse"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "cursor": {
+      "x": 1,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "error",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt                          Modified"
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "error",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 21,
+     "equals": "                   [ Error writing f.txt: Permission denied ]"
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      21,
+      19,
+      "bg=1,bold=True,fg=7"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "row": 22,
+     "equals": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location"
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      22,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      22,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      22,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      22,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      22,
+      65,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "row": 23,
+     "equals": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line"
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      23,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      23,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      23,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      23,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      23,
+      65,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Write progress is captured while the private syscall gate is closed. Expected cells, attributes and cursor measured from pinned GNU nano 6ed285c3, reference02; no sleeps substitute for operation entry."
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-ERROR-SYNC",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1",
+   "FAIL_SYNC": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Write to File:"
+    }
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "wait": {
+     "text": "Error writing f.txt:"
+    }
+   },
+   {
+    "snapshot": "error",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Save modified buffer?"
+    }
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "Xhello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 47,
+      "y": 21,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt                          Modified"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "writing",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "                                 [ Writing... ]"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      33,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 22,
+     "equals": "^G Help             M-D DOS Format      M-A Append          ^Q Discard buffer"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 23,
+     "equals": "^C Cancel           M-B Backup File     M-P Prepend         ^T Browse"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "cursor": {
+      "x": 1,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "error",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt                          Modified"
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "error",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "error",
+     "row": 21,
+     "equals": "                  [ Error writing f.txt: Input/output error ]"
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      21,
+      18,
+      "bg=1,bold=True,fg=7"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "row": 22,
+     "equals": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location"
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      22,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      22,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      22,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      22,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      22,
+      65,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "row": 23,
+     "equals": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line"
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      23,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      23,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      23,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      23,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "error",
+     "attr_at": [
+      23,
+      65,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Write progress is captured while the private syscall gate is closed. Expected cells, attributes and cursor measured from pinned GNU nano 6ed285c3, reference02; no sleeps substitute for operation entry."
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-FIFO",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   },
+   "bin/reader": {
+    "text": "#!/usr/bin/python3\nimport os,time\nfor _ in range(1500):\n if os.path.exists(os.environ[\"HOME\"]+\"/OPEN.release\"):break\n time.sleep(.01)\nwith open(\"pipe\",\"rb\")as f: data=f.read()\nopen(os.environ[\"HOME\"]+\"/received\",\"wb\").write(data)\n",
+    "mode": "0755"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/pipe",
+   "PROGRESS_OPEN": "1",
+   "PROGRESS_WRITE": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Write to File:"
+    }
+   },
+   {
+    "keys": [
+     "^A",
+     "^K"
+    ]
+   },
+   {
+    "text": "pipe"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Save file under DIFFERENT NAME?"
+    }
+   },
+   {
+    "text": "y"
+   },
+   {
+    "wait": {
+     "text": "OVERWRITE?"
+    }
+   },
+   {
+    "text": "y"
+   },
+   {
+    "wait_file": {
+     "path": "home/OPEN.ready"
+    }
+   },
+   {
+    "snapshot": "fifo-opening",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/OPEN.release",
+    "content": ""
+   },
+   {
+    "wait_file": {
+     "path": "home/WRITE.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/WRITE.release",
+    "content": ""
+   },
+   {
+    "wait": {
+     "text": "Wrote 1 line"
+    }
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "hello\n"
+    },
+    "home/received": {
+     "text": "Xhello\n"
+    }
+   },
+   "helper_statuses": [
+    0
+   ],
+   "screen": [
+    {
+     "snapshot": "fifo-opening",
+     "cursor": {
+      "x": 51,
+      "y": 21,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt                          Modified"
+    },
+    {
+     "snapshot": "fifo-opening",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 21,
+     "equals": "                             [ Writing to FIFO... ]"
+    },
+    {
+     "snapshot": "fifo-opening",
+     "attr_at": [
+      21,
+      29,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 22,
+     "equals": " Y Yes"
+    },
+    {
+     "snapshot": "fifo-opening",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 23,
+     "equals": " N No           ^C Cancel"
+    },
+    {
+     "snapshot": "fifo-opening",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "fifo-opening",
+     "attr_at": [
+      23,
+      16,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 47,
+      "y": 21,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt                          Modified"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "writing",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "                                 [ Writing... ]"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      33,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 22,
+     "equals": " Y Yes"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 23,
+     "equals": " N No           ^C Cancel"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      16,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 1,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "row": 0,
+     "equals": "  GNU nano 9.3                          pipe"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "saved",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 21,
+     "equals": "                                [ Wrote 1 line ]"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      21,
+      32,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 22,
+     "equals": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      65,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 23,
+     "equals": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      65,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "fifos": [
+   "work/pipe"
+  ],
+  "helpers": [
+   [
+    "bin/reader"
+   ]
+  ],
+  "note": "Write progress is captured while the private syscall gate is closed. Expected cells, attributes and cursor measured from pinned GNU nano 6ed285c3, reference02; no sleeps substitute for operation entry."
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-DIRECT",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "wait": {
+     "text": "Wrote 1 line"
+    }
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "Xhello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 47,
+      "y": 21,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt                          Modified"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "writing",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "                                 [ Writing... ]"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      33,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 22,
+     "equals": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      65,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 23,
+     "equals": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      65,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 1,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "saved",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 21,
+     "equals": "                                [ Wrote 1 line ]"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      21,
+      32,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 22,
+     "equals": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      65,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 23,
+     "equals": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      65,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Write progress is captured while the private syscall gate is closed. Expected cells, attributes and cursor measured from pinned GNU nano 6ed285c3, reference02; no sleeps substitute for operation entry."
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-COLOR",
+  "args": [
+   "--rcfile=../home/testrc",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   },
+   "home/testrc": {
+    "text": "set statuscolor bold,yellow,blue\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Write to File:"
+    }
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "wait": {
+     "text": "Wrote 1 line"
+    }
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "Xhello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 47,
+      "y": 21,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt                          Modified"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "writing",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "                                 [ Writing... ]"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      33,
+      "bg=4,bold=True,fg=3"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 22,
+     "equals": "^G Help             M-D DOS Format      M-A Append          ^Q Discard buffer"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 23,
+     "equals": "^C Cancel           M-B Backup File     M-P Prepend         ^T Browse"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 1,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "saved",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 21,
+     "equals": "                                [ Wrote 1 line ]"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      21,
+      32,
+      "bg=4,bold=True,fg=3"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 22,
+     "equals": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      65,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 23,
+     "equals": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      65,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Write progress is captured while the private syscall gate is closed. Expected cells, attributes and cursor measured from pinned GNU nano 6ed285c3, reference02; no sleeps substitute for operation entry."
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-APPEND",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Write to File:"
+    }
+   },
+   {
+    "keys": [
+     "M-A"
+    ]
+   },
+   {
+    "text": "f.txt"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "wait": {
+     "text": "Wrote 1 line"
+    }
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Save modified buffer?"
+    }
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "hello\nXhello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 47,
+      "y": 21,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt                          Modified"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "writing",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "                                 [ Writing... ]"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      33,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 22,
+     "equals": "^G Help             M-D DOS Format      M-A Append          ^Q Discard buffer"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 23,
+     "equals": "^C Cancel           M-B Backup File     M-P Prepend         ^T Browse"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 1,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt                          Modified"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "saved",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 21,
+     "equals": "                                [ Wrote 1 line ]"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      21,
+      32,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 22,
+     "equals": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      65,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 23,
+     "equals": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      65,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Write progress is captured while the private syscall gate is closed. Expected cells, attributes and cursor measured from pinned GNU nano 6ed285c3, reference02; no sleeps substitute for operation entry."
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-PREPEND",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Write to File:"
+    }
+   },
+   {
+    "keys": [
+     "M-P"
+    ]
+   },
+   {
+    "text": "f.txt"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "wait": {
+     "text": "Wrote 1 line"
+    }
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Save modified buffer?"
+    }
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "Xhello\nhello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 47,
+      "y": 21,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt                          Modified"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "writing",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "                                 [ Writing... ]"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      33,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 22,
+     "equals": "^G Help             M-D DOS Format      M-A Append          ^Q Discard buffer"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 23,
+     "equals": "^C Cancel           M-B Backup File     M-P Prepend         ^T Browse"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 1,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt                          Modified"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "saved",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 21,
+     "equals": "                                [ Wrote 1 line ]"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      21,
+      32,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 22,
+     "equals": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      65,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 23,
+     "equals": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      65,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Write progress is captured while the private syscall gate is closed. Expected cells, attributes and cursor measured from pinned GNU nano 6ed285c3, reference02; no sleeps substitute for operation entry."
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-SELECTION",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/selection.txt",
+   "PROGRESS_SYNC": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^Home",
+     "M-A",
+     "Right",
+     "Right"
+    ]
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "wait": {
+     "text": "to File:"
+    }
+   },
+   {
+    "keys": [
+     "^A",
+     "^K"
+    ]
+   },
+   {
+    "text": "selection.txt"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "wait": {
+     "text": "Wrote 1 line"
+    }
+   },
+   {
+    "snapshot": "saved",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Save modified buffer?"
+    }
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "hello\n"
+    },
+    "work/selection.txt": {
+     "text": "Xh\n"
+    }
+   },
+   "screen": [
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 47,
+      "y": 21,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt                          Modified"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      1,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "                                 [ Writing... ]"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      33,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 22,
+     "equals": "^G Help             M-D DOS Format      M-A Append          ^Q Discard buffer"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      22,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "row": 23,
+     "equals": "^C Cancel           M-B Backup File     M-P Prepend         ^T Browse"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      20,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      40,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      60,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "cursor": {
+      "x": 2,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "saved",
+     "row": 0,
+     "equals": "  GNU nano 9.3                         f.txt                          Modified"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      0,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      1,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 2,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 3,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 4,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 5,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 6,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 7,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 8,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 9,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 10,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 11,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 12,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 13,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 14,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 15,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 16,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 17,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 18,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 20,
+     "equals": ""
+    },
+    {
+     "snapshot": "saved",
+     "row": 21,
+     "equals": "                                [ Wrote 1 line ]"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      21,
+      32,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 22,
+     "equals": "^G Help      ^O Write Out ^F Where Is  ^K Cut       ^T Execute   ^C Location"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      22,
+      65,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "row": 23,
+     "equals": "^X Exit      ^R Read File ^\\ Replace   ^U Paste     ^J Justify   ^/ Go To Line"
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      13,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      26,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      39,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      52,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "saved",
+     "attr_at": [
+      23,
+      65,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Write progress is captured while the private syscall gate is closed. Expected cells, attributes and cursor measured from pinned GNU nano 6ed285c3, reference02; no sleeps substitute for operation entry."
+ }
+]

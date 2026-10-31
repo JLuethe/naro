@@ -194,6 +194,7 @@ pub fn write(
     mode: i32,
     selection: bool,
     skip_backup: bool,
+    mut progress: impl FnMut(&str),
 ) -> Result<usize, WriteError> {
     let p = config::expand(name);
     if !inside(c, &p) {
@@ -233,6 +234,12 @@ pub fn write(
     let data = output(b, region, c.on(NO_NEWLINES));
     let n = data.iter().filter(|b| **b == 10).count()
         + usize::from(!data.is_empty() && data.last() != Some(&10));
+    let fifo = meta
+        .as_ref()
+        .is_some_and(|m| m.mode() & 0o170000 == 0o010000);
+    if fifo && !cfg!(feature = "tiny") {
+        progress("Writing to FIFO...");
+    }
     let mut f = OpenOptions::new()
         .write(true)
         .create(true)
@@ -241,16 +248,14 @@ pub fn write(
         .mode(0o666)
         .open(&p)
         .map_err(|e| WriteError::writing(&display, e))?;
+    progress("Writing...");
     write_bytes(&mut f, &data).map_err(|e| WriteError::writing(&display, e))?;
     if mode == 2
         && let Some(old) = old
     {
         write_bytes(&mut f, &old).map_err(|e| WriteError::writing(&display, e))?;
     }
-    if meta
-        .as_ref()
-        .is_none_or(|m| m.mode() & 0o170000 != 0o010000)
-    {
+    if !fifo {
         f.sync_all().map_err(|e| WriteError::writing(&display, e))?;
     }
     if !selection && mode == 0 {

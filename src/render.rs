@@ -817,25 +817,43 @@ fn message(ed: &Editor, canvas: &mut Canvas, l: Layout) {
         } else {
             "statuscolor"
         });
-        let text = &m.text;
-        let e = Encoding { utf8: true, tab: 8 };
-        let width = e.breadth(text.as_bytes()).min(l.cols);
-        let start = (l.cols - width) / 2;
-        if start > 1 {
-            canvas.text(
-                l.status,
-                start - 2,
-                &format!("[ {text} ]"),
-                style,
-                l.cols - start + 2,
-            );
-            if m.ellipsis {
-                canvas.text(l.status, start + width + 3, "...", style, 3);
-            }
-        } else {
-            canvas.text(l.status, start, text, style, l.cols - start);
-        }
+        paint_message(canvas, l, &m.text, style, m.ellipsis);
     }
+}
+fn paint_message(
+    canvas: &mut Canvas,
+    l: Layout,
+    text: &str,
+    style: Style,
+    ellipsis: bool,
+) -> usize {
+    let e = Encoding { utf8: true, tab: 8 };
+    let width = e.breadth(text.as_bytes()).min(l.cols);
+    let start = (l.cols - width) / 2;
+    if start > 1 {
+        canvas.text(
+            l.status,
+            start - 2,
+            &format!("[ {text} ]"),
+            style,
+            l.cols - start + 2,
+        );
+        if ellipsis {
+            canvas.text(l.status, start + width + 3, "...", style, 3);
+        }
+        start + width + 2
+    } else {
+        canvas.text(l.status, start, text, style, l.cols - start);
+        start + width
+    }
+}
+
+/// Flush a transient save status before a blocking open, write, or sync.
+/// Preserve the existing title, buffer, and prompt shortcuts until saving ends.
+pub fn write_progress(canvas: &mut Canvas, l: Layout, style: Style, text: &str) {
+    canvas.fill(l.status, 0, l.cols, Style::NORMAL);
+    let col = paint_message(canvas, l, &native::tr(text), style, false);
+    canvas.flush((col, l.status, false));
 }
 fn minibar(ed: &Editor, canvas: &mut Canvas, l: Layout) {
     let c = &ed.conf;

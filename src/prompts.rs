@@ -691,14 +691,34 @@ impl Editor {
             return;
         }
         let i = self.current;
-        match files::write(
+        let layout = render::layout(self);
+        let mut progress_screen = self
+            .last_screen
+            .clone()
+            .unwrap_or_else(|| render::Canvas::new(layout.cols, layout.rows));
+        let progress_style = self.conf.style("statuscolor");
+        let progress_allowed = self.action_level <= 4;
+        let mut progress_painted = false;
+        // Accepting the filename ends prompt input, even if opening blocks or fails.
+        unsafe { native::nr_hide_cursor() };
+        let result = files::write(
             &self.conf,
             &mut self.buffers[i],
             &p.answer,
             mode,
             selection,
             p.skip_backup,
-        ) {
+            |text| {
+                if progress_allowed {
+                    render::write_progress(&mut progress_screen, layout, progress_style, text);
+                    progress_painted = true;
+                }
+            },
+        );
+        if progress_painted {
+            self.last_screen = Some(progress_screen);
+        }
+        match result {
             Ok(n) => {
                 self.mode = Mode::Edit;
                 self.msg(files::line_message("Wrote", n, false), 2);

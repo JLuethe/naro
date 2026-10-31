@@ -5,6 +5,15 @@ of the [release-readiness plan](NARO_RELEASE_READINESS_PLAN_2026-10-30.md).
 This checklist defines the next release; it does not certify an artifact or
 authorize publication. Historical reports retain their original identities.
 
+## Current candidate status
+
+The prior step 10 proposal is superseded by the save-progress repair authorized
+on October 30. Historical checked gates below describe the previous frozen
+candidates; the new executables must pass the complete matrix again. Track the
+renewed work in [the repair plan](NARO_SAVE_PROGRESS_PLAN_2026-10-30.md).
+The mandatory exact suites now total 132 cases per environment, including
+13 deterministic transient save-progress comparisons. Publication is not approved.
+
 ## Release scope
 
 - Experimental independent GNU nano 9.3 port, version 0.1.0.

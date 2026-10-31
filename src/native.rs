@@ -50,6 +50,7 @@ unsafe extern "C" {
     pub fn nr_erase();
     pub fn nr_finish(start: c_int);
     pub fn nr_refresh(row: c_int, col: c_int, visible: c_int);
+    pub fn nr_hide_cursor();
     pub fn nr_beep();
     pub fn nr_get(ms: c_int) -> c_int;
     pub fn nr_keypad(yes: c_int);

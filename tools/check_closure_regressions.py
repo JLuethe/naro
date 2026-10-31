@@ -12,7 +12,8 @@ from check_wrap_undo import (
     ROOT, report_problems, sha256, source_fingerprint,
 )
 
-SUITES = {"wrap-undo": 58, "filter": 6, "release-fixes": 15, "step3-gaps": 40}
+SUITES = {"wrap-undo": 58, "filter": 6, "release-fixes": 15, "step3-gaps": 40,
+          "save-progress": 13}
 
 
 def validate_suite(directory, suite, candidate_sha256, source_sha256,

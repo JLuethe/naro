@@ -111,6 +111,12 @@ buffer and shown when it is switched to (`01` CLI-036, TEST-CLI-050).
 3. Prepend: the existing file is first copied to a temporary file (FILE-TEMP). A FIFO target → ALERT `Error writing <name>: FIFO`. Read failure → ALERT `Error reading <name>: <reason>`. Temp failure → ALERT `Error writing temp file: <reason>`.
 4. The target is opened with `O_WRONLY|O_CREAT` plus `O_APPEND` (append) or `O_TRUNC` (overwrite/prepend), with creation mode 0666 (subject to the umask). The file is **rewritten in place**, not replaced. Its inode, permissions, owner, hard links and extended attributes are kept, and a symbolic link is written **through** to its target (the link stays a link) (TEST-FILE-001/-003/-004). A new file gets `0666 & ~umask` (TEST-FILE-002: umask 077 → 0600). ^C during `open` (e.g. on a FIFO) → ALERT `Interrupted`. Other failures → ALERT `Error writing <name>: <reason>` (TEST-FILE-015: `Permission denied`; TEST-FILE-031: `No such file or directory`).
 5. A FIFO target shows HUSH `Writing to FIFO...`; regular files HUSH `Writing...`.
+   The FIFO message is flushed before a potentially blocking open. After a successful
+   open, normal saves show `Writing...` before writing or syncing, with the cursor
+   hidden. Gated in-progress comparisons cover TEST-SAVE-PROGRESS-REGULAR,
+   TEST-SAVE-PROGRESS-FIFO, TEST-SAVE-PROGRESS-ERROR-OPEN and
+   TEST-SAVE-PROGRESS-ERROR-SYNC; layout, locale and alternate-save variants are
+   in `tests/follow-up/scenarios/save-progress.json`.
 6. Each line's bytes are written with encoded NULs decoded back to 0x00. Between lines: LF, preceded by CR in DOS format. **No line break after the last line.** Because the magic line is empty, a normal buffer ends with exactly one LF. With `--nonewlines` the text ends wherever the last line ends (TEST-FILE-010). Write failures → ALERT `Error writing <name>: <reason>`.
 7. Prepend: the saved copy is appended after the buffer text, then the temporary file is deleted.
 8. Except for FIFOs: `fflush` + `fsync`; failure → ALERT `Error writing …`.

@@ -143,6 +143,7 @@ int nr_rows(void) {return LINES;}
 int nr_cols(void) {return COLS;}
 void nr_erase(void) {werase(stdscr);}
 void nr_refresh(int row,int col,int visible) {wmove(stdscr,row,col);curs_set(visible);wrefresh(stdscr);}
+void nr_hide_cursor(void) {curs_set(0);}
 void nr_beep(void) {beep();}
 int nr_get(int ms) {wtimeout(stdscr,ms);return wgetch(stdscr);}
 void nr_keypad(int yes) {keypad(stdscr,yes);}
