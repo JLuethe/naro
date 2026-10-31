@@ -19,6 +19,7 @@ from pathlib import PurePosixPath
 sys.dont_write_bytecode = True
 
 MAX_UNIX_SOCKET_PATH_BYTES = 107  # Linux sockaddr_un.sun_path includes a trailing NUL.
+PINNED_NANO_VERSION_LINE = "GNU nano, version 9.3"
 
 
 def fixture_socket_paths(output: Path) -> list[Path]:
@@ -42,6 +43,25 @@ def validate_fixture_socket_paths(output: Path) -> list[dict[str, object]]:
                 f"{MAX_UNIX_SOCKET_PATH_BYTES} bytes): {path}; choose a shorter --out"
             )
     return records
+
+
+def pinned_nano_version_line(output: str) -> str:
+    first_line = output.splitlines()[0].strip() if output.splitlines() else ""
+    if first_line != PINNED_NANO_VERSION_LINE:
+        raise ValueError(f"expected first line {PINNED_NANO_VERSION_LINE!r}, got {first_line!r}")
+    return first_line
+
+
+def create_vm_fixture_path(work: Path, case_id: str) -> Path:
+    if not case_id.startswith("TEST-") or "/" in case_id or ".." in case_id:
+        raise ValueError(f"invalid fixture case ID: {case_id!r}")
+    case_root = work / case_id
+    case_root.mkdir(exist_ok=False)
+    fixture = case_root / "fx"
+    fixture.mkdir(exist_ok=False)
+    if fixture.parent.parent != work:
+        raise ValueError("fixture path must be a direct child of the harness work root")
+    return fixture
 
 
 def sha256_file(path: Path) -> str:
@@ -244,8 +264,10 @@ def main() -> int:
     except (OSError, ValueError, KeyError) as error:
         parser.error(f"VM runtime export validation failed: {error}")
     reference_version = subprocess.check_output([str(reference), "--version"], text=True)
-    if "GNU nano 9.3" not in reference_version:
-        parser.error("VM guest reference is not the pinned GNU nano 9.3 build")
+    try:
+        validated_reference_version = pinned_nano_version_line(reference_version)
+    except ValueError as error:
+        parser.error(f"VM guest reference is not the pinned GNU nano 9.3 build: {error}")
     candidate_builds = {}
     for kind, candidate in (("host", host_binary), ("ubuntu", ubuntu_binary)):
         info = json.loads(subprocess.check_output([str(candidate)], env={**os.environ, "NARO_BUILD_INFO": "1"}, text=True))
@@ -270,8 +292,7 @@ def main() -> int:
         parser.error(f"missing fixture builder in frozen source: {helper}")
     for kind, binary in (("host", host_binary), ("ubuntu", ubuntu_binary)):
         case_id = f"TEST-VT-VM-011-{kind.upper()}"
-        fx = work / case_id / "fx"
-        fx.parent.mkdir()
+        fx = create_vm_fixture_path(work, case_id)
         binary_copy = fixture_inputs / f"naro-{kind}"
         shutil.copy2(binary, binary_copy)
         env = os.environ.copy()
@@ -312,6 +333,7 @@ def main() -> int:
         "input_hashes": input_hashes,
         "candidate_builds": candidate_builds,
         "reference_version": reference_version,
+        "validated_reference_version": validated_reference_version,
         "expected_hashes": expected,
         "kernel_path": str(kernel),
         "exported_root": {"path": str(exported_root), **exported},

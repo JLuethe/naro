@@ -9,6 +9,8 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 from prepare_console_vm_fixtures import validate_fixture_socket_paths  # noqa: E402
+from prepare_console_vm_fixtures import (create_vm_fixture_path,
+                                        pinned_nano_version_line)  # noqa: E402
 from run_closure_host import (CANONICAL_NANOSPEC_WORK,
                              required_identity_review_stages)  # noqa: E402
 import collect_closure  # noqa: E402
@@ -82,6 +84,25 @@ class FrozenLauncherPreflightTests(unittest.TestCase):
             long = Path(temp) / ("qualification-output-" * 5)
             with self.assertRaisesRegex(ValueError, "choose a shorter --out"):
                 validate_fixture_socket_paths(long)
+
+    def test_pinned_nano_version_line_is_exact(self):
+        self.assertEqual(pinned_nano_version_line(
+            " GNU nano, version 9.3\n (C) 2026 the Free Software Foundation\n"),
+            "GNU nano, version 9.3")
+        for wrong in (" GNU nano 9.3\n", " GNU nano, version 9.2\n", "", "noise\nGNU nano, version 9.3\n"):
+            with self.subTest(version=wrong), self.assertRaisesRegex(ValueError, "expected first line"):
+                pinned_nano_version_line(wrong)
+
+    def test_vm_fixture_path_creates_fx_parent_for_initramfs_builder(self):
+        with tempfile.TemporaryDirectory(prefix="naro-vm-fixture-layout-") as temp:
+            work = Path(temp) / "nanospec-work"
+            work.mkdir()
+            fixture = create_vm_fixture_path(work, "TEST-VT-VM-011-HOST")
+            self.assertEqual(fixture, work / "TEST-VT-VM-011-HOST" / "fx")
+            self.assertTrue(fixture.is_dir())
+            self.assertEqual(fixture.parent.parent, work)
+            with self.assertRaisesRegex(ValueError, "invalid fixture case ID"):
+                create_vm_fixture_path(work, "../escape")
 
     def test_actual_host_launcher_commands_cover_required_identity_stages(self):
         candidate = Path("/frozen/naro")
