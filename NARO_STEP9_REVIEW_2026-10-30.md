@@ -1,5 +1,8 @@
 # Step 9 — community distribution review
 
+Completed: see the [steps 8–9 results](NARO_STEP8_9_RESULTS_2026-10-30.md) for refreshed
+archive identities, validation, backup and the outstanding step 10 CI gate.
+
 Date: October 30, 2026. Candidate: NARO 0.1.0, default Linux x86_64 GNU/glibc.
 
 The public documentation and reporting text are approved for adoption. The

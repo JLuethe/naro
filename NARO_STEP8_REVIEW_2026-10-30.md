@@ -1,5 +1,8 @@
 # Step 8 review and adoption — October 30, 2026
 
+Completed: see the [steps 8–9 results](NARO_STEP8_9_RESULTS_2026-10-30.md) for refreshed
+archive identities, validation, backup and the outstanding step 10 CI gate.
+
 John approved application and Git delivery of the reviewed documentation, followed
 by step 9. The seventeen reviewed files are now applied. README names John Luethe
 and thanks OpenAI for their generous support. SECURITY uses public GitHub issues,

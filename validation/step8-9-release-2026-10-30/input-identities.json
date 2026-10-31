@@ -1,0 +1,17 @@
+{
+  "source_revision": "536d09160e4f65f8372c781ba389a59fdb5e52c7",
+  "compiled_build": {
+    "version": "0.1.0",
+    "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+    "source_sha256": "4cabd71741ffc8ee0357d945c67904c8a2fd0089c12e9b32a1c5b3e35c394ae6",
+    "revision": "fd91763c4f14d9bed8187d64d44f2136440b7b3e",
+    "features": "",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+  "container_image": "093817959dc26bb88c4f8df915372db75dee73f9356eb94f2ba428ea04fe9735",
+  "container_network": "none",
+  "toolchain": "/home/john/.rustup/toolchains/stable-x86_64-unknown-linux-gnu",
+  "package_report_sha256": "5a9b0a971eb81b3fc6a3bced3c9fd91e83076e53670becb113a5ec288b10dcdf",
+  "gate_sha256": "0757e43a7f17992fa20f6e11f28aedd8e0167b42e7bc17807b1e9ee112a13af4"
+}

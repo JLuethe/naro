@@ -1,0 +1,416 @@
+{
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "source_sha256": "4cabd71741ffc8ee0357d945c67904c8a2fd0089c12e9b32a1c5b3e35c394ae6",
+  "host_binary_sha256": "cae387c78619520aacbf61690e675496b82f8ccf04af2824beb9e864004f0a96",
+  "ubuntu_binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+  "checks": [
+    {
+      "name": "host-command-completion",
+      "pass": true
+    },
+    {
+      "name": "source-fingerprint",
+      "pass": true
+    },
+    {
+      "name": "current-source-fingerprint",
+      "pass": true
+    },
+    {
+      "name": "default-features",
+      "pass": true
+    },
+    {
+      "name": "reference-identity",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-pipeline-complete",
+      "pass": true
+    },
+    {
+      "name": "host-frozen-binary",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-frozen-binary",
+      "pass": true
+    },
+    {
+      "name": "host-terminal",
+      "pass": true
+    },
+    {
+      "name": "host-tools-identity",
+      "pass": true
+    },
+    {
+      "name": "host-tools-assertions",
+      "pass": true
+    },
+    {
+      "name": "host-tools-only-declared-differences",
+      "pass": true
+    },
+    {
+      "name": "host-edges-identity",
+      "pass": true
+    },
+    {
+      "name": "host-edges-assertions",
+      "pass": true
+    },
+    {
+      "name": "host-edges-only-declared-differences",
+      "pass": true
+    },
+    {
+      "name": "host-environments-identity",
+      "pass": true
+    },
+    {
+      "name": "host-environments-assertions",
+      "pass": true
+    },
+    {
+      "name": "host-environments-only-declared-differences",
+      "pass": true
+    },
+    {
+      "name": "host-supplement-identity",
+      "pass": true
+    },
+    {
+      "name": "host-supplement-assertions",
+      "pass": true
+    },
+    {
+      "name": "host-supplement-only-declared-differences",
+      "pass": true
+    },
+    {
+      "name": "host-backup-identity",
+      "pass": true
+    },
+    {
+      "name": "host-backup-assertions",
+      "pass": true
+    },
+    {
+      "name": "host-backup-only-declared-differences",
+      "pass": true
+    },
+    {
+      "name": "host-fifo-eof-identity",
+      "pass": true
+    },
+    {
+      "name": "host-fifo-eof-assertions",
+      "pass": true
+    },
+    {
+      "name": "host-fifo-eof-only-declared-differences",
+      "pass": true
+    },
+    {
+      "name": "host-signal-SIGTERM-identity",
+      "pass": true
+    },
+    {
+      "name": "host-signal-SIGTERM-assertions",
+      "pass": true
+    },
+    {
+      "name": "host-signal-SIGTERM-only-declared-differences",
+      "pass": true
+    },
+    {
+      "name": "host-signal-SIGHUP-identity",
+      "pass": true
+    },
+    {
+      "name": "host-signal-SIGHUP-assertions",
+      "pass": true
+    },
+    {
+      "name": "host-signal-SIGHUP-only-declared-differences",
+      "pass": true
+    },
+    {
+      "name": "host-vt-ioctl-identity",
+      "pass": true
+    },
+    {
+      "name": "host-vt-ioctl-assertions",
+      "pass": true
+    },
+    {
+      "name": "host-ioctl-exact",
+      "pass": true
+    },
+    {
+      "name": "host-follow-up-counts",
+      "pass": true
+    },
+    {
+      "name": "host-frozen-reference",
+      "pass": true
+    },
+    {
+      "name": "host-wrap-undo-evidence",
+      "pass": true,
+      "problems": []
+    },
+    {
+      "name": "host-filter-evidence",
+      "pass": true,
+      "problems": []
+    },
+    {
+      "name": "host-release-fixes-evidence",
+      "pass": true,
+      "problems": []
+    },
+    {
+      "name": "host-step3-gaps-evidence",
+      "pass": true,
+      "problems": []
+    },
+    {
+      "name": "host-new-suite-command-completion",
+      "pass": true
+    },
+    {
+      "name": "host-cli-regex-safety",
+      "pass": true
+    },
+    {
+      "name": "host-large",
+      "pass": true
+    },
+    {
+      "name": "host-panic",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-terminal",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-tools-identity",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-tools-assertions",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-tools-only-declared-differences",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-edges-identity",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-edges-assertions",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-edges-only-declared-differences",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-environments-identity",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-environments-assertions",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-environments-only-declared-differences",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-supplement-identity",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-supplement-assertions",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-supplement-only-declared-differences",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-backup-identity",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-backup-assertions",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-backup-only-declared-differences",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-fifo-eof-identity",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-fifo-eof-assertions",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-fifo-eof-only-declared-differences",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-signal-SIGTERM-identity",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-signal-SIGTERM-assertions",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-signal-SIGTERM-only-declared-differences",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-signal-SIGHUP-identity",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-signal-SIGHUP-assertions",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-signal-SIGHUP-only-declared-differences",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-vt-ioctl-identity",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-vt-ioctl-assertions",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-ioctl-exact",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-follow-up-counts",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-frozen-reference",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-wrap-undo-evidence",
+      "pass": true,
+      "problems": []
+    },
+    {
+      "name": "ubuntu-filter-evidence",
+      "pass": true,
+      "problems": []
+    },
+    {
+      "name": "ubuntu-release-fixes-evidence",
+      "pass": true,
+      "problems": []
+    },
+    {
+      "name": "ubuntu-step3-gaps-evidence",
+      "pass": true,
+      "problems": []
+    },
+    {
+      "name": "ubuntu-cli-regex-safety",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-large",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-panic",
+      "pass": true
+    },
+    {
+      "name": "root-identity",
+      "pass": true
+    },
+    {
+      "name": "root-assertions",
+      "pass": true
+    },
+    {
+      "name": "root-nohome-tilde-identity",
+      "pass": true
+    },
+    {
+      "name": "root-nohome-tilde-assertions",
+      "pass": true
+    },
+    {
+      "name": "extensions",
+      "pass": true
+    },
+    {
+      "name": "host-console",
+      "pass": true
+    },
+    {
+      "name": "host-console-identity",
+      "pass": true
+    },
+    {
+      "name": "host-console-provenance",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-console",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-console-identity",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-console-provenance",
+      "pass": true
+    },
+    {
+      "name": "transport",
+      "pass": true
+    },
+    {
+      "name": "ubuntu-package",
+      "pass": true
+    },
+    {
+      "name": "host-package",
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "deferred": [
+    "optional tiny profile",
+    "physical keyboard/operator console certification"
+  ],
+  "scope": "Recorded Linux host and Ubuntu userspace; genuine guest VT with emulated PS/2 keys; private root namespaces. No physical hardware or general host-root certification.",
+  "required_exact_regressions": {
+    "wrap-undo": 58,
+    "filter": 6,
+    "release-fixes": 15,
+    "step3-gaps": 40
+  }
+}

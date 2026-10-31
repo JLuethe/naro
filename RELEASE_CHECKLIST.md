@@ -63,7 +63,7 @@ passes do not qualify a newly built executable automatically.
   ownership/conflicts. Exclude test hooks.
 - [x] Pass the updated final closure collector with complete inputs. Retain
   compact tracked reports and back up full evidence outside `target/`.
-- [ ] Update public documentation, attribution/license review, release notes,
+- [x] Update public documentation, attribution/license review, release notes,
   support/reporting routes, and the final download list.
 - [ ] Verify final remote commit and successful GitHub CI. Obtain separate
   publication authorization for the tag, release description, and exact assets.
@@ -129,10 +129,10 @@ testing must still be assessed against release safety and integrity criteria.
 
 ## Next action
 
-Steps 4–7 are complete: frozen builds, host/Ubuntu and guest-VT qualification,
-and [technically accepted packages](NARO_STEP7_RESULTS_2026-10-30.md).
-The complete collector passes 97/97 checks; the exact download set and evidence
-are verified outside target/. Continue with step 8 public documentation, then
-step 9 attribution/reporting review and step 10 final delivery/publication
-approval. The broader checks/CI gate above stays open for subsequent delivery
-changes and audit reconciliation. No release has been published.
+Steps 4–9 are complete for the scoped candidate; see the
+[step 8/9 completion receipt](NARO_STEP8_9_RESULTS_2026-10-30.md).
+The refreshed package collector passes 97/97 and the downloads/evidence are
+verified outside target. Step 10 must resolve/disposition the earlier CI
+saved-cursor failure, verify final remote delivery and successful CI, then obtain
+separate publication approval. Do not equate the technical package gate with
+final release acceptance. Nothing has been published.

@@ -1,0 +1,303 @@
+{
+  "binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+  "catalogs": 41,
+  "results": {
+    "ar": {
+      "pass": true,
+      "catalog_sha256": "55390ac6badf38756183ac06e618ea0e47cebc9b20c892b64fd11c21cf6f6dca",
+      "message": "Aa",
+      "expected": "Aa\u0643",
+      "actual": "Aa\u0643\n"
+    },
+    "bg": {
+      "pass": true,
+      "catalog_sha256": "16ef4b94666a264eb298d8b95c242705257b3e0a9db68897da2b7701be034c77",
+      "message": "Aa",
+      "expected": "Aa\u0412\u0432",
+      "actual": "Aa\u0412\u0432\n"
+    },
+    "ca": {
+      "pass": true,
+      "catalog_sha256": "8b7d513040afc725280b050b57ddf5fc4205859f294f9762f34ac46bd198ba47",
+      "message": "Aa",
+      "expected": "Tt",
+      "actual": "Tt\n"
+    },
+    "cs": {
+      "pass": true,
+      "catalog_sha256": "243b5e23b2b49d82945a5581d1cbb86f0282a664dfed73ccaa812d2a6e73caab",
+      "message": "Aa",
+      "expected": "Vv",
+      "actual": "Vv\n"
+    },
+    "da": {
+      "pass": true,
+      "catalog_sha256": "a77b42af8200631d7c3a73327d2a47c262687f54d3ddb4a09cf4140ba886ed76",
+      "message": "No",
+      "expected": "Nej",
+      "actual": "Nej\n"
+    },
+    "de": {
+      "pass": true,
+      "catalog_sha256": "79953bcae67b4d4cbcc2ca4f3b74f438e3a50d4aeefaf84332e51d24d1acf0f8",
+      "message": "No",
+      "expected": "Nein",
+      "actual": "Nein\n"
+    },
+    "eo": {
+      "pass": true,
+      "catalog_sha256": "3c6ca83591987d1f087c6ef0c02710de20af85f9e129284ff6dde6163eb572e2",
+      "message": "Aa",
+      "expected": "Cc\u0108\u0109Tt",
+      "actual": "Cc\u0108\u0109Tt\n"
+    },
+    "es": {
+      "pass": true,
+      "catalog_sha256": "ae80da52810f6709009c25cf5be1a9521a8c0ccf81b318f581d8319afb31b307",
+      "message": "Aa",
+      "expected": "TtAa",
+      "actual": "TtAa\n"
+    },
+    "eu": {
+      "pass": true,
+      "catalog_sha256": "1f4565b08c2af9e36e08d20ff0fa9ee18a22828f477632f57921bc4d416e83df",
+      "message": "Aa",
+      "expected": "GgAaDd",
+      "actual": "GgAaDd\n"
+    },
+    "fi": {
+      "pass": true,
+      "catalog_sha256": "f640c67743eb9a1ab666ef9ad5116e7384649cd252a2ad792ca2f3c92d860789",
+      "message": "Nn",
+      "expected": "EeNn",
+      "actual": "EeNn\n"
+    },
+    "fr": {
+      "pass": true,
+      "catalog_sha256": "5bb97f8aa960664bbe8cfc8199a7f6375e4c8b66fb0f59b4fc9dab3095223c30",
+      "message": "Aa",
+      "expected": "Tt",
+      "actual": "Tt\n"
+    },
+    "ga": {
+      "pass": true,
+      "catalog_sha256": "e134fb60c833b66a5b06956274fc3240c9e5e2a3424c01782b1504b04859ad93",
+      "message": "Aa",
+      "expected": "UuAa",
+      "actual": "UuAa\n"
+    },
+    "gl": {
+      "pass": true,
+      "catalog_sha256": "e9a95a0a873303f2eae9ad402ea7684d7bea8d625ae04848a941ba8f6de06444",
+      "message": "Aa",
+      "expected": "TtAa",
+      "actual": "TtAa\n"
+    },
+    "hr": {
+      "pass": true,
+      "catalog_sha256": "9e9fe3776189eba84fec9715f544a9939bcfbf58d7ce1c627801e3e6ae49716d",
+      "message": "No",
+      "expected": "Ne",
+      "actual": "Ne\n"
+    },
+    "hu": {
+      "pass": true,
+      "catalog_sha256": "701e050601eb45f05cd8ab6105dda186f39de48e552dd428e317faa80fe222ff",
+      "message": "Aa",
+      "expected": "MmAa",
+      "actual": "MmAa\n"
+    },
+    "id": {
+      "pass": true,
+      "catalog_sha256": "a5f5deb118d3ed2aa4912afd44e6bf07a1a745d4b78fbdcdbc5ae26420c99270",
+      "message": "Nn",
+      "expected": "Tt",
+      "actual": "Tt\n"
+    },
+    "is": {
+      "pass": true,
+      "catalog_sha256": "e84710db9e6bd8e3797a0e9bf6e6f9fecd08ed8e9887b07cb9b66deb759c5cd0",
+      "message": "No",
+      "expected": "Nei",
+      "actual": "Nei\n"
+    },
+    "it": {
+      "pass": true,
+      "catalog_sha256": "965f5735fd18272e16dc88cfe1c846a069180ea5801513959e58b027054778a9",
+      "message": "Aa",
+      "expected": "Tt",
+      "actual": "Tt\n"
+    },
+    "ja": {
+      "pass": true,
+      "catalog_sha256": "1032e94ec976d2e3672f0f09ce1c29d158703e9be2c652e00147a50fb1ba16b1",
+      "message": "No",
+      "expected": "\u3044\u3044\u3048",
+      "actual": "\u3044\u3044\u3048\n"
+    },
+    "ka": {
+      "pass": true,
+      "catalog_sha256": "cb2197c612a394f7bd6ee6e3af780497db926170ca4de80fbadc12830de517e3",
+      "message": "No",
+      "expected": "\u10d0\u10e0\u10d0",
+      "actual": "\u10d0\u10e0\u10d0\n"
+    },
+    "kk": {
+      "pass": true,
+      "catalog_sha256": "8b75b7905779fa569f2ea68dcfa9587a2dc372bc9b0bbfc74525cb55f69d75af",
+      "message": "No",
+      "expected": "\u0416\u043e\u049b",
+      "actual": "\u0416\u043e\u049b\n"
+    },
+    "ko": {
+      "pass": true,
+      "catalog_sha256": "75caed497eb4750702f41009985775adc3976a7e52d06f8fbf11ee035bac68e9",
+      "message": "Cut",
+      "expected": "\uc798\ub77c\ub0b4\uae30",
+      "actual": "\uc798\ub77c\ub0b4\uae30\n"
+    },
+    "lv": {
+      "pass": true,
+      "catalog_sha256": "6f43d032c79c699b36c97288befc012b56b70af004f6768dc339385a4a706bb1",
+      "message": "Aa",
+      "expected": "Vv",
+      "actual": "Vv\n"
+    },
+    "ms": {
+      "pass": true,
+      "catalog_sha256": "ed1f7a34b5443760c50b539f9deb56f37f0dbf066266b4279b36d9a0b05a56c3",
+      "message": "Aa",
+      "expected": "Ss",
+      "actual": "Ss\n"
+    },
+    "nb": {
+      "pass": true,
+      "catalog_sha256": "70a784459fde26455dc7c7a25fb7f567e5ac025d37e6f413b89f3351ededf650",
+      "message": "No",
+      "expected": "Nei",
+      "actual": "Nei\n"
+    },
+    "nl": {
+      "pass": true,
+      "catalog_sha256": "dae7586770d001c62195dbf8d66d0db857048cc79d9b7866428a3673f7a00f5d",
+      "message": "Aa",
+      "expected": "AaOo",
+      "actual": "AaOo\n"
+    },
+    "pl": {
+      "pass": true,
+      "catalog_sha256": "38e2fb8bb70b468d135504352d04aa4ef5bf5b21386ab1ba644f13f366b3366b",
+      "message": "Aa",
+      "expected": "Ww",
+      "actual": "Ww\n"
+    },
+    "pt": {
+      "pass": true,
+      "catalog_sha256": "989e0574070d2180ec56bacc7a46c0e20d758c56d9521b21ca77934400ee04df",
+      "message": "Aa",
+      "expected": "Tt",
+      "actual": "Tt\n"
+    },
+    "pt_BR": {
+      "pass": true,
+      "catalog_sha256": "7627847e7525a9396b6550de16358115e6f4c5138429f20870cf3e9c85509502",
+      "message": "Aa",
+      "expected": "Tt",
+      "actual": "Tt\n"
+    },
+    "ro": {
+      "pass": true,
+      "catalog_sha256": "9a6e7121aca389cc63fab58f81333fc1423d4d094e9314c4f503c79340101b3b",
+      "message": "Aa",
+      "expected": "Tt",
+      "actual": "Tt\n"
+    },
+    "ru": {
+      "pass": true,
+      "catalog_sha256": "809b3a708e3b4bdc56fc98a65dc791bcd54d455979b6543097748e4560f4a045",
+      "message": "No",
+      "expected": "\u041d\u0435\u0442",
+      "actual": "\u041d\u0435\u0442\n"
+    },
+    "sk": {
+      "pass": true,
+      "catalog_sha256": "9fbb53207a4e13dc9a91c2175371204066d18291900c29a1fa7e33514196050d",
+      "message": "Aa",
+      "expected": "Vv",
+      "actual": "Vv\n"
+    },
+    "sl": {
+      "pass": true,
+      "catalog_sha256": "4fd088287c2db2de9ae696d2ecef3e9a368c0823d30fa951c0ded045d3f0f6c0",
+      "message": "Aa",
+      "expected": "VvAa",
+      "actual": "VvAa\n"
+    },
+    "sq": {
+      "pass": true,
+      "catalog_sha256": "3cfe9c329273ea30278e90a1aa64b9f17a05166e04b654e165448b95b9d7ec81",
+      "message": "Aa",
+      "expected": "Kk",
+      "actual": "Kk\n"
+    },
+    "sr": {
+      "pass": true,
+      "catalog_sha256": "e41b2b0e144a429166992ad17ed2c32a29996bd4c458505eeeec9701c44ecef3",
+      "message": "Aa",
+      "expected": "\u0410\u0430\u0410\u0430",
+      "actual": "\u0410\u0430\u0410\u0430\n"
+    },
+    "sv": {
+      "pass": true,
+      "catalog_sha256": "9321a4a08f83a8892a46a708e47c3825d81320fa2c1dbba91b4708e9d1dc3305",
+      "message": "No",
+      "expected": "Nej",
+      "actual": "Nej\n"
+    },
+    "tr": {
+      "pass": true,
+      "catalog_sha256": "4bb83cb531f16ef5d581dea2c01ed52488053d3be3a149aae9792ac81f117313",
+      "message": "Aa",
+      "expected": "Tt",
+      "actual": "Tt\n"
+    },
+    "uk": {
+      "pass": true,
+      "catalog_sha256": "a9ea54f2216bd3b1e2adea22093d4d7e7a34e6104dd531f1d5df000258ebd61d",
+      "message": "Aa",
+      "expected": "Aa\u0412\u0432",
+      "actual": "Aa\u0412\u0432\n"
+    },
+    "vi": {
+      "pass": true,
+      "catalog_sha256": "9008babe62c8529a653b57f8a4a942a5b9060d699125aa7bc5338fb34740885c",
+      "message": "Aa",
+      "expected": "AaTt",
+      "actual": "AaTt\n"
+    },
+    "zh_CN": {
+      "pass": true,
+      "catalog_sha256": "92f7e45f5fb1064915ea5c95af07d11ac2de518701b878c7df1e5671adb57633",
+      "message": "No",
+      "expected": "\u5426",
+      "actual": "\u5426\n"
+    },
+    "zh_TW": {
+      "pass": true,
+      "catalog_sha256": "e97ade1e65a4d08b46eb2dbf5537cdb9bc2712be1cd476700876cd12a7a4eedd",
+      "message": "No",
+      "expected": "\u5426",
+      "actual": "\u5426\n"
+    },
+    "override": {
+      "pass": true
+    },
+    "invalid-override": {
+      "pass": true
+    },
+    "syntax": {
+      "pass": true,
+      "behavior": "installed syntax applied"
+    }
+  }
+}

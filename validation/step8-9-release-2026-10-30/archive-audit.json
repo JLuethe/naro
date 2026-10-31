@@ -1,0 +1,98 @@
+{
+  "pass": true,
+  "checks": [
+    {
+      "name": "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz-checksum",
+      "pass": true
+    },
+    {
+      "name": "naro-0.1.0-source.tar.gz-checksum",
+      "pass": true
+    },
+    {
+      "name": "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz-safe-member-inventory",
+      "pass": true
+    },
+    {
+      "name": "naro-0.1.0-source.tar.gz-safe-member-inventory",
+      "pass": true
+    },
+    {
+      "name": "archive-payload-inventory",
+      "pass": true
+    },
+    {
+      "name": "every-binary-payload-hash-and-mode",
+      "pass": true
+    },
+    {
+      "name": "exact-qualified-ubuntu-binary",
+      "pass": true
+    },
+    {
+      "name": "default-without-test-hooks",
+      "pass": true
+    },
+    {
+      "name": "manifest-build-record-agreement",
+      "pass": true
+    },
+    {
+      "name": "clean-frozen-source-revision",
+      "pass": true
+    },
+    {
+      "name": "exact-tracked-source-inventory",
+      "pass": true
+    },
+    {
+      "name": "all-corresponding-source-file-hashes",
+      "pass": true
+    },
+    {
+      "name": "archive-production-fingerprint",
+      "pass": true
+    },
+    {
+      "name": "standalone-installer-equals-frozen-source",
+      "pass": true
+    },
+    {
+      "name": "licenses-attribution-and-po-sources-present",
+      "pass": true
+    },
+    {
+      "name": "all-frozen-runtime-assets-present",
+      "pass": true
+    },
+    {
+      "name": "native-linkage-and-symbol-requirements-recorded",
+      "pass": true
+    },
+    {
+      "name": "fresh-checks-bound-to-exact-archive",
+      "pass": true
+    },
+    {
+      "name": "all-catalog-and-asset-checks-passed",
+      "pass": true
+    },
+    {
+      "name": "offline-source-build-evidence",
+      "pass": true
+    }
+  ],
+  "archives": {
+    "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz": "e8ff4445dba2bebd58c396ca1186d8d2d161efe5016bc4cd7791ed5bce5640d0",
+    "naro-0.1.0-source.tar.gz": "c23aad0b96132b17d0da9fd8e33ee791de4aadc3d5a9d861fa2ee9795cae7e8b"
+  },
+  "binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+  "production_source_sha256": "4cabd71741ffc8ee0357d945c67904c8a2fd0089c12e9b32a1c5b3e35c394ae6",
+  "source_files": 1230,
+  "binary_payload_files": 138,
+  "catalogs": 41,
+  "syntax_files": 44,
+  "package_report_sha256": "5a9b0a971eb81b3fc6a3bced3c9fd91e83076e53670becb113a5ec288b10dcdf",
+  "source_build_log_sha256": "52dad022d2d0eae91a4f9564c9126eafb04b79075730022c9bcba3b9cc3bc34c",
+  "scope": "Refreshed documentation packages; unchanged frozen production source and executable; fresh package checks."
+}

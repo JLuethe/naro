@@ -240,18 +240,20 @@ is not a claim of bit-for-bit reproducibility unless separately demonstrated.
 
 ## 8. Reconcile documentation, coverage, and public claims
 
+Status: complete; see [steps 8–9 results](NARO_STEP8_9_RESULTS_2026-10-30.md).
+
 Priority: required before announcement.
 
-- [ ] Update README, INSTALL, IMPLEMENTATION, release notes, progress, handoffs,
+- [x] Update README, INSTALL, IMPLEMENTATION, release notes, progress, handoffs,
   and validation indexes around the final candidate.
-- [ ] Replace ambiguous wording such as “the tested release” with an actual
+- [x] Replace ambiguous wording such as “the tested release” with an actual
   candidate or release identity.
-- [ ] Clearly mark historical qualification and superseded restart instructions.
-- [ ] Explain intentional nano differences and remaining limitations.
-- [ ] Review all nine unresolved audit citations: connect them to real evidence,
+- [x] Clearly mark historical qualification and superseded restart instructions.
+- [x] Explain intentional nano differences and remaining limitations.
+- [x] Review all nine unresolved audit citations: connect them to real evidence,
   correct stale references, or explicitly retain them as uncovered.
-- [ ] Document prerequisites for external tools and optional features.
-- [ ] Explain the native C bridge and system libraries; avoid claims of pure
+- [x] Document prerequisites for external tools and optional features.
+- [x] Explain the native C bridge and system libraries; avoid claims of pure
   Rust, complete compatibility, or a completed security audit.
 
 A passing audit currently does not mean every citation is resolved.
@@ -261,23 +263,26 @@ limitations, and report a useful bug without reading development history.
 
 ## 9. Prepare community distribution and reporting
 
+Status: complete for scoped distribution review; final CI/publication remain step 10.
+
 Priority: required review before announcement.
 
-- [ ] Review final archives for copyright notices, upstream attribution,
+- [x] Review final archives for copyright notices, upstream attribution,
   per-file license information, and corresponding source.
-- [ ] Preserve GNU nano and reused asset notices.
-- [ ] Verify GitHub's actual private vulnerability-reporting configuration and
-  align SECURITY.md with it; its current text says it is not enabled.
-- [ ] Prepare release notes and a bug-report template requesting version/build
+- [x] Preserve GNU nano and reused asset notices.
+- [x] Verify the user-selected public GitHub issue route and align SECURITY.md.
+  Issues are enabled. John's explicit preference supersedes the earlier private
+  reporting configuration task; no private advisory setting is claimed.
+- [x] Prepare release notes and a bug-report template requesting version/build
   identity, OS, terminal, locale, synthetic reproduction, and expected/actual
   behavior.
-- [ ] Inspect the publication file list to exclude unrelated local session
+- [x] Inspect the publication file list to exclude unrelated local session
   exports and private material.
 
 This review has not established comprehensive licensing clearance.
 
 **Completion:** clear attribution, matching source, accurate installation
-guidance, and working public/private reporting routes.
+guidance, and working user-selected reporting route.
 
 ## 10. Preserve evidence and complete the release decision
 

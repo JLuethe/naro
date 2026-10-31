@@ -1,5 +1,8 @@
 # Step 8 plan — documentation and public claims
 
+Completed: see the [steps 8–9 results](NARO_STEP8_9_RESULTS_2026-10-30.md) for refreshed
+archive identities, validation, backup and the outstanding step 10 CI gate.
+
 Date: October 30, 2026 (America/Los_Angeles).
 Status: approved for application and package refresh on October 30, 2026.
 The original preparation plan below is historical; the adoption receipt and

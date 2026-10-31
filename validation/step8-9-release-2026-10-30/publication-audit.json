@@ -1,0 +1,29 @@
+{
+  "pass": true,
+  "installed_markdown_links": 45,
+  "immutable_repository_links": 11,
+  "packaged_documents": [
+    "LICENSE",
+    "NOTICE",
+    "CREDITS.md",
+    "README.md",
+    "INSTALL.md",
+    "IMPLEMENTATION.md",
+    "RELEASE_NOTES.md",
+    "COVERAGE_REVIEW.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md"
+  ],
+  "source_files": 1230,
+  "explicitly_excluded_local_artifacts": [
+    "opencode-session.json",
+    "opencode-hardwrap-parity.json",
+    "opencode-testing-report.json",
+    "NARO_HARDWRAP_REVIEW.md",
+    "NARO_MINIMAX_SESSION_REVIEW.md",
+    "PI_AGENT_HANDOFF.md",
+    "PI_AGENT_START_PROMPT.md"
+  ],
+  "common_credential_pattern_files": [],
+  "scope": "Tracked inventory excludes local exports/builds/git metadata; bounded credential-format scan, not proof of absence of all sensitive text. Existing tracked historical NARO_SESSION_REVIEW.md is a public engineering review, not a raw session export."
+}

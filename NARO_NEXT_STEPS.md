@@ -1,15 +1,17 @@
 # NARO next steps — Codex development ownership
 
-## Step 8 adoption — October 30, 2026
+## Steps 8–9 complete — October 30, 2026
 
-The reviewed public documentation is applied. John Luethe's attribution,
-OpenAI acknowledgment, and public GitHub security reporting are included.
-Production source and the primary qualified executable remain unchanged.
-Package documentation is being refreshed and checked before step 8 closure;
-step 9 reviews attribution, corresponding source, and reporting. See the
-[adoption receipt](NARO_STEP8_REVIEW_2026-10-30.md).
-Publication remains a separate step 10 decision. Earlier checkpoints below
-are historical and do not override the newest results.
+Reviewed documentation, attribution and public GitHub reporting are applied.
+The same qualified Ubuntu executable was repackaged with current guidance;
+fresh package checks pass 15/15 and the full collector passes 97/97. Exact
+archives and full evidence are verified outside target. See the
+[completion receipt](NARO_STEP8_9_RESULTS_2026-10-30.md).
+
+Step 10 remains: investigate/disposition the earlier GitHub CI saved-cursor
+failure, verify final delivery CI and remote HEAD, then obtain approval for the
+exact tag/release/assets. Nothing is published. All earlier checkpoints below
+are historical and do not override this state.
 
 ## Step 7 complete — exact packages and full gate, 2026-10-30
 

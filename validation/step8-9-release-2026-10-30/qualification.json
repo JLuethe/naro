@@ -1,0 +1,66 @@
+{
+  "product": "NARO",
+  "version": "0.1.0",
+  "status": "documentation and distribution review completed; final CI/release decision pending; not published",
+  "primary_download": "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz",
+  "source_download": "naro-0.1.0-source.tar.gz",
+  "source_commit": "fd91763c4f14d9bed8187d64d44f2136440b7b3e",
+  "production_source_sha256": "4cabd71741ffc8ee0357d945c67904c8a2fd0089c12e9b32a1c5b3e35c394ae6",
+  "binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+  "archives": {
+    "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz": "e8ff4445dba2bebd58c396ca1186d8d2d161efe5016bc4cd7791ed5bce5640d0",
+    "naro-0.1.0-source.tar.gz": "c23aad0b96132b17d0da9fd8e33ee791de4aadc3d5a9d861fa2ee9795cae7e8b"
+  },
+  "features": [],
+  "closure": {
+    "checks": 97,
+    "passed": 97,
+    "gate_sha256": "0757e43a7f17992fa20f6e11f28aedd8e0167b42e7bc17807b1e9ee112a13af4"
+  },
+  "archive_audit": {
+    "checks": 20,
+    "passed": 20
+  },
+  "package_checks": {
+    "checks": 15,
+    "passed": 15,
+    "reused_unchanged_archives": false,
+    "report_sha256": "5a9b0a971eb81b3fc6a3bced3c9fd91e83076e53670becb113a5ec288b10dcdf"
+  },
+  "ordinary_prefix": {
+    "checks": 5,
+    "passed": 5
+  },
+  "source_rebuild": "offline passed, production fingerprint and features match; not a claim of byte-for-byte reproducibility",
+  "catalogs": 41,
+  "asset_checks": 44,
+  "guest_vt": {
+    "host_matches": 19,
+    "ubuntu_matches": 19,
+    "transport_checks": 6
+  },
+  "pending_release_gates": [
+    "Resolve/disposition prior CI cursor capture failure and verify final GitHub CI/remote commit",
+    "Separate approval for exact tag, release description and assets; publication"
+  ],
+  "packaging_source_revision": "536d09160e4f65f8372c781ba389a59fdb5e52c7",
+  "compiled_revision": "fd91763c4f14d9bed8187d64d44f2136440b7b3e",
+  "ci_observation": {
+    "prior_run": "https://github.com/JLuethe/naro/actions/runs/41168721954",
+    "result": "failed saved cursor assertion in TEST-STEP3-EOF-NOFINAL-LIVE; file/exit and other assertions passed; timing hypothesis unconfirmed",
+    "new_source_run": "https://github.com/JLuethe/naro/actions/runs/41170067321",
+    "status_at_packaging": "in progress"
+  },
+  "packaged_documents": [
+    "LICENSE",
+    "NOTICE",
+    "CREDITS.md",
+    "README.md",
+    "INSTALL.md",
+    "IMPLEMENTATION.md",
+    "RELEASE_NOTES.md",
+    "COVERAGE_REVIEW.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md"
+  ]
+}

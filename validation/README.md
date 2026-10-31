@@ -15,6 +15,7 @@ Documentation and evidence commits may be newer than these build identities.
 | [Source/build freeze](../NARO_STEP4_FREEZE_2026-10-30.md) | Clean committed source, separate binaries, references and build provenance |
 | [Step 5 qualification](step5-qualification-2026-10-30/README.md) | Host and independent Ubuntu matrices, accepted differences and integrity review |
 | [Step 6 console](step6-console-2026-10-30/README.md) | 19/19 guest-VT comparisons per candidate and six transport checks |
+| [Refreshed step 8/9 packages](step8-9-release-2026-10-30/README.md) | Approved documentation, fresh package/rebuild/link checks, full gate and backup |
 | [Step 7 packages](step7-package-2026-10-30/README.md) | Exact archive linkage, installed assets, source rebuild and preservation |
 | [Complete technical gate](step7-package-2026-10-30/closure/gate.json) | All 97 required checks passed |
 | [Coverage review](../COVERAGE_REVIEW.md) | Nine unresolved citations and the limits of audit coverage |
@@ -24,9 +25,10 @@ matches, with six exclusions. The separate historical follow-ups have 53 cases,
 51 exact; the newer suites add 119 exact cases per environment. Do not merge
 these inventories into an unexplained aggregate or count excluded cases as passes.
 
-The package archives identified in step 7 are technically qualified, not an
-announcement of publication. [The release checklist](../RELEASE_CHECKLIST.md)
-tracks the remaining public-documentation, attribution and release-decision gates.
+The refreshed step 8/9 archives supersede step 7 as the selected download set;
+step 7 remains historical evidence. This is not an announcement of publication. [The release checklist](../RELEASE_CHECKLIST.md)
+tracks remaining final CI and release-decision gates, including the earlier
+saved-cursor CI failure retained in the step 8/9 receipt.
 If later packaging changes archive bytes, use the newer reviewed artifact receipt
 and checksums rather than attributing old package results to new inputs.
 
