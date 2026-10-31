@@ -13,6 +13,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include <fcntl.h>
 #include <wchar.h>
 #include <wctype.h>
 #include <sys/ioctl.h>
@@ -105,6 +107,32 @@ void nr_setup_signals(void) {
     struct sigaction a={0}; sigemptyset(&a.sa_mask); a.sa_handler=handler;
     for(int i=1;i<32;i++) if(i==SIGHUP||i==SIGTERM||i==SIGTSTP||i==SIGCONT||i==SIGWINCH) sigaction(i,&a,NULL);
     signal(SIGINT,SIG_IGN);signal(SIGQUIT,SIG_IGN);
+}
+#ifndef NARO_TINY
+static void interrupt_open(int sig) { (void)sig; }
+#endif
+/* Open once: retrying EINTR would prevent Ctrl-C from cancelling a FIFO save. */
+int nr_open_write(const char *path,int append) {
+#ifndef NARO_TINY
+    sigset_t blocked,previous_mask;
+    sigemptyset(&blocked);sigaddset(&blocked,SIGWINCH);
+    int mask_saved=sigprocmask(SIG_BLOCK,&blocked,&previous_mask)==0;
+    struct sigaction action={0},previous_action;
+    struct termios previous_modes,modes;
+    sigemptyset(&action.sa_mask);action.sa_handler=interrupt_open;
+    int action_saved=sigaction(SIGINT,&action,&previous_action)==0;
+    int modes_saved=tcgetattr(STDIN_FILENO,&previous_modes)==0;
+    if(modes_saved){modes=previous_modes;modes.c_lflag|=ISIG;tcsetattr(STDIN_FILENO,TCSANOW,&modes);}
+#endif
+    int fd=open(path,O_WRONLY|O_CREAT|O_CLOEXEC|(append?O_APPEND:O_TRUNC),0666);
+    int error=errno;
+#ifndef NARO_TINY
+    if(modes_saved)tcsetattr(STDIN_FILENO,TCSANOW,&previous_modes);
+    if(action_saved)sigaction(SIGINT,&previous_action,NULL);
+    if(mask_saved)sigprocmask(SIG_SETMASK,&previous_mask,NULL);
+#endif
+    errno=error;
+    return fd;
 }
 static void modes(int preserve) {
     raw();nonl();noecho();

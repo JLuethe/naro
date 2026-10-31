@@ -126,5 +126,33 @@
     }
    ]
   }
+ },
+ {
+  "id": "TEST-TINY-FIFO-RESIZE-SAFETY",
+  "args": ["f.txt"],
+  "files": {
+   "work/f.txt": {"text": "hello\n"},
+   "gate.c": {"text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <fcntl.h>\n#include <stdarg.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n#include <limits.h>\nstatic int(*real_open_fn)(const char*,int,...);static int(*real_openat_fn)(int,const char*,int,...);\nstatic int target(const char*p,int f){const char*t=getenv(\"FIFO_TARGET\");char r[PATH_MAX];return t&&p&&!strcmp(p,t)&&(f&(O_WRONLY|O_RDWR))||(t&&p&&realpath(p,r)&&!strcmp(r,t)&&(f&(O_WRONLY|O_RDWR)));}\nstatic void mark(void){const char*h=getenv(\"HOME\");char p[4096];snprintf(p,sizeof p,\"%s/open.pid\",h);FILE*f=fopen(p,\"w\");if(f){fprintf(f,\"%ld\\n\",(long)getpid());fclose(f);}}\nint open(const char*p,int f,...){if(!real_open_fn)real_open_fn=dlsym(RTLD_NEXT,\"open\");mode_t m=0;if(f&O_CREAT){va_list a;va_start(a,f);m=va_arg(a,int);va_end(a);}if(target(p,f))mark();return real_open_fn(p,f,m);}\nint open64(const char*p,int f,...){if(!real_open_fn)real_open_fn=dlsym(RTLD_NEXT,\"open64\");mode_t m=0;if(f&O_CREAT){va_list a;va_start(a,f);m=va_arg(a,int);va_end(a);}if(target(p,f))mark();return real_open_fn(p,f,m);}\nint openat(int d,const char*p,int f,...){if(!real_openat_fn)real_openat_fn=dlsym(RTLD_NEXT,\"openat\");mode_t m=0;if(f&O_CREAT){va_list a;va_start(a,f);m=va_arg(a,int);va_end(a);}if(target(p,f))mark();return real_openat_fn(d,p,f,m);}\n"},
+   "bin/confirm_open": {"mode": "0755", "text": "#!/usr/bin/python3\nimport os,time\nh=os.environ['HOME'];deadline=time.time()+10;pid=None\nwhile time.time()<deadline:\n try:pid=int(open(h+'/open.pid').read().strip());break\n except (FileNotFoundError,ValueError):time.sleep(.01)\nif pid is None:raise SystemExit(2)\nw='/proc/%d/wchan'%pid;seen=False\nwhile time.time()<deadline:\n try:\n  s=open(w).read().strip()\n  if s and s not in ('0','running'):seen=True;break\n except FileNotFoundError:break\n time.sleep(.01)\nif not seen:raise SystemExit(3)\nos.unlink(h+'/open.pid');open(h+'/open.ready','w').write(s+'\\n')\n"}
+  },
+  "fifos": ["work/pipe"],
+  "build_helpers": [{"source": "gate.c", "output": "gate.so"}],
+  "helpers": [["bin/confirm_open"]],
+  "env": {"LD_PRELOAD": "$FX/gate.so", "FIFO_TARGET": "$FX/work/pipe"},
+  "steps": [
+   {"wait": {"text": "hello"}}, {"text": "X"}, {"keys": ["^O"]},
+   {"wait": {"text": "Write to File:"}}, {"keys": ["^A", "^K"]}, {"text": "pipe"}, {"keys": ["Enter"]},
+   {"wait": {"text": "Save file under DIFFERENT NAME?"}}, {"text": "y"}, {"wait": {"text": "OVERWRITE?"}}, {"text": "y"},
+   {"wait_file": {"path": "home/open.ready", "timeout": 10}}, {"resize": [70, 24]},
+   {"wait": {"text": "Interrupted", "timeout": 5}}, {"snapshot": "after-interrupted", "quiet": 100},
+   {"keys": ["^X"]}, {"wait": {"text": "Save modified buffer?"}}, {"text": "n"}, {"wait_exit": 5}
+  ],
+  "expect": {
+   "exit_status": 0, "temp_empty": true, "helper_statuses": [0],
+   "trace_final_modes": {"alternate_screen": false},
+   "files": {"work/f.txt": {"text": "hello\n"}, "home/open.pid": null},
+   "screen": [{"snapshot": "after-interrupted", "row": 1, "equals": "Xhello"}, {"snapshot": "after-interrupted", "row": 21, "contains": "Interrupted"}, {"snapshot": "after-interrupted", "cursor": {"visible": true}}]
+  },
+  "note": "Observed pinned GNU nano tiny behavior: resize interrupts the blocked FIFO open; no reader is created, no FIFO bytes are received, buffer remains modified, and cleanup must restore terminal modes. This is a regression oracle, not the non-tiny FIFO-progress expectation."
  }
 ]

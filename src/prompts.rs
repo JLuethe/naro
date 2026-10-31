@@ -386,9 +386,15 @@ impl Editor {
         self.mode = Mode::Prompt(p);
     }
     pub fn submit(&mut self, p: Prompt) {
+        let listed_completions = !self.completion.is_empty();
         self.completion.clear();
         match p.kind {
-            PromptKind::Write { .. } => self.try_write(p, false, false),
+            PromptKind::Write { .. } => {
+                if listed_completions {
+                    render::queue_edit_refresh(self);
+                }
+                self.try_write(p, false, false);
+            }
             PromptKind::Search(replace) => {
                 if !p.answer.is_empty() {
                     self.search = p.answer.clone();
@@ -708,9 +714,15 @@ impl Editor {
             mode,
             selection,
             p.skip_backup,
-            |text| {
-                if progress_allowed {
-                    render::write_progress(&mut progress_screen, layout, progress_style, text);
+            |event| match event {
+                files::WriteProgress::Status(text) => {
+                    if progress_allowed {
+                        render::write_progress(&mut progress_screen, layout, progress_style, text);
+                        progress_painted = true;
+                    }
+                }
+                files::WriteProgress::Warning(text) => {
+                    render::flash_warning(&self.conf, &mut progress_screen, layout, text);
                     progress_painted = true;
                 }
             },

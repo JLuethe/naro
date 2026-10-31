@@ -13,7 +13,7 @@ from check_wrap_undo import (
 )
 
 SUITES = {"wrap-undo": 58, "filter": 6, "release-fixes": 15, "step3-gaps": 40,
-          "save-progress": 13}
+          "save-progress": 22, "save-safety": 10}
 
 
 def validate_suite(directory, suite, candidate_sha256, source_sha256,

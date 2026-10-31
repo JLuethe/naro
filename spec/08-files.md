@@ -108,7 +108,7 @@ buffer and shown when it is switched to (`01` CLI-036, TEST-CLI-050).
 ### FILE-WRITE-CORE — How bytes are written
 1. Outside the operating directory (for normal writes) → ALERT `Can't write outside of <dir>`.
 2. Backup, if enabled and the target exists and is not a FIFO (FILE-BAK).
-3. Prepend: the existing file is first copied to a temporary file (FILE-TEMP). A FIFO target → ALERT `Error writing <name>: FIFO`. Read failure → ALERT `Error reading <name>: <reason>`. Temp failure → ALERT `Error writing temp file: <reason>`.
+3. Prepend: the existing file is first copied to a temporary file (FILE-TEMP). A FIFO target → ALERT `Error writing <name>: FIFO`. Read failure → ALERT `Error reading <name>: <reason>`. Temp failure → ALERT `Error writing temp file: <reason>`. Missing or unreadable targets must not be created or truncated (TEST-SAVE-SAFETY-PREPEND-MISSING and TEST-SAVE-SAFETY-PREPEND-UNREADABLE).
 4. The target is opened with `O_WRONLY|O_CREAT` plus `O_APPEND` (append) or `O_TRUNC` (overwrite/prepend), with creation mode 0666 (subject to the umask). The file is **rewritten in place**, not replaced. Its inode, permissions, owner, hard links and extended attributes are kept, and a symbolic link is written **through** to its target (the link stays a link) (TEST-FILE-001/-003/-004). A new file gets `0666 & ~umask` (TEST-FILE-002: umask 077 → 0600). ^C during `open` (e.g. on a FIFO) → ALERT `Interrupted`. Other failures → ALERT `Error writing <name>: <reason>` (TEST-FILE-015: `Permission denied`; TEST-FILE-031: `No such file or directory`).
 5. A FIFO target shows HUSH `Writing to FIFO...`; regular files HUSH `Writing...`.
    The FIFO message is flushed before a potentially blocking open. After a successful
@@ -145,7 +145,9 @@ Before overwriting an **existing regular** file:
 5. **Failure:** an unreadable original → ALERT+pause `Cannot read original file`, then step 6 with the second attempt skipped. Other failures: delete the partial backup, then ALERT+pause `Cannot make regular backup` and `Trying again in your home directory`, and try `$HOME/<basename>~XXXXXX` (mkstemp). If that also fails: ALERT+pause `Cannot make backup`.
 6. After a final failure: ALERT+pause with the `strerror` text. Unless the error is ENOSPC, Yes/No `Cannot make backup; continue and save actual file? ` — Yes → proceed with the save. Otherwise HUSH `Cannot make backup: <reason>`, and nothing is written.
 - **Source:** `src/files.c:1550-1709`.
-- **Evidence:** runtime TEST-FILE-012/-013.
+- **Evidence:** runtime TEST-FILE-012/-013; gated TEST-SAVE-SAFETY-BACKUP-PROGRESS;
+  TEST-SAVE-SAFETY-BACKUP-UNREADABLE and TEST-SAVE-SAFETY-BACKUP-UNREADABLE-YES
+  cover declining and accepting a save after the original cannot be read.
 
 ### FILE-LOCK — Lock files (`-G`, `set locking`; not tiny; not in view mode)
 - **Name:** `<dir>/.<basename>.swp`, where `<dir>` is the directory part of the name **as given** (`.` when none), so `f.txt` → `./.f.txt.swp`.

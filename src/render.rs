@@ -276,9 +276,23 @@ pub fn help_items(ed: &Editor, menu: u32, cols: usize) -> (usize, Vec<(String, S
     }
     (count, items)
 }
+fn footer_layout(ed: &Editor, l: Layout) -> Option<(usize, usize, bool, bool)> {
+    l.help
+        .then_some((l.cols, l.rows, ed.conf.on(ZERO), ed.conf.on(MINIBAR)))
+}
 fn helplines(ed: &Editor, canvas: &mut Canvas, l: Layout) {
     if !l.help {
         return;
+    }
+    // Nano overlays shortcuts without clearing the footer at five rows or less.
+    if l.rows <= 5
+        && ed.last_footer_layout == footer_layout(ed, l)
+        && let Some(previous) = &ed.last_screen
+        && previous.cols == l.cols
+        && previous.rows == l.rows
+    {
+        let span = (l.rows - 2) * l.cols..l.rows * l.cols;
+        canvas.cells[span.clone()].clone_from_slice(&previous.cells[span]);
     }
     let (n, items) = help_items(ed, ed.menu(), l.cols);
     if n == 0 {
@@ -297,6 +311,7 @@ fn helplines(ed: &Editor, canvas: &mut Canvas, l: Layout) {
         let keyw = Encoding { utf8: true, tab: 8 }.breadth(key.as_bytes());
         canvas.text(row, col, key, ed.conf.style("keycolor"), span);
         if keyw + 2 <= span {
+            canvas.put(row, col + keyw, " ", Style::NORMAL, 1);
             canvas.text(
                 row,
                 col + keyw + 1,
@@ -828,13 +843,26 @@ fn paint_message(
     ellipsis: bool,
 ) -> usize {
     let e = Encoding { utf8: true, tab: 8 };
-    let width = e.breadth(text.as_bytes()).min(l.cols);
+    let mut message = String::new();
+    let mut width = 0;
+    for glyph in e.display(text.as_bytes(), false, false) {
+        if width + glyph.width > l.cols {
+            // Nano marks the visible half of a clipped double-width glyph.
+            if glyph.width == 2 && width < l.cols {
+                message.push('[');
+                width += 1;
+            }
+            break;
+        }
+        message.push_str(&glyph.text);
+        width += glyph.width;
+    }
     let start = (l.cols - width) / 2;
     if start > 1 {
         canvas.text(
             l.status,
             start - 2,
-            &format!("[ {text} ]"),
+            &format!("[ {message} ]"),
             style,
             l.cols - start + 2,
         );
@@ -843,8 +871,23 @@ fn paint_message(
         }
         start + width + 2
     } else {
-        canvas.text(l.status, start, text, style, l.cols - start);
+        canvas.text(l.status, start, &message, style, l.cols - start);
         start + width
+    }
+}
+
+/// Queue removal of a filename-completion list without flushing the terminal.
+/// The next save status flushes the restored edit area with the existing footer.
+pub fn queue_edit_refresh(ed: &mut Editor) {
+    let l = layout(ed);
+    if let Some(mut previous) = ed.last_screen.take() {
+        if previous.cols == l.cols && previous.rows == l.rows {
+            let mut refreshed = Canvas::new(l.cols, l.rows);
+            edit(ed, &mut refreshed, l);
+            let span = l.top * l.cols..l.status * l.cols;
+            previous.cells[span.clone()].clone_from_slice(&refreshed.cells[span]);
+        }
+        ed.last_screen = Some(previous);
     }
 }
 
@@ -853,7 +896,14 @@ fn paint_message(
 pub fn write_progress(canvas: &mut Canvas, l: Layout, style: Style, text: &str) {
     canvas.fill(l.status, 0, l.cols, Style::NORMAL);
     let col = paint_message(canvas, l, &native::tr(text), style, false);
-    canvas.flush((col, l.status, false));
+    // Curses advances within the footer when the status fills its first row.
+    // A one-row footer instead leaves its cursor at the bottom-right corner.
+    let cursor = if col >= l.cols && l.status + 1 < l.rows {
+        (0, l.status + 1, false)
+    } else {
+        (col, l.status, false)
+    };
+    canvas.flush(cursor);
 }
 fn minibar(ed: &Editor, canvas: &mut Canvas, l: Layout) {
     let c = &ed.conf;
@@ -1186,6 +1236,7 @@ pub fn draw(ed: &mut Editor) {
         cursor.2 = false;
     }
     canvas.flush(cursor);
+    ed.last_footer_layout = footer_layout(ed, l);
     ed.last_screen = Some(canvas);
 }
 
@@ -1332,56 +1383,14 @@ fn paint_help(ed: &Editor, canvas: &mut Canvas, l: Layout, h: &HelpState) -> (us
 }
 
 /// Brief reference-compatible backup warning while file I/O owns the buffer.
-pub fn flash_warning(config: &Config, text: &str) {
-    let cols = unsafe { native::nr_cols() }.max(1) as usize;
-    let rows = unsafe { native::nr_rows() }.max(1) as usize;
-    let help = !config.on(NO_HELP) && rows >= 5;
-    let status = rows - if help { 3 } else { 1 };
-    let mut canvas = Canvas::new(cols, rows);
-    let text = native::tr(text);
-    let width = Encoding { utf8: true, tab: 8 }
-        .breadth(text.as_bytes())
-        .min(cols);
-    let start = (cols - width) / 2;
-    let styled = if start > 1 {
-        format!("[ {text} ]")
-    } else {
-        text
-    };
-    canvas.text(
-        status,
-        start.saturating_sub(2),
-        &styled,
-        config.style("errorcolor"),
-        cols - start.saturating_sub(2),
-    );
-    for y in status..rows {
-        for x in 0..cols {
-            let cell = &canvas.cells[y * cols + x];
-            if cell.width == 0 {
-                continue;
-            }
-            let chars: Vec<u32> = cell.text.chars().map(u32::from).collect();
-            unsafe {
-                native::nr_put(
-                    y as i32,
-                    x as i32,
-                    chars.as_ptr(),
-                    chars.len() as i32,
-                    cell.style.bits,
-                    cell.style.fg,
-                    cell.style.bg,
-                );
-            }
+pub fn flash_warning(config: &Config, canvas: &mut Canvas, l: Layout, text: &str) {
+    // Nano keeps its shortcut rows on very short terminals, including minibar.
+    if l.help && l.rows > 5 {
+        for row in l.status + 1..l.rows {
+            canvas.fill(row, 0, l.cols, Style::NORMAL);
         }
     }
-    unsafe {
-        native::nr_beep();
-        native::nr_refresh(
-            status as i32,
-            ((cols + width) / 2 + 2).min(cols - 1) as i32,
-            0,
-        );
-    }
+    unsafe { native::nr_beep() };
+    write_progress(canvas, l, config.style("errorcolor"), text);
     std::thread::sleep(std::time::Duration::from_millis(1500));
 }

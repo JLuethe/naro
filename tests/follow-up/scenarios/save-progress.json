@@ -6968,5 +6968,1371 @@
    }
   },
   "note": "Write progress is captured while the private syscall gate is closed. Expected cells, attributes and cursor measured from pinned GNU nano 6ed285c3, reference02; no sleeps substitute for operation entry."
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-WIDTH-8",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "snapshot": "before-save",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "settle": 500
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "Xhello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "before-save",
+     "cursor": {
+      "x": 1,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 0,
+      "y": 22,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "Writing."
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      7,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Reference measured from pinned nano while fsync is blocked by the private LD_PRELOAD gate; status cells, reverse style, and cursor asserted.",
+  "cols": 8,
+  "rows": 24
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-WIDTH-10",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "snapshot": "before-save",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "settle": 500
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "Xhello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "before-save",
+     "cursor": {
+      "x": 1,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 0,
+      "y": 22,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "Writing..."
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      9,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Reference measured from pinned nano while fsync is blocked by the private LD_PRELOAD gate; status cells, reverse style, and cursor asserted.",
+  "cols": 10,
+  "rows": 24
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-WIDTH-14",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "snapshot": "before-save",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "settle": 500
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "Xhello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "before-save",
+     "cursor": {
+      "x": 1,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 0,
+      "y": 22,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "[ Writing... ]"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      13,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Reference measured from pinned nano while fsync is blocked by the private LD_PRELOAD gate; status cells, reverse style, and cursor asserted.",
+  "cols": 14,
+  "rows": 24
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-NOHELP-14",
+  "args": [
+   "--nohelp",
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "snapshot": "before-save",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "settle": 500
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "Xhello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "before-save",
+     "cursor": {
+      "x": 1,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 13,
+      "y": 23,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 23,
+     "equals": "[ Writing... ]"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      13,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Reference measured from pinned nano while fsync is blocked by the private LD_PRELOAD gate; status cells, reverse style, and cursor asserted.",
+  "cols": 14,
+  "rows": 24
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-ZERO-10",
+  "args": [
+   "-I",
+   "--zero",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "snapshot": "before-save",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "settle": 500
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "Xhello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "before-save",
+     "cursor": {
+      "x": 1,
+      "y": 0,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 9,
+      "y": 23,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 23,
+     "equals": "Writing..."
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      23,
+      9,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Reference measured from pinned nano while fsync is blocked by the private LD_PRELOAD gate; status cells, reverse style, and cursor asserted.",
+  "cols": 10,
+  "rows": 24
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-COMPLETION-REGULAR",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   },
+   "work/f.txt.a": {
+    "text": "sibling\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Write to File:"
+    }
+   },
+   {
+    "keys": [
+     "End",
+     "Tab"
+    ]
+   },
+   {
+    "wait": {
+     "text": "f.txt.a"
+    }
+   },
+   {
+    "snapshot": "completion-list",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "settle": 500
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "Xhello\n"
+    },
+    "work/f.txt.save": null,
+    "work/f.txt.a": {
+     "text": "sibling\n"
+    }
+   },
+   "screen": [
+    {
+     "snapshot": "completion-list",
+     "cursor": {
+      "x": 20,
+      "y": 21,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "completion-list",
+     "row": 19,
+     "equals": "f.txt    f.txt.a"
+    },
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 47,
+      "y": 21,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "writing",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "                                 [ Writing... ]"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      33,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "A completion list is visible before submitting the existing filename. During gated fsync nano has refreshed the edit area: buffer text is visible and the completion row is clear."
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-COMPLETION-FIFO",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   },
+   "bin/reader": {
+    "text": "#!/usr/bin/python3\nimport os,time\nfor _ in range(1500):\n if os.path.exists(os.environ[\"HOME\"]+\"/OPEN.release\"):break\n time.sleep(.01)\nwith open(\"pipe\",\"rb\")as f: data=f.read()\nopen(os.environ[\"HOME\"]+\"/received\",\"wb\").write(data)\n",
+    "mode": "0755"
+   },
+   "work/pipe.a": {
+    "text": "sibling\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/pipe",
+   "PROGRESS_OPEN": "1",
+   "PROGRESS_WRITE": "1"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Write to File:"
+    }
+   },
+   {
+    "keys": [
+     "^A",
+     "^K"
+    ]
+   },
+   {
+    "text": "pipe"
+   },
+   {
+    "keys": [
+     "Tab"
+    ]
+   },
+   {
+    "wait": {
+     "text": "pipe.a"
+    }
+   },
+   {
+    "snapshot": "completion-list",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Save file under DIFFERENT NAME?"
+    }
+   },
+   {
+    "text": "y"
+   },
+   {
+    "wait": {
+     "text": "OVERWRITE?"
+    }
+   },
+   {
+    "text": "y"
+   },
+   {
+    "wait_file": {
+     "path": "home/OPEN.ready"
+    }
+   },
+   {
+    "snapshot": "fifo-opening",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/OPEN.release",
+    "content": ""
+   },
+   {
+    "wait_file": {
+     "path": "home/WRITE.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/WRITE.release",
+    "content": ""
+   },
+   {
+    "settle": 500
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "hello\n"
+    },
+    "home/received": {
+     "text": "Xhello\n"
+    },
+    "work/pipe.a": {
+     "text": "sibling\n"
+    }
+   },
+   "helper_statuses": [
+    0
+   ],
+   "screen": [
+    {
+     "snapshot": "completion-list",
+     "cursor": {
+      "x": 19,
+      "y": 21,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "completion-list",
+     "row": 19,
+     "equals": "pipe    pipe.a"
+    },
+    {
+     "snapshot": "fifo-opening",
+     "cursor": {
+      "x": 51,
+      "y": 21,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 21,
+     "equals": "                             [ Writing to FIFO... ]"
+    },
+    {
+     "snapshot": "fifo-opening",
+     "attr_at": [
+      21,
+      29,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 47,
+      "y": 21,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "writing",
+     "row": 19,
+     "equals": ""
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "                                 [ Writing... ]"
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      33,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "fifos": [
+   "work/pipe"
+  ],
+  "helpers": [
+   [
+    "bin/reader"
+   ]
+  ],
+  "note": "A completion list is visible before filename submission. Different-name and overwrite confirmations finish before the FIFO gates; assert that no list remains at FIFO open or write."
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-FIFO-INTERRUPT",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <fcntl.h>\n#include <stdarg.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n#include <limits.h>\nstatic int(*real_open_fn)(const char*,int,...); static int(*real_openat_fn)(int,const char*,int,...);\nstatic int is_target(const char *p,int f){const char*t=getenv(\"FIFO_TARGET\");char r[PATH_MAX];return t&&p&&!strcmp(p,t)&&(f&(O_WRONLY|O_RDWR)) || (t&&p&&realpath(p,r)&&!strcmp(r,t)&&(f&(O_WRONLY|O_RDWR)));}\nstatic void mark(void){const char*h=getenv(\"HOME\");char p[4096];snprintf(p,sizeof p,\"%s/open.pid\",h);FILE*f=fopen(p,\"w\");if(f){fprintf(f,\"%ld\\n\",(long)getpid());fclose(f);}}\nint open(const char*p,int f,...){if(!real_open_fn)real_open_fn=dlsym(RTLD_NEXT,\"open\");mode_t m=0;if(f&O_CREAT){va_list a;va_start(a,f);m=va_arg(a,int);va_end(a);}if(is_target(p,f))mark();return real_open_fn(p,f,m);}\nint open64(const char*p,int f,...){if(!real_open_fn)real_open_fn=dlsym(RTLD_NEXT,\"open64\");mode_t m=0;if(f&O_CREAT){va_list a;va_start(a,f);m=va_arg(a,int);va_end(a);}if(is_target(p,f))mark();return real_open_fn(p,f,m);}\nint openat(int d,const char*p,int f,...){if(!real_openat_fn)real_openat_fn=dlsym(RTLD_NEXT,\"openat\");mode_t m=0;if(f&O_CREAT){va_list a;va_start(a,f);m=va_arg(a,int);va_end(a);}if(is_target(p,f))mark();return real_openat_fn(d,p,f,m);}\n"
+   },
+   "bin/wait_for_partner": {
+    "mode": "0755",
+    "text": "#!/usr/bin/python3\nimport os,time\nh=os.environ['HOME']; pidfile=h+'/open.pid'; ready=h+'/open.ready'\ndeadline=time.time()+10\npid=None\nwhile time.time()<deadline:\n try: pid=int(open(pidfile).read().strip()); break\n except (FileNotFoundError,ValueError): time.sleep(.01)\nif pid is None: raise SystemExit(2)\nwchan='/proc/%d/wchan'%pid\nseen=False\nwhile time.time()<deadline:\n try:\n  state=open(wchan).read().strip()\n  if state and state not in ('0','running'): seen=True; break\n except FileNotFoundError: break\n time.sleep(.01)\nif not seen: raise SystemExit(3)\nos.unlink(pidfile)\nopen(ready,'w').write('wait_for_partner\\n')\n"
+   }
+  },
+  "fifos": [
+   "work/pipe"
+  ],
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "helpers": [
+   [
+    "bin/wait_for_partner"
+   ]
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "FIFO_TARGET": "$FX/work/pipe"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "keys": [
+     "^O"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Write to File:"
+    }
+   },
+   {
+    "keys": [
+     "^A",
+     "^K"
+    ]
+   },
+   {
+    "text": "pipe"
+   },
+   {
+    "keys": [
+     "Enter"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Save file under DIFFERENT NAME?"
+    }
+   },
+   {
+    "text": "y"
+   },
+   {
+    "wait": {
+     "text": "OVERWRITE?"
+    }
+   },
+   {
+    "text": "y"
+   },
+   {
+    "wait": {
+     "text": "Writing to FIFO...",
+     "timeout": 5
+    }
+   },
+   {
+    "wait_file": {
+     "path": "home/open.ready",
+     "timeout": 10
+    }
+   },
+   {
+    "snapshot": "fifo-opening",
+    "quiet": 100
+   },
+   {
+    "keys": [
+     "^C"
+    ]
+   },
+   {
+    "wait": {
+     "text": "Interrupted",
+     "timeout": 3
+    }
+   },
+   {
+    "snapshot": "after-typed-ctrl-c",
+    "quiet": 100
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "sleep": 100
+   },
+   {
+    "text": "n"
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "helper_statuses": [
+    0
+   ],
+   "files": {
+    "work/f.txt": {
+     "text": "hello\n"
+    },
+    "home/open.ready": {
+     "text": "wait_for_partner\n"
+    },
+    "home/open.pid": null
+   },
+   "screen": [
+    {
+     "snapshot": "fifo-opening",
+     "cursor": {
+      "x": 51,
+      "y": 21,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "fifo-opening",
+     "row": 21,
+     "equals": "                             [ Writing to FIFO... ]"
+    },
+    {
+     "snapshot": "fifo-opening",
+     "attr_at": [
+      21,
+      29,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "after-typed-ctrl-c",
+     "cursor": {
+      "x": 1,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "after-typed-ctrl-c",
+     "row": 1,
+     "equals": "Xhello"
+    },
+    {
+     "snapshot": "after-typed-ctrl-c",
+     "row": 21,
+     "equals": "                                [ Interrupted ]"
+    },
+    {
+     "snapshot": "after-typed-ctrl-c",
+     "attr_at": [
+      21,
+      32,
+      "bg=1,bold=True,fg=7"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false,
+    "keypad_transmit": false,
+    "mouse_tracking": null
+   }
+  },
+  "note": "The helper records a stable wait_for_partner marker only after /proc confirms the editor is blocked in FIFO open, then unlinks open.pid. Ctrl-C is typed through tmux (no external signal). Assert the FIFO status before interrupt, the actual Interrupted message afterward, restored cursor, final modes, unchanged file, helper success and marker cleanup."
+ },
+ {
+  "id": "TEST-SAVE-PROGRESS-CJK-WIDTH-7",
+  "args": [
+   "-I",
+   "f.txt"
+  ],
+  "files": {
+   "work/f.txt": {
+    "text": "hello\n"
+   },
+   "gate.c": {
+    "text": "#define _GNU_SOURCE\n#include <dlfcn.h>\n#include <stdarg.h>\n#include <fcntl.h>\n#include <unistd.h>\n#include <stdlib.h>\n#include <stdio.h>\n#include <string.h>\n#include <limits.h>\n#include <errno.h>\n#include <time.h>\nstatic int once_open,once_write,once_sync;\nstatic int target_path(const char *p) {\n char resolved[PATH_MAX]; const char *target=getenv(\"PROGRESS_TARGET\");\n return target && realpath(p,resolved) && !strcmp(resolved,target);\n}\nstatic int target_fd(int fd) {\n char link[64],path[PATH_MAX];snprintf(link,sizeof link,\"/proc/self/fd/%d\",fd);\n ssize_t n=readlink(link,path,sizeof path-1);if(n<0)return 0;path[n]=0;\n const char *target=getenv(\"PROGRESS_TARGET\");return target&&!strcmp(path,target);\n}\nstatic int gate(const char *phase,int *once) {\n char env[64],ready[PATH_MAX],release[PATH_MAX];\n snprintf(env,sizeof env,\"PROGRESS_%s\",phase);\n if(*once||!getenv(env))return 0;*once=1;\n const char *home=getenv(\"HOME\");snprintf(ready,sizeof ready,\"%s/%s.ready\",home,phase);\n snprintf(release,sizeof release,\"%s/%s.release\",home,phase);\n int fd=open(ready,O_WRONLY|O_CREAT|O_TRUNC,0600);if(fd<0)return -1;close(fd);\n for(int i=0;i<1500;i++){if(access(release,F_OK)==0)return 0;usleep(10000);}\n errno=ETIMEDOUT;return -1;\n}\nstatic int do_open(const char *symbol,const char *path,int flags,mode_t mode) {\n int (*real_open)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);\n if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){\n  if(gate(\"OPEN\",&once_open)<0)return -1;\n  if(getenv(\"FAIL_OPEN\")){errno=EACCES;return -1;}\n }\n return real_open(path,flags,mode);\n}\nint open(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open\",path,flags,mode);\n}\nint open64(const char *path,int flags,...) {\n mode_t mode=0;if(flags&O_CREAT){va_list a;va_start(a,flags);mode=va_arg(a,int);va_end(a);}\n return do_open(\"open64\",path,flags,mode);\n}\nint fsync(int fd) {\n int (*real_sync)(int)=dlsym(RTLD_NEXT,\"fsync\");\n if(target_fd(fd)){\n  if(gate(\"SYNC\",&once_sync)<0)return -1;\n  if(getenv(\"FAIL_SYNC\")){errno=EIO;return -1;}\n }\n return real_sync(fd);\n}\nssize_t write(int fd,const void *data,size_t n) {\n ssize_t (*real_write)(int,const void*,size_t)=dlsym(RTLD_NEXT,\"write\");\n if(target_fd(fd)&&gate(\"WRITE\",&once_write)<0)return -1;\n return real_write(fd,data,n);\n}\nsize_t fwrite(const void *data,size_t size,size_t count,FILE *stream) {\n size_t (*real_write)(const void*,size_t,size_t,FILE*)=dlsym(RTLD_NEXT,\"fwrite\");\n if(target_fd(fileno(stream))&&gate(\"WRITE\",&once_write)<0)return 0;\n return real_write(data,size,count,stream);\n}\n"
+   }
+  },
+  "build_helpers": [
+   {
+    "source": "gate.c",
+    "output": "gate.so"
+   }
+  ],
+  "env": {
+   "LD_PRELOAD": "$FX/gate.so",
+   "PROGRESS_TARGET": "$FX/work/f.txt",
+   "PROGRESS_SYNC": "1",
+   "LANGUAGE": "zh_CN"
+  },
+  "steps": [
+   {
+    "wait": {
+     "text": "hello"
+    }
+   },
+   {
+    "text": "X"
+   },
+   {
+    "snapshot": "before-save",
+    "quiet": 50
+   },
+   {
+    "keys": [
+     "^S"
+    ]
+   },
+   {
+    "wait_file": {
+     "path": "home/SYNC.ready"
+    }
+   },
+   {
+    "snapshot": "writing",
+    "quiet": 50
+   },
+   {
+    "write_file": "home/SYNC.release",
+    "content": ""
+   },
+   {
+    "settle": 500
+   },
+   {
+    "keys": [
+     "^X"
+    ]
+   },
+   {
+    "wait_exit": 5
+   }
+  ],
+  "expect": {
+   "exit_status": 0,
+   "temp_empty": true,
+   "files": {
+    "work/f.txt": {
+     "text": "Xhello\n"
+    },
+    "work/f.txt.save": null
+   },
+   "screen": [
+    {
+     "snapshot": "before-save",
+     "cursor": {
+      "x": 1,
+      "y": 1,
+      "visible": true
+     }
+    },
+    {
+     "snapshot": "writing",
+     "cursor": {
+      "x": 0,
+      "y": 22,
+      "visible": false
+     }
+    },
+    {
+     "snapshot": "writing",
+     "row": 21,
+     "equals": "正在写["
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      0,
+      "reverse=True"
+     ]
+    },
+    {
+     "snapshot": "writing",
+     "attr_at": [
+      21,
+      6,
+      "reverse=True"
+     ]
+    }
+   ],
+   "trace_final_modes": {
+    "cursor_visible": true,
+    "alternate_screen": false,
+    "bracketed_paste": false
+   }
+  },
+  "note": "Pinned nano replaces a clipped double-width translated progress glyph with [; compare exact visible cell and style while fsync is blocked.",
+  "cols": 7,
+  "rows": 24
  }
 ]

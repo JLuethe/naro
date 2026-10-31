@@ -187,6 +187,10 @@ impl WriteError {
         }
     }
 }
+pub enum WriteProgress<'a> {
+    Status(&'a str),
+    Warning(&'a str),
+}
 pub fn write(
     c: &Config,
     b: &mut Buffer,
@@ -194,7 +198,7 @@ pub fn write(
     mode: i32,
     selection: bool,
     skip_backup: bool,
-    mut progress: impl FnMut(&str),
+    mut progress: impl FnMut(WriteProgress<'_>),
 ) -> Result<usize, WriteError> {
     let p = config::expand(name);
     if !inside(c, &p) {
@@ -213,19 +217,26 @@ pub fn write(
     {
         return Err(format!("Error writing {display}: FIFO").into());
     }
-    let old = if meta.as_ref().is_some_and(|m| m.is_file()) {
-        fs::read(&p).ok()
-    } else {
-        None
-    };
     if c.on(MAKE_BACKUP)
         && !skip_backup
         && !c.on(RESTRICTED)
-        && let (Some(old), Some(meta)) = (old.as_ref(), meta.as_ref())
+        && let Some(meta) = meta.as_ref()
         && meta.is_file()
     {
-        make_backup(c, &p, old, meta)?;
+        progress(WriteProgress::Status("Making backup..."));
+        make_backup(c, &p, meta, |text| progress(WriteProgress::Warning(text)))?;
     }
+    // Prepending must retain the complete old file before opening it with
+    // truncation. A missing or unreadable source must never become empty data.
+    let old = if mode == 2 {
+        Some(fs::read(&p).map_err(|error| WriteError {
+            message: format!("Error reading {display}: {}", io_error(&error)),
+            errno: error.raw_os_error(),
+            confirm_backup: false,
+        })?)
+    } else {
+        None
+    };
     let region = if selection {
         b.region().map(|(a, z)| b.raw_region(a, z))
     } else {
@@ -238,17 +249,16 @@ pub fn write(
         .as_ref()
         .is_some_and(|m| m.mode() & 0o170000 == 0o010000);
     if fifo && !cfg!(feature = "tiny") {
-        progress("Writing to FIFO...");
+        progress(WriteProgress::Status("Writing to FIFO..."));
     }
-    let mut f = OpenOptions::new()
-        .write(true)
-        .create(true)
-        .truncate(mode != 1)
-        .append(mode == 1)
-        .mode(0o666)
-        .open(&p)
-        .map_err(|e| WriteError::writing(&display, e))?;
-    progress("Writing...");
+    let mut f = native::open_write(&p, mode == 1).map_err(|error| {
+        if error.kind() == std::io::ErrorKind::Interrupted {
+            "Interrupted".to_string().into()
+        } else {
+            WriteError::writing(&display, error)
+        }
+    })?;
+    progress(WriteProgress::Status("Writing..."));
     write_bytes(&mut f, &data).map_err(|e| WriteError::writing(&display, e))?;
     if mode == 2
         && let Some(old) = old
@@ -467,8 +477,8 @@ fn write_bytes(file: &mut File, mut bytes: &[u8]) -> std::io::Result<()> {
 fn make_backup(
     c: &Config,
     path: &Path,
-    bytes: &[u8],
     meta: &fs::Metadata,
+    mut warning: impl FnMut(&str),
 ) -> Result<(), WriteError> {
     let directory = c.value("backupdir");
     let name = if directory.is_empty() {
@@ -486,13 +496,16 @@ fn make_backup(
         name.push(b'~');
         collision(&config::path(&directory).join(config::path(&name)))
     };
+    let read_failed = std::cell::Cell::new(false);
     let write = |file: &mut File| -> std::io::Result<()> {
-        write_bytes(file, bytes)?;
+        read_failed.set(false);
         if let Err(error) = file.set_permissions(fs::Permissions::from_mode(meta.mode() & 0o7777))
             && error.raw_os_error() != Some(1)
         {
             return Err(error);
         }
+        let bytes = fs::read(path).inspect_err(|_| read_failed.set(true))?;
+        write_bytes(file, &bytes)?;
         file.sync_all()?;
         let _ = file.set_times(
             std::fs::FileTimes::new()
@@ -521,11 +534,15 @@ fn make_backup(
     if first.is_ok() {
         return Ok(());
     }
-    let _ = fs::remove_file(&name);
     let mut last = first.unwrap_err();
-    if let Some(home) = config::home_dir() {
-        crate::render::flash_warning(c, "Cannot make regular backup");
-        crate::render::flash_warning(c, "Trying again in your home directory");
+    if !read_failed.get() {
+        let _ = fs::remove_file(&name);
+    }
+    if !read_failed.get()
+        && let Some(home) = config::home_dir()
+    {
+        warning("Cannot make regular backup");
+        warning("Trying again in your home directory");
         for i in 0..1000u64 {
             let value = std::time::SystemTime::now()
                 .duration_since(std::time::UNIX_EPOCH)
@@ -561,8 +578,12 @@ fn make_backup(
             }
         }
     }
-    crate::render::flash_warning(c, "Cannot make backup");
-    crate::render::flash_warning(c, &io_error(&last));
+    warning(if read_failed.get() {
+        "Cannot read original file"
+    } else {
+        "Cannot make backup"
+    });
+    warning(&io_error(&last));
     Err(WriteError {
         message: format!("Cannot make backup: {}", io_error(&last)),
         errno: last.raw_os_error(),

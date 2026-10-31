@@ -55,6 +55,8 @@ jobs:
         run: python3 spec/tools/nanoharness.py tests/follow-up/scenarios/step3-gaps.json --binary "$PWD/target/release/naro" --out target/ci-step3-gaps
       - name: In-progress regular and FIFO save feedback
         run: python3 spec/tools/nanoharness.py tests/follow-up/scenarios/save-progress.json --binary "$PWD/target/release/naro" --out target/ci-save-progress
+      - name: Prepend preservation and backup feedback
+        run: python3 spec/tools/nanoharness.py tests/follow-up/scenarios/save-safety.json --binary "$PWD/target/release/naro" --out target/ci-save-safety
       - name: Optional tiny profile
         run: |
           cargo build --release --features tiny --target-dir target/tiny

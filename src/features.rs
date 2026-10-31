@@ -1737,6 +1737,7 @@ impl Editor {
             }
         });
         if spell {
+            self.last_footer_layout = None;
             unsafe {
                 native::nr_resume(self.conf.on(PRESERVE) as i32);
             }

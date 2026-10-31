@@ -35,6 +35,7 @@ unsafe extern "C" {
     pub fn nr_optarg() -> *const c_char;
     pub fn nr_optind() -> c_int;
     pub fn nr_setup_signals();
+    fn nr_open_write(path: *const c_char, append: c_int) -> c_int;
     pub fn nr_configure(preserve: c_int, rawseq: c_int);
     pub fn nr_init(preserve: c_int, rawseq: c_int) -> c_int;
     pub fn nr_done();
@@ -89,6 +90,18 @@ unsafe extern "C" {
     fn nr_regex_free(re: *mut c_void);
     fn nr_magic(path: *const c_char) -> *const c_char;
     pub fn nr_stop();
+}
+pub fn open_write(path: &std::path::Path, append: bool) -> std::io::Result<std::fs::File> {
+    use std::os::{fd::FromRawFd, unix::ffi::OsStrExt};
+    let path = CString::new(path.as_os_str().as_bytes())
+        .map_err(|_| std::io::Error::from(std::io::ErrorKind::InvalidInput))?;
+    let fd = unsafe { nr_open_write(path.as_ptr(), append as c_int) };
+    if fd < 0 {
+        Err(std::io::Error::last_os_error())
+    } else {
+        // A successful native open transfers its new descriptor to this File.
+        Ok(unsafe { std::fs::File::from_raw_fd(fd) })
+    }
 }
 pub fn cstr(s: &[u8]) -> CString {
     CString::new(s).unwrap_or_default()

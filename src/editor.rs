@@ -158,6 +158,7 @@ pub struct Editor {
     pub pause_until: Option<Instant>,
     pub pause_next: Option<Box<Mode>>,
     pub last_screen: Option<render::Canvas>,
+    pub last_footer_layout: Option<(usize, usize, bool, bool)>,
     pub pause_screen: Option<render::Canvas>,
     pub pause_painted: bool,
     pub pause_duration: std::time::Duration,
@@ -207,6 +208,7 @@ impl Editor {
             pause_until: None,
             pause_next: None,
             last_screen: None,
+            last_footer_layout: None,
             pause_screen: None,
             pause_painted: false,
             pause_duration: std::time::Duration::ZERO,
@@ -598,7 +600,19 @@ impl Editor {
                 self.exit = Some(1);
             }
             28 => {
-                self.clear();
+                if !cfg!(feature = "tiny") {
+                    self.last_footer_layout = None;
+                }
+                // Tiny can receive this resize after open returned EINTR.
+                // Keep its resulting alert visible instead of erasing it.
+                if !cfg!(feature = "tiny")
+                    || !self
+                        .message
+                        .as_ref()
+                        .is_some_and(|m| m.level == 7 && m.text == native::tr("Interrupted"))
+                {
+                    self.clear();
+                }
                 unsafe {
                     native::nr_resize();
                 }
@@ -606,10 +620,15 @@ impl Editor {
                     self.refresh_browser();
                 }
             }
-            18 => unsafe {
-                native::nr_resume(self.conf.on(PRESERVE) as i32);
-                native::nr_resize();
-            },
+            18 => {
+                if !cfg!(feature = "tiny") {
+                    self.last_footer_layout = None;
+                }
+                unsafe {
+                    native::nr_resume(self.conf.on(PRESERVE) as i32);
+                    native::nr_resize();
+                }
+            }
             20 => self.suspend(),
             _ => {}
         }
@@ -635,6 +654,9 @@ impl Editor {
         if self.conf.on(RESTRICTED) {
             self.msg("This function is disabled in restricted mode", 5);
             return;
+        }
+        if !cfg!(feature = "tiny") {
+            self.last_footer_layout = None;
         }
         unsafe {
             native::nr_done();
@@ -1364,6 +1386,11 @@ impl Editor {
         }
         if f == SOFTWRAP {
             self.bm().firstcol = 0;
+        }
+        if matches!(f, NO_HELP | LINE_NUMBERS | WHITESPACE_DISPLAY)
+            && (self.conf.on(MINIBAR) || self.conf.on(ZERO) || unsafe { native::nr_rows() } == 1)
+        {
+            return;
         }
         if let Some((_, _, desc)) = TOGGLES.iter().find(|(_, flag, _)| *flag == f) {
             let enabled = self.conf.on(f) ^ (f == NO_HELP || f == NO_SYNTAX);
