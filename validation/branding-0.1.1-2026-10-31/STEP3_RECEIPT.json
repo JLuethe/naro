@@ -1,0 +1,28 @@
+{
+  "steps_1_to_3": "complete",
+  "version": "0.1.1",
+  "source_commit": "8959d927ac3de05fcd0f389ed61def7dfb4728e1",
+  "production_source_sha256": "f81a80207e15c610dc5ec3fbd06118cef873bbd26a255261fe9b38b80683aae7",
+  "verification_sha256": "9ed364930cbe6502dca4a5c868ceb1c04f1537cac8a69f669dcefc61b3ed085e",
+  "host_binary_sha256": "76c45b5af7985eca1ebcc2d7198dc560f5f02df0682e4c69a3972491e92cd36a",
+  "ubuntu_binary_sha256": "c0e2c2805cf46a7e9d6d6b5dceb5b0c23ee9a8aa5c5f5ff5c1e3edbf94807a6f",
+  "freeze": "/home/john/Code/naro/target/branding-0.1.1-2026-10-31/freeze",
+  "frozen_host_identity_cases": 21,
+  "frozen_host_assertions": 105,
+  "frozen_cli": {
+    "host": 5,
+    "ubuntu_in_own_container": 5
+  },
+  "source_tests": {
+    "rust_default": 16,
+    "rust_all_features": 11,
+    "policy": 6,
+    "harness": 6,
+    "evidence_checker": 44,
+    "raw_comparator": 14,
+    "closure_checker": 9
+  },
+  "full_qualification": "not run for these candidates; step4 required",
+  "publication": "0.1.1 not packaged or published; 0.1.0 tag and assets preserved",
+  "attempts": "Initialprepare failed solely on prior reference .git/index cache hash. Full baseline audited; verified original backup restored to new directory; second preparation/build succeeded. Failed attempt retained."
+}

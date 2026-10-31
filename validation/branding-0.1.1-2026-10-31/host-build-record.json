@@ -1,0 +1,62 @@
+{
+  "build": {
+    "version": "0.1.1",
+    "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+    "source_sha256": "f81a80207e15c610dc5ec3fbd06118cef873bbd26a255261fe9b38b80683aae7",
+    "revision": "8959d927ac3de05fcd0f389ed61def7dfb4728e1",
+    "features": "",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+  },
+  "candidate_sha256": "76c45b5af7985eca1ebcc2d7198dc560f5f02df0682e4c69a3972491e92cd36a",
+  "reference_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+  "reference_provenance": "pinned upstream nano host executable copied and hash-checked; not an NARO artifact",
+  "source_commit": "8959d927ac3de05fcd0f389ed61def7dfb4728e1",
+  "source_tree": "2948f6657b125425a011c1f4af2f7dd2b241b623",
+  "production_source_sha256": "f81a80207e15c610dc5ec3fbd06118cef873bbd26a255261fe9b38b80683aae7",
+  "verification_sha256": "9ed364930cbe6502dca4a5c868ceb1c04f1537cac8a69f669dcefc61b3ed085e",
+  "toolchain": {
+    "path": "/home/john/.rustup/toolchains/stable-x86_64-unknown-linux-gnu",
+    "executables": {
+      "cargo": "a670e02cfa39ac2e53f77a2d911ca1fc9e2c479b0603ec956625be1daf24e3af",
+      "rustc": "b53b780f77f952062f8ca8a3b70aef2390b1e45ad91939be94afdc9543026853",
+      "rustdoc": "832e53ca262db3d3fcaca659dc6e71f0f5a924a48adc580ee4278acac75f3e80",
+      "rustfmt": "68cb47a2a38daa8ff2ec6d623a2374b0a165d77ec74f1f654216665018c04598",
+      "clippy-driver": "89b6cc8d0d988b00a3f65bc90c76fedbaedb6bcb442b34563aefe3621f26544b"
+    }
+  },
+  "environment": {
+    "system": "Linux-7.2.8-9-omarchy-x86_64-with-glibc2.44",
+    "machine": "x86_64",
+    "libc": [
+      "glibc",
+      "2.44"
+    ],
+    "python": "3.14.8",
+    "tmux": "tmux 3.8",
+    "locale_inventory": "C\nC.utf8\nPOSIX\nen_US.utf8",
+    "file": "file-5.48\nmagic file from /usr/share/file/misc/magic\nseccomp support included\nLandlock support included",
+    "magic_databases": {
+      "/usr/share/file/misc/magic.mgc": "c2f4e7e55b0ee33c181ada80b065f9f8a58633c9806e8bd3353253c68324f268"
+    },
+    "locpath": null
+  },
+  "os_release": "NAME=\"Omarchy\"\nPRETTY_NAME=\"Omarchy\"\nID=omarchy\nID_LIKE=arch\nBUILD_ID=\"4.0.6\"\nVERSION_ID=\"4.0.6\"\nANSI_COLOR=\"38;2;158;206;106\"\nHOME_URL=\"https://omarchy.org/\"\nDOCUMENTATION_URL=\"https://learn.omacom.io/2/the-omarchy-manual\"\nSUPPORT_URL=\"https://discord.gg/tXFUdasqhY\"\nBUG_REPORT_URL=\"https://github.com/basecamp/omarchy/issues\"\nLOGO=omarchy\n",
+  "native_compiler": "cc (GCC) 16.2.1 20260810\nCopyright (C) 2026 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "native_archiver": "GNU ar (GNU Binutils) 2.47\nCopyright (C) 2026 Free Software Foundation, Inc.\nThis program is free software; you may redistribute it under the terms of\nthe GNU General Public License version 3 or (at your option) any later version.\nThis program has absolutely no warranty.\n",
+  "native_packages": "glibc 2.44+r50+g1848099f063e-1\nncurses 6.6-2\nfile 5.48-1\ngcc 16.2.1+r23+gd564253eb6c8-1\nbinutils 2.47-4\n",
+  "linked_libraries": "\tlinux-vdso.so.1 (0x00007fcce84fe000)\n\tlibncursesw.so.6 => /usr/lib/libncursesw.so.6 (0x00007fcce8260000)\n\tlibmagic.so.1 => /usr/lib/libmagic.so.1 (0x00007fcce8231000)\n\tlibgcc_s.so.1 => /usr/lib/libgcc_s.so.1 (0x00007fcce8204000)\n\tlibc.so.6 => /usr/lib/libc.so.6 (0x00007fcce7e00000)\n\tlibzstd.so.1 => /usr/lib/libzstd.so.1 (0x00007fcce811c000)\n\tliblzma.so.5 => /usr/lib/liblzma.so.5 (0x00007fcce80e6000)\n\tlibbz2.so.1.0 => /usr/lib/libbz2.so.1.0 (0x00007fcce80d3000)\n\tlibz.so.1 => /usr/lib/libz.so.1 (0x00007fcce80b8000)\n\t/lib64/ld-linux-x86-64.so.2 => /usr/lib64/ld-linux-x86-64.so.2 (0x00007fcce8500000)\n",
+  "required_symbols": "\nVersion symbols section '.gnu.version' contains 208 entries:\n Addr: 0x00000000000016c0  Offset: 0x000016c0  Link: 4 (.dynsym)\n  000:   0 (*local*)       2 (GLIBC_2.34)    0 (*local*)       0 (*local*)    \n  004:   0 (*local*)       3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  008:   4 (GLIBC_2.14)    3 (GLIBC_2.2.5)   5 (GCC_3.0)       3 (GLIBC_2.2.5)\n  00c:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   2 (GLIBC_2.34) \n  010:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  014:   6 (GLIBC_2.17)    3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  018:   3 (GLIBC_2.2.5)   7 (GLIBC_2.6)     3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  01c:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   2 (GLIBC_2.34)    3 (GLIBC_2.2.5)\n  020:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   8 (GLIBC_2.33)    3 (GLIBC_2.2.5)\n  024:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   9 (GLIBC_2.3.4)   3 (GLIBC_2.2.5)\n  028:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  02c:   3 (GLIBC_2.2.5)   a (GLIBC_2.32)    2 (GLIBC_2.34)    3 (GLIBC_2.2.5)\n  030:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   5 (GCC_3.0)    \n  034:   5 (GCC_3.0)       5 (GCC_3.0)       b (GCC_4.2.0)     5 (GCC_3.0)    \n  038:   5 (GCC_3.0)       5 (GCC_3.0)       c (GLIBC_2.30)    d (GCC_3.3)    \n  03c:   3 (GLIBC_2.2.5)   5 (GCC_3.0)       8 (GLIBC_2.33)    3 (GLIBC_2.2.5)\n  040:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   e (GLIBC_2.3)  \n  044:   8 (GLIBC_2.33)    f (GLIBC_2.28)    3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  048:  10 (GLIBC_2.18)    2 (GLIBC_2.34)    2 (GLIBC_2.34)    2 (GLIBC_2.34) \n  04c:   3 (GLIBC_2.2.5)   5 (GCC_3.0)       5 (GCC_3.0)       6 (GLIBC_2.17) \n  050:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   2 (GLIBC_2.34) \n  054:   2 (GLIBC_2.34)    2 (GLIBC_2.34)    2 (GLIBC_2.34)    2 (GLIBC_2.34) \n  058:   3 (GLIBC_2.2.5)  11 (GLIBC_2.16)    3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  05c:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)  12 (GLIBC_2.39) \n  060:   3 (GLIBC_2.2.5)  13 (GLIBC_2.29)    0 (*local*)       3 (GLIBC_2.2.5)\n  064:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  068:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  06c:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)  14 (GLIBC_2.15) \n  070:   3 (GLIBC_2.2.5)  12 (GLIBC_2.39)    3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  074:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  078:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)  15 (GLIBC_2.9)  \n  07c:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  080:  16 (GLIBC_2.25)    3 (GLIBC_2.2.5)  17 (NCURSES6_TINFO_5.0.19991023)                18 (NCURSESW6_5.1.20000708)         \n  084:  18 (NCURSESW6_5.1.20000708)            3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  088:   3 (GLIBC_2.2.5)  19 (GLIBC_2.4)     3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  08c:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  090:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  094:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  098:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)\n  09c:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)  18 (NCURSESW6_5.1.20000708)         \n  0a0:  18 (NCURSESW6_5.1.20000708)           18 (NCURSESW6_5.1.20000708)           1a (NCURSESW6_5.7.20081102)           17 (NCURSES6_TINFO_5.0.19991023)              \n  0a4:  17 (NCURSES6_TINFO_5.0.19991023)                18 (NCURSESW6_5.1.20000708)           17 (NCURSES6_TINFO_5.0.19991023)                18 (NCURSESW6_5.1.20000708)         \n  0a8:  18 (NCURSESW6_5.1.20000708)           18 (NCURSESW6_5.1.20000708)           18 (NCURSESW6_5.1.20000708)           17 (NCURSES6_TINFO_5.0.19991023)              \n  0ac:  18 (NCURSESW6_5.1.20000708)           18 (NCURSESW6_5.1.20000708)           18 (NCURSESW6_5.1.20000708)           18 (NCURSESW6_5.1.20000708)         \n  0b0:  18 (NCURSESW6_5.1.20000708)           17 (NCURSES6_TINFO_5.0.19991023)                18 (NCURSESW6_5.1.20000708)           18 (NCURSESW6_5.1.20000708)         \n  0b4:  18 (NCURSESW6_5.1.20000708)           18 (NCURSESW6_5.1.20000708)           1b (NCURSESW6_5.3.20021019)           1b (NCURSESW6_5.3.20021019)         \n  0b8:  18 (NCURSESW6_5.1.20000708)           17 (NCURSES6_TINFO_5.0.19991023)                1c (NCURSES6_TINFO_5.4.20040208)                 3 (GLIBC_2.2.5)\n  0bc:   3 (GLIBC_2.2.5)   9 (GLIBC_2.3.4)   3 (GLIBC_2.2.5)   1 (*global*)   \n  0c0:   1 (*global*)      1 (*global*)      3 (GLIBC_2.2.5)   e (GLIBC_2.3)  \n  0c4:   3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)   e (GLIBC_2.3)     3 (GLIBC_2.2.5)\n  0c8:   3 (GLIBC_2.2.5)  17 (NCURSES6_TINFO_5.0.19991023)                17 (NCURSES6_TINFO_5.0.19991023)                17 (NCURSES6_TINFO_5.0.19991023)              \n  0cc:  18 (NCURSESW6_5.1.20000708)            3 (GLIBC_2.2.5)   3 (GLIBC_2.2.5)  18 (NCURSESW6_5.1.20000708)         \n\nVersion needs section '.gnu.version_r' contains 3 entries:\n Addr: 0x0000000000001860  Offset: 0x00001860  Link: 8 (.dynstr)\n  000000: Version: 1  File: libncursesw.so.6  Cnt: 5\n  0x0030:   Name: NCURSES6_TINFO_5.0.19991023  Flags: none  Version: 23\n  0x0040:   Name: NCURSES6_TINFO_5.4.20040208  Flags: none  Version: 28\n  0x0050:   Name: NCURSESW6_5.1.20000708  Flags: none  Version: 24\n  0x0060:   Name: NCURSESW6_5.3.20021019  Flags: none  Version: 27\n  0x0070:   Name: NCURSESW6_5.7.20081102  Flags: none  Version: 26\n  0x0010: Version: 1  File: libgcc_s.so.1  Cnt: 3\n  0x0080:   Name: GCC_3.0  Flags: none  Version: 5\n  0x0090:   Name: GCC_3.3  Flags: none  Version: 13\n  0x00a0:   Name: GCC_4.2.0  Flags: none  Version: 11\n  0x0020: Version: 1  File: libc.so.6  Cnt: 19\n  0x00b0:   Name: GLIBC_2.2.5  Flags: none  Version: 3\n  0x00c0:   Name: GLIBC_2.3  Flags: none  Version: 14\n  0x00d0:   Name: GLIBC_2.3.4  Flags: none  Version: 9\n  0x00e0:   Name: GLIBC_2.4  Flags: none  Version: 25\n  0x00f0:   Name: GLIBC_2.6  Flags: none  Version: 7\n  0x0100:   Name: GLIBC_2.9  Flags: none  Version: 21\n  0x0110:   Name: GLIBC_2.14  Flags: none  Version: 4\n  0x0120:   Name: GLIBC_2.15  Flags: none  Version: 20\n  0x0130:   Name: GLIBC_2.16  Flags: none  Version: 17\n  0x0140:   Name: GLIBC_2.17  Flags: none  Version: 6\n  0x0150:   Name: GLIBC_2.18  Flags: WEAK  Version: 16\n  0x0160:   Name: GLIBC_2.25  Flags: WEAK  Version: 22\n  0x0170:   Name: GLIBC_2.28  Flags: WEAK  Version: 15\n  0x0180:   Name: GLIBC_2.29  Flags: WEAK  Version: 19\n  0x0190:   Name: GLIBC_2.30  Flags: WEAK  Version: 12\n  0x01a0:   Name: GLIBC_2.32  Flags: none  Version: 10\n  0x01b0:   Name: GLIBC_2.33  Flags: none  Version: 8\n  0x01c0:   Name: GLIBC_2.34  Flags: none  Version: 2\n  0x01d0:   Name: GLIBC_2.39  Flags: WEAK  Version: 18\n",
+  "build_command": "cargo build --release --offline --locked --manifest-path source/Cargo.toml",
+  "build_target_directory": "host-build (separate from frozen source tree)",
+  "build_environment": {
+    "CARGO_HOME": "/home/john/.cargo",
+    "CARGO_BUILD_JOBS": "1",
+    "RUSTC": "/home/john/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc",
+    "RUSTDOC": "/home/john/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustdoc",
+    "CC": null,
+    "AR": null,
+    "RUSTFLAGS": null,
+    "CARGO_ENCODED_RUSTFLAGS": null,
+    "CARGO_BUILD_TARGET": null
+  }
+}

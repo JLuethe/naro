@@ -74,7 +74,7 @@ suite passed 21/21 cases and 105 assertions. The policy and affected Python
 test batches passed with counts 6, 6, 44, 14 and 9. That catalog check is not a
 claim of 41 independent live-terminal locale runs.
 
-Before considering step 3 complete:
+The pre-build checklist below is now complete; exact results follow it:
 
 1. Review the exact staged file list, excluding unrelated local reports and
    evidence. The targeted candidate-policy checks are complete.
@@ -105,3 +105,13 @@ Local development evidence is retained under
 are development evidence, not replacements for the eventual frozen-candidate
 qualification record. The initial title-only preview remains documented in
 [the historical correction note](NARO_BRANDING_FIX_2026-10-31.md).
+
+## Step 3 completed
+
+Frozen source: `8959d927ac3de05fcd0f389ed61def7dfb4728e1`.
+Host executable SHA-256: `76c45b5af7985eca1ebcc2d7198dc560f5f02df0682e4c69a3972491e92cd36a`.
+Ubuntu executable SHA-256: `c0e2c2805cf46a7e9d6d6b5dceb5b0c23ee9a8aa5c5f5ff5c1e3edbf94807a6f`.
+Both default-feature release builds and the independent freeze verifier passed.
+Focused frozen host layout 21/21 and CLI 5/5 on host and in Ubuntu passed.
+See [the build receipts](validation/branding-0.1.1-2026-10-31/README.md).
+Full qualification, packaging and publication remain subsequent work.

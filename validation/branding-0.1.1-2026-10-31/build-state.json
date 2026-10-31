@@ -1,0 +1,27 @@
+{
+  "status": "completed",
+  "source_commit": "8959d927ac3de05fcd0f389ed61def7dfb4728e1",
+  "steps": {
+    "prepare-freeze": {
+      "status": 0,
+      "finished": "2026-10-31T17:31:58.681939+00:00"
+    },
+    "host-build": {
+      "status": 0,
+      "finished": "2026-10-31T17:32:27.615868+00:00"
+    },
+    "ubuntu-build": {
+      "status": 0,
+      "finished": "2026-10-31T17:33:35.509878+00:00"
+    },
+    "finalize-freeze": {
+      "status": 0,
+      "finished": "2026-10-31T17:33:40.294517+00:00"
+    },
+    "verify-freeze": {
+      "status": 0,
+      "finished": "2026-10-31T17:33:45.773397+00:00"
+    }
+  },
+  "completed_at": "2026-10-31T17:37:54.966145+00:00"
+}

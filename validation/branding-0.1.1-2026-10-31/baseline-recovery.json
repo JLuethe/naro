@@ -1,0 +1,9 @@
+{
+  "archive": "/home/john/Backups/naro/2026-10-31-narrow-progress/frozen-candidates.tar.gz",
+  "sha256": "02ee62fc78f6109a2a21a3c9746a581f603cf025b0fd949bb8d9fd5d25e54ec0",
+  "baseline": "/home/john/Code/naro/target/branding-0.1.1-2026-10-31/recovered-baseline/release-freeze-narrow-progress-2026-10-31",
+  "freeze_manifest_sha256": "3652135cf2538507174960a7587cac6073541a28920429b36956f2b78885020c",
+  "payload_files_verified": 15061,
+  "original_baseline_untouched": true,
+  "timestamp": 1793467850.1787896
+}
