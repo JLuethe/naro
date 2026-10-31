@@ -1,0 +1,20 @@
+[
+  {
+    "manifest": "final-readiness-host/EVIDENCE-SHA256SUMS",
+    "sha256": "a44115374bc91ce30ac064c1e8464e0409d68df470e845e9f70ba02e217415db",
+    "files_verified": 216,
+    "exact_membership": true
+  },
+  {
+    "manifest": "final-readiness-host/execution/SHA256SUMS",
+    "sha256": "7dae16b2d3908180db7d7bc91dc693b15ff32d2c49acb42f70e641f2f2fa9c47",
+    "files_verified": 208,
+    "exact_membership": true
+  },
+  {
+    "manifest": "final-vm-fixtures/SHA256SUMS",
+    "sha256": "718a761f54098d54e87b24179d61b44b3f818c4ffd3b20c4182ed0d6860a1b81",
+    "files_verified": 3119,
+    "exact_membership": true
+  }
+]

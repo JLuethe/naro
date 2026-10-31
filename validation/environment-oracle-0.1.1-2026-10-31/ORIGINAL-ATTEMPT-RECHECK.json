@@ -1,0 +1,8 @@
+{
+  "checked_utc": "2026-10-31T21:23:23.563522+00:00",
+  "original_and_backup_match_inventory": true,
+  "original_file_count": 9475,
+  "original_directory_count": 1812,
+  "inventory_sha256": "5512a0e6f95bbdeee688fd76ddcd3e7dac7b39c74240a5847e0a96951baea7d6",
+  "scope": "Original stopped attempt and its verified backup; no reports changed"
+}

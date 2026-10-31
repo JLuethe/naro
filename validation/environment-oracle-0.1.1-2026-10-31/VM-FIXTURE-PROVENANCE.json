@@ -1,0 +1,36 @@
+{
+  "created_at_utc": "2026-10-31T21:18Z (minute precision; exact fixture creation times in shell/tool logs)",
+  "source_commit": "498fb892d52d95b82b6eadea6f6250ebc5be7ef5",
+  "production_source_sha256": "63936243e73d0a3fb536d3c0a0fb0e6fe57be09da5f5bc0387ee10250b3d7093",
+  "verification_sha256": "68e03dbf57b6ac02aa06734c5e69aea6c36012ac59ec020a2eaea65d52fc8406",
+  "freeze_manifest_sha256": "596829be9e3848a4135ffeda1c3d3dba0c177679b5681209f65e87c3bf7cb61b",
+  "host_candidate_sha256": "dcb8ae6d96a492a349e89a11f5706bbe4416d0c6d7288aec56e6db85d20a1ce1",
+  "ubuntu_candidate_sha256": "ba4e046d174120733f33eb03fbcd205a34bd08a54a008b4fc3f38e740d8193df",
+  "ubuntu_reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+  "kernel_sha256": "664cd32dbd6c33272724208a393c3bf86a7b193ccddc1af24c3408976b5e2aaa",
+  "runtime_export_tar_sha256": "8740ac786051cc2d2985aa9c1b2f372896fc91a815fcde5f8ba0dcaff2563f39",
+  "runtime_export_expected_sha256": "8740ac786051cc2d2985aa9c1b2f372896fc91a815fcde5f8ba0dcaff2563f39",
+  "tool": "freeze-attempt02/source/tools/prepare_console_vm.py",
+  "fixture_workroot": "/tmp/nv011-envfix01/nanospec-work",
+  "preserved_copy": "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/final-vm-fixtures/nanospec-work",
+  "booted": false,
+  "roles": {
+    "TEST-VT-VM-011-HOST": {
+      "candidate": "host/naro",
+      "candidate_sha256": "dcb8ae6d96a492a349e89a11f5706bbe4416d0c6d7288aec56e6db85d20a1ce1"
+    },
+    "TEST-VT-VM-011-UBUNTU": {
+      "candidate": "ubuntu/naro",
+      "candidate_sha256": "ba4e046d174120733f33eb03fbcd205a34bd08a54a008b4fc3f38e740d8193df"
+    }
+  },
+  "reference_role": {
+    "path": "ubuntu/reference.bin",
+    "sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7"
+  },
+  "notes": [
+    "Runtime tar and kernel hashes match prior audited base-vm-provenance.json.",
+    "Helper requires fx directory to pre-exist; attempt01 recorded that setup failure, attempt02 created parents and both fixtures successfully.",
+    "Both fixture inputs.json files hash their kernel, initrd, reference.bin, and naro payloads."
+  ]
+}

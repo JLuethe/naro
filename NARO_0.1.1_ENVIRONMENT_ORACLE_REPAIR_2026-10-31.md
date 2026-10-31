@@ -50,3 +50,9 @@ inputs, not replacement qualification of newly frozen candidates.
    No tag, upload or release publication is part of this work.
 
 Final identities/results are recorded in the completion receipt after validation.
+
+## Completion receipt
+
+The bounded repair, final freeze and focused host/Ubuntu readiness are complete.
+See [the environment handoff](NARO_0.1.1_ENVIRONMENT_HANDOFF_2026-10-31.md) for exact
+identities, evidence, backups, CI and the new Claude prompt. Full Phase B is pending.

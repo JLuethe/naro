@@ -1,0 +1,14 @@
+[
+  {
+    "manifest": "final-readiness-ubuntu/EVIDENCE-SHA256SUMS",
+    "sha256": "1e8d9db3b4018a2ccee2f4cf727b4e11dbc6d36e795f163b4454419d9a061ab9",
+    "files_verified": 226,
+    "exact_membership": true
+  },
+  {
+    "manifest": "final-readiness-ubuntu/execution-attempt01/EVIDENCE-SHA256SUMS",
+    "sha256": "da663788c2a944fa65ffd9cb3fed40c666d2d99d565436b2f882f2a8cf99fd2c",
+    "files_verified": 215,
+    "exact_membership": true
+  }
+]

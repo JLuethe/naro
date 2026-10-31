@@ -1,0 +1,10 @@
+{
+  "archive": "/home/john/Backups/naro/2026-10-31-environment-oracle-0.1.1/environment-oracle-freeze-and-evidence.tar.gz",
+  "sha256": "205f59c3b59feaf3f8c25b5c97b6cd8a006222322c2c2200af78e12ff6bf65fc",
+  "bytes": 621381703,
+  "members_verified": 48985,
+  "files_verified": 45712,
+  "symlinks_verified": 327,
+  "scope": "Environment oracle repair, replacement freeze and readiness proof",
+  "location": "Outside target on same filesystem; not off-device"
+}

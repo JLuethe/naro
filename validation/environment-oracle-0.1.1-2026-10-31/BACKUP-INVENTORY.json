@@ -1,0 +1,10 @@
+{
+  "inventory": "/home/john/Backups/naro/2026-10-31-environment-oracle-0.1.1/PAYLOAD-INVENTORY.json",
+  "sha256": "4ff60c25c1b88692d7def92927ea8ed35eea5832783ecaf3c9875148ce818e6a",
+  "verified_permission_modes": true,
+  "verified_bytes": true,
+  "verified_symlink_targets": true,
+  "verified_exact_membership": true,
+  "archive": "/home/john/Backups/naro/2026-10-31-environment-oracle-0.1.1/environment-oracle-freeze-and-evidence.tar.gz",
+  "archive_sha256": "205f59c3b59feaf3f8c25b5c97b6cd8a006222322c2c2200af78e12ff6bf65fc"
+}

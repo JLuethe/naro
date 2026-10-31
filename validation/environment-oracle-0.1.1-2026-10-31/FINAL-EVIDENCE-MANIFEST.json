@@ -1,0 +1,9 @@
+{
+  "manifest": "target/phaseB-environments-repair-2026-10-31/FINAL-EVIDENCE-SHA256SUMS",
+  "sha256": "e4a14808d70bd8360444f8dccd93c08525350b6d8b6b0d3e117838c38fcd1858",
+  "regular_files": 45711,
+  "scope": "Complete final repair work; symlink targets, directory membership and modes additionally checked by archive inventory",
+  "independently_verified": true,
+  "exact_regular_file_membership": true,
+  "archive_verified_all_member_modes_and_symlinks": true
+}

@@ -1,0 +1,278 @@
+{
+  "passed": true,
+  "scope": "Focused host readiness only; no full qualification",
+  "freeze_unchanged": true,
+  "owned_tmux_clean": true,
+  "freeze": "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02",
+  "host_sha256": "dcb8ae6d96a492a349e89a11f5706bbe4416d0c6d7288aec56e6db85d20a1ce1",
+  "reference_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+  "commands": [
+    {
+      "label": "verify-freeze-before",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/verify-freeze.py"
+      ],
+      "cwd": "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-p6uzdvlp",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-10-31T21:21:22.565872+00:00",
+      "end_utc": "2026-10-31T21:21:27.548163+00:00",
+      "duration_seconds": 4.9822830310004065,
+      "exit_status": 0,
+      "stdout_sha256": "81eb2843203523fd3018d4b239ddc68fb2c955d7f6f5070eadc505c9de62d097",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "environments",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source/tools/check_follow_up.py",
+        "--suite",
+        "environments",
+        "--binary",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/host/naro",
+        "--reference",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/references/host/nano",
+        "--out",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/final-readiness-host/execution/environments"
+      ],
+      "cwd": "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-p6uzdvlp",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-10-31T21:21:27.548400+00:00",
+      "end_utc": "2026-10-31T21:22:00.989334+00:00",
+      "duration_seconds": 33.440937461011345,
+      "exit_status": 0,
+      "stdout_sha256": "f9736ea1b7f6c04d690b4ac479600d07290a8ed6af078bdac2161fff068c454c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "environment-negative-controls",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/final-readiness-host/environment-negatives.py",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/final-readiness-host/execution/environments",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/final-readiness-host/execution/ENVIRONMENT-NEGATIVES.json"
+      ],
+      "cwd": "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-p6uzdvlp",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-10-31T21:22:01.977971+00:00",
+      "end_utc": "2026-10-31T21:22:02.286855+00:00",
+      "duration_seconds": 0.30888188201060984,
+      "exit_status": 0,
+      "stdout_sha256": "05fea26c55a52243e9f66784b71a07914fb033607a4a498780a266305595e5bf",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "branding",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source/tools/check_branding.py",
+        "--binary",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/final-readiness-host/execution/branding"
+      ],
+      "cwd": "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-p6uzdvlp",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-10-31T21:22:02.287054+00:00",
+      "end_utc": "2026-10-31T21:22:02.361701+00:00",
+      "duration_seconds": 0.07465670199599117,
+      "exit_status": 0,
+      "stdout_sha256": "b0a33e328b14c3d238d6c70f66e33fa9dd439748ccebc0d8f3534d1cddff2a93",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "identity-layout",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source/spec/tools/nanoharness.py",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source/tests/naro/identity-layout.json",
+        "--candidate-expectations",
+        "--binary",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/final-readiness-host/execution/identity-layout"
+      ],
+      "cwd": "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-p6uzdvlp",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-10-31T21:22:02.362053+00:00",
+      "end_utc": "2026-10-31T21:22:16.295422+00:00",
+      "duration_seconds": 13.93336600199109,
+      "exit_status": 0,
+      "stdout_sha256": "10bf64527fae1ebb325c99949b3145e8caaef1f6ce02e77e3290cdf39c408063",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "t1-paired",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source/tools/check_follow_up.py",
+        "--suite",
+        "step3-gaps",
+        "--ids",
+        "TEST-STEP3-EOF-LF-LIVE",
+        "--binary",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/host/naro",
+        "--reference",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/references/host/nano",
+        "--out",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/final-readiness-host/execution/t1-paired"
+      ],
+      "cwd": "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-p6uzdvlp",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-10-31T21:22:16.298269+00:00",
+      "end_utc": "2026-10-31T21:22:19.685442+00:00",
+      "duration_seconds": 3.387167340013548,
+      "exit_status": 0,
+      "stdout_sha256": "c9a14e4aed49b1806f7827cb34a11377926351b8176329f964a33851e0813689",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "t3-fresh-reference",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source/tools/replay_reference.py",
+        "--scenarios",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/final-readiness-host/execution/t3-scenarios.json",
+        "--binary",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/references/host/nano",
+        "--out",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/final-readiness-host/execution/reference",
+        "--jobs",
+        "1"
+      ],
+      "cwd": "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-p6uzdvlp",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-10-31T21:22:20.041997+00:00",
+      "end_utc": "2026-10-31T21:22:23.894918+00:00",
+      "duration_seconds": 3.8529193029971793,
+      "exit_status": 0,
+      "stdout_sha256": "fe419b09a2068321335b2c645291c848172fa077a41e9f7a41b44f4ad2ba81bd",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "t3-validator",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source/tools/validate.py",
+        "--binary",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/final-readiness-host/execution/t3-candidate",
+        "--ids",
+        "TEST-SMOKE-001",
+        "TEST-EDIT-001"
+      ],
+      "cwd": "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-p6uzdvlp",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "NARO_REFERENCE_RUNS": "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/final-readiness-host/execution/reference"
+      },
+      "start_utc": "2026-10-31T21:22:23.895301+00:00",
+      "end_utc": "2026-10-31T21:22:27.973035+00:00",
+      "duration_seconds": 4.077721895999275,
+      "exit_status": 0,
+      "stdout_sha256": "c133b2bfb97de998bc570f434ceb96777dcf358e49e2d1da2281b8e713a475d9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "feat015-reference",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source/spec/tools/nanoharness.py",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/final-readiness-host/execution/file-position-scenarios.json",
+        "--binary",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/references/host/nano",
+        "--out",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/final-readiness-host/execution/feat015-reference"
+      ],
+      "cwd": "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-p6uzdvlp",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-10-31T21:22:28.142975+00:00",
+      "end_utc": "2026-10-31T21:22:29.109328+00:00",
+      "duration_seconds": 0.9663526049989741,
+      "exit_status": 0,
+      "stdout_sha256": "10036c35dda5f447a4a21ec2c444080dbe0cdc61489fe08465cda7c58d373270",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "feat015-candidate",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source/spec/tools/nanoharness.py",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/final-readiness-host/execution/file-position-scenarios.json",
+        "--binary",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/final-readiness-host/execution/feat015-candidate"
+      ],
+      "cwd": "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-p6uzdvlp",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-10-31T21:22:29.109824+00:00",
+      "end_utc": "2026-10-31T21:22:30.096710+00:00",
+      "duration_seconds": 0.9868894630053546,
+      "exit_status": 0,
+      "stdout_sha256": "10036c35dda5f447a4a21ec2c444080dbe0cdc61489fe08465cda7c58d373270",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "verify-freeze-after",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/verify-freeze.py"
+      ],
+      "cwd": "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-p6uzdvlp",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-10-31T21:22:30.097292+00:00",
+      "end_utc": "2026-10-31T21:22:35.214992+00:00",
+      "duration_seconds": 5.11769863399968,
+      "exit_status": 0,
+      "stdout_sha256": "81eb2843203523fd3018d4b239ddc68fb2c955d7f6f5070eadc505c9de62d097",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "private_tmux_directory": "/tmp/nhf-p6uzdvlp"
+}

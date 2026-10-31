@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "source_commit": "498fb892d52d95b82b6eadea6f6250ebc5be7ef5",
+  "verification_sha256": "68e03dbf57b6ac02aa06734c5e69aea6c36012ac59ec020a2eaea65d52fc8406",
+  "identity_policy": {
+    "id": "Q-IDENTITY-001",
+    "schema": "naro-identity-review-v1",
+    "version": "0.1.1",
+    "sha256": "54b84a618ae40eef5914a28d5931e896c2eba7305b5bee595d52b7d77074fd96"
+  },
+  "environments": {
+    "recorded": 13,
+    "raw_exact": 3,
+    "identity_reviewed": 10,
+    "declared_deviations": 0,
+    "unexpected": 0,
+    "accepted": 13
+  },
+  "membership_checks": true,
+  "strict_raw_reopen": true,
+  "t1_assertions_each_side": 20,
+  "layout_cases": 21,
+  "layout_assertions": 105,
+  "t3_cases": 2,
+  "feat015_coverage": true,
+  "real_French_observed_both": true,
+  "all_statuses_zero": true,
+  "runtime_and_freeze_hashes_unchanged": true,
+  "execution_manifest_files": 215,
+  "execution_manifest_mismatches": [],
+  "execution_manifest_sha256": "da663788c2a944fa65ffd9cb3fed40c666d2d99d565436b2f882f2a8cf99fd2c",
+  "owned_container_absent": {
+    "id": "2c99a352b200e92ba4c0a80daadf903edf6bdfc72d854020bb2641d0014d8976",
+    "probe_status": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "owned_cleanup": {
+    "container_id": "2c99a352b200e92ba4c0a80daadf903edf6bdfc72d854020bb2641d0014d8976",
+    "actions": [
+      {
+        "container_id": "2c99a352b200e92ba4c0a80daadf903edf6bdfc72d854020bb2641d0014d8976",
+        "inspect_status": 0,
+        "inspect": "2c99a352b200e92ba4c0a80daadf903edf6bdfc72d854020bb2641d0014d8976|ef733f87d95a4b129f42d595d45a9326",
+        "stop_status": 0,
+        "stop_output": "2c99a352b200e92ba4c0a80daadf903edf6bdfc72d854020bb2641d0014d8976",
+        "stop_error": "",
+        "remove_status": 0,
+        "remove_output": "2c99a352b200e92ba4c0a80daadf903edf6bdfc72d854020bb2641d0014d8976",
+        "remove_error": ""
+      }
+    ]
+  }
+}

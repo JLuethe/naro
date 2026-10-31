@@ -1,0 +1,21 @@
+{
+  "source_commit": "498fb892d52d95b82b6eadea6f6250ebc5be7ef5",
+  "source_tree": "854bd2acb1f5bb4aa6baf637d75e7e87783c5f49",
+  "package_version": "0.1.1",
+  "production_source_sha256": "63936243e73d0a3fb536d3c0a0fb0e6fe57be09da5f5bc0387ee10250b3d7093",
+  "verification_sha256": "68e03dbf57b6ac02aa06734c5e69aea6c36012ac59ec020a2eaea65d52fc8406",
+  "host_binary_sha256": "dcb8ae6d96a492a349e89a11f5706bbe4416d0c6d7288aec56e6db85d20a1ce1",
+  "ubuntu_binary_sha256": "ba4e046d174120733f33eb03fbcd205a34bd08a54a008b4fc3f38e740d8193df",
+  "host_reference_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+  "ubuntu_reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+  "nano_reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "ubuntu_image": {
+    "id": "093817959dc26bb88c4f8df915372db75dee73f9356eb94f2ba428ea04fe9735",
+    "digest": "sha256:7434f9d20c1d41cfd2d5ecd98ed8228b424910d51be7640a06262ccd3650c3ee",
+    "os": "linux",
+    "architecture": "amd64"
+  },
+  "freeze": "/home/john/Code/naro/target/phaseB-environments-repair-2026-10-31/freeze-attempt02",
+  "freeze_manifest_sha256": "596829be9e3848a4135ffeda1c3d3dba0c177679b5681209f65e87c3bf7cb61b",
+  "scope": "Replacement default-feature candidates; focused readiness only, full Phase B pending"
+}

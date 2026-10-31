@@ -1,0 +1,139 @@
+{
+  "passed": true,
+  "tools_unchanged": true,
+  "verification_sha256": "68e03dbf57b6ac02aa06734c5e69aea6c36012ac59ec020a2eaea65d52fc8406",
+  "identity_policy": {
+    "id": "Q-IDENTITY-001",
+    "schema": "naro-identity-review-v1",
+    "version": "0.1.1",
+    "sha256": "54b84a618ae40eef5914a28d5931e896c2eba7305b5bee595d52b7d77074fd96"
+  },
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "spec/tools/test_candidate_expectations.py"
+      ],
+      "cwd": "/home/john/Code/naro",
+      "exit_status": 0,
+      "start_utc": "2026-10-31T21:08:59.374902+00:00",
+      "end_utc": "2026-10-31T21:08:59.789767+00:00"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "spec/tools/test_identity_review.py"
+      ],
+      "cwd": "/home/john/Code/naro",
+      "exit_status": 0,
+      "start_utc": "2026-10-31T21:08:59.789843+00:00",
+      "end_utc": "2026-10-31T21:09:00.973705+00:00"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "spec/tools/test_compare_runs.py"
+      ],
+      "cwd": "/home/john/Code/naro",
+      "exit_status": 0,
+      "start_utc": "2026-10-31T21:09:00.973805+00:00",
+      "end_utc": "2026-10-31T21:09:01.113811+00:00"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "spec/tools/test_nanoharness.py"
+      ],
+      "cwd": "/home/john/Code/naro",
+      "exit_status": 0,
+      "start_utc": "2026-10-31T21:09:01.113906+00:00",
+      "end_utc": "2026-10-31T21:09:01.189186+00:00"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "spec/tools/test_namespace_exec.py"
+      ],
+      "cwd": "/home/john/Code/naro",
+      "exit_status": 0,
+      "start_utc": "2026-10-31T21:09:01.189274+00:00",
+      "end_utc": "2026-10-31T21:09:01.549780+00:00"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/test_check_wrap_undo.py"
+      ],
+      "cwd": "/home/john/Code/naro",
+      "exit_status": 0,
+      "start_utc": "2026-10-31T21:09:01.549856+00:00",
+      "end_utc": "2026-10-31T21:09:06.082331+00:00"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/test_release_gate_evidence.py"
+      ],
+      "cwd": "/home/john/Code/naro",
+      "exit_status": 0,
+      "start_utc": "2026-10-31T21:09:06.082438+00:00",
+      "end_utc": "2026-10-31T21:09:07.295974+00:00"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/test_console_identity.py"
+      ],
+      "cwd": "/home/john/Code/naro",
+      "exit_status": 0,
+      "start_utc": "2026-10-31T21:09:07.296043+00:00",
+      "end_utc": "2026-10-31T21:09:10.237196+00:00"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/test_frozen_launchers.py"
+      ],
+      "cwd": "/home/john/Code/naro",
+      "exit_status": 0,
+      "start_utc": "2026-10-31T21:09:10.237332+00:00",
+      "end_utc": "2026-10-31T21:09:10.729224+00:00"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/test_frozen_process.py"
+      ],
+      "cwd": "/home/john/Code/naro",
+      "exit_status": 0,
+      "start_utc": "2026-10-31T21:09:10.729360+00:00",
+      "end_utc": "2026-10-31T21:09:11.141962+00:00"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "tools/test_closure_regressions.py"
+      ],
+      "cwd": "/home/john/Code/naro",
+      "exit_status": 0,
+      "start_utc": "2026-10-31T21:09:11.142081+00:00",
+      "end_utc": "2026-10-31T21:10:43.448312+00:00"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/console",
+        "-p",
+        "test_*.py"
+      ],
+      "cwd": "/home/john/Code/naro",
+      "exit_status": 0,
+      "start_utc": "2026-10-31T21:10:43.448393+00:00",
+      "end_utc": "2026-10-31T21:10:43.543398+00:00"
+    }
+  ]
+}
