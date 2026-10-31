@@ -146,7 +146,7 @@ class ClosureRegressionsTest(unittest.TestCase):
         self.write(path, cases)
         self.assertTrue(self.problems())
 
-    def test_cli_requires_all_three_suites(self):
+    def test_cli_requires_all_suites(self):
         base = self.root / 'runs'
         binary = base / 'filter/candidate.bin'
         reference = base / 'filter/reference.bin'

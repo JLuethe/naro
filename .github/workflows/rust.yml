@@ -51,6 +51,8 @@ jobs:
           python3 spec/tools/nanoharness.py tests/follow-up/scenarios/filter.json --binary "$PWD/target/release/naro" --out target/ci-filter
       - name: Paste, soft-wrap, replacement and rcfile regressions
         run: python3 spec/tools/nanoharness.py tests/follow-up/scenarios/release-fixes.json --binary "$PWD/target/release/naro" --out target/ci-release-fixes
+      - name: EOF, paging, view-mode paste, selection and Unicode quote regressions
+        run: python3 spec/tools/nanoharness.py tests/follow-up/scenarios/step3-gaps.json --binary "$PWD/target/release/naro" --out target/ci-step3-gaps
       - name: Optional tiny profile
         run: |
           cargo build --release --features tiny --target-dir target/tiny

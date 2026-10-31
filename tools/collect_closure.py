@@ -40,7 +40,7 @@ for label,base,digest in [('host',a.host,hd),('ubuntu',a.ubuntu,ud)]:
             total+=len(r['results']);matches+=sum(v['match']for v in r['results'].values())
             check(label+'-'+suite+'-only-declared-differences',all(v['match']or (suite.startswith('signal-') and v['deviation_id']=='Q-TOOL-001')for v in r['results'].values()))
     check(label+'-follow-up-counts',total==53 and matches==51)
-    # Keep the historical 53-case contract separate from the newer 79 cases.
+    # Keep the historical 53-case contract separate from newer exact suites.
     try:
         reference_sha256=hashlib.sha256((base/'reference.bin').read_bytes()).hexdigest()
     except OSError:

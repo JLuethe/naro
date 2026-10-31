@@ -2,8 +2,8 @@
 
 This directory is historical evidence for the source and binaries named below.
 The next 0.1.0 release follows [the current checklist](../../RELEASE_CHECKLIST.md).
-Its runners and collector also require 79 newer exact regressions per environment
-(wrap-undo 58, filter 6, release-fixes 15) and frozen environment references.
+Its runners and collector also require 119 newer exact regressions per environment
+(wrap-undo 58, filter 6, release-fixes 15, step3-gaps 40) and frozen environment references.
 Do not treat this historical 85-check pass as acceptance of the updated gate.
 
 GNU reference: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`.

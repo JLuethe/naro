@@ -1,5 +1,34 @@
 # NARO development progress
 
+## Step 3 targeted behavioral qualification — 2026-10-30
+
+Executed [the 40-case plan](NARO_STEP3_PLAN_2026-10-30.md). The usable pre-fix
+matrix matched 33/40; seven paging differences shared one cause. Added two
+minimal oracle-asserted regressions before changing code: both failed on the
+original binary. Soft-wrap `page` now uses chunk-relative vertical movement
+and preserves the cursor's screen row, including proper desired-column updates
+when jumping to file boundaries. Non-soft-wrap paging is unchanged.
+
+Final results: step3-gaps 40/40, wrap 58/58, filter 6/6, release-fixes 15/15 exact,
+all assertions and both harnesses passing. Full artifact checks pass for all
+119 cases. Retained baseline: 303 recorded, 301 full / 302 file-exit matches,
+six exclusions, workers [0,0,0,0], runner zero; only the established two
+differences remain. Rust default 9/all-features 5, fmt, both Clippy configurations,
+81 Python checker/harness/audit tests, and the spec audit pass. The audit retains
+the same nine unresolved citations.
+
+The permanent suite is required by CI and the shared host/Ubuntu closure
+inventory. [Results and limits](NARO_STEP3_RESULTS_2026-10-30.md) explain the
+coverage and three corrected probe mistakes. No goldens, normalization rules,
+or deviations were weakened. [Verification receipt](validation/step3-review.json).
+
+Evidence: `target/naro-test-runs/codex-step3-2026-10-30/`. Final candidate SHA-256
+`175dbaed9cba423558121506b7c36f58a48da1c9aad8503df009248eb41a1187`, production
+fingerprint `4cabd71741ffc8ee0357d945c67904c8a2fd0089c12e9b32a1c5b3e35c394ae6`.
+The binary embeds base commit fc30606 with the recorded working-tree fix.
+These changes are included in this source delivery; step 4 records a committed
+freeze separately, without claiming completed portable/console/package qualification.
+
 ## Release readiness steps 1–2 — 2026-10-30
 
 The [release checklist](RELEASE_CHECKLIST.md) defines 0.1.0 as an experimental

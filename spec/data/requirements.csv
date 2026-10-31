@@ -123,7 +123,7 @@ EDIT-061,05-buffer-and-editing.md,"Previous/next word (`^◂`/`^▸`, `M-Space`/
 EDIT-062,05-buffer-and-editing.md,Home / End,TEST-MOVE-005,baseline
 EDIT-063,05-buffer-and-editing.md,Left / Right,TEST-MOVE-010,baseline
 EDIT-064,05-buffer-and-editing.md,Up / Down,TEST-MOVE-009,baseline
-EDIT-065,05-buffer-and-editing.md,"Page up / down (`^Y`/`^V`, PgUp/PgDn)",TEST-MOVE-008,baseline
+EDIT-065,05-buffer-and-editing.md,"Page up / down (`^Y`/`^V`, PgUp/PgDn)",TEST-MOVE-008 TEST-STEP3-PAGE-MIN-DOWN TEST-STEP3-PAGE-MIN-UP TEST-STEP3-PAGE-TAB3-GUTTER TEST-STEP3-PAGE-TAB3-PLAIN TEST-STEP3-PAGE-TAB4-GUTTER TEST-STEP3-PAGE-TAB4-PLAIN TEST-STEP3-PAGE-TAB8-GUTTER TEST-STEP3-PAGE-TAB8-PLAIN,baseline
 EDIT-066,05-buffer-and-editing.md,"First / last line (`M-\`, `^Home`; `M-/`, `^End`)",TEST-MOVE-011,baseline
 EDIT-067,05-buffer-and-editing.md,"Blocks (`^▴`/`^▾`, `M-7`/`M-8`)",TEST-MOVE-006,baseline
 EDIT-068,05-buffer-and-editing.md,"Paragraphs (`M-(`/`M-9`, `M-)`/`M-0`; justify builds)",TEST-MOVE-007,baseline

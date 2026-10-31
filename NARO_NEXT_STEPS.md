@@ -1,5 +1,23 @@
 # NARO next steps — Codex development ownership
 
+## Step 3 complete locally — 2026-10-30
+
+The [targeted plan](NARO_STEP3_PLAN_2026-10-30.md) and
+[results](NARO_STEP3_RESULTS_2026-10-30.md) close the bounded behavioral gaps.
+Seven pre-fix paging differences shared one cause: soft-wrap paging used an
+absolute logical-line column rather than the destination chunk's column.
+The fix and permanent 40-case suite pass, as do the existing 79 controls and
+complete artifact validation. The 303-case baseline retains its two deliberate
+differences. No new deviation was introduced.
+
+Next: step 4, a committed source freeze, then final host/Ubuntu qualification.
+The current fixed binary is `target/naro-test-runs/codex-step3-2026-10-30/candidate-after.bin`;
+its metadata and evidence are local, and its build includes the recorded
+working-tree fix. It is not an Ubuntu-qualified or packaged release candidate.
+Step 3 changes are included in this source delivery; preserve unrelated
+untracked reviews. Step 4 records the selected commit and fresh build identities
+separately. The earlier interrupted Ubuntu planning request started no container.
+
 ## Release readiness — scope and gate updated, 2026-10-30
 
 Steps 1 and 2 of [the release-readiness plan](NARO_RELEASE_READINESS_PLAN_2026-10-30.md)

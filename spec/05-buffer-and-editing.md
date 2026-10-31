@@ -297,6 +297,14 @@ row (STATIONARY) and the preferred column. If fewer rows are available, go to th
 first line (x=0) or the last line (end). With *jumpyscrolling*, first move to the
 top row of the screen and column 0.
 - **Evidence:** runtime TEST-MOVE-008/-012.
+- **Soft-wrap regressions:** TEST-STEP3-PAGE-MIN-DOWN and
+  TEST-STEP3-PAGE-MIN-UP assert movement onto continuation chunks and a stationary
+  screen row. TEST-STEP3-PAGE-TAB3-PLAIN, TEST-STEP3-PAGE-TAB3-GUTTER,
+  TEST-STEP3-PAGE-TAB4-PLAIN, TEST-STEP3-PAGE-TAB4-GUTTER,
+  TEST-STEP3-PAGE-TAB8-PLAIN and TEST-STEP3-PAGE-TAB8-GUTTER cover paging through
+  narrow/wide resizes and subsequent vertical movement. The target column is
+  relative to the destination chunk, using the same spanning-tab adjustment as
+  Up/Down, rather than an absolute column on the destination logical line.
 
 ### EDIT-066 — First / last line (`M-\`, `^Home`; `M-/`, `^End`)
 First line: line 1, x=0. Last line: the last line, at its end. The view puts the

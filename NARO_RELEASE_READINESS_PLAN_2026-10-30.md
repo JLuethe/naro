@@ -105,6 +105,12 @@ coverage. Running the old collector unchanged is insufficient.
 
 ## 3. Close targeted behavioral gaps
 
+Status: complete for the bounded 40-case host matrix. See
+[the execution plan](NARO_STEP3_PLAN_2026-10-30.md) and
+[results](NARO_STEP3_RESULTS_2026-10-30.md). A soft-wrap paging defect was fixed;
+40/40 targeted cases and 79/79 existing controls pass with validated evidence.
+The retained baseline remains 301 full / 302 file-exit matches out of 303.
+
 Priority: before final source freeze.
 
 Use the pinned GNU nano reference and identical inputs. Verify that each probe
@@ -119,11 +125,12 @@ actually executes its named operation.
 | Selections | Reverse mark direction across a wrap split, then cut and undo/redo. |
 | Quoted text | Exercise Unicode whitespace in quote prefixes through wrapping and history. |
 
-- [ ] Retain reference observations and explicit assertions for each case.
-- [ ] Use corrected structural probes rather than treating the original
+- [x] Retain reference observations and explicit assertions for each case.
+- [x] Use corrected structural probes rather than treating the original
   operation-free matching probes as coverage.
-- [ ] Add a permanent regression before fixing any newly discovered defect.
-- [ ] Record any proposed deviation individually for review.
+- [x] Add a permanent regression before fixing any newly discovered defect.
+- [x] Record any proposed deviation individually for review. No new deviation
+  was introduced.
 
 Three new permanent tests already partly close the tab-boundary gap. Do not
 describe that area as completely untested or repeat completed work without a

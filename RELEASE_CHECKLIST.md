@@ -37,7 +37,8 @@ passes do not qualify a newly built executable automatically.
 - [x] Define the scope, required gates, accepted differences, and deferrals.
 - [x] Require wrap-undo (58), filter (6), and release-fixes (15) in both closure
   runners and the final collector, separately from historical follow-ups.
-- [ ] Complete targeted behavioral gaps in step 3 of the readiness plan.
+- [x] Complete the bounded step 3 host matrix: 40/40 exact, with the newly
+  discovered paging defect fixed. See [results](NARO_STEP3_RESULTS_2026-10-30.md).
 - [ ] Freeze committed production source; record source fingerprint, revision,
   compiler/features, native environment, candidate hashes, and pinned reference.
 - [ ] Pass formatting, Clippy, Rust/Python tests, specification audit, and CI for
@@ -47,8 +48,8 @@ passes do not qualify a newly built executable automatically.
 - [ ] Pass CLI 38 and regex 162 checks in each environment.
 - [ ] Preserve historical follow-up acceptance: 53 cases, 51 exact, only the
   two named tool-cleanup differences. Pass all eight ioctl-model comparisons.
-- [ ] Pass all 79 additional exact comparisons in **each** environment:
-  wrap-undo 58, filter 6, release-fixes 15. Both harnesses must exit zero, all
+- [ ] Pass all 119 additional exact comparisons in **each** environment:
+  wrap-undo 58, filter 6, release-fixes 15, step3-gaps 40. Both harnesses must exit zero, all
   assertions and steps must pass, and complete evidence must validate.
 - [ ] Pass host isolated-root/home cases (27 exact), with the separate asserted
   no-home recovery deviation.
@@ -97,12 +98,12 @@ insufficient. No executable named by a report is run during collection.
 Each runner freezes its environment reference as `reference.bin` at the run
 root. Host qualification requires the existing pinned host executable hash;
 Ubuntu uses its own built reference hash rather than the host's executable.
-The collector binds all three suites to the corresponding frozen reference and
+The collector binds all four suites to the corresponding frozen reference and
 candidate. Missing reports fail the gate even when old closure checks pass.
 This is evidence integrity checking, not signed build authentication.
 
 The historical 53-case totals remain unchanged. The final gate records the
-additional 58/6/15 inventory separately. New checker/tool identities require
+additional 58/6/15/40 inventory separately. New checker/tool identities require
 fresh qualification records; historical bundles are not relabeled.
 
 Useful entry points after the source freeze:
@@ -128,7 +129,8 @@ testing must still be assessed against release safety and integrity criteria.
 
 ## Next action
 
-Continue with step 3 of the readiness plan. Steps 1 and 2 establish scope and
-gate enforcement; they do not complete the host/Ubuntu, console, or packaging
-qualification in later steps. Codex owns implementation and permanent tests;
+Continue with step 4: commit and freeze the release source, then step 5's host
+and Ubuntu qualification. Steps 1–3 establish scope, enforce the gate, and close
+the bounded behavioral gaps; they do not complete final host/Ubuntu, console,
+or packaging qualification. Codex owns implementation and permanent tests;
 independent testers report against frozen candidates.

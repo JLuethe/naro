@@ -1,0 +1,132 @@
+{
+  "date": "2026-10-30",
+  "timezone": "America/Los_Angeles",
+  "scope": "Bounded step 3 host behavioral qualification; final release qualification remains separate",
+  "base_commit": "fc30606138d393a720bcb888ad3aecedd83ed112",
+  "delivery": "Included in this source delivery; remote delivery and CI verified separately in step 4",
+  "candidate": {
+    "version": "0.1.0",
+    "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+    "source_sha256": "4cabd71741ffc8ee0357d945c67904c8a2fd0089c12e9b32a1c5b3e35c394ae6",
+    "revision": "fc30606138d393a720bcb888ad3aecedd83ed112",
+    "features": "",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+    "binary_sha256": "175dbaed9cba423558121506b7c36f58a48da1c9aad8503df009248eb41a1187"
+  },
+  "reference_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+  "verification_sha256": "604c032c865701dac6f5fc0f0c9ce5e3764ed3e434b51e2ccea5fdf8172d45aa",
+  "evidence_root": "target/naro-test-runs/codex-step3-2026-10-30",
+  "before": {
+    "usable_cases": 40,
+    "matches": 33,
+    "paging_differences": [
+      "TEST-STEP3-PAGE-TAB3-GUTTER",
+      "TEST-STEP3-PAGE-TAB4-PLAIN",
+      "TEST-STEP3-PAGE-TAB4-GUTTER",
+      "TEST-STEP3-PAGE-TAB8-PLAIN",
+      "TEST-STEP3-PAGE-TAB8-GUTTER",
+      "TEST-STEP3-PAGE-MIN-DOWN",
+      "TEST-STEP3-PAGE-MIN-UP"
+    ],
+    "minimal_asserted_regressions": "page-before/report.json",
+    "probe_corrections": "ATTEMPTS.md"
+  },
+  "final_suites": {
+    "wrap-undo": {
+      "summary": {
+        "recorded": 58,
+        "matches": 58,
+        "accepted": 58
+      },
+      "candidate_status": 0,
+      "reference_status": 0,
+      "problems": [],
+      "report": "target/naro-test-runs/codex-step3-2026-10-30/final-wrap-undo/report.json",
+      "report_sha256": "448ca7671a8981361d772017ce52039d6a9fe8d9cd62f464967ac71c33b08f4a"
+    },
+    "filter": {
+      "summary": {
+        "recorded": 6,
+        "matches": 6,
+        "accepted": 6
+      },
+      "candidate_status": 0,
+      "reference_status": 0,
+      "problems": [],
+      "report": "target/naro-test-runs/codex-step3-2026-10-30/final-filter/report.json",
+      "report_sha256": "ba3293378a0f859d2fabffcb09d60ebb685c0b58daf4d7eb9053024a9aad4eba"
+    },
+    "release-fixes": {
+      "summary": {
+        "recorded": 15,
+        "matches": 15,
+        "accepted": 15
+      },
+      "candidate_status": 0,
+      "reference_status": 0,
+      "problems": [],
+      "report": "target/naro-test-runs/codex-step3-2026-10-30/final-release-fixes/report.json",
+      "report_sha256": "4a81b1d46132c2dbb5e91c06bc2bf82fde76c6615f7490451d6b7a2103eac00c"
+    },
+    "step3-gaps": {
+      "summary": {
+        "recorded": 40,
+        "matches": 40,
+        "accepted": 40
+      },
+      "candidate_status": 0,
+      "reference_status": 0,
+      "problems": [],
+      "report": "target/naro-test-runs/codex-step3-2026-10-30/final-step3/report.json",
+      "report_sha256": "892cda74a645ca8a61de5006482504cc81187bbd7c07f536fa6cec7f79eabe07"
+    }
+  },
+  "baseline": {
+    "summary": {
+      "recorded": 303,
+      "full_matches": 301,
+      "files_matches": 302,
+      "skipped": 6
+    },
+    "worker_statuses": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "runner_status": 0,
+    "differences": [
+      "TEST-CLI-057",
+      "TEST-PROMPT-NUL-001"
+    ],
+    "report": "target/naro-test-runs/codex-step3-2026-10-30/baseline-after/report.json",
+    "report_sha256": "f74349c2ea8d9e4d1d7c8f0fa1a92b2de51aa7f3accd72a981546251ee9116cf"
+  },
+  "quality": {
+    "fmt": 0,
+    "rust-default": 0,
+    "rust-all": 0,
+    "clippy-default": 0,
+    "clippy-all": 0
+  },
+  "python_tests": {
+    "closure": 9,
+    "wrap_checker": 43,
+    "comparator": 14,
+    "harness": 6,
+    "audit": 9,
+    "all_pass": true
+  },
+  "spec_audit": {
+    "status": 0,
+    "preexisting_unresolved_citations": 9
+  },
+  "production_patch_sha256": "d69ceab3a2aeafb5e94d0552fc4d85fec1b98f2570644c2d6f77df54ae351b42",
+  "remaining": [
+    "Commit and freeze source (step 4)",
+    "Final host and Ubuntu qualification (step 5)",
+    "Console qualification",
+    "Final package qualification",
+    "Community documentation/distribution review and publication decision"
+  ]
+}

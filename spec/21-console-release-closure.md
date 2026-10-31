@@ -5,8 +5,8 @@ Reference commit: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`
 For the next 0.1.0 release, use [the release checklist](../RELEASE_CHECKLIST.md).
 The completion status and evidence below describe the historical qualification.
 The updated host/Ubuntu runners and collector additionally require 58 wrap-undo,
-6 filter, and 15 release-fixes exact comparisons on each final executable,
-including reopened artifact validation. These 79 cases are separate from the
+6 filter, 15 release-fixes, and 40 step3-gaps exact comparisons on each final executable,
+including reopened artifact validation. These 119 cases are separate from the
 historical 53-case totals. Fresh final-binary qualification remains pending.
 
 Status: complete for the scoped preview: implementation, 85-check qualification

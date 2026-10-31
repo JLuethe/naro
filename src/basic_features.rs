@@ -66,6 +66,29 @@ impl Editor {
         let rows = render::visual_rows(self.b(), &self.conf, l.width);
         let row = self.cursor_row();
         let step = l.edit_rows.saturating_sub(2).max(1);
+        if self.conf.on(SOFTWRAP) {
+            let screen_row = row.saturating_sub(self.b().top);
+            if down && row + step >= rows.len() {
+                self.bm().state.pos = self.b().end();
+                self.preferred();
+                self.bm().top = rows.len().saturating_sub(l.edit_rows);
+            } else if !down && row < step {
+                self.bm().state.pos = Pos::default();
+                self.preferred();
+                self.bm().top = 0;
+            } else {
+                // Page by visual chunks using the same chunk-relative desired
+                // column and spanning-tab adjustment as Up/Down. Then keep the
+                // cursor on its previous screen row, as STATIONARY does in nano.
+                self.move_vertical(if down {
+                    step as isize
+                } else {
+                    -(step as isize)
+                });
+                self.bm().top = self.cursor_row().saturating_sub(screen_row);
+            }
+            return;
+        }
         if down && row + step >= rows.len() {
             self.bm().state.pos = self.b().end();
             self.bm().top = rows.len().saturating_sub(l.edit_rows);
