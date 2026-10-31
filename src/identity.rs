@@ -18,6 +18,7 @@ pub fn cli_help(reference: &str) -> String {
     reference
         .replace("Usage: nano ", "Usage: naro ")
         .replace(", nano reads data", ", naro reads data")
+        .replace("configuring nano", "configuring NARO")
 }
 
 /// Brand explicit UI text only, after gettext has used its original nano key.
@@ -93,6 +94,10 @@ mod tests {
             assert!(output.starts_with("Usage: naro [OPTIONS]"));
             assert!(!output.contains("Usage: nano "));
             assert!(!output.contains(", nano reads data"));
+            assert!(!output.contains("configuring nano"));
+            if source.contains("configuring nano") {
+                assert!(output.contains("configuring NARO"));
+            }
             assert_eq!(output.lines().count(), source.lines().count());
         }
     }
