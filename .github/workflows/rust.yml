@@ -36,6 +36,7 @@ jobs:
         run: |
           python3 tools/check_wrap_undo.py
           python3 -m unittest discover -s tools -p 'test_check_wrap_undo.py'
+          python3 -m unittest discover -s tools -p 'test_closure_regressions.py'
           python3 -m unittest discover -s spec/tools -p 'test_audit_spec.py'
       - name: Terminal smoke and safety assertions
         run: |

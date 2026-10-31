@@ -15,6 +15,9 @@ match all 38 and 162 cases. Full results and limits are in
 Compatibility work targets GNU nano commit
 `6ed285c3ec7a1d228def4d4e7021c6ba269f620c` on Linux/glibc/ncursesw.
 It is not yet a fully compatible replacement; see [implementation status](IMPLEMENTATION.md).
+The upcoming 0.1.0 experimental release targets the default Linux x86_64 profile;
+see the [release scope and acceptance checklist](RELEASE_CHECKLIST.md) for required
+qualification and explicit deferrals. Tiny remains an optional source build.
 
 Build with Rust and a C compiler, ncursesw development headers/library, and
 libmagic development headers/library:

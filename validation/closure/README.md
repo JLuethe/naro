@@ -1,5 +1,11 @@
 # Final preview qualification
 
+This directory is historical evidence for the source and binaries named below.
+The next 0.1.0 release follows [the current checklist](../../RELEASE_CHECKLIST.md).
+Its runners and collector also require 79 newer exact regressions per environment
+(wrap-undo 58, filter 6, release-fixes 15) and frozen environment references.
+Do not treat this historical 85-check pass as acceptance of the updated gate.
+
 GNU reference: `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`.
 Production source was frozen at `390a72dc63da0f0f5b6d516282033fb1c4d6adad`.
 

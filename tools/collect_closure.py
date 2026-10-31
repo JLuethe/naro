@@ -2,6 +2,8 @@
 """Collect hash-linked closure evidence and reject incomplete or mixed results."""
 import argparse,hashlib,json,shutil
 from pathlib import Path
+from check_closure_regressions import SUITES, validate_suite
+from check_wrap_undo import REFERENCE_SHA256, source_fingerprint
 ROOT=Path(__file__).resolve().parents[1]
 REF='6ed285c3ec7a1d228def4d4e7021c6ba269f620c'
 p=argparse.ArgumentParser()
@@ -17,6 +19,7 @@ h=copy(a.host/'checkpoint.json','host-checks');u=copy(a.package/'build.json','ub
 hd=h['binary_sha256'];ud=u['binary_sha256'];source=h['build']['source_sha256']
 check('host-command-completion',h['state']=='complete' and h['active'] is None and all(v['status']==0 for v in h['checks'].values()))
 check('source-fingerprint',u['compiled_build']['source_sha256']==source)
+check('current-source-fingerprint',source==source_fingerprint())
 check('default-features',h['build']['features']==u['compiled_build']['features']=='')
 check('reference-identity',u['reference_commit']==REF)
 check('ubuntu-pipeline-complete',(a.ubuntu/'complete').read_text().strip()=='completed')
@@ -37,6 +40,23 @@ for label,base,digest in [('host',a.host,hd),('ubuntu',a.ubuntu,ud)]:
             total+=len(r['results']);matches+=sum(v['match']for v in r['results'].values())
             check(label+'-'+suite+'-only-declared-differences',all(v['match']or (suite.startswith('signal-') and v['deviation_id']=='Q-TOOL-001')for v in r['results'].values()))
     check(label+'-follow-up-counts',total==53 and matches==51)
+    # Keep the historical 53-case contract separate from the newer 79 cases.
+    try:
+        reference_sha256=hashlib.sha256((base/'reference.bin').read_bytes()).hexdigest()
+    except OSError:
+        reference_sha256=None
+    check(label+'-frozen-reference',reference_sha256 is not None and
+          (label!='host' or reference_sha256==h.get('reference_sha256')==REFERENCE_SHA256))
+    for suite in SUITES:
+        r,problems=validate_suite(base/suite,suite,digest,source,reference_sha256 or '')
+        check(label+'-'+suite+'-evidence',not problems)
+        checks[-1]['problems']=problems
+        if r is not None:
+            (a.out/(label+'-'+suite+'.json')).write_text(json.dumps(r,indent=2)+'\n')
+    if label=='host':
+        check('host-new-suite-command-completion',all(
+            type(h['checks'].get(name,{}).get('status')) is int and h['checks'][name]['status']==0
+            for name in [*SUITES,'closure-regressions']))
     r=copy(base/'extras/report.json',label+'-extras')
     check(label+'-cli-regex-safety',r['candidate_sha256']==digest and len(r['cli'])==38 and sum(v['cases']for v in r['regex'].values())==162 and len(r['safety'])==2 and all(v['pass']for k in ['cli','regex','safety']for v in r[k].values()))
     r=copy(base/'large/report.json',label+'-large')
@@ -63,4 +83,5 @@ r=copy(a.package_check/'report.json','ubuntu-package');check('ubuntu-package',r[
 r=copy(a.host/'package-check/report.json','host-package');check('host-package',r['binary_sha256']==hd and all(v['pass']for v in r['checks']))
 shutil.copy2(a.package/'SHA256SUMS',a.out/'SHA256SUMS')
 gate={'reference_commit':REF,'source_sha256':source,'host_binary_sha256':hd,'ubuntu_binary_sha256':ud,'checks':checks,'pass':all(v['pass']for v in checks),'deferred':['optional tiny profile','physical keyboard/operator console certification'],'scope':'Recorded Linux host and Ubuntu userspace; genuine guest VT with emulated PS/2 keys; private root namespaces. No physical hardware or general host-root certification.'}
+gate['required_exact_regressions']=SUITES
 (a.out/'gate.json').write_text(json.dumps(gate,indent=2)+'\n');print(json.dumps({'checks':len(checks),'passed':sum(v['pass']for v in checks),'failures':[v['name']for v in checks if not v['pass']]}));raise SystemExit(int(not gate['pass']))

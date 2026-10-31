@@ -223,8 +223,16 @@ def manifest_problems(cases):
     return problems
 
 
-def report_problems(report, hashes, fingerprint=None, report_dir=None):
-    """Validate a recorded wrap-undo report. Returns a list of problems."""
+def report_problems(report, hashes, fingerprint=None, report_dir=None, *,
+                    suite=None, expected_ids=None, reference_sha256=None):
+    """Validate exact-match evidence; defaults retain the pinned wrap contract.
+
+    Closure supplies an explicit suite and independently frozen environment
+    reference hash, since Ubuntu's reference executable differs from the host's.
+    """
+    suite = SUITE if suite is None else suite
+    expected_ids = EXPECTED_IDS if expected_ids is None else expected_ids
+    reference_sha256 = REFERENCE_SHA256 if reference_sha256 is None else reference_sha256
     problems = []
     if not isinstance(report, dict):
         return ["report is not a JSON object"]
@@ -234,9 +242,9 @@ def report_problems(report, hashes, fingerprint=None, report_dir=None):
     if report.get("verification_sha256") != verification_fingerprint():
         problems.append("report verification tools fingerprint does not match this tree")
     ref_sha = report.get("reference_sha256")
-    if ref_sha != REFERENCE_SHA256:
+    if ref_sha != reference_sha256:
         problems.append("report reference executable %r is not the pinned %s"
-                        % (ref_sha, REFERENCE_SHA256))
+                        % (ref_sha, reference_sha256))
     cand_sha = report.get("candidate_sha256")
     if not isinstance(cand_sha, str) or not re.fullmatch(r"[0-9a-f]{64}", cand_sha):
         problems.append("report candidate_sha256 is missing or malformed")
@@ -266,8 +274,8 @@ def report_problems(report, hashes, fingerprint=None, report_dir=None):
     if not isinstance(res, dict):
         problems.append("report results is not an object")
         res = {}
-    missing = [i for i in EXPECTED_IDS if i not in res]
-    extra = [i for i in res if i not in EXPECTED_IDS]
+    missing = [i for i in expected_ids if i not in res]
+    extra = [i for i in res if i not in expected_ids]
     if missing:
         problems.append("report missing recordings: %s" % ", ".join(missing))
     if extra:
@@ -300,24 +308,29 @@ def report_problems(report, hashes, fingerprint=None, report_dir=None):
         recorded = summary.get("recorded")
         matches = summary.get("matches")
         accepted = summary.get("accepted")
-        if type(recorded) is not int or recorded != len(EXPECTED_IDS):
-            problems.append("summary recorded %r, expected %d" % (recorded, len(EXPECTED_IDS)))
-        if type(matches) is not int or matches != len(EXPECTED_IDS):
-            problems.append("summary matches %r, expected %d" % (matches, len(EXPECTED_IDS)))
-        if type(accepted) is not int or accepted != len(EXPECTED_IDS):
-            problems.append("summary accepted %r, expected %d" % (accepted, len(EXPECTED_IDS)))
+        if type(recorded) is not int or recorded != len(expected_ids):
+            problems.append("summary recorded %r, expected %d" % (recorded, len(expected_ids)))
+        if type(matches) is not int or matches != len(expected_ids):
+            problems.append("summary matches %r, expected %d" % (matches, len(expected_ids)))
+        if type(accepted) is not int or accepted != len(expected_ids):
+            problems.append("summary accepted %r, expected %d" % (accepted, len(expected_ids)))
     if report_dir is None:
         problems.append("report evidence directory is required")
     else:
         try:
-            problems.extend(artifact_problems(report, hashes, Path(report_dir)))
+            problems.extend(artifact_problems(report, hashes, Path(report_dir), suite=suite,
+                                              expected_ids=expected_ids, reference_sha256=reference_sha256))
         except (OSError, ValueError, KeyError, TypeError, IndexError, AttributeError) as exc:
             problems.append(f"invalid evidence artifacts: {exc}")
     return problems
 
 
-def artifact_problems(report, hashes, directory):
+def artifact_problems(report, hashes, directory, *, suite=None,
+                      expected_ids=None, reference_sha256=None):
     """Reopen evidence without executing any report-supplied executable."""
+    suite = SUITE if suite is None else suite
+    expected_ids = EXPECTED_IDS if expected_ids is None else expected_ids
+    reference_sha256 = REFERENCE_SHA256 if reference_sha256 is None else reference_sha256
     problems = []
 
     def read_json(path):
@@ -327,7 +340,7 @@ def artifact_problems(report, hashes, directory):
             problems.append(f"{path}: missing or invalid JSON: {exc}")
             return None
 
-    for side, expected in (("reference", REFERENCE_SHA256),
+    for side, expected in (("reference", reference_sha256),
                            ("candidate", report.get("candidate_sha256"))):
         path = directory / (side + ".bin")
         try:
@@ -345,7 +358,7 @@ def artifact_problems(report, hashes, directory):
     if sha256((directory / "scenarios.json").read_bytes()) != report.get("scenario_sha256"):
         problems.append("frozen scenarios.json hash does not match report")
     try:
-        if cases != json.loads(SUITE.read_text()):
+        if cases != json.loads(suite.read_text()):
             problems.append("frozen scenario contents differ from current suite")
     except (OSError, ValueError) as exc:
         return problems + [f"cannot read current suite: {exc}"]
@@ -355,10 +368,10 @@ def artifact_problems(report, hashes, directory):
     # Do not follow IDs from untrusted JSON as filesystem paths.
     by_id = {c.get("id"): c for c in cases if isinstance(c, dict)
              and isinstance(c.get("id"), str)}
-    if set(by_id) != set(EXPECTED_IDS) or len(cases) != len(EXPECTED_IDS):
+    if set(by_id) != set(expected_ids) or len(cases) != len(expected_ids):
         return problems + ["frozen scenario membership is not exact"]
     keys_by_term = {}
-    for tid in EXPECTED_IDS:
+    for tid in expected_ids:
         case = by_id[tid]
         term = case.get("term", "tmux-256color")
         if term not in keys_by_term:

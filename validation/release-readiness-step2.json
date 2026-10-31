@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-30",
+  "timezone": "America/Los_Angeles",
+  "scope": "Release-readiness steps 1 and 2; no final release qualification or publication",
+  "base_commit": "088dc176ba7ae8078784d086320ef2c1ac530560",
+  "delivery": "Included in this source delivery; remote delivery and CI status verified separately",
+  "production_source_sha256": "735264926d90c259fdaeb662c1c9c6e08a44a479110e60593460aeda4efd024c",
+  "verification_sha256": "604c032c865701dac6f5fc0f0c9ce5e3764ed3e434b51e2ccea5fdf8172d45aa",
+  "checks": {
+    "closure_tests": {
+      "command": "python3 -m unittest discover -s tools -p 'test_closure_regressions.py'",
+      "tests": 9,
+      "status": 0
+    },
+    "existing_wrap_checker_tests": {
+      "command": "python3 -m unittest discover -s tools -p 'test_check_wrap_undo.py'",
+      "tests": 43,
+      "status": 0
+    },
+    "spec_audit": {
+      "command": "python3 spec/tools/audit_spec.py",
+      "status": 0,
+      "unresolved_citations": 9
+    },
+    "python_compile": {
+      "status": 0,
+      "files": [
+        "tools/check_closure_regressions.py",
+        "tools/test_closure_regressions.py",
+        "tools/check_wrap_undo.py",
+        "tools/run_closure_host.py",
+        "tools/collect_closure.py"
+      ]
+    },
+    "shell_syntax": {
+      "command": "bash -n tests/follow-up/environment.sh",
+      "status": 0
+    },
+    "fresh_filter_replay": {
+      "command": "python3 tools/check_follow_up.py --suite filter --binary target/naro-test-runs/codex-claude-x1n2fz12/candidate-v2.bin --out target/release-readiness-step2-2026-10-30/filter",
+      "status": 0,
+      "summary": {
+        "recorded": 6,
+        "matches": 6,
+        "accepted": 6
+      },
+      "reference_status": 0,
+      "candidate_status": 0,
+      "candidate_sha256": "cb8e5566abeae2e18b2cb38ea5f67fc77e20aa197eb9fee00a971b691d2cdad2",
+      "reference_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+      "report": "target/release-readiness-step2-2026-10-30/filter/report.json",
+      "report_sha256": "467fb8942f7a933a4e806931bd62da3d0705578576e2aa8329131d94860be10d",
+      "complete_artifact_validation_problems": []
+    }
+  },
+  "pending": [
+    "Targeted behavior gaps (step 3)",
+    "Final source freeze",
+    "Full host and Ubuntu qualification",
+    "Guest VT qualification",
+    "Final package and installation qualification",
+    "Final delivery CI and publication decision"
+  ]
+}

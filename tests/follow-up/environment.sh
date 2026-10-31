@@ -35,6 +35,7 @@ make -C src install > /out/reference-install.log 2>&1
 make -C po install >> /out/reference-install.log 2>&1
 fi
 cd /work/naro
+cp /work/reference/bin/nano /out/reference.bin
 cargo build --release --offline > /out/candidate-build.log 2>&1
 python3 - <<'PY'
 from pathlib import Path
@@ -61,6 +62,10 @@ python3 tools/check_follow_up.py --suite edges --binary target/release/naro --re
 for suite in environments supplement backup fifo-eof signal-SIGTERM signal-SIGHUP; do
  python3 tools/check_follow_up.py --suite "$suite" --binary target/release/naro --reference /work/reference/bin/nano --out "/out/$suite" > "/out/$suite-replay.log" 2>&1
 done
+for suite in $(python3 -c 'import sys; sys.path.insert(0,"tools"); from check_closure_regressions import SUITES; print(" ".join(SUITES))'); do
+ python3 tools/check_follow_up.py --suite "$suite" --binary target/release/naro --reference /out/reference.bin --out "/out/$suite" > "/out/$suite-replay.log" 2>&1
+done
+python3 tools/check_closure_regressions.py --base /out --binary target/release/naro --reference /out/reference.bin > /out/closure-regressions.log 2>&1
 python3 tools/check_follow_up.py --suite vt-ioctl --binary target/release/naro --reference /work/reference/bin/nano --out /out/vt-ioctl > /out/vt-ioctl.log 2>&1
 python3 /project/tools/check_environment_extras.py --binary target/release/naro --reference /work/reference/bin/nano --out /out/extras > /out/extras.log 2>&1
 CARGO_TARGET_DIR=target/hooks cargo build --features test-hooks > /out/hooks-build.log 2>&1

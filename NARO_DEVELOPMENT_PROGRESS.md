@@ -1,5 +1,38 @@
 # NARO development progress
 
+## Release readiness steps 1–2 — 2026-10-30
+
+The [release checklist](RELEASE_CHECKLIST.md) defines 0.1.0 as an experimental
+default-feature Linux x86_64 GNU/glibc release. The primary download will be the
+qualified Ubuntu binary with corresponding source and provenance. Tiny remains
+an optional source build; physical keyboard trials and other platforms are
+explicitly deferred. Actual runtime minimums must come from the final manifest.
+
+Host and Ubuntu closure runners now require wrap-undo (58), filter (6), and
+release-fixes (15), using frozen environment reference binaries. The collector
+reopens their complete evidence, recomputes expectations/comparisons, and checks
+identities, inventories, hashes, steps, and subprocess statuses. The historical
+53 follow-ups / 51 exact expectation and existing deviations remain separate.
+The original pinned wrap checker defaults and all 43 existing tests are retained.
+
+Validation: nine new tests pass, including a complete synthetic collector run,
+rejection of each missing suite on either environment, missing command status,
+and tampered report/recording cases. A fresh filter replay is 6/6 exact and its
+full evidence passes the new validator. Python syntax, shell syntax, diff checks,
+and specification audit pass; the same nine pre-existing audit citations remain.
+The new tests are included in CI. No production editor source was changed.
+
+Local replay evidence: `target/release-readiness-step2-2026-10-30/filter/`.
+It uses the existing fixed `candidate-v2.bin` and is a focused checker integration
+test, not a newly frozen release candidate. The complete final host/Ubuntu,
+console, and package runs have not been performed for this step. Because checker
+code is part of the verification fingerprint, new qualification needs fresh
+reports; historical records must not be relabeled. Next: readiness-plan step 3.
+
+These changes are included in this source delivery. Remote delivery and CI
+status are verified separately; see the
+[verification receipt](validation/release-readiness-step2.json).
+
 ## Claude-review fixes — 2026-10-30/31
 
 Claude's independent report is retained at

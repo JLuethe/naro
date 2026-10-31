@@ -1,5 +1,20 @@
 # NARO next steps — Codex development ownership
 
+## Release readiness — scope and gate updated, 2026-10-30
+
+Steps 1 and 2 of [the release-readiness plan](NARO_RELEASE_READINESS_PLAN_2026-10-30.md)
+are complete locally. [The release checklist](RELEASE_CHECKLIST.md) defines the
+default-profile Linux x86_64 preview, required gates, accepted differences, and
+deferrals. Both qualification runners and the collector now require the newer
+79 exact regressions in addition to historical closure coverage. Focused tests
+pass; see [development progress](NARO_DEVELOPMENT_PROGRESS.md).
+
+Next: step 3's targeted behavioral combinations, then freeze and qualify the
+actual release artifacts. Do not mistake the updated gate or historical reports
+for completed final host/Ubuntu, console, or package qualification. Changes from
+steps 1–2 are included in this source delivery; remote delivery and CI status
+are verified separately.
+
 ## Current checkpoint — Claude findings fixed and verified, 2026-10-30/31
 
 Claude completed the restart assignment and confirmed six causes. Codex has

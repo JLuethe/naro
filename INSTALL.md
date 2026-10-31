@@ -1,5 +1,10 @@
 # Installing Naro
 
+The planned 0.1.0 binary release uses the default profile only. Tiny remains
+available as a source build. See the [release checklist](RELEASE_CHECKLIST.md)
+for qualification requirements; the instructions here do not imply a published
+or fully qualified download is already available.
+
 Naro currently targets Linux x86_64 with glibc, ncursesw and libmagic. Binary
 compatibility is limited to the runtime versions measured in the artifact's
 `manifest.json`; the build machine's binary may require a newer libc than yours.
