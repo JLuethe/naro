@@ -129,10 +129,10 @@ testing must still be assessed against release safety and integrity criteria.
 
 ## Next action
 
-Steps 4–9 are complete for the scoped candidate; see the
-[step 8/9 completion receipt](NARO_STEP8_9_RESULTS_2026-10-30.md).
-The refreshed package collector passes 97/97 and the downloads/evidence are
-verified outside target. Step 10 must resolve/disposition the earlier CI
-saved-cursor failure, verify final remote delivery and successful CI, then obtain
-separate publication approval. Do not equate the technical package gate with
-final release acceptance. Nothing has been published.
+Review the [step 10 packet](NARO_STEP10_REVIEW_2026-10-30.md). The earlier CI
+saved-cursor failure is reproduced and fixed through explicit save-completion
+waits; all cursor/file assertions remain intact. Fresh 40-case suites per
+environment and the complete 97-check collector pass. Verify CI for the exact
+6004fa8 tag target and final review delivery, obtain Claude's independent report,
+then seek approval for the exact prerelease/tag/body/assets proposal. Nothing
+has been published. Historical qualification records retain their original scope.

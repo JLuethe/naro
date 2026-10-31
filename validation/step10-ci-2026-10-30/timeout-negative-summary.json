@@ -1,0 +1,21 @@
+{
+  "expected_failure": true,
+  "steps_ok": false,
+  "notes": [
+    "wait for 'Wrote 2 lines' timed out"
+  ],
+  "failed_steps": [
+    {
+      "step": 14,
+      "pass": false
+    }
+  ],
+  "failed_assertions": [
+    {
+      "check": "cursor",
+      "pass": false,
+      "detail": "{'x': 20, 'y': 21, 'visible': True}"
+    }
+  ],
+  "result_sha256": "3cd62fb5c90acdbb6f5511d11e941966ae0a3e649db698af1eecf2286fdde561"
+}

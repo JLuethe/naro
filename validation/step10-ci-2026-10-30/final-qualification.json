@@ -1,0 +1,86 @@
+{
+  "product": "NARO",
+  "version": "0.1.0",
+  "status": "technically qualified experimental candidate; independent review and publication authorization required",
+  "primary_download": "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz",
+  "source_download": "naro-0.1.0-source.tar.gz",
+  "source_commit": "fd91763c4f14d9bed8187d64d44f2136440b7b3e",
+  "production_source_sha256": "4cabd71741ffc8ee0357d945c67904c8a2fd0089c12e9b32a1c5b3e35c394ae6",
+  "binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+  "archives": {
+    "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz": "e8ff4445dba2bebd58c396ca1186d8d2d161efe5016bc4cd7791ed5bce5640d0",
+    "naro-0.1.0-source.tar.gz": "c23aad0b96132b17d0da9fd8e33ee791de4aadc3d5a9d861fa2ee9795cae7e8b"
+  },
+  "features": [],
+  "closure": {
+    "checks": 97,
+    "passed": 97,
+    "gate_sha256": "0757e43a7f17992fa20f6e11f28aedd8e0167b42e7bc17807b1e9ee112a13af4",
+    "inputs": "Original host/Ubuntu/VM/transport/package evidence; step3-gaps replaced by fresh synchronized-scenario reports in each environment. Explicit input map retained in step10 evidence."
+  },
+  "archive_audit": {
+    "checks": 20,
+    "passed": 20
+  },
+  "package_checks": {
+    "checks": 15,
+    "passed": 15,
+    "reused_unchanged_archives": false,
+    "report_sha256": "5a9b0a971eb81b3fc6a3bced3c9fd91e83076e53670becb113a5ec288b10dcdf"
+  },
+  "ordinary_prefix": {
+    "checks": 5,
+    "passed": 5
+  },
+  "source_rebuild": "offline passed, production fingerprint and features match; not a claim of byte-for-byte reproducibility",
+  "catalogs": 41,
+  "asset_checks": 44,
+  "guest_vt": {
+    "host_matches": 19,
+    "ubuntu_matches": 19,
+    "transport_checks": 6
+  },
+  "pending_release_gates": [
+    "Independent Claude verification; resolve any finding",
+    "Verify successful CI at exact target and final review delivery",
+    "John approval of exact tag, prerelease setting, release body and seven assets; then publication"
+  ],
+  "packaging_source_revision": "536d09160e4f65f8372c781ba389a59fdb5e52c7",
+  "compiled_revision": "fd91763c4f14d9bed8187d64d44f2136440b7b3e",
+  "ci_observation": {
+    "historical_failure": "https://github.com/JLuethe/naro/actions/runs/41168721954",
+    "diagnosis": "Save completion synchronization race demonstrated with controlled delays; original CI syscall latency unavailable.",
+    "fix_commit": "6004fa87d5cd3e3c1922bf1e9a58f28d39e871f4",
+    "fix_run": "https://github.com/JLuethe/naro/actions/runs/41170577786",
+    "publication_requirement": "Verify successful conclusion for exact tag target and final review delivery before publication."
+  },
+  "packaged_documents": [
+    "LICENSE",
+    "NOTICE",
+    "CREDITS.md",
+    "README.md",
+    "INSTALL.md",
+    "IMPLEMENTATION.md",
+    "RELEASE_NOTES.md",
+    "COVERAGE_REVIEW.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md"
+  ],
+  "proposed_release_tag": "v0.1.0",
+  "proposed_tag_target": "6004fa87d5cd3e3c1922bf1e9a58f28d39e871f4",
+  "proposed_prerelease": true,
+  "step10": {
+    "production_changed": false,
+    "test_expectations_changed": false,
+    "changed_scenario": "TEST-STEP3-EOF-NOFINAL-LIVE",
+    "fix": "Wait for filename prompt before Enter, and Wrote 2 lines before saved snapshot; five-second timeout.",
+    "host_step3_exact": 40,
+    "ubuntu_step3_exact": 40,
+    "controlled_original_delay_failures": 8,
+    "synchronized_delay_passes": 12,
+    "zero_delay_original_passes": 4,
+    "negative_deadline_control": "rejected",
+    "package_archives_reused_byte_identical": true,
+    "independent_claude_verification": "pending; not performed by Codex"
+  }
+}

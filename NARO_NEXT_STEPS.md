@@ -1,5 +1,16 @@
 # NARO next steps — Codex development ownership
 
+## Step 10 preparation — October 30, 2026
+
+The CI saved-cursor failure is reproduced as a save-completion synchronization
+race and repaired in test-only commit 6004fa8. Frozen production code and binaries
+are unchanged. Fresh affected suites pass 40/40 per environment, and the collector
+passes 97/97. See the [step 10 review packet](NARO_STEP10_REVIEW_2026-10-30.md) for
+the exact tag/assets proposal and Claude's independent verification prompt.
+Claude verification and explicit publication approval remain; verify the cited
+CI runs and final delivery before publishing. Earlier checkpoints are historical.
+
+
 ## Steps 8–9 complete — October 30, 2026
 
 Reviewed documentation, attribution and public GitHub reporting are applied.

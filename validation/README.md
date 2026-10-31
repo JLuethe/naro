@@ -1,5 +1,11 @@
 # Validation evidence
 
+Latest release preparation: [step 10 review](../NARO_STEP10_REVIEW_2026-10-30.md)
+and [CI synchronization diagnosis](step10-ci-2026-10-30/README.md). New 40-case
+host/Ubuntu evidence and the 97-check collector supplement the unchanged frozen
+qualification. Independent Claude verification and publication remain separate.
+
+
 ## Current 0.1.0 candidate
 
 The current qualified production commit is

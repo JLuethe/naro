@@ -1,0 +1,14 @@
+[
+  {
+    "environment": "host",
+    "checks": "complete current-scenario evidence validation",
+    "pass": true,
+    "report_sha256": "b662b3b8568399c1e6c6646ee6e261108805347873026a0495e6cf788066689d"
+  },
+  {
+    "environment": "ubuntu",
+    "checks": "complete current-scenario evidence validation",
+    "pass": true,
+    "report_sha256": "99146daf9156367d6a30ded0cbd1e87021cf09ab68cfa39aa5abbdd1b00a27e9"
+  }
+]

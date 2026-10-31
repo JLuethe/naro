@@ -1,0 +1,62 @@
+{
+  "format": 1,
+  "repository": "JLuethe/naro",
+  "tag": "v0.1.0",
+  "tag_target": "6004fa87d5cd3e3c1922bf1e9a58f28d39e871f4",
+  "release_title": "NARO 0.1.0 \u2014 experimental Linux x86_64 release",
+  "prerelease": true,
+  "published": false,
+  "release_body": "RELEASE_BODY.md",
+  "release_body_sha256": "7bc08186613568bc275a4ae3434a721d1468d658c10da0106c4e26004273d6af",
+  "assets": [
+    {
+      "name": "BUILD-ENVIRONMENT.json",
+      "bytes": 9719,
+      "sha256": "59a18a16bd92564b8f2eb26019c91aa7f0a37ea59e19d8a811a555d424ecad36",
+      "working_path": "/home/john/Code/naro/target/step10-release-2026-10-30/downloads/BUILD-ENVIRONMENT.json",
+      "preserved_path": "/home/john/Backups/naro/2026-10-30-step10/downloads/BUILD-ENVIRONMENT.json"
+    },
+    {
+      "name": "QUALIFICATION.json",
+      "bytes": 3598,
+      "sha256": "ca8201c3bbcd96f18eabc4418a17322a066f8d8452d26e635c8dd5060ed642a9",
+      "working_path": "/home/john/Code/naro/target/step10-release-2026-10-30/downloads/QUALIFICATION.json",
+      "preserved_path": "/home/john/Backups/naro/2026-10-30-step10/downloads/QUALIFICATION.json"
+    },
+    {
+      "name": "RUNTIME-REQUIREMENTS.md",
+      "bytes": 3709,
+      "sha256": "0e2f81750d52dc62981e90f117b802826ba8c21d8065a6d31c21fbd3b2dc726f",
+      "working_path": "/home/john/Code/naro/target/step10-release-2026-10-30/downloads/RUNTIME-REQUIREMENTS.md",
+      "preserved_path": "/home/john/Backups/naro/2026-10-30-step10/downloads/RUNTIME-REQUIREMENTS.md"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 541,
+      "sha256": "e42938621ab9413ab894d78b1e38bf385677530060a0bee80f7699fcc0ac8c3b",
+      "working_path": "/home/john/Code/naro/target/step10-release-2026-10-30/downloads/SHA256SUMS",
+      "preserved_path": "/home/john/Backups/naro/2026-10-30-step10/downloads/SHA256SUMS"
+    },
+    {
+      "name": "build.json",
+      "bytes": 171449,
+      "sha256": "074777820e67048d675a9993c5adef46a489313b889c466ed696021df0f95e89",
+      "working_path": "/home/john/Code/naro/target/step10-release-2026-10-30/downloads/build.json",
+      "preserved_path": "/home/john/Backups/naro/2026-10-30-step10/downloads/build.json"
+    },
+    {
+      "name": "naro-0.1.0-source.tar.gz",
+      "bytes": 3186137,
+      "sha256": "c23aad0b96132b17d0da9fd8e33ee791de4aadc3d5a9d861fa2ee9795cae7e8b",
+      "working_path": "/home/john/Code/naro/target/step10-release-2026-10-30/downloads/naro-0.1.0-source.tar.gz",
+      "preserved_path": "/home/john/Backups/naro/2026-10-30-step10/downloads/naro-0.1.0-source.tar.gz"
+    },
+    {
+      "name": "naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz",
+      "bytes": 2700255,
+      "sha256": "e8ff4445dba2bebd58c396ca1186d8d2d161efe5016bc4cd7791ed5bce5640d0",
+      "working_path": "/home/john/Code/naro/target/step10-release-2026-10-30/downloads/naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz",
+      "preserved_path": "/home/john/Backups/naro/2026-10-30-step10/downloads/naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz"
+    }
+  ]
+}

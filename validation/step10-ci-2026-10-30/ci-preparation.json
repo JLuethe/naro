@@ -1,0 +1,162 @@
+{
+  "checked_at": {
+    "current_time": "2026-10-31 05:02:20 UTC"
+  },
+  "release_target": "6004fa87d5cd3e3c1922bf1e9a58f28d39e871f4",
+  "release_target_run": "https://github.com/JLuethe/naro/actions/runs/41170577786",
+  "jobs": [
+    {
+      "id": 124447469310,
+      "status": "in_progress",
+      "conclusion": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run sudo apt-get update && sudo apt-get install -y libncurses-dev libmagic-dev libevent-dev bison",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install the reference terminal emulator",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build tmux 3.8",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run cargo fmt --check",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run cargo clippy --all-targets --all-features -- -D warnings",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run cargo clippy --all-targets -- -D warnings",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run cargo test",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run cargo test --all-features",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run cargo build --release",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python3 spec/tools/audit_spec.py",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python3 spec/tools/test_compare_runs.py",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python3 spec/tools/test_nanoharness.py",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python3 spec/tools/test_namespace_exec.py",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run python3 -m unittest discover -s tests/console -p 'test_*.py'",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Hard-wrap undo/redo scenario manifest",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Terminal smoke and safety assertions",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Linux console ioctl models",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Hard-wrap marks and command filters",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Paste, soft-wrap, replacement and rcfile regressions",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "EOF, paging, view-mode paste, selection and Unicode quote regressions",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Optional tiny profile",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "name": "Recovery and optional credits",
+          "status": "pending",
+          "conclusion": null
+        },
+        {
+          "name": "Installed assets, archive integrity and ownership",
+          "status": "pending",
+          "conclusion": null
+        },
+        {
+          "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+          "status": "pending",
+          "conclusion": null
+        }
+      ]
+    }
+  ],
+  "prior_successful_runs": [
+    {
+      "commit": "536d09160e4f65f8372c781ba389a59fdb5e52c7",
+      "run": 41170067321
+    },
+    {
+      "commit": "fafc491cc5ac2a106b442cd07fb7b210d4a8bd66",
+      "run": 41170269403
+    }
+  ],
+  "scope": "Preparation-time snapshot; final delivery verification retained separately after CI completes. Do not interpret an in-progress status as success."
+}

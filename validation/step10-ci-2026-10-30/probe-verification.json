@@ -1,0 +1,37 @@
+{
+  "pass": true,
+  "totals": {
+    "original_controls_pass": 4,
+    "original_delays_reproduce_failure": 8,
+    "synchronized_pass": 12
+  },
+  "executables": {
+    "host-naro": {
+      "all_six_raw_output_hashes_equal": true,
+      "all_six_input_byte_sequences_equal": true,
+      "binary_sha256": "cae387c78619520aacbf61690e675496b82f8ccf04af2824beb9e864004f0a96",
+      "raw_output_sha256": "10f7f86839a08591149342aa6f6529b5166c8013b3f42d976e92b665713658b7"
+    },
+    "host-nano": {
+      "all_six_raw_output_hashes_equal": true,
+      "all_six_input_byte_sequences_equal": true,
+      "binary_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+      "raw_output_sha256": "5909f77ee750d6ad0746b37f2f679d948c4fdb0ed64f3c47b74277f0ad9c2466"
+    },
+    "ubuntu-naro": {
+      "all_six_raw_output_hashes_equal": true,
+      "all_six_input_byte_sequences_equal": true,
+      "binary_sha256": "33a39eb339492720ec6166e84fea421749e0b2ec3bd612b276c2377f91b7c4a1",
+      "raw_output_sha256": "10f7f86839a08591149342aa6f6529b5166c8013b3f42d976e92b665713658b7"
+    },
+    "ubuntu-nano": {
+      "all_six_raw_output_hashes_equal": true,
+      "all_six_input_byte_sequences_equal": true,
+      "binary_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+      "raw_output_sha256": "5909f77ee750d6ad0746b37f2f679d948c4fdb0ed64f3c47b74277f0ad9c2466"
+    }
+  },
+  "timeout_negative_rejected": true,
+  "historical_ci_latency_measured": false,
+  "interpretation": "Demonstrated save-completion synchronization race matching CI symptom; original CI exact delay unavailable."
+}
