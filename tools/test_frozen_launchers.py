@@ -16,10 +16,33 @@ from run_closure_host import (CANONICAL_NANOSPEC_WORK,
                              required_identity_review_stages)  # noqa: E402
 import collect_closure  # noqa: E402
 from collect_closure import REQUIRED_HOST_STAGES  # noqa: E402
-from run_closure_ubuntu import HISTORICAL_SYNTAX_PATH, syntax_install_record  # noqa: E402
+from run_closure_ubuntu import (HISTORICAL_SYNTAX_PATH, syntax_install_record,
+                               retain_frozen_executables)  # noqa: E402
 
 
 class FrozenLauncherPreflightTests(unittest.TestCase):
+    def test_ubuntu_retains_exact_executables_required_by_collector(self):
+        with tempfile.TemporaryDirectory(prefix="naro-retained-executables-") as temp:
+            root = Path(temp)
+            binary = root / "input-naro"; binary.write_bytes(b"candidate"); binary.chmod(0o751)
+            reference = root / "input-nano"; reference.write_bytes(b"reference"); reference.chmod(0o755)
+            expected = {name: hashlib.sha256(path.read_bytes()).hexdigest()
+                        for name, path in (("candidate", binary), ("reference", reference))}
+            out = root / "evidence"; out.mkdir()
+            records = retain_frozen_executables(binary, reference, out, expected)
+            for name, filename, path in (("candidate", "naro", binary), ("reference", "reference.bin", reference)):
+                self.assertEqual((out / filename).read_bytes(), path.read_bytes())
+                self.assertEqual((out / filename).stat().st_mode, path.stat().st_mode)
+                self.assertEqual(records[name]["sha256"], expected[name])
+            self.assertTrue((out / "frozen-executables.json").is_file())
+            with self.assertRaisesRegex(ValueError, "preserve existing"):
+                retain_frozen_executables(binary, reference, out, expected)
+            empty = root / "bad-evidence"; empty.mkdir()
+            reference.write_bytes(b"changed")
+            with self.assertRaisesRegex(ValueError, "source differs"):
+                retain_frozen_executables(binary, reference, empty, expected)
+            self.assertEqual(list(empty.iterdir()), [])
+
     def test_historical_syntax_mount_is_bound_to_exact_frozen_assets(self):
         with tempfile.TemporaryDirectory(prefix="naro-syntax-install-") as temp:
             source = Path(temp)

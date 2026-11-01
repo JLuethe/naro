@@ -11,6 +11,7 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -73,6 +74,26 @@ def syntax_install_record(source: Path, manifest: dict) -> dict:
         raise ValueError("syntax installation differs from frozen asset inventory")
     return {"source_path": str(syntax), "container_path": HISTORICAL_SYNTAX_PATH,
             "read_only": True, "file_hashes": actual}
+
+
+def retain_frozen_executables(binary: Path, reference: Path, out: Path,
+                              expected: dict[str, str]) -> dict:
+    """Retain the exact collector inputs independently of per-suite artifacts."""
+    inputs = {"candidate": binary, "reference": reference}
+    if any(sha256(path) != expected[name] for name, path in inputs.items()):
+        raise ValueError("executable retention source differs from frozen inputs")
+    records = {}
+    for name, filename in (("candidate", "naro"), ("reference", "reference.bin")):
+        destination = out / filename
+        if destination.exists() or destination.is_symlink():
+            raise ValueError(f"preserve existing executable evidence: {destination}")
+        shutil.copy2(inputs[name], destination)
+        if sha256(destination) != expected[name]:
+            raise ValueError(f"retained executable hash mismatch: {name}")
+        records[name] = {"source": str(inputs[name]), "destination": str(destination),
+                         "sha256": expected[name]}
+    (out / "frozen-executables.json").write_text(json.dumps(records, indent=2) + "\n")
+    return records
 
 
 def cleanup_container(container_name: str, cidfile: Path, owner_token: str) -> tuple[str | None, list[dict[str, object]]]:
@@ -196,6 +217,7 @@ def main() -> int:
             parser.error(f"frozen toolchain hash mismatch: {name}")
 
     out.mkdir(parents=True, exist_ok=False)
+    frozen_executables = retain_frozen_executables(binary, reference, out, expected_hashes)
     inner = out / "ubuntu-inner.sh"
     inner_source = source / "tools/closure_ubuntu_inner.sh"
     if not inner_source.is_file():
@@ -240,6 +262,7 @@ def main() -> int:
         "reference_install_file_count": len(install_files),
         "reference_install_symlink_count": len(install_symlinks),
         "syntax_install": syntax_install,
+        "frozen_executables": frozen_executables,
         "ubuntu_image": image,
         "toolchain": toolchain,
         "command": command,

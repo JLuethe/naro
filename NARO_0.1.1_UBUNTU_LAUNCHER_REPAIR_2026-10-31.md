@@ -58,3 +58,14 @@ retry was restored before the successful rerun. Both attempts are retained.
    attempt02 candidate hashes with replacement reports or publish a release.
 
 Final identities, validation and remaining work belong in the completion handoff.
+
+## Collector contract audit
+
+Review of the complete Ubuntu-to-collector contract found that the launcher also
+failed to retain top-level `naro` and `reference.bin` copies. Per-suite copies
+existed, but the collector requires these two exact root inputs. The launcher now
+retains both verified frozen executables before starting the container, preserves
+their modes and writes a source/destination/hash receipt. Wrong inputs and existing
+evidence fail closed. This regression is covered before the final freeze. The
+first complete repaired Ubuntu run remains diagnostic evidence for its own older
+source/tool fingerprint; replacement candidates require their own validation.
