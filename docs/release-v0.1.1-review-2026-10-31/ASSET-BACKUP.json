@@ -1,0 +1,56 @@
+{
+  "pass": true,
+  "asset_count": 7,
+  "assets": [
+    {
+      "name": "BUILD-ENVIRONMENT.json",
+      "sha256": "5df2c84e52c2e79dea26ce05b300421296ee21f4a8f174c071efd621beac6444",
+      "bytes": 19790,
+      "path": "/home/john/Backups/naro/2026-10-31-release-0.1.1/downloads/BUILD-ENVIRONMENT.json",
+      "verified": true
+    },
+    {
+      "name": "QUALIFICATION.json",
+      "sha256": "d49580ec00433ff350d3beb765ee0baa06be3b26087d430875a011211292cb10",
+      "bytes": 9825,
+      "path": "/home/john/Backups/naro/2026-10-31-release-0.1.1/downloads/QUALIFICATION.json",
+      "verified": true
+    },
+    {
+      "name": "RUNTIME-REQUIREMENTS.md",
+      "sha256": "d72066ae360017b3726c6af22431d9fe81a872c15590c2a2791a00aa432329dc",
+      "bytes": 8489,
+      "path": "/home/john/Backups/naro/2026-10-31-release-0.1.1/downloads/RUNTIME-REQUIREMENTS.md",
+      "verified": true
+    },
+    {
+      "name": "SHA256SUMS",
+      "sha256": "565e2e6a53a9aac4d3aba1a926613c49f928ae0ff7aa03466ffe2354b73a762a",
+      "bytes": 541,
+      "path": "/home/john/Backups/naro/2026-10-31-release-0.1.1/downloads/SHA256SUMS",
+      "verified": true
+    },
+    {
+      "name": "build.json",
+      "sha256": "ff50e57807aea745446cce228daefb51c5897581bf48997d4d5e0ae76a6e1439",
+      "bytes": 215801,
+      "path": "/home/john/Backups/naro/2026-10-31-release-0.1.1/downloads/build.json",
+      "verified": true
+    },
+    {
+      "name": "naro-0.1.1-source.tar.gz",
+      "sha256": "122a18bea8942fe88a68e0ac4761d58d195d89af893263a3703f5a13fb46fc16",
+      "bytes": 4747509,
+      "path": "/home/john/Backups/naro/2026-10-31-release-0.1.1/downloads/naro-0.1.1-source.tar.gz",
+      "verified": true
+    },
+    {
+      "name": "naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz",
+      "sha256": "4591ab90274d6251a19f8291d49d15bf23296e1b4c15482b65dc169478d98e50",
+      "bytes": 2708772,
+      "path": "/home/john/Backups/naro/2026-10-31-release-0.1.1/downloads/naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz",
+      "verified": true
+    }
+  ],
+  "location": "Outside target on same filesystem; not off-device"
+}

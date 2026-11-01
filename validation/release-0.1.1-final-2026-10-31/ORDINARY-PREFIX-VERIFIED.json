@@ -1,0 +1,66 @@
+{
+  "scope": "Additional host ordinary-prefix check of the exact Ubuntu download; container package15 also passed",
+  "checks": {
+    "install_exit_zero": true,
+    "exact_binary": true,
+    "symlink_build_identity": true,
+    "uninstall_exit_zero": true,
+    "owned_only_removal": true
+  },
+  "pass": true,
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "/home/john/Code/naro/target/codex-0.1.1-final-review-2026-10-31/packaging-source/tools/release/install.py",
+        "install",
+        "--archive",
+        "/home/john/Code/naro/target/codex-0.1.1-final-review-2026-10-31/downloads/naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz",
+        "--prefix",
+        "/tmp/naro-011-ordinary-3jqu0v13/prefix"
+      ],
+      "started_utc": "2026-11-01T04:44:45.658885+00:00",
+      "finished_utc": "2026-11-01T04:44:45.797226+00:00",
+      "status": 0,
+      "stdout": "{\"installed\": 138, \"prefix\": \"/tmp/naro-011-ordinary-3jqu0v13/prefix\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/ubuntu/naro"
+      ],
+      "started_utc": "2026-11-01T04:44:45.799479+00:00",
+      "finished_utc": "2026-11-01T04:44:45.801162+00:00",
+      "status": 0,
+      "stdout": "{\"version\":\"0.1.1\",\"reference_commit\":\"6ed285c3ec7a1d228def4d4e7021c6ba269f620c\",\"source_sha256\":\"63936243e73d0a3fb536d3c0a0fb0e6fe57be09da5f5bc0387ee10250b3d7093\",\"revision\":\"accc766af9ff7e36ec206dea697410e3f8f31674\",\"features\":\"\",\"rustc\":\"rustc 1.99.1 (58cf8f9c3 2026-10-13)\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/tmp/naro-011-ordinary-3jqu0v13/launcher"
+      ],
+      "started_utc": "2026-11-01T04:44:45.801175+00:00",
+      "finished_utc": "2026-11-01T04:44:45.802720+00:00",
+      "status": 0,
+      "stdout": "{\"version\":\"0.1.1\",\"reference_commit\":\"6ed285c3ec7a1d228def4d4e7021c6ba269f620c\",\"source_sha256\":\"63936243e73d0a3fb536d3c0a0fb0e6fe57be09da5f5bc0387ee10250b3d7093\",\"revision\":\"accc766af9ff7e36ec206dea697410e3f8f31674\",\"features\":\"\",\"rustc\":\"rustc 1.99.1 (58cf8f9c3 2026-10-13)\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "/home/john/Code/naro/target/codex-0.1.1-final-review-2026-10-31/packaging-source/tools/release/install.py",
+        "uninstall",
+        "--prefix",
+        "/tmp/naro-011-ordinary-3jqu0v13/prefix"
+      ],
+      "started_utc": "2026-11-01T04:44:45.802816+00:00",
+      "finished_utc": "2026-11-01T04:44:45.867779+00:00",
+      "status": 0,
+      "stdout": "{\"removed\": 138, \"conflicts\": []}\n",
+      "stderr": ""
+    }
+  ],
+  "private_directory_removed": "/tmp/naro-011-ordinary-3jqu0v13"
+}

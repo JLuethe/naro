@@ -1,0 +1,66 @@
+{
+  "schema": "naro-publication-review/v1",
+  "version": "0.1.1",
+  "repository": "JLuethe/naro",
+  "tag": "v0.1.1",
+  "tag_target": "a6078aed705bc0b605ad7603505767ce2b9bc206",
+  "title": "NARO 0.1.1 \u2014 experimental Linux x86_64 identity update",
+  "prerelease": true,
+  "published": false,
+  "approval_required": true,
+  "compiled_source_revision": "accc766af9ff7e36ec206dea697410e3f8f31674",
+  "release_body_file": "RELEASE_BODY.md",
+  "release_body_sha256": "24fa9c7df3096e796e171277b8b4de2f9f6c8b640406e183d76e27de0f56389c",
+  "assets": [
+    {
+      "name": "BUILD-ENVIRONMENT.json",
+      "bytes": 19790,
+      "sha256": "5df2c84e52c2e79dea26ce05b300421296ee21f4a8f174c071efd621beac6444",
+      "working_path": "/home/john/Code/naro/target/codex-0.1.1-final-review-2026-10-31/downloads/BUILD-ENVIRONMENT.json",
+      "preserved_path": "/home/john/Backups/naro/2026-10-31-release-0.1.1/downloads/BUILD-ENVIRONMENT.json"
+    },
+    {
+      "name": "QUALIFICATION.json",
+      "bytes": 9825,
+      "sha256": "d49580ec00433ff350d3beb765ee0baa06be3b26087d430875a011211292cb10",
+      "working_path": "/home/john/Code/naro/target/codex-0.1.1-final-review-2026-10-31/downloads/QUALIFICATION.json",
+      "preserved_path": "/home/john/Backups/naro/2026-10-31-release-0.1.1/downloads/QUALIFICATION.json"
+    },
+    {
+      "name": "RUNTIME-REQUIREMENTS.md",
+      "bytes": 8489,
+      "sha256": "d72066ae360017b3726c6af22431d9fe81a872c15590c2a2791a00aa432329dc",
+      "working_path": "/home/john/Code/naro/target/codex-0.1.1-final-review-2026-10-31/downloads/RUNTIME-REQUIREMENTS.md",
+      "preserved_path": "/home/john/Backups/naro/2026-10-31-release-0.1.1/downloads/RUNTIME-REQUIREMENTS.md"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 541,
+      "sha256": "565e2e6a53a9aac4d3aba1a926613c49f928ae0ff7aa03466ffe2354b73a762a",
+      "working_path": "/home/john/Code/naro/target/codex-0.1.1-final-review-2026-10-31/downloads/SHA256SUMS",
+      "preserved_path": "/home/john/Backups/naro/2026-10-31-release-0.1.1/downloads/SHA256SUMS"
+    },
+    {
+      "name": "build.json",
+      "bytes": 215801,
+      "sha256": "ff50e57807aea745446cce228daefb51c5897581bf48997d4d5e0ae76a6e1439",
+      "working_path": "/home/john/Code/naro/target/codex-0.1.1-final-review-2026-10-31/downloads/build.json",
+      "preserved_path": "/home/john/Backups/naro/2026-10-31-release-0.1.1/downloads/build.json"
+    },
+    {
+      "name": "naro-0.1.1-source.tar.gz",
+      "bytes": 4747509,
+      "sha256": "122a18bea8942fe88a68e0ac4761d58d195d89af893263a3703f5a13fb46fc16",
+      "working_path": "/home/john/Code/naro/target/codex-0.1.1-final-review-2026-10-31/downloads/naro-0.1.1-source.tar.gz",
+      "preserved_path": "/home/john/Backups/naro/2026-10-31-release-0.1.1/downloads/naro-0.1.1-source.tar.gz"
+    },
+    {
+      "name": "naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz",
+      "bytes": 2708772,
+      "sha256": "4591ab90274d6251a19f8291d49d15bf23296e1b4c15482b65dc169478d98e50",
+      "working_path": "/home/john/Code/naro/target/codex-0.1.1-final-review-2026-10-31/downloads/naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz",
+      "preserved_path": "/home/john/Backups/naro/2026-10-31-release-0.1.1/downloads/naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz"
+    }
+  ],
+  "backup_location_note": "Outside target on same filesystem; not off-device"
+}

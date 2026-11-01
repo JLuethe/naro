@@ -1,0 +1,90 @@
+{
+  "fixture": "/tmp/nanospec-work/TEST-NEXT-PACKAGE-fcba4b86eb77/fx",
+  "archive_sha256": "4591ab90274d6251a19f8291d49d15bf23296e1b4c15482b65dc169478d98e50",
+  "binary_sha256": "70ab6932323a6b679e628bdb6cfddead8a6ff50160d741782ae8649664dc5a00",
+  "checks": [
+    {
+      "name": "install-prefix-with-spaces",
+      "pass": true,
+      "detail": "{\"installed\": 138, \"prefix\": \"/tmp/nanospec-work/TEST-NEXT-PACKAGE-fcba4b86eb77/fx/work/Prefix With Spaces\"}\n"
+    },
+    {
+      "name": "installed-hashes",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "symlink-launcher-assets",
+      "pass": true,
+      "detail": {
+        "locale": "de_DE.UTF-8",
+        "command": [
+          "/tmp/nanospec-work/TEST-NEXT-PACKAGE-fcba4b86eb77/fx/work/launcher"
+        ],
+        "status": 0,
+        "stdout": "Hilfe\n",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "installed-native-catalogs-and-syntax",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "source-archive-hashes",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "source-archive-build",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "rebuilt-source-fingerprint",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "rebuilt-features",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "reject-checksum-mismatch",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "reject-traversal",
+      "pass": true,
+      "detail": "unsafe package path: top/../escape\n"
+    },
+    {
+      "name": "reject-absolute",
+      "pass": true,
+      "detail": "unsafe package path: /tmp/nanospec-work/TEST-NEXT-PACKAGE-fcba4b86eb77/fx/work/escape\n"
+    },
+    {
+      "name": "reject-symlink",
+      "pass": true,
+      "detail": "unsupported/duplicate archive entry: top/link\n"
+    },
+    {
+      "name": "reject-destination-symlink",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "uninstall-preserves-conflicts",
+      "pass": true,
+      "detail": "{\"removed\": 137, \"conflicts\": [\"share/doc/naro/README.md\"]}\n"
+    },
+    {
+      "name": "uninstall-owned-only",
+      "pass": true,
+      "detail": null
+    }
+  ]
+}

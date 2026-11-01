@@ -1,0 +1,10 @@
+{
+  "archive": "/home/john/Backups/naro/2026-10-31-release-0.1.1/review-evidence/release-0.1.1-review-and-assets.tar.gz",
+  "sha256": "c6864736cc8475e33144eb8fbb6f899b38299d6068fcb812c3ca46aa95c512ea",
+  "bytes": 45010017,
+  "members_verified": 8051,
+  "files_verified": 7179,
+  "symlinks_verified": 0,
+  "scope": "Independent final review, documentation packaging, offline build and package checks, full closure recomputation, exact seven downloads and publication approval packet",
+  "location": "Outside target on same filesystem; not off-device"
+}

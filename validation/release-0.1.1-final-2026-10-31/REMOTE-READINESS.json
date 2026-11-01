@@ -1,0 +1,28 @@
+{
+  "checked_utc": "2026-11-01T04:47:52.467895+00:00",
+  "tag_query": {
+    "argv": [
+      "git",
+      "ls-remote",
+      "--tags",
+      "origin",
+      "refs/tags/v0.1.1",
+      "refs/tags/v0.1.1^{}"
+    ],
+    "status": 0,
+    "stdout": ""
+  },
+  "release_query": {
+    "argv": [
+      "gh",
+      "release",
+      "view",
+      "v0.1.1",
+      "--json",
+      "tagName,url,isDraft,isPrerelease"
+    ],
+    "status": 1,
+    "stderr": "release not found\n"
+  },
+  "no_publication_performed": true
+}

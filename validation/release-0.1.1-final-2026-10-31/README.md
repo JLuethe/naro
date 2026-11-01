@@ -22,3 +22,18 @@ These are editor/runtime qualification receipts. Documentation repackaging needs
 fresh package checks and a closure recomputation against the selected archives;
 publication remains subject to John's approval. Historical archives and reports
 are preserved. Backups are on the same filesystem, not off-device.
+
+## Final documentation archive check
+
+The refreshed archives passed package 15/15 and a separate fully logged ordinary
+prefix 5/5. Package checks include offline locked source rebuilding; 41 catalogs
+and 44 native asset checks passed. The source archive matches all 1,561 tracked
+files and modes at proposed tag target a6078aed705bc0b605ad7603505767ce2b9bc206.
+The executable remains the frozen Ubuntu 70ab6932…5a00. No editor rebuild occurred.
+FINAL-PACKAGE-COLLECTOR.json passes 69/69; FINAL-PACKAGE-RELEASE-GATE.json passes
+without problems against the selected new archive bytes. CI-TAG-TARGET.json
+records successful CI on that exact proposed tag commit.
+
+The exact seven downloadable assets, approval text and publication procedure are
+in ../../docs/release-v0.1.1-review-2026-10-31/. Their separately verified backup
+receipts are preserved there. The review-delivery commit is not the tag target.
