@@ -6,6 +6,7 @@ export HOME=/work/build-home
 export CARGO_HOME=/work/build-home/.cargo
 export XDG_CONFIG_HOME=/work/build-home/.config
 export CARGO_TARGET_DIR=/work/naro-target/checks
+export CARGO=/opt/rust/bin/cargo
 export RUSTC=/opt/rust/bin/rustc
 export RUSTDOC=/opt/rust/bin/rustdoc
 export CARGO_BUILD_JOBS=1
@@ -139,7 +140,7 @@ run extensions python3 tools/check_extensions.py --default /work/naro/target/rel
 cd /work/package-source
 run package python3 tools/package.py --binary /work/naro/target/release/naro --out /out/package
 version=$(python3 -c 'import tomllib;print(tomllib.load(open("Cargo.toml","rb"))["package"]["version"])')
-run package-check python3 tools/check_package.py --archive "/out/package/naro-$version-x86_64-unknown-linux-gnu.tar.gz" --source-archive "/out/package/naro-$version-source.tar.gz" --out /out/package-check
+run package-check python3 tools/check_package.py --archive "/out/package/naro-$version-x86_64-unknown-linux-gnu.tar.gz" --source-archive "/out/package/naro-$version-source.tar.gz" --probe-locale de_DE.UTF-8 --out /out/package-check
 python3 - <<'PY_FINISH'
 import json,subprocess
 from pathlib import Path

@@ -69,3 +69,17 @@ their modes and writes a source/destination/hash receipt. Wrong inputs and exist
 evidence fail closed. This regression is covered before the final freeze. The
 first complete repaired Ubuntu run remains diagnostic evidence for its own older
 source/tool fingerprint; replacement candidates require their own validation.
+
+## Late-stage package prerequisites
+
+The diagnostic run produced all 32 receipts: 31 passed, package-check failed.
+Cargo was assumed to exist in the private HOME instead of the pinned toolchain,
+and the German symlink probe requested en_US.UTF-8, absent from this LOCPATH.
+The launcher now exports the pinned Cargo path and explicitly selects its valid
+de_DE.UTF-8 locale for that probe. The checker retains the exact Hilfe assertion,
+records its actual locale/stdout/stderr, and rebuilds source offline with --locked.
+No scenario locale or reference observation is changed; the requested-French/C
+fallback case remains covered. The checker is included in the verification
+fingerprint. A fresh pinned-container preflight passes all 15 package checks
+against the unchanged diagnostic archives. Final candidates still need the full
+updated launcher run; these are provisioning fixes, not editor changes.

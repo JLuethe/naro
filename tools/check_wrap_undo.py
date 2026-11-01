@@ -172,7 +172,7 @@ VERIFICATION_FILES = (
     "docs/NARO_IDENTITY_POLICY.md", "tools/validate.py", "tools/validate_parallel.py",
     "tools/collect_closure.py", "tools/check_release_gate.py", "tools/release_gate_evidence.py",
     "tools/check_console_vm.py", "tools/run_closure_host.py", "tests/follow-up/environment.sh",
-    "tools/check_cli.py", "tools/check_branding.py", "tools/check_tiny_ci.py",
+    "tools/check_cli.py", "tools/check_branding.py", "tools/check_tiny_ci.py", "tools/check_package.py",
     "tools/run_closure_ubuntu.py", "tools/closure_ubuntu_inner.sh", "tools/frozen_process.py",
     "tools/prepare_console_vm_fixtures.py", "tools/prepare_console_vm.py",
     "tools/run_console_vm.py", "tools/console_vm.py", "tools/check_closure_regressions.py",

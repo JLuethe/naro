@@ -21,6 +21,8 @@ p.add_argument('--archive', type=Path, required=True)
 p.add_argument('--out', type=Path, required=True)
 p.add_argument('--clean-container', help='rootless image with matching native libraries/locales')
 p.add_argument('--source-archive', type=Path)
+p.add_argument('--probe-locale', default='en_US.UTF-8',
+               help='available UTF-8 locale for the exact German symlink translation probe')
 a = p.parse_args()
 a.out.mkdir(parents=True, exist_ok=False)
 fixture = Path(h.WORKROOT) / ('TEST-NEXT-PACKAGE-' + uuid.uuid4().hex[:12]) / 'fx'
@@ -53,9 +55,11 @@ check('installed-hashes', all(hashlib.sha256((prefix / path).read_bytes()).hexdi
                               for path, info in manifest['files'].items()))
 link = fixture / 'work/launcher'
 link.symlink_to(binary)
-probe = subprocess.run([str(link)], env={**env, 'LANG': 'en_US.UTF-8', 'LC_ALL':'en_US.UTF-8', 'LANGUAGE': 'de',
-                       'NARO_TRANSLATION_PROBE': 'Help'}, stdout=subprocess.PIPE, text=True)
-check('symlink-launcher-assets', probe.returncode == 0 and probe.stdout == 'Hilfe\n')
+probe = subprocess.run([str(link)], env={**env, 'LANG': a.probe_locale, 'LC_ALL':a.probe_locale, 'LANGUAGE': 'de',
+                       'NARO_TRANSLATION_PROBE': 'Help'}, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+check('symlink-launcher-assets', probe.returncode == 0 and probe.stdout == 'Hilfe\n',
+      {'locale':a.probe_locale,'command':[str(link)],'status':probe.returncode,
+       'stdout':probe.stdout,'stderr':probe.stderr})
 assets_out = (a.out / 'assets').resolve()
 result = subprocess.run([sys.executable, str(ROOT / 'tools/check_installed_assets.py'),
                          '--prefix', str(prefix), '--out', str(assets_out)], env=env)
@@ -88,7 +92,7 @@ if a.source_archive:
                  'CARGO_HOME':os.environ.get('CARGO_HOME',str(Path.home()/'.cargo'))}
     cargo = os.environ.get('CARGO', str(Path.home() / '.cargo/bin/cargo'))
     feature_args = ['--features', manifest['compiled_build']['features']] if manifest['compiled_build']['features'] else []
-    result = subprocess.run([cargo, 'build', '--release', '--offline', *feature_args], cwd=source,
+    result = subprocess.run([cargo, 'build', '--release', '--offline', '--locked', *feature_args], cwd=source,
                             env=build_env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     (a.out / 'source-build.log').write_text(result.stdout)
     check('source-archive-build', result.returncode == 0)
