@@ -1,0 +1,10 @@
+{
+  "archive": "/home/john/Backups/naro/2026-10-31-release-0.1.1/publication-evidence/publication-evidence-and-public-downloads.tar.gz",
+  "sha256": "d5a3eb8cd02841f7e0a1796cecea5a875ed2be46893aac689b3cf42383d643cd",
+  "bytes": 14927112,
+  "members_verified": 109,
+  "files_verified": 103,
+  "symlinks_verified": 0,
+  "scope": "Approved v0.1.1 publication, exact seven draft and anonymous downloads, tag/CI/release/API verification, preserved 0.1.0 and final documentation",
+  "location": "Outside target on same filesystem; not off-device"
+}

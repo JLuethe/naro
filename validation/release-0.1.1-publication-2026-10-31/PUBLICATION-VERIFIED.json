@@ -1,0 +1,112 @@
+{
+  "pass": true,
+  "published": true,
+  "tag": "v0.1.1",
+  "tag_target": "a6078aed705bc0b605ad7603505767ce2b9bc206",
+  "release_id": 430373024,
+  "release_url": "https://github.com/JLuethe/naro/releases/tag/v0.1.1",
+  "prerelease": true,
+  "latest": false,
+  "published_at": "2026-11-01T05:02:01Z",
+  "release_body_sha256": "24fa9c7df3096e796e171277b8b4de2f9f6c8b640406e183d76e27de0f56389c",
+  "assets": [
+    {
+      "name": "BUILD-ENVIRONMENT.json",
+      "id": 697375563,
+      "url": "https://github.com/JLuethe/naro/releases/download/v0.1.1/BUILD-ENVIRONMENT.json",
+      "bytes": 19790,
+      "sha256": "5df2c84e52c2e79dea26ce05b300421296ee21f4a8f174c071efd621beac6444",
+      "anonymous_http_status": 200,
+      "verified": true
+    },
+    {
+      "name": "QUALIFICATION.json",
+      "id": 697375566,
+      "url": "https://github.com/JLuethe/naro/releases/download/v0.1.1/QUALIFICATION.json",
+      "bytes": 9825,
+      "sha256": "d49580ec00433ff350d3beb765ee0baa06be3b26087d430875a011211292cb10",
+      "anonymous_http_status": 200,
+      "verified": true
+    },
+    {
+      "name": "RUNTIME-REQUIREMENTS.md",
+      "id": 697375562,
+      "url": "https://github.com/JLuethe/naro/releases/download/v0.1.1/RUNTIME-REQUIREMENTS.md",
+      "bytes": 8489,
+      "sha256": "d72066ae360017b3726c6af22431d9fe81a872c15590c2a2791a00aa432329dc",
+      "anonymous_http_status": 200,
+      "verified": true
+    },
+    {
+      "name": "SHA256SUMS",
+      "id": 697375564,
+      "url": "https://github.com/JLuethe/naro/releases/download/v0.1.1/SHA256SUMS",
+      "bytes": 541,
+      "sha256": "565e2e6a53a9aac4d3aba1a926613c49f928ae0ff7aa03466ffe2354b73a762a",
+      "anonymous_http_status": 200,
+      "verified": true
+    },
+    {
+      "name": "build.json",
+      "id": 697375565,
+      "url": "https://github.com/JLuethe/naro/releases/download/v0.1.1/build.json",
+      "bytes": 215801,
+      "sha256": "ff50e57807aea745446cce228daefb51c5897581bf48997d4d5e0ae76a6e1439",
+      "anonymous_http_status": 200,
+      "verified": true
+    },
+    {
+      "name": "naro-0.1.1-source.tar.gz",
+      "id": 697375575,
+      "url": "https://github.com/JLuethe/naro/releases/download/v0.1.1/naro-0.1.1-source.tar.gz",
+      "bytes": 4747509,
+      "sha256": "122a18bea8942fe88a68e0ac4761d58d195d89af893263a3703f5a13fb46fc16",
+      "anonymous_http_status": 200,
+      "verified": true
+    },
+    {
+      "name": "naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz",
+      "id": 697375576,
+      "url": "https://github.com/JLuethe/naro/releases/download/v0.1.1/naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz",
+      "bytes": 2708772,
+      "sha256": "4591ab90274d6251a19f8291d49d15bf23296e1b4c15482b65dc169478d98e50",
+      "anonymous_http_status": 200,
+      "verified": true
+    }
+  ],
+  "documentation": [
+    {
+      "name": "README.md",
+      "url": "https://raw.githubusercontent.com/JLuethe/naro/v0.1.1/README.md",
+      "sha256": "c164b8573583f1b6b4aebc0f2894eba8dba6ef6a7cf0782423de59e144ec5b67",
+      "anonymous_http_status": 200,
+      "matches_tag": true
+    },
+    {
+      "name": "INSTALL.md",
+      "url": "https://raw.githubusercontent.com/JLuethe/naro/v0.1.1/INSTALL.md",
+      "sha256": "83daa4c42e147ec1e359efa4a06426f16f16fe3c3ea838b07be7b159b849db4e",
+      "anonymous_http_status": 200,
+      "matches_tag": true
+    },
+    {
+      "name": "RELEASE_NOTES.md",
+      "url": "https://raw.githubusercontent.com/JLuethe/naro/v0.1.1/RELEASE_NOTES.md",
+      "sha256": "eeaacd5cdcc52194051f6902b50e9b0912bb94ec4c7a69afda8c0d8359005ffd",
+      "anonymous_http_status": 200,
+      "matches_tag": true
+    },
+    {
+      "name": "SECURITY.md",
+      "url": "https://raw.githubusercontent.com/JLuethe/naro/v0.1.1/SECURITY.md",
+      "sha256": "94115909f86a620a019e8b614a5482a38a3fbbc22ab81ec612b80d2fa757da24",
+      "anonymous_http_status": 200,
+      "matches_tag": true
+    }
+  ],
+  "tag_is_annotated": true,
+  "public_download_checksums_pass": true,
+  "existing_v0_1_0_unchanged": true,
+  "approval": "John Luethe: ok I approve everything and push it to github",
+  "scope": "Published and anonymously downloaded exact approved seven assets; no editor rebuild or community announcement."
+}

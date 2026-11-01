@@ -1,3 +1,8 @@
+> **Published:** [v0.1.1](https://github.com/JLuethe/naro/releases/tag/v0.1.1)
+> is now public and its seven downloads verify. See the
+> [publication result](PUBLICATION_RESULT.md). The review below is the original
+> prepublication approval record.
+
 # NARO 0.1.1 — final publication review, October 31, 2026
 
 **Technical qualification passes. Publication awaits John’s approval.**

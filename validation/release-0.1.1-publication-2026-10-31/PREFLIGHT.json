@@ -1,0 +1,17 @@
+{
+  "pass": true,
+  "approved_by": "John Luethe",
+  "approval_text": "ok I approve everything and push it to github",
+  "tag_target": "a6078aed705bc0b605ad7603505767ce2b9bc206",
+  "release_body_sha256": "24fa9c7df3096e796e171277b8b4de2f9f6c8b640406e183d76e27de0f56389c",
+  "asset_count": 7,
+  "prerelease": true,
+  "production_unchanged": true,
+  "verification_unchanged": true,
+  "tag_target_ci": "success",
+  "review_delivery_ci": "success",
+  "previous_release": "v0.1.0; preserved",
+  "gate_checks": 69,
+  "package_checks": 15,
+  "ordinary_prefix_checks": 5
+}

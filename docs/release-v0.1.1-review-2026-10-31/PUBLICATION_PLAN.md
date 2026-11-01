@@ -1,3 +1,6 @@
+> Executed after John’s approval; see [publication result](PUBLICATION_RESULT.md).
+> The text below is the original approved plan.
+
 # Publication plan — prepared, not executed
 
 Repository: `JLuethe/naro`.

@@ -1,3 +1,7 @@
+> **Published and verified:** [v0.1.1](https://github.com/JLuethe/naro/releases/tag/v0.1.1).
+> See the [publication result](docs/release-v0.1.1-review-2026-10-31/PUBLICATION_RESULT.md).
+> The review below records the approved prepublication state.
+
 # NARO 0.1.1 — ready for publication review
 
 Technical qualification, fresh package checks and the final release gate pass.
