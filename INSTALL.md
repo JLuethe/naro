@@ -1,6 +1,7 @@
 # Installing NARO
 
-[NARO 0.1.0 is available as an experimental prerelease](https://github.com/JLuethe/naro/releases/tag/v0.1.0).
+This source tree is NARO 0.1.1. Download a published version and its matching
+source/checksums from [GitHub Releases](https://github.com/JLuethe/naro/releases).
 The qualified binary uses the default Linux x86_64 GNU/glibc profile.
 Tiny is source-build only for this release.
 
@@ -24,8 +25,8 @@ for the qualified executable identity.
 
 ## Install a verified binary archive
 
-The selected binary archive is `naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz`.
-The matching source archive is `naro-0.1.0-source.tar.gz`. Keep the accompanying
+The selected binary archive is `naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz`.
+The matching source archive is `naro-0.1.1-source.tar.gz`. Keep the accompanying
 `SHA256SUMS`, build records, runtime notes and qualification receipt.
 
 From a directory containing the complete download set:
@@ -38,8 +39,8 @@ Use a new empty directory for unpacking. For example, after verifying the files:
 
 ```sh
 mkdir naro-unpack
-tar -xzf naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz -C naro-unpack
-python3 naro-unpack/naro-0.1.0-x86_64-unknown-linux-gnu/install.py install --archive naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz --prefix "$HOME/.local"
+tar -xzf naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz -C naro-unpack
+python3 naro-unpack/naro-0.1.1-x86_64-unknown-linux-gnu/install.py install --archive naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz --prefix "$HOME/.local"
 "$HOME/.local/bin/naro" example.txt
 ```
 
@@ -77,7 +78,7 @@ PO sources. Configuration is user-managed; the installer does not edit it.
 Keep the unpacked installer and use the same prefix:
 
 ```sh
-python3 naro-unpack/naro-0.1.0-x86_64-unknown-linux-gnu/install.py uninstall --prefix "$HOME/.local"
+python3 naro-unpack/naro-0.1.1-x86_64-unknown-linux-gnu/install.py uninstall --prefix "$HOME/.local"
 ```
 
 Removal deletes only unchanged files owned by `.naro-install.json`. Modified
@@ -94,7 +95,7 @@ files. The candidate was built with rustc 1.99.1; no older compiler minimum is
 claimed here. The package has no Cargo package dependencies.
 
 ```sh
-cd naro-0.1.0-source
+cd naro-0.1.1-source
 cargo build --release --offline --locked
 ./target/release/naro example.txt
 ```

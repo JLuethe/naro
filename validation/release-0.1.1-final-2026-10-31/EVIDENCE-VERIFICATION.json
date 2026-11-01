@@ -1,0 +1,22 @@
+{
+  "verified_utc": "2026-11-01T04:22:57.110155+00:00",
+  "source_manifest_sha256": "2d7e9dac2b00a29cb511013cee1f08bd029685939d50c90d1c6f02099f9fc9d5",
+  "manifest_files": 11589,
+  "exact_source_membership": true,
+  "backup": "/home/john/Backups/naro/2026-10-31-phaseB-attempt03/phaseB-attempt03.tar.gz",
+  "backup_sha256": "daddb40798381e7c510ef2e4dc1e404cd361cffe8a263417df8c620a22e0306a",
+  "backup_bytes": 123983529,
+  "backup_members": 14148,
+  "backup_regular_or_hardlink_files": 11590,
+  "backup_matches_source_bytes_and_modes": true,
+  "archived_cache_files": [
+    "./source/tools/__pycache__/console_vm.cpython-314.pyc",
+    "./source/tools/__pycache__/release_gate_evidence.cpython-314.pyc",
+    "./source/tools/__pycache__/check_console_vm.cpython-314.pyc",
+    "./source/spec/tools/__pycache__/identity_review.cpython-314.pyc",
+    "./source/spec/tools/__pycache__/compare_runs.cpython-314.pyc",
+    "./source/spec/tools/__pycache__/candidate_expectations.cpython-314.pyc",
+    "./source/spec/tools/__pycache__/nanoharness.cpython-314.pyc"
+  ],
+  "source_reports_unchanged": true
+}

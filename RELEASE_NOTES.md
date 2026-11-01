@@ -1,86 +1,62 @@
-# NARO 0.1.0 release notes
+# NARO 0.1.1 release notes
 
-Published as an [experimental GitHub prerelease](https://github.com/JLuethe/naro/releases/tag/v0.1.0) on 2026-10-31.
-All seven public assets were downloaded anonymously and verified against the approved hashes.
+NARO 0.1.1 is the product-identity update to the experimental Linux x86_64 release.
+The editing title, version, usage and help identify NARO. NARO is an independent
+Rust port of GNU nano 9.3, not an official GNU nano release.
 
-NARO is an independent Rust port of GNU nano 9.3. The first release is an
-experimental Linux x86_64 GNU/glibc editor with familiar nano bindings,
-byte-preserving editing, undo/redo, search and regex replacement, multiple
-buffers, nanorc, syntax highlighting, macros and translations.
+## Changes since 0.1.0
 
-## Scope
+- Editing headers show NARO's name and 0.1.1 version, including narrow layouts.
+- CLI version, usage/help and welcome identity use NARO wording.
+- Qualification distinguishes raw equality from the reviewed NARO identity
+  difference. Original GNU observations stay unchanged; complete title layout,
+  filename/state, cell attributes, cursor and non-identity text remain checked.
+- Portable qualification provides exact frozen syntax assets, scoped tmux cleanup,
+  retained executable inputs and explicit package/compiler/locale prerequisites.
 
-The primary download uses the default feature profile and the Ubuntu 24.04
-build. Tiny remains source-build only. Native dependencies include glibc,
-ncursesw and libmagic; this is not a pure-Rust or static executable.
-The supported envelope is the recorded build/runtime environment, not every
-Linux distribution or operating system. See [INSTALL.md](INSTALL.md).
+The inherited save-progress, paste/wrap, navigation, undo/redo, file-safety and
+rcfile fixes from 0.1.0 remain in the tested production source.
 
-The qualified source is `b934b1fcefa74adcf631c39b20ecd133c70edc59`.
-The Ubuntu executable SHA-256 is
-`9af710dbb614423b53425c093a41a95b4733cfd539bfe40047b1bdac0bd7419d`.
-The selected archive names are `naro-0.1.0-x86_64-unknown-linux-gnu.tar.gz` and
-`naro-0.1.0-source.tar.gz`. Use the checksum file accompanying the final approved
-archive set. Documentation repackaging can change archive hashes without changing
-this executable. Use the final qualification receipt and SHA256SUMS distributed
-with the refreshed archives; the step 7 archive hashes identify the older packages.
+## Qualified inputs and results
 
-## Fixes included during candidate testing
+Frozen source revision: `accc766af9ff7e36ec206dea697410e3f8f31674`.
+Production fingerprint: `63936243e73d0a3fb536d3c0a0fb0e6fe57be09da5f5bc0387ee10250b3d7093`.
+Primary Ubuntu executable SHA-256: `70ab6932323a6b679e628bdb6cfddead8a6ff50160d741782ae8649664dc5a00`.
+Use `naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz` and corresponding
+`naro-0.1.1-source.tar.gz`, with their final accompanying SHA256SUMS.
+Documentation repackaging changes archive hashes without rebuilding this executable.
 
-- Regular saves display `Writing...` before writing/syncing; FIFO saves also
-  display `Writing to FIFO...` before blocking open, with translated status and
-  nano-compatible cursor behavior. Backup creation also displays
-  `Making backup...`. Twenty-two progress and ten save-safety regressions cover
-  translated clipping, completion removal, narrow layouts, backup fallback and
-  interruption. Prepend read failures preserve the destination; unreadable backup
-  sources require explicit confirmation before saving.
-- Bracketed paste now follows nano's hard-wrap behavior in the reproduced cases.
-- Soft-wrap vertical movement and page navigation preserve the expected cursor
-  position and viewport behavior.
-- Widening a terminal preserves the expected top logical line.
-- Line-number gutters on continuation rows use the expected attributes.
-- Replace undo/redo restores the expected cursor position.
-- Relative rcfile diagnostics show the expected absolute path.
-- Additional tab-boundary, end-of-file, selection and structural-edit regressions
-  are covered by permanent reference-based tests.
+The full host matrix passed all 46 stages; Ubuntu passed all 32. Each environment
+uses its own nano reference and fresh 303-case observations. Each terminal set
+accepted 26 raw-exact, 275 identity-reviewed and two declared differences, with
+302 file/exit matches and six fixed exclusions. CLI 38, regex 162, safety 2,
+historical suites, all 151 newer regression cases, installed assets and large-file
+checks passed. Both genuine guest VT groups accepted 19 cases, and transport
+passed six checks. The collector passed 69 checks. Independent gate recomputation
+found no problems or unexpected results across 38 accounting sets.
 
-These describe the tested fixes, not a claim that all related combinations have
-been exhaustively verified.
+Package checks cover installation in ordinary/spaced paths, symlink launching,
+41 catalogs, syntax, offline source rebuilding, malformed archives and safe
+uninstall. Corresponding source matches production inputs/features; byte-for-byte
+binary reproducibility is not claimed. Exact receipts are in
+[0.1.1 validation](validation/release-0.1.1-final-2026-10-31/README.md).
 
-## Qualification
+## Known differences and scope
 
-The complete technical gate passed 101/101 checks. Both frozen candidates passed
-the 303-case corpus at the retained 301 full / 302 file-exit expectations,
-151/151 newer exact regressions, 38 CLI and 162 regex checks, and 19/19 genuine
-guest-VT comparisons. Ubuntu used its own nano reference and observations.
+NARO identity is intentional. Other retained declared differences concern
+invalid-regex recovery, rejecting NUL as Yes, two external-tool signal-cleanup
+cases and isolated-root no-home tilde recovery. Six corpus cases are excluded;
+nine audit citations remain unresolved in [COVERAGE_REVIEW.md](COVERAGE_REVIEW.md).
+Optional tiny builds and physical keyboard/operator console certification retain
+their separate scope. Other architectures/OSes, broad fuzzing and a security audit
+are not established by these results. This is a GNU/glibc build with a native C
+bridge, ncursesw and libmagic; see [INSTALL.md](INSTALL.md).
 
-Package checks cover offline source rebuilding, installed hashes, ordinary and
-spaced prefixes, symlink launching, 41 catalogs, syntax, malformed archives and
-safe uninstall. Source rebuilding matches production inputs/features; bit-for-bit
-reproducibility is not claimed. [Validation](validation/README.md) provides exact
-results and evidence identities.
+## Attribution and reports
 
-## Known differences and remaining limits
-
-Existing declared differences are invalid-regex recovery, rejecting NUL as Yes,
-two HUP/TERM external-tool cleanup cases, and isolated-root no-home tilde recovery.
-Six baseline cases are excluded. Nine audit citations remain unresolved as
-explained in [COVERAGE_REVIEW.md](COVERAGE_REVIEW.md).
-
-Physical keyboard trials, other architectures/OSes, broad fuzzing and a security
-audit are not established by this qualification. The guest-VT results use
-emulated PS/2 input. Earlier tiny and sanitizer results retain their original
-artifact scope and are not new binary downloads.
-
-## Reporting and attribution
-
-For ordinary bugs, include build identity, OS, terminal, locale, synthetic input,
-exact keys/commands, expected behavior and observed behavior. Use
-[GitHub issues](https://github.com/JLuethe/naro/issues) or follow
-[SECURITY.md](SECURITY.md) for suspected vulnerabilities.
-
-NARO is separate from GNU nano. GNU nano contributors and the Free Software
-Foundation supplied reference behavior and reused data/assets. See
-[LICENSE](LICENSE), [NOTICE](NOTICE), [CREDITS.md](CREDITS.md) and original file
-headers. John Luethe develops NARO; thank you to OpenAI for their generous
-support. Publication approval remains separate from candidate qualification.
+John Luethe develops NARO. Thank you to OpenAI for their generous support.
+GNU nano contributors and the Free Software Foundation supplied reference behavior
+and reused data/assets. See [LICENSE](LICENSE), [NOTICE](NOTICE) and [CREDITS.md](CREDITS.md).
+Report bugs through [GitHub issues](https://github.com/JLuethe/naro/issues), including
+build identity and a synthetic reproduction; follow [SECURITY.md](SECURITY.md) for
+security reports. Publication and community announcements require separate approval.

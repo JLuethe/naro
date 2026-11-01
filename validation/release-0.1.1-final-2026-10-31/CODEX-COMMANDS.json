@@ -1,0 +1,39 @@
+[
+  {
+    "name": "freeze-before",
+    "argv": [
+      "python3",
+      "-B",
+      "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/verify-freeze.py"
+    ],
+    "started_utc": "2026-11-01T04:22:43.070450+00:00",
+    "finished_utc": "2026-11-01T04:22:50.425352+00:00",
+    "status": 0
+  },
+  {
+    "name": "gate",
+    "argv": [
+      "python3",
+      "-B",
+      "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source/tools/check_release_gate.py",
+      "--reports",
+      "/home/john/Code/naro/target/naro-test-runs/claude-0.1.1-phaseB-2026-10-31-attempt03/closure",
+      "--out",
+      "/home/john/Code/naro/target/codex-0.1.1-final-review-2026-10-31/RELEASE-GATE.json"
+    ],
+    "started_utc": "2026-11-01T04:22:50.425629+00:00",
+    "finished_utc": "2026-11-01T04:25:15.309992+00:00",
+    "status": 0
+  },
+  {
+    "name": "freeze-after",
+    "argv": [
+      "python3",
+      "-B",
+      "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/verify-freeze.py"
+    ],
+    "started_utc": "2026-11-01T04:25:15.310220+00:00",
+    "finished_utc": "2026-11-01T04:25:21.856118+00:00",
+    "status": 0
+  }
+]

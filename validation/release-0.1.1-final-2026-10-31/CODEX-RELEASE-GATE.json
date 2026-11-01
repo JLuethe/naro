@@ -1,0 +1,322 @@
+{
+  "schema": "naro-release-gate/v2",
+  "identity_policy": {
+    "id": "Q-IDENTITY-001",
+    "schema": "naro-identity-review-v1",
+    "version": "0.1.1",
+    "sha256": "54b84a618ae40eef5914a28d5931e896c2eba7305b5bee595d52b7d77074fd96"
+  },
+  "pass": true,
+  "problems": [],
+  "accounting": {
+    "host-terminal": {
+      "recorded": 303,
+      "raw_exact": 26,
+      "identity_reviewed": 275,
+      "declared_deviations": 2,
+      "unexpected": 0,
+      "accepted": 303,
+      "files_matches": 302,
+      "excluded": 6
+    },
+    "host-tools": {
+      "recorded": 20,
+      "raw_exact": 0,
+      "identity_reviewed": 20,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 20
+    },
+    "host-edges": {
+      "recorded": 13,
+      "raw_exact": 0,
+      "identity_reviewed": 13,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 13
+    },
+    "host-environments": {
+      "recorded": 13,
+      "raw_exact": 3,
+      "identity_reviewed": 10,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 13
+    },
+    "host-supplement": {
+      "recorded": 3,
+      "raw_exact": 0,
+      "identity_reviewed": 3,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 3
+    },
+    "host-backup": {
+      "recorded": 1,
+      "raw_exact": 0,
+      "identity_reviewed": 1,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 1
+    },
+    "host-fifo-eof": {
+      "recorded": 1,
+      "raw_exact": 0,
+      "identity_reviewed": 1,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 1
+    },
+    "host-signal-SIGTERM": {
+      "recorded": 1,
+      "raw_exact": 0,
+      "identity_reviewed": 0,
+      "declared_deviations": 1,
+      "unexpected": 0,
+      "accepted": 1
+    },
+    "host-signal-SIGHUP": {
+      "recorded": 1,
+      "raw_exact": 0,
+      "identity_reviewed": 0,
+      "declared_deviations": 1,
+      "unexpected": 0,
+      "accepted": 1
+    },
+    "host-vt-ioctl": {
+      "recorded": 8,
+      "raw_exact": 0,
+      "identity_reviewed": 8,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 8
+    },
+    "host-historical": {
+      "recorded": 53,
+      "raw_exact": 3,
+      "identity_reviewed": 48,
+      "declared_deviations": 2,
+      "unexpected": 0,
+      "accepted": 53
+    },
+    "host-wrap-undo": {
+      "recorded": 58,
+      "raw_exact": 0,
+      "identity_reviewed": 58,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 58
+    },
+    "host-filter": {
+      "recorded": 6,
+      "raw_exact": 0,
+      "identity_reviewed": 6,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 6
+    },
+    "host-release-fixes": {
+      "recorded": 15,
+      "raw_exact": 8,
+      "identity_reviewed": 7,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 15
+    },
+    "host-step3-gaps": {
+      "recorded": 40,
+      "raw_exact": 4,
+      "identity_reviewed": 36,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 40
+    },
+    "host-save-progress": {
+      "recorded": 22,
+      "raw_exact": 9,
+      "identity_reviewed": 13,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 22
+    },
+    "host-save-safety": {
+      "recorded": 10,
+      "raw_exact": 2,
+      "identity_reviewed": 8,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 10
+    },
+    "ubuntu-terminal": {
+      "recorded": 303,
+      "raw_exact": 26,
+      "identity_reviewed": 275,
+      "declared_deviations": 2,
+      "unexpected": 0,
+      "accepted": 303,
+      "files_matches": 302,
+      "excluded": 6
+    },
+    "ubuntu-tools": {
+      "recorded": 20,
+      "raw_exact": 0,
+      "identity_reviewed": 20,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 20
+    },
+    "ubuntu-edges": {
+      "recorded": 13,
+      "raw_exact": 0,
+      "identity_reviewed": 13,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 13
+    },
+    "ubuntu-environments": {
+      "recorded": 13,
+      "raw_exact": 3,
+      "identity_reviewed": 10,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 13
+    },
+    "ubuntu-supplement": {
+      "recorded": 3,
+      "raw_exact": 0,
+      "identity_reviewed": 3,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 3
+    },
+    "ubuntu-backup": {
+      "recorded": 1,
+      "raw_exact": 0,
+      "identity_reviewed": 1,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 1
+    },
+    "ubuntu-fifo-eof": {
+      "recorded": 1,
+      "raw_exact": 0,
+      "identity_reviewed": 1,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 1
+    },
+    "ubuntu-signal-SIGTERM": {
+      "recorded": 1,
+      "raw_exact": 0,
+      "identity_reviewed": 0,
+      "declared_deviations": 1,
+      "unexpected": 0,
+      "accepted": 1
+    },
+    "ubuntu-signal-SIGHUP": {
+      "recorded": 1,
+      "raw_exact": 0,
+      "identity_reviewed": 0,
+      "declared_deviations": 1,
+      "unexpected": 0,
+      "accepted": 1
+    },
+    "ubuntu-vt-ioctl": {
+      "recorded": 8,
+      "raw_exact": 0,
+      "identity_reviewed": 8,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 8
+    },
+    "ubuntu-historical": {
+      "recorded": 53,
+      "raw_exact": 3,
+      "identity_reviewed": 48,
+      "declared_deviations": 2,
+      "unexpected": 0,
+      "accepted": 53
+    },
+    "ubuntu-wrap-undo": {
+      "recorded": 58,
+      "raw_exact": 0,
+      "identity_reviewed": 58,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 58
+    },
+    "ubuntu-filter": {
+      "recorded": 6,
+      "raw_exact": 0,
+      "identity_reviewed": 6,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 6
+    },
+    "ubuntu-release-fixes": {
+      "recorded": 15,
+      "raw_exact": 8,
+      "identity_reviewed": 7,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 15
+    },
+    "ubuntu-step3-gaps": {
+      "recorded": 40,
+      "raw_exact": 4,
+      "identity_reviewed": 36,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 40
+    },
+    "ubuntu-save-progress": {
+      "recorded": 22,
+      "raw_exact": 9,
+      "identity_reviewed": 13,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 22
+    },
+    "ubuntu-save-safety": {
+      "recorded": 10,
+      "raw_exact": 2,
+      "identity_reviewed": 8,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 10
+    },
+    "host-root": {
+      "recorded": 27,
+      "raw_exact": 5,
+      "identity_reviewed": 22,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 27
+    },
+    "host-root-nohome-tilde": {
+      "recorded": 1,
+      "raw_exact": 0,
+      "identity_reviewed": 0,
+      "declared_deviations": 1,
+      "unexpected": 0,
+      "accepted": 1
+    },
+    "host-console": {
+      "recorded": 19,
+      "raw_exact": 1,
+      "identity_reviewed": 18,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 19
+    },
+    "ubuntu-console": {
+      "recorded": 19,
+      "raw_exact": 1,
+      "identity_reviewed": 18,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 19
+    }
+  },
+  "publication": "No tag or release published; separate explicit action."
+}

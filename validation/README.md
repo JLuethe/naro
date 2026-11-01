@@ -1,9 +1,18 @@
 # Validation evidence
 
+## Qualified 0.1.1 candidates
+
+[Final 0.1.1 receipts](release-0.1.1-final-2026-10-31/README.md) identify frozen
+source accc766, the complete 69-check gate and independent recomputation.
+Host 46 stages, Ubuntu 32, both 19-case guest-VT groups and transport 6 passed.
+All 38 accounting sets have zero unexpected differences; raw, identity-reviewed
+and declared results are separate. Documentation repackaging requires matching
+package validation. Publication is a separate approved action.
+
 ## Published 0.1.0 prerelease
 
 The [save-hardening qualification](save-hardening-2026-10-31/README.md) identifies
-the current candidates and complete 101/101 gate. Both environments pass the
+the published 0.1.0 candidates and their complete 101/101 gate. Both environments pass the
 fresh 303-case corpus contract and 151 newer exact regressions, including 22
 progress and 10 save-safety cases. Guest-VT 19/19 each and transport 6/6 pass.
 Ubuntu uses its own pinned reference and fresh observations.

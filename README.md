@@ -5,20 +5,17 @@ experimental terminal editor for Linux, with familiar nano keybindings,
 byte-preserving editing, undo/redo, search and regex replacement, multiple
 buffers, nanorc configuration, syntax highlighting, macros and translations.
 
-[NARO 0.1.0 is published as an experimental prerelease](https://github.com/JLuethe/naro/releases/tag/v0.1.0).
-Technical qualification and independent release review are complete. The primary binary package targets Linux
-x86_64 with GNU/glibc and was built and tested under Ubuntu 24.04/glibc 2.39.
-Other distributions and platforms are not certified by these results.
-
-The development tree is preparing **0.1.1**, which corrects NARO's product
-identity in the title, CLI and help. The qualification results below describe
-the published **0.1.0** artifacts; they do not qualify the new source. See the
-[0.1.1 preparation record](NARO_0.1.1_PREPARATION_2026-10-31.md) for completed work
-and the remaining build and release gates.
+This source tree is version **0.1.1**, the NARO identity update. It uses NARO's
+name and version in the editing title, CLI and help. Technical qualification is
+complete for the frozen host and Ubuntu candidates. Publication is a separate
+step; see [GitHub Releases](https://github.com/JLuethe/naro/releases) for available
+packages. The primary binary profile is Linux x86_64 GNU/glibc, built and tested
+under Ubuntu 24.04/glibc 2.39.
 
 ## Get started
 
-Download the binary archive and matching source from the [v0.1.0 release](https://github.com/JLuethe/naro/releases/tag/v0.1.0).
+Download the binary archive and matching source for your selected version from
+[GitHub Releases](https://github.com/JLuethe/naro/releases).
 Download all seven release files and run `sha256sum -c SHA256SUMS` before installing.
 Read [installation instructions](INSTALL.md) for dependencies, source builds and removal.
 
@@ -44,29 +41,37 @@ example for your selected profile.
 
 ## What has been tested
 
-The qualified production source is `b934b1fcefa74adcf631c39b20ecd133c70edc59`.
-The primary Ubuntu executable's SHA-256 is
-`9af710dbb614423b53425c093a41a95b4733cfd539bfe40047b1bdac0bd7419d`.
-Documentation commits may be newer than the compiled source.
+The qualified executable records source revision
+`accc766af9ff7e36ec206dea697410e3f8f31674`. The primary Ubuntu executable SHA-256 is
+`70ab6932323a6b679e628bdb6cfddead8a6ff50160d741782ae8649664dc5a00`.
+Packaging/documentation commits may be newer while retaining the same production
+fingerprint, verification tools and exact executable.
 
-For both the frozen host and Ubuntu candidates:
+For both frozen host and Ubuntu candidates:
 
-- Terminal corpus: 303 recorded cases, 301 full matches and 302 file/exit
-  matches, with six separately excluded cases.
-- CLI and regex checks: 38 and 162 passed.
-- Historical follow-ups: 53 cases, 51 exact and two declared cleanup differences.
-- Additional regressions: 151/151 exact comparisons.
-- Genuine guest Linux VT: 19/19 exact comparisons using emulated PS/2 input.
+- Terminal corpus: 303 accepted records: 26 raw exact, 275 identity-reviewed and
+  two declared differences; 302 file/exit matches and six fixed exclusions.
+- CLI 38, regex 162 and safety 2 passed.
+- Historical follow-ups: 53 accepted, including two declared signal-cleanup differences.
+- Additional regressions: all 151 cases accepted; raw and identity-reviewed results
+  are counted separately.
+- Genuine guest Linux VT: 19 accepted per candidate, one raw exact and 18
+  identity-reviewed, with emulated PS/2 input.
 
-The complete technical collector passed 101/101 checks. Packaging includes
-corresponding-source rebuilding, installation/removal, all 41 catalogs, syntax
-loading and archive rejection checks. These results are scoped evidence, not
-proof of complete nano compatibility or a security audit.
+The complete collector passed 69/69 checks; the release gate recomputed cleanly
+from raw evidence with zero unexpected differences in all 38 accounting sets.
+NARO's branding is an intentional reviewed difference from GNU nano. Filename,
+state, geometry, attributes, cursor and non-identity text remain checked.
 
-[Current validation index](validation/README.md) identifies the exact inputs,
-reports and limits. [Implementation status](IMPLEMENTATION.md) explains known
-differences and the [coverage review](COVERAGE_REVIEW.md) lists nine unresolved
-specification-to-test citations. Historical reports identify older builds.
+Packaging covers offline corresponding-source rebuilding, installation/removal,
+all 41 catalogs, syntax and malformed-archive rejection. These are scoped test
+results; complete nano parity and a security audit are not established.
+
+[0.1.1 qualification receipts](validation/release-0.1.1-final-2026-10-31/README.md)
+identify the exact inputs and evidence. [Implementation status](IMPLEMENTATION.md)
+explains known differences; the [coverage review](COVERAGE_REVIEW.md) retains nine
+unresolved specification-to-test citations. Historical reports keep their original
+artifact scope.
 
 ## Scope and dependencies
 
@@ -77,7 +82,7 @@ binary. The GNU nano executable is a testing reference, not a runtime dependency
 External spelling, formatting, linting and command execution need suitable
 programs installed and configured separately. They are not included in the
 binary archive. See [optional tools and profiles](INSTALL.md#optional-tools-and-profiles).
-Tiny is an optional source-build profile; no tiny binary is selected for 0.1.0.
+Tiny is an optional source-build profile; no tiny binary is selected for 0.1.1.
 Physical keyboard trials and other architectures/operating systems remain outside
 this release's qualification scope.
 
@@ -96,6 +101,6 @@ data, syntax definitions and translations. The project is GPL-3.0-or-later;
 reused material and native dependencies retain their original terms and notices.
 See [LICENSE](LICENSE), [NOTICE](NOTICE), [CREDITS.md](CREDITS.md) and file headers.
 
-The [release notes](RELEASE_NOTES.md) describe the 0.1.0 candidate. The
+The [release notes](RELEASE_NOTES.md) describe the 0.1.1 update. The
 [release checklist](RELEASE_CHECKLIST.md) distinguishes completed technical
 qualification from remaining publication gates.

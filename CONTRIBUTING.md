@@ -53,7 +53,7 @@ Keep qualified executables unchanged when repackaging only documentation, and
 record documentation revisions separately from compiled source identity.
 
 Use [INSTALL.md](INSTALL.md) for source builds and packaging. Default and tiny
-have different scope; the primary 0.1.0 binary is default only. Never distribute
+have different scope; the primary 0.1.1 binary is default only. Never distribute
 test-hooks instrumentation. Testing, committing or packaging does not authorize
 release publication or replacement of the system editor.
 

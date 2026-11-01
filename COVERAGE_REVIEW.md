@@ -1,5 +1,9 @@
 # Coverage review for the 0.1.0 candidate
 
+The nine citation gaps below remain retained for 0.1.1. The original
+0.1.0 audit and its historical counts are preserved here; current qualification
+is in [the validation index](validation/README.md).
+
 Reviewed October 31, 2026. Production source: `b934b1f`.
 
 The complete technical gate passed 101/101 checks for the named candidate.

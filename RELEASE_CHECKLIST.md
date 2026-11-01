@@ -1,4 +1,8 @@
-# NARO 0.1.0 release scope and acceptance checklist
+# Historical NARO 0.1.0 release scope and acceptance checklist
+
+For the 0.1.1 technical qualification, see
+[the current receipts](validation/release-0.1.1-final-2026-10-31/README.md).
+This completed 0.1.0 publication checklist keeps its original artifact scope.
 
 Scope adopted October 30, 2026 (America/Los_Angeles), implementing steps 1 and 2
 of the [release-readiness plan](NARO_RELEASE_READINESS_PLAN_2026-10-30.md).
