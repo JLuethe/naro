@@ -1,0 +1,19 @@
+{
+  "artifacts": {
+    "naro-0.1.1-source.tar.gz": {
+      "path": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/ubuntu-full-attempt02/package/naro-0.1.1-source.tar.gz",
+      "sha256": "3641d8e5ac75ac62a48d9374c0eb807857d7a27df45bb6f3ca4b2e30a439e3f5",
+      "bytes": 4727519
+    },
+    "naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz": {
+      "path": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/ubuntu-full-attempt02/package/naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz",
+      "sha256": "a452863b8a5f75a110640cd947fad13ae75b85dcb4c99638aede6f5adf7f9d52",
+      "bytes": 2708803
+    }
+  },
+  "catalogs": 41,
+  "asset_checks": 44,
+  "all_assets_pass": true,
+  "build_json_sha256": "bc03c96c86dbaf359334f590ad2cbf6a131f781d26983e38e21e5707d47c2869",
+  "notes": "Candidate files only. Final host/VT/transport/closure gate not completed."
+}

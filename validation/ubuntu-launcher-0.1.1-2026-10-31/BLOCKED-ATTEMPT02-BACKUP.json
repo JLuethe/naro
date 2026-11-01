@@ -1,0 +1,10 @@
+{
+  "archive": "/home/john/Backups/naro/2026-10-31-phaseB-attempt02-blocked/blocked-phaseB-attempt02.tar.gz",
+  "sha256": "93fe887be9b70ca71e321414f29ecfd5ed343cb10503b6e23b90f57dd4432317",
+  "bytes": 153622727,
+  "members_verified": 18631,
+  "files_verified": 14543,
+  "symlinks_verified": 0,
+  "scope": "Unchanged stopped Phase B attempt02, host complete and Ubuntu failed",
+  "location": "Outside target on same filesystem; not off-device"
+}

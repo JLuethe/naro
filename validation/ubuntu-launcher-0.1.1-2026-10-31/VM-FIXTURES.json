@@ -1,0 +1,149 @@
+{
+  "schema": 1,
+  "state": "prepared_not_booted",
+  "unix_socket_paths": [
+    {
+      "path": "/tmp/nv011-uf04/nanospec-work/TEST-VT-VM-011-HOST/fx/qmp.sock",
+      "path_bytes": 61,
+      "limit_bytes": 107
+    },
+    {
+      "path": "/tmp/nv011-uf04/nanospec-work/TEST-VT-VM-011-HOST/fx/control.sock",
+      "path_bytes": 65,
+      "limit_bytes": 107
+    },
+    {
+      "path": "/tmp/nv011-uf04/nanospec-work/TEST-VT-VM-011-UBUNTU/fx/qmp.sock",
+      "path_bytes": 63,
+      "limit_bytes": 107
+    },
+    {
+      "path": "/tmp/nv011-uf04/nanospec-work/TEST-VT-VM-011-UBUNTU/fx/control.sock",
+      "path_bytes": 67,
+      "limit_bytes": 107
+    }
+  ],
+  "source_commit": "accc766af9ff7e36ec206dea697410e3f8f31674",
+  "source_tree": "ba92e90e9c2e2c0dcaa59389334da26e013130a9",
+  "production_source_sha256": "63936243e73d0a3fb536d3c0a0fb0e6fe57be09da5f5bc0387ee10250b3d7093",
+  "verification_sha256": "4563417b7c8039cce9ac6a687eeced081304f19a00ff8f8f5a78526b7b1a2b83",
+  "ubuntu_builder_image": {
+    "id": "093817959dc26bb88c4f8df915372db75dee73f9356eb94f2ba428ea04fe9735",
+    "digest": "sha256:7434f9d20c1d41cfd2d5ecd98ed8228b424910d51be7640a06262ccd3650c3ee",
+    "os": "linux",
+    "architecture": "amd64"
+  },
+  "input_hashes": {
+    "host_binary": "ab37d9fa240297a5390da858757909e9c3996314ec59cba4545c5b096b29c647",
+    "ubuntu_binary": "70ab6932323a6b679e628bdb6cfddead8a6ff50160d741782ae8649664dc5a00",
+    "reference": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+    "root_reference": "fe02ea07dc9a1e0afa009ef97dc034728995e39c65b75455985b0cf980fa3def",
+    "kernel": "664cd32dbd6c33272724208a393c3bf86a7b193ccddc1af24c3408976b5e2aaa"
+  },
+  "candidate_builds": {
+    "host": {
+      "version": "0.1.1",
+      "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+      "source_sha256": "63936243e73d0a3fb536d3c0a0fb0e6fe57be09da5f5bc0387ee10250b3d7093",
+      "revision": "accc766af9ff7e36ec206dea697410e3f8f31674",
+      "features": "",
+      "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+    },
+    "ubuntu": {
+      "version": "0.1.1",
+      "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+      "source_sha256": "63936243e73d0a3fb536d3c0a0fb0e6fe57be09da5f5bc0387ee10250b3d7093",
+      "revision": "accc766af9ff7e36ec206dea697410e3f8f31674",
+      "features": "",
+      "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+    }
+  },
+  "reference_version": " GNU nano, version 9.3\n (C) 2026 the Free Software Foundation and various contributors\n Compiled options: --enable-utf8\n",
+  "validated_reference_version": "GNU nano, version 9.3",
+  "expected_hashes": {
+    "host_binary": "ab37d9fa240297a5390da858757909e9c3996314ec59cba4545c5b096b29c647",
+    "ubuntu_binary": "70ab6932323a6b679e628bdb6cfddead8a6ff50160d741782ae8649664dc5a00",
+    "reference": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+    "root_reference": "fe02ea07dc9a1e0afa009ef97dc034728995e39c65b75455985b0cf980fa3def"
+  },
+  "kernel_path": "/home/john/Code/naro/target/step6-console-2026-10-30/vm-inputs/vmlinuz",
+  "exported_root": {
+    "path": "/home/john/Code/naro/target/step6-console-2026-10-30/runtime-root",
+    "sha256_inventory": "cfd29c0061264a50385d963c809ec42cb335fc42c2c48acf1fb2f7ef03130697",
+    "files": 10679,
+    "symlinks": 976
+  },
+  "runtime_archive": {
+    "path": "/home/john/Code/naro/target/step6-console-2026-10-30/runtime.tar",
+    "archive_sha256": "8740ac786051cc2d2985aa9c1b2f372896fc91a815fcde5f8ba0dcaff2563f39",
+    "archive_regular_and_hardlink_files": 10679,
+    "archive_symlinks": 976,
+    "verified_file_entries": 10679,
+    "verified_symlink_entries": 976,
+    "file_differences": 0,
+    "symlink_differences": 0
+  },
+  "vm_environment_manifest": {
+    "path": "/home/john/Code/naro/target/step6-console-2026-10-30/base-vm-provenance.json",
+    "sha256": "c80c50e6ee0191ffb3c9b50fc72dfd2f1a27e9b556088f9a46cded473a220c1d"
+  },
+  "fixtures": {
+    "host": {
+      "fixture": "/tmp/nv011-uf04/nanospec-work/TEST-VT-VM-011-HOST/fx",
+      "inputs": {
+        "vmlinuz": "664cd32dbd6c33272724208a393c3bf86a7b193ccddc1af24c3408976b5e2aaa",
+        "initrd.cpio.gz": "1537d2c452879171e8b4667640e56aa5832e0af974feba199cd9fddcb2e2dc17",
+        "nano": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+        "naro-host": "ab37d9fa240297a5390da858757909e9c3996314ec59cba4545c5b096b29c647"
+      },
+      "command": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source/tools/prepare_console_vm.py",
+        "--exported-root",
+        "/home/john/Code/naro/target/step6-console-2026-10-30/runtime-root",
+        "--fixture",
+        "/tmp/nv011-uf04/nanospec-work/TEST-VT-VM-011-HOST/fx",
+        "--kernel",
+        "/tmp/nv011-uf04/fixture-inputs/vmlinuz",
+        "--reference",
+        "/tmp/nv011-uf04/fixture-inputs/nano",
+        "--binary",
+        "/tmp/nv011-uf04/fixture-inputs/naro-host"
+      ],
+      "builder_status": 0,
+      "controller_hashes": {
+        "init": "cbc0b9fee3e0219dee05410d3d3882cfcbca47e6cca326c430a6baf381fa5436",
+        "upload_py": "d396bd2c3532ae77fdcae5f39b9a6fc62f9af8881feafb8e290e08dcbf34c91d"
+      }
+    },
+    "ubuntu": {
+      "fixture": "/tmp/nv011-uf04/nanospec-work/TEST-VT-VM-011-UBUNTU/fx",
+      "inputs": {
+        "vmlinuz": "664cd32dbd6c33272724208a393c3bf86a7b193ccddc1af24c3408976b5e2aaa",
+        "initrd.cpio.gz": "15aa7a21ba139b732aa12435405ce1d3953789864cdd976eac043905e2299369",
+        "nano": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+        "naro-ubuntu": "70ab6932323a6b679e628bdb6cfddead8a6ff50160d741782ae8649664dc5a00"
+      },
+      "command": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source/tools/prepare_console_vm.py",
+        "--exported-root",
+        "/home/john/Code/naro/target/step6-console-2026-10-30/runtime-root",
+        "--fixture",
+        "/tmp/nv011-uf04/nanospec-work/TEST-VT-VM-011-UBUNTU/fx",
+        "--kernel",
+        "/tmp/nv011-uf04/fixture-inputs/vmlinuz",
+        "--reference",
+        "/tmp/nv011-uf04/fixture-inputs/nano",
+        "--binary",
+        "/tmp/nv011-uf04/fixture-inputs/naro-ubuntu"
+      ],
+      "builder_status": 0,
+      "controller_hashes": {
+        "init": "cbc0b9fee3e0219dee05410d3d3882cfcbca47e6cca326c430a6baf381fa5436",
+        "upload_py": "d396bd2c3532ae77fdcae5f39b9a6fc62f9af8881feafb8e290e08dcbf34c91d"
+      }
+    }
+  },
+  "next_step": "review identity-aware VM checker and fixture provenance before any QEMU launch"
+}

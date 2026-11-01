@@ -1,0 +1,301 @@
+{
+  "passed": true,
+  "scope": "Focused host readiness only; no full qualification",
+  "freeze_unchanged": true,
+  "owned_tmux_clean": true,
+  "freeze": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04",
+  "host_sha256": "ab37d9fa240297a5390da858757909e9c3996314ec59cba4545c5b096b29c647",
+  "reference_sha256": "b4fe2cb30a931c3d058ee68d9d60acec6db1ff87f6a50baaa0972affb629a3b2",
+  "commands": [
+    {
+      "label": "verify-freeze-before",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/verify-freeze.py"
+      ],
+      "cwd": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-410om2o8",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-11-01T01:39:25.493601+00:00",
+      "end_utc": "2026-11-01T01:39:30.832274+00:00",
+      "duration_seconds": 5.338668989992584,
+      "exit_status": 0,
+      "stdout_sha256": "81eb2843203523fd3018d4b239ddc68fb2c955d7f6f5070eadc505c9de62d097",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "environments",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source/tools/check_follow_up.py",
+        "--suite",
+        "environments",
+        "--binary",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/host/naro",
+        "--reference",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/references/host/nano",
+        "--out",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/final-readiness-host-v2/execution/environments"
+      ],
+      "cwd": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-410om2o8",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-11-01T01:39:30.832499+00:00",
+      "end_utc": "2026-11-01T01:40:04.785747+00:00",
+      "duration_seconds": 33.95325146299729,
+      "exit_status": 0,
+      "stdout_sha256": "f9736ea1b7f6c04d690b4ac479600d07290a8ed6af078bdac2161fff068c454c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "environment-negative-controls",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/final-readiness-host-v2/environment-negatives.py",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/final-readiness-host-v2/execution/environments",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/final-readiness-host-v2/execution/ENVIRONMENT-NEGATIVES.json"
+      ],
+      "cwd": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-410om2o8",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-11-01T01:40:05.852958+00:00",
+      "end_utc": "2026-11-01T01:40:06.185334+00:00",
+      "duration_seconds": 0.3323735790036153,
+      "exit_status": 0,
+      "stdout_sha256": "05fea26c55a52243e9f66784b71a07914fb033607a4a498780a266305595e5bf",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "branding",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source/tools/check_branding.py",
+        "--binary",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/final-readiness-host-v2/execution/branding"
+      ],
+      "cwd": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-410om2o8",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-11-01T01:40:06.185534+00:00",
+      "end_utc": "2026-11-01T01:40:06.241691+00:00",
+      "duration_seconds": 0.05616293699131347,
+      "exit_status": 0,
+      "stdout_sha256": "b0a33e328b14c3d238d6c70f66e33fa9dd439748ccebc0d8f3534d1cddff2a93",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "cli",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source/tools/check_cli.py",
+        "--binary",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/final-readiness-host-v2/execution/cli"
+      ],
+      "cwd": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-410om2o8",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-11-01T01:40:06.241948+00:00",
+      "end_utc": "2026-11-01T01:40:15.596393+00:00",
+      "duration_seconds": 9.354449796010158,
+      "exit_status": 0,
+      "stdout_sha256": "77fba1939d97cb138eb317f487a79c4af67d69157dabfb24aaaa81e47453a0db",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "identity-layout",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source/spec/tools/nanoharness.py",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source/tests/naro/identity-layout.json",
+        "--candidate-expectations",
+        "--binary",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/final-readiness-host-v2/execution/identity-layout"
+      ],
+      "cwd": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-410om2o8",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-11-01T01:40:15.596720+00:00",
+      "end_utc": "2026-11-01T01:40:29.897700+00:00",
+      "duration_seconds": 14.300983794993954,
+      "exit_status": 0,
+      "stdout_sha256": "10bf64527fae1ebb325c99949b3145e8caaef1f6ce02e77e3290cdf39c408063",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "t1-paired",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source/tools/check_follow_up.py",
+        "--suite",
+        "step3-gaps",
+        "--ids",
+        "TEST-STEP3-EOF-LF-LIVE",
+        "--binary",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/host/naro",
+        "--reference",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/references/host/nano",
+        "--out",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/final-readiness-host-v2/execution/t1-paired"
+      ],
+      "cwd": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-410om2o8",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-11-01T01:40:29.901125+00:00",
+      "end_utc": "2026-11-01T01:40:33.390745+00:00",
+      "duration_seconds": 3.489609428012045,
+      "exit_status": 0,
+      "stdout_sha256": "c9a14e4aed49b1806f7827cb34a11377926351b8176329f964a33851e0813689",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "t3-fresh-reference",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source/tools/replay_reference.py",
+        "--scenarios",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/final-readiness-host-v2/execution/t3-scenarios.json",
+        "--binary",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/references/host/nano",
+        "--out",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/final-readiness-host-v2/execution/reference",
+        "--jobs",
+        "1"
+      ],
+      "cwd": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-410om2o8",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-11-01T01:40:33.757793+00:00",
+      "end_utc": "2026-11-01T01:40:37.471835+00:00",
+      "duration_seconds": 3.714019527003984,
+      "exit_status": 0,
+      "stdout_sha256": "fe419b09a2068321335b2c645291c848172fa077a41e9f7a41b44f4ad2ba81bd",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "t3-validator",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source/tools/validate.py",
+        "--binary",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/final-readiness-host-v2/execution/t3-candidate",
+        "--ids",
+        "TEST-SMOKE-001",
+        "TEST-EDIT-001"
+      ],
+      "cwd": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-410om2o8",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "NARO_REFERENCE_RUNS": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/final-readiness-host-v2/execution/reference"
+      },
+      "start_utc": "2026-11-01T01:40:37.472166+00:00",
+      "end_utc": "2026-11-01T01:40:41.464837+00:00",
+      "duration_seconds": 3.9926645300001837,
+      "exit_status": 0,
+      "stdout_sha256": "c133b2bfb97de998bc570f434ceb96777dcf358e49e2d1da2281b8e713a475d9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "feat015-reference",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source/spec/tools/nanoharness.py",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/final-readiness-host-v2/execution/file-position-scenarios.json",
+        "--binary",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/references/host/nano",
+        "--out",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/final-readiness-host-v2/execution/feat015-reference"
+      ],
+      "cwd": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-410om2o8",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-11-01T01:40:41.648752+00:00",
+      "end_utc": "2026-11-01T01:40:42.609346+00:00",
+      "duration_seconds": 0.960587729990948,
+      "exit_status": 0,
+      "stdout_sha256": "10036c35dda5f447a4a21ec2c444080dbe0cdc61489fe08465cda7c58d373270",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "feat015-candidate",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source/spec/tools/nanoharness.py",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/final-readiness-host-v2/execution/file-position-scenarios.json",
+        "--binary",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/host/naro",
+        "--out",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/final-readiness-host-v2/execution/feat015-candidate"
+      ],
+      "cwd": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-410om2o8",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-11-01T01:40:42.609711+00:00",
+      "end_utc": "2026-11-01T01:40:43.576527+00:00",
+      "duration_seconds": 0.9668192630051635,
+      "exit_status": 0,
+      "stdout_sha256": "10036c35dda5f447a4a21ec2c444080dbe0cdc61489fe08465cda7c58d373270",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "verify-freeze-after",
+      "argv": [
+        "/usr/bin/python3",
+        "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/verify-freeze.py"
+      ],
+      "cwd": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source",
+      "env": {
+        "NANOSPEC_WORK": "/tmp/nanospec-work",
+        "TMUX_TMPDIR": "/tmp/nhf-410om2o8",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "start_utc": "2026-11-01T01:40:43.577012+00:00",
+      "end_utc": "2026-11-01T01:40:47.317385+00:00",
+      "duration_seconds": 3.7403773740079487,
+      "exit_status": 0,
+      "stdout_sha256": "81eb2843203523fd3018d4b239ddc68fb2c955d7f6f5070eadc505c9de62d097",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "private_tmux_directory": "/tmp/nhf-410om2o8"
+}

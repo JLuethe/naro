@@ -1,0 +1,10 @@
+{
+  "archive": "/home/john/Backups/naro/2026-10-31-ubuntu-launcher-0.1.1/ubuntu-launcher-freeze-and-evidence.tar.gz",
+  "sha256": "313dc95c7f54284f4151a57caeddf68c2d1337c7ea57f4596709a69f60fee8a0",
+  "bytes": 1058620121,
+  "members_verified": 68795,
+  "files_verified": 61243,
+  "symlinks_verified": 634,
+  "scope": "Ubuntu launcher repair, final freeze, focused host, complete Ubuntu and all retained evidence",
+  "location": "Outside target on same filesystem; not off-device"
+}

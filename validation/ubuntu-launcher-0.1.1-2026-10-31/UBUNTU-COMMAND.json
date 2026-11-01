@@ -1,0 +1,33 @@
+{
+  "scope": "Complete Ubuntu launcher run for repaired tooling and new frozen candidate; independent Claude review still required",
+  "argv": [
+    "python3",
+    "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source/tools/run_closure_ubuntu.py",
+    "--source-dir",
+    "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source",
+    "--binary",
+    "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/ubuntu/naro",
+    "--reference",
+    "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/ubuntu/reference.bin",
+    "--reference-install",
+    "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/ubuntu/reference-install",
+    "--root-reference",
+    "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/references/host-root/nano",
+    "--freeze-manifest",
+    "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/freeze.json",
+    "--out",
+    "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/ubuntu-full-attempt02",
+    "--timeout",
+    "43200"
+  ],
+  "source_commit": "accc766af9ff7e36ec206dea697410e3f8f31674",
+  "candidate_sha256": "70ab6932323a6b679e628bdb6cfddead8a6ff50160d741782ae8649664dc5a00",
+  "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+  "freeze_manifest_sha256": "70cab79381ab59a07dbd7a62d7bda5072c1c5127591c1d7463f280ab74e7efbb",
+  "driver_pid": 1096784,
+  "started_utc": "2026-11-01T01:41:40.432553+00:00",
+  "state": "complete",
+  "launcher_pid": 1096785,
+  "launcher_exit": 0,
+  "finished_utc": "2026-11-01T02:01:38.528031+00:00"
+}

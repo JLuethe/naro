@@ -1,0 +1,204 @@
+{
+  "passed": true,
+  "scope": "Independent raw evidence reopening of complete Ubuntu launcher, not full host/VT/transport/closure qualification",
+  "checked_utc": "2026-11-01T02:04:17.524466+00:00",
+  "source_commit": "accc766af9ff7e36ec206dea697410e3f8f31674",
+  "candidate_sha256": "70ab6932323a6b679e628bdb6cfddead8a6ff50160d741782ae8649664dc5a00",
+  "reference_sha256": "6540492f810998a20a4dba4ac8048cd8b76d37a39e642f14f9f9c3d30c621ba7",
+  "verification_sha256": "4563417b7c8039cce9ac6a687eeced081304f19a00ff8f8f5a78526b7b1a2b83",
+  "stage_statuses": {
+    "branding": "0",
+    "cli": "0",
+    "closure-filter": "0",
+    "closure-regressions": "0",
+    "closure-release-fixes": "0",
+    "closure-save-progress": "0",
+    "closure-save-safety": "0",
+    "closure-step3-gaps": "0",
+    "closure-wrap-undo": "0",
+    "credits-build": "0",
+    "extensions": "0",
+    "extras": "0",
+    "followup-backup": "0",
+    "followup-edges": "0",
+    "followup-environments": "0",
+    "followup-fifo-eof": "0",
+    "followup-signal-SIGHUP": "0",
+    "followup-signal-SIGTERM": "0",
+    "followup-supplement": "0",
+    "followup-tools": "0",
+    "identity-expectations-unit": "0",
+    "identity-layout": "0",
+    "large": "0",
+    "package": "0",
+    "package-check": "0",
+    "panic": "0",
+    "panic-hooks-build": "0",
+    "reference-replay": "0",
+    "rust-default": "0",
+    "terminal": "0",
+    "tmux-cleanup": "0",
+    "vt-ioctl": "0"
+  },
+  "counts": {
+    "corpus": {
+      "recorded": 303,
+      "raw_exact": 26,
+      "identity_reviewed": 275,
+      "declared_deviations": 2,
+      "unexpected": 0,
+      "accepted": 303,
+      "files_matches": 302,
+      "excluded": 6
+    },
+    "tools": {
+      "recorded": 20,
+      "raw_exact": 0,
+      "identity_reviewed": 20,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 20
+    },
+    "edges": {
+      "recorded": 13,
+      "raw_exact": 0,
+      "identity_reviewed": 13,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 13
+    },
+    "environments": {
+      "recorded": 13,
+      "raw_exact": 3,
+      "identity_reviewed": 10,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 13
+    },
+    "supplement": {
+      "recorded": 3,
+      "raw_exact": 0,
+      "identity_reviewed": 3,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 3
+    },
+    "backup": {
+      "recorded": 1,
+      "raw_exact": 0,
+      "identity_reviewed": 1,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 1
+    },
+    "fifo-eof": {
+      "recorded": 1,
+      "raw_exact": 0,
+      "identity_reviewed": 1,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 1
+    },
+    "signal-SIGTERM": {
+      "recorded": 1,
+      "raw_exact": 0,
+      "identity_reviewed": 0,
+      "declared_deviations": 1,
+      "unexpected": 0,
+      "accepted": 1
+    },
+    "signal-SIGHUP": {
+      "recorded": 1,
+      "raw_exact": 0,
+      "identity_reviewed": 0,
+      "declared_deviations": 1,
+      "unexpected": 0,
+      "accepted": 1
+    },
+    "vt-ioctl": {
+      "recorded": 8,
+      "raw_exact": 0,
+      "identity_reviewed": 8,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 8
+    },
+    "wrap-undo": {
+      "recorded": 58,
+      "raw_matches": 0,
+      "identity_reviewed": 58,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 58,
+      "matches": 0
+    },
+    "filter": {
+      "recorded": 6,
+      "raw_matches": 0,
+      "identity_reviewed": 6,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 6,
+      "matches": 0
+    },
+    "release-fixes": {
+      "recorded": 15,
+      "raw_matches": 8,
+      "identity_reviewed": 7,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 15,
+      "matches": 8
+    },
+    "step3-gaps": {
+      "recorded": 40,
+      "raw_matches": 4,
+      "identity_reviewed": 36,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 40,
+      "matches": 4
+    },
+    "save-progress": {
+      "recorded": 22,
+      "raw_matches": 9,
+      "identity_reviewed": 13,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 22,
+      "matches": 9
+    },
+    "save-safety": {
+      "recorded": 10,
+      "raw_matches": 2,
+      "identity_reviewed": 8,
+      "declared_deviations": 0,
+      "unexpected": 0,
+      "accepted": 10,
+      "matches": 2
+    }
+  },
+  "problems": {
+    "corpus": [],
+    "tools": [],
+    "edges": [],
+    "environments": [],
+    "supplement": [],
+    "backup": [],
+    "fifo-eof": [],
+    "signal-SIGTERM": [],
+    "signal-SIGHUP": [],
+    "vt-ioctl": [],
+    "wrap-undo": [],
+    "filter": [],
+    "release-fixes": [],
+    "step3-gaps": [],
+    "save-progress": [],
+    "save-safety": []
+  },
+  "cli_reopened": 38,
+  "readonly_frozen_syntax_files": 44,
+  "package_checks": 15,
+  "archived_binary_matches": true,
+  "tmux_cleanup": true
+}

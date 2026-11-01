@@ -83,3 +83,10 @@ fallback case remains covered. The checker is included in the verification
 fingerprint. A fresh pinned-container preflight passes all 15 package checks
 against the unchanged diagnostic archives. Final candidates still need the full
 updated launcher run; these are provisioning fixes, not editor changes.
+
+## Completion receipt
+
+The final complete tooling source is accc766. Its freeze, focused host readiness,
+full Ubuntu 32/32 run, raw reopening, CI and backup receipts are described in
+[NARO_0.1.1_UBUNTU_LAUNCHER_HANDOFF_2026-10-31.md](NARO_0.1.1_UBUNTU_LAUNCHER_HANDOFF_2026-10-31.md).
+Full final-host, guest VT, transport and complete closure remain Claude's work.

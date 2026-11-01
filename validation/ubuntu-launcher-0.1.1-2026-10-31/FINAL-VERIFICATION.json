@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "python3",
+    "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/verify-freeze.py"
+  ],
+  "started_utc": "2026-11-01T02:05:52.190465+00:00",
+  "finished_utc": "2026-11-01T02:05:57.768042+00:00",
+  "freeze_verify_exit": 0,
+  "owned_container": "b271ada3e2ed4707364fb2a8c4f175bf2b17d57f4a89e68472d7e693fff4535b",
+  "container_query_exit": 0,
+  "container_query_stdout": "",
+  "container_query_stderr": "",
+  "owned_container_absent": true,
+  "guest_fixtures": "prepared_unbooted"
+}

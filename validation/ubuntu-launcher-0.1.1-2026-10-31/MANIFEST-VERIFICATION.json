@@ -1,0 +1,21 @@
+{
+  "verified_utc": "2026-11-01T02:12:38.819957+00:00",
+  "manifests": [
+    {
+      "manifest": "final-readiness-host-v2/execution/SHA256SUMS",
+      "sha256": "690a98f51a682205d164ea23cbeafaee1297555e50d87ef8135b88a6b6ea3620",
+      "regular_files_verified": 290,
+      "exact_membership": true
+    },
+    {
+      "manifest": "final-vm-fixtures-v2/SHA256SUMS",
+      "sha256": "893474ed77402ae1a1400b562df4d03cd480aa4e4722be887991386e11349052",
+      "regular_files_verified": 2825,
+      "exact_membership": true
+    }
+  ],
+  "original_attempt02_unchanged": true,
+  "original_attempt02_members": 18631,
+  "original_attempt02_files": 14543,
+  "backup_inventory_sha256": "53837806a5ddf155ce698c111501ec2d284f2e6126140eecf1f3a75dd0b7d88a"
+}

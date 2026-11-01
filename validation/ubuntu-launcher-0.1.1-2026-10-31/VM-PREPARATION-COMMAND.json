@@ -1,0 +1,32 @@
+{
+  "argv": [
+    "python3",
+    "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source/tools/prepare_console_vm_fixtures.py",
+    "--source-dir",
+    "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/source",
+    "--freeze-manifest",
+    "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/freeze.json",
+    "--exported-root",
+    "/home/john/Code/naro/target/step6-console-2026-10-30/runtime-root",
+    "--runtime-archive",
+    "/home/john/Code/naro/target/step6-console-2026-10-30/runtime.tar",
+    "--vm-environment-manifest",
+    "/home/john/Code/naro/target/step6-console-2026-10-30/base-vm-provenance.json",
+    "--kernel",
+    "/home/john/Code/naro/target/step6-console-2026-10-30/vm-inputs/vmlinuz",
+    "--reference",
+    "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/ubuntu/reference.bin",
+    "--root-reference",
+    "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/references/host-root/nano",
+    "--host-binary",
+    "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/host/naro",
+    "--ubuntu-binary",
+    "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/freeze-attempt04/ubuntu/naro",
+    "--out",
+    "/tmp/nv011-uf04"
+  ],
+  "start_epoch": 1793497347.492711,
+  "end_epoch": 1793497354.1281738,
+  "status": 0,
+  "booted": false
+}

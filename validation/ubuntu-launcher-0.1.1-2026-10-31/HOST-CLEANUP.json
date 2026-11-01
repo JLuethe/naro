@@ -1,0 +1,12 @@
+{
+  "raw_evidence": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/HOST-FINAL-POSTRUN-CLEANUP.json",
+  "raw_evidence_sha256": "fa3441adb0b47ade94803bf4fb5407ac43d175ec5359d1e060c4ed5f19530f83",
+  "owned_directory": "/tmp/nhf-410om2o8",
+  "records": 93,
+  "all_cleanup_ok": true,
+  "client_exit_status_counts": {
+    "1": 93
+  },
+  "owned_directory_removed": true,
+  "note": "Full client/probe/mode evidence is retained in the verified complete archive; dead-client exits remain recorded independently of cleanup success."
+}

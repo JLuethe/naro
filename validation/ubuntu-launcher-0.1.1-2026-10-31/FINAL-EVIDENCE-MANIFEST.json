@@ -1,0 +1,9 @@
+{
+  "manifest": "/home/john/Code/naro/target/ubuntu-launcher-repair-0.1.1-2026-10-31/FINAL-EVIDENCE-SHA256SUMS",
+  "sha256": "5214dceb2a2904c93bf1efc0219c917300b46b61b973add854bf31aeac74b2e0",
+  "regular_files": 61242,
+  "scope": "Complete final repair work; modes, symlink targets and full member inventory additionally verified by archive helper",
+  "independently_verified_against_stream_checked_archive": true,
+  "exact_regular_file_membership": true,
+  "regular_files_verified": 61242
+}
