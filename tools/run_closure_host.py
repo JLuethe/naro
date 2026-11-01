@@ -166,7 +166,7 @@ def main() -> int:
                                     timeout=args.timeout, tmux_tmpdir=tmux_tmpdir)
         status = int(outcome["status"])
         leftover = [item for item in outcome["owned_tmux_cleanup"]
-                    if item.get("socket") and item.get("socket_removed") is False]
+                    if item.get("cleanup_ok") is False or item.get("socket_removed") is False]
         if leftover and status == 0:
             status = 125
             outcome["cleanup_failure"] = leftover
@@ -282,7 +282,7 @@ def main() -> int:
                                            log_path=out / "tmux-final-cleanup.log", timeout=10,
                                            tmux_tmpdir=tmux_tmpdir)
     report["tmux_final_cleanup"] = final_tmux_cleanup
-    if final_tmux_cleanup["status"] != 0 or any(item.get("socket_removed") is False for item in final_tmux_cleanup["owned_tmux_cleanup"]):
+    if final_tmux_cleanup["status"] != 0 or any(item.get("cleanup_ok") is False or item.get("socket_removed") is False for item in final_tmux_cleanup["owned_tmux_cleanup"]):
         report["state"] = "failed"
         report["active"] = None
         save()

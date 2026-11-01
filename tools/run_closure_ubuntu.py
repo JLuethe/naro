@@ -20,6 +20,8 @@ from pathlib import Path
 sys.dont_write_bytecode = True
 from frozen_process import run_owned_process
 
+HISTORICAL_SYNTAX_PATH = "/home/john/src/nano-install/default/share/nano"
+
 
 def sha256(path: Path) -> str:
     h = hashlib.sha256()
@@ -55,6 +57,22 @@ def tree_inventory(root: Path) -> tuple[set[str], dict[str, str]]:
             elif path.is_file():
                 files.add(rel)
     return files, symlinks
+
+
+def syntax_install_record(source: Path, manifest: dict) -> dict:
+    """Bind historical absolute includes to this freeze's read-only syntax assets."""
+    syntax = source / "assets/syntax"
+    if syntax.is_symlink() or not syntax.is_dir():
+        raise ValueError("frozen syntax assets must be a real directory")
+    files, symlinks = tree_inventory(syntax)
+    prefix = "source/assets/syntax/"
+    expected = {name.removeprefix(prefix): digest for name, digest in manifest["files"].items()
+                if name.startswith(prefix)}
+    actual = {name: sha256(syntax / name) for name in files}
+    if not expected or symlinks or actual != expected:
+        raise ValueError("syntax installation differs from frozen asset inventory")
+    return {"source_path": str(syntax), "container_path": HISTORICAL_SYNTAX_PATH,
+            "read_only": True, "file_hashes": actual}
 
 
 def cleanup_container(container_name: str, cidfile: Path, owner_token: str) -> tuple[str | None, list[dict[str, object]]]:
@@ -161,6 +179,7 @@ def main() -> int:
     actual_install_hashes = {path: sha256(reference_install / path) for path in install_files}
     if actual_install_hashes != expected_install_files or install_symlinks != expected_install_symlinks:
         parser.error("Ubuntu nano installation tree differs from freeze manifest")
+    syntax_install = syntax_install_record(source, manifest)
 
     image = manifest["ubuntu_image"]
     image_text = subprocess.check_output([
@@ -193,6 +212,7 @@ def main() -> int:
         "-v", f"{source}:/project:ro",
         "-v", f"{binary}:/frozen/naro:ro",
         "-v", f"{reference_install}:/reference-built:ro",
+        "-v", f"{syntax_install['source_path']}:{syntax_install['container_path']}:ro",
         "-v", f"{root_reference}:/root-reference.bin:ro",
         "-v", f"{toolchain_path}:/opt/rust:ro",
         "-v", f"{inner}:/qualification.sh:ro",
@@ -219,6 +239,7 @@ def main() -> int:
         "container_cidfile": str(cidfile),
         "reference_install_file_count": len(install_files),
         "reference_install_symlink_count": len(install_symlinks),
+        "syntax_install": syntax_install,
         "ubuntu_image": image,
         "toolchain": toolchain,
         "command": command,

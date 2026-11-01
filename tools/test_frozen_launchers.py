@@ -5,6 +5,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import hashlib
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -15,9 +16,33 @@ from run_closure_host import (CANONICAL_NANOSPEC_WORK,
                              required_identity_review_stages)  # noqa: E402
 import collect_closure  # noqa: E402
 from collect_closure import REQUIRED_HOST_STAGES  # noqa: E402
+from run_closure_ubuntu import HISTORICAL_SYNTAX_PATH, syntax_install_record  # noqa: E402
 
 
 class FrozenLauncherPreflightTests(unittest.TestCase):
+    def test_historical_syntax_mount_is_bound_to_exact_frozen_assets(self):
+        with tempfile.TemporaryDirectory(prefix="naro-syntax-install-") as temp:
+            source = Path(temp)
+            assets = source / "assets/syntax"
+            assets.mkdir(parents=True)
+            (assets / "c.nanorc").write_text('syntax c "\\.c$"\n')
+            expected = {"source/assets/syntax/c.nanorc": hashlib.sha256((assets / "c.nanorc").read_bytes()).hexdigest()}
+            manifest = {"files": expected}
+            record = syntax_install_record(source, manifest)
+            self.assertEqual(record["container_path"], HISTORICAL_SYNTAX_PATH)
+            self.assertEqual(record["source_path"], str(assets))
+            self.assertTrue(record["read_only"])
+            for mutation in ("changed", "extra", "missing", "symlink"):
+                with self.subTest(mutation=mutation):
+                    (assets / "c.nanorc").write_text('syntax c "\\.c$"\n')
+                    if mutation == "changed": (assets / "c.nanorc").write_text("wrong\n")
+                    if mutation == "extra": (assets / "extra.nanorc").write_text("unexpected\n")
+                    if mutation == "missing": (assets / "c.nanorc").unlink()
+                    if mutation == "symlink": (assets / "external.nanorc").symlink_to(source / "outside")
+                    with self.assertRaises(ValueError): syntax_install_record(source, manifest)
+                    for name in ("extra.nanorc", "external.nanorc"):
+                        (assets / name).unlink(missing_ok=True)
+
     def run_command(self, command):
         env = os.environ.copy()
         env["PYTHONDONTWRITEBYTECODE"] = "1"

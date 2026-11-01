@@ -17,17 +17,10 @@ export TMUX_TMPDIR=/work/tmux-sockets
 mkdir -p "$HOME" "$XDG_CONFIG_HOME" "$NANOSPEC_WORK" /work/naro /work/reference /work/package-source
 mkdir -p "$TMUX_TMPDIR"; chmod 700 "$TMUX_TMPDIR"
 cleanup_tmux_owned() {
-  local original_status=$? socket_dir="$TMUX_TMPDIR/tmux-$(id -u)" status=0 socket
+  local original_status=$? status=0
   mkdir -p /out
-  : > /out/tmux-cleanup.log
-  if [[ -d "$socket_dir" && ! -L "$socket_dir" ]]; then
-    for socket in "$socket_dir"/*; do
-      [[ -S "$socket" ]] || continue
-      tmux -S "$socket" kill-server >> /out/tmux-cleanup.log 2>&1 || status=1
-    done
-    sleep 0.1
-    for socket in "$socket_dir"/*; do [[ ! -S "$socket" ]] || status=1; done
-  fi
+  python3 /project/tools/frozen_process.py --cleanup-tmux "$TMUX_TMPDIR" \
+    --out /out/tmux-cleanup.json > /out/tmux-cleanup.log 2>&1 || status=$?
   echo "$status" > /out/tmux-cleanup.status
   trap - EXIT
   [[ "$status" == 0 ]] || exit 125
@@ -81,7 +74,14 @@ for folder in ('spec/evidence/scenarios','tests/follow-up/scenarios'):
    file_hashes.append({'file':path.as_posix(),'before_sha256':hashlib.sha256(raw).hexdigest(),'after_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'changed_cases':changes})
 Path('/out/source-adaptations.json').write_text(json.dumps({'source_commit':commit,'changes':adaptations,'file_hashes':file_hashes},indent=2)+'\n')
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+syntax=Path('/home/john/src/nano-install/default/share/nano')
+syntax_hashes={p.relative_to(syntax).as_posix():sha(p) for p in syntax.rglob('*') if p.is_file()}
+bundled=copy/'assets/syntax'
+assert syntax_hashes and syntax_hashes=={p.relative_to(bundled).as_posix():sha(p) for p in bundled.rglob('*') if p.is_file()},'historical syntax path is not the frozen asset tree'
+mounts=[line for line in Path('/proc/self/mountinfo').read_text().splitlines() if line.split()[4]==str(syntax)]
+assert len(mounts)==1 and 'ro' in mounts[0].split()[5].split(','),mounts
 record={'source_commit':commit,'source_status_before_adaptation':status,'source_fingerprint':source_fingerprint(copy),'verification_fingerprint':verification_fingerprint(),'candidate_build_info':candidate_info,'candidate_sha256':sha('/work/naro/target/release/naro'),'reference_sha256':sha('/work/reference/bin/nano'),'root_reference_sha256':sha('/root-reference.bin'),'reference_version':subprocess.check_output(['/work/reference/bin/nano','--version'],text=True),'locale_inventory':subprocess.check_output(['locale','-a'],text=True),'locpath':os.environ.get('LOCPATH'),'nanospec_work':os.environ.get('NANOSPEC_WORK')}
+record['syntax_install']={'container_path':str(syntax),'read_only':True,'mountinfo':mounts[0],'file_hashes':syntax_hashes}
 Path('/out/runtime-inputs.json').write_text(json.dumps(record,indent=2)+'\n')
 cases=[]
 for path in sorted(Path('spec/evidence/scenarios').glob('*.json')):
@@ -106,6 +106,7 @@ run() {
 run rust-default env CARGO_TARGET_DIR=/work/naro-target/rust-default cargo test --offline --locked
 run identity-expectations-unit python3 spec/tools/test_candidate_expectations.py
 run branding python3 tools/check_branding.py --binary /work/naro/target/release/naro --out /out/branding
+run cli python3 tools/check_cli.py --binary /work/naro/target/release/naro --out /out/cli
 run identity-layout python3 spec/tools/nanoharness.py tests/naro/identity-layout.json --candidate-expectations --binary /work/naro/target/release/naro --out /out/identity-layout
 
 run reference-replay python3 tools/replay_reference.py --scenarios /out/reference-cases.json --binary /work/reference/bin/nano --out /out/reference
@@ -119,7 +120,6 @@ done
 run closure-regressions python3 tools/check_closure_regressions.py --base /out --binary /work/naro/target/release/naro --reference /work/reference/bin/nano
 run vt-ioctl python3 tools/check_follow_up.py --suite vt-ioctl --binary /work/naro/target/release/naro --reference /work/reference/bin/nano --out /out/vt-ioctl
 run extras python3 tools/check_environment_extras.py --binary /work/naro/target/release/naro --reference /work/reference/bin/nano --out /out/extras
-run cli python3 tools/check_cli.py --binary /work/naro/target/release/naro --out /out/cli
 run large python3 tools/check_large_files.py --binary /work/naro/target/release/naro --out /out/large
 run panic-hooks-build env CARGO_TARGET_DIR=/work/naro-target/hooks cargo build --features test-hooks --offline --locked
 run panic python3 spec/tools/nanoharness.py tests/follow-up/scenarios/panic.json --candidate-expectations --binary /work/naro-target/hooks/debug/naro --out /out/panic

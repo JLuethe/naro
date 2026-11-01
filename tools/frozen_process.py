@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import os
+import argparse
+import json
 import signal
 import shutil
 import subprocess
@@ -63,27 +65,36 @@ def cleanup_owned_tmux(tmux_tmpdir: Path, timeout: float = 5.0) -> list[dict[str
         raise RuntimeError(f"refusing unsafe tmux ownership directory: {socket_dir}")
     results = []
     for socket in sorted(socket_dir.iterdir()):
+        if socket.is_symlink():
+            results.append({"socket": str(socket), "status": "symlink-preserved", "cleanup_ok": False})
+            continue
         if not socket.is_socket():
-            results.append({"socket": str(socket), "status": "not-a-socket-preserved"})
+            results.append({"socket": str(socket), "status": "not-a-socket-preserved", "cleanup_ok": True})
             continue
         command = ["tmux", "-S", str(socket), "kill-server"]
         proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                 start_new_session=True)
+        timed_out = False
         try:
             stdout, stderr = proc.communicate(timeout=timeout)
             status = proc.returncode
             stop = {"term_sent": False, "kill_sent": False, "reaped": True}
         except subprocess.TimeoutExpired:
+            timed_out = True
             stop = _stop_process(proc)
             stdout, stderr = proc.communicate()
             status = proc.returncode
         stale_socket_removed = False
+        probes = []
         if socket.is_socket():
             deadline = time.monotonic() + min(timeout, 1.0)
             while socket.is_socket():
                 probe = subprocess.run(["tmux", "-S", str(socket), "list-sessions"],
                                        stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=timeout)
-                if probe.returncode != 0 and b"no server running on " in probe.stderr:
+                probes.append({"status": probe.returncode,
+                               "stdout": probe.stdout.decode("utf-8", "replace"),
+                               "stderr": probe.stderr.decode("utf-8", "replace")})
+                if probe.returncode == 1 and probe.stderr.strip() == os.fsencode(f"no server running on {socket}"):
                     socket.unlink()
                     stale_socket_removed = True
                     break
@@ -99,8 +110,28 @@ def cleanup_owned_tmux(tmux_tmpdir: Path, timeout: float = 5.0) -> list[dict[str
             "client_cleanup": stop,
             "socket_removed": not socket.exists(),
             "stale_socket_removed": stale_socket_removed,
+            "probes": probes,
+            "timed_out": timed_out,
+            "cleanup_ok": (not timed_out and not socket.exists()
+                           and (status == 0 or (status == 1 and stderr.strip()
+                                == os.fsencode(f"no server running on {socket}")))),
         })
     return results
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Clean only a qualification run's private tmux socket directory.")
+    parser.add_argument("--cleanup-tmux", type=Path, required=True)
+    parser.add_argument("--out", type=Path, required=True)
+    args = parser.parse_args()
+    try:
+        results = cleanup_owned_tmux(args.cleanup_tmux)
+        report = {"results": results, "passed": all(row["cleanup_ok"] for row in results)}
+    except Exception as error:
+        report = {"results": [], "passed": False, "error": f"{type(error).__name__}: {error}"}
+    args.out.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(report, sort_keys=True))
+    return int(not report["passed"])
 
 
 def run_owned_process(command: list[str], *, cwd: Path, env: dict[str, str],
@@ -133,3 +164,7 @@ def run_owned_process(command: list[str], *, cwd: Path, env: dict[str, str],
         "process_group_cleanup": stop,
         "owned_tmux_cleanup": cleanup,
     }
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
