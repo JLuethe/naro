@@ -42,6 +42,33 @@ class Accounting(unittest.TestCase):
         self.assertFalse(result['accepted'])
         self.assertEqual(result['classification'], 'infrastructure_failure')
 
+    def test_equal_noop_history_is_rejected(self):
+        self.case = {'id': 'TEST-FEAT-015'}
+        r = {**self.record, 'scenario': self.case['id']}
+        result = self.inspect(r, r)
+        self.assertFalse(result['accepted'])
+        self.assertTrue(result['coverage_problems']['reference'])
+        self.assertTrue(result['coverage_problems']['candidate'])
+
+    def test_private_history_input_relocation(self):
+        case = next(c for c in d.inventory('default')[0]['baseline'] if c['id'] == 'TEST-FEAT-015')
+        old = copy.deepcopy(case)
+        adapted = d.private_case(case, Path('/tmp/owned-m15'))
+        value = adapted['files']['home/.local/share/nano/filepos_history']['text']
+        self.assertIn('/tmp/owned-m15/TEST-FEAT-015/fx/work/f.txt 40 2', value)
+        self.assertEqual(case, old)
+        broken = copy.deepcopy(case)
+        broken['files']['home/.local/share/nano/filepos_history']['text'] = 'changed'
+        with self.assertRaises(ValueError):
+            d.private_case(broken, Path('/tmp/owned-m15'))
+
+    def test_locale_warning_is_not_success_even_with_zero_status(self):
+        outcome = type('Outcome', (), {'returncode': 0, 'stdout': 'ANSI_X3.4-1968\n', 'stderr': 'Cannot set locale'})()
+        d.locale_probe.cache_clear()
+        with patch.object(d.subprocess, 'run', return_value=outcome):
+            self.assertFalse(d.case_locale({'lang': 'missing.UTF-8'})['available'])
+        d.locale_probe.cache_clear()
+
     def test_profile_inventory(self):
         default, excluded = d.inventory('default')
         tiny, _ = d.inventory('tiny')

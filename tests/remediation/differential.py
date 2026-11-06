@@ -6,8 +6,10 @@ those need separately reviewed semantic assertions and remain visible failures h
 """
 from __future__ import annotations
 import argparse
+import copy
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import hashlib
+from functools import lru_cache
 import json
 import os
 from pathlib import Path
@@ -22,6 +24,7 @@ from candidate_expectations import candidate_case
 from environment import snapshot, command
 from frozen_process import make_private_tmux_tmpdir, remove_private_tmux_tmpdir, run_owned_process
 from identity_review import classify, policy_identity
+from release_gate_evidence import corpus_coverage_problems, recording_problems
 
 PIN = '6ed285c3ec7a1d228def4d4e7021c6ba269f620c'
 
@@ -36,7 +39,7 @@ def write(path, value):
 
 def verification_inputs():
     paths = list((ROOT / 'spec/tools').glob('*.py')) + list((ROOT / 'tests/remediation').glob('*.py')) + list((ROOT / 'tests/naro').glob('*.json'))
-    paths += [ROOT / 'tools/frozen_process.py', ROOT / 'tools/environment.py', ROOT / 'Cargo.toml']
+    paths += [ROOT / 'tools/frozen_process.py', ROOT / 'tools/environment.py', ROOT / 'tools/release_gate_evidence.py', ROOT / 'Cargo.toml']
     return {str(p.relative_to(ROOT)): digest(p) for p in sorted(paths)}
 
 
@@ -86,6 +89,45 @@ def inventory(profile):
         if len(ids) != len(set(ids)):
             raise ValueError('duplicate IDs: ' + name)
     return groups, excluded
+
+
+@lru_cache(maxsize=None)
+def locale_probe(environment_json):
+    env = json.loads(environment_json)
+    outcome = subprocess.run(['/usr/bin/locale', 'charmap'], env=env, text=True, capture_output=True, timeout=10)
+    # Some locale implementations return zero while warning that setlocale
+    # failed; stderr is therefore part of the prerequisite result.
+    return {'environment': env, 'status': outcome.returncode, 'charmap': outcome.stdout.strip(),
+            'stderr': outcome.stderr, 'available': outcome.returncode == 0 and not outcome.stderr}
+
+
+def case_locale(case):
+    env = {'PATH': '/usr/bin:/bin', 'LANG': case.get('lang', 'en_US.UTF-8')}
+    if case.get('locpath'):
+        env['LOCPATH'] = case['locpath']
+    for key, value in case.get('env', {}).items():
+        if key in ('LANG', 'LANGUAGE', 'LOCPATH') or key.startswith('LC_'):
+            if value is None:
+                env.pop(key, None)
+            else:
+                env[key] = value
+    return locale_probe(json.dumps(env, sort_keys=True))
+
+
+def private_case(case, scratch):
+    """Relocate only the known seeded position-history fixture, fail closed.
+
+    This is an input substitution, recorded separately from unchanged source
+    scenarios; it never rewrites observations or broadens normalization.
+    """
+    selected = copy.deepcopy(case)
+    if case['id'] == 'TEST-FEAT-015':
+        entry = selected['files']['home/.local/share/nano/filepos_history']
+        old = '/elsewhere 3 1\n41 42 /tmp/nanospec-work/TEST-FEAT-015/fx/work/f.txt 40 2\n'
+        if entry.get('text') != old:
+            raise ValueError('position-history fixture changed; review adaptation')
+        entry['text'] = old.replace('/tmp/nanospec-work/TEST-FEAT-015/fx/work/f.txt', str(scratch / 'TEST-FEAT-015/fx/work/f.txt'))
+    return selected
 
 
 def safe_save_observations(candidate, case):
@@ -138,8 +180,9 @@ def inspect_pair(reference, candidate, case, hashes, profile):
     # scenarios or their hash-bound candidate expectation overlays.
     context = {**case, 'profile': 'tiny'} if profile == 'tiny' and any(x in ('--version', '-V') for x in case.get('args', [])) else case
     result = classify(reference, candidate, case['id'], context)
-    result['reference_checks'] = bool(reference.get('steps_ok')) and all(c.get('pass') is True for c in reference.get('checks', []))
-    result['candidate_checks'] = bool(candidate.get('steps_ok')) and all(c.get('pass') is True for c in candidate.get('checks', []))
+    result['coverage_problems'] = {side: corpus_coverage_problems(recording, case['id']) for side, recording in [('reference', reference), ('candidate', candidate)]}
+    result['reference_checks'] = not result['coverage_problems']['reference'] and bool(reference.get('steps_ok')) and all(c.get('pass') is True for c in reference.get('checks', []))
+    result['candidate_checks'] = not result['coverage_problems']['candidate'] and bool(candidate.get('steps_ok')) and all(c.get('pass') is True for c in candidate.get('checks', []))
     result['assertion_counts'] = {k: len(v.get('checks', [])) for k, v in [('reference', reference), ('candidate', candidate)]}
     if not result['reference_checks']:
         result.update(accepted=False, classification='reference_failure')
@@ -158,16 +201,19 @@ def run_group(name, cases, args, binaries):
     report = {'name': name, 'expected_ids': [c['id'] for c in cases], 'scratch': str(scratch), 'results': {}}
     reference_key = 'root_reference' if name.startswith('root') else 'reference'
     selected_binaries = {'reference': binaries.get(reference_key), 'candidate': binaries['candidate']}
-    if selected_binaries['reference'] is None:
-        report['results'] = {c['id']: {'accepted': False, 'classification': 'missing_prerequisite', 'error': 'root reference binary required'} for c in cases}
+    missing_prerequisite = 'root reference binary required' if selected_binaries['reference'] is None else 'bubblewrap namespace backend unavailable' if any('root_namespace' in c for c in cases) and shutil.which('bwrap') is None else None
+    if missing_prerequisite:
+        report['results'] = {c['id']: {'accepted': False, 'classification': 'missing_prerequisite', 'recordings_present': False, 'error': missing_prerequisite} for c in cases}
         write(out / 'report.json', report)
         remove_private_tmux_tmpdir(tmux, owner)
         return report
     hashes = {k: digest(v) for k, v in selected_binaries.items()}
     report['binary_sha256'] = hashes
+    report['locale_prerequisites'] = {c['id']: case_locale(c) for c in cases}
+    report['input_adaptations'] = [{'id': c['id'], 'field': 'files.home/.local/share/nano/filepos_history.text', 'before': c['files']['home/.local/share/nano/filepos_history']['text'], 'after': private_case(c, scratch)['files']['home/.local/share/nano/filepos_history']['text']} for c in cases if c['id'] == 'TEST-FEAT-015']
     try:
         for side, binary in selected_binaries.items():
-            selected = [candidate_case(c) for c in cases] if side == 'candidate' else cases
+            selected = [private_case(candidate_case(c) if side == 'candidate' else c, scratch) for c in cases]
             scenario = out / (side + '-scenarios.json')
             write(scenario, selected)
             env = {**os.environ, 'NANOSPEC_WORK': str(scratch), 'TMUX_TMPDIR': str(tmux), 'PYTHONDONTWRITEBYTECODE': '1'}
@@ -179,10 +225,20 @@ def run_group(name, cases, args, binaries):
                 path = out / side / case['id'] / 'result.json'
                 recordings[side] = json.loads(path.read_text()) if path.is_file() else None
             result = inspect_pair(**recordings, case=case, hashes=hashes, profile=args.profile)
+            result['recordings_present'] = all(record is not None for record in recordings.values())
+            result['recording_problems'] = {side: recording_problems(recording, private_case(case, scratch), side, hashes[side], out / side / case['id']) for side, recording in recordings.items() if recording is not None}
+            if any(result['recording_problems'].values()):
+                if result['accepted']:
+                    result['differential_classification'] = result['classification']
+                    result['classification'] = 'invalid_evidence'
+                result['accepted'] = False
             if recordings['candidate'] is not None:
                 semantic = safe_save_observations(recordings['candidate'], case)
                 if semantic is not None:
                     result['safe_save_semantics'] = semantic
+            if not report['locale_prerequisites'][case['id']]['available']:
+                result['differential_classification'] = result['classification']
+                result.update(accepted=False, classification='missing_prerequisite', missing_prerequisite='requested locale unavailable')
             report['results'][case['id']] = result
         if any(digest(v) != hashes[k] for k, v in selected_binaries.items()):
             report['infrastructure_error'] = 'binary changed during execution'
@@ -243,7 +299,7 @@ def main():
             print(name, len(report['groups'][name]['results']), 'passed=' + str(report['groups'][name].get('passed', False)), flush=True)
             write(a.out / 'report.json', report)
     results = [r for g in report['groups'].values() for r in g['results'].values()]
-    report['summary'] = {'expected': sum(map(len, report['inventory'].values())), 'recorded': len(results), 'accepted': sum(r['accepted'] for r in results), 'classifications': {k: sum(r['classification'] == k for r in results) for k in sorted({r['classification'] for r in results})}}
+    report['summary'] = {'expected': sum(map(len, report['inventory'].values())), 'accounted': len(results), 'recorded': sum(bool(r.get('recordings_present')) for r in results), 'accepted': sum(r['accepted'] for r in results), 'classifications': {k: sum(r['classification'] == k for r in results) for k in sorted({r['classification'] for r in results})}}
     report['verification_unchanged'] = report['verification_inputs'] == verification_inputs() and report['identity_policy'] == policy_identity()
     report['passed'] = report['verification_unchanged'] and len(results) == report['summary']['expected'] and bool(results) and all(g.get('passed', False) for g in report['groups'].values())
     write(a.out / 'report.json', report)

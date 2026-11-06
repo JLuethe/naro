@@ -40,3 +40,25 @@ Separate runners exercise the 81-case regex corpus in C and en_US.UTF-8 against
 a fresh environment-local libc oracle (`tests/remediation/regex.py`), and the
 32 issue-3 semantic save-progress/save-safety terminal scenarios
 (`tests/remediation/safe_save_semantics.py`). Neither reuses historical verdicts.
+
+The integrated review found that the seeded position-history scenario embeds a
+canonical work pathname. The runner now substitutes only that exact seeded
+pathname in its private input copy, records the before/after input, and requires
+the established `(1, 11)` cursor on line `l40` in both observations. The original
+scenario and normalization stay unchanged. Every recording is also reopened to
+check scenario hashes, complete steps and inputs, assertions and raw trace hashes.
+Eight accounting tests and a fresh focused history pair pass.
+
+Requested locales are prerequisites: a locale command that warns and falls back
+to ASCII cannot count as success even when its process returns zero. The host's
+historical private LOCPATH lacks `en_US.UTF-8` for two follow-up scenarios; these
+will be reported as missing prerequisites. Ubuntu preparation includes that
+locale in its own directory. The existing Ubuntu image lacks bubblewrap, so its
+28 root-namespace scenarios are unavailable rather than passing. Summary counts
+separate accounted cases from pairs that were actually recorded.
+
+The first host attempt was interrupted at the parent's request for a separate
+configuration fix. Its raw directories and `matrix-interruption.json` are kept;
+those incomplete artifacts are not final qualification. Ubuntu reference prep
+also preserves two failed attempts (missing auxiliary-script paths, then missing
+documentation generator) before successful executable-only lib/src builds.

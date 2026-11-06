@@ -268,6 +268,7 @@ def main() -> int:
        "--candidate-expectations", "--binary", work / "variants/hooks/debug/naro", "--out", out / "panic")
     py("extensions", "tools/check_extensions.py", "--default", candidate,
        "--credits", work / "variants/credits/release/naro", "--panic-runs", out / "panic",
+       "--panic-binary", work / "variants/hooks/debug/naro",
        "--out", out / "extensions")
     py("large", "tools/check_large_files.py", "--binary", candidate, "--out", out / "large")
     py("package", "tools/package.py", "--binary", candidate, "--out", out / "package")

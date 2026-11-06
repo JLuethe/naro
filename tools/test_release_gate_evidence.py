@@ -135,7 +135,7 @@ class GateEvidenceTests(unittest.TestCase):
             hd=binary(inputs['host']/'naro',b'host');ud=binary(inputs['ubuntu']/'naro',b'ubuntu')
             hr=binary(inputs['host']/'reference.bin',b'host nano');ur=binary(inputs['ubuntu']/'reference.bin',b'ubuntu nano')
             rr=binary(inputs['host']/'root-reference.bin',b'root nano')
-            build={'source_sha256':'source','features':'','version':'0.1.1'}
+            build={'source_sha256':'source','features':'','version':policy_identity()['version']}
             write(inputs['host']/'checkpoint.json',{'state':'complete','active':None,'binary_sha256':hd,'reference_sha256':hr,'root_reference_sha256':rr,'build':build,'verification_sha256':collector.verification_fingerprint(),'checks':{key:{'status':0}for key in collector.REQUIRED_HOST_STAGES}})
             write(inputs['package']/'build.json',{'binary_sha256':ud,'compiled_build':build,'reference_commit':collector.REF})
             (inputs['package']/'SHA256SUMS').write_text('checksums')

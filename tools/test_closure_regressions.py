@@ -161,7 +161,7 @@ class ClosureRegressionsTest(unittest.TestCase):
         host, ubuntu = self.root / 'host', self.root / 'ubuntu'
         self.make_bundle(host)
         self.make_bundle(ubuntu)
-        build = {'source_sha256': self.source, 'features': '', 'version': '0.1.1'}
+        build = {'source_sha256': self.source, 'features': '', 'version': collector.policy_identity()['version']}
         historical = ['tools','edges','environments','supplement','backup','fifo-eof','signal-SIGTERM','signal-SIGHUP','vt-ioctl','root','root-nohome-tilde']
         checkpoint = {'binary_sha256': self.candidate, 'reference_sha256': self.reference,
                       'root_reference_sha256': self.reference,
@@ -227,8 +227,8 @@ class ClosureRegressionsTest(unittest.TestCase):
             argv = ['collector', *[v for k,p in args.items() for v in ('--'+k,str(p))], '--out',str(out)]
             with patch.object(closure,'ROOT',self.root), patch.object(collector,'REFERENCE_SHA256',self.reference), patch.object(collector,'validate_corpus',return_value=({},dict(counts(303,2),excluded=6,files_matches=302),[])), patch.object(collector,'validate_follow_up',side_effect=follow), patch.object(collector,'validate_console_evidence',return_value=({},counts(19),[])), patch.object(sys,'argv',argv), redirect_stdout(io.StringIO()):
                 status = collector.main()
-            self.assertEqual(status, expected)
             gate = json.loads((out/'gate.json').read_text())
+            self.assertEqual(status, expected, [row for row in gate['checks'] if not row['pass']])
             self.assertEqual(gate['pass'], expected == 0)
             self.assertEqual(gate['required_regression_inventory'], closure.SUITES)
 

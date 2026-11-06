@@ -136,7 +136,7 @@ for name,path,features in [('hooks',Path('/work/naro-target/hooks/debug/naro'),'
  variants[name]={'path':str(path),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'features':info['features'],'build_info':info,'target_directory':str(path.parents[1])}
 Path('/out/variant-builds.json').write_text(json.dumps(variants,indent=2)+'\n')
 PY_VARIANTS
-run extensions python3 tools/check_extensions.py --default /work/naro/target/release/naro --credits /work/naro-target/credits/release/naro --panic-runs /out/panic --out /out/extensions
+run extensions python3 tools/check_extensions.py --default /work/naro/target/release/naro --credits /work/naro-target/credits/release/naro --panic-runs /out/panic --panic-binary /work/naro-target/hooks/debug/naro --out /out/extensions
 cd /work/package-source
 run package python3 tools/package.py --binary /work/naro/target/release/naro --out /out/package
 version=$(python3 -c 'import tomllib;print(tomllib.load(open("Cargo.toml","rb"))["package"]["version"])')
