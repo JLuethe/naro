@@ -253,6 +253,33 @@ pub fn text(s: &[u8]) -> String {
 mod tests {
     use super::*;
     #[test]
+    fn bounded_arbitrary_bytes_preserve_coordinate_progress() {
+        let mut seed = 0x2026_1105_u64;
+        for length in 0..512 {
+            let mut input = vec![0; length];
+            for byte in &mut input {
+                seed ^= seed << 13;
+                seed ^= seed >> 7;
+                seed ^= seed << 17;
+                *byte = seed as u8;
+            }
+            for utf8 in [false, true] {
+                let encoding = Encoding { utf8, tab: 8 };
+                let mut position = 0;
+                while position < input.len() {
+                    let next = encoding.right(&input, position);
+                    assert!(next > position && next <= input.len());
+                    assert_eq!(encoding.left(&input, next), position);
+                    if utf8 && let Some(code) = encoding.code(&input, position) {
+                        assert!(char::from_u32(code).is_some());
+                    }
+                    position = next;
+                }
+                assert_eq!(encoding.right(&input, input.len()), input.len());
+            }
+        }
+    }
+    #[test]
     fn invalid_and_boundaries() {
         let e = Encoding { utf8: true, tab: 8 };
         let s = b"a\xf0\x9f\x98\x80\xed\xa0\x80\xc0\x80";

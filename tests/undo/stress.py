@@ -19,6 +19,15 @@ mod native {
         pub fn nr_print_byte(c: i32) -> i32;
     }
 }
+// Buffer retains this type for lock ownership; the stress path never creates
+// locks. Keep its production field shape without linking filesystem helpers.
+mod confinement {
+    #[derive(Debug)]
+    pub struct Parent {
+        pub directory: std::fs::File,
+        pub name: std::path::PathBuf,
+    }
+}
 mod bytes;
 mod buffer;
 use buffer::{Buffer, Pos};
@@ -48,6 +57,21 @@ fn main() {
     assert_eq!(b.state.lines.len(), 2);
     assert!(b.state.lines[1].is_empty());
     println!("10MiB; 210000 edits; initial full undo/redo; budget eviction; {} retained groups", retained);
+    drop(b);
+    let size = 4 * 1024 * 1024;
+    let mut buffers: Vec<_> = (0..8)
+        .map(|i| Buffer::new(vec![], vec![vec![b'a' + i; size], vec![]]))
+        .collect();
+    for (i, buffer) in buffers.iter_mut().enumerate() {
+        buffer.state.pos = Pos { line: 0, x: size };
+        for _ in 0..1000 { buffer.insert(b"z", "addition", false, false); }
+        assert_eq!(&buffer.state.lines[0][size..], vec![b'z'; 1000]);
+        for _ in 0..1000 { assert!(buffer.undo(false).is_some()); }
+        assert_eq!(buffer.state.lines[0].len(), size);
+        assert!(buffer.state.lines[0].iter().all(|v| *v == b'a' + i as u8));
+        assert!(!buffer.modified);
+    }
+    println!("8 simultaneous 4MiB buffers; 1000 separate edits and complete undo each");
 }
 '''
 
