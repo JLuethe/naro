@@ -1,0 +1,55 @@
+{
+  "binary": "/home/john/Code/naro/target/issue-4-recovery/baseline-build/debug/naro",
+  "binary_sha256": "ed285902c5d4a3521a58fd187511af80920417028ebe8725d3ac78ae5dc6ca74",
+  "build_info": "{\"version\":\"0.1.1\",\"reference_commit\":\"6ed285c3ec7a1d228def4d4e7021c6ba269f620c\",\"source_sha256\":\"bd272a5f2d920d9484d35ade06dba1d08bbb6ff417bc0abdad5cd3a8d0f69d82\",\"revision\":\"f5e79cfcffb13bc314e819bdc7a0c5ef3fa02d3e\",\"features\":\"test-hooks\",\"rustc\":\"rustc 1.99.1 (58cf8f9c3 2026-10-13)\"}\n",
+  "passed": 0,
+  "total": 2,
+  "cases": [
+    {
+      "checks": {
+        "exited": false,
+        "exit_status": false,
+        "diagnostic": false,
+        "termios_restored": false,
+        "alternate_screen_off": false,
+        "paste_off": false,
+        "cursor_visible": true,
+        "lock_removed": false,
+        "original_unchanged": true,
+        "recovery_present": false
+      },
+      "passed": false,
+      "exit_status": -9,
+      "timed_out": true,
+      "signals": [
+        "SIGHUP"
+      ],
+      "paste": true,
+      "modified": true,
+      "name": "SIGHUP-paste"
+    },
+    {
+      "checks": {
+        "exited": false,
+        "exit_status": false,
+        "diagnostic": false,
+        "termios_restored": false,
+        "alternate_screen_off": false,
+        "paste_off": false,
+        "cursor_visible": true,
+        "lock_removed": false,
+        "original_unchanged": true,
+        "recovery_present": false
+      },
+      "passed": false,
+      "exit_status": -9,
+      "timed_out": true,
+      "signals": [
+        "SIGTERM"
+      ],
+      "paste": true,
+      "modified": true,
+      "name": "SIGTERM-paste"
+    }
+  ]
+}

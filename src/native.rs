@@ -17,7 +17,10 @@ unsafe extern "C" {
         total: usize,
         hp: c_int,
     ) -> *const c_char;
+    /// Atomically consume one signal class; HUP/TERM precede terminal events.
+    /// Repeated deliveries of one pending class coalesce like POSIX signals.
     pub fn nr_signal() -> c_int;
+    fn nr_signal_pending() -> c_int;
     pub fn nr_locale(path: *const c_char) -> c_int;
     fn nr_tr(s: *const c_char) -> *const c_char;
     fn nr_plural(a: *const c_char, b: *const c_char, n: usize) -> *const c_char;
@@ -99,6 +102,11 @@ unsafe extern "C" {
     fn nr_magic(path: *const c_char) -> *const c_char;
     pub fn nr_stop();
 }
+/// Interrupt input without consuming the event needed by the main dispatcher.
+pub fn signal_pending() -> bool {
+    unsafe { nr_signal_pending() != 0 }
+}
+
 pub fn open_write(path: &std::path::Path, append: bool) -> std::io::Result<std::fs::File> {
     use std::os::{fd::FromRawFd, unix::ffi::OsStrExt};
     let path = CString::new(path.as_os_str().as_bytes())

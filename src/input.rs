@@ -500,7 +500,7 @@ impl Input {
                 unsafe { native::nr_get(100) }
             };
             if k < 0 {
-                if unsafe { native::nr_signal() } != 0 {
+                if native::signal_pending() {
                     return (bytes, false);
                 }
                 continue;

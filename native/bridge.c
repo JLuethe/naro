@@ -81,9 +81,42 @@ int nr_vt_key(int key,int meta,int *shift) {
 #endif
     return key;
 }
-static volatile sig_atomic_t pending;
-static void handler(int sig) { pending = sig; }
-int nr_signal(void) { int s=pending; pending=0; return s; }
+/* Standard signals coalesce within each class. Keep the classes independent,
+ * and service termination before terminal events. Lock-free atomics also cover
+ * delivery to the external-command writer thread: blocking only the consumer's
+ * signals would not protect a process-wide volatile read/clear. */
+_Static_assert(ATOMIC_INT_LOCK_FREE == 2, "signal delivery requires lock-free unsigned atomics");
+static atomic_uint pending;
+static const int handled_signals[]={SIGHUP,SIGTERM,SIGTSTP,SIGCONT,SIGWINCH};
+static void handler(int sig) {
+    unsigned bit;
+    switch(sig){
+        case SIGHUP:bit=1u<<0;break;
+        case SIGTERM:bit=1u<<1;break;
+        case SIGTSTP:bit=1u<<2;break;
+        case SIGCONT:bit=1u<<3;break;
+        case SIGWINCH:bit=1u<<4;break;
+        default:return;
+    }
+    atomic_fetch_or_explicit(&pending,bit,memory_order_relaxed);
+}
+int nr_signal_pending(void) {
+    return atomic_load_explicit(&pending,memory_order_relaxed)!=0;
+}
+int nr_signal(void) {
+    unsigned snapshot=atomic_load_explicit(&pending,memory_order_relaxed);
+    while(snapshot){
+        unsigned i=0;
+        while(!(snapshot&(1u<<i)))i++;
+        /* A handler racing this operation either updates snapshot through the
+         * failed CAS, or leaves its bit for the next call. Never clear it by
+         * assigning zero to a stale snapshot. No payload needs publication. */
+        if(atomic_compare_exchange_weak_explicit(&pending,&snapshot,
+                snapshot&~(1u<<i),memory_order_relaxed,memory_order_relaxed))
+            return handled_signals[i];
+    }
+    return 0;
+}
 int nr_locale(const char *path) {
     int ok=setlocale(LC_ALL, "") != NULL;
     bindtextdomain("nano",path); bind_textdomain_codeset("nano","UTF-8"); textdomain("nano");
@@ -108,7 +141,10 @@ const char *nr_optarg(void) {return optarg;}
 int nr_optind(void) {return optind;}
 void nr_setup_signals(void) {
     struct sigaction a={0}; sigemptyset(&a.sa_mask); a.sa_handler=handler;
-    for(int i=1;i<32;i++) if(i==SIGHUP||i==SIGTERM||i==SIGTSTP||i==SIGCONT||i==SIGWINCH) sigaction(i,&a,NULL);
+    for(unsigned i=0;i<sizeof handled_signals/sizeof *handled_signals;i++)
+        sigaddset(&a.sa_mask,handled_signals[i]);
+    for(unsigned i=0;i<sizeof handled_signals/sizeof *handled_signals;i++)
+        sigaction(handled_signals[i],&a,NULL);
     signal(SIGINT,SIG_IGN);signal(SIGQUIT,SIG_IGN);
 }
 #ifndef NARO_TINY

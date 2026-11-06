@@ -1,0 +1,317 @@
+{
+  "binary": "/home/john/Code/naro/target/issue-5-signals/default/debug/naro",
+  "binary_sha256": "06c58cdc1f877ee8fcec4722e2eddd8a688600bd79135942f36a429d58fb8993",
+  "build_info": "{\"version\":\"0.1.1\",\"reference_commit\":\"6ed285c3ec7a1d228def4d4e7021c6ba269f620c\",\"source_sha256\":\"dd22c5a01b228e04c589d2e4927cdcce7bc69c70f275927d014c400dddcfec6f\",\"revision\":\"f5e79cfcffb13bc314e819bdc7a0c5ef3fa02d3e\",\"features\":\"\",\"rustc\":\"rustc 1.99.1 (58cf8f9c3 2026-10-13)\"}\n",
+  "passed": 12,
+  "total": 12,
+  "cases": [
+    {
+      "checks": {
+        "exited": true,
+        "exit_status": true,
+        "diagnostic": true,
+        "termios_restored": true,
+        "alternate_screen_off": true,
+        "paste_off": true,
+        "cursor_visible": true,
+        "lock_removed": true,
+        "original_unchanged": true,
+        "recovery_present": true,
+        "recovery_bytes": true,
+        "recovery_mode": true
+      },
+      "passed": true,
+      "exit_status": 1,
+      "timed_out": false,
+      "signals": [
+        "SIGHUP"
+      ],
+      "paste": false,
+      "modified": true,
+      "name": "SIGHUP"
+    },
+    {
+      "checks": {
+        "exited": true,
+        "exit_status": true,
+        "diagnostic": true,
+        "termios_restored": true,
+        "alternate_screen_off": true,
+        "paste_off": true,
+        "cursor_visible": true,
+        "lock_removed": true,
+        "original_unchanged": true,
+        "recovery_present": true
+      },
+      "passed": true,
+      "exit_status": 1,
+      "timed_out": false,
+      "signals": [
+        "SIGHUP"
+      ],
+      "paste": false,
+      "modified": false,
+      "name": "SIGHUP-clean"
+    },
+    {
+      "checks": {
+        "exited": true,
+        "exit_status": true,
+        "diagnostic": true,
+        "termios_restored": true,
+        "alternate_screen_off": true,
+        "paste_off": true,
+        "cursor_visible": true,
+        "lock_removed": true,
+        "original_unchanged": true,
+        "recovery_present": true,
+        "recovery_bytes": true,
+        "recovery_mode": true
+      },
+      "passed": true,
+      "exit_status": 1,
+      "timed_out": false,
+      "signals": [
+        "SIGTERM"
+      ],
+      "paste": false,
+      "modified": true,
+      "name": "SIGTERM"
+    },
+    {
+      "checks": {
+        "exited": true,
+        "exit_status": true,
+        "diagnostic": true,
+        "termios_restored": true,
+        "alternate_screen_off": true,
+        "paste_off": true,
+        "cursor_visible": true,
+        "lock_removed": true,
+        "original_unchanged": true,
+        "recovery_present": true
+      },
+      "passed": true,
+      "exit_status": 1,
+      "timed_out": false,
+      "signals": [
+        "SIGTERM"
+      ],
+      "paste": false,
+      "modified": false,
+      "name": "SIGTERM-clean"
+    },
+    {
+      "checks": {
+        "exited": true,
+        "exit_status": true,
+        "diagnostic": true,
+        "termios_restored": true,
+        "alternate_screen_off": true,
+        "paste_off": true,
+        "cursor_visible": true,
+        "lock_removed": true,
+        "original_unchanged": true,
+        "recovery_present": true,
+        "recovery_bytes": true,
+        "recovery_mode": true
+      },
+      "passed": true,
+      "exit_status": 1,
+      "timed_out": false,
+      "signals": [
+        "SIGHUP",
+        "SIGTERM",
+        "SIGWINCH"
+      ],
+      "paste": false,
+      "modified": true,
+      "name": "burst-0"
+    },
+    {
+      "checks": {
+        "exited": true,
+        "exit_status": true,
+        "diagnostic": true,
+        "termios_restored": true,
+        "alternate_screen_off": true,
+        "paste_off": true,
+        "cursor_visible": true,
+        "lock_removed": true,
+        "original_unchanged": true,
+        "recovery_present": true,
+        "recovery_bytes": true,
+        "recovery_mode": true
+      },
+      "passed": true,
+      "exit_status": 1,
+      "timed_out": false,
+      "signals": [
+        "SIGHUP",
+        "SIGWINCH",
+        "SIGTERM"
+      ],
+      "paste": false,
+      "modified": true,
+      "name": "burst-1"
+    },
+    {
+      "checks": {
+        "exited": true,
+        "exit_status": true,
+        "diagnostic": true,
+        "termios_restored": true,
+        "alternate_screen_off": true,
+        "paste_off": true,
+        "cursor_visible": true,
+        "lock_removed": true,
+        "original_unchanged": true,
+        "recovery_present": true,
+        "recovery_bytes": true,
+        "recovery_mode": true
+      },
+      "passed": true,
+      "exit_status": 1,
+      "timed_out": false,
+      "signals": [
+        "SIGTERM",
+        "SIGHUP",
+        "SIGWINCH"
+      ],
+      "paste": false,
+      "modified": true,
+      "name": "burst-2"
+    },
+    {
+      "checks": {
+        "exited": true,
+        "exit_status": true,
+        "diagnostic": true,
+        "termios_restored": true,
+        "alternate_screen_off": true,
+        "paste_off": true,
+        "cursor_visible": true,
+        "lock_removed": true,
+        "original_unchanged": true,
+        "recovery_present": true,
+        "recovery_bytes": true,
+        "recovery_mode": true
+      },
+      "passed": true,
+      "exit_status": 1,
+      "timed_out": false,
+      "signals": [
+        "SIGTERM",
+        "SIGWINCH",
+        "SIGHUP"
+      ],
+      "paste": false,
+      "modified": true,
+      "name": "burst-3"
+    },
+    {
+      "checks": {
+        "exited": true,
+        "exit_status": true,
+        "diagnostic": true,
+        "termios_restored": true,
+        "alternate_screen_off": true,
+        "paste_off": true,
+        "cursor_visible": true,
+        "lock_removed": true,
+        "original_unchanged": true,
+        "recovery_present": true,
+        "recovery_bytes": true,
+        "recovery_mode": true
+      },
+      "passed": true,
+      "exit_status": 1,
+      "timed_out": false,
+      "signals": [
+        "SIGWINCH",
+        "SIGHUP",
+        "SIGTERM"
+      ],
+      "paste": false,
+      "modified": true,
+      "name": "burst-4"
+    },
+    {
+      "checks": {
+        "exited": true,
+        "exit_status": true,
+        "diagnostic": true,
+        "termios_restored": true,
+        "alternate_screen_off": true,
+        "paste_off": true,
+        "cursor_visible": true,
+        "lock_removed": true,
+        "original_unchanged": true,
+        "recovery_present": true,
+        "recovery_bytes": true,
+        "recovery_mode": true
+      },
+      "passed": true,
+      "exit_status": 1,
+      "timed_out": false,
+      "signals": [
+        "SIGWINCH",
+        "SIGTERM",
+        "SIGHUP"
+      ],
+      "paste": false,
+      "modified": true,
+      "name": "burst-5"
+    },
+    {
+      "checks": {
+        "exited": true,
+        "exit_status": true,
+        "diagnostic": true,
+        "termios_restored": true,
+        "alternate_screen_off": true,
+        "paste_off": true,
+        "cursor_visible": true,
+        "lock_removed": true,
+        "original_unchanged": true,
+        "recovery_present": true,
+        "recovery_bytes": true,
+        "recovery_mode": true
+      },
+      "passed": true,
+      "exit_status": 1,
+      "timed_out": false,
+      "signals": [
+        "SIGHUP"
+      ],
+      "paste": true,
+      "modified": true,
+      "name": "SIGHUP-paste"
+    },
+    {
+      "checks": {
+        "exited": true,
+        "exit_status": true,
+        "diagnostic": true,
+        "termios_restored": true,
+        "alternate_screen_off": true,
+        "paste_off": true,
+        "cursor_visible": true,
+        "lock_removed": true,
+        "original_unchanged": true,
+        "recovery_present": true,
+        "recovery_bytes": true,
+        "recovery_mode": true
+      },
+      "passed": true,
+      "exit_status": 1,
+      "timed_out": false,
+      "signals": [
+        "SIGTERM"
+      ],
+      "paste": true,
+      "modified": true,
+      "name": "SIGTERM-paste"
+    }
+  ]
+}

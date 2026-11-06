@@ -1,0 +1,8 @@
+{
+  "native/bridge.c": "125caaf6222863cac3971e80ff8636ff94d72b97be395fb791d9e969aa2edf0f",
+  "src/native.rs": "c5ba17c82155793f2a5842942052539246a8ad7bb05ac9e41789aab33d953dc4",
+  "src/input.rs": "d3bb3b6475560776dc16df8674f8601a60e32880a38b7847e60956412ae089a1",
+  "tests/signals/native.c": "2cd5b5ae6d476bdeda87714c34fb5b7e459c5eb67b859f71deb474b87179f42a",
+  "tests/signals/native.py": "5c748a083500c128e666735147edd28ec2acd6711f107755d67f813894da23fa",
+  "tests/signals/terminal.py": "ef70b8a0af05242b4e3067f9a32c08e36b9af09909e8029c61b7737d388cdb47"
+}

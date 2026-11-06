@@ -1,0 +1,26 @@
+{
+  "revision": null,
+  "original_bridge_sha256": "b167d565682be4e73697f02f546292061f85f04e20832b8e62b8d872d6d46bde",
+  "injection": "after pending snapshot, before compare-and-exchange",
+  "command": [
+    "cc",
+    "-std=c11",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-D_DEFAULT_SOURCE",
+    "-D_XOPEN_SOURCE=700",
+    "-I/home/john/Code/naro/native",
+    "/home/john/Code/naro/validation/issue-5-signals/new-native/bridge.c",
+    "/home/john/Code/naro/tests/signals/native.c",
+    "-lncursesw",
+    "-lmagic",
+    "-pthread",
+    "-o",
+    "/home/john/Code/naro/validation/issue-5-signals/new-native/native-test"
+  ],
+  "exit_status": 0,
+  "output": "37/37 native checks passed\n",
+  "binary_sha256": "f37e709b3e5db18151cf00289e39d072fe216c43f38ca75489923d1b1fbfb854"
+}

@@ -1,0 +1,5 @@
+# Preserve local raw runs while keeping the review patch to receipts and reports.
+/*/*
+!/*/report.json
+
+/*.log

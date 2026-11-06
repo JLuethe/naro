@@ -93,6 +93,18 @@ reset, so a second fault kills the process with the signal.
 - `the_window_resized` (sig_atomic_t) and `resized_for_browser`; `KEY_FRESH` and `THE_WINDOW_RESIZED` are internal key codes.
 - `original_state` (struct termios).
 
+## NARO signal delivery
+
+NARO retains pending HUP, TERM, TSTP, CONT and WINCH as independent event
+classes. Repeated instances of one pending class coalesce, matching ordinary
+POSIX signal semantics; arrival order is not retained. Consumption prioritizes
+HUP, TERM, TSTP, CONT, then WINCH. Lock-free atomic updates prevent both distinct
+classes overwriting one another and delivery racing a consumer from being
+cleared, including delivery on the external-command writer thread. Interrupted
+bracketed paste checks for pending events without consuming them, so normal
+dispatch still performs termination and recovery. The handler only updates the
+atomic mask; terminal operations and recovery remain outside signal context.
+
 ## Evidence summary
 | Requirement | Evidence |
 |---|---|

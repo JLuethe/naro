@@ -1,0 +1,68 @@
+[
+  {
+    "command": "python3 tests/signals/native.py --revision f5e79cf --out validation/issue-5-signals/old-native",
+    "exit_status": 1
+  },
+  {
+    "command": "python3 tests/signals/native.py --out validation/issue-5-signals/new-native",
+    "exit_status": 0
+  },
+  {
+    "command": "python3 tests/signals/native.py --out validation/issue-5-signals/native-final",
+    "exit_status": 0
+  },
+  {
+    "command": "/home/john/.cargo/bin/cargo build --target-dir target/issue-5-signals/default",
+    "exit_status": 0,
+    "runs": 2
+  },
+  {
+    "command": "/home/john/.cargo/bin/cargo build --features tiny --target-dir target/issue-5-signals/tiny",
+    "exit_status": 0,
+    "runs": 2
+  },
+  {
+    "command": "python3 tests/signals/terminal.py --binary target/issue-5-signals/default/debug/naro --out validation/issue-5-signals/default-terminal",
+    "exit_status": 0
+  },
+  {
+    "command": "python3 tests/signals/terminal.py --binary target/issue-5-signals/tiny/debug/naro --tiny --out validation/issue-5-signals/tiny-terminal",
+    "exit_status": 1
+  },
+  {
+    "command": "python3 tests/signals/terminal.py --binary target/issue-5-signals/tiny/debug/naro --tiny --out validation/issue-5-signals/tiny-terminal-v2",
+    "exit_status": 1
+  },
+  {
+    "command": "python3 tests/signals/terminal.py --binary target/issue-5-signals/tiny/debug/naro --tiny --out validation/issue-5-signals/tiny-terminal-v3",
+    "exit_status": 1
+  },
+  {
+    "command": "python3 tests/signals/terminal.py --binary target/issue-5-signals/tiny/debug/naro --tiny --out validation/issue-5-signals/tiny-terminal-v4",
+    "exit_status": 0
+  },
+  {
+    "command": "python3 tests/signals/terminal.py --binary target/issue-5-signals/default/debug/naro --out validation/issue-5-signals/default-terminal-final",
+    "exit_status": 0
+  },
+  {
+    "command": "python3 tests/signals/terminal.py --binary target/issue-5-signals/tiny/debug/naro --tiny --out validation/issue-5-signals/tiny-terminal-final",
+    "exit_status": 0
+  },
+  {
+    "command": "python3 tests/signals/terminal.py --binary target/issue-4-recovery/baseline-build/debug/naro --paste-only --out validation/issue-5-signals/old-paste",
+    "exit_status": 1
+  },
+  {
+    "command": "/home/john/.cargo/bin/cargo fmt --check",
+    "exit_status": 0
+  },
+  {
+    "command": "/home/john/.cargo/bin/cargo test --target-dir target/issue-5-signals/default",
+    "exit_status": 0
+  },
+  {
+    "command": "/home/john/.cargo/bin/cargo clippy --all-targets --all-features --target-dir target/issue-5-signals/clippy -- -D warnings",
+    "exit_status": 0
+  }
+]

@@ -1,0 +1,59 @@
+{
+  "binary": "/home/john/Code/naro/target/issue-5-signals/tiny/debug/naro",
+  "binary_sha256": "601e4ddbea9d5b342c578fcdd156f45abb62ee2dcee8cbd5551b6b54ffd2c3ea",
+  "build_info": "{\"version\":\"0.1.1\",\"reference_commit\":\"6ed285c3ec7a1d228def4d4e7021c6ba269f620c\",\"source_sha256\":\"dd22c5a01b228e04c589d2e4927cdcce7bc69c70f275927d014c400dddcfec6f\",\"revision\":\"f5e79cfcffb13bc314e819bdc7a0c5ef3fa02d3e\",\"features\":\"tiny\",\"rustc\":\"rustc 1.99.1 (58cf8f9c3 2026-10-13)\"}\n",
+  "passed": 0,
+  "total": 10,
+  "cases": [
+    {
+      "passed": false,
+      "error": "AssertionError('startup timeout')",
+      "name": "SIGHUP"
+    },
+    {
+      "passed": false,
+      "error": "AssertionError('startup timeout')",
+      "name": "SIGHUP-clean"
+    },
+    {
+      "passed": false,
+      "error": "AssertionError('startup timeout')",
+      "name": "SIGTERM"
+    },
+    {
+      "passed": false,
+      "error": "AssertionError('startup timeout')",
+      "name": "SIGTERM-clean"
+    },
+    {
+      "passed": false,
+      "error": "AssertionError('startup timeout')",
+      "name": "burst-0"
+    },
+    {
+      "passed": false,
+      "error": "AssertionError('startup timeout')",
+      "name": "burst-1"
+    },
+    {
+      "passed": false,
+      "error": "AssertionError('startup timeout')",
+      "name": "burst-2"
+    },
+    {
+      "passed": false,
+      "error": "AssertionError('startup timeout')",
+      "name": "burst-3"
+    },
+    {
+      "passed": false,
+      "error": "AssertionError('startup timeout')",
+      "name": "burst-4"
+    },
+    {
+      "passed": false,
+      "error": "AssertionError('startup timeout')",
+      "name": "burst-5"
+    }
+  ]
+}

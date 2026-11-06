@@ -1,0 +1,26 @@
+{
+  "revision": "f5e79cf",
+  "original_bridge_sha256": "3bb5a6791a1702cd0709943990aa189c3ead320c7bd4efe355fb3cf435580fa2",
+  "injection": "after pending snapshot, before stale clear",
+  "command": [
+    "cc",
+    "-std=c11",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-D_DEFAULT_SOURCE",
+    "-D_XOPEN_SOURCE=700",
+    "-I/home/john/Code/naro/native",
+    "/home/john/Code/naro/validation/issue-5-signals/old-native/bridge.c",
+    "/home/john/Code/naro/tests/signals/native.c",
+    "-lncursesw",
+    "-lmagic",
+    "-pthread",
+    "-o",
+    "/home/john/Code/naro/validation/issue-5-signals/old-native/native-test"
+  ],
+  "exit_status": 1,
+  "output": "FAIL HUP TERM WINCH permutation preserves all classes\nFAIL HUP TERM WINCH permutation preserves all classes\nFAIL HUP TERM WINCH permutation preserves all classes\nFAIL HUP TERM WINCH permutation preserves all classes\nFAIL HUP TERM WINCH permutation preserves all classes\nFAIL HUP TERM WINCH permutation preserves all classes\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL delivery in snapshot/consume window\nFAIL TERM priority\nFAIL all terminal classes retained after termination consume\n9/37 native checks passed\n",
+  "binary_sha256": "79cf818dd011f836673be3ee83036cdff5c72d2bd8ccb95c315a052805b5ba97"
+}
