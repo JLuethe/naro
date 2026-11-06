@@ -1,0 +1,65 @@
+{
+  "date": "2026-11-06",
+  "product_commit": "2888560a9a2709469334a417d1ad9ac3a91c30ba",
+  "verification_receipt_commit": "b12dc150312a9d75475fd0add7b2b393672aab09",
+  "tree": "549be4d398231ae2681ed5eb9f201764c638836c",
+  "production_source_sha256": "7b6ef4e024bc5d25f59fb66eebad7f8297d4be4f49a34d1037c3b8d4f928e636",
+  "version": "0.1.2",
+  "qualification_runner": "Codex orchestration; not Daybreak Blue",
+  "daybreak_blue_retest": "pending external handoff",
+  "host_artifacts": {
+    "default": "4e64b3ad0b3e7287272d163741adf053287c16dd69e2ca764bf5e57194b2ff3d",
+    "tiny": "81ebc62e917fe967361420fbebedc9e1715d0471c1a21ac357aa5b3262844829",
+    "credits": "a8b2d99affa9e8c96dc598c98a7981a99fc6dd01b459301984e96ea5e1c1747b",
+    "hooks": "f59f503b27a35e6bf396439418ca8ddcc10482bc2a2f13fe7220b2605645062a",
+    "hooks_tiny": "74052cc3c865a911a3cebabbc20231d4b36667a4069c90136c21e1c7c52b30ab"
+  },
+  "packages": {
+    "default_binary_archive": "77c710ebed99a48ff9586400bf396d27fa54225e530efc04c5f0986d37415d4a",
+    "tiny_binary_archive": "d4cff66551cd42065dae648a8c8621bc88ac628bbfc6ecd52b5a3dfe7d67b871",
+    "source_archive": "ebeac7ce8c856eb05a579151cee0e3b372369cdcf32543d17b3fb69a513bb6f4",
+    "checks_default": {"package_passed": 15, "package_total": 15, "assets_passed": 44, "assets_total": 44},
+    "checks_tiny": {"package_passed": 15, "package_total": 15, "assets_passed": 44, "assets_total": 44}
+  },
+  "host": {
+    "rust": {"default_passed": 72, "tiny_passed": 39, "all_features_passed": 39, "ignored_each": 10},
+    "safe_save": {"default": [448, 448], "tiny": [448, 448], "skips": []},
+    "backup": [1200, 1200],
+    "adapted_historical_faults": {"cases": [6, 6], "steps": [67, 67], "harness_assertions": [52, 52], "markers_and_independent_checks": true, "missing_prerequisites": 0},
+    "recovery": {"default": [41, 41], "tiny": [41, 41]},
+    "semantics": {"progress": [22, 22], "safety": [10, 10]},
+    "locking_terminal": {"cases": [6, 6], "assertions": [35, 35]},
+    "save_terminal": {"cases": [32, 32], "assertions": [1718, 1718]},
+    "signals": {"native": [37, 37], "default_terminal": [12, 12], "tiny_terminal": [10, 10]},
+    "tiny_ci": {"tiny": [59, 59], "cli": [125, 125], "vt": [8, 8], "safety": [3, 3]},
+    "differential_default": {"expected": 593, "accounted": 593, "recorded": 593, "accepted": 550, "candidate_execution_or_assertion_failure": 35, "declared_deviation": 5, "identity_reviewed": 474, "missing_prerequisite": 2, "product_or_policy_difference": 6, "raw_exact": 71},
+    "differential_tiny": {"expected": 202, "accounted": 202, "recorded": 202, "accepted": 200, "identity_reviewed": 101, "product_or_policy_difference": 1, "raw_exact": 99, "reference_failure": 1}
+  },
+  "ubuntu": {
+    "image": "0576b8874e002cd2cb7f781879f8cbe532f478ea7a6fb2b04fdd5c8bff56b33d",
+    "source_self_contained": true,
+    "git_fsck": true,
+    "network": "none",
+    "differential_default": {"expected": 593, "accounted": 593, "recorded": 565, "accepted": 524, "candidate_execution_or_assertion_failure": 35, "declared_deviation": 4, "identity_reviewed": 454, "missing_prerequisite": 28, "product_or_policy_difference": 6, "raw_exact": 66},
+    "differential_tiny": {"expected": 202, "accounted": 202, "recorded": 202, "accepted": 200, "identity_reviewed": 101, "product_or_policy_difference": 1, "raw_exact": 99, "reference_failure": 1},
+    "safe_save": {"default": [378, 378], "tiny": [378, 378], "skipped_categories_each": 3, "skip_reason": "no supplementary group available"},
+    "backup": [1200, 1200],
+    "recovery": {"default": [41, 41], "tiny": [41, 41]},
+    "semantics": {"progress": [22, 22], "safety": [10, 10]},
+    "tiny_ci": [195, 195],
+    "regex": {"default_C": [81, 81], "default_en_US_UTF_8": [81, 81], "tiny_C": [81, 81], "tiny_en_US_UTF_8": [81, 81]}
+  },
+  "remaining_limits": [
+    "physical power-loss behavior is not deterministically proven",
+    "issue #12 adversarial symlink-swap/rename-exchange race is unverified",
+    "genuine guest-VT, other architectures/Miri, and broader native sanitizer scope are unverified"
+  ],
+  "negative_controls": {
+    "backup_alias_pre_fix_revision": "2c63ec35bde6ee46cf51837f47860667c69349ae",
+    "backup_alias_pre_fix_exit": 101,
+    "backup_alias_observed_source": [],
+    "backup_alias_final5_exit": 0,
+    "receipt": "validation/final5-adapted-faults-2026-11-06.md"
+  },
+  "publication_authorized": false
+}

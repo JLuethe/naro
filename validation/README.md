@@ -2,11 +2,18 @@
 
 ## Issue #3 safe-save change
 
+[0.1.2 final-candidate qualification and Daybreak handoff](daybreak-0.1.2-2026-11-06/README.md)
+binds the final issue #3 backup/lock corrections to commit `2888560`, fresh
+host and Ubuntu artifacts, complete fault/semantic matrices, packages, raw
+differential dispositions, and the remaining qualification limits. The
+`daybreak-*` artifact paths are campaign labels; the independent Daybreak Blue
+rerun remains an external handoff.
+
 [Scoped safe-save validation](issue-3-safe-save/README.md) records the atomic
 replacement policy, old-code failure proof, default/tiny fault matrices and
-fresh terminal checks. These are host results for the exact recorded dirty-tree
-artifacts, not a new release qualification or a replacement for historical
-receipts below.
+fresh terminal checks. The initial dirty-tree artifacts remain historical input
+to the final committed-tree retest rather than release qualification by
+themselves.
 
 ## Qualified 0.1.1 candidates
 

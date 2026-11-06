@@ -1,0 +1,361 @@
+Independently retest NARO 0.1.2 with Daybreak Blue
+
+Repository: /home/john/Code/naro
+Primary tracker: https://github.com/JLuethe/naro/issues/16
+Durable-save tracker: https://github.com/JLuethe/naro/issues/3
+Original reviewed revision: 278f1c541542bc044f4da8f7b3ae72b3990fabdf
+
+Mission
+
+Perform a fresh, independent source review and runtime qualification of the final
+NARO 0.1.2 remediation candidate. Give special scrutiny to issue #3: a failed
+save, backup, recovery, or lock operation must not truncate, partially overwrite,
+misdirect, or remove user data. Decide whether the exact tested artifacts are
+release-ready.
+
+Use Daybreak Blue for this retest. Record the exact model name/version,
+configuration, date, host, and scope actually used. Do not call another model's
+work Daybreak work. Earlier Astra, Sol, and Daybreak reports are leads only, not
+qualification of a newly built binary.
+
+Candidate gate
+
+The release candidate under review is the exact production revision below. Do
+not silently substitute the repository's later validation-only HEAD or rebuild
+an arbitrary descendant and transfer this qualification to it:
+
+  production commit: 2888560a9a2709469334a417d1ad9ac3a91c30ba
+  production tree:   549be4d398231ae2681ed5eb9f201764c638836c
+  source fingerprint: 7b6ef4e024bc5d25f59fb66eebad7f8297d4be4f49a34d1037c3b8d4f928e636
+
+Use a fresh clean detached worktree at that commit for any independent rebuild.
+Validation-only descendants may be read as evidence, but first prove that they
+do not alter production or test inputs. If Daybreak elects to test a different
+production revision, name it as a new candidate and do not compare its results
+or artifact identities as though they belonged to 2888560.
+
+Do not begin qualification until all implementation workers have stopped and the
+tracked tree is clean. At the start, record without assuming:
+
+  git rev-parse HEAD
+  git rev-parse HEAD^{tree}
+  git branch --show-current
+  git status --short --branch
+  git rev-list --left-right --count @{upstream}...HEAD
+  git diff --stat
+  git diff --cached --stat
+
+Call the resulting immutable revision CANDIDATE. If the tracked tree is dirty,
+the branch changes during testing, or any production or verification input
+changes, stop and restart qualification with new output directories and new
+artifact identities. Preserve unrelated untracked user files. Do not push merely
+because the branch is ahead of its upstream.
+
+The candidate should include, or supersede with documented justification, these
+local remediation commits:
+
+- 40e4efd20a28dae040108b458fa5ba0db6a7d531: completion undo,
+  unreadable-backup confirmation, and fail-closed differential handling.
+- 6061f60583f94e32219b89621297155e71f21dcd: namespace-policy fixture update.
+- 0827c23466e91b6886c115b6e8f4c4aea6861501: bind CI extension checks to the
+  requested panic binary.
+- 2c63ec35bde6ee46cf51837f47860667c69349ae: shared fortified-open gate and
+  effective tiny FIFO verification.
+- c26b11ca8f144ef60c8e12460c9cc8e330c0c28a: atomic backup publication that
+  does not truncate destination aliases.
+- 2888560a9a2709469334a417d1ad9ac3a91c30ba: bind lock cleanup to the
+  retained file identity, preserve save-as documents/unowned sidecars, and
+  update backup-progress adapters for exclusive temporary publication.
+
+If the final lock fix is absent, uncommitted, or not independently tested, the
+verdict is NOT READY.
+
+Before testing
+
+1. Read every applicable AGENTS.md. Read CONTRIBUTING.md and the relevant
+   sections of IMPLEMENTATION.md, spec/08-files.md, spec/16-test-plan.md, and
+   validation/README.md. Read GitHub issues #2 through #16, especially #3 and
+   #16, plus docs/safe-save.md, docs/emergency-recovery.md,
+   docs/operating-directory.md, and COVERAGE_REVIEW.md.
+2. Inspect the current implementation and tests. Do not assume the reviewed
+   revision, this prompt, or a prior report still matches the tree.
+3. Record Rust, Python, C compiler, target architecture, libc, ncurses, libmagic,
+   locale, container, reference-editor, and scanner configuration. Distinguish
+   missing prerequisites from product failures.
+4. Use fresh private output directories and disposable synthetic fixtures.
+   Preserve failed attempts and raw logs. Never overwrite earlier evidence.
+5. Use ordinary owned fixtures only. Do not create a weaponized reproduction or
+   an adversarial pathname race.
+
+Artifact and evidence discipline
+
+Build default, tiny, test-hook default, test-hook tiny, and credits artifacts
+from the same verified CANDIDATE. Freeze copies read-only. For every binary and
+test executable, record:
+
+- SHA-256, byte size, mode, build command, feature set, source commit/tree, Rust
+  version, target, and NARO_BUILD_INFO=1 output where supported;
+- the exact verification-input hash and reference-editor identity;
+- whether it is production, test-hook, Rust-test, helper, or reference code.
+
+Never conflate those classes. Package only after the final source and binaries
+are stable. If any source or relevant test input changes, rebuild and invalidate
+all affected conclusions. Historical qualification never transfers to a rebuilt
+binary.
+
+Known frozen final5 identities to verify, not inherit as passes:
+
+  default:    4e64b3ad0b3e7287272d163741adf053287c16dd69e2ca764bf5e57194b2ff3d
+  tiny:       81ebc62e917fe967361420fbebedc9e1715d0471c1a21ac357aa5b3262844829
+  credits:    a8b2d99affa9e8c96dc598c98a7981a99fc6dd01b459301984e96ea5e1c1747b
+  hooks:      f59f503b27a35e6bf396439418ca8ddcc10482bc2a2f13fe7220b2605645062a
+  hooks-tiny: 74052cc3c865a911a3cebabbc20231d4b36667a4069c90136c21e1c7c52b30ab
+
+The existing manifest is
+target/remediation-2026-11-06/daybreak-final5-frozen/manifest.json. Recompute
+each digest and inspect provenance before using an artifact. New rebuilds need
+new names and hashes and are a separate qualification population.
+
+Issue #3: durable save, backup, and lock acceptance
+
+Review the implementation as well as the harness.
+
+- Safe atomic replacement must be the default. Any in-place compatibility mode
+  must be explicitly selected and justified by repository evidence.
+- The replacement must be written through a uniquely and exclusively created
+  temporary file in the destination directory.
+- Verify complete writes, short and partial writes, repeated EINTR, EIO, ENOSPC,
+  file-sync failure, checked-close failure, rename failure, containing-directory
+  sync failure, and deterministic interruption boundaries.
+- Before the rename commit point, failure must leave the original pathname,
+  bytes, inode, and required metadata unchanged. The destination pathname must
+  not be replaced until new contents are fully written and file-synced.
+- After replacement, directory-sync failure must report failure and must not
+  mark the buffer saved, while accurately acknowledging that replacement may
+  already have occurred.
+- Verify safe identity-checked cleanup. A stale cleanup path must never remove a
+  substituted or unrelated inode.
+- Test regular existing and new files, overwrite, append, prepend, permissions,
+  ownership, set-ID behavior, timestamps, ACLs/xattrs where supported, final
+  symlinks, hard links, inode replacement, and temporary-name collisions.
+- Verify and document the policy: final symlink refusal; hard-link splitting;
+  inode replacement; and other deliberate differences from nano's in-place
+  behavior.
+
+Backup-specific regression requirements
+
+- Exercise secure and INSECURE_BACKUP configuration, confined and unconfined
+  operation, missing/regular/hard-link/symlink backup destinations, collisions,
+  fallback, read errors, and every injected save/backup fault.
+- A backup pathname that is a hard link or symlink to the source/destination
+  must never be opened with truncation. Publication must use an exclusive sibling
+  temporary, checked close, file sync, rename, and directory sync.
+- Prove failures before backup publication preserve the previous backup pathname
+  and contents. Verify post-publication failure reporting deliberately.
+- Verify INSECURE_BACKUP is a documented compatibility option and does not
+  re-enable alias truncation.
+
+Lock-specific regression requirements
+
+- Save-as to the buffer's remembered lock pathname must preserve the newly saved
+  destination. Lock cleanup must compare retained ownership identity before
+  unlinking.
+- Test confined and unconfined save-as collision cases, saved/modified state,
+  stat/name state, undo/redo state, and cleanup of a genuinely owned new lock.
+- Test normal lock creation, refresh, explicit accepted takeover, conflict
+  refusal, substituted-entry preservation, and a pre-existing new-sidecar entry.
+- Only the explicit user-approved takeover path may remove an unowned lock.
+  Ordinary creation, save-as, refresh, or cleanup must not do so.
+- Verify lock creation failure after a successful save is reported without
+  falsely turning the committed save into data loss.
+
+Fault-injection and negative-control requirements
+
+- Run the complete safe-save, backup, recovery, and lock regression suites for
+  every applicable default/tiny profile.
+- Prove each intended fault actually fired and each required assertion executed.
+  A command returning zero without a fired marker or meaningful assertion is not
+  coverage.
+- Preserve clean negative-control evidence showing the relevant newly added
+  regression fails against the immediate pre-fix revision and passes at
+  CANDIDATE. Bind it to revision, test-source hash, binary hash, command, status,
+  and log. Use only ordinary synthetic fixtures.
+- In particular, retain negative controls for the fortified-open gate, backup
+  alias truncation, and save-as/lock-path deletion.
+- On glibc, prove interception of fortified __open_2, __open64_2, and __openat_2
+  where present, preserving variadic mode arguments including O_TMPFILE.
+- Verify the shared open-gate implementation is used by default and tiny CI
+  checks. An inert FIFO must cause the gate to fail, not silently pass.
+
+Expected minimum inventories to independently reproduce
+
+These are discovery alarms, not inherited passes. Recompute them from raw
+records and explain every difference:
+
+- safe-save matrix: at least 448/448 default and 448/448 tiny;
+- backup-enabled matrix: at least 1200/1200 default, including 672 save-phase
+  and 528 backup-phase cases, 24 successful home fallbacks, and 48 read-error
+  cases that skip fallback;
+- recovery matrix: 41/41 for each profile;
+- explicit safe-save semantics: 22 progress cases and 10 safety cases;
+- focused lock regressions: all discovered cases in both applicable profiles;
+- full tiny CI inventory: 195 tests (59 + 125 + 8 + 3 at the prior boundary),
+  adjusted only for newly discovered tests with an itemized explanation;
+- native signal cases: 37; terminal signal cases: 12 default and 10 tiny;
+- native fuzz: 100,000 cases for each profile;
+- catalogs: 41; position assertions: 128; malformed catalogs: 5 per profile;
+- profile measurement: 8 checks, without changing frozen input bytes or modes;
+- default differential inventory: 593 cases at the earlier boundary;
+- tiny differential inventory: 202 cases at the earlier boundary.
+
+Discover tests dynamically. Do not force a historical count when legitimate new
+tests exist. A lower count, ignored fixture, duplicate identity, zero executed
+tests, or missing record is a failure until explained.
+
+Other remediated areas
+
+Issues #4/#5 — recovery and signals
+
+- Run recovery fault and UI/disk assertions for default and tiny test-hook
+  binaries. File sync, directory sync, and close failures must not produce a
+  durable-success message.
+- Run native and real-terminal signal suites, including termination during paste,
+  recovery, and terminal restoration.
+
+Issues #6/#7 — undo and search
+
+- Run bounded undo, dense literal/regex search, capture replacement, backward
+  and zero-width matching, multiline replace-all, and real Ctrl-C tests.
+- Measure time and peak memory for the 10 MiB/210,000-edit case and multiple
+  simultaneous buffers.
+- Recheck loading first\nsecond without a final LF and ordinary word-completion
+  undo; earlier candidates crashed here.
+
+Issues #8/#9/#11/#12 — native, configuration, and file behavior
+
+- Validate shipped catalogs, malformed-template fallback, typed formatting, and
+  strict native format checks using non-operational fixtures only.
+- Test backup UID/GID, final set-ID mode, and timestamps, including rootless
+  foreign-owner and permission-denied cases. Missing namespace/group support is
+  not a pass.
+- Check system/user rc precedence, bracket includes, invalid UTF-8 diagnostics
+  and byte preservation, C-locale syntax names, forced syntax, quoted binding
+  expansion, formatter, and linter paths/arguments.
+- Review operating-directory authorization for loads, insertion, saves, backups,
+  recovery, locks, browsing, completion, libmagic reads, and metadata.
+- Issue #12's adversarial symlink-swap/rename-exchange race remains explicitly
+  unverified unless a safe, non-weaponized approved method exists. Do not claim
+  it closed from structural review alone.
+
+Issues #2/#10/#13/#14 — credits, packaging, and evidence
+
+- Verify default/tiny --credits exactly matches CREDITS.md and both archives
+  preserve GNU nano 9.3 attribution.
+- Verify packaging rejects dirty source and records actual archived bytes/modes
+  and binary/source provenance.
+- Run installer transaction failure/restart tests for fresh install, upgrade,
+  recovery, and uninstall in isolated prefixes.
+- Review every citation disposition. Correcting a citation does not create
+  runtime coverage.
+
+Issue #15 — integrated qualification
+
+- Run every applicable CONTRIBUTING.md command: formatting, strict Clippy,
+  default/all-feature/tiny unit tests, Python discovery, integration, packaging,
+  and validation checks.
+- Run fresh full default and tiny differential inventories, regex corpus, and
+  explicit safe-save semantic suites. Reopen raw records and independently
+  recompute assertions, scenario hashes, steps, identities, and coverage.
+- Prove TEST-FEAT-015 restores seeded cursor/history rather than comparing two
+  no-ops.
+- Confirm requested locales actually load. A zero status with warnings or ASCII
+  fallback is not UTF-8 locale coverage.
+- Require every recovery and panic record, exact scenario identity, meaningful
+  assertions, and exact artifact identity. The CI extension checker must use the
+  supplied panic binary.
+- Exercise host and Ubuntu combinations. The Ubuntu clone must be self-contained
+  with no unavailable Git alternates; run git fsck and prove clean source state
+  inside the container.
+- Run package creation and package verification only against the final frozen
+  artifacts.
+
+Differential-result rules
+
+Raw non-zero differential status can be expected when the suite intentionally
+records policy differences. It is not itself a pass or failure. Independently
+classify exact matches, reviewed intentional deviations, product/policy
+differences, reference failures, missing locales/prerequisites, harness failures,
+and product failures. Preserve raw records. The historical in-place parity gate
+is raw historical evidence and must not be called a blanket 0.1.2 pass.
+
+Operational constraints
+
+- Do not install globally, replace the system editor, access credentials, push,
+  publish, tag, open a PR, or close an issue.
+- Do not modify production code during this retest. Report defects with minimal
+  ordinary fixtures and exact locations. A later fix starts a new candidate and
+  invalidates affected artifacts and conclusions.
+- Do not weaken normalization, broaden exclusions, alter goldens, reduce
+  assertions, or reinterpret warnings merely to obtain a pass.
+- Do not create weaponized reproductions.
+- Preserve unrelated tracked/untracked files and every failed attempt.
+- Update GitHub only with verified facts and clearly label interim results.
+
+Required command families
+
+Use the exact commands required by CONTRIBUTING.md and discovered repository
+interfaces. At minimum include and ledger:
+
+- cargo fmt --check;
+- strict cargo clippy for all targets/all features and the tiny profile;
+- cargo test for default, all-features, and tiny;
+- Rust test-executable discovery/build for the exact matrix binaries;
+- all Python unittest/discovery, tool, policy, open-gate, CI-extension, and
+  remediation tests;
+- complete safe-save, backup, recovery, lock, semantics, signal, search, undo,
+  fuzz, catalog, regex, branding, credits, profile, package, installer, default
+  differential, and tiny differential suites;
+- a self-contained Ubuntu run and git fsck;
+- git diff --check and a final clean-state/provenance audit.
+
+Deliverables
+
+Create a new dated validation directory, without overwriting prior evidence, and
+provide:
+
+1. A report plus machine-readable command ledger containing every command
+   actually run, working directory, environment differences, start/end time,
+   exit status, stdout/stderr log path, and classification.
+2. Final commit/tree/status plus exact source, production, test-hook, Rust-test,
+   package, reference, and verification-input identities.
+3. A per-issue disposition: passed, failed, unverified, or inapplicable, with
+   direct evidence.
+4. Separate product failures, intentional compatibility differences, missing
+   prerequisites, interrupted runs, operator errors, and infrastructure failures.
+5. Executed case/assertion counts, with skips, exclusions, no-assertion
+   observations, retries, and superseded attempts listed separately.
+6. Findings ranked by severity with file/line references and ordinary
+   reproducible fixtures.
+7. Current git status, diff summary, remaining uncertainty, and an unambiguous
+   release verdict.
+
+Release rule
+
+If any required data-integrity assertion fails, a relevant regression remains,
+the tracked candidate or artifact provenance is inconsistent, a required test is
+missing, or raw evidence cannot support its summary, the verdict is NOT READY.
+Never summarize a partial matrix as fully tested. A release-ready verdict must
+state explicitly which issue #12 race conditions and real power-loss behavior
+remain outside deterministic qualification.
+
+Prior-review boundary
+
+An Astra/xhigh integrated review returned a technical GO for the exact 2888560
+Linux artifacts above. That is context, not Daybreak's verdict. Its explicit
+limits were: two unavailable host locales; 28 unavailable Ubuntu namespace
+cases; Ubuntu supplementary-group cases covered only by the host run; and no
+qualification of issue #12's adversarial race acceptance, genuine guest-VT
+input, additional architectures/Miri, broader native-library sanitizer coverage,
+or physical power-loss behavior. It did not claim full raw nano parity or that
+all acceptance criteria for issues #2 through #16 were closed. Independently
+confirm, narrow, or reject that conclusion from raw evidence.

@@ -7,7 +7,7 @@ No applicable AGENTS.md was found in the repository or its ancestor directories.
 The broad parent-directory discovery encountered unrelated inaccessible
 `rfile-qa-claude` fixture directories; repository discovery succeeded.
 
-Build configuration: Cargo package 0.1.1, Rust edition 2024; default features
+Build configuration at the initial boundary: Cargo package 0.1.1, Rust edition 2024; default features
 empty, optional `tiny`, `credits`, `test-hooks`; release LTO and one codegen
 unit. Native bridge compiled with C11, ncursesw and (except tiny) libmagic.
 Installed toolchain: rustc 1.99.1, cargo 1.99.1; explicit
@@ -17,7 +17,7 @@ C.utf8, POSIX, en_US.utf8. No system installation was performed.
 
 ## Evidence status
 
-Issue #3 implementation and scoped host validation are complete. Raw logs and exact command records are under
+The initial issue #3 implementation and scoped host validation are complete. Raw logs and exact command records are under
 `target/issue-3-2026-11-05/`; that directory is new for this work. Baseline
 `cargo test`, `cargo test --all-features`, comparison/harness unit tests,
 inventory and specification audit returned zero. The separately named
@@ -25,9 +25,12 @@ inventory and specification audit returned zero. The separately named
 unmodified historical qualification binary or the authoritative old-code
 regression fixture.
 
-The current patch is not a qualified release. Prior receipts remain applicable
-only to their recorded binaries. No Daybreak Blue tool, local command or plugin
-was found; no Daybreak Blue scan has run. GitHub progress comments say so.
+These initial dirty-tree artifacts are not a qualified release. Prior receipts
+remain applicable only to their recorded binaries. The later committed-tree
+[0.1.2 final-candidate qualification](../daybreak-0.1.2-2026-11-06/README.md)
+binds final artifacts to `2888560`; it does not relabel the earlier recordings
+or claim that the unavailable Daybreak Blue runtime executed them. The separate
+Daybreak handoff prompt requests that independent rerun.
 
 See [the design and compatibility policy](../../docs/safe-save.md).
 
@@ -57,6 +60,11 @@ See [the design and compatibility policy](../../docs/safe-save.md).
   default build receipt. The exact new CI fault-matrix shell was also executed
   locally and passed both 414-case matrices; hosted CI has not run.
 
+The final committed-tree retest expands the fault matrix to **448/448 per
+profile**, the backup matrix to **1200/1200**, and adds the lock-identity
+negative control and final host/Ubuntu evidence. See the linked final-candidate
+report for exact hashes and dispositions.
+
 ## Files and evidence
 
 Production changes: `native/bridge.c`, `src/native.rs`, `src/files.rs`,
@@ -74,13 +82,14 @@ remain in the referenced raw directories. Additional command records cover
 
 ## Limits
 
-No full Ubuntu/guest-VT release matrix, physical power-loss testing, or alternate
-filesystem/OS certification was performed. Directory sync/close failure after
+The final retest adds a self-contained Ubuntu matrix, but no new genuine
+guest-VT run, physical power-loss testing, or alternate filesystem/OS
+certification was performed. Directory sync/close failure after
 rename reports uncertain durability; rollback is not claimed. Uncatchable
 termination may leave an owned temporary file. Concurrent external writers
 need coordination; this work does not establish the broader issue #12
 confinement/race claims. No global install, push, PR, issue closure or release
-publication was performed. The requested Daybreak Blue scan is unavailable.
+publication was performed.
 
 See [independent Astra/xhigh review](review.md) and [test command history](test-commands.md).
 
