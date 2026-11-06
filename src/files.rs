@@ -105,6 +105,9 @@ pub fn open(c: &Config, name: &[u8], noread: bool) -> Result<(Buffer, String, i3
                 b.stat = Some(metadata);
                 let (lines, dos, n) = parse(&raw, !c.on(NO_CONVERT));
                 b.state.lines = lines;
+                // Loading replaces the one-line constructor state. Establish
+                // all line metadata before magic() can append a journaled LF.
+                b.state.anchors.resize(b.state.lines.len(), false);
                 let nl = b.state.lines.len() as u64;
                 b.state.generations = (b.next_gen..b.next_gen + nl).collect();
                 b.next_gen += nl;
@@ -298,11 +301,11 @@ pub fn write(
     }
     Ok(n)
 }
-pub fn changed(b: &Buffer, name: &[u8]) -> bool {
+pub fn changed(c: &Config, b: &Buffer, name: &[u8]) -> bool {
     if b.name != name {
         return false;
     }
-    match (&b.stat, fs::metadata(config::expand(name))) {
+    match (&b.stat, confinement::metadata(c, &config::expand(name))) {
         (Some(old), Ok(new)) => {
             new.dev() != old.dev()
                 || new.ino() != old.ino()
@@ -738,3 +741,41 @@ mod safe_save_tests;
 #[cfg(test)]
 #[path = "backup_tests.rs"]
 mod backup_tests;
+
+#[cfg(test)]
+mod load_tests {
+    use super::*;
+    #[test]
+    fn multiline_without_final_lf_loads_with_aligned_metadata() {
+        let root = std::env::current_dir()
+            .unwrap()
+            .join("target/load-no-final-lf")
+            .join(std::process::id().to_string());
+        fs::create_dir_all(&root).unwrap();
+        let path = root.join("ordinary.txt");
+        fs::write(&path, b"first\nsecond").unwrap();
+        let newline_modes: &[bool] = if cfg!(feature = "tiny") {
+            &[false]
+        } else {
+            &[false, true]
+        };
+        for &nonew in newline_modes {
+            let mut config = Config::new(false);
+            config.set(NO_NEWLINES, nonew);
+            let (buffer, _, _) = open(&config, path.as_os_str().as_bytes(), false).unwrap();
+            assert_eq!(
+                buffer.raw(),
+                if nonew {
+                    b"first\nsecond".as_slice()
+                } else {
+                    b"first\nsecond\n".as_slice()
+                }
+            );
+            assert_eq!(buffer.state.lines.len(), buffer.state.anchors.len());
+            assert_eq!(buffer.state.lines.len(), buffer.state.generations.len());
+            assert!(!buffer.modified);
+            assert_eq!(buffer.hist, 0);
+        }
+        fs::remove_dir_all(root).unwrap();
+    }
+}

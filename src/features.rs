@@ -11,15 +11,22 @@ use crate::{
     native, render,
 };
 use std::{
+    ffi::OsString,
     fs,
     io::{Read, Write},
     os::unix::{
-        ffi::OsStrExt,
+        ffi::{OsStrExt, OsStringExt},
         fs::{OpenOptionsExt, PermissionsExt},
     },
     path::PathBuf,
     process::{Command, Stdio},
 };
+fn command_words(command: &[u8]) -> impl Iterator<Item = OsString> + '_ {
+    command
+        .split(|byte| *byte == b' ')
+        .filter(|word| !word.is_empty())
+        .map(|word| OsString::from_vec(word.to_vec()))
+}
 impl Editor {
     pub fn scroll_horizontal(&mut self, right: bool) {
         if self.conf.on(SOFTWRAP) || self.conf.on(SOLO_SIDESCROLL) {
@@ -1653,9 +1660,9 @@ impl Editor {
             self.msg("No formatter is defined for this type of file", 5);
         }
     }
-    pub fn external_tool(&mut self, cmd: &str, spell: bool) {
+    pub fn external_tool(&mut self, cmd: &[u8], spell: bool) {
         use std::os::unix::process::CommandExt;
-        let mut args = cmd.split(' ').filter(|s| !s.is_empty());
+        let mut args = command_words(cmd);
         let Some(program) = args.next() else {
             return;
         };
@@ -1695,7 +1702,7 @@ impl Editor {
             self.msg("Invoking formatter...", 1);
             render::draw(self);
         }
-        let mut command = Command::new(program);
+        let mut command = Command::new(&program);
         command.args(args).arg(&temp.path);
         unsafe {
             command.pre_exec(|| {
@@ -1735,11 +1742,23 @@ impl Editor {
         }
         let status = result.ok().and_then(|s| s.code()).unwrap_or(9);
         if status > 2 {
-            self.msg(format!("Error invoking '{program}'"), 7);
+            self.msg(
+                format!(
+                    "Error invoking '{}'",
+                    config::display_rc_bytes(program.as_bytes())
+                ),
+                7,
+            );
             return;
         }
         if status != 0 {
-            self.msg(format!("Program '{program}' complained"), 7);
+            self.msg(
+                format!(
+                    "Program '{}' complained",
+                    config::display_rc_bytes(program.as_bytes())
+                ),
+                7,
+            );
         }
         if fs::metadata(&temp.path).and_then(|s| s.modified()).ok() == old {
             self.msg("Nothing changed", 2);
@@ -1804,7 +1823,7 @@ impl Editor {
     pub fn spell(&mut self) {
         let command = self.conf.value("speller");
         if !command.is_empty() {
-            self.external_tool(&bytes::text(&command), true);
+            self.external_tool(&command, true);
             return;
         }
         let temp = match files::temp(&self.conf, self.b(), self.b().state.mark.is_some()) {
@@ -1955,7 +1974,7 @@ impl Editor {
         let Some(command) = self.syntax().and_then(|s| s.linter.clone()) else {
             return;
         };
-        let mut words = command.split(' ').filter(|s| !s.is_empty());
+        let mut words = command_words(&command);
         let Some(program) = words.next() else {
             return;
         };
@@ -1994,7 +2013,13 @@ impl Editor {
                     entries.push((fields[0].as_bytes().to_vec(), line, col, msg.to_string()));
                 }
                 if entries.is_empty() {
-                    self.msg(format!("Zero messages from '{command}'"), 2);
+                    self.msg(
+                        format!(
+                            "Zero messages from '{}'",
+                            config::display_rc_bytes(&command)
+                        ),
+                        2,
+                    );
                     return;
                 }
                 let hidden = self.conf.on(NO_HELP);
@@ -2005,7 +2030,10 @@ impl Editor {
                     original_nohelp: hidden,
                 });
             }
-            _ => self.msg(format!("Error invoking '{command}'"), 7),
+            _ => self.msg(
+                format!("Error invoking '{}'", config::display_rc_bytes(&command)),
+                7,
+            ),
         }
     }
     fn show_lint(&mut self, l: LintState) {

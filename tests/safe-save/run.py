@@ -52,7 +52,7 @@ def run_case(binary, preload, root, mode, fault, kind):
                NARO_SAVE_MODE=str(mode), NARO_SAVE_FAULT=fault)
     if kind == "collision":
         env["NARO_SAVE_COLLISION"] = "1"
-    proc = subprocess.run([str(binary), "--exact", "files::safe_save_tests::fixture_save", "--nocapture"],
+    proc = subprocess.run([str(binary), "--exact", "files::safe_save_tests::fixture_save", "--ignored", "--nocapture"],
                           env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=10, umask=0o027)
     (root / "process.log").write_bytes(proc.stdout)
     result = (root / "result").read_text() if (root / "result").exists() else ""

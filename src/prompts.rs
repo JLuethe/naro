@@ -682,7 +682,7 @@ impl Editor {
             );
             return;
         }
-        if mode == 0 && !confirmed_disk && files::changed(self.b(), &p.answer) {
+        if mode == 0 && !confirmed_disk && files::changed(&self.conf, self.b(), &p.answer) {
             self.mode = Mode::Edit;
             self.msg("File on disk has changed", 7);
             self.pause_painted = false;

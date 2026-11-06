@@ -42,14 +42,15 @@ pub struct Syntax {
     pub seen_color: bool,
     pub loaded: bool,
     pub name: String,
+    pub name_bytes: Vec<u8>,
     pub files: Vec<Regex>,
     pub headers: Vec<Regex>,
     pub magic: Vec<Regex>,
     pub rules: Vec<Rule>,
     pub comment: Option<Vec<u8>>,
     pub tab: Option<Vec<u8>>,
-    pub linter: Option<String>,
-    pub formatter: Option<String>,
+    pub linter: Option<Vec<u8>>,
+    pub formatter: Option<Vec<u8>>,
 }
 #[derive(Debug)]
 pub struct Config {
@@ -277,17 +278,20 @@ impl Config {
                 'z' => {
                     self.load_rc();
                     if !self.syntaxes.is_empty() {
-                        println!("Available syntaxes:");
+                        use std::io::Write as _;
+                        let mut output = std::io::stdout().lock();
+                        writeln!(output, "Available syntaxes:").map_err(|e| e.to_string())?;
                         let mut width = 0;
                         for s in self.syntaxes.iter().rev() {
                             if width > 45 {
-                                println!();
+                                writeln!(output).map_err(|e| e.to_string())?;
                                 width = 0;
                             }
-                            print!(" {}", s.name);
-                            width += self.enc().breadth(s.name.as_bytes());
+                            output.write_all(b" ").map_err(|e| e.to_string())?;
+                            output.write_all(&s.name_bytes).map_err(|e| e.to_string())?;
+                            width += self.enc().breadth(&s.name_bytes);
                         }
-                        println!();
+                        writeln!(output).map_err(|e| e.to_string())?;
                     }
                     return Ok(Some(0));
                 }
@@ -766,7 +770,11 @@ impl Config {
                                     .rfind('"')
                                     .filter(|i| *i > 0)
                                     .ok_or("Unterminated string")?;
-                                ("", rest[end + 1..].trim(), Some(rest[1..end].to_string()))
+                                (
+                                    "",
+                                    rest[end + 1..].trim(),
+                                    Some(rc_bytes(&rest[1..end], raw_encoded)),
+                                )
                             } else {
                                 let (f, r) = word(rest);
                                 (f, r, None)
@@ -905,7 +913,8 @@ impl Config {
                             return Err("The \"default\" syntax does not accept extensions".into());
                         }
                         let mut syntax = Syntax {
-                            name: name.into(),
+                            name: display_rc_bytes(&rc_bytes(name, raw_encoded)),
+                            name_bytes: rc_bytes(name, raw_encoded),
                             source: Some((p.to_path_buf(), index + 1)),
                             ..Default::default()
                         };
@@ -922,8 +931,13 @@ impl Config {
                         let i = self
                             .syntaxes
                             .iter()
-                            .rposition(|s| s.name == name)
-                            .ok_or_else(|| format!("Could not find syntax \"{name}\" to extend"))?;
+                            .rposition(|s| s.name_bytes == rc_bytes(name, raw_encoded))
+                            .ok_or_else(|| {
+                                format!(
+                                    "Could not find syntax \"{}\" to extend",
+                                    display_rc_bytes(&rc_bytes(name, raw_encoded))
+                                )
+                            })?;
                         if matches!(command, "header" | "magic") {
                             self.syntax_command(i, command, rest, raw_encoded)?;
                         } else {
@@ -1059,8 +1073,8 @@ impl Config {
                 match cmd {
                     "comment" => self.syntaxes[i].comment = Some(rc_bytes(&a, raw_encoded)),
                     "tabgives" => self.syntaxes[i].tab = Some(rc_bytes(&a, raw_encoded)),
-                    "linter" => self.syntaxes[i].linter = Some(a),
-                    _ => self.syntaxes[i].formatter = Some(a),
+                    "linter" => self.syntaxes[i].linter = Some(rc_bytes(&a, raw_encoded)),
+                    _ => self.syntaxes[i].formatter = Some(rc_bytes(&a, raw_encoded)),
                 };
             }
             "color" | "icolor" => {
@@ -1104,14 +1118,12 @@ impl Config {
         }
         let forced = self.value("syntax");
         if !forced.is_empty()
-            && let Some(i) = self
-                .syntaxes
-                .iter()
-                .rposition(|s| s.name.as_bytes() == forced)
+            && let Some(i) = self.syntaxes.iter().rposition(|s| s.name_bytes == forced)
         {
             return Some(i);
         }
-        let full = std::fs::canonicalize(path(name)).unwrap_or_else(|_| path(name));
+        let original = path(name);
+        let full = crate::confinement::syntax_path(self, &original).unwrap_or(original.clone());
         let name = full.as_os_str().as_bytes();
         for (i, s) in self.syntaxes.iter().enumerate().rev() {
             if s.files.iter().any(|r| r.find(name, 0, false).is_some()) {
@@ -1124,7 +1136,15 @@ impl Config {
             }
         }
         if self.on(USE_MAGIC) {
-            let desc = native::magic(name);
+            let desc = if crate::confinement::enabled(self) {
+                // The resolved name is display data. Acquire read authority
+                // through the original name instead of reopening that string.
+                crate::confinement::open_read(self, &original)
+                    .map(|file| native::magic_file(&file))
+                    .unwrap_or_default()
+            } else {
+                native::magic(name)
+            };
             for (i, s) in self.syntaxes.iter().enumerate().rev() {
                 if s.magic.iter().any(|r| r.find(&desc, 0, false).is_some()) {
                     return Some(i);
@@ -1211,6 +1231,20 @@ fn rc_bytes(s: &str, byte_locale: bool) -> Vec<u8> {
         }
     }
     out
+}
+pub(crate) fn display_rc_bytes(raw: &[u8]) -> String {
+    if let Ok(text) = std::str::from_utf8(raw) {
+        return text.to_owned();
+    }
+    let mut escaped = String::new();
+    for byte in raw {
+        if byte.is_ascii_graphic() || *byte == b' ' {
+            escaped.push(*byte as char);
+        } else {
+            escaped.push_str(&format!("\\x{byte:02X}"));
+        }
+    }
+    escaped
 }
 pub fn parse_num(s: &str) -> Option<i64> {
     let s = s.trim_start_matches([' ', '\t', '\n', '\r', '\u{b}', '\u{c}']);
@@ -1553,7 +1587,7 @@ unsafe extern "C" {
         flags: std::ffi::c_int,
     ) -> std::ffi::c_int;
 }
-#[cfg(test)]
+#[cfg(all(test, not(feature = "tiny")))]
 mod nanorc_regressions {
     use super::*;
     use std::sync::atomic::{AtomicU64, Ordering};
@@ -1657,6 +1691,60 @@ mod nanorc_regressions {
         assert_eq!(config.value("wordchars"), b"A\xffB");
         assert_eq!(config.value("speller"), b"C\xfeD");
         assert!(config.errors.is_empty(), "{:?}", config.errors);
+    }
+
+    #[test]
+    fn byte_locale_keeps_syntax_names_and_deferred_commands() {
+        let f = Fixture::new();
+        let rc = f.write(
+            "syntax-bytes.nanorc",
+            b"syntax caf\xc3\xa9 \"cafe$\"\ncolor red \"x\"\nformatter \"tool_\xff\"\nextendsyntax caf\xc3\xa9 linter \"lint_\xfe\"\n",
+        );
+        let mut config = Config::new(false);
+        config.read_rc(&rc, false);
+        assert_eq!(config.syntaxes.len(), 1);
+        assert_eq!(config.syntaxes[0].name_bytes, b"caf\xc3\xa9");
+        assert!(config.errors.is_empty(), "{:?}", config.errors);
+        config
+            .strings
+            .insert("syntax".into(), b"caf\xc3\xa9".to_vec());
+        assert_eq!(config.select_syntax(b"any-name", b""), Some(0));
+        assert!(!config.activate_syntax(0));
+        let syntax = &config.syntaxes[0];
+        assert_eq!(syntax.formatter.as_ref().unwrap(), b"tool_\xff");
+        assert_eq!(syntax.linter.as_ref().unwrap(), b"lint_\xfe");
+    }
+
+    #[test]
+    fn raw_payloads_survive_invalid_utf8_syntax_and_binding_lines() {
+        let f = Fixture::new();
+        let rc = f.write(
+            "raw-payloads.nanorc",
+            b"syntax plain \"x$\"\ncolor red \"x\"\nformatter \"tool_\xff\"\nbind ^A \"A\xfeB\" main\n",
+        );
+        let mut config = Config::new(true);
+        config.read_rc(&rc, false);
+        assert!(config.errors.is_empty(), "{:?}", config.errors);
+        assert!(!config.activate_syntax(0));
+        assert_eq!(config.syntaxes[0].formatter.as_ref().unwrap(), b"tool_\xff");
+        let binding = config
+            .keys
+            .iter()
+            .find(|binding| binding.key == 1 && binding.expansion.is_some())
+            .unwrap();
+        assert_eq!(binding.expansion.as_ref().unwrap(), b"A\xfeB");
+    }
+
+    #[test]
+    fn invalid_byte_syntax_name_is_escaped_in_errors() {
+        let f = Fixture::new();
+        let rc = f.write("syntax-error.nanorc", b"syntax na\xff \"x$\"\n");
+        let mut config = Config::new(false);
+        config.read_rc(&rc, false);
+        assert_eq!(config.syntaxes[0].name_bytes, b"na\xff");
+        assert_eq!(config.syntaxes[0].name, "na\\xFF");
+        assert_eq!(config.errors.len(), 1);
+        assert!(config.errors[0].contains("Syntax \"na\\xFF\" has no color commands"));
     }
 
     #[test]

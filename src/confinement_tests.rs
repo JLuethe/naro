@@ -80,6 +80,64 @@ fn confinement_reads_and_metadata_use_opened_file() {
     assert_eq!(files::read(&f.conf, &path).unwrap(), b"content\n");
 }
 #[test]
+fn confinement_syntax_matches_authorized_canonical_name() {
+    let mut f = Fixture::new();
+    let target = f.root.join("nested/input.rs");
+    fs::write(&target, b"ordinary text\n").unwrap();
+    let link = f.root.join("alias.txt");
+    symlink("nested/input.rs", &link).unwrap();
+    f.conf.syntaxes.push(crate::config::Syntax {
+        files: vec![crate::native::Regex::new(b"/nested/input\\.rs$", false).unwrap()],
+        ..Default::default()
+    });
+    f.conf.syntaxes.push(crate::config::Syntax {
+        files: vec![crate::native::Regex::new(b"alias\\.txt$", false).unwrap()],
+        ..Default::default()
+    });
+    let (buffer, _, _) = files::open(&f.conf, link.as_os_str().as_bytes(), false).unwrap();
+    assert_eq!(buffer.syntax, Some(0));
+
+    // Relative names resolve from the actual cwd without changing process cwd
+    // (the other unit tests can run concurrently).
+    let relative = link.strip_prefix(std::env::current_dir().unwrap()).unwrap();
+    assert_eq!(syntax_path(&f.conf, relative).unwrap(), target);
+    let (buffer, _, _) = files::open(&f.conf, relative.as_os_str().as_bytes(), false).unwrap();
+    assert_eq!(buffer.syntax, Some(0));
+
+    let missing = f.root.join("missing.rs");
+    assert!(syntax_path(&f.conf, &missing).is_err());
+    f.conf.syntaxes.push(crate::config::Syntax {
+        files: vec![crate::native::Regex::new(b"missing\\.rs$", false).unwrap()],
+        ..Default::default()
+    });
+    let (buffer, _, _) = files::open(&f.conf, missing.as_os_str().as_bytes(), false).unwrap();
+    assert_eq!(buffer.syntax, Some(2));
+}
+#[test]
+fn confinement_magic_selects_syntax_through_file_open() {
+    let mut f = Fixture::new();
+    f.conf.set(USE_MAGIC, true);
+    f.conf.syntaxes.push(crate::config::Syntax {
+        magic: vec![crate::native::Regex::new(b"text", false).unwrap()],
+        ..Default::default()
+    });
+    let target = f.root.join("nested/ordinary");
+    fs::write(&target, b"ordinary plain text\n").unwrap();
+    let link = f.root.join("alias");
+    symlink("nested/ordinary", &link).unwrap();
+    let (buffer, _, _) = files::open(&f.conf, link.as_os_str().as_bytes(), false).unwrap();
+    assert_eq!(buffer.raw(), b"ordinary plain text\n");
+    assert_eq!(buffer.syntax, Some(0));
+
+    // An independently unauthorized name cannot supply libmagic content.
+    let other = f.base.join("other/ordinary");
+    fs::write(&other, b"other plain text\n").unwrap();
+    assert_eq!(
+        f.conf.select_syntax(other.as_os_str().as_bytes(), b""),
+        None
+    );
+}
+#[test]
 fn confinement_rejects_unresolved_or_uninitialized_authority() {
     let mut f = Fixture::new();
     assert!(!check(&f.conf, &f.root.join("missing/child")));

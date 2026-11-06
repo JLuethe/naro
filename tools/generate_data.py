@@ -12,7 +12,7 @@ f=['// Generated from pinned GNU nano data; GPL-3.0-or-later.','// Reference: 6e
 for i,s in enumerate(flags):f.append(f'pub const {s}: usize = {i};')
 menus='MAIN SEARCH REPLACE REPLACEWITH GOTO WRITE INSERT EXEC HELP SPELL BROWSER BSEARCH BGOTO YESNO LINTER HSEARCH'.split()
 for i,s in enumerate(menus):f.append(f'pub const {s}: u32 = {1<<i};')
-f+=['#[derive(Clone, Debug)]','pub struct Binding {pub key:i32,pub menus:u32,pub func:String,pub tag:String,pub toggle:usize,pub expansion:Option<String>}', '#[derive(Clone, Debug)]','pub struct Function {pub func:String,pub menus:u32,pub tag:String,pub phrase:String,pub blank:bool}']
+f+=['#[derive(Clone, Debug)]','pub struct Binding {pub key:i32,pub menus:u32,pub func:String,pub tag:String,pub toggle:usize,pub expansion:Option<Vec<u8>>}', '#[derive(Clone, Debug)]','pub struct Function {pub func:String,pub menus:u32,pub tag:String,pub phrase:String,pub blank:bool}']
 f.append('pub fn keymap(profile: &str) -> (Vec<Binding>,Vec<Function>) {match profile {')
 for p in sorted((ROOT/'spec/evidence/tables').glob('*.json')):
  d=json.loads(p.read_text());f.append('#[cfg('+('feature = \"tiny\"' if p.stem.startswith('tiny-') else 'not(feature = \"tiny\")')+')]');f.append(q(p.stem)+' => (vec![')

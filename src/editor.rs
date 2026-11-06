@@ -523,7 +523,11 @@ impl Editor {
                         self.pause_painted = false;
                         continue;
                     }
-                    self.bm().stat = std::fs::metadata(crate::config::expand(&self.b().name)).ok();
+                    self.bm().stat = crate::confinement::metadata(
+                        &self.conf,
+                        &crate::config::expand(&self.b().name),
+                    )
+                    .ok();
                     self.pause_screen = None;
                 } else {
                     self.pause_screen = None;
@@ -797,19 +801,19 @@ impl Editor {
             .find(|(n, _)| *n == name)
             .map(|(_, f)| f.to_string())
     }
-    fn expand_binding(&mut self, exp: &str) {
-        let mut chars = exp.chars().peekable();
+    fn expand_binding(&mut self, exp: &[u8]) {
+        let mut bytes = exp.iter().copied();
         let mut keys = Vec::new();
-        while let Some(c) = chars.next() {
-            if c == '{' {
-                let mut name = String::new();
+        while let Some(byte) = bytes.next() {
+            if byte == b'{' {
+                let mut name = Vec::new();
                 let mut closed = false;
-                for c in chars.by_ref() {
-                    if c == '}' {
+                for byte in bytes.by_ref() {
+                    if byte == b'}' {
                         closed = true;
                         break;
                     }
-                    name.push(c);
+                    name.push(byte);
                 }
                 if !closed {
                     keys.push(Key {
@@ -818,14 +822,20 @@ impl Editor {
                     });
                     break;
                 }
-                if name == "{" || name == "}" {
-                    keys.push(Key::plain(name.as_bytes()[0] as i32));
-                } else if let Some(fun) = self.lookup_function(&name) {
+                if name == b"{" || name == b"}" {
+                    keys.push(Key::plain(name[0] as i32));
+                } else if let Some(fun) = std::str::from_utf8(&name)
+                    .ok()
+                    .and_then(|name| self.lookup_function(name))
+                {
                     keys.push(Key {
                         command: Some(fun),
                         ..Key::plain(0)
                     });
                 } else {
+                    let name = std::str::from_utf8(&name)
+                        .map(str::to_owned)
+                        .unwrap_or_else(|_| format!("{name:?}"));
                     keys.push(Key {
                         command: Some(format!("error:Unknown function: {name}")),
                         ..Key::plain(0)
@@ -833,10 +843,7 @@ impl Editor {
                     break;
                 }
             } else {
-                let mut buf = [0; 4];
-                for b in c.encode_utf8(&mut buf).bytes() {
-                    keys.push(Key::plain(b as i32));
-                }
+                keys.push(Key::plain(byte as i32));
             }
         }
         for k in keys.into_iter().rev() {

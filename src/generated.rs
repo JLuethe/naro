@@ -70,7 +70,7 @@ pub const YESNO: u32 = 8192;
 pub const LINTER: u32 = 16384;
 pub const HSEARCH: u32 = 32768;
 #[derive(Clone, Debug)]
-pub struct Binding {pub key:i32,pub menus:u32,pub func:String,pub tag:String,pub toggle:usize,pub expansion:Option<String>}
+pub struct Binding {pub key:i32,pub menus:u32,pub func:String,pub tag:String,pub toggle:usize,pub expansion:Option<Vec<u8>>}
 #[derive(Clone, Debug)]
 pub struct Function {pub func:String,pub menus:u32,pub tag:String,pub phrase:String,pub blank:bool}
 pub fn keymap(profile: &str) -> (Vec<Binding>,Vec<Function>) {match profile {

@@ -2,10 +2,9 @@
 use super::*;
 
 #[test]
+#[ignore = "requires the owned fixture from tests/safe-save/run.py"]
 fn fixture_save() {
-    let Some(root) = std::env::var_os("NARO_SAVE_FIXTURE") else {
-        return;
-    };
+    let root = std::env::var_os("NARO_SAVE_FIXTURE").expect("safe-save fixture is required");
     let root = PathBuf::from(root);
     let collision = std::env::var_os("NARO_SAVE_COLLISION").is_some();
     let name = root.join(if collision {

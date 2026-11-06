@@ -42,3 +42,46 @@ Source hashes at this run: `src/config.rs`
 `60cb62c92f8e00cd409d919d7c632606bb950e0eb66987a57a8e04c41f3ba267`;
 `tests/nanorc/issue11_differential.py`
 `807382cb6f15095134ec99e94c26335870fbf2fb5b21e2cdccd496d1ce789e0e`.
+
+## C-locale String boundary follow-up
+
+An integrated review of frozen `d096a7465ca6f84c4f3989cccba8c018abfa469b`
+found a later issue #11 regression: `syntax café` in a C locale printed
+private-use placeholder bytes under `-z`. The review record is
+`target/remediation-2026-11-05/integrated-review-byte-names/report.json`.
+Additional bounded baseline runs used the same frozen default binary (SHA-256
+`dba4ffdccc5f80f2d7d6ae3ad383f8d2d30d8a88bdca6c48f7eb593fb6c0d293`).
+`target/issue-11-config/byte-boundary-baseline.py` and
+`byte-boundary-baseline.json` retain the fixtures and outputs: the syntax name
+printed encoded placeholders; a binding saved `41ee83bf420a` instead of
+`41ff420a`; a formatter left `top` unchanged; and a linter was not invoked.
+
+The follow-up keeps syntax names, binding expansions, and formatter/linter
+commands as raw bytes at their output or execution boundaries. Syntax display
+errors escape invalid bytes instead of inserting replacement characters.
+The nanorc regression module is gated out of tiny builds, which have no nanorc
+support. The generated Binding type and its generator now agree on byte
+expansions.
+
+Follow-up validation on 2026-11-05:
+
+| Command | Result |
+| --- | --- |
+| `cargo test nanorc_regressions` | 9 passed, 0 failed |
+| `cargo test` | 57 passed, 0 failed, 10 separately gated tests ignored |
+| `cargo test --features tiny` | 28 passed, 0 failed, 10 separately gated tests ignored |
+| `cargo test --all-features` | 28 passed, 0 failed, 10 separately gated tests ignored; nanorc module excluded by tiny gate |
+| `cargo fmt --check` | passed |
+| `cargo clippy --all-targets --all-features -- -D warnings` | passed |
+| `python3 tests/nanorc/issue11_differential.py` | 9 pinned nano comparisons passed |
+
+The added comparisons assert the exact C-locale syntax name bytes, the saved
+file bytes after a bound string is expanded, a formatter's on-disk transform,
+and a linter's marker file. Both programs run from ordinary disposable
+nanorc/file fixtures under `target/issue-11-config`; no user or system
+configuration is changed. The candidate binary for the nine comparisons had
+SHA-256 `93e7ddfed948cc7767f25d0445600b64e4f3699358a95a5130bca1cfe44cd514`.
+`src/config.rs` SHA-256 was
+`9ad91d8aca93689d9d9c915b7601ffc28f94e2aa0e207f5189f882cf89d7312b`,
+and `tests/nanorc/issue11_differential.py` SHA-256 was
+`710296a264b184887c53efba27bb7d9f1ba053b0d5b836e63f44a5ab24a5c693`.

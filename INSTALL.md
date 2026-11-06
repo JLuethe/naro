@@ -51,7 +51,11 @@ select a default editor, or replace system `nano`. Add the prefix's `bin` to
 your PATH yourself if desired. Existing unowned or modified files cause a
 conflict rather than silent replacement.
 
-Installation stages and syncs the complete payload before publishing a pending
+## Recoverable installation in the 0.1.2 candidate
+
+The installer in this source tree adds the following transaction guarantees.
+They do not apply to the installer shipped in the historical 0.1.1 archive.
+It stages and syncs the complete payload before publishing a pending
 journal (`.naro-install.pending.json`). Each file replacement is atomic, but
 the complete file set is not switched simultaneously: do not run NARO from a
 prefix while installing or recovering it. A failed or interrupted transaction
@@ -59,7 +63,7 @@ retains its journal and staging files so the next install or uninstall can
 finish it safely before proceeding. To finish it without the original archive:
 
 ```sh
-python3 naro-unpack/naro-0.1.1-x86_64-unknown-linux-gnu/install.py recover --prefix "$HOME/.local"
+python3 tools/release/install.py recover --prefix "$HOME/.local"
 ```
 
 Recovery checks the staged payload, existing ownership and destination contents;

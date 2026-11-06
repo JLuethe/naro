@@ -38,7 +38,9 @@ def run_list(binary, rc=None, env=ENV, prefix=()):
     return result.stdout
 
 
-def run_editor(binary, rc, operand=None, env=ENV):
+def run_editor(binary, rc, operand=None, env=ENV, actions=None):
+    if actions is None:
+        actions = [(0.25, b"\x18")]
     pid, fd = pty.fork()
     if pid == 0:
         os.environ.clear()
@@ -50,15 +52,15 @@ def run_editor(binary, rc, operand=None, env=ENV):
         os.execv(args[0], args)
     output = bytearray()
     start = time.monotonic()
-    sent_exit = False
+    next_action = 0
     status = None
     while time.monotonic() - start < 5:
-        if not sent_exit and time.monotonic() - start > 0.25:
+        if next_action < len(actions) and time.monotonic() - start > actions[next_action][0]:
             try:
-                os.write(fd, b"\x18")
+                os.write(fd, actions[next_action][1])
             except OSError:
                 pass
-            sent_exit = True
+            next_action += 1
         ready, _, _ = select.select([fd], [], [], 0.05)
         if ready:
             try:
@@ -136,6 +138,87 @@ def main():
             assert b"BYTE_DIR_MARKER" in output, (binary, output[-500:])
             assert b"Invalid operating directory" not in output, binary
         print("C locale: raw non-UTF-8 directory bytes open the expected file")
+
+        c_name = fixture / "byte-syntax.nanorc"
+        c_name.write_bytes(b'syntax caf\xc3\xa9 "cafe$"\ncolor red "a"\n')
+        expected = b"Available syntaxes:\n caf\xc3\xa9\n"
+        for binary in (NANO, NARO):
+            assert run_list(binary, c_name, c_env) == expected, binary
+        print("C locale: syntax name bytes round-trip exactly")
+
+        bind_rc = fixture / "bind-bytes.nanorc"
+        bind_rc.write_bytes(b'bind ^A "A\xffB" main\n')
+        save_actions = [
+            (0.25, b"\x01"),
+            (0.50, b"\x0f"),
+            (0.75, b"\r"),
+            (1.00, b"\x18"),
+        ]
+        for label, binary in (("nano", NANO), ("naro", NARO)):
+            edited = fixture / f"{label}-bind.txt"
+            edited.write_bytes(b"")
+            run_editor(binary, bind_rc, edited, c_env, actions=save_actions)
+            assert edited.read_bytes() == b"A\xffB\n", binary
+        print("C locale: bound string inserts and saves the original byte")
+
+        raw_formatter = os.fsencode(fixture) + b"/formatter_\xff"
+        with open(raw_formatter, "wb") as stream:
+            stream.write(
+                b"#!/usr/bin/python3\nimport os,pathlib,sys\n"
+                b"assert os.fsencode(sys.argv[1]) == b'argument_\\xfe'\n"
+                b"p=pathlib.Path(sys.argv[-1])\n"
+                b"p.write_bytes(p.read_bytes().replace(b'top',b'TOP'))\n"
+            )
+        os.chmod(raw_formatter, 0o755)
+        formatter_rc = fixture / "formatter-bytes.nanorc"
+        formatter_rc.write_bytes(
+            b'syntax plain "\\.txt$"\ncolor red "top"\nformatter "'
+            + raw_formatter
+            + b' argument_\xfe"\nbind ^A formatter main\n'
+        )
+        formatter_actions = [
+            (0.25, b"\x01"),
+            (0.75, b"\x0f"),
+            (1.00, b"\r"),
+            (1.25, b"\x18"),
+        ]
+        for label, binary in (("nano", NANO), ("naro", NARO)):
+            edited = fixture / f"{label}-formatter.txt"
+            edited.write_bytes(b"top\n")
+            run_editor(binary, formatter_rc, edited, c_env, actions=formatter_actions)
+            assert edited.read_bytes() == b"TOP\n", binary
+        print("C locale: formatter raw-byte pathname and argument transform buffer")
+
+        raw_linter = os.fsencode(fixture) + b"/linter_\xfe"
+        marker = fixture / "linter-called"
+        with open(raw_linter, "wb") as stream:
+            stream.write(
+                b"#!/usr/bin/python3\nimport os,pathlib,sys\n"
+                b"assert os.fsencode(sys.argv[1]) == b'argument_\\xff'\n"
+                + b"pathlib.Path("
+                + repr(str(marker)).encode()
+                + b").write_bytes(b'called')\n"
+            )
+        os.chmod(raw_linter, 0o755)
+        linter_rc = fixture / "linter-bytes.nanorc"
+        linter_rc.write_bytes(
+            b'syntax plain "\\.txt$"\ncolor red "top"\nlinter "'
+            + raw_linter
+            + b' argument_\xff"\nbind ^A linter main\n'
+        )
+        for label, binary in (("nano", NANO), ("naro", NARO)):
+            edited = fixture / f"{label}-linter.txt"
+            edited.write_bytes(b"top\n")
+            marker.unlink(missing_ok=True)
+            run_editor(
+                binary,
+                linter_rc,
+                edited,
+                c_env,
+                actions=[(0.25, b"\x01"), (0.75, b"\x18")],
+            )
+            assert marker.read_bytes() == b"called", binary
+        print("C locale: linter raw-byte pathname and argument run")
 
         system = fixture / "system.nanorc"
         system.write_text('syntax system "system$"\ncolor red "system"\n')

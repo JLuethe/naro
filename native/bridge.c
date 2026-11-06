@@ -489,6 +489,15 @@ const char *nr_magic(const char *path) {
     (void)path;return NULL;
 #endif
 }
+const char *nr_magic_fd(int fd) {
+#ifndef NARO_TINY
+    static magic_t m;
+    if(!m){m=magic_open(0);if(!m||magic_load(m,NULL))return NULL;}
+    return magic_descriptor(m,fd);
+#else
+    (void)fd;return NULL;
+#endif
+}
 void nr_stop(void) {kill(0,SIGSTOP);}
 const char *nr_host(void) {static char host[256];if(gethostname(host,sizeof(host)-1))host[0]=0;return host;}
 #include <ctype.h>

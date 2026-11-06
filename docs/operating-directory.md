@@ -22,6 +22,12 @@ An explicitly configured backup directory must also be within the root.
 Lock creation/removal and recovery creation/sync retain their parent descriptor.
 Browser and completion enumeration use an authorized directory stream; displayed
 names are reauthorized when selected. Browser metadata uses authorized opens.
+Syntax filename regexes use the canonical absolute name obtained from an
+authorized descriptor's `/proc/self/fd` link, including the resolved target of
+a supported relative symlink. If that name cannot be obtained (including for a
+new file), they use the supplied filename, as nano does after failed canonical
+resolution. The resolved string is used only for matching; internal libmagic
+reads acquire their own authorized descriptor through the original filename.
 
 The symlink policy is deliberate:
 

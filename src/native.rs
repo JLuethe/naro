@@ -89,6 +89,7 @@ unsafe extern "C" {
     fn nr_nsub(re: *mut c_void) -> c_int;
     fn nr_regex_free(re: *mut c_void);
     fn nr_magic(path: *const c_char) -> *const c_char;
+    fn nr_magic_fd(fd: c_int) -> *const c_char;
     pub fn nr_stop();
 }
 /// Interrupt input without consuming the event needed by the main dispatcher.
@@ -201,6 +202,10 @@ pub fn current_home() -> Option<Vec<u8>> {
 pub fn magic(path: &[u8]) -> Vec<u8> {
     let s = cstr(path);
     unsafe { from_c(nr_magic(s.as_ptr())) }
+}
+pub fn magic_file(file: &std::fs::File) -> Vec<u8> {
+    use std::os::fd::AsRawFd;
+    unsafe { from_c(nr_magic_fd(file.as_raw_fd())) }
 }
 pub struct Regex {
     ptr: NonNull<c_void>,

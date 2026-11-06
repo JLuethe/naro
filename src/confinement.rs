@@ -70,12 +70,26 @@ pub fn initialize(root: &Path) -> io::Result<File> {
     }
     Ok(root)
 }
-pub fn read(c: &Config, path: &Path) -> io::Result<(Vec<u8>, fs::Metadata)> {
-    let mut file = if enabled(c) {
-        beneath(c, path, 0)?
+pub fn open_read(c: &Config, path: &Path) -> io::Result<File> {
+    if enabled(c) {
+        beneath(c, path, 0)
     } else {
-        File::open(path)?
-    };
+        File::open(path)
+    }
+}
+/// A resolved name for filename regexes only, never authority for another open.
+/// Reading this owned descriptor's procfs link preserves canonical-path syntax
+/// matching without resolving the user's pathname outside the operating root.
+pub fn syntax_path(c: &Config, path: &Path) -> io::Result<PathBuf> {
+    if enabled(c) {
+        let file = beneath(c, path, -1)?;
+        fs::read_link(format!("/proc/self/fd/{}", file.as_raw_fd()))
+    } else {
+        fs::canonicalize(path)
+    }
+}
+pub fn read(c: &Config, path: &Path) -> io::Result<(Vec<u8>, fs::Metadata)> {
+    let mut file = open_read(c, path)?;
     let metadata = file.metadata()?;
     let mut bytes = Vec::new();
     file.read_to_end(&mut bytes)?;
