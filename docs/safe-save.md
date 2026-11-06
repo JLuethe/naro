@@ -55,6 +55,27 @@ NARO does not silently revert to truncating the original.
   output. Prepending to a FIFO remains rejected. No filesystem durability is
   promised for data delivered to a FIFO reader.
 
+## Backup safety
+
+Backup output is written to a newly and exclusively created file, with the
+existing owner/group, permission and timestamp handling. The normal backup is
+published from a sibling temporary file only after its contents and metadata
+are synced and its close succeeds, then the backup directory is synced. An
+existing backup entry is replaced by rename; its inode is never opened for
+writing, even with `allow_insecure_backup`. Hard links and symbolic links at
+the backup name therefore cannot redirect output into the save destination or
+another existing file. The option remains accepted for configuration
+compatibility, but does not enable truncating existing backup objects.
+
+A failed unpublished attempt retains any previous backup. Error cleanup checks
+the created entry's identity before removing it, and leaves colliding or
+substituted entries alone. The existing home-directory fallback uses exclusive
+creation and the same checked write, metadata, sync and close handling. Backup
+failures retain the existing confirmation flow. A published backup, including
+one whose directory sync failed, may remain after a failed save or fallback;
+that side effect never permits changing the destination before the save's own
+rename commit point.
+
 ## Failure and interruption limits
 
 Positive short writes are completed and interrupted I/O is handled explicitly.

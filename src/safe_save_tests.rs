@@ -19,18 +19,51 @@ fn fixture_save() {
     );
     buffer.modified = true;
     let mode = std::env::var("NARO_SAVE_MODE").unwrap().parse().unwrap();
+    let backup = std::env::var_os("NARO_SAVE_BACKUP").is_some();
+    let mut config = Config::new(false);
+    config.set(MAKE_BACKUP, backup);
+    config.set(
+        INSECURE_BACKUP,
+        std::env::var_os("NARO_SAVE_INSECURE").is_some(),
+    );
+    if std::env::var_os("NARO_SAVE_CONFINED").is_some() {
+        config
+            .strings
+            .insert("operatingdir".into(), root.as_os_str().as_bytes().to_vec());
+        config.operating_root = Some(File::open(&root).unwrap());
+    }
+    if std::env::var_os("NARO_SAVE_BACKUP_COLLISION").is_some() {
+        let collision = root.join(format!("data/.naro-backup-{}-0", std::process::id()));
+        let seed = root.join("collision-seed");
+        fs::write(&seed, b"unrelated collision").unwrap();
+        fs::hard_link(seed, &collision).unwrap();
+        fs::write(
+            root.join("backup-collision"),
+            collision.as_os_str().as_bytes(),
+        )
+        .unwrap();
+    }
+    let mut progress = Vec::new();
     let result = write(
-        &Config::new(false),
+        &config,
         &mut buffer,
         name.as_os_str().as_bytes(),
         mode,
         false,
-        true,
-        |_| {},
+        !backup,
+        |stage| {
+            progress.push(match stage {
+                WriteProgress::Status(s) | WriteProgress::Warning(s) => s.to_owned(),
+            })
+        },
     );
+    fs::write(root.join("progress"), progress.join("\n")).unwrap();
     let text = match result {
         Ok(n) => format!("ok {n} modified={}\n", buffer.modified),
-        Err(error) => format!("error modified={} {}\n", buffer.modified, error.message),
+        Err(error) => format!(
+            "error modified={} confirm_backup={} {}\n",
+            buffer.modified, error.confirm_backup, error.message
+        ),
     };
     fs::write(root.join("result"), text).unwrap();
 }

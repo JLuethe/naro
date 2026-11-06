@@ -14,7 +14,7 @@ import subprocess
 
 OLD = b"original data must survive\n"
 NEW = b"replacement\n"
-PRE = ("open", "zero", "eio", "enospc", "partial-eio", "file-sync", "close", "rename", "metadata")
+PRE = ("open", "zero", "eio", "enospc", "partial-eio", "file-sync", "close", "rename", "metadata", "source-close")
 SUCCESS = ("none", "short", "eintr", "sync-eintr", "read-eintr")
 CRASH = ("exit-write", "exit-file-sync", "exit-close", "exit-rename", "exit-committed", "exit-dir-sync")
 
@@ -61,7 +61,7 @@ def run_case(binary, preload, root, mode, fault, kind):
         target = Path((root / "destination").read_text())
     crash = fault in CRASH
     rejected = kind in ("symlink", "dangling") or (kind in ("new", "collision") and mode == 2)
-    committed = not rejected and (fault in SUCCESS or fault in ("dir-sync", "exit-committed", "exit-dir-sync"))
+    committed = not rejected and (fault in SUCCESS or fault in ("dir-sync", "directory-close", "exit-committed", "exit-dir-sync"))
     assert proc.returncode == (99 if crash and not rejected else 0), (proc.returncode, proc.stdout)
     expected = NEW if mode == 0 or kind in ("new", "collision") else OLD + NEW if mode == 1 else NEW + OLD
     if rejected:
@@ -102,6 +102,12 @@ def run_case(binary, preload, root, mode, fault, kind):
     if kind == "hardlink":
         assert (data / "other").read_bytes() == OLD
         assert (data / "other").stat().st_ino == before.st_ino
+    if not rejected and not crash and fault in ("source-close", "directory-close"):
+        assert fault in events, (fault, events)
+        if fault == "source-close":
+            assert events.index("close") < events.index("source-close") and "rename" not in events, events
+        else:
+            assert events.index("rename") < events.index("dir-sync") < events.index("directory-close"), events
     assert sentinel.read_bytes() == b"unrelated"
     leftovers = [p for p in data.iterdir() if p.name.startswith(".naro-save-") and p != sentinel and p != target]
     if not crash:
@@ -131,7 +137,7 @@ def main():
             if kind == "group" and not any(g != os.getgid() for g in os.getgroups()):
                 skips.append({"mode": mode, "kind": kind, "reason": "no supplementary group available"})
                 continue
-            faults = ("file-sync",) if args.regression_only else SUCCESS + PRE + ("dir-sync",) + CRASH
+            faults = ("file-sync",) if args.regression_only else SUCCESS + PRE + ("dir-sync", "directory-close") + CRASH
             if not args.regression_only:
                 if mode and kind not in ("new", "collision", "symlink", "dangling"):
                     faults += ("read-eio",)
@@ -139,6 +145,8 @@ def main():
                     faults += ("xattr",)
             for fault in faults:
                 if (kind in ("symlink", "dangling") or (kind in ("new", "collision") and mode == 2)) and fault != "none":
+                    continue
+                if fault == "source-close" and kind in ("new", "collision"):
                     continue
                 if fault == "read-eintr" and (not mode or kind in ("new", "collision")):
                     continue

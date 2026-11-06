@@ -7,12 +7,14 @@ use crate::{
     generated::*,
     native,
 };
+#[cfg(not(feature = "tiny"))]
+use std::{fs::OpenOptions, os::unix::fs::OpenOptionsExt};
 use std::{
-    fs::{self, File, OpenOptions},
+    fs::{self, File},
     io::{Read, Write},
     os::unix::{
         ffi::OsStrExt,
-        fs::{MetadataExt, OpenOptionsExt, PermissionsExt},
+        fs::{MetadataExt, PermissionsExt},
     },
     path::{Path, PathBuf},
 };
@@ -551,6 +553,50 @@ fn write_bytes(file: &mut File, mut bytes: &[u8]) -> std::io::Result<()> {
     Ok(())
 }
 
+// A backup output is always an exclusively created inode. Keep its identity
+// through close so errors can clean up only the entry this operation created.
+struct BackupOutput {
+    parent: Parent,
+    file: Option<File>,
+    identity: fs::Metadata,
+    published: bool,
+}
+impl BackupOutput {
+    fn create(parent: Parent) -> std::io::Result<Self> {
+        let file = parent.create(0o600)?;
+        let identity = file.metadata()?;
+        Ok(Self {
+            parent,
+            file: Some(file),
+            identity,
+            published: false,
+        })
+    }
+    fn owns_entry(&self) -> bool {
+        self.parent
+            .metadata()
+            .is_ok_and(|m| (m.dev(), m.ino()) == (self.identity.dev(), self.identity.ino()))
+    }
+    fn finish(mut self, target: Option<&Path>) -> std::io::Result<()> {
+        native::close_checked(self.file.take().unwrap())?;
+        if !self.owns_entry() {
+            return Err(std::io::Error::other("Backup temporary entry changed"));
+        }
+        if let Some(target) = target {
+            self.parent.rename_sibling(target)?;
+        }
+        self.published = true;
+        self.parent.directory.sync_all()
+    }
+}
+impl Drop for BackupOutput {
+    fn drop(&mut self) {
+        if !self.published && self.owns_entry() {
+            let _ = self.parent.remove();
+        }
+    }
+}
+
 #[cfg(test)]
 fn make_backup(
     c: &Config,
@@ -628,57 +674,52 @@ fn make_backup_from(
         file.sync_all()?;
         Ok(())
     };
-    let confined_backup = if confinement::enabled(c) {
-        Some(
-            if directory.is_empty() {
-                let mut name = parent.name.as_os_str().as_bytes().to_vec();
-                name.push(b'~');
-                parent.sibling(config::path(&name))
-            } else {
-                Parent::open(c, &name)
-            }
-            .map_err(|e| WriteError::writing(&name.display().to_string(), e))?,
-        )
+    let target = if directory.is_empty() {
+        let mut name = parent.name.as_os_str().as_bytes().to_vec();
+        name.push(b'~');
+        parent.sibling(config::path(&name))
     } else {
-        None
+        Parent::open(c, &name)
+    };
+    let target = match target {
+        Err(error) if confinement::enabled(c) => {
+            return Err(WriteError::writing(&name.display().to_string(), error));
+        }
+        result => result,
     };
     let first = (|| {
-        if let Some(target) = &confined_backup {
-            match target.remove() {
-                Ok(()) => (),
-                Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
+        let target = target?;
+        let source_dir = parent.directory.metadata()?;
+        let target_dir = target.directory.metadata()?;
+        if parent.name == target.name
+            && (source_dir.dev(), source_dir.ino()) == (target_dir.dev(), target_dir.ino())
+        {
+            return Err(std::io::ErrorKind::InvalidInput.into());
+        }
+        // Even allow_insecure_backup must not truncate an existing object:
+        // that object may be another name for the save destination.
+        static SERIAL: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
+        for _ in 0..1000 {
+            let serial = SERIAL.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+            let leaf = PathBuf::from(format!(".naro-backup-{}-{serial}", std::process::id()));
+            if leaf == parent.name || leaf == target.name {
+                continue;
+            }
+            match BackupOutput::create(target.sibling(leaf)?) {
+                Ok(mut output) => {
+                    write(output.file.as_mut().unwrap(), &mut warning)?;
+                    return output.finish(Some(&target.name));
+                }
+                Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => continue,
                 Err(e) => return Err(e),
             }
-            let mut file = target.create(0o600)?;
-            return write(&mut file, &mut warning);
         }
-        if !c.on(INSECURE_BACKUP) {
-            match fs::remove_file(&name) {
-                Ok(()) => (),
-                Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
-                Err(e) => return Err(e),
-            }
-        }
-        let mut file = OpenOptions::new()
-            .write(true)
-            .create(true)
-            .create_new(!c.on(INSECURE_BACKUP))
-            .truncate(c.on(INSECURE_BACKUP))
-            .mode(0o600)
-            .open(&name)?;
-        write(&mut file, &mut warning)
+        Err(std::io::ErrorKind::AlreadyExists.into())
     })();
     if first.is_ok() {
         return Ok(());
     }
     let mut last = first.unwrap_err();
-    if !read_failed.get() {
-        if let Some(target) = &confined_backup {
-            let _ = target.remove();
-        } else {
-            let _ = fs::remove_file(&name);
-        }
-    }
     if !read_failed.get()
         && !confinement::enabled(c)
         && let Some(home) = config::home_dir()
@@ -699,19 +740,20 @@ fn make_backup_from(
                 name.push(alphabet[(n % 62) as usize]);
                 n /= 62;
             }
-            match OpenOptions::new()
-                .write(true)
-                .create_new(true)
-                .mode(0o600)
-                .open(home.join(config::path(&name)))
-            {
-                Ok(mut file) => match write(&mut file, &mut warning) {
-                    Ok(()) => return Ok(()),
-                    Err(e) => {
-                        last = e;
-                        break;
+            let attempt =
+                Parent::open(c, &home.join(config::path(&name))).and_then(BackupOutput::create);
+            match attempt {
+                Ok(mut output) => {
+                    let result = write(output.file.as_mut().unwrap(), &mut warning)
+                        .and_then(|()| output.finish(None));
+                    match result {
+                        Ok(()) => return Ok(()),
+                        Err(e) => {
+                            last = e;
+                            break;
+                        }
                     }
-                },
+                }
                 Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => continue,
                 Err(e) => {
                     last = e;

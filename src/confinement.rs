@@ -14,6 +14,11 @@ unsafe extern "C" {
     fn nr_confined_open(root: i32, path: *const std::ffi::c_char, directory: i32) -> i32;
     fn nr_at_open(dir: i32, name: *const std::ffi::c_char, operation: i32, mode: u32) -> i32;
     fn nr_at_unlink(dir: i32, name: *const std::ffi::c_char) -> i32;
+    fn nr_at_rename(
+        dir: i32,
+        source: *const std::ffi::c_char,
+        target: *const std::ffi::c_char,
+    ) -> i32;
     fn nr_directory_chdir(dir: i32) -> i32;
     fn nr_directory_stream(dir: i32) -> *mut c_void;
     fn nr_directory_next(stream: *mut c_void, error: *mut i32) -> *const std::ffi::c_char;
@@ -197,6 +202,20 @@ impl Parent {
     pub fn remove(&self) -> io::Result<()> {
         let name = cpath(&self.name)?;
         if unsafe { nr_at_unlink(self.directory.as_raw_fd(), name.as_ptr()) } < 0 {
+            Err(io::Error::last_os_error())
+        } else {
+            Ok(())
+        }
+    }
+    /// Publish a sibling entry without opening or writing the old target.
+    pub fn rename_sibling(&self, target: &Path) -> io::Result<()> {
+        if target.components().count() != 1 || target.file_name().is_none() {
+            return Err(io::ErrorKind::InvalidInput.into());
+        }
+        let source = cpath(&self.name)?;
+        let target = cpath(target)?;
+        if unsafe { nr_at_rename(self.directory.as_raw_fd(), source.as_ptr(), target.as_ptr()) } < 0
+        {
             Err(io::Error::last_os_error())
         } else {
             Ok(())

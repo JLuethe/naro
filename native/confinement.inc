@@ -79,6 +79,9 @@ int nr_at_open(int dir,const char *name,int operation,unsigned int mode) {
     }
     return fd;
 }
+int nr_at_rename(int dir,const char *source,const char *target) {
+    return renameat(dir,source,dir,target);
+}
 int nr_at_unlink(int dir,const char *name) {return unlinkat(dir,name,0);}
 #include <dirent.h>
 void *nr_directory_stream(int fd) {

@@ -143,6 +143,13 @@ prompt toggles it for the buffer (it persists). With `-u` files are read as
 Unix (FILE-READ 8) and therefore saved with LF (TEST-FILE-009).
 
 ### FILE-BAK — Backups (`-B`, `set backup`; not tiny; never in restricted mode)
+NARO's backup publication intentionally differs from the pinned nano behavior
+in step 3: [backup safety](../docs/safe-save.md#backup-safety) requires exclusive
+output and replacement rather than truncation, including when
+*allow_insecure_backup* is configured. Existing backup entries survive failed
+unpublished attempts. Backup naming, metadata, fallback and confirmation
+behavior below otherwise applies.
+
 Before overwriting an **existing regular** file:
 1. HUSH `Making backup...`.
 2. Name: without a backup directory, `<name>~` in the same place (the target of a symlink is not resolved; the name as given + `~`). With `-C dir`: the canonical full path of the file with every `/` replaced by `!`, inside dir, followed by `~`. If that exists, `~.1`, `~.2`, … up to `.99999` (TEST-FILE-013: `bk/!tmp!…!work!f.txt~`, then `…f.txt~.1`). If all are taken: ALERT `Too many existing backup files`; the save is abandoned.

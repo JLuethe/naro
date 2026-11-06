@@ -1,5 +1,6 @@
 //! Fixture-owned backup metadata checks. No user files are touched.
 use super::*;
+use std::fs::OpenOptions;
 
 struct Fixture(PathBuf);
 
@@ -121,4 +122,129 @@ fn backup_warns_when_foreign_ownership_is_denied() {
     assert_eq!(after.mode() & 0o7777, before.mode() & 0o7777);
     assert_eq!(fs::read(&backup).unwrap(), fs::read(&source).unwrap());
     fs::remove_file(backup).unwrap();
+}
+
+#[test]
+fn insecure_backup_replaces_a_hard_link_without_truncating_source() {
+    let fixture = Fixture::new("hard-link");
+    let source = fixture.0.join("source");
+    let backup = fixture.0.join("source~");
+    fs::write(&source, b"original backup bytes\n").unwrap();
+    fs::hard_link(&source, &backup).unwrap();
+    let before = fs::metadata(&source).unwrap();
+    let mut config = Config::new(false);
+    config.set(INSECURE_BACKUP, true);
+    make_backup(&config, &source, &before, |_| {})
+        .map_err(|e| e.message)
+        .unwrap();
+    assert_eq!(fs::read(&source).unwrap(), b"original backup bytes\n");
+    assert_eq!(fs::metadata(&source).unwrap().ino(), before.ino());
+    assert_eq!(fs::read(&backup).unwrap(), b"original backup bytes\n");
+    assert_ne!(fs::metadata(&backup).unwrap().ino(), before.ino());
+}
+
+#[test]
+fn backups_replace_regular_files_and_links_without_writing_through_them() {
+    use std::os::unix::fs::symlink;
+    for insecure in [false, true] {
+        for kind in [
+            "regular",
+            "source-symlink",
+            "other-symlink",
+            "other-hardlink",
+        ] {
+            let fixture = Fixture::new(kind);
+            let source = fixture.0.join("source");
+            let backup = fixture.0.join("source~");
+            let other = fixture.0.join("other");
+            fs::write(&source, b"original backup bytes\n").unwrap();
+            fs::write(&other, b"unrelated bytes\n").unwrap();
+            match kind {
+                "source-symlink" => symlink("source", &backup).unwrap(),
+                "other-symlink" => symlink("other", &backup).unwrap(),
+                "other-hardlink" => fs::hard_link(&other, &backup).unwrap(),
+                _ => fs::write(&backup, b"previous backup\n").unwrap(),
+            }
+            let before = fs::metadata(&source).unwrap();
+            let mut config = Config::new(false);
+            config.set(INSECURE_BACKUP, insecure);
+            make_backup(&config, &source, &before, |_| {})
+                .map_err(|e| e.message)
+                .unwrap();
+            assert_eq!(fs::read(&source).unwrap(), b"original backup bytes\n");
+            assert_eq!(fs::metadata(&source).unwrap().ino(), before.ino());
+            assert_eq!(fs::read(&other).unwrap(), b"unrelated bytes\n");
+            assert!(
+                !fs::symlink_metadata(&backup)
+                    .unwrap()
+                    .file_type()
+                    .is_symlink()
+            );
+            assert_eq!(fs::read(&backup).unwrap(), b"original backup bytes\n");
+        }
+    }
+}
+
+#[test]
+fn backup_cleanup_keeps_collisions_and_replaced_entries() {
+    let fixture = Fixture::new("cleanup");
+    let name = fixture.0.join("temporary");
+    let parent = Parent::open(&Config::new(false), &name).unwrap();
+    fs::write(&name, b"collision").unwrap();
+    assert!(
+        matches!(BackupOutput::create(parent), Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists)
+    );
+    assert_eq!(fs::read(&name).unwrap(), b"collision");
+    fs::remove_file(&name).unwrap();
+    let parent = Parent::open(&Config::new(false), &name).unwrap();
+    let output = BackupOutput::create(parent).unwrap();
+    fs::rename(&name, fixture.0.join("held")).unwrap();
+    fs::write(&name, b"replacement entry").unwrap();
+    drop(output);
+    assert_eq!(fs::read(&name).unwrap(), b"replacement entry");
+    assert!(fixture.0.join("held").is_file());
+}
+
+#[test]
+fn backup_publish_rejects_replaced_temp_and_keeps_existing_backup() {
+    let fixture = Fixture::new("publish-identity");
+    let name = fixture.0.join("temporary");
+    let backup = fixture.0.join("backup");
+    fs::write(&backup, b"previous backup").unwrap();
+    let output = BackupOutput::create(Parent::open(&Config::new(false), &name).unwrap()).unwrap();
+    fs::rename(&name, fixture.0.join("held")).unwrap();
+    fs::write(&name, b"replacement entry").unwrap();
+    assert!(output.finish(Some(Path::new("backup"))).is_err());
+    assert_eq!(fs::read(&name).unwrap(), b"replacement entry");
+    assert_eq!(fs::read(&backup).unwrap(), b"previous backup");
+}
+
+#[test]
+#[cfg(not(feature = "tiny"))]
+fn backup_directory_keeps_numbered_previous_copies() {
+    let fixture = Fixture::new("backup-directory");
+    let source = fixture.0.join("source");
+    let directory = fixture.0.join("backups");
+    fs::create_dir(&directory).unwrap();
+    let mut config = Config::new(false);
+    config.strings.insert(
+        "backupdir".into(),
+        directory.as_os_str().as_bytes().to_vec(),
+    );
+    for content in [b"first\n".as_slice(), b"second\n".as_slice()] {
+        fs::write(&source, content).unwrap();
+        make_backup(&config, &source, &fs::metadata(&source).unwrap(), |_| {})
+            .map_err(|e| e.message)
+            .unwrap();
+    }
+    let mut names: Vec<_> = fs::read_dir(directory)
+        .unwrap()
+        .map(|e| e.unwrap().path())
+        .collect();
+    names.sort();
+    assert_eq!(names.len(), 2);
+    assert!(names[0].as_os_str().as_bytes().ends_with(b"source~"));
+    assert!(names[1].as_os_str().as_bytes().ends_with(b"source~.1"));
+    assert_eq!(fs::read(&names[0]).unwrap(), b"first\n");
+    assert_eq!(fs::read(&names[1]).unwrap(), b"second\n");
 }
