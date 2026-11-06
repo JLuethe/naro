@@ -17,9 +17,30 @@ Inventory: [`data/undo-types.csv`](data/undo-types.csv). Evidence:
 ### UNDO-001 — Per-buffer history
 Each buffer has a linear history of undo items and a *current* pointer: items
 above it can be redone, items below it can be undone. Closing a buffer discards
-its history. Items are never limited in number. The cutbuffer is not part of the
+its history. Upstream items are never limited in number. NARO deliberately bounds
+history memory as described below. The cutbuffer is not part of the
 history; zap and chop-word keep their own copies inside their items.
 - **Source:** `src/definitions.h:503-528, 587-594`; `src/text.c:926-1095`.
+
+**NARO resource policy (issue #6):** each default-profile buffer has a 32 MiB
+undo allocation budget (`UNDO_BUDGET` in `src/buffer.rs`). Reversible region
+deltas contain changed bytes, affected anchors and endpoint node-survival
+information; cursor checkpoints contain no text. Small byte edits never clone
+the buffer or its unchanged line prefix/suffix. Both undo and redo share the
+budget, as does the open compound operation. Accounting conservatively charges
+payload capacity, journal slots (including growth slack), retained deque
+capacity and message storage. Allocator bookkeeping, temporary allocator
+reallocation storage and the live document/cutbuffer are outside this budget.
+
+Oldest complete groups are evicted first. A continued typing/cut group may
+start a fresh retained group after its earlier history has been evicted. If
+one transaction (including a wrap and its triggering item) cannot fit, or a
+history allocation reservation fails, the edit remains applied and all older
+history is discarded: undo cannot jump across an unrecorded edit. Subsequent
+edits start a new history. Discarding an unreachable savepoint never marks the
+buffer saved; a successful full save establishes a new savepoint. Tiny still
+allocates no undo journal. This is a deliberate resource-safety difference
+from unlimited upstream history, not a claim of bounded document memory.
 
 ### UNDO-002 — New edits discard redo
 Creating a new item (any undoable action) first discards all items that were

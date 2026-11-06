@@ -219,18 +219,32 @@ impl Regex {
         })
     }
     pub fn find(&self, text: &[u8], start: usize, notbol: bool) -> Option<Vec<(usize, usize)>> {
-        if start > text.len() {
+        let mut terminated = text.to_vec();
+        terminated.push(0);
+        self.find_terminated(&terminated, start, notbol)
+    }
+    /// Search a reusable NUL-terminated line without copying it per match.
+    /// The final sentinel is not part of the regex's REG_STARTEND range.
+    pub fn find_terminated(
+        &self,
+        text: &[u8],
+        start: usize,
+        notbol: bool,
+    ) -> Option<Vec<(usize, usize)>> {
+        let (&0, text_without_sentinel) = text.split_last()? else {
+            return None;
+        };
+        let len = text_without_sentinel.len();
+        if start > len {
             return None;
         }
-        let mut t = text.to_vec();
-        t.push(0);
         let mut pairs = [-1i32; 20];
         let count = (self.groups + 1).min(10);
         let ret = unsafe {
             nr_match(
                 self.ptr.as_ptr(),
-                t.as_ptr() as *const c_char,
-                text.len(),
+                text.as_ptr() as *const c_char,
+                len,
                 start,
                 notbol as i32,
                 pairs.as_mut_ptr(),

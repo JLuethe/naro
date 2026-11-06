@@ -135,16 +135,7 @@ pub struct Spelling {
     pub top: usize,
 }
 pub type Match = (Pos, Pos, Vec<(usize, usize)>);
-#[derive(Debug)]
-pub struct Replacement {
-    pub matches: Vec<Match>,
-    pub next: usize,
-    pub replacement: Vec<u8>,
-    pub count: usize,
-    pub original: Pos,
-    pub top: usize,
-    pub mark: Option<Pos>,
-}
+pub use crate::search::Replacement;
 pub struct Editor {
     pub conf: Config,
     pub buffers: Vec<Buffer>,

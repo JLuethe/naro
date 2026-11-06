@@ -1,0 +1,66 @@
+[
+  {
+    "label": "before",
+    "revision": "f5e79cf",
+    "commands": [
+      [
+        "/home/john/.cargo/bin/rustc",
+        "--edition=2024",
+        "-O",
+        "/home/john/Code/naro/target/issue-6-undo/stress-05/before/main.rs",
+        "-o",
+        "/home/john/Code/naro/target/issue-6-undo/stress-05/before/stress"
+      ],
+      [
+        "/home/john/Code/naro/target/issue-6-undo/stress-05/before/stress"
+      ]
+    ],
+    "exit_code": -6,
+    "elapsed_seconds": 0.21549958400282776,
+    "peak_rss_kib": 258052,
+    "timed_out": false,
+    "timeout_seconds": 15,
+    "address_space_bound_mib": 256,
+    "peak_rss_bound_mib": 96,
+    "passed": false,
+    "expected_result": true,
+    "sha256": {
+      "buffer.rs": "e2292305e3bdd454baf21480adc238c7fe62a48c333959ab4f031e1150ac68b0",
+      "bytes.rs": "f607ca30fd39fe2406230a84ca25e0be3895fe2bd2aaaf6fad350a341b652013",
+      "main.rs": "31998da621a0ea01e37ca51a7626644ba981ebb8e5f09d6317fcd7fd9ebddcea",
+      "stress": "1c39bf109668fbe2c4edf16e06e19297c1d1558b0f4a3f18f46ec5d1eddc937d"
+    }
+  },
+  {
+    "label": "after",
+    "revision": null,
+    "commands": [
+      [
+        "/home/john/.cargo/bin/rustc",
+        "--edition=2024",
+        "-O",
+        "/home/john/Code/naro/target/issue-6-undo/stress-05/after/main.rs",
+        "-o",
+        "/home/john/Code/naro/target/issue-6-undo/stress-05/after/stress"
+      ],
+      [
+        "/home/john/Code/naro/target/issue-6-undo/stress-05/after/stress"
+      ]
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.06266710400086595,
+    "peak_rss_kib": 34752,
+    "timed_out": false,
+    "timeout_seconds": 15,
+    "address_space_bound_mib": 256,
+    "peak_rss_bound_mib": 96,
+    "passed": true,
+    "expected_result": true,
+    "sha256": {
+      "buffer.rs": "fafec5106fc57bbfa9462a7abd74ad3031354c291981c1854df2b274b0529e84",
+      "bytes.rs": "f607ca30fd39fe2406230a84ca25e0be3895fe2bd2aaaf6fad350a341b652013",
+      "main.rs": "31998da621a0ea01e37ca51a7626644ba981ebb8e5f09d6317fcd7fd9ebddcea",
+      "stress": "6ed28070a6a7673168e19f4ba26923a94388ccc4df6eeb5ad47aa285bd589ffd"
+    }
+  }
+]

@@ -1,0 +1,61 @@
+[
+  {
+    "command": [
+      "/home/john/.cargo/bin/cargo",
+      "test"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 1.2263235979989986,
+    "log": "validation/issue-6-undo/final-default-tests.log"
+  },
+  {
+    "command": [
+      "/home/john/.cargo/bin/cargo",
+      "test",
+      "--all-features"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.5634529340022709,
+    "log": "validation/issue-6-undo/final-all-features-tests.log"
+  },
+  {
+    "command": [
+      "/home/john/.cargo/bin/cargo",
+      "clippy",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.06379872799880104,
+    "log": "validation/issue-6-undo/final-clippy-default.log"
+  },
+  {
+    "command": [
+      "/home/john/.cargo/bin/cargo",
+      "clippy",
+      "--all-targets",
+      "--all-features",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.6135496019996936,
+    "log": "validation/issue-6-undo/final-clippy-all-features.log"
+  },
+  {
+    "command": [
+      "/home/john/.cargo/bin/rustfmt",
+      "--edition",
+      "2024",
+      "--check",
+      "src/buffer.rs",
+      "src/features.rs"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.04306557400195743,
+    "log": "validation/issue-6-undo/final-fmt-owned.log"
+  }
+]

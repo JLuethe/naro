@@ -34,7 +34,7 @@ pub enum Splice {
     /// like the reference's cut-then-insert pair.
     Replace,
 }
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Debug, PartialEq)]
 pub struct State {
     pub lines: Vec<Vec<u8>>,
     pub pos: Pos,
@@ -55,18 +55,54 @@ pub struct State {
     /// `delete_node`/`do_wrap` node-lifetime semantics. See Q-UNDO-002 (R2).
     pub spillage: Option<u64>,
 }
-#[derive(Clone, Debug)]
+/// Maximum accounted history allocation per buffer, including an open edit.
+pub const UNDO_BUDGET: usize = 32 * 1024 * 1024;
+
+#[derive(Clone, Copy, Debug)]
+pub struct Checkpoint {
+    pub pos: Pos,
+}
+
+#[derive(Debug)]
+struct Delta {
+    start: Pos,
+    old_end: Pos,
+    new_end: Pos,
+    removed: Vec<u8>,
+    added: Vec<u8>,
+    old_anchors: Vec<bool>,
+    new_anchors: Vec<bool>,
+    survivors: [Option<(usize, usize)>; 2],
+}
+impl Delta {
+    fn cost(&self) -> usize {
+        // Charge twice the slot size to cover geometric Vec capacity growth.
+        2 * std::mem::size_of::<Self>()
+            + self.removed.capacity()
+            + self.added.capacity()
+            + self.old_anchors.capacity()
+            + self.new_anchors.capacity()
+    }
+}
+#[derive(Debug, Default)]
+struct Pending {
+    deltas: Vec<Delta>,
+    cost: usize,
+    lost: bool,
+}
+#[derive(Debug)]
 pub struct Undo {
-    pub before: State,
-    pub after: State,
+    pub before: Checkpoint,
+    pub after: Checkpoint,
+    deltas: Vec<Delta>,
+    cost: usize,
     pub kind: String,
     pub redo_kind: Option<String>,
     /// True for an undo item whose chunks were produced by `hard_wrap`
     /// (SPLIT_BEGIN/SPLIT_END in the reference). The reference clears
     /// `spillage_line` when undoing the wrap (the overflow node is freed) and
     /// does not restore it on redo (redo ENTER creates a new node without
-    /// assigning the pointer). `hard_wrap` sets this flag and also records
-    /// `None` in both snapshots so that undo/redo of a wrap yield no spillage,
+    /// assigning the pointer). `hard_wrap` sets this flag so undo/redo yield no spillage,
     /// matching the reference's node-lifetime behavior.
     pub is_wrap: bool,
 }
@@ -83,10 +119,13 @@ pub struct Buffer {
     pub firstcol: usize,
     pub brink: usize,
     pub softmark: bool,
-    pub history: Vec<Undo>,
+    pub history: std::collections::VecDeque<Undo>,
     pub hist: usize,
     pub saved: Option<usize>,
     pub last_kind: String,
+    pending: Option<Pending>,
+    history_bytes: usize,
+    undo_budget: usize,
     pub next_gen: u64,
     pub stat: Option<std::fs::Metadata>,
     pub lock: Option<std::path::PathBuf>,
@@ -122,10 +161,13 @@ impl Buffer {
             firstcol: 0,
             brink: 0,
             softmark: false,
-            history: Vec::new(),
+            history: std::collections::VecDeque::new(),
             hist: 0,
             saved: Some(0),
             last_kind: String::new(),
+            pending: None,
+            history_bytes: 0,
+            undo_budget: UNDO_BUDGET,
             next_gen,
             stat: None,
             lock: None,
@@ -219,9 +261,12 @@ impl Buffer {
             self.next_gen += 1;
         }
         if !nonew && self.state.lines.last().is_some_and(|l| !l.is_empty()) {
-            self.state.lines.push(Vec::new());
-            self.state.generations.push(self.next_gen);
-            self.next_gen += 1;
+            let pos = self.pos();
+            let mark = self.state.mark;
+            let end = self.end();
+            self.replace(end, end, b"\n", Splice::Plain);
+            self.state.pos = pos;
+            self.state.mark = mark;
         }
         self.state.anchors.resize(self.state.lines.len(), false);
         self.state.generations.resize(self.state.lines.len(), {
@@ -230,48 +275,118 @@ impl Buffer {
             g
         });
     }
-    pub fn begin(&self) -> State {
-        if cfg!(feature = "tiny") {
-            return State {
-                lines: Vec::new(),
-                pos: self.pos(),
-                mark: None,
-                anchors: Vec::new(),
-                generations: Vec::new(),
-                spillage: None,
+    pub fn begin(&mut self) -> Checkpoint {
+        if !cfg!(feature = "tiny") {
+            self.pending = Some(Pending::default());
+        }
+        Checkpoint { pos: self.pos() }
+    }
+    fn discard_redo(&mut self) {
+        while self.history.len() > self.hist {
+            self.history_bytes -= self.history.pop_back().unwrap().cost;
+        }
+        if self.saved.is_some_and(|s| s > self.hist) {
+            self.saved = None;
+        }
+    }
+    fn clear_history(&mut self) {
+        self.history = std::collections::VecDeque::new();
+        self.history_bytes = 0;
+        self.hist = 0;
+        self.saved = None;
+        self.last_kind.clear();
+    }
+    fn history_room(&mut self, extra: usize) -> bool {
+        self.discard_redo();
+        let pending = self.pending.as_ref().map_or(0, |p| p.cost);
+        // Deque slots retained after eviction count against the budget too.
+        let reserved = self.history.capacity() * std::mem::size_of::<Undo>();
+        if extra.saturating_add(pending).saturating_add(reserved) > self.undo_budget {
+            return false;
+        }
+        while self
+            .history_bytes
+            .saturating_add(pending)
+            .saturating_add(extra)
+            .saturating_add(reserved)
+            > self.undo_budget
+        {
+            let old = self.history.pop_front().unwrap();
+            self.history_bytes -= old.cost;
+            self.hist -= 1;
+            self.saved = self.saved.and_then(|s| s.checked_sub(1));
+        }
+        true
+    }
+    fn lose_pending(&mut self) {
+        if let Some(p) = &mut self.pending {
+            *p = Pending {
+                lost: true,
+                ..Pending::default()
             };
         }
-        self.state.clone()
     }
-    pub fn finish(&mut self, before: State, kind: &str, group: bool, nonew: bool) {
+    pub fn finish(&mut self, before: Checkpoint, kind: &str, group: bool, nonew: bool) {
         self.magic(nonew);
         if cfg!(feature = "tiny") {
             self.modified = true;
             return;
         }
-        self.history.truncate(self.hist);
-        if self.saved.is_some_and(|s| s > self.hist) {
-            self.saved = None;
+        let overhead = 2 * std::mem::size_of::<Undo>() + kind.len() + 32;
+        let growth = if self.history.len() == self.history.capacity() {
+            self.history.capacity().max(4) * std::mem::size_of::<Undo>()
+        } else {
+            0
+        };
+        let room = self.history_room(overhead + growth);
+        let pending = self.pending.take().unwrap_or_default();
+        self.modified = true;
+        if pending.lost || !room || self.history.try_reserve(1).is_err() {
+            self.clear_history();
+            return;
         }
         let join = group
             && self.last_kind == kind
             && self.hist > 0
             && self.saved != Some(self.hist)
             && self.history[self.hist - 1].after.pos == before.pos;
-        let after = self.state.clone();
+        let after = Checkpoint { pos: self.pos() };
+        if self.last_kind.try_reserve(kind.len()).is_err() {
+            self.clear_history();
+            return;
+        }
         if join {
-            self.history[self.hist - 1].after = after;
+            let last = &mut self.history[self.hist - 1];
+            if last.deltas.try_reserve(pending.deltas.len()).is_err() {
+                self.clear_history();
+                return;
+            }
+            last.deltas.extend(pending.deltas);
+            last.after = after;
+            last.cost += pending.cost;
+            self.history_bytes += pending.cost;
         } else {
-            self.history.push(Undo {
+            let cost = overhead + pending.cost;
+            let mut name = String::new();
+            if name.try_reserve_exact(kind.len()).is_err() {
+                self.clear_history();
+                return;
+            }
+            name.push_str(kind);
+            self.history.push_back(Undo {
                 before,
                 after,
-                kind: kind.into(),
+                deltas: pending.deltas,
+                cost,
+                kind: name,
                 redo_kind: None,
                 is_wrap: false,
             });
             self.hist += 1;
+            self.history_bytes += cost;
         }
-        self.last_kind = kind.into();
+        self.last_kind.clear();
+        self.last_kind.push_str(kind);
         self.modified = true;
     }
     pub fn saved(&mut self) {
@@ -283,49 +398,39 @@ impl Buffer {
         if cfg!(feature = "tiny") {
             return None;
         }
-        let (index, mut state) = if redo {
+        self.pending = None;
+        let index = if redo {
             if self.hist >= self.history.len() {
                 return None;
             }
             let i = self.hist;
             self.hist += 1;
-            (i, self.history[i].after.clone())
+            i
         } else {
             if self.hist == 0 {
                 return None;
             }
             self.hist -= 1;
-            (self.hist, self.history[self.hist].before.clone())
+            self.hist
         };
-        // The reference's `spillage_line` is a live node pointer set only by
-        // `do_wrap` and cleared only in `delete_node` (when that exact node is
-        // freed); ordinary undo/redo never assign it. Undoing a JOIN or ENTER
-        // recreates text in a *new* node (`intruder`), so it must not inherit
-        // the pointer; redo of a wrap re-applies the inner ENTER without
-        // assigning the pointer.
-        //
-        // Model this by keeping `spillage` as a *live* generation (never
-        // restored from the snapshot) and giving fresh generations to any line
-        // in the restored state whose snapshot generation is no longer live
-        // (i.e. the line was freed and is now being recreated). A wrap item
-        // forces `None` (undo frees the overflow; redo does not reassign it).
-        let live_spillage = self.state.spillage;
-        let item_is_wrap = self.history[index].is_wrap;
-        let live_gens: std::collections::HashSet<u64> =
-            self.state.generations.iter().copied().collect();
-        for g in state.generations.iter_mut() {
-            if !live_gens.contains(g) {
-                *g = self.next_gen;
-                self.next_gen += 1;
+        // Move the journal out, never clone its payload or the buffer.
+        let deltas = std::mem::take(&mut self.history[index].deltas);
+        if redo {
+            for delta in &deltas {
+                self.apply_delta(delta, true);
+            }
+        } else {
+            for delta in deltas.iter().rev() {
+                self.apply_delta(delta, false);
             }
         }
-        self.state = state;
-        self.state.spillage = if item_is_wrap { None } else { live_spillage };
-        // Drop the marker if its target generation left the buffer (the line
-        // was freed by this undo/redo transition).
-        if let Some(sg) = self.state.spillage
-            && !self.state.generations.contains(&sg)
-        {
+        self.history[index].deltas = deltas;
+        self.state.pos = if redo {
+            self.history[index].after.pos
+        } else {
+            self.history[index].before.pos
+        };
+        if self.history[index].is_wrap {
             self.state.spillage = None;
         }
         self.state.mark = None;
@@ -342,6 +447,211 @@ impl Buffer {
             self.history[index].kind.clone()
         })
     }
+    fn capture_delta(&mut self, a: Pos, b: Pos, raw: &[u8]) -> Option<Delta> {
+        if self.pending.as_ref().is_none_or(|p| p.lost) {
+            return None;
+        }
+        let removed_len = if a.line == b.line {
+            b.x - a.x
+        } else {
+            self.state.lines[a.line].len() - a.x + b.x + b.line - a.line
+                + self.state.lines[a.line + 1..b.line]
+                    .iter()
+                    .map(Vec::len)
+                    .sum::<usize>()
+        };
+        let new_count = raw.iter().filter(|b| **b == b'\n').count() + 1;
+        let old_count = b.line - a.line + 1;
+        let cost = removed_len
+            .saturating_add(raw.len())
+            .saturating_add(old_count)
+            .saturating_add(new_count)
+            .saturating_add(2 * std::mem::size_of::<Delta>());
+        if !self.history_room(cost) {
+            self.lose_pending();
+            return None;
+        }
+        let mut delta = Delta {
+            start: a,
+            old_end: b,
+            new_end: a,
+            removed: Vec::new(),
+            added: Vec::new(),
+            old_anchors: Vec::new(),
+            new_anchors: Vec::new(),
+            survivors: [None; 2],
+        };
+        if delta.removed.try_reserve_exact(removed_len).is_err()
+            || delta.added.try_reserve_exact(raw.len()).is_err()
+            || delta.old_anchors.try_reserve_exact(old_count).is_err()
+            || delta.new_anchors.try_reserve_exact(new_count).is_err()
+        {
+            self.lose_pending();
+            return None;
+        }
+        for line in a.line..=b.line {
+            if line > a.line {
+                delta.removed.push(b'\n');
+            }
+            let s = &self.state.lines[line];
+            let start = if line == a.line { a.x } else { 0 };
+            let end = if line == b.line { b.x } else { s.len() };
+            delta
+                .removed
+                .extend(s[start..end].iter().map(|b| if *b == 10 { 0 } else { *b }));
+        }
+        delta.added.extend_from_slice(raw);
+        delta
+            .old_anchors
+            .extend_from_slice(&self.state.anchors[a.line..=b.line]);
+        let last_len = raw.rsplit(|b| *b == b'\n').next().unwrap().len();
+        delta.new_end = Pos {
+            line: a.line + new_count - 1,
+            x: if new_count == 1 {
+                a.x + last_len
+            } else {
+                last_len
+            },
+        };
+        Some(delta)
+    }
+    fn record_delta(&mut self, mut delta: Delta, old_top: u64, old_bottom: u64) {
+        let a = delta.start.line;
+        let z = delta.new_end.line;
+        delta
+            .new_anchors
+            .extend_from_slice(&self.state.anchors[a..=z]);
+        for (slot, (old, generation)) in [(0, old_top), (delta.old_end.line - a, old_bottom)]
+            .into_iter()
+            .enumerate()
+        {
+            if slot == 1 && old == 0 {
+                continue;
+            }
+            if let Some(new) = self.state.generations[a..=z]
+                .iter()
+                .position(|g| *g == generation)
+            {
+                delta.survivors[slot] = Some((old, new));
+            }
+        }
+        self.push_delta(delta);
+    }
+    fn push_delta(&mut self, delta: Delta) {
+        let pending = self.pending.as_mut().unwrap();
+        let reserve = if pending.deltas.is_empty() {
+            pending.deltas.try_reserve_exact(1)
+        } else {
+            pending.deltas.try_reserve(1)
+        };
+        if reserve.is_err() {
+            self.lose_pending();
+            return;
+        }
+        pending.cost += delta.cost();
+        pending.deltas.push(delta);
+    }
+    fn apply_delta(&mut self, delta: &Delta, redo: bool) {
+        let (end, raw, anchors) = if redo {
+            (delta.old_end, &delta.added, &delta.new_anchors)
+        } else {
+            (delta.new_end, &delta.removed, &delta.old_anchors)
+        };
+        let start = delta.start.line;
+        let survivors = delta.survivors.map(|pair| {
+            pair.map(|(old, new)| {
+                let (source, target) = if redo { (old, new) } else { (new, old) };
+                (target, self.state.generations[start + source])
+            })
+        });
+        let spillage = self.state.spillage;
+        let removed_spillage =
+            spillage.is_some_and(|g| self.state.generations[start..=end.line].contains(&g));
+        self.replace(delta.start, end, raw, Splice::Plain);
+        for (i, anchor) in anchors.iter().enumerate() {
+            self.state.anchors[start + i] = *anchor;
+            self.state.generations[start + i] =
+                if let Some((_, g)) = survivors.iter().flatten().find(|(target, _)| *target == i) {
+                    *g
+                } else {
+                    let g = self.next_gen;
+                    self.next_gen += 1;
+                    g
+                };
+        }
+        self.state.spillage = if removed_spillage
+            && !survivors
+                .iter()
+                .flatten()
+                .any(|(_, g)| Some(*g) == spillage)
+        {
+            None
+        } else {
+            spillage
+        };
+    }
+    /// Record one replacement from a caller building output once.
+    /// Coordinates describe the intermediate buffer after prior replacements;
+    /// payloads use external bytes. The caller must install the built line.
+    pub fn record_replacement(&mut self, a: Pos, b: Pos, removed: &[u8], added: &[u8]) {
+        self.record_replacement_with_anchor(a, b, removed, added, self.state.anchors[a.line]);
+    }
+    /// Variant for a virtual intermediate line not yet installed in `state`.
+    /// The caller installs the final text, parallel anchors and generations;
+    /// each inserted line gets a fresh generation and the top node survives.
+    pub fn record_replacement_with_anchor(
+        &mut self,
+        a: Pos,
+        b: Pos,
+        removed: &[u8],
+        added: &[u8],
+        anchor: bool,
+    ) {
+        debug_assert_eq!(a.line, b.line);
+        debug_assert!(!removed.contains(&b'\n'));
+        let mut before = self.begin();
+        before.pos = a;
+        if !cfg!(feature = "tiny") {
+            let lines = added.iter().filter(|b| **b == b'\n').count() + 1;
+            let last = added.rsplit(|b| *b == b'\n').next().unwrap().len();
+            let cost = removed
+                .len()
+                .saturating_add(added.len())
+                .saturating_add(1 + lines + 2 * std::mem::size_of::<Delta>());
+            let mut delta = Delta {
+                start: a,
+                old_end: b,
+                new_end: Pos {
+                    line: a.line + lines - 1,
+                    x: if lines == 1 { a.x + last } else { last },
+                },
+                removed: Vec::new(),
+                added: Vec::new(),
+                old_anchors: Vec::new(),
+                new_anchors: Vec::new(),
+                survivors: [Some((0, 0)), None],
+            };
+            if self.history_room(cost)
+                && delta.removed.try_reserve_exact(removed.len()).is_ok()
+                && delta.added.try_reserve_exact(added.len()).is_ok()
+                && delta.old_anchors.try_reserve_exact(1).is_ok()
+                && delta.new_anchors.try_reserve_exact(lines).is_ok()
+            {
+                delta.removed.extend_from_slice(removed);
+                delta.added.extend_from_slice(added);
+                delta.old_anchors.push(anchor);
+                delta.new_anchors.push(anchor);
+                delta.new_anchors.resize(lines, false);
+                self.push_delta(delta);
+            } else {
+                self.lose_pending();
+            }
+        }
+        let pos = self.pos();
+        self.state.pos = a;
+        self.finish(before, "replacement", false, true);
+        self.state.pos = pos;
+    }
     /// Replace an ordered region with external bytes (LF separators, NUL payload).
     ///
     /// `splice` states which endpoint node survives the replacement; see
@@ -349,15 +659,58 @@ impl Buffer {
     /// empty predecessor, a whole-line cut and a partial multiline cut all
     /// end at column zero of the lower line but free different nodes.
     pub fn replace(&mut self, a: Pos, b: Pos, raw: &[u8], splice: Splice) {
+        let delta = self.capture_delta(a, b, raw);
+        let old_top = self.state.generations[a.line];
+        let old_bottom = self.state.generations[b.line];
+        if a.line == b.line && !raw.contains(&b'\n') {
+            // A small edit in a huge line must not copy its untouched prefix
+            // and suffix, even temporarily.
+            self.state.lines[a.line]
+                .splice(a.x..b.x, raw.iter().map(|b| if *b == 0 { 10 } else { *b }));
+            if splice == Splice::Replace {
+                self.state.generations[a.line] = self.next_gen;
+                self.next_gen += 1;
+                if self.state.spillage == Some(old_top) {
+                    self.state.spillage = None;
+                }
+            }
+            self.state.pos = Pos {
+                line: a.line,
+                x: a.x + raw.len(),
+            };
+            if let Some(mark) = self.state.mark.as_mut()
+                && mark.line == a.line
+                && mark.x > a.x
+            {
+                mark.x = if mark.x > b.x {
+                    mark.x - (b.x - a.x) + raw.len()
+                } else {
+                    a.x
+                };
+            }
+            if let Some(delta) = delta {
+                self.record_delta(delta, old_top, old_bottom);
+            }
+            return;
+        }
         let start = self.offset(a);
         let end = self.offset(b);
         let mark = self.state.mark.map(|m| self.offset(m));
-        let prefix = self.state.lines[a.line][..a.x].to_vec();
-        let suffix = self.state.lines[b.line][b.x..].to_vec();
+        // Reuse the first line's storage, and move an entire bottom suffix
+        // when possible. Structural edits need new line storage, not copies
+        // of every untouched line or of the unchanged first-line prefix.
+        let suffix = if b.x == 0 {
+            std::mem::take(&mut self.state.lines[b.line])
+        } else {
+            self.state.lines[b.line].split_off(b.x)
+        };
+        let mut prefix = std::mem::take(&mut self.state.lines[a.line]);
+        prefix.truncate(a.x);
         let mut lines: Vec<Vec<u8>> = raw.split(|b| *b == 10).map(bytes::encode_nuls).collect();
         let count = lines.len();
         let lastlen = lines.last().unwrap().len();
-        lines[0].splice(0..0, prefix);
+        prefix.append(&mut lines[0]);
+        lines[0] = prefix;
         lines.last_mut().unwrap().extend(suffix);
         let anchor = self.state.anchors[a.line..=b.line].iter().any(|b| *b);
         // Capture the endpoint generations before the splice so we can assign
@@ -460,6 +813,9 @@ impl Buffer {
             };
             self.state.mark = Some(self.position_at_offset(m));
         }
+        if let Some(delta) = delta {
+            self.record_delta(delta, old_top, old_bottom);
+        }
     }
     /// Apply the reference's hard-wrap split of the line at `line` into the
     /// two lines `first` and `second`.
@@ -471,6 +827,20 @@ impl Buffer {
     /// identity and shift down by one.
     #[cfg(not(feature = "tiny"))]
     pub fn wrap_split(&mut self, line: usize, first: Vec<u8>, second: Vec<u8>, joined: bool) {
+        let bottom = line + usize::from(joined);
+        let mut raw = bytes::decode_nuls(&first);
+        raw.push(b'\n');
+        raw.extend(bytes::decode_nuls(&second));
+        let delta = self.capture_delta(
+            Pos { line, x: 0 },
+            Pos {
+                line: bottom,
+                x: self.state.lines[bottom].len(),
+            },
+            &raw,
+        );
+        let old_top = self.state.generations[line];
+        let old_bottom = self.state.generations[bottom];
         self.state.lines[line] = first;
         if joined {
             // The join freed the old bottom node: the continuation is a
@@ -494,38 +864,88 @@ impl Buffer {
         {
             self.state.spillage = None;
         }
-    }
-    /// Clear/shift the spillage marker for a splice that replaces the lines in
-    /// `[first, end)` with `count` new lines and keeps none of the old lines
-    /// (no survivors). Used by `justify` (a rewrap) and the whole-buffer
-    /// formatter/speller replacement. Unlike `replace`, the old lines are all
-    /// freed, so a marker anywhere in the range is cleared, not retained at an
-    /// endpoint. The `count` new lines get fresh generations.
-    #[cfg(not(feature = "tiny"))]
-    pub fn spillage_no_survivors(&mut self, first: usize, end: usize, count: usize) {
-        let mut new_gens: Vec<u64> = Vec::with_capacity(count);
-        for _ in 0..count {
-            new_gens.push(self.next_gen);
-            self.next_gen += 1;
-        }
-        self.state.generations.splice(first..end, new_gens);
-        if let Some(sg) = self.state.spillage
-            && !self.state.generations.contains(&sg)
-        {
-            self.state.spillage = None;
+        if let Some(delta) = delta {
+            self.record_delta(delta, old_top, old_bottom);
         }
     }
-    /// Drop the spillage marker entirely (whole-buffer line replacement) and
-    /// assign fresh generations to every current line.
+    /// Extend the triggering addition/paste atomically with the wrap's edits.
     #[cfg(not(feature = "tiny"))]
-    pub fn spillage_clear(&mut self) {
-        let n = self.state.lines.len();
-        self.state.generations.clear();
-        for _ in 0..n {
-            self.state.generations.push(self.next_gen);
-            self.next_gen += 1;
+    pub fn begin_wrap(&mut self) -> (Checkpoint, String) {
+        self.pending = Some(Pending::default());
+        if self.hist > 0 && self.hist == self.history.len() {
+            let item = self.history.pop_back().unwrap();
+            self.hist -= 1;
+            self.history_bytes -= item.cost;
+            let cost = item.deltas.iter().map(Delta::cost).sum();
+            self.pending = Some(Pending {
+                deltas: item.deltas,
+                cost,
+                lost: false,
+            });
+            (item.before, item.kind)
+        } else {
+            self.lose_pending();
+            (Checkpoint { pos: self.pos() }, "addition".into())
         }
-        self.state.spillage = None;
+    }
+    #[cfg(not(feature = "tiny"))]
+    pub fn finish_wrap(&mut self, before: Checkpoint, kind: &str) {
+        self.finish(before, kind, false, true);
+        if let Some(last) = self.history.back_mut() {
+            last.is_wrap = true;
+            if kind == "paste" {
+                last.redo_kind = Some("addition".into());
+            }
+        }
+        self.last_kind.clear();
+    }
+    /// Journal a byte edit while the caller applies its own cursor/mark rules.
+    #[cfg(not(feature = "tiny"))]
+    pub fn edit_line(&mut self, line: usize, start: usize, end: usize, internal: &[u8]) {
+        let pos = self.pos();
+        let mark = self.state.mark;
+        self.replace(
+            Pos { line, x: start },
+            Pos { line, x: end },
+            &bytes::decode_nuls(internal),
+            Splice::Plain,
+        );
+        self.state.pos = pos;
+        self.state.mark = mark;
+    }
+    #[cfg(not(feature = "tiny"))]
+    pub fn replace_lines(&mut self, first: usize, end: usize, lines: Vec<Vec<u8>>) {
+        let pos = self.pos();
+        let mark = self.state.mark;
+        let mut raw = Vec::new();
+        for (i, line) in lines.iter().enumerate() {
+            if i > 0 {
+                raw.push(b'\n');
+            }
+            raw.extend(bytes::decode_nuls(line));
+        }
+        let last = end - 1;
+        self.replace(
+            Pos { line: first, x: 0 },
+            Pos {
+                line: last,
+                x: self.state.lines[last].len(),
+            },
+            &raw,
+            Splice::Replace,
+        );
+        self.state.pos = pos;
+        self.state.mark = mark;
+    }
+    #[cfg(not(feature = "tiny"))]
+    pub fn clear_first_anchor(&mut self) {
+        let p = Pos::default();
+        let delta = self.capture_delta(p, p, &[]);
+        let generation = self.state.generations[0];
+        self.state.anchors[0] = false;
+        if let Some(delta) = delta {
+            self.record_delta(delta, generation, generation);
+        }
     }
     pub fn insert(&mut self, raw: &[u8], kind: &str, group: bool, nonew: bool) {
         if raw.is_empty() {
@@ -620,11 +1040,7 @@ impl Buffer {
                 self.state.pos = a;
                 let modified = self.modified;
                 self.finish(before, kind, false, nonew);
-                self.modified = if cfg!(feature = "tiny") {
-                    modified
-                } else {
-                    self.saved != Some(self.hist - 1)
-                };
+                self.modified = modified;
                 return true;
             }
             return false;
@@ -777,6 +1193,222 @@ mod tests {
     use super::*;
     #[test]
     #[cfg(not(feature = "tiny"))]
+    fn wrap_budget_failure_never_retains_a_partial_wrap() {
+        let mut b = Buffer::new(vec![], vec![b"alpha beta".to_vec(), vec![]]);
+        b.undo_budget = 0;
+        b.state.pos.x = 10;
+        b.insert(b"!", "addition", false, false);
+        assert!(b.history.is_empty());
+        b.undo_budget = 8192;
+        let (before, kind) = b.begin_wrap();
+        b.wrap_split(0, b"alpha ".to_vec(), b"beta!".to_vec(), false);
+        b.state.pos = Pos { line: 1, x: 5 };
+        b.finish_wrap(before, &kind);
+        assert!(b.undo(false).is_none());
+        assert_eq!(b.raw(), b"alpha \nbeta!\n");
+        assert!(b.modified);
+
+        // The trigger fits, but the complete wrap does not. Neither half
+        // may remain as an undo item after the resulting barrier.
+        let mut b = Buffer::new(vec![], vec![vec![b'x'; 5000], vec![]]);
+        b.undo_budget = 8192;
+        b.state.pos.x = 5000;
+        b.insert(b"!", "addition", false, false);
+        assert_eq!(b.history.len(), 1);
+        let (before, kind) = b.begin_wrap();
+        b.wrap_split(
+            0,
+            vec![b'x'; 2500],
+            [vec![b'x'; 2500], vec![b'!']].concat(),
+            false,
+        );
+        b.state.pos = Pos { line: 1, x: 2501 };
+        b.finish_wrap(before, &kind);
+        assert!(b.history.is_empty());
+        assert!(b.undo(false).is_none());
+        assert_eq!(b.state.lines[0].len(), 2500);
+        assert_eq!(b.state.lines[1].len(), 2501);
+        assert!(b.modified);
+    }
+    #[test]
+    #[cfg(not(feature = "tiny"))]
+    fn budget_overflow_discards_whole_compound_and_growing_groups() {
+        let mut b = Buffer {
+            undo_budget: 8192,
+            ..Buffer::default()
+        };
+        b.insert(b"old", "addition", false, false);
+        let before = b.begin();
+        for _ in 0..100 {
+            let p = b.pos();
+            b.replace(p, p, b"z", Splice::Plain);
+        }
+        b.finish(before, "filtering", false, false);
+        assert!(b.history.is_empty());
+        assert_eq!(b.raw(), [b"old".as_slice(), &[b'z'; 100], b"\n"].concat());
+        for _ in 0..100 {
+            b.insert(b"x", "addition", true, false);
+        }
+        assert_eq!(b.history.len(), 1);
+        let current = b.state.lines[0].len();
+        b.undo(false);
+        assert!(b.state.lines[0].len() > 103 && b.state.lines[0].len() < current);
+        assert!(b.modified);
+        b.undo(true);
+        assert_eq!(b.state.lines[0].len(), current);
+    }
+    #[test]
+    #[cfg(not(feature = "tiny"))]
+    fn deterministic_multiline_history_round_trips() {
+        let mut b = Buffer::new(vec![], vec![b"initial".to_vec(), b"text".to_vec(), vec![]]);
+        let mut seed = 9_u64;
+        let mut snapshots = vec![(b.raw(), b.pos())];
+        for i in 0..300 {
+            seed = seed.wrapping_mul(6364136223846793005).wrapping_add(1);
+            let n = b.raw().len();
+            let off = seed as usize % (n + 1);
+            let end = (off + (seed >> 32) as usize % 9).min(n);
+            let a = b.position_at_offset(off);
+            let z = b.position_at_offset(end);
+            let raw: &[u8] = [b"x".as_slice(), b"\n", b"\0\xff", b"ab\ncd", b""][i % 5];
+            let before = b.begin();
+            b.replace(
+                a,
+                z,
+                raw,
+                if i % 3 == 0 {
+                    Splice::Cut
+                } else {
+                    Splice::Plain
+                },
+            );
+            b.finish(before, "paste", false, false);
+            snapshots.push((b.raw(), b.pos()));
+        }
+        for expected in snapshots[..300].iter().rev() {
+            b.undo(false);
+            assert_eq!((b.raw(), b.pos()), *expected);
+            assert_eq!(b.state.lines.len(), b.state.generations.len());
+            assert_eq!(b.state.lines.len(), b.state.anchors.len());
+            let unique: std::collections::HashSet<_> = b.state.generations.iter().collect();
+            assert_eq!(unique.len(), b.state.generations.len());
+        }
+        assert!(!b.modified);
+        for expected in snapshots[1..].iter() {
+            b.undo(true);
+            assert_eq!((b.raw(), b.pos()), *expected);
+        }
+    }
+    #[test]
+    #[cfg(not(feature = "tiny"))]
+    fn small_edits_retain_only_deltas_in_a_ten_mib_line() {
+        let n = 10 * 1024 * 1024;
+        let mut b = Buffer::new(vec![], vec![vec![b'x'; n], vec![]]);
+        b.state.pos.x = n;
+        for _ in 0..1000 {
+            b.insert(b"z", "addition", false, false);
+        }
+        assert!(b.history_bytes < 1024 * 1024);
+        assert_eq!(b.history.len(), 1000);
+        for _ in 0..1000 {
+            assert_eq!(b.undo(false).as_deref(), Some("addition"));
+        }
+        assert_eq!(b.state.lines[0].len(), n);
+        assert!(b.state.lines[0].iter().all(|byte| *byte == b'x'));
+        assert!(!b.modified);
+        for _ in 0..1000 {
+            assert!(b.undo(true).is_some());
+        }
+        assert_eq!(&b.state.lines[0][n..], vec![b'z'; 1000]);
+    }
+    #[test]
+    #[cfg(not(feature = "tiny"))]
+    fn budget_eviction_barriers_and_saved_points() {
+        let mut b = Buffer {
+            undo_budget: 8192,
+            ..Buffer::default()
+        };
+        for _ in 0..100 {
+            b.insert(b"x", "addition", false, false);
+        }
+        assert!(b.hist > 0 && b.hist < 100);
+        assert!(
+            b.history_bytes + b.history.capacity() * std::mem::size_of::<Undo>() <= b.undo_budget
+        );
+        let retained = b.hist;
+        for _ in 0..retained {
+            b.undo(false);
+        }
+        assert_eq!(b.state.lines[0].len(), 100 - retained);
+        assert!(b.modified);
+        assert!(b.undo(false).is_none());
+        for _ in 0..retained {
+            b.undo(true);
+        }
+        b.saved();
+        b.insert(b"y", "addition", false, false);
+        b.undo(false);
+        assert!(!b.modified);
+        b.undo(true);
+        assert!(b.modified);
+        b.insert(&vec![b'Z'; 16384], "paste", false, false);
+        assert!(b.history.is_empty());
+        assert_eq!(b.state.lines[0].len(), 101 + 16384);
+        assert!(b.modified);
+        b.insert(b"!", "addition", false, false);
+        b.undo(false);
+        assert_eq!(b.state.lines[0].len(), 101 + 16384);
+        assert!(b.modified);
+        assert!(b.undo(false).is_none());
+    }
+    #[test]
+    #[cfg(not(feature = "tiny"))]
+    fn compounds_marks_magic_and_line_identity_round_trip() {
+        let mut b = Buffer::new(vec![], vec![b"abc".to_vec(), b"def".to_vec(), vec![]]);
+        let top = b.state.generations[0];
+        let bottom = b.state.generations[1];
+        b.state.mark = Some(Pos { line: 1, x: 2 });
+        b.state.spillage = Some(bottom);
+        let before = b.begin();
+        b.replace(
+            Pos { line: 0, x: 1 },
+            Pos { line: 1, x: 1 },
+            b"\0X\nY",
+            Splice::Cut,
+        );
+        b.replace(
+            Pos { line: 1, x: 1 },
+            Pos { line: 1, x: 1 },
+            b"!",
+            Splice::Plain,
+        );
+        b.finish(before, "filtering", false, false);
+        let result = b.raw();
+        b.undo(false);
+        assert_eq!(b.raw(), b"abc\ndef\n");
+        assert_eq!(b.state.generations[0], top);
+        assert_eq!(b.state.generations[1], bottom);
+        assert_eq!(b.state.spillage, Some(bottom));
+        assert!(b.state.mark.is_none());
+        b.undo(true);
+        assert_eq!(b.raw(), result);
+        b.state.pos = Pos { line: 0, x: 0 };
+        b.cut(
+            Pos { line: 0, x: 0 },
+            Pos { line: 1, x: 0 },
+            "cut",
+            false,
+            false,
+        );
+        assert_eq!(b.state.generations[0], bottom);
+        b.undo(false);
+        assert_ne!(b.state.generations[0], top);
+        assert_eq!(b.state.generations[1], bottom);
+        b.undo(true);
+        assert_eq!(b.state.generations[0], bottom);
+    }
+    #[test]
+    #[cfg(not(feature = "tiny"))]
     fn byte_edits_saved_and_redo() {
         let mut b = Buffer::default();
         b.insert(b"a\0b", "addition", true, false);
@@ -821,7 +1453,8 @@ mod tests {
         assert_eq!(b.raw().len(), (1 << 20) + 129);
         assert!(b.history.is_empty());
         assert_eq!(b.history.capacity(), 0);
-        assert!(b.begin().lines.is_empty());
+        b.begin();
+        assert!(b.pending.is_none());
         b.saved();
         assert!(!b.modified);
         b.insert(b"z", "addition", false, false);

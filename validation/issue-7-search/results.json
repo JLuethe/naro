@@ -1,0 +1,667 @@
+{
+  "date": "2026-11-05",
+  "baseline_revision": "f5e79cfcffb13bc314e819bdc7a0c5ef3fa02d3e",
+  "resource_cases": [
+    {
+      "case": "stress_find_literal",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-01/before/tests-default",
+        "search::tests::stress_find_literal",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "08aadc31ddcabea0021e9422ea497b783ae4159e3579da4b33cc17f16922cc8b",
+      "passed": false,
+      "expected_result": true,
+      "exit_code": -6,
+      "timeout": false,
+      "elapsed_seconds": 0.13865770700067515,
+      "peak_rss_kib": 93036,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 96,
+      "peak_rss_bound_mib": 48,
+      "label": "before",
+      "profile": "default",
+      "revision": "f5e79cfcffb13bc314e819bdc7a0c5ef3fa02d3e",
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json"
+      ],
+      "source_manifest_sha256": "6f22b905af7438996c22b507e8f973962d18cb85cdcc4cc361499e20df60cf8f"
+    },
+    {
+      "case": "stress_find_regex",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-01/before/tests-default",
+        "search::tests::stress_find_regex",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "08aadc31ddcabea0021e9422ea497b783ae4159e3579da4b33cc17f16922cc8b",
+      "passed": false,
+      "expected_result": true,
+      "exit_code": -9,
+      "timeout": true,
+      "elapsed_seconds": 5.006522218001919,
+      "peak_rss_kib": 42276,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 96,
+      "peak_rss_bound_mib": 48,
+      "label": "before",
+      "profile": "default",
+      "revision": "f5e79cfcffb13bc314e819bdc7a0c5ef3fa02d3e",
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json"
+      ],
+      "source_manifest_sha256": "6f22b905af7438996c22b507e8f973962d18cb85cdcc4cc361499e20df60cf8f"
+    },
+    {
+      "case": "stress_find_literal",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-01/before/tests-tiny",
+        "search::tests::stress_find_literal",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "c45b61c4031a60aa392f294a33221e1e1020b4009e51fcc3c4048a3cf1afb8d2",
+      "passed": false,
+      "expected_result": true,
+      "exit_code": -6,
+      "timeout": false,
+      "elapsed_seconds": 0.15735940999729792,
+      "peak_rss_kib": 94096,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 96,
+      "peak_rss_bound_mib": 48,
+      "label": "before",
+      "profile": "tiny",
+      "revision": "f5e79cfcffb13bc314e819bdc7a0c5ef3fa02d3e",
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json",
+        "--features",
+        "tiny"
+      ],
+      "source_manifest_sha256": "6f22b905af7438996c22b507e8f973962d18cb85cdcc4cc361499e20df60cf8f"
+    },
+    {
+      "case": "stress_find_regex",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-01/before/tests-tiny",
+        "search::tests::stress_find_regex",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "c45b61c4031a60aa392f294a33221e1e1020b4009e51fcc3c4048a3cf1afb8d2",
+      "passed": false,
+      "expected_result": true,
+      "exit_code": -9,
+      "timeout": true,
+      "elapsed_seconds": 5.011208699001145,
+      "peak_rss_kib": 35936,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 96,
+      "peak_rss_bound_mib": 48,
+      "label": "before",
+      "profile": "tiny",
+      "revision": "f5e79cfcffb13bc314e819bdc7a0c5ef3fa02d3e",
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json",
+        "--features",
+        "tiny"
+      ],
+      "source_manifest_sha256": "6f22b905af7438996c22b507e8f973962d18cb85cdcc4cc361499e20df60cf8f"
+    },
+    {
+      "case": "stress_replace_literal",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-01/before/tests-tiny",
+        "search::tests::stress_replace_literal",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "c45b61c4031a60aa392f294a33221e1e1020b4009e51fcc3c4048a3cf1afb8d2",
+      "passed": false,
+      "expected_result": true,
+      "exit_code": -9,
+      "timeout": true,
+      "elapsed_seconds": 5.005830764002894,
+      "peak_rss_kib": 22212,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 256,
+      "peak_rss_bound_mib": 192,
+      "label": "before",
+      "profile": "tiny",
+      "revision": "f5e79cfcffb13bc314e819bdc7a0c5ef3fa02d3e",
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json",
+        "--features",
+        "tiny"
+      ],
+      "source_manifest_sha256": "6f22b905af7438996c22b507e8f973962d18cb85cdcc4cc361499e20df60cf8f"
+    },
+    {
+      "case": "stress_replace_regex",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-01/before/tests-tiny",
+        "search::tests::stress_replace_regex",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "c45b61c4031a60aa392f294a33221e1e1020b4009e51fcc3c4048a3cf1afb8d2",
+      "passed": false,
+      "expected_result": true,
+      "exit_code": -9,
+      "timeout": true,
+      "elapsed_seconds": 5.0090013980006916,
+      "peak_rss_kib": 26224,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 256,
+      "peak_rss_bound_mib": 192,
+      "label": "before",
+      "profile": "tiny",
+      "revision": "f5e79cfcffb13bc314e819bdc7a0c5ef3fa02d3e",
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json",
+        "--features",
+        "tiny"
+      ],
+      "source_manifest_sha256": "6f22b905af7438996c22b507e8f973962d18cb85cdcc4cc361499e20df60cf8f"
+    },
+    {
+      "case": "stress_find_literal",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-02/after/tests-default",
+        "search::tests::stress_find_literal",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "7221d4534fd87115ce86d5c54fa36972dd276509eb2ab54501f598ce62cdd594",
+      "passed": true,
+      "expected_result": true,
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 0.0272142760004499,
+      "peak_rss_kib": 13528,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 96,
+      "peak_rss_bound_mib": 48,
+      "label": "after",
+      "profile": "default",
+      "revision": null,
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json"
+      ],
+      "source_manifest_sha256": "4da7e4baec8d55f86595fa6691efea83b597e2ad07d4d1586170219bf599295a"
+    },
+    {
+      "case": "stress_find_regex",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-02/after/tests-default",
+        "search::tests::stress_find_regex",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "7221d4534fd87115ce86d5c54fa36972dd276509eb2ab54501f598ce62cdd594",
+      "passed": true,
+      "expected_result": true,
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 0.02454301500256406,
+      "peak_rss_kib": 13528,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 96,
+      "peak_rss_bound_mib": 48,
+      "label": "after",
+      "profile": "default",
+      "revision": null,
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json"
+      ],
+      "source_manifest_sha256": "4da7e4baec8d55f86595fa6691efea83b597e2ad07d4d1586170219bf599295a"
+    },
+    {
+      "case": "stress_replace_literal",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-02/after/tests-default",
+        "search::tests::stress_replace_literal",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "7221d4534fd87115ce86d5c54fa36972dd276509eb2ab54501f598ce62cdd594",
+      "passed": true,
+      "expected_result": true,
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 0.06444039300185977,
+      "peak_rss_kib": 26500,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 256,
+      "peak_rss_bound_mib": 192,
+      "label": "after",
+      "profile": "default",
+      "revision": null,
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json"
+      ],
+      "source_manifest_sha256": "4da7e4baec8d55f86595fa6691efea83b597e2ad07d4d1586170219bf599295a"
+    },
+    {
+      "case": "stress_replace_regex",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-02/after/tests-default",
+        "search::tests::stress_replace_regex",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "7221d4534fd87115ce86d5c54fa36972dd276509eb2ab54501f598ce62cdd594",
+      "passed": true,
+      "expected_result": true,
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 0.09492792400124017,
+      "peak_rss_kib": 26736,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 256,
+      "peak_rss_bound_mib": 192,
+      "label": "after",
+      "profile": "default",
+      "revision": null,
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json"
+      ],
+      "source_manifest_sha256": "4da7e4baec8d55f86595fa6691efea83b597e2ad07d4d1586170219bf599295a"
+    },
+    {
+      "case": "stress_replace_backward_regex",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-02/after/tests-default",
+        "search::tests::stress_replace_backward_regex",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "7221d4534fd87115ce86d5c54fa36972dd276509eb2ab54501f598ce62cdd594",
+      "passed": true,
+      "expected_result": true,
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 0.14509798899962334,
+      "peak_rss_kib": 29780,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 256,
+      "peak_rss_bound_mib": 192,
+      "label": "after",
+      "profile": "default",
+      "revision": null,
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json"
+      ],
+      "source_manifest_sha256": "4da7e4baec8d55f86595fa6691efea83b597e2ad07d4d1586170219bf599295a"
+    },
+    {
+      "case": "stress_replace_multiline",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-02/after/tests-default",
+        "search::tests::stress_replace_multiline",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "7221d4534fd87115ce86d5c54fa36972dd276509eb2ab54501f598ce62cdd594",
+      "passed": true,
+      "expected_result": true,
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 0.04364991500187898,
+      "peak_rss_kib": 33880,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 256,
+      "peak_rss_bound_mib": 192,
+      "label": "after",
+      "profile": "default",
+      "revision": null,
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json"
+      ],
+      "source_manifest_sha256": "4da7e4baec8d55f86595fa6691efea83b597e2ad07d4d1586170219bf599295a"
+    },
+    {
+      "case": "stress_find_literal",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-02/after/tests-tiny",
+        "search::tests::stress_find_literal",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "9a1e3a39853450bbe2d37bfddc3f3889953264f845a4da795d25a0298b05e2ba",
+      "passed": true,
+      "expected_result": true,
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 0.026061104999826057,
+      "peak_rss_kib": 15092,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 96,
+      "peak_rss_bound_mib": 48,
+      "label": "after",
+      "profile": "tiny",
+      "revision": null,
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json",
+        "--features",
+        "tiny"
+      ],
+      "source_manifest_sha256": "4da7e4baec8d55f86595fa6691efea83b597e2ad07d4d1586170219bf599295a"
+    },
+    {
+      "case": "stress_find_regex",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-02/after/tests-tiny",
+        "search::tests::stress_find_regex",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "9a1e3a39853450bbe2d37bfddc3f3889953264f845a4da795d25a0298b05e2ba",
+      "passed": true,
+      "expected_result": true,
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 0.02469348700105911,
+      "peak_rss_kib": 15092,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 96,
+      "peak_rss_bound_mib": 48,
+      "label": "after",
+      "profile": "tiny",
+      "revision": null,
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json",
+        "--features",
+        "tiny"
+      ],
+      "source_manifest_sha256": "4da7e4baec8d55f86595fa6691efea83b597e2ad07d4d1586170219bf599295a"
+    },
+    {
+      "case": "stress_replace_literal",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-02/after/tests-tiny",
+        "search::tests::stress_replace_literal",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "9a1e3a39853450bbe2d37bfddc3f3889953264f845a4da795d25a0298b05e2ba",
+      "passed": true,
+      "expected_result": true,
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 0.03481452599953627,
+      "peak_rss_kib": 15092,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 256,
+      "peak_rss_bound_mib": 192,
+      "label": "after",
+      "profile": "tiny",
+      "revision": null,
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json",
+        "--features",
+        "tiny"
+      ],
+      "source_manifest_sha256": "4da7e4baec8d55f86595fa6691efea83b597e2ad07d4d1586170219bf599295a"
+    },
+    {
+      "case": "stress_replace_regex",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-02/after/tests-tiny",
+        "search::tests::stress_replace_regex",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "9a1e3a39853450bbe2d37bfddc3f3889953264f845a4da795d25a0298b05e2ba",
+      "passed": true,
+      "expected_result": true,
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 0.06483724399731727,
+      "peak_rss_kib": 15092,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 256,
+      "peak_rss_bound_mib": 192,
+      "label": "after",
+      "profile": "tiny",
+      "revision": null,
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json",
+        "--features",
+        "tiny"
+      ],
+      "source_manifest_sha256": "4da7e4baec8d55f86595fa6691efea83b597e2ad07d4d1586170219bf599295a"
+    },
+    {
+      "case": "stress_replace_backward_regex",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-02/after/tests-tiny",
+        "search::tests::stress_replace_backward_regex",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "9a1e3a39853450bbe2d37bfddc3f3889953264f845a4da795d25a0298b05e2ba",
+      "passed": true,
+      "expected_result": true,
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 0.12651414100037073,
+      "peak_rss_kib": 15092,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 256,
+      "peak_rss_bound_mib": 192,
+      "label": "after",
+      "profile": "tiny",
+      "revision": null,
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json",
+        "--features",
+        "tiny"
+      ],
+      "source_manifest_sha256": "4da7e4baec8d55f86595fa6691efea83b597e2ad07d4d1586170219bf599295a"
+    },
+    {
+      "case": "stress_replace_multiline",
+      "command": [
+        "/home/john/Code/naro/target/issue-7-search/resources-02/after/tests-tiny",
+        "search::tests::stress_replace_multiline",
+        "--exact",
+        "--ignored",
+        "--nocapture"
+      ],
+      "binary_sha256": "9a1e3a39853450bbe2d37bfddc3f3889953264f845a4da795d25a0298b05e2ba",
+      "passed": true,
+      "expected_result": true,
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 0.0348143120027089,
+      "peak_rss_kib": 15092,
+      "timeout_seconds": 5,
+      "address_space_bound_mib": 256,
+      "peak_rss_bound_mib": 192,
+      "label": "after",
+      "profile": "tiny",
+      "revision": null,
+      "build_command": [
+        "/home/john/.cargo/bin/cargo",
+        "test",
+        "--release",
+        "--no-run",
+        "--message-format=json",
+        "--features",
+        "tiny"
+      ],
+      "source_manifest_sha256": "4da7e4baec8d55f86595fa6691efea83b597e2ad07d4d1586170219bf599295a"
+    }
+  ],
+  "parity_summary": {
+    "recorded": 19,
+    "raw_matches": 0,
+    "identity_reviewed": 19,
+    "declared_deviations": 0,
+    "unexpected": 0,
+    "accepted": 19
+  },
+  "identity_policy": {
+    "id": "Q-IDENTITY-001",
+    "schema": "naro-identity-review-v1",
+    "version": "0.1.1",
+    "sha256": "54b84a618ae40eef5914a28d5931e896c2eba7305b5bee595d52b7d77074fd96"
+  },
+  "terminal": {
+    "default": {
+      "binary": "/home/john/Code/naro/target/issue-7-search/naro-final-default",
+      "binary_sha256": "5acb843662bf277cd6076dd428bdaf447feb7000d9f553bb128a1d84eeec2217",
+      "build_info": "{\"version\":\"0.1.1\",\"reference_commit\":\"6ed285c3ec7a1d228def4d4e7021c6ba269f620c\",\"source_sha256\":\"e61103d7e416f155d0219953ca0836efcdf9a8f51358cd484301a7ef97936d60\",\"revision\":\"36f609e5bab59ccc9057cdddfd2172481955e5e7\",\"features\":\"\",\"rustc\":\"rustc 1.99.1 (58cf8f9c3 2026-10-13)\"}\n",
+      "cases": [
+        {
+          "passed": true,
+          "command": [
+            "/home/john/Code/naro/target/issue-7-search/naro-final-default",
+            "-I",
+            "/home/john/Code/naro/target/issue-7-search/terminal-default-final/find/fixture.txt"
+          ],
+          "cancelled_latency_seconds": 1.0862855599989416,
+          "input_bytes": 33562624,
+          "replaced": 0,
+          "exit_code": 0,
+          "case": "find"
+        },
+        {
+          "passed": true,
+          "command": [
+            "/home/john/Code/naro/target/issue-7-search/naro-final-default",
+            "-I",
+            "/home/john/Code/naro/target/issue-7-search/terminal-default-final/replace/fixture.txt"
+          ],
+          "cancelled_latency_seconds": 0.14077272599752177,
+          "input_bytes": 8390656,
+          "replaced": 260890,
+          "exit_code": 0,
+          "case": "replace"
+        }
+      ],
+      "passed": true
+    },
+    "tiny": {
+      "binary": "/home/john/Code/naro/target/issue-7-search/naro-final-tiny",
+      "binary_sha256": "c902d60bcac906bc6419c7fb7c6065ee7bfc98d15aec9bd46261a800a179638b",
+      "build_info": "{\"version\":\"0.1.1\",\"reference_commit\":\"6ed285c3ec7a1d228def4d4e7021c6ba269f620c\",\"source_sha256\":\"e61103d7e416f155d0219953ca0836efcdf9a8f51358cd484301a7ef97936d60\",\"revision\":\"36f609e5bab59ccc9057cdddfd2172481955e5e7\",\"features\":\"tiny\",\"rustc\":\"rustc 1.99.1 (58cf8f9c3 2026-10-13)\"}\n",
+      "cases": [
+        {
+          "passed": true,
+          "command": [
+            "/home/john/Code/naro/target/issue-7-search/naro-final-tiny",
+            "/home/john/Code/naro/target/issue-7-search/terminal-tiny-final/find/fixture.txt"
+          ],
+          "cancelled_latency_seconds": 1.1865355230002024,
+          "input_bytes": 33562624,
+          "replaced": 0,
+          "exit_code": 0,
+          "case": "find"
+        },
+        {
+          "passed": true,
+          "command": [
+            "/home/john/Code/naro/target/issue-7-search/naro-final-tiny",
+            "/home/john/Code/naro/target/issue-7-search/terminal-tiny-final/replace/fixture.txt"
+          ],
+          "cancelled_latency_seconds": 0.1608704479986045,
+          "input_bytes": 8390656,
+          "replaced": 584238,
+          "exit_code": 0,
+          "case": "replace"
+        }
+      ],
+      "passed": true
+    }
+  },
+  "current_source_difference": "At final search validation capture, frozen source differed only in subsequent buffer.rs unit-test changes; production code was identical. Later work on other issues is outside these frozen artifact claims. Exact source manifest retained under target/issue-7-search/resources-02/after."
+}

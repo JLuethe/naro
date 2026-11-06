@@ -140,10 +140,10 @@ impl Editor {
                     vec![9]
                 }
             });
-        let before = self.b().begin();
+        let before = self.bm().begin();
         let mut any = false;
         for line in range {
-            let s = self.b().state.lines[line].clone();
+            let s = &self.b().state.lines[line];
             if s.is_empty() {
                 continue;
             }
@@ -177,9 +177,9 @@ impl Editor {
                 tab.len() as isize
             };
             if unindent {
-                self.bm().state.lines[line].drain(..n);
+                self.bm().edit_line(line, 0, n, &[]);
             } else {
-                self.bm().state.lines[line].splice(..0, tab.clone());
+                self.bm().edit_line(line, 0, 0, &tab);
             }
             let b = self.bm();
             if b.pos().line == line && b.pos().x > 0 {
@@ -230,22 +230,24 @@ impl Editor {
                 let s = &self.b().state.lines[l];
                 e.indent(s) == s.len() || s.starts_with(prefix) && s.ends_with(suffix)
             });
-        let before = self.b().begin();
+        let before = self.bm().begin();
         for line in range {
             if line == last && self.b().state.lines[last].is_empty() {
                 continue;
             }
-            let s = &mut self.bm().state.lines[line];
+            let s = &self.b().state.lines[line];
             let delta = if uncomment {
                 if !s.starts_with(prefix) || !s.ends_with(suffix) {
                     continue;
                 }
-                s.truncate(s.len() - suffix.len());
-                s.drain(..prefix.len());
+                let len = s.len();
+                self.bm().edit_line(line, len - suffix.len(), len, &[]);
+                self.bm().edit_line(line, 0, prefix.len(), &[]);
                 -(prefix.len() as isize)
             } else {
-                s.splice(..0, prefix.iter().copied());
-                s.extend(suffix);
+                let len = s.len();
+                self.bm().edit_line(line, len, len, suffix);
+                self.bm().edit_line(line, 0, 0, prefix);
                 prefix.len() as isize
             };
             let b = self.bm();
@@ -646,25 +648,11 @@ impl Editor {
                 x: extra + quote_prefix.len() + (cursor_x - split),
             }
         };
+        let (before, kind) = self.bm().begin_wrap();
         self.bm().wrap_split(line0, first, second, join);
         self.bm().state.mark = mark;
         self.bm().state.pos = pos;
-        let mut after = self.b().state.clone();
-        // The reference clears `spillage_line` only in delete_node (when the
-        // wrap-created line is freed) and does not restore it on redo: redo
-        // re-applies the inner ENTER without setting the spillage pointer.
-        // Record `None` in both the before- and after-state of a wrap item so
-        // undo and redo of a wrap yield no spillage, matching the reference.
-        // The live marker is set below for the next wrap's join decision.
-        after.spillage = None;
-        if let Some(last) = self.bm().history.last_mut() {
-            last.after = after;
-            last.before.spillage = None;
-            last.is_wrap = true;
-            if last.kind == "paste" {
-                last.redo_kind = Some("addition".into());
-            }
-        }
+        self.bm().finish_wrap(before, &kind);
         // A successful wrap creates the spillage line for the next wrap: the
         // new continuation line's generation (assigned by the split).
         self.bm().state.spillage = self.bm().state.generations.get(line0 + 1).copied();
@@ -720,7 +708,7 @@ impl Editor {
         while line > 0 && !full && self.in_para(line) && !self.para_start(line, 0) {
             line -= 1;
         }
-        let before = self.b().begin();
+        let before = self.bm().begin();
         let mut changed = false;
         let layout = render::layout(self);
         let width = if self.conf.fill > 0 {
@@ -832,14 +820,7 @@ impl Editor {
                 lead = sample.clone();
             }
             let count = output.len();
-            self.bm().state.lines.splice(first..end, output);
-            // The paragraph's old lines are all replaced by rewrapped output;
-            // none survive, so a spillage marker in the range is cleared and a
-            // marker below shifts (R1). `replace` is not used here, so maintain
-            // the marker explicitly.
-            self.bm().spillage_no_survivors(first, end, count);
-            let n = self.b().state.lines.len();
-            self.bm().state.anchors.resize(n, false);
+            self.bm().replace_lines(first, end, output);
             line = first + count;
             changed = true;
             if !full {
@@ -1596,7 +1577,7 @@ impl Editor {
                 let (lines, _, n) = files::parse(&raw, !self.conf.on(NO_CONVERT));
                 let raw = Buffer::new(vec![], lines).raw();
                 let new = self.conf.on(NEW_BUFFER);
-                let before = self.b().begin();
+                let before = self.bm().begin();
                 if new {
                     self.new_buffer(Buffer::default());
                 }
@@ -1700,7 +1681,7 @@ impl Editor {
             }
         };
         let old = fs::metadata(&temp.path).and_then(|s| s.modified()).ok();
-        let before = self.b().begin();
+        let before = self.bm().begin();
         let pos = self.b().pos();
         let mark = self.b().state.mark;
         let at_eol = pos.x == self.b().line().len();
@@ -1784,18 +1765,14 @@ impl Editor {
                     }
                 } else {
                     let (lines, _, _) = files::parse(&raw, !self.conf.on(NO_CONVERT));
-                    self.bm().state.lines = lines;
-                    // Whole-buffer replacement frees every old line; the
-                    // spillage marker cannot survive (R1).
-                    self.bm().spillage_clear();
+                    let end = self.b().state.lines.len();
+                    self.bm().replace_lines(0, end, lines);
                 }
                 self.bm().set_pos(wanted);
                 if at_eol {
                     self.bm().state.pos.x = self.b().line().len();
                 }
-                if let Some(first) = self.bm().state.anchors.first_mut() {
-                    *first = false;
-                }
+                self.bm().clear_first_anchor();
                 let no = self.conf.on(NO_NEWLINES);
                 self.bm().finish(
                     before,
@@ -1880,19 +1857,8 @@ impl Editor {
             self.conf.set(USE_REGEXP, false);
             self.conf.set(BACKWARDS_SEARCH, false);
             let region = self.spelling.as_ref().and_then(|s| s.region);
-            let e = self.conf.enc();
             let wordchars = self.conf.value("wordchars");
-            let found = self
-                .all_matches(true)
-                .unwrap_or_default()
-                .into_iter()
-                .find(|(a, b, _)| {
-                    let text = &self.b().state.lines[a.line];
-                    region.is_none_or(|(lo, hi)| {
-                        self.b().offset(*a) >= lo && self.b().offset(*b) <= hi
-                    }) && (a.x == 0 || !e.word(text, e.left(text, a.x), false, &wordchars))
-                        && (b.x == text.len() || !e.word(text, b.x, false, &wordchars))
-                });
+            let found = self.first_spell_match(region, &wordchars);
             let Some((a, b, _)) = found else {
                 self.msg(format!("Unfindable word: {}", bytes::text(&word)), 7);
                 self.pause_duration = std::time::Duration::from_millis(2800);
