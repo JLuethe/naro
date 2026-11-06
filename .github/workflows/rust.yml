@@ -8,7 +8,8 @@ jobs:
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable toolchain setup
         with:
           components: rustfmt, clippy
-      - run: sudo apt-get update && sudo apt-get install -y libncurses-dev libmagic-dev libevent-dev bison
+      - run: sudo apt-get update && sudo apt-get install -y libncurses-dev libmagic-dev libevent-dev bison gettext locales
+      - run: sudo localedef -i en_US -f UTF-8 en_US.UTF-8
       - name: Install the reference terminal emulator
         run: |
           curl --fail --location --retry 3 https://github.com/tmux/tmux/releases/download/3.8/tmux-3.8.tar.gz --output "$RUNNER_TEMP/tmux.tar.gz"
@@ -26,6 +27,14 @@ jobs:
       - run: cargo clippy --all-targets -- -D warnings
       - run: cargo test
       - run: cargo test --all-features
+      - name: Typed catalog formatting, default and tiny
+        run: |
+          cargo test --no-run --message-format=json > target/ci-catalog-default-build.jsonl
+          candidate=$(python3 -c 'import json; print(next(r["executable"] for r in map(json.loads, open("target/ci-catalog-default-build.jsonl")) if r.get("executable") and r.get("profile", {}).get("test")))')
+          python3 tests/catalog/run.py --binary "$candidate" --out target/ci-catalog-default
+          cargo test --no-run --features tiny --message-format=json > target/ci-catalog-tiny-build.jsonl
+          candidate=$(python3 -c 'import json; print(next(r["executable"] for r in map(json.loads, open("target/ci-catalog-tiny-build.jsonl")) if r.get("executable") and r.get("profile", {}).get("test")))')
+          python3 tests/catalog/run.py --binary "$candidate" --out target/ci-catalog-tiny
       - run: cargo build --release
       - name: NARO command-line identity
         run: python3 tools/check_branding.py --binary target/release/naro --out target/ci-branding

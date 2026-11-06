@@ -265,21 +265,17 @@ impl Editor {
             .map(|s| e.count(s) + 1)
             .sum::<usize>()
             + e.count(&b.line()[..b.pos().x]);
-        let raw = unsafe {
-            native::from_c(native::nr_position(
-                lines.to_string().len().max(2) as i32,
-                current,
-                lines,
-                (current * 100 / lines) as i32,
-                col,
-                cols,
-                (col * 100 / cols) as i32,
-                total.to_string().len().max(2) as i32,
-                count,
-                total,
-                ((count * 100).checked_div(total).unwrap_or(0)) as i32,
-            ))
-        };
+        let raw = native::position([
+            current,
+            lines,
+            current * 100 / lines,
+            col,
+            cols,
+            col * 100 / cols,
+            count,
+            total,
+            (count * 100).checked_div(total).unwrap_or(0),
+        ]);
         let text = bytes::text(&raw);
         self.msg(text, 3);
     }

@@ -483,9 +483,6 @@ const char *nr_host(void) {static char host[256];if(gethostname(host,sizeof(host
 #include <ctype.h>
 int nr_byte_lower(int b) {return tolower((unsigned char)b);}
 void nr_configure(int preserve,int rawseq) {keypad(stdscr,!rawseq);modes(preserve);}
-const char *nr_position(int lw,size_t line,size_t total_lines,int linepct,size_t col,size_t cols,int colpct,int cw,size_t count,size_t total,int charpct) {
-    static char out[1024];snprintf(out,sizeof(out),gettext("line %*zd/%zd (%2d%%), col %2zu/%2zu (%3d%%), char %*zu/%zu (%2d%%)"),lw,line,total_lines,linepct,col,cols,colpct,cw,count,total,charpct);return out;
-}
 int nr_colors(void) {return COLORS;}
 void nr_child_signals(void) {
     struct sigaction a={0};sigemptyset(&a.sa_mask);a.sa_handler=SIG_DFL;

@@ -4,19 +4,6 @@ use std::{
     ptr::NonNull,
 };
 unsafe extern "C" {
-    pub fn nr_position(
-        lw: c_int,
-        line: usize,
-        lines: usize,
-        lp: c_int,
-        col: usize,
-        cols: usize,
-        cp: c_int,
-        cw: c_int,
-        count: usize,
-        total: usize,
-        hp: c_int,
-    ) -> *const c_char;
     /// Atomically consume one signal class; HUP/TERM precede terminal events.
     /// Repeated deliveries of one pending class coalesce like POSIX signals.
     pub fn nr_signal() -> c_int;
@@ -170,6 +157,13 @@ pub fn tr(s: &str) -> String {
     let s = cstr(s.as_bytes());
     String::from_utf8_lossy(&unsafe { from_c(nr_tr(s.as_ptr())) }).into_owned()
 }
+pub fn position(values: [usize; 9]) -> Vec<u8> {
+    let key = cstr(crate::position_message::MSGID.as_bytes());
+    // gettext's result is borrowed only for this call. Its bytes are template
+    // data for a narrow Rust formatter, never a C variadic format string.
+    let template = unsafe { CStr::from_ptr(nr_tr(key.as_ptr())) }.to_bytes();
+    crate::position_message::format(template, values)
+}
 pub fn plural(a: &str, b: &str, n: usize) -> String {
     let a = cstr(a.as_bytes());
     let b = cstr(b.as_bytes());
@@ -280,5 +274,35 @@ impl Terminal {
 impl Drop for Terminal {
     fn drop(&mut self) {
         unsafe { nr_done() }
+    }
+}
+
+#[cfg(test)]
+mod position_catalog_tests {
+    #[test]
+    #[ignore = "run in an isolated locale process through tests/catalog/run.py"]
+    fn catalog_position_message() {
+        let root = std::env::var("NARO_LOCALEDIR").expect("private catalog directory");
+        let root = super::cstr(root.as_bytes());
+        assert_ne!(unsafe { super::nr_locale(root.as_ptr()) }, 0);
+        let template = std::fs::read(
+            std::env::var_os("NARO_POSITION_TEMPLATE").expect("translated template fixture"),
+        )
+        .unwrap();
+        let key = super::cstr(crate::position_message::MSGID.as_bytes());
+        assert_eq!(
+            unsafe { super::from_c(super::nr_tr(key.as_ptr())) },
+            template
+        );
+        let expected = std::fs::read(
+            std::env::var_os("NARO_POSITION_EXPECTED").expect("expected bytes fixture"),
+        )
+        .unwrap();
+        let values: Vec<usize> = std::env::var("NARO_POSITION_VALUES")
+            .expect("nine position values")
+            .split(',')
+            .map(|n| n.parse().unwrap())
+            .collect();
+        assert_eq!(super::position(values.try_into().unwrap()), expected);
     }
 }

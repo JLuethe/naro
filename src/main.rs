@@ -18,6 +18,7 @@ mod help_data;
 mod identity;
 mod input;
 mod native;
+mod position_message;
 mod prompts;
 mod regex_validation;
 mod render;

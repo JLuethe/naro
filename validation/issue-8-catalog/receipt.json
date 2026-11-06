@@ -1,0 +1,305 @@
+{
+  "issue": 8,
+  "date": "2026-11-05",
+  "scope": "typed position-report catalog formatting; not release qualification",
+  "head_at_receipt": "fd45d81141f4f09546aa50cfcc373ab847b59ec8",
+  "tree_state": "dirty shared remediation tree; other agents editing undo/search",
+  "environment": {
+    "platform": "Linux-7.2.15-1-omarchy-x86_64-with-glibc2.44",
+    "cc": "cc (GCC) 16.2.1 20260810",
+    "clang": "clang version 23.1.3",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+    "msgfmt": "msgfmt (GNU gettext-tools) 1.0",
+    "locale": "en_US.UTF-8"
+  },
+  "catalog_runs": {
+    "default": {
+      "pass": true,
+      "catalogs_checked": 41,
+      "position_assertions": 128,
+      "malformed_fixed_only": 5,
+      "binary": "/home/john/Code/naro/target/issue-8-catalog-build/debug/deps/naro-f143b0d4013ffd62",
+      "binary_sha256": "5a1f4d0fa24136c65725e9cf56d9155c74ce89e69e8c870a12d59a7e218b04f9",
+      "bridge_sha256": "1086adc254edfbbc46718c8621822100622853084567284239c081a6e098572f",
+      "raw_receipt": "target/issue-8-catalog/default-complete/receipt.json",
+      "runner_command": [
+        "python3",
+        "tests/catalog/run.py",
+        "--binary",
+        "/home/john/Code/naro/target/issue-8-catalog-build/debug/deps/naro-f143b0d4013ffd62",
+        "--out",
+        "target/issue-8-catalog/default-complete"
+      ],
+      "exit_code": 0
+    },
+    "tiny": {
+      "pass": true,
+      "catalogs_checked": 41,
+      "position_assertions": 128,
+      "malformed_fixed_only": 5,
+      "binary": "/home/john/Code/naro/target/issue-8-catalog-build-tiny/debug/deps/naro-72a4835848d83bb3",
+      "binary_sha256": "d6345471ac9b0be024f497b1197b0db62ebbe62e7a1d0b1a0f263c34e2dfc827",
+      "bridge_sha256": "1086adc254edfbbc46718c8621822100622853084567284239c081a6e098572f",
+      "raw_receipt": "target/issue-8-catalog/tiny-complete/receipt.json",
+      "runner_command": [
+        "python3",
+        "tests/catalog/run.py",
+        "--binary",
+        "/home/john/Code/naro/target/issue-8-catalog-build-tiny/debug/deps/naro-72a4835848d83bb3",
+        "--out",
+        "target/issue-8-catalog/tiny-complete"
+      ],
+      "exit_code": 0
+    }
+  },
+  "checks": [
+    {
+      "check": "old-fixed-format-rule",
+      "command": [
+        "python3",
+        "tests/catalog/check_native_formats.py",
+        "/home/john/Code/naro/target/issue-8-catalog/old-structural/bridge.c"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "pass": true
+    },
+    {
+      "check": "fixed-format-rule",
+      "command": [
+        "python3",
+        "tests/catalog/check_native_formats.py",
+        "native/bridge.c"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "pass": true
+    },
+    {
+      "check": "fixed-format-rule-tests",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/catalog",
+        "-p",
+        "test_*.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "pass": true
+    },
+    {
+      "check": "owned-rustfmt",
+      "command": [
+        "/home/john/.cargo/bin/rustfmt",
+        "--check",
+        "--edition",
+        "2024",
+        "src/position_message.rs",
+        "src/native.rs",
+        "src/basic_features.rs",
+        "build.rs"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "pass": true
+    },
+    {
+      "check": "cc-strict-default",
+      "command": [
+        "cc",
+        "-std=c11",
+        "-D_DEFAULT_SOURCE",
+        "-D_XOPEN_SOURCE=700",
+        "-Wall",
+        "-Wextra",
+        "-Wformat=2",
+        "-Werror=format",
+        "-Werror=format-nonliteral",
+        "-fsyntax-only",
+        "native/bridge.c"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "pass": true
+    },
+    {
+      "check": "cc-strict-tiny",
+      "command": [
+        "cc",
+        "-std=c11",
+        "-D_DEFAULT_SOURCE",
+        "-D_XOPEN_SOURCE=700",
+        "-Wall",
+        "-Wextra",
+        "-Wformat=2",
+        "-Werror=format",
+        "-Werror=format-nonliteral",
+        "-fsyntax-only",
+        "native/bridge.c",
+        "-DNARO_TINY"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "pass": true
+    },
+    {
+      "check": "clang-strict-default",
+      "command": [
+        "clang",
+        "-std=c11",
+        "-D_DEFAULT_SOURCE",
+        "-D_XOPEN_SOURCE=700",
+        "-Wall",
+        "-Wextra",
+        "-Wformat=2",
+        "-Werror=format",
+        "-Werror=format-nonliteral",
+        "-fsyntax-only",
+        "native/bridge.c"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "pass": true
+    },
+    {
+      "check": "clang-strict-tiny",
+      "command": [
+        "clang",
+        "-std=c11",
+        "-D_DEFAULT_SOURCE",
+        "-D_XOPEN_SOURCE=700",
+        "-Wall",
+        "-Wextra",
+        "-Wformat=2",
+        "-Werror=format",
+        "-Werror=format-nonliteral",
+        "-fsyntax-only",
+        "native/bridge.c",
+        "-DNARO_TINY"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "pass": true
+    },
+    {
+      "check": "default-typed-unit",
+      "command": [
+        "target/issue-8-catalog-build/debug/deps/naro-f143b0d4013ffd62",
+        "--exact",
+        "position_message::tests::english_widths_and_large_unsigned_values"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "pass": true
+    },
+    {
+      "check": "default-bytes-unit",
+      "command": [
+        "target/issue-8-catalog-build/debug/deps/naro-f143b0d4013ffd62",
+        "--exact",
+        "position_message::tests::catalog_bytes_and_percent_spacing_are_preserved"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "pass": true
+    },
+    {
+      "check": "default-fallback-unit",
+      "command": [
+        "target/issue-8-catalog-build/debug/deps/naro-f143b0d4013ffd62",
+        "--exact",
+        "position_message::tests::malformed_templates_use_english_without_interpreting_arguments"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "pass": true
+    },
+    {
+      "check": "tiny-typed-unit",
+      "command": [
+        "target/issue-8-catalog-build-tiny/debug/deps/naro-72a4835848d83bb3",
+        "--exact",
+        "position_message::tests::english_widths_and_large_unsigned_values"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "pass": true
+    },
+    {
+      "check": "tiny-bytes-unit",
+      "command": [
+        "target/issue-8-catalog-build-tiny/debug/deps/naro-72a4835848d83bb3",
+        "--exact",
+        "position_message::tests::catalog_bytes_and_percent_spacing_are_preserved"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "pass": true
+    },
+    {
+      "check": "tiny-fallback-unit",
+      "command": [
+        "target/issue-8-catalog-build-tiny/debug/deps/naro-72a4835848d83bb3",
+        "--exact",
+        "position_message::tests::malformed_templates_use_english_without_interpreting_arguments"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "pass": true
+    }
+  ],
+  "source_sha256_at_receipt": {
+    "native/bridge.c": "1086adc254edfbbc46718c8621822100622853084567284239c081a6e098572f",
+    "src/native.rs": "3ddfd009c58651b08f7ca3504c5a79e1e24daf00ae23348b47c536bba64caa7e",
+    "src/basic_features.rs": "23e8f8781c36f49cf2e30373fbd24940880419b4b08fa0e1353ff27fede293ad",
+    "src/position_message.rs": "ece7f3ec9bf5601484218aef916843a0d048dd0fd659624c3d7496607a02f513",
+    "src/main.rs": "84d7930f441362ef77eeb35a338fed94112480942b39376ebbc1c6d98eb62617",
+    "build.rs": "b5fcef638123b8914fdf458fe2b5d67214d397be2286e7cb7727d807ba74e25b",
+    ".github/workflows/rust.yml": "81139aa71ca1456664e6317211c7b59da667b93a6ee1b1e721eb8b1543f378a7",
+    "tests/catalog/run.py": "1ae431e2d8fbb6fef616edfce19a78a36d37c37ce724b139911df5075e36a972",
+    "tests/catalog/check_native_formats.py": "214dcddd6b22c683a3e937f83154ff43a298d155dff9ab45a9d95ffcb9f35c1a",
+    "tests/catalog/test_check_native_formats.py": "e1de4b3853c92709414fbf0bde795c69eb79f7ac55a968ef649c38a0949ad5d2"
+  },
+  "old_bridge_sha256": "125caaf6222863cac3971e80ff8636ff94d72b97be395fb791d9e969aa2edf0f",
+  "raw_directory": "/home/john/Code/naro/target/issue-8-catalog",
+  "retained_attempts": [
+    {
+      "path": "default-attempt1",
+      "result": "failed actual translation assertion: C.UTF-8 suppresses gettext here; runner now requires non-C UTF-8 locale"
+    },
+    {
+      "path": "old-structural/compile.log",
+      "result": "legacy source accepted by GCC format_arg annotation; demonstrates why fixed-literal structural check is also required"
+    }
+  ],
+  "integration_checks": [
+    {
+      "command": [
+        "/home/john/.cargo/bin/cargo",
+        "clippy",
+        "--all-targets",
+        "--all-features",
+        "--target-dir",
+        "target/issue-8-catalog-clippy",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 101,
+      "result": "failed on concurrent search work: first_spell_match dead_code in tiny and manual_is_multiple_of; search owner notified; not counted as pass"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "result": "pass"
+    }
+  ]
+}
