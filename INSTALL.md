@@ -111,7 +111,11 @@ python3 tools/package.py --binary target/release/naro --out target/package-new
 ```
 
 That packaging command needs Git-tracked source; the standalone source archive
-supports building but does not include `.git`. Use a fresh output directory.
+supports building but does not include `.git`. Release packaging requires a clean
+tracked tree and index, and refuses untracked files in source, native, and asset
+inputs. Unrelated untracked review files are excluded from the source archive.
+`build.json` records the clean commit, hashes and modes for every source archive
+file, and the source archive hash. Use a fresh output directory.
 A locally rebuilt executable is a new artifact and does not inherit the frozen
 candidate's qualification automatically.
 

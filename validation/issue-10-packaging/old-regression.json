@@ -1,0 +1,7 @@
+{
+  "baseline": "f5e79cf:tools/package.py",
+  "old_packaged_dirty_tree": true,
+  "recorded_dirty": true,
+  "source_revision": "3573ac58583cc5a5f4892a637cddc6feda700260",
+  "status": "expected old-policy failure: release output produced from tracked modification"
+}

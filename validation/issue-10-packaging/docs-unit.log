@@ -1,0 +1,8 @@
+test_missing_and_escaping_targets_rejected (test_package_docs.InstalledDocumentation.test_missing_and_escaping_targets_rejected) ... ok
+test_repository_file_and_directory_are_pinned (test_package_docs.InstalledDocumentation.test_repository_file_and_directory_are_pinned) ... ok
+test_shipped_external_and_anchor_links_stay_usable (test_package_docs.InstalledDocumentation.test_shipped_external_and_anchor_links_stay_usable) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK

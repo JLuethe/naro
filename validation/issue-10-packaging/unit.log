@@ -1,0 +1,12 @@
+test_clean_package_records_exact_archive_contents (test_package_provenance.PackageProvenance.test_clean_package_records_exact_archive_contents) ... ok
+test_ignored_untracked_source_input_is_rejected (test_package_provenance.PackageProvenance.test_ignored_untracked_source_input_is_rejected) ... ok
+test_modified_tracked_document_is_rejected_before_output (test_package_provenance.PackageProvenance.test_modified_tracked_document_is_rejected_before_output) ... ok
+test_staged_change_is_rejected (test_package_provenance.PackageProvenance.test_staged_change_is_rejected) ... ok
+test_tracked_symlink_is_rejected (test_package_provenance.PackageProvenance.test_tracked_symlink_is_rejected) ... ok
+test_untracked_source_input_is_rejected (test_package_provenance.PackageProvenance.test_untracked_source_input_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.257s
+
+OK
+{"archive": "/tmp/tmprdf6pswu/checkout/target/package/naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz", "source": "/tmp/tmprdf6pswu/checkout/target/package/naro-0.1.1-source.tar.gz", "binary_sha256": "e3601dce9aee96d123b500e63f86c87cd3faec5ada346b69bb0a09f69d4b41b1"}
