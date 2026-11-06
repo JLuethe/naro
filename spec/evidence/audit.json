@@ -56,8 +56,6 @@
     "syntax.json": 10,
     "undo.json": 11
   },
-  "warnings": [
-    "cited test IDs without a recorded scenario: CLI-001: TEST-CLI-P003, CLI-001: TEST-CLI-P042, CLI-001: TEST-KEY-RESTR-001, CLI-004: TEST-CLI-P009, CLI-014: TEST-RC-PREC-001, CLI-020: TEST-KEY-MODPRES-001, CLI-050: TEST-FILE-EXIT-002, INPUT-014: TEST-INPUT-020, KEY-003: TEST-KEY-TABLE-001"
-  ],
+  "warnings": [],
   "problems": []
 }

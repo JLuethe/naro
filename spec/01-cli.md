@@ -29,7 +29,7 @@ startup" is drawn on the status bar once the first screen appears.
 - **Note:** the check is on the first byte only and is case-sensitive (`Rnano` is not restricted).
 - **Source:** `src/nano.c:1877-1879` (`main`), `src/utils.c:55-63` (`tail`).
 - **Evidence:** runtime-observed (`CLI-P-003`: `rnano --help` prints the restricted help; `CLI-P-042`: `xnano --help` prints the full help); key tables `evidence/tables/default-rnano.json` equal `default-restricted.json`.
-- **Tests:** TEST-CLI-P003, TEST-CLI-P042, TEST-KEY-RESTR-001.
+- **Qualification:** The `CLI-P-*` observations and reference key-table dumps above are separate evidence types. No candidate scenario here asserts the first-byte and case-sensitive invocation-name rule or re-dumps the restricted table.
 
 ### CLI-002 — Option syntax and parser
 - The parser is GNU `getopt_long` with the short-option string
@@ -128,7 +128,7 @@ the effect is the same as the nanorc option of the same meaning (`10-nanorc.md`)
 - Processing stops at the first error. Earlier immediate options have already run (`-V --bogus` prints the version and exits 0 before `--bogus` is reached; `--bogus -V` exits 1).
 - **Source:** `src/nano.c:2150-2152`.
 - **Evidence:** runtime-observed `CLI-P-009, -010, -016, -017, -018, -020, -021, -035, -039, -040`.
-- **Tests:** TEST-CLI-P009…P040.
+- **Qualification:** The `CLI-P-*` records above are reference-only CLI probes. The cited error and diagnostic variants have no mapped candidate scenario with explicit assertions in this requirement.
 
 ### CLI-005 — Tiny-build option acceptance
 In the tiny build the short-option string is unchanged, but the handlers of
@@ -227,7 +227,7 @@ When rcfiles are read (not `-I`, not tiny):
 - **Hard-wrap:** if an rcfile left `nowrap` *unset* (`unset nowrap`), `breaklonglines` is turned on (backward compatibility). Then CLI-015 applies.
 - Options that only exist in nanorc (colors, `punct`, `brackets`, `matchbrackets`, `whitespace`, `allow_insecure_backup`, `casesensitive`, `regexp`) take their rcfile values.
 - **Source:** `src/nano.c:2185-2275`.
-- **Evidence:** source-confirmed; runtime tests TEST-RC-PREC-001…006 (planned, `16-test-plan.md`).
+- **Evidence:** source-confirmed. The proposed rc precedence series is unexecuted; this full merge rule is not candidate-runtime-qualified by a mapped test.
 
 ### CLI-015 — `-b` versus `-w`
 The last of `-b`/`--breaklonglines` and `-w`/`--nowrap` on the command line
@@ -239,7 +239,7 @@ rcfile/default decides (default: off).
 The key tables are built from the command-line flags (step 5 of CLI-013).
 Therefore:
 - `-p`/`--preserve` on the command line removes the ^S (`savefile`, main), ^Q (`wherewas`, main/browser/help), ^S (`speller`, Execute) and ^Q (`discardbuffer`, Write Out) bindings. `set preserve` in an rcfile does **not** remove them, but it does make the terminal keep XON/XOFF (^S/^Q stop and resume output) — see `02` KEY-PRESERVE and Q-KEY-002.
-- `-/` (modern bindings) clears the preserve flag **after** the tables are built. With `-p -/`, the modern ^S/^Q bindings exist, but the Execute-menu ^S (speller) and the Write-Out ^Q (discard buffer) are missing, and flow control is not preserved (TEST-KEY-MODPRES-001).
+- `-/` (modern bindings) clears the preserve flag **after** the tables are built. With `-p -/`, the modern ^S/^Q bindings exist, but the Execute-menu ^S (speller) and the Write-Out ^Q (discard buffer) are missing, and flow control is not preserved. This combined order-sensitive behavior is source/table-derived and lacks a mapped candidate-runtime assertion.
 - `-R` and `-v` given on the command line remove the registrations listed in `02` KEY-RESTR/KEY-VIEW. Neither mode can be set from an rcfile.
 - **Source:** `src/nano.c:2183, 2302-2304`; `src/global.c:1259-1298, 1319-1320, 1558-1559, 1564-1584`.
 - **Evidence:** runtime-observed via gdb table dumps `default-preserve`, `default-modern`, `default-restricted`, `default-view`.
@@ -409,7 +409,7 @@ After the first screen is drawn:
 
 The status-2 marker is cleared at every pass of the main loop, so it only
 affects an exit performed during the same keystroke (`src/nano.c:2745`).
-- **Evidence:** 0 and 1 runtime-observed. 2 is source-confirmed and documented (`nano.1` EXIT STATUS); runtime test TEST-FILE-EXIT-002.
+- **Evidence:** status 0 and 1 have reference runtime observations. Status 2 is source-confirmed and documented (`nano.1` EXIT STATUS); no mapped candidate runtime assertion exercises that discard path.
 
 ### CLI-060 — Environment variables read by nano
 | Variable | Effect | Section |
