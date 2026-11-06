@@ -27,6 +27,7 @@ fn command_words(command: &[u8]) -> impl Iterator<Item = OsString> + '_ {
         .filter(|word| !word.is_empty())
         .map(|word| OsString::from_vec(word.to_vec()))
 }
+
 impl Editor {
     pub fn scroll_horizontal(&mut self, right: bool) {
         if self.conf.on(SOFTWRAP) || self.conf.on(SOLO_SIDESCROLL) {
@@ -302,9 +303,10 @@ impl Editor {
         } else if self.b().pos().x > self.completion_start.x {
             let a = self.completion_start;
             let z = self.b().pos();
-            self.bm().replace(a, z, b"", Splice::Plain);
-            if self.b().hist > 0 {
-                self.bm().undo(false);
+            // The completion's journal removes its suffix. Removing it first
+            // would apply that deletion twice when delta undo runs.
+            if self.bm().undo(false).is_none() {
+                self.bm().replace(a, z, b"", Splice::Plain);
             }
         }
         let mut found = None;
@@ -2256,4 +2258,31 @@ fn spelling_pipeline(path: &std::path::Path) -> std::io::Result<(Vec<u8>, Option
             None
         },
     ))
+}
+
+#[cfg(test)]
+mod completion_tests {
+    use super::*;
+
+    #[test]
+    fn cycling_word_completion_preserves_delta_undo() {
+        let mut editor = Editor::new(config::Config::new(false));
+        editor.buffers.push(Buffer::new(
+            Vec::new(),
+            vec![b"alphabet alpine".to_vec(), b"al".to_vec(), Vec::new()],
+        ));
+        editor.bm().state.pos = Pos { line: 1, x: 2 };
+        for expected in [b"alphabet".as_slice(), b"alpine", b"al", b"alphabet"] {
+            editor.complete_word();
+            editor.last_command = "complete_a_word".into();
+            assert_eq!(editor.b().line(), expected);
+        }
+        editor.bm().insert(b"x", "addition", true, false);
+        assert_eq!(editor.b().raw(), b"alphabet alpine\nalphabetx\n");
+        assert_eq!(editor.bm().undo(false).as_deref(), Some("addition"));
+        assert_eq!(editor.b().raw(), b"alphabet alpine\nal\n");
+        assert_eq!(editor.b().pos(), Pos { line: 1, x: 2 });
+        assert_eq!(editor.bm().undo(true).as_deref(), Some("addition"));
+        assert_eq!(editor.b().raw(), b"alphabet alpine\nalphabetx\n");
+    }
 }

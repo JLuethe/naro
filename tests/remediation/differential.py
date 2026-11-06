@@ -142,7 +142,7 @@ def safe_save_observations(candidate, case):
         return {'policy': 'issue-3-final-symlink-rejected', 'checks': {
             'target_bytes_preserved': saved.get('text') == original.get('text') == 'r\n',
             'target_inode_preserved': original.get('ino') is not None and saved.get('ino') == original['ino'],
-            'link_preserved': link.get('type') == 'symlink' and link.get('target') == 'real.txt',
+            'link_preserved': link.get('type') == 'link' and link.get('target') == 'real.txt',
             'rejection_observed': any('symbolic link' in row.get('text', '') for row in candidate.get('snapshots', {}).get('f02', {}).get('rows', [])),
             'clean_exit': candidate.get('exit_status') == 0 and candidate.get('exit_signal') is None,
         }}
@@ -190,6 +190,15 @@ def inspect_pair(reference, candidate, case, hashes, profile):
         result.update(accepted=False, classification='candidate_execution_or_assertion_failure')
     elif not result['accepted']:
         result['classification'] = 'product_or_policy_difference'
+    semantic = safe_save_observations(candidate, case)
+    if semantic is not None:
+        semantic['passed'] = result['candidate_checks'] and bool(semantic['checks']) and all(value is True for value in semantic['checks'].values())
+        result['safe_save_semantics'] = semantic
+        if not semantic['passed']:
+            if result['accepted']:
+                result['differential_classification'] = result['classification']
+                result['classification'] = 'candidate_semantic_failure'
+            result['accepted'] = False
     return result
 
 
@@ -232,10 +241,6 @@ def run_group(name, cases, args, binaries):
                     result['differential_classification'] = result['classification']
                     result['classification'] = 'invalid_evidence'
                 result['accepted'] = False
-            if recordings['candidate'] is not None:
-                semantic = safe_save_observations(recordings['candidate'], case)
-                if semantic is not None:
-                    result['safe_save_semantics'] = semantic
             if not report['locale_prerequisites'][case['id']]['available']:
                 result['differential_classification'] = result['classification']
                 result.update(accepted=False, classification='missing_prerequisite', missing_prerequisite='requested locale unavailable')

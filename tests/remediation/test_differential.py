@@ -42,6 +42,40 @@ class Accounting(unittest.TestCase):
         self.assertFalse(result['accepted'])
         self.assertEqual(result['classification'], 'infrastructure_failure')
 
+    def test_symlink_semantics_uses_recorded_link_schema(self):
+        candidate = {
+            'initial_fixture': {'work/real.txt': {'text': 'r\n', 'ino': 7}},
+            'fixture': {'work/real.txt': {'text': 'r\n', 'ino': 7},
+                        'work/link.txt': {'type': 'link', 'target': 'real.txt'}},
+            'snapshots': {'f02': {'rows': [{'text': 'Refusing to save through symbolic link'}]}},
+            'exit_status': 0, 'exit_signal': None,
+        }
+        semantic = d.safe_save_observations(candidate, {'id': 'TEST-FILE-003'})
+        self.assertTrue(semantic['checks']['link_preserved'])
+        self.assertTrue(all(semantic['checks'].values()))
+
+    def test_false_or_empty_semantics_cannot_prove_accepted_pair(self):
+        for checks in [{}, {'preserved': False}, {'preserved': 1}]:
+            with patch.object(d, 'safe_save_observations', return_value={'policy': 'test', 'checks': checks}):
+                result = self.inspect(self.record, self.record)
+            self.assertFalse(result['accepted'])
+            self.assertFalse(result['safe_save_semantics']['passed'])
+            self.assertEqual(result['classification'], 'candidate_semantic_failure')
+            self.assertEqual(result['differential_classification'], 'raw_exact')
+
+    def test_semantics_cannot_waive_raw_difference_or_failed_execution(self):
+        semantic = {'policy': 'test', 'checks': {'preserved': True}}
+        with patch.object(d, 'safe_save_observations', return_value=semantic):
+            with patch.object(d, 'classify', return_value={'accepted': False, 'classification': 'raw_difference'}):
+                result = d.inspect_pair(self.record, self.record, self.case, self.hashes, 'default')
+            self.assertTrue(result['safe_save_semantics']['passed'])
+            self.assertFalse(result['accepted'])
+            self.assertEqual(result['classification'], 'product_or_policy_difference')
+            failed = self.inspect(self.record, {**self.record, 'steps_ok': False})
+            self.assertFalse(failed['safe_save_semantics']['passed'])
+            self.assertFalse(failed['accepted'])
+            self.assertEqual(failed['classification'], 'candidate_execution_or_assertion_failure')
+
     def test_equal_noop_history_is_rejected(self):
         self.case = {'id': 'TEST-FEAT-015'}
         r = {**self.record, 'scenario': self.case['id']}

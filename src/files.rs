@@ -569,12 +569,6 @@ fn make_backup_from(
     _meta: &fs::Metadata,
     mut warning: impl FnMut(&str),
 ) -> Result<(), WriteError> {
-    let source = parent
-        .read()
-        .map_err(|e| WriteError::writing(&path.display().to_string(), e))?;
-    let meta = source
-        .metadata()
-        .map_err(|e| WriteError::writing(&path.display().to_string(), e))?;
     let directory = c.value("backupdir");
     let name = if directory.is_empty() {
         let mut name = path.as_os_str().as_bytes().to_vec();
@@ -594,6 +588,10 @@ fn make_backup_from(
     let read_failed = std::cell::Cell::new(false);
     let write = |file: &mut File, warning: &mut dyn FnMut(&str)| -> std::io::Result<()> {
         read_failed.set(false);
+        // Source-open failures belong to the backup failure/confirmation flow,
+        // just like read failures. Keep the read anchored to the opened parent.
+        let source = parent.read().inspect_err(|_| read_failed.set(true))?;
+        let meta = source.metadata()?;
         let mut bytes = Vec::new();
         use std::os::unix::fs::FileExt;
         let mut offset = 0;
