@@ -3,6 +3,7 @@ use crate::{
     buffer::{Buffer, Pos, Splice},
     bytes,
     config::{self, io_error},
+    confinement,
     editor::*,
     files,
     generated::*,
@@ -1082,7 +1083,7 @@ impl Editor {
     }
     pub fn open_browser(&mut self, p: Prompt) {
         let raw = config::expand(&p.answer);
-        let dir = if raw.is_dir() {
+        let dir = if confinement::is_directory(&self.conf, &raw) {
             raw
         } else {
             raw.parent()
@@ -1111,12 +1112,12 @@ impl Editor {
         };
         let current = b.entries.get(b.selected).cloned();
         let mut entries = vec![b.dir.join("..")];
-        match fs::read_dir(&b.dir) {
+        match confinement::directory_entries(&self.conf, &b.dir) {
             Ok(items) => {
-                entries.extend(items.flatten().map(|e| e.path()));
+                entries.extend(items);
                 entries.sort_by(|a, b| {
-                    b.is_dir()
-                        .cmp(&a.is_dir())
+                    confinement::is_directory(&self.conf, b)
+                        .cmp(&confinement::is_directory(&self.conf, a))
                         .then_with(|| {
                             a.file_name()
                                 .unwrap_or_default()
@@ -1233,7 +1234,7 @@ impl Editor {
             }
             "do_enter" => {
                 let selected = b.entries[b.selected].clone();
-                if selected.is_dir() {
+                if confinement::is_directory(&self.conf, &selected) {
                     if b.dir == std::path::Path::new("/") && selected.ends_with("..") {
                         self.msg("Can't move up a directory", 7);
                     } else if !files::inside(&self.conf, &selected) {

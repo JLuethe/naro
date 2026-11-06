@@ -59,6 +59,7 @@ pub struct Config {
     pub fill: isize,
     pub guide: usize,
     pub strings: HashMap<String, Vec<u8>>,
+    pub operating_root: Option<std::fs::File>,
     pub colors: HashMap<String, Style>,
     pub keys: Vec<Binding>,
     pub funcs: Vec<Function>,
@@ -90,6 +91,7 @@ impl Config {
             fill: -8,
             guide: 0,
             strings: HashMap::new(),
+            operating_root: None,
             colors: HashMap::new(),
             keys,
             funcs,
@@ -562,8 +564,13 @@ impl Config {
                     bytes::text(self.strings.get("operatingdir").unwrap())
                 )
             })?;
-            std::env::set_current_dir(&full)
-                .map_err(|_| format!("Invalid operating directory: {}", full.display()))?;
+            self.operating_root = Some(crate::confinement::initialize(&full).map_err(|e| {
+                format!(
+                    "Cannot securely open operating directory {}: {}",
+                    full.display(),
+                    e
+                )
+            })?);
             self.strings
                 .insert("operatingdir".into(), full.as_os_str().as_bytes().to_vec());
         }

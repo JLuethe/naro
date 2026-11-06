@@ -1,0 +1,26 @@
+{
+  "safe-save": {
+    "binary": "/home/john/Code/naro/target/debug/deps/naro-f143b0d4013ffd62",
+    "sha256": "2e6f974cfce5efc42a53d36e1c084bdd33412cc0d83ddc2a0697f1679cfabc36",
+    "passed": 414,
+    "total": 414
+  },
+  "tiny-safe-save": {
+    "binary": "/home/john/Code/naro/target/debug/deps/naro-72a4835848d83bb3",
+    "sha256": "04508e05a05a37be12339e16b09c246d7e527f0b5b9d20095a09aa9a30b68e44",
+    "passed": 414,
+    "total": 414
+  },
+  "recovery": {
+    "binary": "/home/john/Code/naro/target/debug/naro",
+    "binary_sha256": "691993a976113fac5969c63a53d4a509ee6c9e61cb099f7576ec1686f7fd6c39",
+    "passed": 41,
+    "total": 41
+  },
+  "tiny-recovery": {
+    "binary": "/home/john/Code/naro/target/debug/naro",
+    "binary_sha256": "2f877069043fc4e3c74fe358e784c8c63677d9f4ca8a56632eb411352d37c233",
+    "passed": 41,
+    "total": 41
+  }
+}

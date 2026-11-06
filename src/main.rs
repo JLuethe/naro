@@ -4,6 +4,7 @@ mod basic_features;
 mod buffer;
 mod bytes;
 mod config;
+mod confinement;
 mod editor;
 #[cfg(not(feature = "tiny"))]
 mod features;

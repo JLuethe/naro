@@ -598,7 +598,7 @@ impl Editor {
             }
             QuestionKind::Lock(i) => {
                 if yes {
-                    if let Err(msg) = files::lock(&mut self.buffers[i]) {
+                    if let Err(msg) = files::lock(&self.conf, &mut self.buffers[i]) {
                         self.msg(msg, 6);
                     }
                     self.mode = Mode::Edit;
@@ -783,7 +783,7 @@ impl Editor {
             );
             return;
         }
-        match fs::read(&path) {
+        match files::read(&self.conf, &path) {
             Ok(raw) => {
                 let (lines, dos, n) = files::parse(&raw, !self.conf.on(NO_CONVERT));
                 let b = Buffer::new(vec![], lines);
@@ -856,14 +856,15 @@ impl Editor {
         };
         let prefix = &p.answer[i..];
         let mut candidates = Vec::new();
-        if let Ok(entries) = fs::read_dir(&dir) {
-            for entry in entries.flatten() {
-                let name = entry.file_name().as_bytes().to_vec();
+        if let Ok(entries) = crate::confinement::directory_entries(&self.conf, &dir) {
+            for entry in entries {
+                let name = entry.file_name().unwrap_or_default().as_bytes().to_vec();
                 if name.starts_with(prefix)
-                    && files::inside(&self.conf, &entry.path())
-                    && (!matches!(p.kind, PromptKind::BrowserGoto) || entry.path().is_dir())
+                    && files::inside(&self.conf, &entry)
+                    && (!matches!(p.kind, PromptKind::BrowserGoto)
+                        || crate::confinement::is_directory(&self.conf, &entry))
                 {
-                    candidates.push((name, entry.path().is_dir()));
+                    candidates.push((name, crate::confinement::is_directory(&self.conf, &entry)));
                 }
             }
         }

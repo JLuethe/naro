@@ -110,6 +110,7 @@ fn main() {
     }
     println!("cargo:rerun-if-changed=native/bridge.c");
     println!("cargo:rerun-if-changed=native/options.inc");
+    println!("cargo:rerun-if-changed=native/confinement.inc");
 }
 
 fn collect(path: &Path, files: &mut Vec<PathBuf>) {

@@ -217,6 +217,16 @@ inside, except during tab completion. Reading, writing, browsing and tab
 completion outside it are refused (`Can't read file from outside of <dir>`,
 `Can't write outside of <dir>`, `Can't go outside of <dir>`).
 
+**NARO hardening difference:** unresolved parent paths are refused. An opened
+operating-root descriptor and Linux `openat2` authorize actual opened files and
+parents; save, backup, recovery, lock, browser and completion operations retain
+or reacquire that authority. Relative confined read symlinks remain supported;
+absolute links, final save symlinks and confined FIFO I/O are refused. The
+[operating-directory policy](../docs/operating-directory.md) defines platform
+requirements, authorization-at-open semantics, and the external-tool trust
+boundary. This does not establish a reproduced pathname-race vulnerability.
+
+
 ### FILE-HUP — Emergency save
 See `13` SIG-EMERG. Observed: `f.txt.save` (mode 0600), `f.txt.save.1` when
 `.save` exists, `nano.<pid>.save` for unnamed buffers; stderr

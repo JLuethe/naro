@@ -1,5 +1,8 @@
 /* Naro native ABI bridge. GPL-3.0-or-later.
  * Behavioral reference: 6ed285c3ec7a1d228def4d4e7021c6ba269f620c. */
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
 #include <curses.h>
 #include <term.h>
 #include <termios.h>
@@ -30,6 +33,7 @@
 #include <magic.h>
 #endif
 #include "options.inc"
+#include "confinement.inc"
 static struct termios saved;
 static int active, have_saved;
 static int on_vt=-1;
@@ -289,7 +293,7 @@ int nr_close_checked(int fd) {
     /* Never retry close: on Linux even EINTR releases the descriptor. */
     return close(fd);
 }
-int nr_safe_save(const char *path,const unsigned char *data,size_t len,int mode,int *committed) {
+int nr_safe_save_at(int parent_fd,const char *path,const unsigned char *data,size_t len,int mode,int *committed) {
     int dir=-1,source=-1,temp=-1,result=-1,exists=0,temp_exists=0,temp_identified=0;
     int error=0;
     struct stat original,current,temporary_stat;
@@ -305,7 +309,7 @@ int nr_safe_save(const char *path,const unsigned char *data,size_t len,int mode,
         if(slash==parent)slash[1]='\0';else *slash='\0';
     }else{free(parent);parent=strdup(".");if(!parent)return -1;}
     if(!*name||mode<0||mode>2){errno=EINVAL;goto done;}
-    do{dir=open(parent,O_RDONLY|O_DIRECTORY|O_CLOEXEC);}while(dir<0&&errno==EINTR);
+    do{dir=parent_fd>=0?fcntl(parent_fd,F_DUPFD_CLOEXEC,0):open(parent,O_RDONLY|O_DIRECTORY|O_CLOEXEC);}while(dir<0&&errno==EINTR);
     if(dir<0)goto done;
     if(fstatat(dir,name,&original,AT_SYMLINK_NOFOLLOW)==0){
         exists=1;
@@ -369,6 +373,9 @@ done:
     if(dir>=0)close(dir);
     free(parent);errno=error;
     return result;
+}
+int nr_safe_save(const char *path,const unsigned char *data,size_t len,int mode,int *committed) {
+    return nr_safe_save_at(-1,path,data,len,mode,committed);
 }
 static void modes(int preserve) {
     raw();nonl();noecho();

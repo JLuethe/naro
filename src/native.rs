@@ -26,7 +26,8 @@ unsafe extern "C" {
     pub fn nr_optind() -> c_int;
     pub fn nr_setup_signals();
     fn nr_open_write(path: *const c_char, append: c_int) -> c_int;
-    fn nr_safe_save(
+    fn nr_safe_save_at(
+        parent_fd: c_int,
         path: *const c_char,
         data: *const u8,
         len: usize,
@@ -109,12 +110,12 @@ pub fn open_write(path: &std::path::Path, append: bool) -> std::io::Result<std::
 }
 /// Failed saves report whether rename already published the complete file.
 pub fn safe_save(
-    path: &std::path::Path,
+    parent: &crate::confinement::Parent,
     data: &[u8],
     mode: i32,
 ) -> Result<(), (std::io::Error, bool)> {
-    use std::os::unix::ffi::OsStrExt;
-    let path = CString::new(path.as_os_str().as_bytes()).map_err(|_| {
+    use std::os::{fd::AsRawFd, unix::ffi::OsStrExt};
+    let name = CString::new(parent.name.as_os_str().as_bytes()).map_err(|_| {
         (
             std::io::Error::from(std::io::ErrorKind::InvalidInput),
             false,
@@ -122,8 +123,9 @@ pub fn safe_save(
     })?;
     let mut committed = 0;
     if unsafe {
-        nr_safe_save(
-            path.as_ptr(),
+        nr_safe_save_at(
+            parent.directory.as_raw_fd(),
+            name.as_ptr(),
             data.as_ptr(),
             data.len(),
             mode,

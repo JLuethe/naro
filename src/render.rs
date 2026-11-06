@@ -1277,12 +1277,15 @@ fn paint_browser(
             .file_name()
             .map(|s| s.to_string_lossy().into_owned())
             .unwrap_or_else(|| "..".into());
-        let meta = std::fs::metadata(p).ok();
+        let meta = crate::confinement::metadata(&ed.conf, p).ok();
         let info = if name == ".." {
             "(parent dir)".into()
-        } else if p.is_dir() {
+        } else if meta.as_ref().is_some_and(|m| m.is_dir()) {
             "(dir)".into()
-        } else if p.is_symlink() {
+        } else if crate::confinement::Parent::open(&ed.conf, p)
+            .and_then(|parent| parent.metadata())
+            .is_ok_and(|m| m.file_type().is_symlink())
+        {
             "--".into()
         } else if let Some(meta) = meta {
             let size = meta.len();

@@ -128,7 +128,7 @@ pub struct Buffer {
     undo_budget: usize,
     pub next_gen: u64,
     pub stat: Option<std::fs::Metadata>,
-    pub lock: Option<std::path::PathBuf>,
+    pub lock: Option<crate::confinement::Parent>,
     pub lock_modified: bool,
     pub deferred: Option<String>,
     pub report_size: bool,

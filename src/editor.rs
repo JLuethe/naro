@@ -460,7 +460,7 @@ impl Editor {
         }
         if self.conf.on(LOCKING) && !self.conf.on(VIEW_MODE) {
             for i in 0..self.buffers.len() {
-                if let Some(conflict) = files::lock_conflict(&self.buffers[i].name) {
+                if let Some(conflict) = files::lock_conflict(&self.conf, &self.buffers[i].name) {
                     match conflict {
                         Ok(text) => {
                             self.current = i;
@@ -469,7 +469,7 @@ impl Editor {
                         }
                         Err(msg) => self.msg(msg, 7),
                     }
-                } else if let Err(msg) = files::lock(&mut self.buffers[i]) {
+                } else if let Err(msg) = files::lock(&self.conf, &mut self.buffers[i]) {
                     self.msg(msg, 6);
                 }
             }
@@ -536,7 +536,7 @@ impl Editor {
             }
             if self.b().modified && self.b().lock.is_some() && !self.b().lock_modified {
                 let i = self.current;
-                if let Err(msg) = files::lock(&mut self.buffers[i]) {
+                if let Err(msg) = files::lock(&self.conf, &mut self.buffers[i]) {
                     self.msg(msg, 6);
                 }
             }

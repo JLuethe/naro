@@ -3,12 +3,13 @@ use crate::{
     buffer::Buffer,
     bytes,
     config::{self, Config, io_error},
+    confinement::{self, Parent},
     generated::*,
     native,
 };
 use std::{
     fs::{self, File, OpenOptions},
-    io::Write,
+    io::{Read, Write},
     os::unix::{
         ffi::OsStrExt,
         fs::{MetadataExt, OpenOptionsExt, PermissionsExt},
@@ -16,18 +17,10 @@ use std::{
     path::{Path, PathBuf},
 };
 pub fn inside(c: &Config, p: &Path) -> bool {
-    let dir = c.value("operatingdir");
-    if dir.is_empty() {
-        return true;
-    }
-    let full = fs::canonicalize(p).or_else(|_| {
-        p.parent()
-            .and_then(|p| fs::canonicalize(p).ok())
-            .map(|parent| parent.join(p.file_name().unwrap_or_default()))
-            .ok_or(std::io::Error::from(std::io::ErrorKind::NotFound))
-    });
-    full.map(|p| p.starts_with(config::path(&dir)))
-        .unwrap_or(true)
+    confinement::check(c, p)
+}
+pub fn read(c: &Config, p: &Path) -> std::io::Result<Vec<u8>> {
+    confinement::read(c, p).map(|(bytes, _)| bytes)
 }
 pub fn parse(raw: &[u8], convert: bool) -> (Vec<Vec<u8>>, bool, usize) {
     let convert = convert && !cfg!(feature = "tiny");
@@ -82,7 +75,7 @@ pub fn open(c: &Config, name: &[u8], noread: bool) -> Result<(Buffer, String, i3
             bytes::text(&c.value("operatingdir"))
         ));
     }
-    let stat = fs::metadata(&p).ok();
+    let stat = confinement::metadata(c, &p).ok();
     if stat.as_ref().is_some_and(|s| s.is_dir()) {
         return Err(format!("'{display}' is a directory"));
     }
@@ -107,8 +100,9 @@ pub fn open(c: &Config, name: &[u8], noread: bool) -> Result<(Buffer, String, i3
     b.report_size = true;
     let (mut msg, mut level) = ("New File".to_string(), 2);
     if !noread {
-        match fs::read(&p) {
-            Ok(raw) => {
+        match confinement::read(c, &p) {
+            Ok((raw, metadata)) => {
+                b.stat = Some(metadata);
                 let (lines, dos, n) = parse(&raw, !c.on(NO_CONVERT));
                 b.state.lines = lines;
                 let nl = b.state.lines.len() as u64;
@@ -206,13 +200,18 @@ pub fn write(
         .into());
     }
     let display = bytes::text(name);
-    if fs::symlink_metadata(&p).is_ok_and(|m| m.file_type().is_symlink()) {
+    let parent = Parent::open(c, &p).map_err(|e| WriteError::writing(&display, e))?;
+    let meta = match parent.metadata() {
+        Ok(meta) => Some(meta),
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => None,
+        Err(e) => return Err(WriteError::writing(&display, e)),
+    };
+    if meta.as_ref().is_some_and(|m| m.file_type().is_symlink()) {
         return Err(format!(
             "Refusing to save through symbolic link {display}; save its target path explicitly"
         )
         .into());
     }
-    let meta = fs::metadata(&p).ok();
     if mode == 2
         && meta
             .as_ref()
@@ -227,7 +226,9 @@ pub fn write(
         && meta.is_file()
     {
         progress(WriteProgress::Status("Making backup..."));
-        make_backup(c, &p, meta, |text| progress(WriteProgress::Warning(text)))?;
+        make_backup_from(c, &p, &parent, meta, |text| {
+            progress(WriteProgress::Warning(text))
+        })?;
     }
     let region = if selection {
         b.region().map(|(a, z)| b.raw_region(a, z))
@@ -242,6 +243,13 @@ pub fn write(
         .is_some_and(|m| m.mode() & 0o170000 == 0o010000);
     if fifo && !cfg!(feature = "tiny") {
         progress(WriteProgress::Status("Writing to FIFO..."));
+    }
+    if fifo && confinement::enabled(c) {
+        return Err(
+            "FIFO writes are unavailable with operating-directory confinement"
+                .to_string()
+                .into(),
+        );
     }
     if fifo {
         let mut f = native::open_write(&p, mode == 1).map_err(|error| {
@@ -261,7 +269,7 @@ pub fn write(
             })?;
     } else {
         progress(WriteProgress::Status("Writing..."));
-        native::safe_save(&p, &data, mode).map_err(|(error, committed)| {
+        native::safe_save(&parent, &data, mode).map_err(|(error, committed)| {
             if committed {
                 format!(
                     "File replaced, but durability is uncertain for {display}: {}",
@@ -281,10 +289,10 @@ pub fn write(
             b.name = name.to_vec();
             b.syntax = c.select_syntax(name, &b.state.lines[0]);
             if c.on(LOCKING) {
-                let _ = lock(b);
+                let _ = lock(c, b);
             }
         }
-        b.stat = fs::metadata(&p).ok();
+        b.stat = parent.metadata().ok();
         b.saved();
         b.report_size = true;
     }
@@ -314,9 +322,15 @@ pub fn lock_path(name: &[u8]) -> PathBuf {
         .unwrap_or(Path::new("."))
         .join(config::path(&file))
 }
-pub fn lock_conflict(name: &[u8]) -> Option<Result<String, String>> {
+pub fn lock_conflict(c: &Config, name: &[u8]) -> Option<Result<String, String>> {
     let p = lock_path(name);
-    let raw = fs::read(&p).ok()?;
+    let mut raw = Vec::new();
+    Parent::open(c, &p)
+        .ok()?
+        .read()
+        .ok()?
+        .read_to_end(&mut raw)
+        .ok()?;
     if raw.len() < 68 || !raw.starts_with(b"b0") {
         return Some(Err(format!("Bad lock file is ignored: {}", p.display())));
     }
@@ -332,7 +346,7 @@ pub fn lock_conflict(name: &[u8]) -> Option<Result<String, String>> {
         end(2, 12)
     )))
 }
-pub fn lock(b: &mut Buffer) -> Result<(), String> {
+pub fn lock(c: &Config, b: &mut Buffer) -> Result<(), String> {
     if b.name.is_empty() {
         return Ok(());
     }
@@ -352,24 +366,35 @@ pub fn lock(b: &mut Buffer) -> Result<(), String> {
     if b.modified {
         raw[1007] = 0x55;
     }
-    if p.exists() {
-        fs::remove_file(&p)
-            .map_err(|e| format!("Error deleting lock file {}: {}", p.display(), io_error(&e)))?;
+    let parent = Parent::open(c, &p).map_err(|e| {
+        format!(
+            "Cannot authorize lock file {}: {}",
+            p.display(),
+            io_error(&e)
+        )
+    })?;
+    match parent.remove() {
+        Ok(()) => (),
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
+        Err(e) => {
+            return Err(format!(
+                "Error deleting lock file {}: {}",
+                p.display(),
+                io_error(&e)
+            ));
+        }
     }
-    let mut f = OpenOptions::new()
-        .write(true)
-        .create_new(true)
-        .mode(0o666)
-        .open(&p)
+    let mut f = parent
+        .create(0o666)
         .map_err(|e| format!("Error writing lock file {}: {}", p.display(), io_error(&e)))?;
     f.write_all(&raw).map_err(|e| io_error(&e))?;
-    b.lock = Some(p);
+    b.lock = Some(parent);
     b.lock_modified = b.modified;
     Ok(())
 }
 pub fn remove_lock(b: &mut Buffer) {
     if let Some(p) = b.lock.take() {
-        let _ = fs::remove_file(p);
+        let _ = p.remove();
     }
 }
 pub fn emergency(c: &Config, b: &Buffer) -> Result<Option<PathBuf>, String> {
@@ -383,7 +408,21 @@ pub fn emergency(c: &Config, b: &Buffer) -> Result<Option<PathBuf>, String> {
     };
     let mut name = name;
     name.extend(b".save");
-    let p = collision(&config::path(&name));
+    let base = config::expand(&name);
+    let parent = Parent::open(c, &base).map_err(|e| {
+        format!(
+            "Cannot authorize recovery file {}: {}",
+            base.display(),
+            io_error(&e)
+        )
+    })?;
+    let (p, parent, mut f) = create_recovery(&base, parent).map_err(|e| {
+        format!(
+            "Emergency save failed for {} (create): {}; recovery file may be incomplete or not durable",
+            base.display(),
+            io_error(&e)
+        )
+    })?;
     let failure = |stage: &str, error: std::io::Error| {
         format!(
             "Emergency save failed for {} ({stage}): {}; recovery file may be incomplete or not durable",
@@ -391,26 +430,36 @@ pub fn emergency(c: &Config, b: &Buffer) -> Result<Option<PathBuf>, String> {
             io_error(&error)
         )
     };
-    let mut f = OpenOptions::new()
-        .write(true)
-        .create_new(true)
-        .mode(0o600)
-        .open(&p)
-        .map_err(|e| failure("create", e))?;
     // Preserve even a partial recovery file on error: it may contain the only
     // surviving copy of edits. Never describe it as successfully written.
     f.write_all(&output(b, None, c.on(NO_NEWLINES)))
         .map_err(|e| failure("write", e))?;
     f.sync_all().map_err(|e| failure("file sync", e))?;
     native::close_checked(f).map_err(|e| failure("file close", e))?;
-    let parent = p
-        .parent()
-        .filter(|parent| !parent.as_os_str().is_empty())
-        .unwrap_or(Path::new("."));
-    let dir = File::open(parent).map_err(|e| failure("directory open", e))?;
-    dir.sync_all().map_err(|e| failure("directory sync", e))?;
-    native::close_checked(dir).map_err(|e| failure("directory close", e))?;
+    parent
+        .directory
+        .sync_all()
+        .map_err(|e| failure("directory sync", e))?;
+    native::close_checked(parent.directory).map_err(|e| failure("directory close", e))?;
     Ok(Some(p))
+}
+fn create_recovery(base: &Path, parent: Parent) -> std::io::Result<(PathBuf, Parent, File)> {
+    for i in 0..=99999 {
+        let path = if i == 0 {
+            base.to_path_buf()
+        } else {
+            config::path(&[base.as_os_str().as_bytes(), format!(".{i}").as_bytes()].concat())
+        };
+        let candidate = parent.sibling(PathBuf::from(
+            path.file_name().ok_or(std::io::ErrorKind::InvalidInput)?,
+        ))?;
+        match candidate.create(0o600) {
+            Ok(file) => return Ok((path, candidate, file)),
+            Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => (),
+            Err(e) => return Err(e),
+        }
+    }
+    Err(std::io::ErrorKind::AlreadyExists.into())
 }
 pub fn collision(base: &Path) -> PathBuf {
     if !base.exists() {
@@ -499,12 +548,30 @@ fn write_bytes(file: &mut File, mut bytes: &[u8]) -> std::io::Result<()> {
     Ok(())
 }
 
+#[cfg(test)]
 fn make_backup(
     c: &Config,
     path: &Path,
     meta: &fs::Metadata,
+    warning: impl FnMut(&str),
+) -> Result<(), WriteError> {
+    let parent =
+        Parent::open(c, path).map_err(|e| WriteError::writing(&path.display().to_string(), e))?;
+    make_backup_from(c, path, &parent, meta, warning)
+}
+fn make_backup_from(
+    c: &Config,
+    path: &Path,
+    parent: &Parent,
+    _meta: &fs::Metadata,
     mut warning: impl FnMut(&str),
 ) -> Result<(), WriteError> {
+    let source = parent
+        .read()
+        .map_err(|e| WriteError::writing(&path.display().to_string(), e))?;
+    let meta = source
+        .metadata()
+        .map_err(|e| WriteError::writing(&path.display().to_string(), e))?;
     let directory = c.value("backupdir");
     let name = if directory.is_empty() {
         let mut name = path.as_os_str().as_bytes().to_vec();
@@ -524,7 +591,20 @@ fn make_backup(
     let read_failed = std::cell::Cell::new(false);
     let write = |file: &mut File, warning: &mut dyn FnMut(&str)| -> std::io::Result<()> {
         read_failed.set(false);
-        let bytes = fs::read(path).inspect_err(|_| read_failed.set(true))?;
+        let mut bytes = Vec::new();
+        use std::os::unix::fs::FileExt;
+        let mut offset = 0;
+        let mut chunk = [0u8; 65536];
+        loop {
+            let n = source
+                .read_at(&mut chunk, offset)
+                .inspect_err(|_| read_failed.set(true))?;
+            if n == 0 {
+                break;
+            }
+            bytes.extend_from_slice(&chunk[..n]);
+            offset += n as u64;
+        }
         write_bytes(file, &bytes)?;
         // chown and content writes can clear set-ID bits. Apply the final mode
         // after both operations, then restore times and sync all metadata.
@@ -547,7 +627,30 @@ fn make_backup(
         file.sync_all()?;
         Ok(())
     };
+    let confined_backup = if confinement::enabled(c) {
+        Some(
+            if directory.is_empty() {
+                let mut name = parent.name.as_os_str().as_bytes().to_vec();
+                name.push(b'~');
+                parent.sibling(config::path(&name))
+            } else {
+                Parent::open(c, &name)
+            }
+            .map_err(|e| WriteError::writing(&name.display().to_string(), e))?,
+        )
+    } else {
+        None
+    };
     let first = (|| {
+        if let Some(target) = &confined_backup {
+            match target.remove() {
+                Ok(()) => (),
+                Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
+                Err(e) => return Err(e),
+            }
+            let mut file = target.create(0o600)?;
+            return write(&mut file, &mut warning);
+        }
         if !c.on(INSECURE_BACKUP) {
             match fs::remove_file(&name) {
                 Ok(()) => (),
@@ -569,9 +672,14 @@ fn make_backup(
     }
     let mut last = first.unwrap_err();
     if !read_failed.get() {
-        let _ = fs::remove_file(&name);
+        if let Some(target) = &confined_backup {
+            let _ = target.remove();
+        } else {
+            let _ = fs::remove_file(&name);
+        }
     }
     if !read_failed.get()
+        && !confinement::enabled(c)
         && let Some(home) = config::home_dir()
     {
         warning("Cannot make regular backup");
