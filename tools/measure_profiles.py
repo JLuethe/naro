@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import re
 import shutil
+import stat
 import subprocess
 import sys
 import uuid
@@ -31,6 +32,8 @@ for name, source in [('full', a.full), ('tiny', a.tiny)]:
     build = json.loads(subprocess.check_output([str(binary)], env={**os.environ, 'NARO_BUILD_INFO':'1'}, text=True))
     dynamic = subprocess.check_output(['readelf', '-d', str(binary)], text=True)
     original = binary.read_bytes()
+    # copy2 preserves frozen input permissions; strip only our disposable copy.
+    binary.chmod(stat.S_IMODE(binary.stat().st_mode) | stat.S_IWUSR)
     subprocess.run(['strip', '--strip-all', str(binary)], check=True)
     report['profiles'][name] = {'build': build, 'bytes': len(original),
         'sha256': hashlib.sha256(original).hexdigest(), 'stripped_bytes': binary.stat().st_size,

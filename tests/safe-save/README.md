@@ -27,3 +27,8 @@ gates, preservation messages and rejection in read-only destination directories.
 The latter replace an unreachable writing snapshot with a complete error screen,
 dirty-buffer exit and retained-backup checks. Original scenarios, recordings and
 comparison rules remain unchanged. This is semantic validation, not nano parity.
+
+Run `python3 tests/safe-save/test_progress_cases.py` for deterministic generated-gate
+regressions. The C helper is built with glibc fortification and its imported
+symbols are checked before exercising open faults, release, FIFO interruption,
+non-target passthrough and variadic creation modes.
