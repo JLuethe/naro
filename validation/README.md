@@ -2,6 +2,13 @@
 
 ## Issue #3 safe-save change
 
+[Post-fix Daybreak Blue package retest](daybreak-blue-postfix-2026-11-06/README.md)
+records the explicit `daybreak_blue` access-program run using `gpt-6-sol`/high,
+the repaired package/source commit, fresh default/tiny archives, package checks,
+and repeated issue #3 runtime matrices. Its scoped verdict is GO for the named
+artifacts under deterministic Linux testing; issue #12 races, physical power
+loss, issue #14 runtime gaps and issue #15 environment gaps remain unverified.
+
 [Independent Daybreak Blue access-program retest](independent-retest-2026-11-06T085948Z/README.md)
 records the explicit `gpt-6-sol`/high CLI invocation, fresh source-bound host and
 Ubuntu evidence, and no newly observed issue #3 data-integrity defect in its
