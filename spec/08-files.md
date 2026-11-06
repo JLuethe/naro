@@ -163,6 +163,15 @@ Before overwriting an **existing regular** file:
   cover declining and accepting a save after the original cannot be read.
 
 ### FILE-LOCK — Lock files (`-G`, `set locking`; not tiny; not in view mode)
+NARO retains the created lock file's opened descriptor. Refresh and cleanup
+check that the directory entry still has that file's device/inode identity
+before unlinking it. A replaced entry is preserved; refresh reports an error
+and continues without a lock. This also preserves a document saved under the
+old lock pathname. Initial takeover after accepting a lock conflict keeps the
+reference behavior below. Other new locks are created exclusively: a preexisting
+sidecar at a save-as destination is preserved, a warning is shown and the saved
+buffer continues without owning a lock.
+
 - **Name:** `<dir>/.<basename>.swp`, where `<dir>` is the directory part of the name **as given** (`.` when none), so `f.txt` → `./.f.txt.swp`.
 - **On opening** (into a new buffer): if a lock file exists and can be read:
   - fewer than 68 bytes, or not starting with `b0` → ALERT `Bad lock file is ignored: <lockname>`, and the file is opened **without** a lock (TEST-FILE-027);

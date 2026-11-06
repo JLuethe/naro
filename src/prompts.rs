@@ -598,7 +598,7 @@ impl Editor {
             }
             QuestionKind::Lock(i) => {
                 if yes {
-                    if let Err(msg) = files::lock(&self.conf, &mut self.buffers[i]) {
+                    if let Err(msg) = files::take_over_lock(&self.conf, &mut self.buffers[i]) {
                         self.msg(msg, 6);
                     }
                     self.mode = Mode::Edit;

@@ -1,0 +1,75 @@
+[
+  {
+    "id": "TEST-SAVE-OWNED-LOCK-NAME",
+    "args": ["-I", "-G", "f.txt"],
+    "files": {"work/f.txt": {"text": "original\n"}},
+    "steps": [
+      {"wait": {"text": "Read 1 line"}},
+      {"text": "edited "},
+      {"keys": ["^O"]},
+      {"wait": {"text": "Write to File"}},
+      {"keys": ["^K"]},
+      {"text": ".f.txt.swp\r"},
+      {"wait": {"text": "Save file under DIFFERENT NAME?"}},
+      {"text": "y"},
+      {"wait": {"text": "OVERWRITE?"}},
+      {"text": "y"},
+      {"wait": {"text": "Wrote 1 line"}},
+      {"snapshot": "saved"},
+      {"keys": ["^X"]},
+      {"wait_exit": 3}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "trace_final_modes": {"cursor_visible": true, "alternate_screen": false, "bracketed_paste": false},
+      "files": {
+        "work/f.txt": {"text": "original\n"},
+        "work/.f.txt.swp": {"text": "edited original\n"},
+        "work/..f.txt.swp.swp": null
+      },
+      "screen": [
+        {"snapshot": "saved", "row": 0, "contains": ".f.txt.swp", "not_contains": "Modified"},
+        {"snapshot": "saved", "row": 1, "equals": "edited original"},
+        {"snapshot": "saved", "anywhere": "Wrote 1 line"}
+      ]
+    }
+  },
+  {
+    "id": "TEST-SAVE-UNOWNED-NEW-LOCK",
+    "args": ["-I", "-G", "f.txt"],
+    "files": {
+      "work/f.txt": {"text": "original\n"},
+      "work/.saved.txt.swp": {"text": "unrelated sidecar document\n"}
+    },
+    "steps": [
+      {"wait": {"text": "Read 1 line"}},
+      {"text": "edited "},
+      {"keys": ["^O"]},
+      {"wait": {"text": "Write to File"}},
+      {"keys": ["^K"]},
+      {"text": "saved.txt\r"},
+      {"wait": {"text": "Save file under DIFFERENT NAME?"}},
+      {"text": "y"},
+      {"wait": {"text": "Error writing lock file"}},
+      {"wait": {"text": "Wrote 1 line"}},
+      {"snapshot": "saved"},
+      {"keys": ["^X"]},
+      {"wait_exit": 3}
+    ],
+    "expect": {
+      "exit_status": 0,
+      "trace_final_modes": {"cursor_visible": true, "alternate_screen": false, "bracketed_paste": false},
+      "files": {
+        "work/f.txt": {"text": "original\n"},
+        "work/saved.txt": {"text": "edited original\n"},
+        "work/.f.txt.swp": null,
+        "work/.saved.txt.swp": {"text": "unrelated sidecar document\n"}
+      },
+      "screen": [
+        {"snapshot": "saved", "row": 0, "contains": "saved.txt", "not_contains": "Modified"},
+        {"snapshot": "saved", "row": 1, "equals": "edited original"},
+        {"snapshot": "saved", "anywhere": "Wrote 1 line"}
+      ]
+    }
+  }
+]

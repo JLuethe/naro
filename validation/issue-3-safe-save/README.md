@@ -83,3 +83,7 @@ confinement/race claims. No global install, push, PR, issue closure or release
 publication was performed. The requested Daybreak Blue scan is unavailable.
 
 See [independent Astra/xhigh review](review.md) and [test command history](test-commands.md).
+
+[The lock ownership integration correction](lock-identity.md) records the
+ordinary save-as-to-sidecar data-loss regression, its negative control, the
+inode-bound fix and the subsequent 448-case fault and terminal reruns.

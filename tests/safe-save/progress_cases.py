@@ -37,12 +37,14 @@ def main():
         gate = case.get("files", {}).get("gate.c")
         if gate and case["id"] != "TEST-SAVE-PROGRESS-FIFO-INTERRUPT":
             old = 'const char *target=getenv("PROGRESS_TARGET");return target&&!strcmp(path,target);'
+            temporary = "/.naro-backup-" if case["id"] == "TEST-SAVE-SAFETY-BACKUP-PROGRESS" else "/.naro-save-"
             new = '''const char *target=getenv("PROGRESS_TARGET");
  if(!target)return 0;
  if(!strcmp(path,target))return 1;
  const char *slash=strrchr(target,'/');
  size_t parent=slash?(size_t)(slash-target):0;
- return slash && !strncmp(path,target,parent) && !strncmp(path+parent,"/.naro-save-",12);'''
+ return slash && !strncmp(path,target,parent) && !strncmp(path+parent,"TEMPORARY",TEMPORARY_LENGTH);'''
+            new = new.replace("TEMPORARY_LENGTH", str(len(temporary))).replace("TEMPORARY", temporary)
             assert old in gate["text"]
             gate["text"] = gate["text"].replace(old, new)
         if gate:
@@ -51,6 +53,11 @@ def main():
         if case["id"] == "TEST-SAVE-PROGRESS-ERROR-SYNC":
             assert case["expect"]["files"]["work/f.txt"] == {"text": "Xhello\n"}
             case["expect"]["files"]["work/f.txt"] = {"text": "hello\n"}
+        if case["id"] in ("TEST-SAVE-SAFETY-BACKUP-UNREADABLE", "TEST-SAVE-SAFETY-BACKUP-UNREADABLE-YES"):
+            # Exclusive backup output is unpublished when the source cannot be
+            # read. Require its absence instead of nano's empty partial backup.
+            assert case["expect"]["files"]["work/f.txt~"] == {"text": ""}
+            case["expect"]["files"]["work/f.txt~"] = None
         if "TEST-SAVE-SAFETY-BACKUP-FALLBACK" in case["id"]:
             # A read-only parent now rejects save before file-sync. Keep all
             # terminal cells from the saved-state oracle, explicitly replacing

@@ -15,6 +15,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'spec/tools'))
 from open_gate import adapt_tiny_safety_case
+from candidate_expectations import candidate_case
 HELPER = r'''
 #define _GNU_SOURCE
 #include <errno.h>
@@ -40,6 +41,10 @@ int main(int argc,char **argv) {
   fd=openat(dirfd,argv[3],flags);
   close(dirfd);
  } else if(!strcmp(argv[1],"openat-cwd"))fd=openat(AT_FDCWD,argv[3],flags);
+ else if(!strcmp(argv[1],"sync")) {
+  fd=open(argv[3],flags);
+  if(fd>=0&&fsync(fd)<0){int saved=errno;close(fd);errno=saved;fd=-1;}
+ }
  else if(!strcmp(argv[1],"create"))fd=open(argv[3],flags,0640);
  else if(!strcmp(argv[1],"create64"))fd=open64(argv[3],flags,0640);
  else if(!strcmp(argv[1],"createat"))fd=openat(AT_FDCWD,argv[3],flags,0640);
@@ -73,6 +78,9 @@ class ProgressGateTest(unittest.TestCase):
                 raise AssertionError(f'helper does not import fortified {name}')
         cases = json.loads(subprocess.check_output(
             [sys.executable, str(ROOT / 'tests/safe-save/progress_cases.py')], text=True))
+        cls.safety = json.loads(subprocess.check_output(
+            [sys.executable, str(ROOT / 'tests/safe-save/progress_cases.py'), 'save-safety'], text=True))
+        cases.extend(cls.safety)
         tiny = next(c for c in json.loads((ROOT / 'tests/follow-up/scenarios/tiny-safety.json').read_text())
                     if c['id'] == 'TEST-TINY-FIFO-RESIZE-SAFETY')
         cls.original_tiny = copy.deepcopy(tiny)
@@ -80,6 +88,7 @@ class ProgressGateTest(unittest.TestCase):
         cases.append(cls.tiny)
         cls.gates = {}
         for kind, case_id in [('progress', 'TEST-SAVE-PROGRESS-ERROR-OPEN'),
+                              ('backup', 'TEST-SAVE-SAFETY-BACKUP-PROGRESS'),
                               ('interrupt', 'TEST-SAVE-PROGRESS-FIFO-INTERRUPT'),
                               ('tiny', 'TEST-TINY-FIFO-RESIZE-SAFETY')]:
             case = next(c for c in cases if c['id'] == case_id)
@@ -140,6 +149,34 @@ class ProgressGateTest(unittest.TestCase):
                     (self.work / 'OPEN.release').touch()
                     self.result(process, errno.EACCES if fault else 0)
                     self.assertEqual(self.target.read_bytes(), b'original')
+
+    def test_backup_progress_waits_on_exclusive_temp_sync(self):
+        backup = self.work / '.naro-backup-fixture-0'
+        backup.write_bytes(b'backup bytes')
+        process = self.start('backup', 'sync', os.O_RDWR, str(backup), PROGRESS_SYNC='1')
+        self.wait_for(process, lambda: (self.work / 'SYNC.ready').exists())
+        self.assertIsNone(process.poll())
+        (self.work / 'SYNC.release').touch()
+        self.result(process, 0)
+        self.assertEqual(backup.read_bytes(), b'backup bytes')
+        (self.work / 'SYNC.ready').unlink()
+        (self.work / 'SYNC.release').unlink()
+        save = self.work / '.naro-save-fixture-0'
+        save.write_bytes(b'saved bytes')
+        self.result(self.start('backup', 'sync', os.O_RDWR, str(save), PROGRESS_SYNC='1'), 0)
+        self.assertFalse((self.work / 'SYNC.ready').exists())
+
+    def test_backup_adaptation_retains_screen_and_cursor_assertions(self):
+        originals = json.loads((ROOT / 'tests/follow-up/scenarios/save-safety.json').read_text())
+        for original in originals:
+            if original['id'] not in ('TEST-SAVE-SAFETY-BACKUP-PROGRESS',
+                                      'TEST-SAVE-SAFETY-BACKUP-UNREADABLE',
+                                      'TEST-SAVE-SAFETY-BACKUP-UNREADABLE-YES'):
+                continue
+            case = next(c for c in self.safety if c['id'] == original['id'])
+            self.assertEqual(case['expect']['screen'], candidate_case(original)['expect']['screen'])
+            if 'UNREADABLE' in original['id']:
+                self.assertIsNone(case['expect']['files']['work/f.txt~'])
 
     def test_fortified_fifo_open_can_be_interrupted_after_marker(self):
         self.target.unlink()

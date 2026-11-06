@@ -50,6 +50,15 @@ NARO does not silently revert to truncating the original.
   saved. Formatting, backup selection and line counting retain their existing
   behavior. Backups are separate operations and may have changed on a failed
   save; the original-file preservation guarantee is about the destination.
+- Lock cleanup and refresh retain the created lock's opened descriptor and
+  check its device/inode against the current directory entry before unlinking.
+  Saving under the buffer's old lock pathname therefore preserves the committed
+  document, records its metadata and marks the buffer saved. A replaced lock
+  entry is preserved; a failed refresh continues without owning a lock. A new
+  sidecar is created exclusively. An existing sidecar at a save-as destination
+  is preserved and reported as a warning; the document save still succeeds.
+  Replacing an unowned lock requires explicitly accepting the lock-conflict
+  question when opening a buffer.
 - FIFOs remain a streaming compatibility exception: they cannot be replaced
   safely with regular files. A stream error reports potentially incomplete
   output. Prepending to a FIFO remains rejected. No filesystem durability is

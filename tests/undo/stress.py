@@ -26,6 +26,14 @@ mod confinement {
     pub struct Parent {
         pub directory: std::fs::File,
         pub name: std::path::PathBuf,
+        confined: bool,
+    }
+}
+mod files {
+    #[derive(Debug)]
+    pub struct OwnedLock {
+        parent: crate::confinement::Parent,
+        file: std::fs::File,
     }
 }
 mod bytes;

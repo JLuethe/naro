@@ -1,0 +1,276 @@
+{
+  "base_revision": "c26b11ca8f144ef60c8e12460c9cc8e330c0c28a",
+  "source_sha256": "7b6ef4e024bc5d25f59fb66eebad7f8297d4be4f49a34d1037c3b8d4f928e636",
+  "evidence_directory": "target/issue-3-lock-validation",
+  "negative_control": {
+    "revision": "c26b11ca8f144ef60c8e12460c9cc8e330c0c28a",
+    "command": [
+      "cargo",
+      "test",
+      "--target-dir",
+      "/home/john/Code/naro/target/issue-3-lock-validation/final-negative-control/build",
+      "files::lock_tests::save_as_to_owned_lock_keeps_document_and_saved_state",
+      "--",
+      "--exact",
+      "--nocapture"
+    ],
+    "cwd": "/home/john/Code/naro/target/issue-3-lock-validation/final-negative-control/source",
+    "exit": 101,
+    "test_sha256": "66621ccd9adcc6bfd9fc5a3af636fc3eec19c103a3bba301527b4f765887ea32",
+    "log_sha256": "45e3cfd7bb710295d04b0cd7df9f0e93833d5f6300ae77070531875ed0f3a071",
+    "expected_failure": "save returned success, destination read failed with ENOENT"
+  },
+  "focused_tests": [
+    {
+      "profile": "default",
+      "command": [
+        "cargo",
+        "test",
+        "files::lock_tests",
+        "--",
+        "--nocapture"
+      ],
+      "exit": 0,
+      "passed": 7
+    },
+    {
+      "profile": "tiny",
+      "command": [
+        "cargo",
+        "test",
+        "--features",
+        "tiny",
+        "files::lock_tests",
+        "--",
+        "--nocapture"
+      ],
+      "exit": 0,
+      "passed": 7
+    }
+  ],
+  "rust_and_harness_commands": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--check"
+      ],
+      "exit": 0,
+      "log": "verified-check-00.log"
+    },
+    {
+      "command": [
+        "cargo",
+        "test"
+      ],
+      "exit": 0,
+      "log": "verified-check-01.log"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--features",
+        "tiny"
+      ],
+      "exit": 0,
+      "log": "verified-check-02.log"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "--all-features"
+      ],
+      "exit": 0,
+      "log": "verified-check-03.log"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit": 0,
+      "log": "verified-check-04.log"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "--all-targets",
+        "--all-features",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit": 0,
+      "log": "verified-check-05.log"
+    },
+    {
+      "command": [
+        "python3",
+        "tests/undo/stress.py",
+        "--out",
+        "target/issue-3-lock-validation/verified-undo-stress"
+      ],
+      "exit": 0,
+      "log": "verified-check-06.log"
+    },
+    {
+      "command": [
+        "python3",
+        "tests/safe-save/test_progress_cases.py"
+      ],
+      "exit": 0,
+      "log": "verified-check-07.log"
+    },
+    {
+      "command": [
+        "python3",
+        "spec/tools/test_compare_runs.py"
+      ],
+      "exit": 0,
+      "log": "verified-check-08.log"
+    },
+    {
+      "command": [
+        "python3",
+        "spec/tools/test_nanoharness.py"
+      ],
+      "exit": 0,
+      "log": "verified-check-09.log"
+    }
+  ],
+  "terminal": {
+    "verified-save-terminal": {
+      "passed": 32,
+      "total": 32,
+      "assertions_passed": 1718,
+      "assertions_total": 1718
+    },
+    "verified-locking-terminal": {
+      "passed": 6,
+      "total": 6,
+      "assertions_passed": 35,
+      "assertions_total": 35
+    }
+  },
+  "faults": {
+    "default": {
+      "binary": "/home/john/Code/naro/target/issue-3-lock-validation/default-build/debug/deps/naro-8b785946e7ffb0d9",
+      "sha256": "0a0214bd07ceba7ab5196ddc90d317d32acbea622ff7bb349ff7d8eb1b374c47",
+      "passed": 448,
+      "total": 448,
+      "skips": []
+    },
+    "tiny": {
+      "binary": "/home/john/Code/naro/target/issue-3-lock-validation/tiny-build/debug/deps/naro-92b0cf5a83e9781f",
+      "sha256": "0f5dac6781d9ba494a3bf79e6311d6312e0ecf6d83e79058c28a3cc972854eeb",
+      "passed": 448,
+      "total": 448,
+      "skips": []
+    }
+  },
+  "binaries": {
+    "default": {
+      "path": "target/issue-3-lock-validation/default-build/debug/naro",
+      "sha256": "4ced1af74430c0300f4acdea14e9afb7aa46e9158d1accfb5fe85d4e4794730f",
+      "build_info": {
+        "version": "0.1.2",
+        "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+        "source_sha256": "7b6ef4e024bc5d25f59fb66eebad7f8297d4be4f49a34d1037c3b8d4f928e636",
+        "revision": "c26b11ca8f144ef60c8e12460c9cc8e330c0c28a",
+        "features": "",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+      }
+    },
+    "tiny": {
+      "path": "target/issue-3-lock-validation/tiny-build/debug/naro",
+      "sha256": "713aad56e69e8587ac1265039e87991c49d16b7c15ee8a0849afc66a3f48b541",
+      "build_info": {
+        "version": "0.1.2",
+        "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+        "source_sha256": "7b6ef4e024bc5d25f59fb66eebad7f8297d4be4f49a34d1037c3b8d4f928e636",
+        "revision": "c26b11ca8f144ef60c8e12460c9cc8e330c0c28a",
+        "features": "tiny",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+      }
+    }
+  },
+  "signal_cleanup": {
+    "default": {
+      "passed": 12,
+      "total": 12
+    },
+    "tiny": {
+      "passed": 10,
+      "total": 10
+    }
+  },
+  "terminal_commands": [
+    {
+      "command": [
+        "python3",
+        "spec/tools/nanoharness.py",
+        "tests/safe-save/locking.json",
+        "/home/john/Code/naro/target/issue-3-lock-validation/historical-locking.json",
+        "--binary",
+        "/home/john/Code/naro/target/issue-3-lock-validation/default-build/debug/naro",
+        "--out",
+        "/home/john/Code/naro/target/issue-3-lock-validation/verified-locking-terminal"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "python3",
+        "spec/tools/nanoharness.py",
+        "/home/john/Code/naro/target/issue-3-lock-validation/verified-save-progress.json",
+        "/home/john/Code/naro/target/issue-3-lock-validation/verified-save-safety.json",
+        "--binary",
+        "/home/john/Code/naro/target/issue-3-lock-validation/default-build/debug/naro",
+        "--out",
+        "/home/john/Code/naro/target/issue-3-lock-validation/verified-save-terminal"
+      ],
+      "exit": 0
+    }
+  ],
+  "fault_commands": [
+    {
+      "command": [
+        "python3",
+        "tests/safe-save/run.py",
+        "--binary",
+        "/home/john/Code/naro/target/issue-3-lock-validation/default-build/debug/deps/naro-8b785946e7ffb0d9",
+        "--out",
+        "/home/john/Code/naro/target/issue-3-lock-validation/verified-default-faults"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "python3",
+        "tests/safe-save/run.py",
+        "--binary",
+        "/home/john/Code/naro/target/issue-3-lock-validation/tiny-build/debug/deps/naro-92b0cf5a83e9781f",
+        "--out",
+        "/home/john/Code/naro/target/issue-3-lock-validation/verified-tiny-faults"
+      ],
+      "exit": 0
+    }
+  ],
+  "prior_failed_adapter_run": {
+    "directory": "save-terminal",
+    "passed": 29,
+    "total": 32,
+    "reason": "old final-backup fd gate and empty-unpublished-backup expectations"
+  },
+  "limits": [
+    "Linux host fixtures only; no guest VT/release matrix or power-loss certification",
+    "Identity check and unlink are separate operations; concurrent external writers still require coordination"
+  ]
+}

@@ -293,8 +293,10 @@ pub fn write(
             remove_lock(b);
             b.name = name.to_vec();
             b.syntax = c.select_syntax(name, &b.state.lines[0]);
-            if c.on(LOCKING) {
-                let _ = lock(c, b);
+            if c.on(LOCKING)
+                && let Err(message) = lock(c, b)
+            {
+                progress(WriteProgress::Warning(&message));
             }
         }
         b.stat = parent.metadata().ok();
@@ -351,7 +353,36 @@ pub fn lock_conflict(c: &Config, name: &[u8]) -> Option<Result<String, String>> 
         end(2, 12)
     )))
 }
+/// Keep the created file open so its identity cannot be recycled while this
+/// buffer owns the lock. The remembered pathname alone is not ownership: a
+/// successful save-as can replace that entry with the saved document.
+#[derive(Debug)]
+pub struct OwnedLock {
+    parent: Parent,
+    file: File,
+}
+impl OwnedLock {
+    fn remove(&self) -> std::io::Result<()> {
+        let current = match self.parent.metadata() {
+            Ok(metadata) => metadata,
+            Err(error) if error.kind() == std::io::ErrorKind::NotFound => return Ok(()),
+            Err(error) => return Err(error),
+        };
+        let owned = self.file.metadata()?;
+        if current.dev() != owned.dev() || current.ino() != owned.ino() {
+            return Err(std::io::Error::other("lock file was replaced"));
+        }
+        self.parent.remove()
+    }
+}
 pub fn lock(c: &Config, b: &mut Buffer) -> Result<(), String> {
+    write_lock(c, b, false)
+}
+/// Called only after the user accepts replacing another editor's lock.
+pub fn take_over_lock(c: &Config, b: &mut Buffer) -> Result<(), String> {
+    write_lock(c, b, true)
+}
+fn write_lock(c: &Config, b: &mut Buffer, takeover: bool) -> Result<(), String> {
     if b.name.is_empty() {
         return Ok(());
     }
@@ -378,7 +409,16 @@ pub fn lock(c: &Config, b: &mut Buffer) -> Result<(), String> {
             io_error(&e)
         )
     })?;
-    match parent.remove() {
+    // Refresh may remove only our owned entry. A new lock must be created
+    // exclusively unless the user explicitly accepted a conflict takeover.
+    let removed = if let Some(owned) = b.lock.take() {
+        owned.remove()
+    } else if takeover {
+        parent.remove()
+    } else {
+        Ok(())
+    };
+    match removed {
         Ok(()) => (),
         Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
         Err(e) => {
@@ -389,17 +429,21 @@ pub fn lock(c: &Config, b: &mut Buffer) -> Result<(), String> {
             ));
         }
     }
-    let mut f = parent
+    let file = parent
         .create(0o666)
         .map_err(|e| format!("Error writing lock file {}: {}", p.display(), io_error(&e)))?;
-    f.write_all(&raw).map_err(|e| io_error(&e))?;
-    b.lock = Some(parent);
+    let mut owned = OwnedLock { parent, file };
+    if let Err(error) = owned.file.write_all(&raw) {
+        let _ = owned.remove();
+        return Err(io_error(&error));
+    }
+    b.lock = Some(owned);
     b.lock_modified = b.modified;
     Ok(())
 }
 pub fn remove_lock(b: &mut Buffer) {
-    if let Some(p) = b.lock.take() {
-        let _ = p.remove();
+    if let Some(owned) = b.lock.take() {
+        let _ = owned.remove();
     }
 }
 pub fn emergency(c: &Config, b: &Buffer) -> Result<Option<PathBuf>, String> {
@@ -773,6 +817,10 @@ fn make_backup_from(
         confirm_backup: last.raw_os_error() != Some(28),
     })
 }
+
+#[cfg(test)]
+#[path = "lock_tests.rs"]
+mod lock_tests;
 
 #[cfg(test)]
 #[path = "safe_save_tests.rs"]
