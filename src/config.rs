@@ -38,7 +38,7 @@ pub struct Rule {
 #[derive(Debug, Default)]
 pub struct Syntax {
     pub source: Option<(PathBuf, usize)>,
-    pub augmentations: Vec<(PathBuf, usize, String, String)>,
+    pub augmentations: Vec<(PathBuf, usize, String, String, bool)>,
     pub seen_color: bool,
     pub loaded: bool,
     pub name: String,
@@ -465,20 +465,27 @@ impl Config {
             return;
         }
         let home = home_dir();
+        let xdg = std::env::var_os("XDG_CONFIG_HOME").map(PathBuf::from);
+        self.load_normal_rc(Path::new("/etc/nanorc"), home.as_deref(), xdg.as_deref());
+    }
+    fn load_normal_rc(&mut self, system: &Path, home: Option<&Path>, xdg: Option<&Path>) {
+        if system.is_file() {
+            self.read_rc(system, false);
+        }
         let mut paths = Vec::new();
-        if let Some(home) = &home {
+        if let Some(home) = home {
             paths.push(home.join(".nanorc"));
         }
-        if let Some(x) = std::env::var_os("XDG_CONFIG_HOME") {
-            paths.push(PathBuf::from(x).join("nano/nanorc"));
+        if let Some(x) = xdg {
+            paths.push(x.join("nano/nanorc"));
         }
-        if let Some(home) = &home {
+        if let Some(home) = home {
             paths.push(home.join(".config/nano/nanorc"));
         }
-        if home.is_none() && std::env::var_os("XDG_CONFIG_HOME").is_none() {
+        if home.is_none() && xdg.is_none() {
             self.errors
                 .push("I can't find my home directory!  Wah!".into());
-            self.error_file = Some(PathBuf::from("/etc/nanorc"));
+            self.error_file = Some(system.to_path_buf());
         }
         for p in paths {
             if p.is_file() {
@@ -618,7 +625,7 @@ impl Config {
         let mut current: Option<usize> = None;
         let mut syntax_line = 0;
         for (index, line) in data.split(|b| *b == b'\n').enumerate() {
-            let line = String::from_utf8_lossy(line);
+            let (line, raw_encoded) = rc_line(line, self.utf8);
             let line = line.trim_end_matches('\r').trim_start_matches([' ', '\t']);
             if line.is_empty() || line.starts_with('#') {
                 continue;
@@ -674,6 +681,10 @@ impl Config {
                             return Err(format!("Option \"{name}\" requires an argument"));
                         }
                         let value = quoted(args)?;
+                        let value_bytes = rc_bytes(&value, raw_encoded);
+                        if self.utf8 && std::str::from_utf8(&value_bytes).is_err() {
+                            return Err("Argument is not a valid multibyte string".into());
+                        }
                         if matches!(name, "fill" | "tabsize" | "guidestripe") {
                             let n = parse_num(&value);
                             let good = n.is_some() && (name == "fill" || n.unwrap() > 0);
@@ -717,7 +728,7 @@ impl Config {
                             {
                                 return Err("Two single-column characters required".into());
                             }
-                            self.strings.insert(name.into(), value.into_bytes());
+                            self.strings.insert(name.into(), value_bytes);
                         }
                     }
                     "bind" | "unbind" => {
@@ -843,10 +854,17 @@ impl Config {
                     }
                     "include" => {
                         let pattern = quoted(args)?;
-                        let expanded = expand(pattern.as_bytes());
+                        let expanded = expand(&rc_bytes(&pattern, raw_encoded));
                         if !expanded.exists() {
+                            let parent = expanded.parent().unwrap_or(Path::new("."));
+                            let parent_has_glob = parent
+                                .as_os_str()
+                                .as_bytes()
+                                .iter()
+                                .any(|byte| matches!(byte, b'*' | b'?' | b'['));
                             if pattern.contains(['*', '?', '['])
-                                && !expanded.parent().unwrap_or(Path::new(".")).exists()
+                                && !parent_has_glob
+                                && !parent.exists()
                             {
                                 return Err(format!(
                                     "Error expanding {pattern}: No such file or directory"
@@ -884,7 +902,7 @@ impl Config {
                             source: Some((p.to_path_buf(), index + 1)),
                             ..Default::default()
                         };
-                        for pat in regex_strings(rest)? {
+                        for pat in regex_strings(rest, raw_encoded)? {
                             syntax.files.push(compile(&pat, false)?);
                         }
                         self.syntaxes.push(syntax);
@@ -900,13 +918,14 @@ impl Config {
                             .rposition(|s| s.name == name)
                             .ok_or_else(|| format!("Could not find syntax \"{name}\" to extend"))?;
                         if matches!(command, "header" | "magic") {
-                            self.syntax_command(i, command, rest)?;
+                            self.syntax_command(i, command, rest, raw_encoded)?;
                         } else {
                             self.syntaxes[i].augmentations.push((
                                 p.to_path_buf(),
                                 index + 1,
                                 command.into(),
                                 rest.into(),
+                                raw_encoded,
                             ));
                         }
                     }
@@ -916,7 +935,7 @@ impl Config {
                             format!("A '{cmd}' command requires a preceding 'syntax' command")
                         })?;
                         if matches!(cmd, "header" | "magic") {
-                            self.syntax_command(i, cmd, args)?;
+                            self.syntax_command(i, cmd, args, raw_encoded)?;
                         } else {
                             if matches!(cmd, "color" | "icolor") {
                                 self.syntaxes[i].seen_color = true;
@@ -951,7 +970,7 @@ impl Config {
             match std::fs::read(&path) {
                 Ok(data) => {
                     for (line, bytes) in data.split(|b| *b == 10).enumerate().skip(start) {
-                        let text = String::from_utf8_lossy(bytes);
+                        let (text, raw_encoded) = rc_line(bytes, self.utf8);
                         let text = text.trim();
                         if text.is_empty() || text.starts_with('#') {
                             continue;
@@ -972,7 +991,7 @@ impl Config {
                         if matches!(cmd, "header" | "magic") {
                             continue;
                         }
-                        if let Err(error) = self.syntax_command(index, cmd, args) {
+                        if let Err(error) = self.syntax_command(index, cmd, args, raw_encoded) {
                             self.error(&path, line + 1, error);
                         }
                     }
@@ -985,14 +1004,20 @@ impl Config {
             }
         }
         let extra = std::mem::take(&mut self.syntaxes[index].augmentations);
-        for (path, line, cmd, args) in extra {
-            if let Err(error) = self.syntax_command(index, &cmd, &args) {
+        for (path, line, cmd, args, raw_encoded) in extra {
+            if let Err(error) = self.syntax_command(index, &cmd, &args, raw_encoded) {
                 self.error(&path, line, error);
             }
         }
         self.errors.len() != count
     }
-    fn syntax_command(&mut self, i: usize, cmd: &str, args: &str) -> Result<(), String> {
+    fn syntax_command(
+        &mut self,
+        i: usize,
+        cmd: &str,
+        args: &str,
+        raw_encoded: bool,
+    ) -> Result<(), String> {
         if args.is_empty() {
             return Err(if cmd == "color" || cmd == "icolor" {
                 "Missing color name".into()
@@ -1009,7 +1034,7 @@ impl Config {
                         "The \"default\" syntax does not accept '{cmd}' regexes"
                     ));
                 }
-                for p in regex_strings(args)? {
+                for p in regex_strings(args, raw_encoded)? {
                     let r = compile(&p, false)?;
                     if cmd == "header" {
                         self.syntaxes[i].headers.push(r);
@@ -1025,8 +1050,8 @@ impl Config {
                     args.to_string()
                 };
                 match cmd {
-                    "comment" => self.syntaxes[i].comment = Some(a.into_bytes()),
-                    "tabgives" => self.syntaxes[i].tab = Some(a.into_bytes()),
+                    "comment" => self.syntaxes[i].comment = Some(rc_bytes(&a, raw_encoded)),
+                    "tabgives" => self.syntaxes[i].tab = Some(rc_bytes(&a, raw_encoded)),
                     "linter" => self.syntaxes[i].linter = Some(a),
                     _ => self.syntaxes[i].formatter = Some(a),
                 };
@@ -1037,11 +1062,11 @@ impl Config {
                 let mut rest = rest;
                 while !rest.is_empty() {
                     if let Some(s) = rest.strip_prefix("start=") {
-                        let (p, r) = take_regex(s)?;
+                        let (p, r) = take_regex(s, raw_encoded)?;
                         let e = r
                             .strip_prefix("end=")
                             .ok_or("\"start=\" requires a corresponding \"end=\"")?;
-                        let (end, r) = take_regex(e)?;
+                        let (end, r) = take_regex(e, raw_encoded)?;
                         self.syntaxes[i].rules.push(Rule {
                             start: compile(&p, cmd == "icolor")?,
                             end: Some(compile(&end, cmd == "icolor")?),
@@ -1049,7 +1074,7 @@ impl Config {
                         });
                         rest = r;
                     } else {
-                        let (p, r) = take_regex(rest)?;
+                        let (p, r) = take_regex(rest, raw_encoded)?;
                         self.syntaxes[i].rules.push(Rule {
                             start: compile(&p, cmd == "icolor")?,
                             end: None,
@@ -1147,6 +1172,39 @@ pub fn io_error(e: &std::io::Error) -> String {
         .unwrap_or("")
         .into()
 }
+// Keep each byte distinct in a byte locale while using the existing word parser.
+// The private-use range is never emitted as UTF-8: rc_bytes restores it at the
+// places where a nanorc argument crosses into an OS path, regex, or byte value.
+fn rc_line(line: &[u8], utf8: bool) -> (String, bool) {
+    if utf8 && let Ok(text) = std::str::from_utf8(line) {
+        return (text.to_owned(), false);
+    }
+    (
+        line.iter()
+            .map(|&byte| {
+                if byte.is_ascii() {
+                    byte as char
+                } else {
+                    char::from_u32(0xe000 + u32::from(byte)).unwrap()
+                }
+            })
+            .collect(),
+        true,
+    )
+}
+fn rc_bytes(s: &str, byte_locale: bool) -> Vec<u8> {
+    let mut out = Vec::with_capacity(s.len());
+    for ch in s.chars() {
+        let code = ch as u32;
+        if byte_locale && (0xe080..=0xe0ff).contains(&code) {
+            out.push((code - 0xe000) as u8);
+        } else {
+            let mut buf = [0; 4];
+            out.extend_from_slice(ch.encode_utf8(&mut buf).as_bytes());
+        }
+    }
+    out
+}
 pub fn parse_num(s: &str) -> Option<i64> {
     let s = s.trim_start_matches([' ', '\t', '\n', '\r', '\u{b}', '\u{c}']);
     if s.is_empty() || s.trim_end() != s {
@@ -1169,7 +1227,7 @@ pub fn quoted(s: &str) -> Result<String, String> {
         Ok(word(s).0.into())
     }
 }
-fn take_regex(s: &str) -> Result<(Vec<u8>, &str), String> {
+fn take_regex(s: &str, byte_locale: bool) -> Result<(Vec<u8>, &str), String> {
     let rest = s
         .strip_prefix('"')
         .ok_or("Regex strings must begin and end with a \" character")?;
@@ -1184,14 +1242,14 @@ fn take_regex(s: &str) -> Result<(Vec<u8>, &str), String> {
         return Err("Empty regex string".into());
     }
     Ok((
-        rest.as_bytes()[..end].to_vec(),
+        rc_bytes(&rest[..end], byte_locale),
         rest[end + 1..].trim_start_matches([' ', '\t']),
     ))
 }
-fn regex_strings(mut s: &str) -> Result<Vec<Vec<u8>>, String> {
+fn regex_strings(mut s: &str, byte_locale: bool) -> Result<Vec<Vec<u8>>, String> {
     let mut out = Vec::new();
     while !s.is_empty() {
-        let (p, r) = take_regex(s)?;
+        let (p, r) = take_regex(s, byte_locale)?;
         out.push(p);
         s = r;
     }
@@ -1407,20 +1465,70 @@ fn color_number(s: &str, bits: &mut i32, bg: bool) -> Result<i32, String> {
     Err(format!("Color \"{s}\" not understood"))
 }
 fn expand_glob(p: &Path) -> Vec<PathBuf> {
-    let Some(name) = p.file_name().map(|s| s.to_string_lossy()) else {
-        return vec![p.to_path_buf()];
-    };
-    if !name.contains(['*', '?', '[']) {
+    if !p
+        .as_os_str()
+        .as_bytes()
+        .iter()
+        .any(|byte| matches!(byte, b'*' | b'?' | b'['))
+    {
         return vec![p.to_path_buf()];
     }
-    let parent = p.parent().unwrap_or(Path::new("."));
-    let mut found: Vec<_> = std::fs::read_dir(parent)
-        .into_iter()
-        .flatten()
-        .filter_map(Result::ok)
-        .filter(|e| glob_match(&name, &e.file_name().to_string_lossy()))
-        .map(|e| e.path())
-        .collect();
+    let mut found = vec![PathBuf::new()];
+    for component in p.components() {
+        use std::path::Component;
+        match component {
+            Component::RootDir => found = vec![PathBuf::from("/")],
+            Component::CurDir => {
+                for parent in &mut found {
+                    parent.push(".");
+                }
+            }
+            Component::ParentDir => {
+                for parent in &mut found {
+                    parent.push("..");
+                }
+            }
+            Component::Normal(name) => {
+                let name = name.as_bytes();
+                if name.iter().any(|byte| matches!(byte, b'*' | b'?' | b'[')) {
+                    let pattern = native::cstr(name);
+                    found = found
+                        .into_iter()
+                        .flat_map(|parent| {
+                            let directory = if parent.as_os_str().is_empty() {
+                                Path::new(".")
+                            } else {
+                                parent.as_path()
+                            };
+                            std::fs::read_dir(directory)
+                                .into_iter()
+                                .flatten()
+                                .filter_map(Result::ok)
+                                .filter(|entry| {
+                                    let filename = entry.file_name();
+                                    let bytes = filename.as_bytes();
+                                    if bytes.starts_with(b".") && !name.starts_with(b".") {
+                                        return false;
+                                    }
+                                    let filename = native::cstr(bytes);
+                                    unsafe { fnmatch(pattern.as_ptr(), filename.as_ptr(), 0) == 0 }
+                                })
+                                .map(|entry| entry.path())
+                                .collect::<Vec<_>>()
+                        })
+                        .collect();
+                } else {
+                    for parent in &mut found {
+                        parent.push(std::ffi::OsStr::from_bytes(name));
+                    }
+                }
+            }
+            Component::Prefix(_) => unreachable!("Unix paths have no prefix component"),
+        }
+        if found.is_empty() {
+            return vec![p.to_path_buf()];
+        }
+    }
     found.sort_by(|a, b| {
         let a = native::cstr(a.as_os_str().as_bytes());
         let b = native::cstr(b.as_os_str().as_bytes());
@@ -1431,15 +1539,148 @@ fn expand_glob(p: &Path) -> Vec<PathBuf> {
     }
     found
 }
-fn glob_match(p: &str, s: &str) -> bool {
-    let (p, s) = (p.as_bytes(), s.as_bytes());
-    fn go(p: &[u8], s: &[u8]) -> bool {
-        match p.first() {
-            None => s.is_empty(),
-            Some(b'*') => go(&p[1..], s) || !s.is_empty() && go(p, &s[1..]),
-            Some(b'?') => !s.is_empty() && go(&p[1..], &s[1..]),
-            Some(c) => s.first() == Some(c) && go(&p[1..], &s[1..]),
+unsafe extern "C" {
+    fn fnmatch(
+        pattern: *const std::ffi::c_char,
+        name: *const std::ffi::c_char,
+        flags: std::ffi::c_int,
+    ) -> std::ffi::c_int;
+}
+#[cfg(test)]
+mod nanorc_regressions {
+    use super::*;
+    use std::sync::atomic::{AtomicU64, Ordering};
+
+    static NEXT: AtomicU64 = AtomicU64::new(0);
+
+    struct Fixture(PathBuf);
+    impl Fixture {
+        fn new() -> Self {
+            let path = Path::new(env!("CARGO_MANIFEST_DIR"))
+                .join("target/issue-11-config")
+                .join(format!(
+                    "unit-{}-{}",
+                    std::process::id(),
+                    NEXT.fetch_add(1, Ordering::Relaxed)
+                ));
+            std::fs::create_dir_all(&path).unwrap();
+            Self(path)
+        }
+        fn write(&self, relative: &str, data: &[u8]) -> PathBuf {
+            let path = self.0.join(relative);
+            std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+            std::fs::write(&path, data).unwrap();
+            path
         }
     }
-    go(p, s)
+    impl Drop for Fixture {
+        fn drop(&mut self) {
+            std::fs::remove_dir_all(&self.0).unwrap();
+        }
+    }
+
+    #[test]
+    fn system_precedes_first_user_rcfile() {
+        let f = Fixture::new();
+        let system = f.write("system/nanorc", b"set tabsize 2\nset wordchars system\n");
+        f.write("home/.nanorc", b"set tabsize 4\n");
+        f.write("xdg/nano/nanorc", b"set tabsize 6\n");
+        f.write("home/.config/nano/nanorc", b"set tabsize 8\n");
+        let mut config = Config::new(true);
+        config.load_normal_rc(&system, Some(&f.0.join("home")), Some(&f.0.join("xdg")));
+        assert_eq!(config.tab, 4);
+        assert_eq!(config.value("wordchars"), b"system");
+        assert!(config.errors.is_empty(), "{:?}", config.errors);
+    }
+
+    #[test]
+    fn xdg_is_first_fallback_after_home_nanorc() {
+        let f = Fixture::new();
+        let system = f.0.join("missing-system");
+        f.write("xdg/nano/nanorc", b"set tabsize 6\n");
+        f.write("home/.config/nano/nanorc", b"set tabsize 8\n");
+        let mut config = Config::new(true);
+        config.load_normal_rc(&system, Some(&f.0.join("home")), Some(&f.0.join("xdg")));
+        assert_eq!(config.tab, 6);
+    }
+
+    #[test]
+    fn invalid_utf8_reports_exact_file_and_line_and_continues() {
+        let f = Fixture::new();
+        let rc = f.write(
+            "invalid.nanorc",
+            b"set tabsize 3\nset wordchars A\xffB\nset tabsize 5\n",
+        );
+        let mut config = Config::new(true);
+        config.read_rc(&rc, false);
+        assert_eq!(config.tab, 5);
+        assert_eq!(config.value("wordchars"), b"");
+        assert_eq!(
+            config.errors,
+            [format!(
+                "Error in {} on line 2: Argument is not a valid multibyte string",
+                rc.display()
+            )]
+        );
+    }
+
+    #[test]
+    fn ignored_invalid_bytes_do_not_create_false_errors() {
+        let f = Fixture::new();
+        let rc = f.write(
+            "ignored.nanorc",
+            b" # comment \xff\nset autoindent \xff\nset wordchars valid \xff\n",
+        );
+        let mut config = Config::new(true);
+        config.read_rc(&rc, false);
+        assert!(config.on(AUTOINDENT));
+        assert_eq!(config.value("wordchars"), b"valid");
+        assert!(config.errors.is_empty(), "{:?}", config.errors);
+    }
+
+    #[test]
+    fn byte_locale_keeps_non_utf8_option_bytes() {
+        let f = Fixture::new();
+        let rc = f.write(
+            "bytes.nanorc",
+            b"set wordchars A\xffB\nset speller C\xfeD\n",
+        );
+        let mut config = Config::new(false);
+        config.read_rc(&rc, false);
+        assert_eq!(config.value("wordchars"), b"A\xffB");
+        assert_eq!(config.value("speller"), b"C\xfeD");
+        assert!(config.errors.is_empty(), "{:?}", config.errors);
+    }
+
+    #[test]
+    fn bracket_glob_matches_classes_and_preserves_raw_names() {
+        let f = Fixture::new();
+        f.write("syntax/a.nanorc", b"syntax a \"a$\"\ncolor red \"a\"\n");
+        f.write("syntax/b.nanorc", b"syntax b \"b$\"\ncolor blue \"b\"\n");
+        f.write("syntax/c.nanorc", b"syntax c \"c$\"\ncolor green \"c\"\n");
+        let pattern = f.0.join("syntax/[ab].nanorc");
+        let matches = expand_glob(&pattern);
+        assert_eq!(matches.len(), 2);
+        assert_eq!(matches[0].file_name().unwrap().as_bytes(), b"a.nanorc");
+        assert_eq!(matches[1].file_name().unwrap().as_bytes(), b"b.nanorc");
+        let rc = f.write(
+            "main.nanorc",
+            format!("include \"{}\"\n", pattern.display()).as_bytes(),
+        );
+        let mut config = Config::new(true);
+        config.read_rc(&rc, false);
+        assert_eq!(config.syntaxes.len(), 2);
+        assert_eq!(config.syntaxes[0].name, "a");
+        assert_eq!(config.syntaxes[1].name, "b");
+        assert!(config.errors.is_empty(), "{:?}", config.errors);
+
+        f.write(
+            "group_a/rules.nanorc",
+            b"syntax grouped \"g$\"\ncolor red \"g\"\n",
+        );
+        let nested = f.0.join("group_[ab]/rules.nanorc");
+        let matches = expand_glob(&nested);
+        assert_eq!(matches.len(), 1);
+        assert_eq!(matches[0], f.0.join("group_a/rules.nanorc"));
+    }
 }
