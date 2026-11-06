@@ -7,6 +7,7 @@ import hashlib
 import io
 import json
 from pathlib import Path
+import shlex
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -109,6 +110,41 @@ class ExtensionEvidenceTests(unittest.TestCase):
         with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as outcome:
             extensions.main(args)
         self.assertEqual(outcome.exception.code, 2)
+
+    def test_ci_workflow_supplies_matching_recovery_binary(self):
+        commands = [shlex.split(line.strip()) for line in
+                    (extensions.ROOT / '.github/workflows/rust.yml').read_text().splitlines()
+                    if line.strip().startswith('python3 ')]
+        extension_commands = [command for command in commands
+                              if command[1] == 'tools/check_extensions.py']
+        self.assertEqual(len(extension_commands), 1)
+        argv = extension_commands[0][2:]
+        panic_commands = [command for command in commands
+                          if command[1] == 'spec/tools/nanoharness.py'
+                          and 'tests/follow-up/scenarios/panic.json' in command]
+        self.assertEqual(len(panic_commands), 1)
+        panic = panic_commands[0]
+        self.assertNotIn('--credits-only', argv)
+        self.assertIn('--panic-binary', argv)
+        self.assertIn('--panic-runs', argv)
+        self.assertEqual(argv[argv.index('--panic-binary') + 1],
+                         panic[panic.index('--binary') + 1].removeprefix('$PWD/'))
+        self.assertEqual(argv[argv.index('--panic-runs') + 1],
+                         panic[panic.index('--out') + 1])
+        for option, path in [('--default', self.binary), ('--credits', self.binary),
+                             ('--panic-runs', self.runs), ('--panic-binary', self.binary),
+                             ('--out', self.root / 'out')]:
+            argv[argv.index(option) + 1] = str(path)
+        run = dict(steps_ok=True, checks=[{'pass': True}],
+                   stdout=(extensions.ROOT / 'CREDITS.md').read_text(), stderr='',
+                   fixture={}, initial_fixture={}, bracketed_paste_set=0,
+                   bracketed_paste_reset=0, trace_final_modes={'alternate_screen': False})
+        with patch.object(extensions.h.Run, 'execute', return_value=run), contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(extensions.main(argv), 0)
+        report = json.loads((self.root / 'out/report.json').read_text())
+        self.assertEqual(set(report), {case['id'] for case in self.cases}
+                         | {'default', 'credits', 'production-no-panic-hook'})
+        self.assertTrue(all(check['pass'] for check in report.values()), report)
 
     def test_explicit_credits_only_omits_recovery(self):
         run = dict(steps_ok=True, checks=[{'pass': True}],
