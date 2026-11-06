@@ -1,0 +1,71 @@
+diff --git i/src/editor.rs w/src/editor.rs
+index 0494c57..92a4889 100644
+--- i/src/editor.rs
++++ w/src/editor.rs
+@@ -650,8 +650,10 @@ impl Editor {
+         for i in 0..self.buffers.len() {
+             let j = (self.current + i) % self.buffers.len();
+             files::remove_lock(&mut self.buffers[j]);
+-            if let Some(p) = files::emergency(&self.conf, &self.buffers[j]) {
+-                eprintln!("\nBuffer written to {}", p.display());
++            match files::emergency(&self.conf, &self.buffers[j]) {
++                Ok(Some(p)) => eprintln!("\nBuffer written to {}", p.display()),
++                Ok(None) => {}
++                Err(error) => eprintln!("\n{error}"),
+             }
+         }
+     }
+diff --git i/src/files.rs w/src/files.rs
+index b0e2536..2bc48c0 100644
+--- i/src/files.rs
++++ w/src/files.rs
+@@ -372,9 +372,9 @@ pub fn remove_lock(b: &mut Buffer) {
+         let _ = fs::remove_file(p);
+     }
+ }
+-pub fn emergency(c: &Config, b: &Buffer) -> Option<PathBuf> {
++pub fn emergency(c: &Config, b: &Buffer) -> Result<Option<PathBuf>, String> {
+     if !b.modified || c.on(RESTRICTED) {
+-        return None;
++        return Ok(None);
+     }
+     let name = if b.name.is_empty() {
+         format!("nano.{}", std::process::id()).into_bytes()
+@@ -384,15 +384,33 @@ pub fn emergency(c: &Config, b: &Buffer) -> Option<PathBuf> {
+     let mut name = name;
+     name.extend(b".save");
+     let p = collision(&config::path(&name));
++    let failure = |stage: &str, error: std::io::Error| {
++        format!(
++            "Emergency save failed for {} ({stage}): {}; recovery file may be incomplete or not durable",
++            p.display(),
++            io_error(&error)
++        )
++    };
+     let mut f = OpenOptions::new()
+         .write(true)
+         .create_new(true)
+         .mode(0o600)
+         .open(&p)
+-        .ok()?;
+-    f.write_all(&output(b, None, c.on(NO_NEWLINES))).ok()?;
+-    let _ = f.sync_all();
+-    Some(p)
++        .map_err(|e| failure("create", e))?;
++    // Preserve even a partial recovery file on error: it may contain the only
++    // surviving copy of edits. Never describe it as successfully written.
++    f.write_all(&output(b, None, c.on(NO_NEWLINES)))
++        .map_err(|e| failure("write", e))?;
++    f.sync_all().map_err(|e| failure("file sync", e))?;
++    native::close_checked(f).map_err(|e| failure("file close", e))?;
++    let parent = p
++        .parent()
++        .filter(|parent| !parent.as_os_str().is_empty())
++        .unwrap_or(Path::new("."));
++    let dir = File::open(parent).map_err(|e| failure("directory open", e))?;
++    dir.sync_all().map_err(|e| failure("directory sync", e))?;
++    native::close_checked(dir).map_err(|e| failure("directory close", e))?;
++    Ok(Some(p))
+ }
+ pub fn collision(base: &Path) -> PathBuf {
+     if !base.exists() {

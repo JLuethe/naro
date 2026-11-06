@@ -43,6 +43,11 @@ Handled by `die("Received SIGHUP or SIGTERM\n")`:
 4. Exit with status **1** (TEST-SIG-001…004, -006, -008…-010). Unmodified buffers produce only the message (TEST-SIG-009, view mode TEST-SIG-010).
 
 ### SIG-EMERG — Emergency save files
+The bullets below describe the pinned **nano reference**. NARO requires file
+sync, checked close and parent-directory sync before reporting success, and
+prints stage-specific recovery failures to stderr; see
+[NARO emergency recovery](../docs/emergency-recovery.md).
+
 For a **modified** buffer, when not in restricted mode (TEST-SIG-004: no file written):
 - Base name: the buffer's filename as given (relative names are relative to the current directory at that moment), or `nano.<pid>` for a nameless buffer (TEST-SIG-002: `nano.372293.save`; Q-DOC-001: the man page says `nano.save`).
 - Target: base + `.save`; if that exists (by `stat`), base + `.save.1`, `.save.2`, … up to `.save.99999` (TEST-SIG-003: `f.txt.save` existed → `f.txt.save.1`). When all exist: stderr `\nToo many .save files\n` and no file.

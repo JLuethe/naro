@@ -1,0 +1,8 @@
+{
+  "src/files.rs": "76e53aa4d939f96a3a23a96478dc76a4fe2d3523c00e680fe952adc15b005b91",
+  "src/editor.rs": "de2e03b957416ffaf35cb5229895e9974de3ed68d0960be0ba2d41a48008f884",
+  "tests/recovery/run.py": "3a8dd7a1f993981646d5efbc81015592f0211b54b327925ae8e9e5874e59ea6c",
+  "tests/recovery/README.md": "6ea16f92699e65486a617345d6ea26b5cf01f6cbc995dbced2de0150d1a1dee1",
+  "tests/safe-save/faults.c": "0e2ed46f43ce66f470f7cb7e66af1d5043bec089e535d6d9429a606ccb31b2f3",
+  "docs/emergency-recovery.md": "6660916b340ccaf02d6e7419ad67642abd154644970c9c002fd508e751e02cb5"
+}

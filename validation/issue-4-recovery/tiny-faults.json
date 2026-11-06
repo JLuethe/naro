@@ -1,0 +1,1229 @@
+{
+  "binary": "/home/john/Code/naro/target/issue-4-recovery/isolated-build-tiny/debug/naro",
+  "binary_sha256": "55b32352ed10b3b5c565d48c4a6ecc586980f7a15868cb2b9b06426c0d62b126",
+  "tiny": true,
+  "driver_sha256": "3a8dd7a1f993981646d5efbc81015592f0211b54b327925ae8e9e5874e59ea6c",
+  "compile_command": [
+    "cc",
+    "-shared",
+    "-fPIC",
+    "-Wall",
+    "-Wextra",
+    "-o",
+    "/home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/faults.so",
+    "/home/john/Code/naro/tests/safe-save/faults.c",
+    "-ldl"
+  ],
+  "interposer_source_sha256": "0e2ed46f43ce66f470f7cb7e66af1d5043bec089e535d6d9429a606ccb31b2f3",
+  "interposer_sha256": "f86e251f9f64bf69425b1ad8f07cd6945296d65ea904c6100d8d68f92c519189",
+  "passed": 41,
+  "total": 41,
+  "results": [
+    {
+      "name": "panic-named-none",
+      "fault": "none",
+      "trigger": "panic",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "success-ui": true,
+        "no-error-ui": true,
+        "durability-order": true
+      },
+      "passed": true,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nBuffer written to /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/panic-named-none/data/f.txt.save\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "panic-named-short",
+      "fault": "short",
+      "trigger": "panic",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "success-ui": true,
+        "no-error-ui": true,
+        "durability-order": true
+      },
+      "passed": true,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nBuffer written to /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/panic-named-short/data/f.txt.save\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "write",
+        "write",
+        "write",
+        "write",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "panic-named-eintr",
+      "fault": "eintr",
+      "trigger": "panic",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "success-ui": true,
+        "no-error-ui": true,
+        "durability-order": true
+      },
+      "passed": true,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nBuffer written to /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/panic-named-eintr/data/f.txt.save\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "write",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "panic-named-sync-eintr",
+      "fault": "sync-eintr",
+      "trigger": "panic",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "success-ui": true,
+        "no-error-ui": true,
+        "durability-order": true
+      },
+      "passed": true,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nBuffer written to /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/panic-named-sync-eintr/data/f.txt.save\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "panic-named-open",
+      "fault": "open",
+      "trigger": "panic",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/panic-named-open/data/f.txt.save (create): Permission denied; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open"
+      ],
+      "recovery_sha256": null
+    },
+    {
+      "name": "panic-named-eio",
+      "fault": "eio",
+      "trigger": "panic",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/panic-named-eio/data/f.txt.save (write): Input/output error; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "close"
+      ],
+      "recovery_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "panic-named-enospc",
+      "fault": "enospc",
+      "trigger": "panic",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/panic-named-enospc/data/f.txt.save (write): No space left on device; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "close"
+      ],
+      "recovery_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "panic-named-zero",
+      "fault": "zero",
+      "trigger": "panic",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/panic-named-zero/data/f.txt.save (write): failed to write whole buffer; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "close"
+      ],
+      "recovery_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "panic-named-partial-eio",
+      "fault": "partial-eio",
+      "trigger": "panic",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/panic-named-partial-eio/data/f.txt.save (write): Input/output error; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "write",
+        "close"
+      ],
+      "recovery_sha256": "be284e0dba7c3dbe7a37a0f3a39548d94aeb9bad49554e1462a86e0ed266e551"
+    },
+    {
+      "name": "panic-named-file-sync",
+      "fault": "file-sync",
+      "trigger": "panic",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/panic-named-file-sync/data/f.txt.save (file sync): Input/output error; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "close"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "panic-named-close",
+      "fault": "close",
+      "trigger": "panic",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/panic-named-close/data/f.txt.save (file close): Input/output error; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "close"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "panic-named-dir-sync",
+      "fault": "dir-sync",
+      "trigger": "panic",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/panic-named-dir-sync/data/f.txt.save (directory sync): Input/output error; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "SIGHUP-named-none",
+      "fault": "none",
+      "trigger": "SIGHUP",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "success-ui": true,
+        "no-error-ui": true,
+        "durability-order": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nBuffer written to /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGHUP-named-none/data/f.txt.save\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "SIGHUP-named-short",
+      "fault": "short",
+      "trigger": "SIGHUP",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "success-ui": true,
+        "no-error-ui": true,
+        "durability-order": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nBuffer written to /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGHUP-named-short/data/f.txt.save\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "write",
+        "write",
+        "write",
+        "write",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "SIGHUP-named-eintr",
+      "fault": "eintr",
+      "trigger": "SIGHUP",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "success-ui": true,
+        "no-error-ui": true,
+        "durability-order": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nBuffer written to /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGHUP-named-eintr/data/f.txt.save\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "write",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "SIGHUP-named-sync-eintr",
+      "fault": "sync-eintr",
+      "trigger": "SIGHUP",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "success-ui": true,
+        "no-error-ui": true,
+        "durability-order": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nBuffer written to /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGHUP-named-sync-eintr/data/f.txt.save\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "SIGHUP-named-open",
+      "fault": "open",
+      "trigger": "SIGHUP",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGHUP-named-open/data/f.txt.save (create): Permission denied; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open"
+      ],
+      "recovery_sha256": null
+    },
+    {
+      "name": "SIGHUP-named-eio",
+      "fault": "eio",
+      "trigger": "SIGHUP",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGHUP-named-eio/data/f.txt.save (write): Input/output error; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "close"
+      ],
+      "recovery_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "SIGHUP-named-enospc",
+      "fault": "enospc",
+      "trigger": "SIGHUP",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGHUP-named-enospc/data/f.txt.save (write): No space left on device; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "close"
+      ],
+      "recovery_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "SIGHUP-named-zero",
+      "fault": "zero",
+      "trigger": "SIGHUP",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGHUP-named-zero/data/f.txt.save (write): failed to write whole buffer; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "close"
+      ],
+      "recovery_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "SIGHUP-named-partial-eio",
+      "fault": "partial-eio",
+      "trigger": "SIGHUP",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGHUP-named-partial-eio/data/f.txt.save (write): Input/output error; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "write",
+        "close"
+      ],
+      "recovery_sha256": "be284e0dba7c3dbe7a37a0f3a39548d94aeb9bad49554e1462a86e0ed266e551"
+    },
+    {
+      "name": "SIGHUP-named-file-sync",
+      "fault": "file-sync",
+      "trigger": "SIGHUP",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGHUP-named-file-sync/data/f.txt.save (file sync): Input/output error; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "close"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "SIGHUP-named-close",
+      "fault": "close",
+      "trigger": "SIGHUP",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGHUP-named-close/data/f.txt.save (file close): Input/output error; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "close"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "SIGHUP-named-dir-sync",
+      "fault": "dir-sync",
+      "trigger": "SIGHUP",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGHUP-named-dir-sync/data/f.txt.save (directory sync): Input/output error; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "SIGTERM-named-none",
+      "fault": "none",
+      "trigger": "SIGTERM",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "success-ui": true,
+        "no-error-ui": true,
+        "durability-order": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nBuffer written to /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGTERM-named-none/data/f.txt.save\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "SIGTERM-named-short",
+      "fault": "short",
+      "trigger": "SIGTERM",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "success-ui": true,
+        "no-error-ui": true,
+        "durability-order": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nBuffer written to /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGTERM-named-short/data/f.txt.save\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "write",
+        "write",
+        "write",
+        "write",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "SIGTERM-named-eintr",
+      "fault": "eintr",
+      "trigger": "SIGTERM",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "success-ui": true,
+        "no-error-ui": true,
+        "durability-order": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nBuffer written to /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGTERM-named-eintr/data/f.txt.save\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "write",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "SIGTERM-named-sync-eintr",
+      "fault": "sync-eintr",
+      "trigger": "SIGTERM",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "success-ui": true,
+        "no-error-ui": true,
+        "durability-order": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nBuffer written to /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGTERM-named-sync-eintr/data/f.txt.save\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "SIGTERM-named-open",
+      "fault": "open",
+      "trigger": "SIGTERM",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGTERM-named-open/data/f.txt.save (create): Permission denied; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open"
+      ],
+      "recovery_sha256": null
+    },
+    {
+      "name": "SIGTERM-named-eio",
+      "fault": "eio",
+      "trigger": "SIGTERM",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGTERM-named-eio/data/f.txt.save (write): Input/output error; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "close"
+      ],
+      "recovery_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "SIGTERM-named-enospc",
+      "fault": "enospc",
+      "trigger": "SIGTERM",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGTERM-named-enospc/data/f.txt.save (write): No space left on device; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "close"
+      ],
+      "recovery_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "SIGTERM-named-zero",
+      "fault": "zero",
+      "trigger": "SIGTERM",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGTERM-named-zero/data/f.txt.save (write): failed to write whole buffer; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "close"
+      ],
+      "recovery_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "SIGTERM-named-partial-eio",
+      "fault": "partial-eio",
+      "trigger": "SIGTERM",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGTERM-named-partial-eio/data/f.txt.save (write): Input/output error; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "write",
+        "close"
+      ],
+      "recovery_sha256": "be284e0dba7c3dbe7a37a0f3a39548d94aeb9bad49554e1462a86e0ed266e551"
+    },
+    {
+      "name": "SIGTERM-named-file-sync",
+      "fault": "file-sync",
+      "trigger": "SIGTERM",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGTERM-named-file-sync/data/f.txt.save (file sync): Input/output error; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "close"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "SIGTERM-named-close",
+      "fault": "close",
+      "trigger": "SIGTERM",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGTERM-named-close/data/f.txt.save (file close): Input/output error; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "close"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "SIGTERM-named-dir-sync",
+      "fault": "dir-sync",
+      "trigger": "SIGTERM",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": true,
+        "stage-error-ui": true,
+        "uncertainty-ui": true,
+        "fault-reached": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n\nEmergency save failed for /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/SIGTERM-named-dir-sync/data/f.txt.save (directory sync): Input/output error; recovery file may be incomplete or not durable\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "panic-relative-none",
+      "fault": "none",
+      "trigger": "panic",
+      "kind": "relative",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "success-ui": true,
+        "no-error-ui": true,
+        "durability-order": true
+      },
+      "passed": true,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nBuffer written to f.txt.save\n",
+      "events": [
+        "read",
+        "read",
+        "write",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "panic-nameless-none",
+      "fault": "none",
+      "trigger": "panic",
+      "kind": "nameless",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "success-ui": true,
+        "no-error-ui": true,
+        "durability-order": true
+      },
+      "passed": true,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nBuffer written to nano.125113.save\n",
+      "events": [
+        "write",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "7058299627365fc7a3dd7840fd3d56f29306cd30c0f2c13cb500fe79617290ff"
+    },
+    {
+      "name": "panic-collision-none",
+      "fault": "none",
+      "trigger": "panic",
+      "kind": "collision",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "success-ui": true,
+        "no-error-ui": true,
+        "durability-order": true,
+        "older-recovery-preserved": true
+      },
+      "passed": true,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nBuffer written to /home/john/Code/naro/target/issue-4-recovery/final-tiny-faults/panic-collision-none/data/f.txt.save.1\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "close",
+        "dir-sync"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "panic-restricted-none",
+      "fault": "none",
+      "trigger": "panic",
+      "kind": "restricted",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "silent-skip": true
+      },
+      "passed": true,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n",
+      "events": [
+        "read",
+        "read"
+      ],
+      "recovery_sha256": null
+    },
+    {
+      "name": "SIGTERM-unmodified-none",
+      "fault": "none",
+      "trigger": "SIGTERM",
+      "kind": "unmodified",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "silent-skip": true
+      },
+      "passed": true,
+      "stderr": "Received SIGHUP or SIGTERM\n",
+      "events": [
+        "read",
+        "read"
+      ],
+      "recovery_sha256": null
+    }
+  ]
+}

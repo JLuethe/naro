@@ -1,0 +1,7 @@
+{
+  "base": "f5e79cfcffb13bc314e819bdc7a0c5ef3fa02d3e",
+  "overlaid_files": {
+    "src/files.rs": "76e53aa4d939f96a3a23a96478dc76a4fe2d3523c00e680fe952adc15b005b91",
+    "src/editor.rs": "de2e03b957416ffaf35cb5229895e9974de3ed68d0960be0ba2d41a48008f884"
+  }
+}

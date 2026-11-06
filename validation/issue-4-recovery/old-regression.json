@@ -1,0 +1,113 @@
+{
+  "binary": "/home/john/Code/naro/target/issue-4-recovery/baseline-build/debug/naro",
+  "binary_sha256": "ed285902c5d4a3521a58fd187511af80920417028ebe8725d3ac78ae5dc6ca74",
+  "tiny": false,
+  "driver_sha256": "3a8dd7a1f993981646d5efbc81015592f0211b54b327925ae8e9e5874e59ea6c",
+  "compile_command": [
+    "cc",
+    "-shared",
+    "-fPIC",
+    "-Wall",
+    "-Wextra",
+    "-o",
+    "/home/john/Code/naro/target/issue-4-recovery/final-old-regression/faults.so",
+    "/home/john/Code/naro/tests/safe-save/faults.c",
+    "-ldl"
+  ],
+  "interposer_source_sha256": "0e2ed46f43ce66f470f7cb7e66af1d5043bec089e535d6d9429a606ccb31b2f3",
+  "interposer_sha256": "f86e251f9f64bf69425b1ad8f07cd6945296d65ea904c6100d8d68f92c519189",
+  "passed": 0,
+  "total": 3,
+  "results": [
+    {
+      "name": "panic-named-file-sync",
+      "fault": "file-sync",
+      "trigger": "panic",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": false,
+        "stage-error-ui": false,
+        "uncertainty-ui": false,
+        "fault-reached": true
+      },
+      "passed": false,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nBuffer written to /home/john/Code/naro/target/issue-4-recovery/final-old-regression/panic-named-file-sync/data/f.txt.save\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "close"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "panic-named-dir-sync",
+      "fault": "dir-sync",
+      "trigger": "panic",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": false,
+        "stage-error-ui": false,
+        "uncertainty-ui": false,
+        "fault-reached": false
+      },
+      "passed": false,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nBuffer written to /home/john/Code/naro/target/issue-4-recovery/final-old-regression/panic-named-dir-sync/data/f.txt.save\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "close"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    },
+    {
+      "name": "panic-named-close",
+      "fault": "close",
+      "trigger": "panic",
+      "kind": "named",
+      "exit_status": 1,
+      "checks": {
+        "exit-status": true,
+        "fatal-diagnostic": true,
+        "original-preserved": true,
+        "recovery-exists": true,
+        "recovery-bytes": true,
+        "private-permissions": true,
+        "no-success-ui": false,
+        "stage-error-ui": false,
+        "uncertainty-ui": false,
+        "fault-reached": true
+      },
+      "passed": false,
+      "stderr": "Sorry! NARO crashed!  Code: 6.  Please report a bug.\n\nBuffer written to /home/john/Code/naro/target/issue-4-recovery/final-old-regression/panic-named-close/data/f.txt.save\n",
+      "events": [
+        "read",
+        "read",
+        "open",
+        "write",
+        "file-sync",
+        "close"
+      ],
+      "recovery_sha256": "dfbd8cc68396c89d6b9260c22a2169464d22b3aae1f0c64075eb3d76d8bfa1cd"
+    }
+  ]
+}

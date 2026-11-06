@@ -650,8 +650,10 @@ impl Editor {
         for i in 0..self.buffers.len() {
             let j = (self.current + i) % self.buffers.len();
             files::remove_lock(&mut self.buffers[j]);
-            if let Some(p) = files::emergency(&self.conf, &self.buffers[j]) {
-                eprintln!("\nBuffer written to {}", p.display());
+            match files::emergency(&self.conf, &self.buffers[j]) {
+                Ok(Some(p)) => eprintln!("\nBuffer written to {}", p.display()),
+                Ok(None) => {}
+                Err(error) => eprintln!("\n{error}"),
             }
         }
     }
