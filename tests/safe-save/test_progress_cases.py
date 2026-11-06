@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Execute generated preload gates through glibc's fortified open calls."""
+import copy
 import errno
 import json
 import os
@@ -12,6 +13,8 @@ import time
 import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / 'spec/tools'))
+from open_gate import adapt_tiny_safety_case
 HELPER = r'''
 #define _GNU_SOURCE
 #include <errno.h>
@@ -70,9 +73,15 @@ class ProgressGateTest(unittest.TestCase):
                 raise AssertionError(f'helper does not import fortified {name}')
         cases = json.loads(subprocess.check_output(
             [sys.executable, str(ROOT / 'tests/safe-save/progress_cases.py')], text=True))
+        tiny = next(c for c in json.loads((ROOT / 'tests/follow-up/scenarios/tiny-safety.json').read_text())
+                    if c['id'] == 'TEST-TINY-FIFO-RESIZE-SAFETY')
+        cls.original_tiny = copy.deepcopy(tiny)
+        cls.tiny = adapt_tiny_safety_case(tiny)
+        cases.append(cls.tiny)
         cls.gates = {}
         for kind, case_id in [('progress', 'TEST-SAVE-PROGRESS-ERROR-OPEN'),
-                              ('interrupt', 'TEST-SAVE-PROGRESS-FIFO-INTERRUPT')]:
+                              ('interrupt', 'TEST-SAVE-PROGRESS-FIFO-INTERRUPT'),
+                              ('tiny', 'TEST-TINY-FIFO-RESIZE-SAFETY')]:
             case = next(c for c in cases if c['id'] == case_id)
             source = cls.root / (kind + '.c')
             source.write_text(case['files']['gate.c']['text'])
@@ -135,17 +144,31 @@ class ProgressGateTest(unittest.TestCase):
     def test_fortified_fifo_open_can_be_interrupted_after_marker(self):
         self.target.unlink()
         os.mkfifo(self.target)
-        for operation in ('open', 'open64', 'openat', 'openat-cwd'):
-            with self.subTest(operation=operation):
-                marker = self.work / 'open.pid'
-                marker.unlink(missing_ok=True)
-                process = self.start('interrupt', operation, os.O_WRONLY)
-                self.wait_for(process, marker.exists)
-                self.assertEqual(marker.read_text(), str(process.pid) + '\n')
-                self.wait_for(process, lambda: 'wait_for_partner' in
-                              Path(f'/proc/{process.pid}/wchan').read_text())
-                process.send_signal(signal.SIGUSR1)
-                self.result(process, errno.EINTR)
+        for kind in ('interrupt', 'tiny'):
+            for operation in ('open', 'open64', 'openat', 'openat-cwd'):
+                with self.subTest(kind=kind, operation=operation):
+                    self.check_fifo_interrupt(kind, operation)
+
+    def check_fifo_interrupt(self, kind, operation):
+        marker = self.work / 'open.pid'
+        marker.unlink(missing_ok=True)
+        process = self.start(kind, operation, os.O_WRONLY)
+        self.wait_for(process, marker.exists)
+        self.assertEqual(marker.read_text(), str(process.pid) + '\n')
+        self.wait_for(process, lambda: 'wait_for_partner' in
+                      Path(f'/proc/{process.pid}/wchan').read_text())
+        process.send_signal(signal.SIGUSR1)
+        self.result(process, errno.EINTR)
+
+    def test_tiny_adaptation_retains_scenario_and_gate_fire_proof(self):
+        expected = copy.deepcopy(self.original_tiny)
+        expected['files']['gate.c'] = self.tiny['files']['gate.c']
+        self.assertEqual(self.tiny, expected)
+        self.assertEqual(self.tiny['files']['bin/confirm_open'],
+                         self.original_tiny['files']['bin/confirm_open'])
+        self.assertEqual(self.tiny['expect']['helper_statuses'], [0])
+        self.assertIn({'wait_file': {'path': 'home/open.ready', 'timeout': 10}},
+                      self.tiny['steps'])
 
     def test_reads_and_unrelated_paths_bypass_gate_and_fault(self):
         for kind in self.gates:

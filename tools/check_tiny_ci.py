@@ -14,6 +14,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'spec/tools'))
 from candidate_expectations import candidate_case, expected_cli_output
+from open_gate import adapt_tiny_safety_case
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument('--binary', type=Path, required=True)
 p.add_argument('--out', type=Path, required=True)
@@ -27,7 +28,7 @@ report = {'build': build, 'binary_sha256': hashlib.sha256(binary.read_bytes()).h
 oracle = json.loads((ROOT / 'tests/follow-up/tiny-cli-oracle.json').read_text())
 for suite in ['tiny', 'tiny-cli', 'tiny-vt', 'tiny-safety']:
     scenarios = ROOT / 'tests/follow-up/scenarios' / (suite + '.json')
-    cases = [candidate_case(case) for case in json.loads(scenarios.read_text())]
+    cases = [adapt_tiny_safety_case(candidate_case(case)) for case in json.loads(scenarios.read_text())]
     selected = a.out / (suite + '-candidate-scenarios.json')
     selected.write_text(json.dumps(cases, indent=1) + '\n')
     out = a.out / suite

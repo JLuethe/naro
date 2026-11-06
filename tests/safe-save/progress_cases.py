@@ -12,6 +12,7 @@ import sys
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO / "spec/tools"))
 from candidate_expectations import candidate_case
+from open_gate import adapt_open_gate
 
 
 def error_expectation(case, snapshot, message):
@@ -25,70 +26,6 @@ def error_expectation(case, snapshot, message):
             entry["equals"] = text
         if "attr_at" in entry and entry["attr_at"][0] == case.get("rows", 24) - 3:
             entry["attr_at"][1] = start - 2 if start > 1 else start
-
-
-def open_wrappers(interrupt=False):
-    """Interpose the existing open surface and its glibc fortified aliases.
-
-    Keep fortified calls on their real two-argument entry points so libc still
-    validates missing modes. No openat64 surface is needed by these fixtures.
-    """
-    if interrupt:
-        before = 'if(is_target(path,flags))mark();'
-    else:
-        before = '''if((flags&(O_WRONLY|O_RDWR))&&target_path(path)){
-  if(gate("OPEN",&once_open)<0)return -1;
-  if(getenv("FAIL_OPEN")){errno=EACCES;return -1;}
- }'''
-    source = '''
-static int before_open(const char *path,int flags) {
- BEFORE
- return 0;
-}
-static int before_openat(int dirfd,const char *path,int flags) {
- char resolved[PATH_MAX];
- if(path[0]=='/' || dirfd==AT_FDCWD)return before_open(path,flags);
- snprintf(resolved,sizeof resolved,"/proc/self/fd/%d/%s",dirfd,path);
- return before_open(resolved,flags);
-}
-static int needs_mode(int flags) {
- return (flags&O_CREAT) || ((flags&O_TMPFILE)==O_TMPFILE);
-}
-'''.replace('BEFORE', before)
-    # open64 was already interposed; cover its fortified counterpart too.
-    for symbol in ('open', 'open64', 'openat'):
-        at = symbol == 'openat'
-        args = 'int dirfd,const char *path,int flags' if at else 'const char *path,int flags'
-        types = 'int,const char*,int' if at else 'const char*,int'
-        call = 'dirfd,path,flags' if at else 'path,flags'
-        check = 'before_openat(dirfd,path,flags)' if at else 'before_open(path,flags)'
-        source += f'''
-int {symbol}({args},...) {{
- mode_t mode=0;
- if(needs_mode(flags)){{va_list a;va_start(a,flags);mode=va_arg(a,mode_t);va_end(a);}}
- int (*real_fn)({types},...)=dlsym(RTLD_NEXT,"{symbol}");
- if({check}<0)return -1;
- return needs_mode(flags)?real_fn({call},mode):real_fn({call});
-}}
-int __{symbol}_2({args}) {{
- int (*real_fn)({types})=dlsym(RTLD_NEXT,"__{symbol}_2");
- if({check}<0)return -1;
- return real_fn({call});
-}}
-'''
-    return source
-
-
-def adapt_open_gate(text, interrupt=False):
-    if interrupt:
-        start = text.index('static int(*real_open_fn)')
-        end = text.index('static int is_target', start)
-        text = text[:start] + text[end:]
-        start = text.index('int open(')
-        return text[:start] + open_wrappers(interrupt=True)
-    start = text.index('static int do_open(')
-    end = text.index('int fsync(', start)
-    return text[:start] + open_wrappers() + text[end:]
 
 
 def main():

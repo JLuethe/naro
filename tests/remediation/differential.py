@@ -6,7 +6,6 @@ those need separately reviewed semantic assertions and remain visible failures h
 """
 from __future__ import annotations
 import argparse
-import copy
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import hashlib
 from functools import lru_cache
@@ -21,6 +20,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT / 'spec/tools'), str(ROOT / 'tools')]
 from candidate_expectations import candidate_case
+from open_gate import adapt_tiny_safety_case
 from environment import snapshot, command
 from frozen_process import make_private_tmux_tmpdir, remove_private_tmux_tmpdir, run_owned_process
 from identity_review import classify, policy_identity
@@ -115,12 +115,12 @@ def case_locale(case):
 
 
 def private_case(case, scratch):
-    """Relocate only the known seeded position-history fixture, fail closed.
+    """Adapt known fixture inputs, preserving original scenarios and assertions.
 
     This is an input substitution, recorded separately from unchanged source
     scenarios; it never rewrites observations or broadens normalization.
     """
-    selected = copy.deepcopy(case)
+    selected = adapt_tiny_safety_case(case)
     if case['id'] == 'TEST-FEAT-015':
         entry = selected['files']['home/.local/share/nano/filepos_history']
         old = '/elsewhere 3 1\n41 42 /tmp/nanospec-work/TEST-FEAT-015/fx/work/f.txt 40 2\n'
@@ -220,6 +220,11 @@ def run_group(name, cases, args, binaries):
     report['binary_sha256'] = hashes
     report['locale_prerequisites'] = {c['id']: case_locale(c) for c in cases}
     report['input_adaptations'] = [{'id': c['id'], 'field': 'files.home/.local/share/nano/filepos_history.text', 'before': c['files']['home/.local/share/nano/filepos_history']['text'], 'after': private_case(c, scratch)['files']['home/.local/share/nano/filepos_history']['text']} for c in cases if c['id'] == 'TEST-FEAT-015']
+    report['input_adaptations'] += [
+        {'id': c['id'], 'field': 'files.gate.c.text',
+         'before_sha256': hashlib.sha256(c['files']['gate.c']['text'].encode()).hexdigest(),
+         'after_sha256': hashlib.sha256(adapt_tiny_safety_case(c)['files']['gate.c']['text'].encode()).hexdigest()}
+        for c in cases if c['id'] == 'TEST-TINY-FIFO-RESIZE-SAFETY']
     try:
         for side, binary in selected_binaries.items():
             selected = [private_case(candidate_case(c) if side == 'candidate' else c, scratch) for c in cases]
