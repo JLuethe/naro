@@ -1,0 +1,21 @@
+{
+  "binary": "/home/john/Code/naro/target/debug/deps/naro-f143b0d4013ffd62",
+  "sha256": "8d67444b6bb6ce8ab9dbf968610dd2a7b7a4e9b9890611e865da4a027ea27e35",
+  "compiler_command": [
+    "cc",
+    "-shared",
+    "-fPIC",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "/home/john/Code/naro/tests/safe-save/faults.c",
+    "-ldl",
+    "-o",
+    "/home/john/Code/naro/target/issue-3-fault-matrix-03/faults.so"
+  ],
+  "skips": [],
+  "passed": 414,
+  "total": 414,
+  "raw_report": "target/issue-3-fault-matrix-03/report.json",
+  "failures": []
+}

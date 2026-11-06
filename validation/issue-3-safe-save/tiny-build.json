@@ -1,0 +1,11 @@
+{
+  "version": "0.1.1",
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "source_sha256": "bd272a5f2d920d9484d35ade06dba1d08bbb6ff417bc0abdad5cd3a8d0f69d82",
+  "revision": "278f1c541542bc044f4da8f7b3ae72b3990fabdf",
+  "features": "tiny",
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+  "binary": "target/issue-3-2026-11-05/frozen/naro-tiny",
+  "binary_sha256": "e80710dfe47c4f58ec7b727e40549a0b72b982d506f9d7a6978c158043d31346",
+  "tree_state": "dirty: issue #3 implementation, tests and documentation on base revision"
+}

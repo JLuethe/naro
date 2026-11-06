@@ -1,0 +1,11 @@
+{
+  "version": "0.1.1",
+  "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+  "source_sha256": "bd272a5f2d920d9484d35ade06dba1d08bbb6ff417bc0abdad5cd3a8d0f69d82",
+  "revision": "278f1c541542bc044f4da8f7b3ae72b3990fabdf",
+  "features": "",
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+  "binary": "target/issue-3-2026-11-05/frozen/naro",
+  "binary_sha256": "14c1506baae0450c14c50377e08b67dc380a107b44a5004ce142ce96be487a72",
+  "tree_state": "dirty: issue #3 implementation, tests and documentation on base revision"
+}

@@ -1,0 +1,42 @@
+{
+  "binary": "/home/john/Code/naro/target/issue-3-old-behavior/target/debug/deps/naro-f143b0d4013ffd62",
+  "sha256": "dcc8dafd71b74e541b6ac54609af70c05a063adce3a188c568ccd40fd2678c62",
+  "compiler_command": [
+    "cc",
+    "-shared",
+    "-fPIC",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "/home/john/Code/naro/tests/safe-save/faults.c",
+    "-ldl",
+    "-o",
+    "/home/john/Code/naro/target/issue-3-old-regression/faults.so"
+  ],
+  "passed": 0,
+  "total": 3,
+  "raw_report": "target/issue-3-old-regression/report.json",
+  "failures": [
+    {
+      "mode": 0,
+      "kind": "existing",
+      "fault": "file-sync",
+      "status": "fail",
+      "error": "AssertionError(('file-sync', b'replacement\\n'))"
+    },
+    {
+      "mode": 1,
+      "kind": "existing",
+      "fault": "file-sync",
+      "status": "fail",
+      "error": "AssertionError(('file-sync', b'original data must survive\\nreplacement\\n'))"
+    },
+    {
+      "mode": 2,
+      "kind": "existing",
+      "fault": "file-sync",
+      "status": "fail",
+      "error": "AssertionError(('file-sync', b'replacement\\noriginal data must survive\\n'))"
+    }
+  ]
+}

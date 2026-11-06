@@ -106,6 +106,12 @@ buffer and shown when it is switched to (`01` CLI-036, TEST-CLI-050).
 - **Evidence:** runtime TEST-FILE-001…018, -025, -031.
 
 ### FILE-WRITE-CORE — How bytes are written
+The numbered behavior below describes the pinned **nano reference**. NARO's
+default regular-file save intentionally differs: see
+[safe-save compatibility](../docs/safe-save.md). In particular, NARO does not
+truncate the original file before writing, and does not promise inode or
+hard-link identity preservation.
+
 1. Outside the operating directory (for normal writes) → ALERT `Can't write outside of <dir>`.
 2. Backup, if enabled and the target exists and is not a FIFO (FILE-BAK).
 3. Prepend: the existing file is first copied to a temporary file (FILE-TEMP). A FIFO target → ALERT `Error writing <name>: FIFO`. Read failure → ALERT `Error reading <name>: <reason>`. Temp failure → ALERT `Error writing temp file: <reason>`. Missing or unreadable targets must not be created or truncated (TEST-SAVE-SAFETY-PREPEND-MISSING and TEST-SAVE-SAFETY-PREPEND-UNREADABLE).
@@ -235,6 +241,6 @@ See `13` SIG-EMERG. Observed: `f.txt.save` (mode 0600), `f.txt.save.1` when
 
 ## Open questions
 - **Q-FILE-001:** Mixed line endings lose CRs silently when the first line ends in LF (TEST-FILE-006). Deterministic; reproduce.
-- **Q-FILE-002:** In-place rewriting (no atomic rename) can leave a truncated file if nano dies during a write. Reproduce for parity; an atomic-write mode would be a deliberate deviation needing a decision.
+- **Q-FILE-002:** In-place rewriting can leave a truncated file if nano dies during a write. NARO deliberately uses atomic replacement for regular-file saves; see [the compatibility decision](../docs/safe-save.md). Historical in-place parity is not the acceptance target for this behavior.
 - **Q-FILE-003:** The lock file stores the name as given rather than an absolute path, so other editors may not interpret it. Reproduce.
 - **Q-FILE-004:** A bad lock file disables locking for that buffer without a further warning. Reproduce.

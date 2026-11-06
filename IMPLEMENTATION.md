@@ -2,7 +2,8 @@
 
 NARO 0.1.1 is an experimental independent port of GNU nano 9.3. The pinned
 reference is `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`.
-Technical qualification and independent review are complete.
+Historical 0.1.1 qualification is recorded below. The issue #3 safe-save change
+requires fresh validation and does not inherit that qualification.
 See [GitHub Releases](https://github.com/JLuethe/naro/releases) for published packages.
 
 ## Candidate identity
@@ -55,6 +56,11 @@ Ubuntu reference in the recorded guest userspace, kernel and keymap with emulate
 PS/2 input. It is not physical keyboard/operator certification.
 
 ## Declared differences and limits
+
+- Regular-file saving uses same-directory atomic replacement by default.
+  [Safe-save compatibility](docs/safe-save.md) defines durability errors,
+  metadata, links, append/prepend and interruption behavior. Nano's in-place
+  inode and hard-link behavior is intentionally not retained.
 
 - `Q-IDENTITY-001`: NARO name/version in titles, welcome and CLI identity; complete
   layout and all non-identity behavior remain checked.

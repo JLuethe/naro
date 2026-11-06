@@ -145,6 +145,21 @@ host merely to expand coverage.
 
 ## 6. Fixture safety
 
+Issue #3 adds `tests/safe-save/run.py`, a Linux subprocess fault matrix for
+the actual save operation, driven by a test-only Rust entry point. Build with
+`cargo test --no-run --message-format=json` (also with `--features tiny`) and
+pass the emitted test executable to `python3 tests/safe-save/run.py --binary
+<test-executable> --out <fresh-directory>`. It compiles its fixture-scoped
+interposer, records the binary hash, and asserts the new safe-save contract.
+`--regression-only` selects original-preservation checks suitable for proving
+failure against the old implementation. Process termination at named syscall
+boundaries models interruption; it does not certify power-loss behavior.
+
+Do not use nano parity as the assertion for original corruption, symlink
+write-through or hard-link propagation: [safe-save policy](../docs/safe-save.md)
+declares intentional differences. Keep reference recordings and general
+comparison rules unchanged.
+
 Run editor tests **only** in harness-created private fixtures. HOME, state,
 configuration, stub programs, input and output files must be fixture paths.
 Use fixture-only symlink/hardlink targets. The runner now defaults TMPDIR to its per-scenario private scratch `tmp` directory, outside the captured `fx` manifest; scenarios can override it to `$FX/tmp` and declare `tmp` in `dirs`. Never test against real user files,

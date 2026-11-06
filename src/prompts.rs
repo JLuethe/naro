@@ -748,22 +748,7 @@ impl Editor {
                     return;
                 }
                 self.mode = Mode::Edit;
-                let no_space = error.errno == Some(28);
                 self.msg(error.message, 7);
-                if no_space {
-                    self.pause_screen = self.last_screen.clone();
-                    self.pause_painted = false;
-                    self.pause_duration = std::time::Duration::from_millis(3200);
-                    self.pause_until = Some(std::time::Instant::now() + self.pause_duration);
-                    self.io_warnings.push_back((
-                        "File on disk has been truncated!".into(),
-                        self.pause_duration,
-                    ));
-                    self.io_warnings.push_back((
-                        "Maybe ^T^Z, make room on disk, resume, then ^S^X".into(),
-                        std::time::Duration::ZERO,
-                    ));
-                }
             }
         }
     }

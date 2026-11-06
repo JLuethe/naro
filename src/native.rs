@@ -36,6 +36,14 @@ unsafe extern "C" {
     pub fn nr_optind() -> c_int;
     pub fn nr_setup_signals();
     fn nr_open_write(path: *const c_char, append: c_int) -> c_int;
+    fn nr_safe_save(
+        path: *const c_char,
+        data: *const u8,
+        len: usize,
+        mode: c_int,
+        committed: *mut c_int,
+    ) -> c_int;
+    fn nr_close_checked(fd: c_int) -> c_int;
     pub fn nr_configure(preserve: c_int, rawseq: c_int);
     pub fn nr_init(preserve: c_int, rawseq: c_int) -> c_int;
     pub fn nr_done();
@@ -101,6 +109,43 @@ pub fn open_write(path: &std::path::Path, append: bool) -> std::io::Result<std::
     } else {
         // A successful native open transfers its new descriptor to this File.
         Ok(unsafe { std::fs::File::from_raw_fd(fd) })
+    }
+}
+/// Failed saves report whether rename already published the complete file.
+pub fn safe_save(
+    path: &std::path::Path,
+    data: &[u8],
+    mode: i32,
+) -> Result<(), (std::io::Error, bool)> {
+    use std::os::unix::ffi::OsStrExt;
+    let path = CString::new(path.as_os_str().as_bytes()).map_err(|_| {
+        (
+            std::io::Error::from(std::io::ErrorKind::InvalidInput),
+            false,
+        )
+    })?;
+    let mut committed = 0;
+    if unsafe {
+        nr_safe_save(
+            path.as_ptr(),
+            data.as_ptr(),
+            data.len(),
+            mode,
+            &mut committed,
+        )
+    } < 0
+    {
+        Err((std::io::Error::last_os_error(), committed != 0))
+    } else {
+        Ok(())
+    }
+}
+pub fn close_checked(file: std::fs::File) -> std::io::Result<()> {
+    use std::os::fd::IntoRawFd;
+    if unsafe { nr_close_checked(file.into_raw_fd()) } < 0 {
+        Err(std::io::Error::last_os_error())
+    } else {
+        Ok(())
     }
 }
 pub fn cstr(s: &[u8]) -> CString {

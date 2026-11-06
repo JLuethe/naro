@@ -1,0 +1,21 @@
+{
+  "binary": "/home/john/Code/naro/target/debug/deps/naro-72a4835848d83bb3",
+  "sha256": "d7bd1d315720e736975dfd4516041e8519b1aa436743882ccdfe91a0ef2e47e4",
+  "compiler_command": [
+    "cc",
+    "-shared",
+    "-fPIC",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "/home/john/Code/naro/tests/safe-save/faults.c",
+    "-ldl",
+    "-o",
+    "/home/john/Code/naro/target/issue-3-fault-matrix-tiny-03/faults.so"
+  ],
+  "skips": [],
+  "passed": 414,
+  "total": 414,
+  "raw_report": "target/issue-3-fault-matrix-tiny-03/report.json",
+  "failures": []
+}

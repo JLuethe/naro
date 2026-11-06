@@ -15,12 +15,15 @@
 #include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <stdatomic.h>
+#include <sys/stat.h>
 #include <wchar.h>
 #include <wctype.h>
 #include <sys/ioctl.h>
 #ifdef __linux__
 #include <linux/vt.h>
 #include <linux/tiocl.h>
+#include <sys/xattr.h>
 #endif
 #include <pwd.h>
 #ifndef NARO_TINY
@@ -124,7 +127,14 @@ int nr_open_write(const char *path,int append) {
     int modes_saved=tcgetattr(STDIN_FILENO,&previous_modes)==0;
     if(modes_saved){modes=previous_modes;modes.c_lflag|=ISIG;tcsetattr(STDIN_FILENO,TCSANOW,&modes);}
 #endif
-    int fd=open(path,O_WRONLY|O_CREAT|O_CLOEXEC|(append?O_APPEND:O_TRUNC),0666);
+    /* Only FIFO compatibility uses this open. Never truncate a regular file
+     * substituted between the caller's stat and this open. */
+    int fd=open(path,O_WRONLY|O_CLOEXEC|O_NOFOLLOW|(append?O_APPEND:0));
+    if(fd>=0){
+        struct stat st;
+        if(fstat(fd,&st)<0){int e=errno;close(fd);fd=-1;errno=e;}
+        else if(!S_ISFIFO(st.st_mode)){close(fd);fd=-1;errno=EINVAL;}
+    }
     int error=errno;
 #ifndef NARO_TINY
     if(modes_saved)tcsetattr(STDIN_FILENO,TCSANOW,&previous_modes);
@@ -133,6 +143,192 @@ int nr_open_write(const char *path,int append) {
 #endif
     errno=error;
     return fd;
+}
+/* Atomic regular-file saves. Once the directory is opened, use fd-relative
+ * operations. Reject final-component symlinks and replace just one hard-link
+ * pathname. No pre-rename failure can truncate the destination. */
+static int save_write(int fd,const unsigned char *data,size_t len) {
+    while(len){
+        ssize_t n=write(fd,data,len);
+        if(n<0){if(errno==EINTR)continue;return -1;}
+        if(n==0){errno=EIO;return -1;}
+        data+=n;len-=(size_t)n;
+    }
+    return 0;
+}
+static int save_copy(int source,int target) {
+    unsigned char data[65536];
+    for(;;){
+        ssize_t n=read(source,data,sizeof data);
+        if(n<0){if(errno==EINTR)continue;return -1;}
+        if(n==0)return 0;
+        if(save_write(target,data,(size_t)n)<0)return -1;
+    }
+}
+static int save_sync(int fd) {
+    int result;
+    do{result=fsync(fd);}while(result<0&&errno==EINTR);
+    return result;
+}
+#ifdef __linux__
+/* POSIX ACLs are exposed in system.posix_acl_access on Linux. Preserve every
+ * namespace or fail closed, removing inherited attributes absent on source. */
+static char *save_xattr_names(int fd,ssize_t *length) {
+    ssize_t n=flistxattr(fd,NULL,0);
+    if(n<0)return NULL;
+    char *names=malloc((size_t)n+1);
+    if(!names)return NULL;
+    /* A zero-sized second call would only query size again. Always supply
+     * storage, so concurrent growth fails with ERANGE instead of returning an
+     * uninitialized list. */
+    ssize_t got=flistxattr(fd,names,(size_t)n+1);
+    if(got<0){int e=errno;free(names);errno=e;return NULL;}
+    *length=got;
+    return names;
+}
+static int save_xattrs(int source,int target) {
+    ssize_t length;
+    char *names=save_xattr_names(target,&length);
+    if(!names){
+        if(errno!=ENOTSUP)return -1;
+        ssize_t n=flistxattr(source,NULL,0);
+        if(n==0||(n<0&&errno==ENOTSUP))return 0;
+        if(n>=0)errno=ENOTSUP;
+        return -1;
+    }
+    for(ssize_t i=0;i<length;i+=(ssize_t)strlen(names+i)+1){
+        if(fgetxattr(source,names+i,NULL,0)<0){
+            if(errno!=ENODATA)goto fail;
+            if(fremovexattr(target,names+i)<0)goto fail;
+        }
+    }
+    free(names);
+    names=save_xattr_names(source,&length);
+    if(!names)return -1;
+    for(ssize_t i=0;i<length;i+=(ssize_t)strlen(names+i)+1){
+        ssize_t n=fgetxattr(source,names+i,NULL,0);
+        if(n<0)goto fail;
+        void *value=malloc(n?(size_t)n:1);
+        if(!value)goto fail;
+        ssize_t got=fgetxattr(source,names+i,value,n?(size_t)n:1);
+        if(got<0){int e=errno;free(value);errno=e;goto fail;}
+        int result=fsetxattr(target,names+i,value,(size_t)got,0);
+        int e=errno;free(value);errno=e;
+        if(result<0)goto fail;
+    }
+    free(names);return 0;
+fail:;
+    int e=errno;free(names);errno=e;return -1;
+}
+#endif
+static int save_metadata(int source,int target,const struct stat *original) {
+#ifdef __linux__
+    struct stat st;
+    if(fstat(target,&st)<0)return -1;
+    if((st.st_uid!=original->st_uid||st.st_gid!=original->st_gid)&&
+       fchown(target,original->st_uid,original->st_gid)<0)return -1;
+    if(fchmod(target,original->st_mode&07777)<0)return -1;
+    if(save_xattrs(source,target)<0)return -1;
+    if(fstat(target,&st)<0)return -1;
+    if(st.st_uid!=original->st_uid||st.st_gid!=original->st_gid||
+       (st.st_mode&07777)!=(original->st_mode&07777)){errno=EPERM;return -1;}
+    return 0;
+#else
+    /* Do not silently discard ACLs/xattrs on an unsupported platform. */
+    (void)source;(void)target;(void)original;errno=ENOTSUP;return -1;
+#endif
+}
+static int save_unchanged(const struct stat *a,const struct stat *b) {
+    return a->st_dev==b->st_dev&&a->st_ino==b->st_ino&&
+        a->st_size==b->st_size&&a->st_mode==b->st_mode&&
+        a->st_uid==b->st_uid&&a->st_gid==b->st_gid&&
+        a->st_mtim.tv_sec==b->st_mtim.tv_sec&&a->st_mtim.tv_nsec==b->st_mtim.tv_nsec&&
+        a->st_ctim.tv_sec==b->st_ctim.tv_sec&&a->st_ctim.tv_nsec==b->st_ctim.tv_nsec;
+}
+int nr_close_checked(int fd) {
+    /* Never retry close: on Linux even EINTR releases the descriptor. */
+    return close(fd);
+}
+int nr_safe_save(const char *path,const unsigned char *data,size_t len,int mode,int *committed) {
+    int dir=-1,source=-1,temp=-1,result=-1,exists=0,temp_exists=0,temp_identified=0;
+    int error=0;
+    struct stat original,current,temporary_stat;
+    char temporary[96];
+    char *parent=strdup(path);
+    const char *name=path;
+    static atomic_ulong serial=0;
+    *committed=0;
+    if(!parent)return -1;
+    char *slash=strrchr(parent,'/');
+    if(slash){
+        name=path+(slash-parent)+1;
+        if(slash==parent)slash[1]='\0';else *slash='\0';
+    }else{free(parent);parent=strdup(".");if(!parent)return -1;}
+    if(!*name||mode<0||mode>2){errno=EINVAL;goto done;}
+    do{dir=open(parent,O_RDONLY|O_DIRECTORY|O_CLOEXEC);}while(dir<0&&errno==EINTR);
+    if(dir<0)goto done;
+    if(fstatat(dir,name,&original,AT_SYMLINK_NOFOLLOW)==0){
+        exists=1;
+        if(S_ISLNK(original.st_mode)){errno=ELOOP;goto done;}
+        if(!S_ISREG(original.st_mode)){errno=EINVAL;goto done;}
+        do{source=openat(dir,name,(mode?O_RDWR:O_WRONLY)|O_CLOEXEC|O_NOFOLLOW|O_NONBLOCK);}
+        while(source<0&&errno==EINTR);
+        if(source<0)goto done;
+        if(fstat(source,&current)<0)goto done;
+        if(!save_unchanged(&original,&current)){errno=ESTALE;goto done;}
+    }else if(errno!=ENOENT||mode==2)goto done;
+    for(int attempt=0;attempt<1000;attempt++){
+        unsigned long sequence=atomic_fetch_add(&serial,1);
+        snprintf(temporary,sizeof temporary,".naro-save-%ld-%lu",(long)getpid(),sequence);
+        if(strcmp(temporary,name)==0)continue;
+        do{temp=openat(dir,temporary,O_WRONLY|O_CREAT|O_EXCL|O_CLOEXEC,exists?0600:0666);}
+        while(temp<0&&errno==EINTR);
+        if(temp>=0)break;
+        if(errno!=EEXIST)goto done;
+    }
+    if(temp<0)goto done;
+    temp_exists=1;
+    /* Creation applies umask/default ACLs for new files. Keep unpublished
+     * content private until metadata is finalized. */
+    if(fstat(temp,&current)<0)goto done;
+    temporary_stat=current;temp_identified=1;
+    mode_t new_mode=current.st_mode&07777;
+    if(fchmod(temp,0600)<0)goto done;
+    if(mode==1&&exists&&save_copy(source,temp)<0)goto done;
+    if(save_write(temp,data,len)<0)goto done;
+    if(mode==2&&save_copy(source,temp)<0)goto done;
+    if(exists){if(save_metadata(source,temp,&original)<0)goto done;}
+    else if(fchmod(temp,new_mode)<0)goto done;
+    if(save_sync(temp)<0)goto done;
+    int closing=temp;temp=-1;
+    if(nr_close_checked(closing)<0)goto done;
+    if(exists){
+        if(fstat(source,&current)<0)goto done;
+        if(!save_unchanged(&original,&current)){errno=ESTALE;goto done;}
+        closing=source;source=-1;
+        if(nr_close_checked(closing)<0)goto done;
+        if(fstatat(dir,name,&current,AT_SYMLINK_NOFOLLOW)<0)goto done;
+        if(!save_unchanged(&original,&current)){errno=ESTALE;goto done;}
+    }else if(fstatat(dir,name,&current,AT_SYMLINK_NOFOLLOW)==0){errno=EEXIST;goto done;}
+    else if(errno!=ENOENT)goto done;
+    if(fstatat(dir,temporary,&current,AT_SYMLINK_NOFOLLOW)<0)goto done;
+    if(current.st_dev!=temporary_stat.st_dev||current.st_ino!=temporary_stat.st_ino){errno=ESTALE;goto done;}
+    if(renameat(dir,temporary,dir,name)<0)goto done;
+    temp_exists=0;*committed=1;
+    if(save_sync(dir)<0)goto done;
+    closing=dir;dir=-1;
+    if(nr_close_checked(closing)<0)goto done;
+    result=0;
+done:
+    error=errno;
+    if(temp>=0)close(temp);
+    if(source>=0)close(source);
+    if(temp_exists&&temp_identified&&fstatat(dir,temporary,&current,AT_SYMLINK_NOFOLLOW)==0&&
+       current.st_dev==temporary_stat.st_dev&&current.st_ino==temporary_stat.st_ino)
+        unlinkat(dir,temporary,0);
+    if(dir>=0)close(dir);
+    free(parent);errno=error;
+    return result;
 }
 static void modes(int preserve) {
     raw();nonl();noecho();

@@ -1,4 +1,4 @@
-//! File bytes, metadata, in-place saving, backups and nano-compatible locks.
+//! File bytes, metadata, atomic saving, backups and nano-compatible locks.
 use crate::{
     buffer::Buffer,
     bytes,
@@ -162,13 +162,11 @@ pub fn output(b: &Buffer, raw: Option<Vec<u8>>, nonew: bool) -> Vec<u8> {
 pub struct WriteError {
     pub confirm_backup: bool,
     pub message: String,
-    pub errno: Option<i32>,
 }
 impl From<String> for WriteError {
     fn from(message: String) -> Self {
         Self {
             message,
-            errno: None,
             confirm_backup: false,
         }
     }
@@ -182,7 +180,6 @@ impl WriteError {
     fn writing(name: &str, error: std::io::Error) -> Self {
         Self {
             message: format!("Error writing {name}: {}", io_error(&error)),
-            errno: error.raw_os_error(),
             confirm_backup: false,
         }
     }
@@ -209,6 +206,12 @@ pub fn write(
         .into());
     }
     let display = bytes::text(name);
+    if fs::symlink_metadata(&p).is_ok_and(|m| m.file_type().is_symlink()) {
+        return Err(format!(
+            "Refusing to save through symbolic link {display}; save its target path explicitly"
+        )
+        .into());
+    }
     let meta = fs::metadata(&p).ok();
     if mode == 2
         && meta
@@ -226,17 +229,6 @@ pub fn write(
         progress(WriteProgress::Status("Making backup..."));
         make_backup(c, &p, meta, |text| progress(WriteProgress::Warning(text)))?;
     }
-    // Prepending must retain the complete old file before opening it with
-    // truncation. A missing or unreadable source must never become empty data.
-    let old = if mode == 2 {
-        Some(fs::read(&p).map_err(|error| WriteError {
-            message: format!("Error reading {display}: {}", io_error(&error)),
-            errno: error.raw_os_error(),
-            confirm_backup: false,
-        })?)
-    } else {
-        None
-    };
     let region = if selection {
         b.region().map(|(a, z)| b.raw_region(a, z))
     } else {
@@ -251,22 +243,37 @@ pub fn write(
     if fifo && !cfg!(feature = "tiny") {
         progress(WriteProgress::Status("Writing to FIFO..."));
     }
-    let mut f = native::open_write(&p, mode == 1).map_err(|error| {
-        if error.kind() == std::io::ErrorKind::Interrupted {
-            "Interrupted".to_string().into()
-        } else {
-            WriteError::writing(&display, error)
-        }
-    })?;
-    progress(WriteProgress::Status("Writing..."));
-    write_bytes(&mut f, &data).map_err(|e| WriteError::writing(&display, e))?;
-    if mode == 2
-        && let Some(old) = old
-    {
-        write_bytes(&mut f, &old).map_err(|e| WriteError::writing(&display, e))?;
-    }
-    if !fifo {
-        f.sync_all().map_err(|e| WriteError::writing(&display, e))?;
+    if fifo {
+        let mut f = native::open_write(&p, mode == 1).map_err(|error| {
+            if error.kind() == std::io::ErrorKind::Interrupted {
+                "Interrupted".to_string().into()
+            } else {
+                WriteError::writing(&display, error)
+            }
+        })?;
+        progress(WriteProgress::Status("Writing..."));
+        write_bytes(&mut f, &data)
+            .and_then(|()| native::close_checked(f))
+            .map_err(|error| {
+                let mut failure = WriteError::writing(&display, error);
+                failure.message.push_str(" (FIFO output may be incomplete)");
+                failure
+            })?;
+    } else {
+        progress(WriteProgress::Status("Writing..."));
+        native::safe_save(&p, &data, mode).map_err(|(error, committed)| {
+            if committed {
+                format!(
+                    "File replaced, but durability is uncertain for {display}: {}",
+                    io_error(&error)
+                )
+                .into()
+            } else {
+                let mut failure = WriteError::writing(&display, error);
+                failure.message.push_str(" (original file unchanged)");
+                failure
+            }
+        })?;
     }
     if !selection && mode == 0 {
         if b.name != name {
@@ -586,7 +593,10 @@ fn make_backup(
     warning(&io_error(&last));
     Err(WriteError {
         message: format!("Cannot make backup: {}", io_error(&last)),
-        errno: last.raw_os_error(),
         confirm_backup: last.raw_os_error() != Some(28),
     })
 }
+
+#[cfg(test)]
+#[path = "safe_save_tests.rs"]
+mod safe_save_tests;

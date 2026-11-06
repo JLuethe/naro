@@ -1,5 +1,13 @@
 # Validation evidence
 
+## Issue #3 safe-save change
+
+[Scoped safe-save validation](issue-3-safe-save/README.md) records the atomic
+replacement policy, old-code failure proof, default/tiny fault matrices and
+fresh terminal checks. These are host results for the exact recorded dirty-tree
+artifacts, not a new release qualification or a replacement for historical
+receipts below.
+
 ## Qualified 0.1.1 candidates
 
 [Final 0.1.1 receipts](release-0.1.1-final-2026-10-31/README.md) identify frozen

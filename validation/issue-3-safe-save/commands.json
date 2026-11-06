@@ -1,0 +1,440 @@
+[
+  {
+    "command": [
+      "cargo",
+      "test"
+    ],
+    "returncode": 0,
+    "seconds": 0.038762807846069336,
+    "log": "target/issue-3-2026-11-05/baseline-0.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "--all-features"
+    ],
+    "returncode": 0,
+    "seconds": 0.042220354080200195,
+    "log": "target/issue-3-2026-11-05/baseline-1.log"
+  },
+  {
+    "command": [
+      "python3",
+      "spec/tools/test_compare_runs.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.13767218589782715,
+    "log": "target/issue-3-2026-11-05/baseline-2.log"
+  },
+  {
+    "command": [
+      "python3",
+      "spec/tools/test_nanoharness.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.061994075775146484,
+    "log": "target/issue-3-2026-11-05/baseline-3.log"
+  },
+  {
+    "command": [
+      "python3",
+      "spec/tools/test_inventory.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.06644678115844727,
+    "log": "target/issue-3-2026-11-05/baseline-4.log"
+  },
+  {
+    "command": [
+      "python3",
+      "spec/tools/audit_spec.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.09259581565856934,
+    "log": "target/issue-3-2026-11-05/baseline-5.log"
+  },
+  {
+    "command": [
+      "python3",
+      "spec/tools/test_candidate_expectations.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.486314058303833,
+    "log": "target/issue-3-2026-11-05/candidate-expectations.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "fmt",
+      "--check"
+    ],
+    "returncode": 1,
+    "seconds": 0.12214136123657227,
+    "log": "target/issue-3-2026-11-05/fmt.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "clippy",
+      "--all-targets",
+      "--all-features",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "returncode": 0,
+    "seconds": 0.6500093936920166,
+    "log": "target/issue-3-2026-11-05/clippy-all.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "clippy",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "returncode": 0,
+    "seconds": 0.7889533042907715,
+    "log": "target/issue-3-2026-11-05/clippy-default.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "test"
+    ],
+    "returncode": 0,
+    "seconds": 0.0657505989074707,
+    "log": "target/issue-3-2026-11-05/test-default.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "--all-features"
+    ],
+    "returncode": 0,
+    "seconds": 0.7864348888397217,
+    "log": "target/issue-3-2026-11-05/test-all.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "--features",
+      "tiny"
+    ],
+    "returncode": 0,
+    "seconds": 1.2975335121154785,
+    "log": "target/issue-3-2026-11-05/test-tiny.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "fmt",
+      "--check"
+    ],
+    "returncode": 0,
+    "seconds": 0.14839935302734375,
+    "log": "target/issue-3-2026-11-05/fmt-recheck.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "build",
+      "--release"
+    ],
+    "returncode": 0,
+    "seconds": 32.72125768661499,
+    "log": "target/issue-3-2026-11-05/build-default.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "build",
+      "--release",
+      "--features",
+      "tiny",
+      "--target-dir",
+      "target/issue-3-2026-11-05/tiny"
+    ],
+    "returncode": 0,
+    "seconds": 8.602921724319458,
+    "log": "target/issue-3-2026-11-05/build-tiny.log"
+  },
+  {
+    "command": [
+      "python3",
+      "spec/tools/test_compare_runs.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.19679832458496094,
+    "log": "target/issue-3-2026-11-05/compare-unit.log"
+  },
+  {
+    "command": [
+      "python3",
+      "spec/tools/test_nanoharness.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.08297371864318848,
+    "log": "target/issue-3-2026-11-05/harness-unit.log"
+  },
+  {
+    "command": [
+      "python3",
+      "spec/tools/test_inventory.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.08675074577331543,
+    "log": "target/issue-3-2026-11-05/inventory.log"
+  },
+  {
+    "command": [
+      "python3",
+      "spec/tools/audit_spec.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.1129918098449707,
+    "log": "target/issue-3-2026-11-05/spec-audit.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "build",
+      "--release"
+    ],
+    "returncode": 0,
+    "seconds": 27.8140549659729,
+    "log": "target/issue-3-2026-11-05/build-default-final.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "build",
+      "--release",
+      "--features",
+      "tiny",
+      "--target-dir",
+      "target/issue-3-2026-11-05/tiny"
+    ],
+    "returncode": 0,
+    "seconds": 7.0186309814453125,
+    "log": "target/issue-3-2026-11-05/build-tiny-final.log"
+  },
+  {
+    "command": [
+      "python3",
+      "spec/tools/nanoharness.py",
+      "--candidate-expectations",
+      "spec/evidence/scenarios/smoke.json",
+      "--binary",
+      "/home/john/Code/naro/target/release/naro",
+      "--out",
+      "/home/john/Code/naro/target/issue-3-2026-11-05/smoke"
+    ],
+    "returncode": 0,
+    "seconds": 1.1721975803375244,
+    "log": "target/issue-3-2026-11-05/smoke.log"
+  },
+  {
+    "command": [
+      "python3",
+      "spec/tools/nanoharness.py",
+      "--candidate-expectations",
+      "tests/scenarios/safety.json",
+      "--binary",
+      "/home/john/Code/naro/target/release/naro",
+      "--out",
+      "/home/john/Code/naro/target/issue-3-2026-11-05/safety"
+    ],
+    "returncode": 0,
+    "seconds": 1.846743106842041,
+    "log": "target/issue-3-2026-11-05/safety.log"
+  },
+  {
+    "command": [
+      "python3",
+      "tools/check_branding.py",
+      "--binary",
+      "/home/john/Code/naro/target/release/naro",
+      "--out",
+      "/home/john/Code/naro/target/issue-3-2026-11-05/branding"
+    ],
+    "returncode": 0,
+    "seconds": 0.07295775413513184,
+    "log": "target/issue-3-2026-11-05/branding.log"
+  },
+  {
+    "command": [
+      "python3",
+      "tools/check_tiny_ci.py",
+      "--binary",
+      "/home/john/Code/naro/target/issue-3-2026-11-05/tiny/release/naro",
+      "--out",
+      "/home/john/Code/naro/target/issue-3-2026-11-05/tiny-ci"
+    ],
+    "returncode": 0,
+    "seconds": 92.24873685836792,
+    "log": "target/issue-3-2026-11-05/tiny-ci.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "build",
+      "--release"
+    ],
+    "returncode": 0,
+    "seconds": 27.42947483062744,
+    "log": "target/issue-3-2026-11-05/build-default-provenance.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "build",
+      "--release",
+      "--features",
+      "tiny",
+      "--target-dir",
+      "target/issue-3-2026-11-05/tiny"
+    ],
+    "returncode": 0,
+    "seconds": 6.9216084480285645,
+    "log": "target/issue-3-2026-11-05/build-tiny-provenance.log"
+  },
+  {
+    "command": [
+      "python3",
+      "spec/tools/nanoharness.py",
+      "--candidate-expectations",
+      "spec/evidence/scenarios/smoke.json",
+      "--binary",
+      "/home/john/Code/naro/target/issue-3-2026-11-05/frozen/naro",
+      "--out",
+      "/home/john/Code/naro/target/issue-3-2026-11-05/smoke-final"
+    ],
+    "returncode": 0,
+    "seconds": 1.2062602043151855,
+    "log": "target/issue-3-2026-11-05/smoke-final.log"
+  },
+  {
+    "command": [
+      "python3",
+      "spec/tools/nanoharness.py",
+      "--candidate-expectations",
+      "tests/scenarios/safety.json",
+      "--binary",
+      "/home/john/Code/naro/target/issue-3-2026-11-05/frozen/naro",
+      "--out",
+      "/home/john/Code/naro/target/issue-3-2026-11-05/safety-final"
+    ],
+    "returncode": 0,
+    "seconds": 1.7166047096252441,
+    "log": "target/issue-3-2026-11-05/safety-final.log"
+  },
+  {
+    "command": [
+      "python3",
+      "tools/check_branding.py",
+      "--binary",
+      "/home/john/Code/naro/target/issue-3-2026-11-05/frozen/naro",
+      "--out",
+      "/home/john/Code/naro/target/issue-3-2026-11-05/branding-final"
+    ],
+    "returncode": 0,
+    "seconds": 0.04991340637207031,
+    "log": "target/issue-3-2026-11-05/branding-final.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "fmt",
+      "--check"
+    ],
+    "returncode": 0,
+    "seconds": 0.13544869422912598,
+    "log": "target/issue-3-2026-11-05/fmt-final.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "clippy",
+      "--all-targets",
+      "--all-features",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "returncode": 0,
+    "seconds": 0.5350213050842285,
+    "log": "target/issue-3-2026-11-05/clippy-all-final.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "clippy",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "returncode": 0,
+    "seconds": 0.571882963180542,
+    "log": "target/issue-3-2026-11-05/clippy-default-final.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "test"
+    ],
+    "returncode": 0,
+    "seconds": 0.05208230018615723,
+    "log": "target/issue-3-2026-11-05/test-default-final.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "--all-features"
+    ],
+    "returncode": 0,
+    "seconds": 0.532092809677124,
+    "log": "target/issue-3-2026-11-05/test-all-final.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "--features",
+      "tiny"
+    ],
+    "returncode": 0,
+    "seconds": 0.040223121643066406,
+    "log": "target/issue-3-2026-11-05/test-tiny-final.log"
+  },
+  {
+    "command": [
+      "python3",
+      "tools/check_tiny_ci.py",
+      "--binary",
+      "/home/john/Code/naro/target/issue-3-2026-11-05/frozen/naro-tiny",
+      "--out",
+      "/home/john/Code/naro/target/issue-3-2026-11-05/tiny-ci-final"
+    ],
+    "returncode": 0,
+    "seconds": 89.72094511985779,
+    "log": "target/issue-3-2026-11-05/tiny-ci-final.log"
+  },
+  {
+    "command": [
+      "bash",
+      "-e",
+      "target/issue-3-2026-11-05/ci-fault-step.sh"
+    ],
+    "returncode": 0,
+    "seconds": 5.26003885269165,
+    "log": "target/issue-3-2026-11-05/ci-fault-step.log"
+  }
+]
