@@ -1,0 +1,96 @@
+{
+  "date": "2026-11-05",
+  "python": "3.14.8",
+  "platform": "Linux-7.2.15-1-omarchy-x86_64-with-glibc2.44",
+  "head_at_start": "fd45d81141f4f09546aa50cfcc373ab847b59ec8",
+  "head_at_final_checks": "36f609e5bab59ccc9057cdddfd2172481955e5e7",
+  "tree": "concurrent issue work in shared dirty checkout; no release claim; exact owned inputs hashed below",
+  "input_sha256": {
+    "tools/release/install.py": "d5c90ca96c350c72758b240784e5858c705730aa673d9345a339e7821d1dd4b3",
+    "tools/test_installer_transactions.py": "e9cefee8cb70f44c9fbb40d1b3ceee9a304eb326b3843d425c1ce28d02786625",
+    "INSTALL.md": "82a3e2cc9a85627e1cd113e99fe9143eb3f835fc3d6815a33e0310915ece36e9",
+    "tools/package.py": "bb7a154615cc97e269017a87e295a9b3576812b541d470b085fcbe469da65eef",
+    "tools/test_package_docs.py": "70476ebfc6e6b4b2d875ebc1f8972dcde4e55e2bfcfabd9ec085087cc37285cb",
+    "tools/test_package_provenance.py": "56d14aab30757ee3411c0606ee715d0079579346aa00c8c38713d9fec32d5809"
+  },
+  "matrix": {
+    "tests": 16,
+    "successful": true,
+    "boundary_cases": 234,
+    "before_eio": 78,
+    "after_eio": 78,
+    "process_exit": 78
+  },
+  "commands": [
+    {
+      "command": "python3 target/remediation-2026-11-05/issue-13-installer/reproduce_before.py",
+      "result": "six expected pre-fix data/state failures confirmed",
+      "output": "before-results.json"
+    },
+    {
+      "command": "python3 tools/test_installer_transactions.py --report target/remediation-2026-11-05/issue-13-installer/matrix-attempt01.json",
+      "result": "12 tests passed",
+      "output": "tests-attempt01.log"
+    },
+    {
+      "command": "python3 tools/test_installer_transactions.py --report target/remediation-2026-11-05/issue-13-installer/matrix-attempt02.json",
+      "result": "16 tests passed",
+      "output": "tests-attempt02.log"
+    },
+    {
+      "command": "python3 target/remediation-2026-11-05/issue-13-installer/fixture_package.py",
+      "attempt": 1,
+      "result": "infrastructure failure: ModuleNotFoundError: package; root parents[4] was wrong. Python exit status not captured separately because shell then ran cat; wrapper status 0 is not a pass.",
+      "output": "fixture-package-attempt01.log",
+      "retained_script": "fixture_package-attempt01.py"
+    },
+    {
+      "command": "python3 target/remediation-2026-11-05/issue-13-installer/fixture_package.py",
+      "attempt": 2,
+      "result": "pass; exact changed installer/docs in clean synthetic source and binary archives; all 15 installed hashes and CLI install/recover/uninstall checked",
+      "output": "fixture-package-attempt02.log",
+      "receipt": "fixture-package-result.json"
+    },
+    {
+      "command": "python3 tools/test_installer_transactions.py --report target/remediation-2026-11-05/issue-13-installer/matrix-final.json",
+      "exit_code": 0,
+      "result": "16 tests; 234 successful fault/restart cases",
+      "output": "tests-final.log"
+    },
+    {
+      "command": "python3 -m unittest discover -s tools -p 'test_package*.py' -v",
+      "exit_code": 0,
+      "result": "9 tests passed",
+      "output": "package-tests.log"
+    },
+    {
+      "command": "git diff --check -- tools/release/install.py tools/test_installer_transactions.py INSTALL.md",
+      "exit_code": 0,
+      "result": "no whitespace errors"
+    },
+    {
+      "command": "python3 -m py_compile tools/release/install.py tools/test_installer_transactions.py",
+      "exit_code": 0,
+      "result": "passed"
+    }
+  ],
+  "raw_directory": "target/remediation-2026-11-05/issue-13-installer",
+  "raw_sha256": {
+    "before-results.json": "9f3b5ce3390d763698bfe8b67b65d55a6463ef9b4f3275923fa823f5367688f5",
+    "fixture-package-attempt01.log": "496ef2a0774236581e031c206d59732cec50f640abfef11d653e78ac69dba8d8",
+    "fixture-package-attempt02.log": "ab10067a3f6239a10371bde743d60ab54c31cf2cd525368611d4a97663c883ed",
+    "fixture-package-result.json": "c8f1cd4eb1ff8498204b3db92cb3fb51bc54416c1a683a1fefb689eb515a8fed",
+    "fixture_package-attempt01.py": "e99c2176288307307cf66bf7ae396f1c33e2b129af51aeb23d80a1718da4b332",
+    "fixture_package.py": "481906249f6047f220f909d74b75c8718fc529ee017cecdab53ca5de11d08323",
+    "install-before.py": "3350386cae90db70600ac4e1bed2a7257bcf0df12d510f37ff9c1dc9cc0cda3c",
+    "matrix-attempt01.json": "be7e00256d7fcb888219b1986b65f2082607cd1826be04741543d8ea678920ef",
+    "matrix-attempt02.json": "7e157ad2b2d9e400e8558ba4b37b8b5ba24ce38081e6d24c8f71d9b875c63946",
+    "matrix-final.json": "ea202221065327672ceb92000bb19d75b3414cb5036b060bb2f79826c37deeda",
+    "package-tests.log": "58558f2f4dabe62847801d1027f1c95d0aa49286c9f75be2cc74db133d1c4d0c",
+    "provenance-before.json": "2ebcc3ec012edfc70062b5700e8df0fdb8f9dd7d3d05498ea05d408d0ad006d3",
+    "reproduce_before.py": "e8436b5cd6e028e81281b317bc393bcc83af3bc7b2be67d9224bbc48b6664e18",
+    "tests-attempt01.log": "b79d6f87b8e618c6204194be22db9b20283ce11c16db24b9691aef29f07c375d",
+    "tests-attempt02.log": "478130e5f67cb037927627751deb988a0e002064f2f13d82dfaa61fdc80222f3",
+    "tests-final.log": "c5e327febbebeedbca0ab72212b03762864e320550fb007fd37ab1116cf37108"
+  }
+}

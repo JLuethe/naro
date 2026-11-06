@@ -112,5 +112,6 @@ jobs:
         run: |
           python3 -m unittest discover -s tools -p 'test_package_docs.py'
           python3 -m unittest discover -s tools -p 'test_package_provenance.py'
+          python3 -m unittest discover -s tools -p 'test_installer_transactions.py'
           python3 tools/package.py --binary target/release/naro --out target/ci-package
           python3 tools/check_package.py --archive target/ci-package/naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz --source-archive target/ci-package/naro-0.1.1-source.tar.gz --out target/ci-install
