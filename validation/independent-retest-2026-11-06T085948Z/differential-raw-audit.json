@@ -1,0 +1,56 @@
+{
+  "default": {
+    "expected": 593,
+    "unique": 593,
+    "classifications": {
+      "identity_reviewed": 474,
+      "declared_deviation": 5,
+      "candidate_execution_or_assertion_failure": 35,
+      "raw_exact": 71,
+      "missing_prerequisite": 2,
+      "product_or_policy_difference": 6
+    },
+    "counts": {
+      "candidate_records": 593,
+      "candidate_steps": 7887,
+      "candidate_failed_steps": 47,
+      "candidate_assertions": 4468,
+      "candidate_failed_assertions": 200,
+      "candidate_no_assertion": 343,
+      "reference_records": 593,
+      "reference_steps": 7887,
+      "reference_failed_steps": 0,
+      "reference_assertions": 4466,
+      "reference_failed_assertions": 0,
+      "reference_no_assertion": 343
+    },
+    "errors": [],
+    "audit_pass": true
+  },
+  "tiny": {
+    "expected": 202,
+    "unique": 202,
+    "classifications": {
+      "identity_reviewed": 101,
+      "raw_exact": 99,
+      "reference_failure": 1,
+      "product_or_policy_difference": 1
+    },
+    "counts": {
+      "candidate_records": 202,
+      "candidate_steps": 680,
+      "candidate_failed_steps": 0,
+      "candidate_assertions": 3731,
+      "candidate_failed_assertions": 0,
+      "candidate_no_assertion": 7,
+      "reference_records": 202,
+      "reference_steps": 680,
+      "reference_failed_steps": 1,
+      "reference_assertions": 3731,
+      "reference_failed_assertions": 2,
+      "reference_no_assertion": 7
+    },
+    "errors": [],
+    "audit_pass": true
+  }
+}

@@ -16,6 +16,24 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCUMENTS = ('LICENSE', 'NOTICE', 'CREDITS.md', 'README.md', 'INSTALL.md',
              'IMPLEMENTATION.md', 'RELEASE_NOTES.md', 'COVERAGE_REVIEW.md',
              'CONTRIBUTING.md', 'SECURITY.md')
+REFERENCE_COMMIT = '6ed285c3ec7a1d228def4d4e7021c6ba269f620c'
+
+
+def validate_status_document(text, version):
+    """Keep current status versioned; artifact identities belong in receipts."""
+    current = re.split(r'^## Historical\b', text, maxsplit=1, flags=re.MULTILINE)[0]
+    identity = re.search(r'^NARO (\d+\.\d+\.\d+) is\b', current, re.MULTILINE)
+    versions = re.findall(r'\bNARO (\d+\.\d+\.\d+)\b', current)
+    if identity is None or identity.group(1) != version or any(v != version for v in versions):
+        raise ValueError(f'IMPLEMENTATION.md must describe current NARO {version}; '
+                         'put older qualification under a Historical heading')
+    # The pinned GNU reference is stable. Current NARO executable/source/commit
+    # identities change per build or repack and must come from machine receipts.
+    # Installed repository links are pinned to the documentation revision.
+    prose = re.sub(r'\]\([^\s)]+\)', ']', current).replace(REFERENCE_COMMIT, '')
+    if re.search(r'\b(?:[0-9a-f]{40}|[0-9a-f]{64})\b', prose):
+        raise ValueError('IMPLEMENTATION.md current status must use package receipts '
+                         'instead of hardcoded candidate hashes')
 
 
 def installed_document(text, revision):
@@ -78,6 +96,11 @@ def main():
     if args.out.exists():
         raise SystemExit('preserve artifacts: use a new output directory')
     require_clean_release_tree()
+    version = tomllib.loads((ROOT / 'Cargo.toml').read_text())['package']['version']
+    try:
+        validate_status_document((ROOT / 'IMPLEMENTATION.md').read_text(), version)
+    except ValueError as error:
+        raise SystemExit(str(error)) from error
     if args.features == 'test-hooks' or b'NARO_TEST_PANIC_DIR' in args.binary.read_bytes():
         raise SystemExit('refusing to package recovery-test instrumentation')
     build = json.loads(subprocess.check_output([str(args.binary.resolve())], env={**os.environ,'NARO_BUILD_INFO':'1'}, text=True))
@@ -92,7 +115,6 @@ def main():
     if any(str(path.relative_to(ROOT)) not in tracked for path in inputs):
         raise SystemExit('source input is untracked; add it before packaging')
     args.out.mkdir(parents=True)
-    version = tomllib.loads((ROOT / 'Cargo.toml').read_text())['package']['version']
     name = f'naro-{version}-{args.target}'
     stage = args.out / name
     stage.mkdir()
@@ -119,7 +141,7 @@ def main():
         (examples / 'nanorc.example').write_text('# Include installed syntax files explicitly. Replace /your/prefix.\ninclude "/your/prefix/share/naro/syntax/*.nanorc"\n')
     metadata = {
         'format': 1, 'product_version': version, 'compiled_build':build,
-        'reference_commit': '6ed285c3ec7a1d228def4d4e7021c6ba269f620c',
+        'reference_commit': REFERENCE_COMMIT,
         'source_revision': revision,
         'documentation': {'files': list(DOCUMENTS),
                           'repository_links': 'immutable source revision; source archive text unchanged'},

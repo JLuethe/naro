@@ -2,12 +2,21 @@
 
 ## Issue #3 safe-save change
 
+[Independent Daybreak Blue access-program retest](independent-retest-2026-11-06T085948Z/README.md)
+records the explicit `gpt-6-sol`/high CLI invocation, fresh source-bound host and
+Ubuntu evidence, and no newly observed issue #3 data-integrity defect in its
+deterministic Linux scope. It found stale shipped `IMPLEMENTATION.md` identity;
+the documentation correction and package regression checks address that defect.
+Replacement archives require fresh receipts; the original archive hashes remain
+historical. Early command timestamps are incomplete, and issues #12/#14/#15
+retain their stated race, runtime-coverage and broader qualification limits.
+
 [0.1.2 final-candidate qualification and Daybreak handoff](daybreak-0.1.2-2026-11-06/README.md)
 binds the final issue #3 backup/lock corrections to commit `2888560`, fresh
 host and Ubuntu artifacts, complete fault/semantic matrices, packages, raw
 differential dispositions, and the remaining qualification limits. The
-`daybreak-*` artifact paths are campaign labels; the independent Daybreak Blue
-rerun remains an external handoff.
+`daybreak-*` artifact paths in that earlier report are campaign labels; the
+independent access-program rerun is recorded separately above.
 
 [Scoped safe-save validation](issue-3-safe-save/README.md) records the atomic
 replacement policy, old-code failure proof, default/tiny fault matrices and

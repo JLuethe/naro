@@ -1,0 +1,150 @@
+{
+  "source_commit": "2888560a9a2709469334a417d1ad9ac3a91c30ba",
+  "source_tree": "549be4d398231ae2681ed5eb9f201764c638836c",
+  "source_status": "",
+  "expected_source_commit": "2888560a9a2709469334a417d1ad9ac3a91c30ba",
+  "expected_source_tree": "549be4d398231ae2681ed5eb9f201764c638836c",
+  "artifact_checks": [
+    {
+      "group": "production_and_hooks",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/frozen/naro-default",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "production_and_hooks",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/frozen/naro-tiny",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "production_and_hooks",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/frozen/naro-credits",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "production_and_hooks",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/frozen/naro-hooks",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "production_and_hooks",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/frozen/naro-hooks-tiny",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "rust_tests",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/test-default/debug/deps/naro-8b785946e7ffb0d9",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "rust_tests",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/test-default/debug/deps/naro-92b0cf5a83e9781f",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "references",
+      "path": "/home/john/src/nano-install/default/bin/nano",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "references",
+      "path": "/home/john/src/nano-install/tiny/bin/nano",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "references",
+      "path": "/home/john/Code/naro/target/root-reference/install/bin/nano",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "packages",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/package-default/naro-0.1.2-x86_64-unknown-linux-gnu.tar.gz",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "packages",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/package-default/naro-0.1.2-source.tar.gz",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "packages",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/package-tiny/naro-0.1.2-x86_64-unknown-linux-gnu.tar.gz",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "packages",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/package-tiny/naro-0.1.2-source.tar.gz",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "helpers",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/safe-save-default-host-attempt02/faults.so",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "helpers",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/backup-default-host/faults.so",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "helpers",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/recovery-default/faults.so",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "helpers",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/recovery-tiny/faults.so",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "helpers",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/native-fuzz/native-default",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    },
+    {
+      "group": "helpers",
+      "path": "/home/john/Code/naro/target/independent-retest-2026-11-06T085948Z/native-fuzz/native-tiny",
+      "hash_match": true,
+      "size_match": true,
+      "mode_match": true
+    }
+  ],
+  "pass": true
+}

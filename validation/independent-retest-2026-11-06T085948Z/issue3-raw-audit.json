@@ -1,0 +1,52 @@
+{
+  "safe-save-default-host-attempt02": {
+    "rows": 448,
+    "unique": 448,
+    "passed": 448,
+    "skips": [],
+    "raw_matched": 448,
+    "nonrejected_fault_markers": 421,
+    "binary_sha256": "f9ce8abbc10109962474a170d06dab5ffd1768af3a35fa141e475f73fda345d4"
+  },
+  "safe-save-tiny-host-attempt02": {
+    "rows": 448,
+    "unique": 448,
+    "passed": 448,
+    "skips": [],
+    "raw_matched": 448,
+    "nonrejected_fault_markers": 421,
+    "binary_sha256": "fa08afc4d1696cd344348fb8b3dd1b4c6b1edc73f39cd535576035b40c463ad6"
+  },
+  "backup-default-host": {
+    "rows": 1200,
+    "unique": 1200,
+    "passed": 1200,
+    "raw_matched": 1200,
+    "phase_counts": {
+      "save": 672,
+      "backup": 528
+    },
+    "fault_markers": 1152,
+    "successful_home_fallbacks": 24,
+    "read_error_skips_fallback": 48,
+    "binary_sha256": "f9ce8abbc10109962474a170d06dab5ffd1768af3a35fa141e475f73fda345d4"
+  },
+  "recovery-default": {
+    "rows": 41,
+    "unique": 41,
+    "passed": 41,
+    "assertions": 380,
+    "fault_reached_checks": 24,
+    "binary_sha256": "d1fef1e6d18117e0247e3c88b2e840acba07e859c87b871562d028c606032dee"
+  },
+  "recovery-tiny": {
+    "rows": 41,
+    "unique": 41,
+    "passed": 41,
+    "assertions": 380,
+    "fault_reached_checks": 24,
+    "binary_sha256": "0eb14b9f40d2ae3b3d5060a3da5fc701b0041817ee4c8f850d042adf21dc5bea"
+  },
+  "errors": [],
+  "audit_pass": true
+}

@@ -1,25 +1,22 @@
 # Implementation and qualification status
 
-NARO 0.1.1 is an experimental independent port of GNU nano 9.3. The pinned
+NARO 0.1.2 is an experimental independent port of GNU nano 9.3. The pinned
 reference is `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`.
-Historical 0.1.1 qualification is recorded below. The issue #3 safe-save change
-requires fresh validation and does not inherit that qualification.
+The safe-save changes have scoped deterministic Linux validation; the historical
+qualification below does not transfer to the current artifacts.
 See [GitHub Releases](https://github.com/JLuethe/naro/releases) for published packages.
 
-## Candidate identity
+## Package identity
 
-Production commit: `accc766af9ff7e36ec206dea697410e3f8f31674`.
-Production-source SHA-256:
-`63936243e73d0a3fb536d3c0a0fb0e6fe57be09da5f5bc0387ee10250b3d7093`.
+For an exact packaged artifact, use its `manifest.json` and accompanying
+`build.json` and `SHA256SUMS`. They record the compiled revision, production-source
+fingerprint, features, executable hash, documentation/source revision and archive
+hashes. `NARO_BUILD_INFO=1 /path/to/naro` reports the compiled build identity.
 
-| Role | Executable SHA-256 |
-| --- | --- |
-| Primary Ubuntu default candidate | `70ab6932323a6b679e628bdb6cfddead8a6ff50160d741782ae8649664dc5a00` |
-| Host qualification candidate | `ab37d9fa240297a5390da858757909e9c3996314ec59cba4545c5b096b29c647` |
-
-Both report default/empty features and version 0.1.1. Later documentation commits
-are distinct from this compiled source. [The validation index](validation/README.md)
-links the current reports; older reports retain their original identities.
+This status document does not pin one executable or its own containing commit.
+Documentation repackaging changes archive hashes even when the qualified
+executable is retained. [The validation index](validation/README.md) links the
+source-bound reports; each report applies only to its named inputs and scope.
 
 ## Architecture and implemented behavior
 
@@ -34,7 +31,22 @@ and locks, multiple buffers, nanorc, syntax, browser, histories, macros, mouse
 input, external tools and translations. Implementation is broader than the
 finite tested matrix; it is not a claim of exhaustive compatibility.
 
-## Current qualification
+## Current qualification scope
+
+The [safe-save qualification](validation/daybreak-0.1.2-2026-11-06/README.md)
+records fresh host/Ubuntu fault, backup, recovery, terminal and package checks.
+Regular-file saving now uses atomic replacement, with the explicit compatibility
+policy below. These finite tests do not establish physical power-loss behavior
+or adversarial namespace-race safety (issue #12). Nine runtime citation gaps
+remain (issue #14); guest-VT, additional architecture/Miri and broader native
+library qualification remain outside this retest (issue #15). No unqualified
+security, all-platform or release-publication claim follows from these results.
+
+## Historical 0.1.1 qualification
+
+The counts below belong to the exact default-profile artifacts identified in
+[the historical final receipts](validation/release-0.1.1-final-2026-10-31/README.md).
+They are not measurements of the current version or its packages.
 
 | Area | Recorded result |
 | --- | --- |
@@ -91,12 +103,12 @@ Tiny remains a source-build profile. It retains basic editing, UTF-8,
 search/replace, POSIX regex and translations, while omitting undo/redo,
 selections, nanorc/syntax, help, browser, multiple buffers, histories, mouse and
 external tools. It uses ncursesw without libmagic. Its [earlier qualification](validation/tiny/README.md)
-belongs to the binaries named there; it does not certify a new 0.1.1 tiny download.
+belongs to the binaries named there; it does not certify a current tiny download.
 
 Optional credits and recovery test-hooks are separate features. Neither is
-included in the primary candidate. Follow-up, root, console and closure reports
+included in the default production profile. Follow-up, root, console and closure reports
 predating the dated step 5–7 records are historical. Their counts, sizes and
-executable hashes must not be presented as measurements of this candidate.
+executable hashes must not be presented as measurements of a later candidate.
 
 CI checks selected build, unit, terminal and packaging behavior. Full local
 host/Ubuntu/VM qualification is separate; a green CI job alone is not the

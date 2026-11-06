@@ -26,6 +26,7 @@ class PackageProvenance(unittest.TestCase):
             (self.root / folder).mkdir(parents=True)
         for name in package.DOCUMENTS:
             (self.root / name).write_text('Naro documentation\n')
+        (self.root / 'IMPLEMENTATION.md').write_text('NARO 0.1.1 is a fixture port.\n')
         (self.root / 'Cargo.toml').write_text('[package]\nname = "naro"\nversion = "0.1.1"\n')
         for name in ('Cargo.lock', 'build.rs', 'src/main.rs', 'native/bridge.c',
                      'assets/locale/catalog', 'assets/syntax/nanorc', 'assets/po/source',
@@ -101,6 +102,19 @@ class PackageProvenance(unittest.TestCase):
     def test_modified_tracked_document_is_rejected_before_output(self):
         (self.root / 'README.md').write_text('modified\n')
         self.assert_package_rejected('clean tracked tree')
+
+    def test_committed_stale_status_is_rejected_before_binary_or_output(self):
+        (self.root / 'Cargo.toml').write_text('[package]\nname = "naro"\nversion = "0.1.2"\n')
+        self.git('add', 'Cargo.toml')
+        self.git('commit', '-qm', 'version bump without status update')
+        self.assert_package_rejected('current NARO 0.1.2')
+
+    def test_committed_stale_candidate_is_rejected_before_binary_or_output(self):
+        with (self.root / 'IMPLEMENTATION.md').open('a') as stream:
+            stream.write('Production commit: `' + 'a' * 40 + '`.\n')
+        self.git('add', 'IMPLEMENTATION.md')
+        self.git('commit', '-qm', 'stale candidate identity')
+        self.assert_package_rejected('candidate hashes')
 
     def test_staged_change_is_rejected(self):
         (self.root / 'README.md').write_text('staged\n')

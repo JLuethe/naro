@@ -12,6 +12,8 @@ import sys
 import tarfile
 import uuid
 
+import package
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'spec/tools'))
 import nanoharness as h
@@ -45,12 +47,23 @@ def installer(*args):
                           env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
 
+def check_status_document(name, path, version):
+    try:
+        package.validate_status_document(path.read_text(), version)
+    except (OSError, ValueError) as error:
+        check(name, False, str(error))
+    else:
+        check(name, True)
+
+
 result = installer('install', '--archive', a.archive.resolve(), '--prefix', prefix)
 check('install-prefix-with-spaces', result.returncode == 0, result.stdout + result.stderr)
 if result.returncode:
     raise SystemExit(1)
 binary = prefix / 'bin/naro'
 manifest = json.loads((prefix / '.naro-install.json').read_text())
+check_status_document('installed-status-document', prefix / 'share/doc/naro/IMPLEMENTATION.md',
+                      manifest['product_version'])
 check('installed-hashes', all(hashlib.sha256((prefix / path).read_bytes()).hexdigest() == info['sha256']
                               for path, info in manifest['files'].items()))
 link = fixture / 'work/launcher'
@@ -83,6 +96,8 @@ if a.source_archive:
     source_dir = fixture / 'work/source'
     source_dir.mkdir()
     source = module.extract(a.source_archive.resolve(), source_dir)
+    check_status_document('source-status-document', source / 'IMPLEMENTATION.md',
+                          manifest['product_version'])
     metadata = json.loads((a.archive.parent / 'build.json').read_text())
     check('source-archive-hashes', all((source / path).is_file() and
           hashlib.sha256((source / path).read_bytes()).hexdigest() == value

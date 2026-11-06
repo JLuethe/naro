@@ -1,0 +1,31 @@
+{
+  "total_timestamped_commands": 137,
+  "exit_statuses": {
+    "127": 1,
+    "0": 124,
+    "5": 1,
+    "1": 9,
+    "101": 1,
+    "2": 1
+  },
+  "classifications": {
+    "operator_error_shell_expansion_superseded": 1,
+    "passed_command": 118,
+    "operator_error_zero_discovery_superseded_by_nested_tests": 1,
+    "missing_sandbox_gid_prerequisite_superseded_by_host": 3,
+    "harness_timing_failure_superseded_by_retry": 1,
+    "expected_raw_nonzero_policy_and_prerequisite_differences": 1,
+    "expected_raw_nonzero_policy_and_reference_differences": 1,
+    "negative_controls_expected_failures_observed": 1,
+    "ineffective_negative_control_superseded": 1,
+    "operator_error_helper_lacked_fortified_symbol_superseded": 2,
+    "positive_control_fortified_gate_fired": 1,
+    "negative_control_expected_inert_gate_observed": 1,
+    "positive_control_pass": 2,
+    "operator_error_binary_outside_required_target_superseded": 1,
+    "completed_with_expected_raw_differential_nonzero": 1,
+    "operator_error_wrong_report_schema_superseded_by_manifest_check": 1
+  },
+  "unreviewed_failures": [],
+  "unledgered_read_only_diagnostics": "Early source/document inspection, help and ad hoc audit commands were used before the timestamped runner was installed; the transcript retains them but their individual start/end times were not captured. This is a command-ledger gap."
+}
