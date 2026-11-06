@@ -34,7 +34,7 @@ exhaustive branch coverage or successful implementation.
 | [16](16-test-plan.md) | Replay, comparison, normalization, fixture safety |
 | [17](17-prompts-and-completion.md) | Answer editing, history and completion |
 | [18](18-bytes-encoding-and-coordinates.md) | Invalid bytes, NUL, widths, positions, classification |
-| [19](19-completion-and-release.md) | Follow-up: tool selections, edge cases, environment certification, packaging; optional tiny/credits proposal |
+| [19](19-completion-and-release.md) | Follow-up: tool selections, edge cases, environment certification, packaging; optional tiny and credits |
 | [20](20-root-and-console.md) | Effective-home resolution, isolated root/device checks, and physical-console protocol |
 | [21](21-console-release-closure.md) | Genuine guest console qualification, frozen regression builds, portable artifact and delivery gates |
 | [22](22-tiny-profile.md) | Optional compile-time tiny editor, retained behavior, exact comparisons and size/dependency gates |
@@ -51,8 +51,8 @@ probe and gdb table extractor. The clean reference tree is never modified.
 Target deviations are narrowly recorded in 99: fix invalid startup regex
 crashes, reject NUL as Yes, and tolerate inapplicable string-bound functions
 without crashing. Reproduce deterministic harmless quirks, including Latin-1
-word classification and the magic-line undo behavior. Optional tiny/credits
-are distinguished from default-profile requirements.
+word classification and the magic-line undo behavior. Optional tiny and the
+Naro `--credits` product extension are distinguished from GNU nano requirements.
 
 For resuming: read this page, 00-reference-environment, 98, 97 and 99, then the
 relevant requirements and scenario evidence. Implementation status and build

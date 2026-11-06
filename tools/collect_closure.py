@@ -57,7 +57,7 @@ def collect_evidence(inputs, output=None):
  check('ubuntu-runtime-inputs',runtime.get('candidate_sha256')==ud and runtime.get('source_fingerprint')==source and runtime.get('reference_sha256')==hashlib.sha256((a.ubuntu/'reference.bin').read_bytes()).hexdigest())
  check('current-source-fingerprint',source==source_fingerprint())
  check('default-features',h['build']['features']==u['compiled_build']['features']=='')
- check('release-version',h['build']['version']==u['compiled_build']['version']=='0.1.1')
+ check('release-version',h['build']['version']==u['compiled_build']['version']=='0.1.2')
  check('reference-identity',u['reference_commit']==REF)
  check('ubuntu-pipeline-complete',(a.ubuntu/'complete').read_text().strip()=='completed')
  ubuntu_stages=ubuntu_stage_statuses(a.ubuntu)

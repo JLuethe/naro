@@ -15,7 +15,8 @@ mode remain. Exclude full-profile key tables, undo storage, nanorc/syntax loadin
 help viewer, browser, histories, multibuffer command handling, mouse and external
 tool implementations. Do not link libmagic or require its header for tiny.
 No runtime switch changes a full executable into tiny. Default build behavior
-and the existing opt-in credits/test-hooks feature contracts remain separate.
+and the existing test-hooks feature contract remains separate. Since 0.1.2,
+`--credits` is also available in tiny; the `credits` feature is a compatibility no-op.
 
 ### TINY-CLI-002 — Match tiny startup
 

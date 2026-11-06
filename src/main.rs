@@ -38,7 +38,6 @@ fn main() {
         );
         return;
     }
-    #[cfg(feature = "credits")]
     if std::env::args_os()
         .skip(1)
         .eq([std::ffi::OsStr::new("--credits")])

@@ -18,7 +18,8 @@ They do not verify the requirements or planned cases introduced here.
 Deliver four workstreams in order: selection-aware spelling and formatter state;
 editing/configuration/failure verification; environment coverage; installation
 and release. Package layout work can proceed alongside verification. Tiny and
-runtime credits are optional and are not prerequisites for the default release.
+runtime credits were optional at this historical checkpoint. From 0.1.2,
+`--credits` is part of the default and tiny product profiles.
 
 The original two reference differences remain intentional: Q-DEF-001 invalid-regex recovery
 and Q-PROMPT-001 rejection of NUL as Yes. Retain their reference observations and
@@ -269,7 +270,7 @@ performance promises. Check that all output bytes and line endings are preserved
 as the reference specifies. Record the tested terminal and any issues separately
 from automated conformance. This gate does not replace differential tests.
 
-## Optional tiny build and credits proposal
+## Optional tiny build and credits
 
 ### NEXT-TINY-001 — Keep tiny optional and define it by the pinned profile
 
@@ -297,12 +298,13 @@ reference and reused data, the native libraries, translation/syntax contributors
 and Codex-assisted development. Preserve specific notices in NOTICE/assets; do
 not invent contributor names or imply upstream endorsement.
 
-Implemented optional runtime presentation: `naro --credits` prints the same
+Implemented runtime presentation: `naro --credits` prints the same
 plain-text content to stdout and exits zero, with no network calls, terminal-mode
 changes, buffer/file writes, prompts or animation. It is a product CLI extension,
-not GNU nano parity. The Cargo `credits` feature is default-off. Enable the command only in
-an explicitly selected product build, recorded in the deviation register with
-its CLI tests. No existing keys,
+not GNU nano parity. Since 0.1.2, the command is available in default and tiny
+builds. The Cargo `credits` feature remains accepted for older build commands,
+but does not change command availability. Record this difference in the deviation
+register and test both profiles. No existing keys,
 help text, `--help`/`--version` output or save filenames change as part of this
 documentation proposal. The nano `zzy` scrolling Easter egg remains optional;
 do not intercept a user's save filename to implement Naro's credits.
@@ -326,5 +328,6 @@ finished spec changes back to `~/src/nano-rs/spec`, with this repository canonic
 Implementation evidence: revision `4952ca020e72425d04acf12639d222b7a33a9245`,
 [follow-up reports](../validation/follow-up/README.md). The interactive checklist
 was performed by the Codex agent through its own PTY; no human usability study
-or real-console certification is implied. Runtime credits are implemented in
-an opt-in build. Tiny is not implemented. No release tag/publication is automatic.
+or real-console certification is implied. At that historical checkpoint runtime
+credits were implemented in an opt-in build and tiny was not implemented.
+No release tag/publication is automatic.

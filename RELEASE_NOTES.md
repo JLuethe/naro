@@ -1,4 +1,13 @@
-# NARO 0.1.1 release notes
+# NARO 0.1.2 development candidate notes
+
+NARO 0.1.2 is a local development candidate. Its safety and release-readiness
+changes are still undergoing integrated qualification; no 0.1.2 archive, tag,
+or release is asserted here. Default and tiny builds now provide `naro --credits`
+with the same GNU nano 9.3 port attribution as `CREDITS.md`. The Cargo `credits`
+feature remains accepted for existing build commands. The 0.1.1 notes below
+describe their own qualified artifacts and are retained as historical results.
+
+## Historical 0.1.1 release notes
 
 NARO 0.1.1 is the product-identity update to the experimental Linux x86_64 release.
 The editing title, version, usage and help identify NARO. NARO is an independent

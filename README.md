@@ -5,12 +5,14 @@ experimental terminal editor for Linux, with familiar nano keybindings,
 byte-preserving editing, undo/redo, search and regex replacement, multiple
 buffers, nanorc configuration, syntax highlighting, macros and translations.
 
-This source tree is version **0.1.1**, the NARO identity update. It uses NARO's
-name and version in the editing title, CLI and help. Technical qualification is
-complete for the frozen host and Ubuntu candidates. Publication is a separate
-step; see [GitHub Releases](https://github.com/JLuethe/naro/releases) for available
-packages. The primary binary profile is Linux x86_64 GNU/glibc, built and tested
-under Ubuntu 24.04/glibc 2.39.
+This source tree is version **0.1.2**, a local development candidate with safety
+and release-readiness changes awaiting integrated qualification. It uses NARO's
+name and version in the editing title, CLI and help. `naro --credits` prints the
+project attribution in default and tiny builds. The 0.1.1 frozen host and Ubuntu
+candidates were qualified separately; those results do not qualify this tree.
+See [GitHub Releases](https://github.com/JLuethe/naro/releases) for published
+packages. The prior primary binary profile is Linux x86_64 GNU/glibc, built and
+tested under Ubuntu 24.04/glibc 2.39.
 
 ## Get started
 
@@ -25,6 +27,7 @@ compiler, pkg-config, ncursesw development files and libmagic development files:
 ```sh
 cargo build --release --locked
 ./target/release/naro example.txt
+./target/release/naro --credits
 ```
 
 Building does not install NARO or replace the system's `nano`.
@@ -39,7 +42,7 @@ NARO prompts before discarding unsaved changes. Configuration can change
 bindings and behavior; see the editor's help and the installed configuration
 example for your selected profile.
 
-## What has been tested
+## Historical 0.1.1 qualification
 
 The qualified executable records source revision
 `accc766af9ff7e36ec206dea697410e3f8f31674`. The primary Ubuntu executable SHA-256 is
@@ -82,7 +85,7 @@ binary. The GNU nano executable is a testing reference, not a runtime dependency
 External spelling, formatting, linting and command execution need suitable
 programs installed and configured separately. They are not included in the
 binary archive. See [optional tools and profiles](INSTALL.md#optional-tools-and-profiles).
-Tiny is an optional source-build profile; no tiny binary is selected for 0.1.1.
+Tiny is an optional source-build profile; no tiny binary was selected for 0.1.1.
 Physical keyboard trials and other architectures/operating systems remain outside
 this release's qualification scope.
 
@@ -101,6 +104,7 @@ data, syntax definitions and translations. The project is GPL-3.0-or-later;
 reused material and native dependencies retain their original terms and notices.
 See [LICENSE](LICENSE), [NOTICE](NOTICE), [CREDITS.md](CREDITS.md) and file headers.
 
-The [release notes](RELEASE_NOTES.md) describe the 0.1.1 update. The
+The [release notes](RELEASE_NOTES.md) describe the 0.1.2 candidate and the
+historical 0.1.1 update. The
 [release checklist](RELEASE_CHECKLIST.md) distinguishes completed technical
 qualification from remaining publication gates.

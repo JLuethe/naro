@@ -253,8 +253,20 @@ def legacy_deviation(tid, reference, candidate, differences):
     if tid == 'TEST-ROOT-HOME-002-NO-HOME-TILDE':
         ns=reference.get('root_namespace')or{}
         if ns.get('euid')!=0 or ns.get('passwd_home')is not None or ns.get('HOME')is not None:return None
+    expected=copy.deepcopy(entry['differences'])
+    current_version=policy_identity()['version']
+    if current_version!=policy['version']:
+        # The two original 0.1.1 residuals include an exact branded title.
+        # Project only that seven-cell label for the reviewed 0.1.2 candidate;
+        # retain every other recorded field and the historical policy itself.
+        if (policy['version'],current_version)!=('0.1.1','0.1.2'):return None
+        for difference in expected:
+            if difference['field'] in ('snapshot.start.row0.text','snapshot.opened.row0.text'):
+                old=difference['candidate']
+                if not isinstance(old,str) or old.count('NARO 0.1.1')!=1:return None
+                difference['candidate']=old.replace('NARO 0.1.1','NARO 0.1.2',1)
     canonical=lambda rows:json.dumps(sorted(rows,key=lambda x:x['field']),sort_keys=True)
-    return entry['deviation_id'] if canonical(differences)==canonical(entry['differences']) else None
+    return entry['deviation_id'] if canonical(differences)==canonical(expected) else None
 
 
 def _stateflags_title(row, width, version):

@@ -28,7 +28,13 @@ class IdentityTests(unittest.TestCase):
  def test_known_legacy_residual_only(self):
   policy=json.loads((ROOT/'tests/naro/legacy-deviations.json').read_text())
   for tid,entry in policy['cases'].items():
-   ref={'root_namespace':{'euid':0,'passwd_home':None,'HOME':None}};diffs=copy.deepcopy(entry['differences']);self.assertEqual(legacy_deviation(tid,ref,{},diffs),entry['deviation_id'])
+   ref={'root_namespace':{'euid':0,'passwd_home':None,'HOME':None}};diffs=copy.deepcopy(entry['differences'])
+   for difference in diffs:
+    if difference['field'] in ('snapshot.start.row0.text','snapshot.opened.row0.text'):
+     difference['candidate']=difference['candidate'].replace('NARO 0.1.1','NARO 0.1.2',1)
+   self.assertEqual(legacy_deviation(tid,ref,{},diffs),entry['deviation_id'])
+   if diffs!=entry['differences']:
+    self.assertIsNone(legacy_deviation(tid,ref,{},entry['differences']))
    diffs.append({'field':'snapshot.extra.cursor','reference':0,'candidate':1});self.assertIsNone(legacy_deviation(tid,ref,{},diffs))
    diffs=copy.deepcopy(entry['differences']);diffs[0]['candidate']='unexpected';self.assertIsNone(legacy_deviation(tid,ref,{},diffs))
  def test_help_and_welcome(self):
@@ -73,16 +79,16 @@ class TitleExtensionTests(unittest.TestCase):
   rows=[
    (28,'','       f.txt                ','       f.txt                '),
    (28,'Modified','       f.txt      Modified  ','       f.txt      Modified  '),
-   (28,'View','  GNU nano 9.3 f.txt  View  ','  NARO 0.1.1  f.txt   View  '),
-   (29,'','       f.txt                 ','  NARO 0.1.1 f.txt           '),
-   (29,'Modified','       f.txt       Modified  ','  NARO 0.1.1 f.txt Modified  '),
-   (29,'View','  GNU nano 9.3  f.txt  View  ','  NARO 0.1.1   f.txt   View  '),
-   (30,'','        f.txt                 ','  NARO 0.1.1 f.txt            '),
-   (30,'Modified','        f.txt       Modified  ','  NARO 0.1.1 f.txt  Modified  '),
-   (30,'View','  GNU nano 9.3  f.txt   View  ','  NARO 0.1.1   f.txt    View  '),
-   (31,'','  GNU nano 9.3 f.txt           ','  NARO 0.1.1  f.txt            '),
-   (31,'Modified','  GNU nano 9.3 f.txt Modified  ','  NARO 0.1.1  f.txt  Modified  '),
-   (31,'View','  GNU nano 9.3   f.txt   View  ','  NARO 0.1.1    f.txt    View  ')]
+   (28,'View','  GNU nano 9.3 f.txt  View  ','  NARO 0.1.2  f.txt   View  '),
+   (29,'','       f.txt                 ','  NARO 0.1.2 f.txt           '),
+   (29,'Modified','       f.txt       Modified  ','  NARO 0.1.2 f.txt Modified  '),
+   (29,'View','  GNU nano 9.3  f.txt  View  ','  NARO 0.1.2   f.txt   View  '),
+   (30,'','        f.txt                 ','  NARO 0.1.2 f.txt            '),
+   (30,'Modified','        f.txt       Modified  ','  NARO 0.1.2 f.txt  Modified  '),
+   (30,'View','  GNU nano 9.3  f.txt   View  ','  NARO 0.1.2   f.txt    View  '),
+   (31,'','  GNU nano 9.3 f.txt           ','  NARO 0.1.2  f.txt            '),
+   (31,'Modified','  GNU nano 9.3 f.txt Modified  ','  NARO 0.1.2  f.txt  Modified  '),
+   (31,'View','  GNU nano 9.3   f.txt   View  ','  NARO 0.1.2    f.txt    View  ')]
   for width,state,reference,candidate in rows:
    self.assertEqual(display_pad(title_row(width,'f.txt',state,'GNU nano 9.3'),width),reference)
    self.assertEqual(display_pad(title_row(width,'f.txt',state),width),candidate)
@@ -96,7 +102,7 @@ class TitleExtensionTests(unittest.TestCase):
   from identity_review import _title_context,_unique_projection
   case=copy.deepcopy(self.case);case['args'].append('--view')
   self.assertFalse(classify(self.reference,self.candidate,case=case)['accepted'])
-  with patch('identity_review.policy_identity',return_value={'version':'0.1.2'}):
+  with patch('identity_review.policy_identity',return_value={'version':'0.1.3'}):
    with self.assertRaises(ValueError):_title_context(self.case,'small')
   reference=copy.deepcopy(self.reference);reference['snapshots']['small']['rows'][0]['text']='unknown'.ljust(30)
   self.assertFalse(classify(reference,self.candidate,case=self.case)['accepted'])
@@ -139,7 +145,7 @@ class TitleExtensionTests(unittest.TestCase):
  def widened_pair(self,width=32):
   from candidate_expectations import display_pad,title_row
   pair=[copy.deepcopy(self.reference),copy.deepcopy(self.candidate)]
-  for run,label in zip(pair,('GNU nano 9.3','NARO 0.1.1')):
+  for run,label in zip(pair,('GNU nano 9.3','NARO 0.1.2')):
    screen=run['snapshots']['small'];screen['width']=width;screen['height']=9
    screen['rows'][0]={'text':display_pad(title_row(width,'f.txt','Modified',label),width),'attrs':[{'start':0,'end':width,'attr':'reverse=True'}]}
    for row in screen['rows'][1:]:row['text']=row['text'].ljust(width)
@@ -171,7 +177,7 @@ class TitleExtensionTests(unittest.TestCase):
  def test_bound_header_fields_and_height_metadata_refused(self):
   from candidate_expectations import display_pad,title_row
   reference,candidate=copy.deepcopy(self.reference),copy.deepcopy(self.candidate)
-  for run,label in zip((reference,candidate),('GNU nano 9.3','NARO 0.1.1')):
+  for run,label in zip((reference,candidate),('GNU nano 9.3','NARO 0.1.2')):
    run['snapshots']['small']['rows'][0]['text']=display_pad(title_row(30,'f.txt','View',label),30)
   self.assertFalse(classify(reference,candidate,case=self.case)['accepted'])
   for height in (8,10,9.0):

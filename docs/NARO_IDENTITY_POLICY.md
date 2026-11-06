@@ -14,6 +14,12 @@ lookup using the original GNU gettext message IDs. Catalogs and attribution are
 retained. Configuration/history paths, lock formats, gettext domain and temporary
 compatibility names remain unchanged.
 
+For the 0.1.2 development candidate, the version-bound expected titles and narrow
+title contexts were reviewed at the new seven-cell version string. The named
+legacy residual policy keeps its historical 0.1.1 differences; its comparator
+projects only the exact branded title cells to 0.1.2. Reference case hashes and
+source observations remain unchanged, and every other residual stays exact.
+
 The shorter title is a real layout change. For ordinary complete titles it moves
 the centered filename one column left while preserving the right state position.
 At some narrow widths NARO's label fits where nano's does not. Tests assert

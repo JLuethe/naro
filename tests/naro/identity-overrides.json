@@ -1,6 +1,6 @@
 {
   "policy": "Q-IDENTITY-001",
-  "package_version": "0.1.1",
+  "package_version": "0.1.2",
   "cases": {
     "TEST-NEXT-RECOVER-002-NAMED": {
       "reference_case_sha256": "17e06e1aa3387131422453543bff93a4b34b1029bd7691568bce78b3eb3f347b",
@@ -85,7 +85,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -213,7 +213,7 @@
           {
             "snapshot": "edited",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "edited",
@@ -341,7 +341,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -486,7 +486,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -614,7 +614,7 @@
           {
             "snapshot": "edited",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "edited",
@@ -742,7 +742,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -887,7 +887,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -1015,7 +1015,7 @@
           {
             "snapshot": "edited",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "edited",
@@ -1143,7 +1143,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -1288,7 +1288,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -1416,7 +1416,7 @@
           {
             "snapshot": "edited",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "edited",
@@ -1544,7 +1544,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -1689,7 +1689,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -1817,7 +1817,7 @@
           {
             "snapshot": "edited",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "edited",
@@ -1945,7 +1945,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -2090,7 +2090,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -2218,7 +2218,7 @@
           {
             "snapshot": "edited",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "edited",
@@ -2346,7 +2346,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -2491,7 +2491,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -2619,7 +2619,7 @@
           {
             "snapshot": "moved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "moved",
@@ -2764,7 +2764,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -2892,7 +2892,7 @@
           {
             "snapshot": "found",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "found",
@@ -3020,7 +3020,7 @@
           {
             "snapshot": "wrapped",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "wrapped",
@@ -3165,7 +3165,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -3293,7 +3293,7 @@
           {
             "snapshot": "replaced",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "replaced",
@@ -3421,7 +3421,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -3566,7 +3566,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -3694,7 +3694,7 @@
           {
             "snapshot": "found",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "found",
@@ -3839,7 +3839,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -3967,7 +3967,7 @@
           {
             "snapshot": "position",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "position",
@@ -4112,7 +4112,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -4240,7 +4240,7 @@
           {
             "snapshot": "position",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "position",
@@ -4385,7 +4385,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -4513,7 +4513,7 @@
           {
             "snapshot": "position",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "position",
@@ -4663,7 +4663,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                            -"
+            "equals": "  NARO 0.1.2                            -"
           },
           {
             "snapshot": "initial",
@@ -4791,7 +4791,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                            -"
+            "equals": "  NARO 0.1.2                            -"
           },
           {
             "snapshot": "saved",
@@ -4936,7 +4936,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -5064,7 +5064,7 @@
           {
             "snapshot": "ignored",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "ignored",
@@ -5192,7 +5192,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -5337,7 +5337,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -5465,7 +5465,7 @@
           {
             "snapshot": "undo",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "undo",
@@ -5593,7 +5593,7 @@
           {
             "snapshot": "mark",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "mark",
@@ -5721,7 +5721,7 @@
           {
             "snapshot": "execute",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "execute",
@@ -5849,7 +5849,7 @@
           {
             "snapshot": "justify",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "justify",
@@ -5977,7 +5977,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -6122,7 +6122,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -6250,7 +6250,7 @@
           {
             "snapshot": "hint",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "hint",
@@ -6378,7 +6378,7 @@
           {
             "snapshot": "prompt-hint",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "prompt-hint",
@@ -6528,7 +6528,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -6656,7 +6656,7 @@
           {
             "snapshot": "inserted",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "inserted",
@@ -6784,7 +6784,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -6929,7 +6929,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -7057,7 +7057,7 @@
           {
             "snapshot": "cancelled",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "cancelled",
@@ -7202,7 +7202,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                            f.txt                             View"
+            "equals": "  NARO 0.1.2                            f.txt                             View"
           },
           {
             "snapshot": "initial",
@@ -7330,7 +7330,7 @@
           {
             "snapshot": "view",
             "row": 0,
-            "equals": "  NARO 0.1.1                            f.txt                             View"
+            "equals": "  NARO 0.1.2                            f.txt                             View"
           },
           {
             "snapshot": "view",
@@ -7458,7 +7458,7 @@
           {
             "snapshot": "cut",
             "row": 0,
-            "equals": "  NARO 0.1.1                            f.txt                             View"
+            "equals": "  NARO 0.1.2                            f.txt                             View"
           },
           {
             "snapshot": "cut",
@@ -7603,7 +7603,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                         f.txt                          Restricted"
+            "equals": "  NARO 0.1.2                         f.txt                          Restricted"
           },
           {
             "snapshot": "initial",
@@ -7731,7 +7731,7 @@
           {
             "snapshot": "read",
             "row": 0,
-            "equals": "  NARO 0.1.1                         f.txt                          Restricted"
+            "equals": "  NARO 0.1.2                         f.txt                          Restricted"
           },
           {
             "snapshot": "read",
@@ -7859,7 +7859,7 @@
           {
             "snapshot": "new",
             "row": 0,
-            "equals": "  NARO 0.1.1                         f.txt                          Restricted"
+            "equals": "  NARO 0.1.2                         f.txt                          Restricted"
           },
           {
             "snapshot": "new",
@@ -8004,7 +8004,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -8132,7 +8132,7 @@
           {
             "snapshot": "shown",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "shown",
@@ -8260,7 +8260,7 @@
           {
             "snapshot": "hidden",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "hidden",
@@ -8405,7 +8405,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -8533,7 +8533,7 @@
           {
             "snapshot": "position",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "position",
@@ -8678,7 +8678,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -8806,7 +8806,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -8951,7 +8951,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -9079,7 +9079,7 @@
           {
             "snapshot": "modified",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "modified",
@@ -9224,7 +9224,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -9352,7 +9352,7 @@
           {
             "snapshot": "backspace",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "backspace",
@@ -9497,7 +9497,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -9625,7 +9625,7 @@
           {
             "snapshot": "function",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "function",
@@ -9753,7 +9753,7 @@
           {
             "snapshot": "meta-control",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "meta-control",
@@ -9898,7 +9898,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -10026,7 +10026,7 @@
           {
             "snapshot": "moved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "moved",
@@ -10154,7 +10154,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -10299,7 +10299,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -10427,7 +10427,7 @@
           {
             "snapshot": "word",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "word",
@@ -10572,7 +10572,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -10700,7 +10700,7 @@
           {
             "snapshot": "unknown",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "unknown",
@@ -10845,7 +10845,7 @@
           {
             "snapshot": "initial",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "initial",
@@ -10973,7 +10973,7 @@
           {
             "snapshot": "start",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "start",
@@ -11101,7 +11101,7 @@
           {
             "snapshot": "end",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "end",
@@ -11229,7 +11229,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -11374,7 +11374,7 @@
           {
             "snapshot": "result",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "result",
@@ -11519,7 +11519,7 @@
           {
             "snapshot": "result",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "result",
@@ -11664,7 +11664,7 @@
           {
             "snapshot": "result",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "result",
@@ -11809,7 +11809,7 @@
           {
             "snapshot": "result",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "result",
@@ -11954,7 +11954,7 @@
           {
             "snapshot": "result",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "result",
@@ -12099,7 +12099,7 @@
           {
             "snapshot": "result",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "result",
@@ -12244,7 +12244,7 @@
           {
             "snapshot": "result",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "result",
@@ -12389,7 +12389,7 @@
           {
             "snapshot": "result",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "result",
@@ -12534,7 +12534,7 @@
           {
             "snapshot": "result",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "result",
@@ -12679,7 +12679,7 @@
           {
             "snapshot": "result",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "result",
@@ -12824,7 +12824,7 @@
           {
             "snapshot": "result",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "result",
@@ -12969,7 +12969,7 @@
           {
             "snapshot": "result",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "result",
@@ -13114,7 +13114,7 @@
           {
             "snapshot": "answer",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "answer",
@@ -13264,7 +13264,7 @@
           {
             "snapshot": "answer",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "answer",
@@ -13409,7 +13409,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -13554,7 +13554,7 @@
           {
             "snapshot": "deleted",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "deleted",
@@ -13699,7 +13699,7 @@
           {
             "snapshot": "screen",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "screen",
@@ -13844,7 +13844,7 @@
           {
             "snapshot": "hint",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "hint",
@@ -13972,7 +13972,7 @@
           {
             "snapshot": "cleared",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "cleared",
@@ -14122,7 +14122,7 @@
           {
             "snapshot": "empty",
             "row": 0,
-            "equals": "  NARO 0.1.1                        New Buffer"
+            "equals": "  NARO 0.1.2                        New Buffer"
           },
           {
             "snapshot": "empty",
@@ -14250,7 +14250,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                         new.txt"
+            "equals": "  NARO 0.1.2                         new.txt"
           },
           {
             "snapshot": "saved",
@@ -14399,7 +14399,7 @@
           {
             "snapshot": "rejected",
             "row": 0,
-            "equals": "  NARO 0.1.1                        New Buffer"
+            "equals": "  NARO 0.1.2                        New Buffer"
           },
           {
             "snapshot": "rejected",
@@ -14549,7 +14549,7 @@
           {
             "snapshot": "edited",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "edited",
@@ -14704,7 +14704,7 @@
           {
             "snapshot": "edited",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "edited",
@@ -14859,7 +14859,7 @@
           {
             "snapshot": "edited",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "edited",
@@ -15004,7 +15004,7 @@
           {
             "snapshot": "dispatched",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "dispatched",
@@ -15149,7 +15149,7 @@
           {
             "snapshot": "dispatched",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "dispatched",
@@ -15294,7 +15294,7 @@
           {
             "snapshot": "dispatched",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "dispatched",
@@ -15439,7 +15439,7 @@
           {
             "snapshot": "dispatched",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "dispatched",
@@ -15589,7 +15589,7 @@
           {
             "snapshot": "end",
             "row": 0,
-            "equals": "  NARO 0.1.1                        sample.txt"
+            "equals": "  NARO 0.1.2                        sample.txt"
           },
           {
             "snapshot": "end",
@@ -15717,7 +15717,7 @@
           {
             "snapshot": "home",
             "row": 0,
-            "equals": "  NARO 0.1.1                        sample.txt"
+            "equals": "  NARO 0.1.2                        sample.txt"
           },
           {
             "snapshot": "home",
@@ -15867,7 +15867,7 @@
           {
             "snapshot": "end",
             "row": 0,
-            "equals": "  NARO 0.1.1                        sample.txt"
+            "equals": "  NARO 0.1.2                        sample.txt"
           },
           {
             "snapshot": "end",
@@ -15995,7 +15995,7 @@
           {
             "snapshot": "home",
             "row": 0,
-            "equals": "  NARO 0.1.1                        sample.txt"
+            "equals": "  NARO 0.1.2                        sample.txt"
           },
           {
             "snapshot": "home",
@@ -16145,7 +16145,7 @@
           {
             "snapshot": "end",
             "row": 0,
-            "equals": "  NARO 0.1.1                        sample.txt"
+            "equals": "  NARO 0.1.2                        sample.txt"
           },
           {
             "snapshot": "end",
@@ -16273,7 +16273,7 @@
           {
             "snapshot": "home",
             "row": 0,
-            "equals": "  NARO 0.1.1                        sample.txt"
+            "equals": "  NARO 0.1.2                        sample.txt"
           },
           {
             "snapshot": "home",
@@ -16423,7 +16423,7 @@
           {
             "snapshot": "end",
             "row": 0,
-            "equals": "  NARO 0.1.1                        sample.txt"
+            "equals": "  NARO 0.1.2                        sample.txt"
           },
           {
             "snapshot": "end",
@@ -16551,7 +16551,7 @@
           {
             "snapshot": "home",
             "row": 0,
-            "equals": "  NARO 0.1.1                        sample.txt"
+            "equals": "  NARO 0.1.2                        sample.txt"
           },
           {
             "snapshot": "home",
@@ -16701,7 +16701,7 @@
           {
             "snapshot": "end",
             "row": 0,
-            "equals": "  NARO 0.1.1                        sample.txt"
+            "equals": "  NARO 0.1.2                        sample.txt"
           },
           {
             "snapshot": "end",
@@ -16829,7 +16829,7 @@
           {
             "snapshot": "home",
             "row": 0,
-            "equals": "  NARO 0.1.1                        sample.txt"
+            "equals": "  NARO 0.1.2                        sample.txt"
           },
           {
             "snapshot": "home",
@@ -16979,7 +16979,7 @@
           {
             "snapshot": "end",
             "row": 0,
-            "equals": "  NARO 0.1.1                        sample.txt"
+            "equals": "  NARO 0.1.2                        sample.txt"
           },
           {
             "snapshot": "end",
@@ -17107,7 +17107,7 @@
           {
             "snapshot": "home",
             "row": 0,
-            "equals": "  NARO 0.1.1                        sample.txt"
+            "equals": "  NARO 0.1.2                        sample.txt"
           },
           {
             "snapshot": "home",
@@ -17257,7 +17257,7 @@
           {
             "snapshot": "end",
             "row": 0,
-            "equals": "  NARO 0.1.1                        sample.txt"
+            "equals": "  NARO 0.1.2                        sample.txt"
           },
           {
             "snapshot": "end",
@@ -17385,7 +17385,7 @@
           {
             "snapshot": "home",
             "row": 0,
-            "equals": "  NARO 0.1.1                        sample.txt"
+            "equals": "  NARO 0.1.2                        sample.txt"
           },
           {
             "snapshot": "home",
@@ -17535,7 +17535,7 @@
           {
             "snapshot": "replayed",
             "row": 0,
-            "equals": "  NARO 0.1.1                        sample.txt"
+            "equals": "  NARO 0.1.2                        sample.txt"
           },
           {
             "snapshot": "replayed",
@@ -17679,7 +17679,7 @@
           {
             "snapshot": "writing",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "writing",
@@ -17887,7 +17887,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -18148,7 +18148,7 @@
           {
             "snapshot": "writing",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                          Ver\u00e4ndert"
+            "equals": "  NARO 0.1.2                          f.txt                          Ver\u00e4ndert"
           },
           {
             "snapshot": "writing",
@@ -18356,7 +18356,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -18617,7 +18617,7 @@
           {
             "snapshot": "writing",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "writing",
@@ -18825,7 +18825,7 @@
           {
             "snapshot": "error",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "error",
@@ -19086,7 +19086,7 @@
           {
             "snapshot": "writing",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "writing",
@@ -19294,7 +19294,7 @@
           {
             "snapshot": "error",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "error",
@@ -19560,7 +19560,7 @@
           {
             "snapshot": "fifo-opening",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "fifo-opening",
@@ -19728,7 +19728,7 @@
           {
             "snapshot": "writing",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "writing",
@@ -19896,7 +19896,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                           pipe"
+            "equals": "  NARO 0.1.2                           pipe"
           },
           {
             "snapshot": "saved",
@@ -20157,7 +20157,7 @@
           {
             "snapshot": "writing",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "writing",
@@ -20397,7 +20397,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -20658,7 +20658,7 @@
           {
             "snapshot": "writing",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "writing",
@@ -20866,7 +20866,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -21127,7 +21127,7 @@
           {
             "snapshot": "writing",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "writing",
@@ -21335,7 +21335,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "saved",
@@ -21596,7 +21596,7 @@
           {
             "snapshot": "writing",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "writing",
@@ -21804,7 +21804,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "saved",
@@ -22067,7 +22067,7 @@
           {
             "snapshot": "writing",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "writing",
@@ -22283,7 +22283,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "saved",
@@ -22562,7 +22562,7 @@
           {
             "snapshot": "result",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "result",
@@ -22823,7 +22823,7 @@
           {
             "snapshot": "result",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "result",
@@ -23087,7 +23087,7 @@
           {
             "snapshot": "backup",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "backup",
@@ -23295,7 +23295,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -23561,7 +23561,7 @@
           {
             "snapshot": "backup-failed",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "backup-failed",
@@ -23729,7 +23729,7 @@
           {
             "snapshot": "result",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "result",
@@ -23995,7 +23995,7 @@
           {
             "snapshot": "backup-failed",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "backup-failed",
@@ -24163,7 +24163,7 @@
           {
             "snapshot": "result",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "result",
@@ -24430,7 +24430,7 @@
           {
             "snapshot": "writing",
             "row": 0,
-            "equals": "  NARO 0.1.1                        dir/f.txt                         Modified"
+            "equals": "  NARO 0.1.2                        dir/f.txt                         Modified"
           },
           {
             "snapshot": "writing",
@@ -24574,7 +24574,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                        dir/f.txt"
+            "equals": "  NARO 0.1.2                        dir/f.txt"
           },
           {
             "snapshot": "saved",
@@ -24857,7 +24857,7 @@
           {
             "snapshot": "writing",
             "row": 0,
-            "equals": "  NARO 0.1.1                        dir/f.txt                         Modified"
+            "equals": "  NARO 0.1.2                        dir/f.txt                         Modified"
           },
           {
             "snapshot": "writing",
@@ -25002,7 +25002,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                        dir/f.txt"
+            "equals": "  NARO 0.1.2                        dir/f.txt"
           },
           {
             "snapshot": "saved",
@@ -25168,7 +25168,7 @@
           {
             "snapshot": "help-off",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "help-off",
@@ -25217,7 +25217,7 @@
           {
             "snapshot": "help-on",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "help-on",
@@ -25362,7 +25362,7 @@
           {
             "snapshot": "writing",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt                           Modified"
+            "equals": "  NARO 0.1.2                          f.txt                           Modified"
           },
           {
             "snapshot": "writing",
@@ -25507,7 +25507,7 @@
           {
             "snapshot": "saved",
             "row": 0,
-            "equals": "  NARO 0.1.1                          f.txt"
+            "equals": "  NARO 0.1.2                          f.txt"
           },
           {
             "snapshot": "saved",
@@ -25653,7 +25653,7 @@
           {
             "snapshot": "start",
             "row": 0,
-            "contains": "NARO 0.1.1"
+            "contains": "NARO 0.1.2"
           },
           {
             "snapshot": "start",

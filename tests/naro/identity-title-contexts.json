@@ -1,7 +1,7 @@
 {
   "schema": "naro-identity-title-context-v1",
   "policy": "Q-IDENTITY-001",
-  "package_version": "0.1.1",
+  "package_version": "0.1.2",
   "reference": "GNU nano 9.3 winio.c:titlebar normal editing algorithm; original environments cases",
   "cases": {
     "TEST-NEXT-TERM-001-1": {

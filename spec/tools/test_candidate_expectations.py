@@ -53,7 +53,7 @@ class IdentityTests(unittest.TestCase):
                        {'snapshot': 's', 'attr_at': [0, 2, 'reverse=1']}]}}
         expected = copy.deepcopy(reference['expect'])
         expected['screen'][0]['equals'] = policy.title_row(80, 'notes.txt', 'Modified')
-        overlays = {'policy': policy.POLICY, 'package_version': '0.1.1', 'cases': {
+        overlays = {'policy': policy.POLICY, 'package_version': '0.1.2', 'cases': {
             reference['id']: {'reference_case_sha256': policy.case_sha256(reference), 'expect': expected}}}
         case = policy.candidate_case(reference, overlays)
         result = {'exit_status': 0, 'fixture': {'work/f.txt': {'b64': base64.b64encode(b'ok\n').decode()}},
@@ -109,7 +109,7 @@ class IdentityTests(unittest.TestCase):
         self.assertEqual(policy.expected_cli_output('unchanged filename nano\n'), 'unchanged filename nano\n')
         self.assertTrue(policy.expected_cli_output('Usage: nano [OPTIONS]\n').startswith('Usage: naro '))
         old = ' GNU nano, version 9.3\n Compiled options: --enable-tiny --enable-utf8\n'
-        self.assertIn('NARO, version 0.1.1', policy.expected_cli_output(old, 'tiny'))
+        self.assertIn('NARO, version 0.1.2', policy.expected_cli_output(old, 'tiny'))
         with self.assertRaises(ValueError):
             policy.expected_cli_output(old + 'unreviewed line\n', 'tiny')
 

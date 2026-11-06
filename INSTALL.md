@@ -1,9 +1,10 @@
 # Installing NARO
 
-This source tree is NARO 0.1.1. Download a published version and its matching
+This source tree is the NARO 0.1.2 local development candidate; no 0.1.2 release
+has been published or qualified yet. Download a published version and its matching
 source/checksums from [GitHub Releases](https://github.com/JLuethe/naro/releases).
-The qualified binary uses the default Linux x86_64 GNU/glibc profile.
-Tiny is source-build only for this release.
+The previously qualified 0.1.1 binary uses the default Linux x86_64 GNU/glibc
+profile. Tiny was source-build only for that release.
 
 ## Requirements
 
@@ -23,9 +24,10 @@ Python 3.12 in Ubuntu and Python 3.14 on the host.
 library/symbol requirements and build provenance. See [validation](validation/README.md)
 for the qualified executable identity.
 
-## Install a verified binary archive
+## Install a verified 0.1.1 binary archive
 
-The selected binary archive is `naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz`.
+For the prior published version, the selected binary archive is
+`naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz`.
 The matching source archive is `naro-0.1.1-source.tar.gz`. Keep the accompanying
 `SHA256SUMS`, build records, runtime notes and qualification receipt.
 
@@ -115,15 +117,16 @@ synced temporary file, atomic replacement and a containing-directory sync.
 
 ## Build from corresponding source
 
-Extract the matching source archive into a new directory. Provide Rust/Cargo,
-a C compiler, pkg-config, ncursesw development files and libmagic development
-files. The candidate was built with rustc 1.99.1; no older compiler minimum is
-claimed here. The package has no Cargo package dependencies.
+For a published version, extract its matching source archive into a new
+directory. For the 0.1.2 development candidate, use this Git checkout. Provide
+Rust/Cargo, a C compiler, pkg-config, ncursesw development files and libmagic
+development files. The prior 0.1.1 candidate was built with rustc 1.99.1; no
+older compiler minimum is claimed here. The package has no Cargo dependencies.
 
 ```sh
-cd naro-0.1.1-source
 cargo build --release --offline --locked
 ./target/release/naro example.txt
+./target/release/naro --credits
 ```
 
 An offline build still needs its toolchain and native development dependencies
@@ -158,8 +161,9 @@ candidate's qualification automatically.
 - Tiny: build with `cargo build --release --features tiny --target-dir target/tiny`.
   This profile uses ncursesw and omits libmagic, nanorc/syntax and other features;
   see [implementation status](IMPLEMENTATION.md). No tiny download is selected.
-- Credits: the optional `credits` feature enables `naro --credits`; it is not
-  enabled in the primary default binary.
+- Credits: `naro --credits` prints the same attribution as `CREDITS.md` in default
+  and tiny 0.1.2 builds. The `credits` feature remains accepted by Cargo for
+  older build commands and does not change availability.
 - `test-hooks`: isolated recovery-testing instrumentation; never enable it in a
   distributed editor.
 

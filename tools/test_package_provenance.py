@@ -90,6 +90,13 @@ class PackageProvenance(unittest.TestCase):
         self.assertEqual(metadata['source_files'], actual)
         self.assertEqual(metadata['source_file_modes'], modes)
         self.assertNotIn('review.txt', actual)
+        self.assertEqual(actual['CREDITS.md'], package.sha(self.root / 'CREDITS.md'))
+        with tarfile.open(self.out / 'naro-0.1.1-x86_64-unknown-linux-gnu.tar.gz') as archive:
+            installed = archive.extractfile(
+                'naro-0.1.1-x86_64-unknown-linux-gnu/share/doc/naro/CREDITS.md'
+            ).read().decode()
+        self.assertEqual(installed, package.installed_document(
+            (self.root / 'CREDITS.md').read_text(), self.git('rev-parse', 'HEAD')))
 
     def test_modified_tracked_document_is_rejected_before_output(self):
         (self.root / 'README.md').write_text('modified\n')

@@ -1,6 +1,6 @@
 [package]
 name = "naro"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 license = "GPL-3.0-or-later"
 description = "The familiar nano experience, rebuilt in Rust"
@@ -9,7 +9,7 @@ build = "build.rs"
 
 [features]
 default = []
-credits = []
+credits = [] # Retained for existing build commands; --credits is available in all profiles.
 test-hooks = []
 tiny = []
 
