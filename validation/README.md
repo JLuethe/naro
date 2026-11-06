@@ -10,6 +10,10 @@ the documentation correction and package regression checks address that defect.
 Replacement archives require fresh receipts; the original archive hashes remain
 historical. Early command timestamps are incomplete, and issues #12/#14/#15
 retain their stated race, runtime-coverage and broader qualification limits.
+[Status-document correction and replacement-package receipts](status-doc-fix-2026-11-06/README.md)
+bind the fix to its clean package commit, unchanged executables, new verification
+input hash, 17/17 archive checks and 44/44 asset checks per profile, including
+offline source rebuilds. Earlier archive hashes do not qualify these replacements.
 
 [0.1.2 final-candidate qualification and Daybreak handoff](daybreak-0.1.2-2026-11-06/README.md)
 binds the final issue #3 backup/lock corrections to commit `2888560`, fresh

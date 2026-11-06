@@ -1,0 +1,268 @@
+{
+  "package_source_commit": "9d7cd10530501cf7f352b043d25e80756ff7d939",
+  "package_source_tree": "11e6441073fb06637b526cc742d750171697a43c",
+  "production_source_sha256": "7b6ef4e024bc5d25f59fb66eebad7f8297d4be4f49a34d1037c3b8d4f928e636",
+  "verification_input_definition": "SHA-256 of git ls-tree -rz HEAD -- tests spec/tools tools",
+  "verification_input_sha256": "d5fadd77e0676fe91e8b6f0f09295b8837df7ce9e16c279034ebb5fcc010d3f1",
+  "production_inputs_changed": false,
+  "verification_inputs_changed": true,
+  "archive_hash_policy": "Original independent-retest and final5 archives remain historical. Their hashes do not identify or qualify these replacement archives. No byte-for-byte executable rebuild claim. Receipt-only descendants are not the archive source revision.",
+  "checks": {
+    "package_docs_unit": 8,
+    "package_provenance_unit": 8,
+    "installer_transaction_unit": 16,
+    "cargo_fmt_check": "passed",
+    "git_diff_check": "passed",
+    "archive_document_content": "both profiles: exact source text, immutable installed links, matching version and archive source revision passed"
+  },
+  "packages": {
+    "default": {
+      "build_metadata": "target/status-doc-fix-2026-11-06/package-default/build.json",
+      "compiled_build": {
+        "version": "0.1.2",
+        "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+        "source_sha256": "7b6ef4e024bc5d25f59fb66eebad7f8297d4be4f49a34d1037c3b8d4f928e636",
+        "revision": "2888560a9a2709469334a417d1ad9ac3a91c30ba",
+        "features": "",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+      },
+      "binary_sha256": "894e0dcaf37d9a2ec7ee2380b0b705e35b3f0a0168455fa025523463da503e2a",
+      "archives": {
+        "naro-0.1.2-source.tar.gz": {
+          "sha256": "05a2aba48c2593428151cfe795190c25438511aab92c4ecf3c173b5fa48737d6",
+          "bytes": 5017747
+        },
+        "naro-0.1.2-x86_64-unknown-linux-gnu.tar.gz": {
+          "sha256": "a384d3ff7f00cd1efa1bf83b0791df0ea7a7ceb1f60e7e788a7019710e0e9e47",
+          "bytes": 2760712
+        }
+      },
+      "archive_checks": [
+        {
+          "name": "install-prefix-with-spaces",
+          "pass": true,
+          "detail": "{\"installed\": 138, \"prefix\": \"/home/john/Code/naro/target/status-doc-fix-2026-11-06/fixtures-default/TEST-NEXT-PACKAGE-8721ce52ee9f/fx/work/Prefix With Spaces\"}\n"
+        },
+        {
+          "name": "installed-status-document",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "installed-hashes",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "symlink-launcher-assets",
+          "pass": true,
+          "detail": {
+            "locale": "en_US.UTF-8",
+            "command": [
+              "/home/john/Code/naro/target/status-doc-fix-2026-11-06/fixtures-default/TEST-NEXT-PACKAGE-8721ce52ee9f/fx/work/launcher"
+            ],
+            "status": 0,
+            "stdout": "Hilfe\n",
+            "stderr": ""
+          }
+        },
+        {
+          "name": "installed-native-catalogs-and-syntax",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "source-status-document",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "source-archive-hashes",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "source-archive-build",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "rebuilt-source-fingerprint",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "rebuilt-features",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "reject-checksum-mismatch",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "reject-traversal",
+          "pass": true,
+          "detail": "unsafe package path: top/../escape\n"
+        },
+        {
+          "name": "reject-absolute",
+          "pass": true,
+          "detail": "unsafe package path: /home/john/Code/naro/target/status-doc-fix-2026-11-06/fixtures-default/TEST-NEXT-PACKAGE-8721ce52ee9f/fx/work/escape\n"
+        },
+        {
+          "name": "reject-symlink",
+          "pass": true,
+          "detail": "unsupported/duplicate archive entry: top/link\n"
+        },
+        {
+          "name": "reject-destination-symlink",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "uninstall-preserves-conflicts",
+          "pass": true,
+          "detail": "{\"removed\": 137, \"conflicts\": [\"share/doc/naro/README.md\"]}\n"
+        },
+        {
+          "name": "uninstall-owned-only",
+          "pass": true,
+          "detail": null
+        }
+      ],
+      "archive_report": "target/status-doc-fix-2026-11-06/check-default/report.json",
+      "archive_report_sha256": "05c2b707d625547dd215b44f91e9d85e6c17aa591aa36e3a7ba107f9c9eb4ef8",
+      "asset_checks": 44,
+      "asset_checks_passed": 44,
+      "asset_report": "target/status-doc-fix-2026-11-06/check-default/assets/report.json",
+      "asset_report_sha256": "11cd378720a3184da8c48497c0a382acf2c2b9d82ce38332493c3d0a06d0bb03",
+      "source_build_log": "target/status-doc-fix-2026-11-06/check-default/source-build.log"
+    },
+    "tiny": {
+      "build_metadata": "target/status-doc-fix-2026-11-06/package-tiny/build.json",
+      "compiled_build": {
+        "version": "0.1.2",
+        "reference_commit": "6ed285c3ec7a1d228def4d4e7021c6ba269f620c",
+        "source_sha256": "7b6ef4e024bc5d25f59fb66eebad7f8297d4be4f49a34d1037c3b8d4f928e636",
+        "revision": "2888560a9a2709469334a417d1ad9ac3a91c30ba",
+        "features": "tiny",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+      },
+      "binary_sha256": "93e990da049e779d1164e76776a7c42d01fe5d42980974f2c5b78521438177ba",
+      "archives": {
+        "naro-0.1.2-source.tar.gz": {
+          "sha256": "e7bb1f0e39c16f3838218761b8da522cc76b3b409d4a4d48ec0b05a8fa8e6603",
+          "bytes": 5017747
+        },
+        "naro-0.1.2-x86_64-unknown-linux-gnu.tar.gz": {
+          "sha256": "e6cdc5d44e1bf3393f5e25dd5b78bb90c3d74a75e13fee28cb8b958964d01a8f",
+          "bytes": 2242390
+        }
+      },
+      "archive_checks": [
+        {
+          "name": "install-prefix-with-spaces",
+          "pass": true,
+          "detail": "{\"installed\": 93, \"prefix\": \"/home/john/Code/naro/target/status-doc-fix-2026-11-06/fixtures-tiny/TEST-NEXT-PACKAGE-2a6b93067354/fx/work/Prefix With Spaces\"}\n"
+        },
+        {
+          "name": "installed-status-document",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "installed-hashes",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "symlink-launcher-assets",
+          "pass": true,
+          "detail": {
+            "locale": "en_US.UTF-8",
+            "command": [
+              "/home/john/Code/naro/target/status-doc-fix-2026-11-06/fixtures-tiny/TEST-NEXT-PACKAGE-2a6b93067354/fx/work/launcher"
+            ],
+            "status": 0,
+            "stdout": "Hilfe\n",
+            "stderr": ""
+          }
+        },
+        {
+          "name": "installed-native-catalogs-and-syntax",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "source-status-document",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "source-archive-hashes",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "source-archive-build",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "rebuilt-source-fingerprint",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "rebuilt-features",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "reject-checksum-mismatch",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "reject-traversal",
+          "pass": true,
+          "detail": "unsafe package path: top/../escape\n"
+        },
+        {
+          "name": "reject-absolute",
+          "pass": true,
+          "detail": "unsafe package path: /home/john/Code/naro/target/status-doc-fix-2026-11-06/fixtures-tiny/TEST-NEXT-PACKAGE-2a6b93067354/fx/work/escape\n"
+        },
+        {
+          "name": "reject-symlink",
+          "pass": true,
+          "detail": "unsupported/duplicate archive entry: top/link\n"
+        },
+        {
+          "name": "reject-destination-symlink",
+          "pass": true,
+          "detail": null
+        },
+        {
+          "name": "uninstall-preserves-conflicts",
+          "pass": true,
+          "detail": "{\"removed\": 92, \"conflicts\": [\"share/doc/naro/README.md\"]}\n"
+        },
+        {
+          "name": "uninstall-owned-only",
+          "pass": true,
+          "detail": null
+        }
+      ],
+      "archive_report": "target/status-doc-fix-2026-11-06/check-tiny/report.json",
+      "archive_report_sha256": "8d96a189fc67f59a4c4a03cc1f3ff54fd440993c3b36d7c4ddab7d841c6d63b7",
+      "asset_checks": 44,
+      "asset_checks_passed": 44,
+      "asset_report": "target/status-doc-fix-2026-11-06/check-tiny/assets/report.json",
+      "asset_report_sha256": "05c03bc51e1145962562968dde39b1b863271b145b9cb76f504daef5ae3e1b12",
+      "source_build_log": "target/status-doc-fix-2026-11-06/check-tiny/source-build.log"
+    }
+  }
+}
