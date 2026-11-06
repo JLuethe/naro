@@ -102,6 +102,19 @@ class CompareTests(unittest.TestCase):
         b['home/f.txt~uvwxyz']['b64']='ZGlmZg=='
         self.assertNotEqual(c.norm_manifest(a,run=case),c.norm_manifest(b,run=case))
 
+    def test_colocated_backup_ownership_relation_is_compared(self):
+        source = {'type':'file','mode':'0o640','b64':'YWJj','uid':1000,'gid':42}
+        backup = {'type':'file','mode':'0o640','b64':'YWJj','uid':1000,'gid':42}
+        self.ref['fixture'] = {'work/f.txt':source, 'work/f.txt~':backup}
+        self.cand['fixture'] = copy.deepcopy(self.ref['fixture'])
+        self.cand['fixture']['work/f.txt~']['gid'] = 43
+        self.assertTrue(any(d['field']=='fixture' for d in c.compare(self.ref,self.cand)))
+        # Different numeric namespace IDs are acceptable when the relation holds.
+        self.cand['fixture']['work/f.txt']['uid'] = 2000
+        self.cand['fixture']['work/f.txt']['gid'] = 43
+        self.cand['fixture']['work/f.txt~']['uid'] = 2000
+        self.assertFalse(any(d['field']=='fixture' for d in c.compare(self.ref,self.cand)))
+
     def test_namespace_identity_is_not_normalized_away(self):
         self.ref['root_namespace']={'euid':0,'root':'/','null_device':[1,3]}
         self.cand['root_namespace']={'euid':1000,'root':'/','null_device':[1,3]}

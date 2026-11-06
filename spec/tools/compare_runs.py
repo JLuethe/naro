@@ -107,6 +107,13 @@ def norm_manifest(fixture, root=None, include_nlink=True, run=None):
         item = {k: entry.get(k) for k in ('type', 'mode', 'nlink') if k in entry}
         if not include_nlink:
             item.pop('nlink', None)
+        # Raw IDs vary across hosts and user namespaces. For colocated ~
+        # backups, compare the promised ownership relationship to the source.
+        if path.endswith('~') and entry['type'] == 'file':
+            source = fixture.get(path[:-1])
+            if source and source.get('type') == 'file':
+                item['uid_matches_source'] = entry.get('uid') == source.get('uid')
+                item['gid_matches_source'] = entry.get('gid') == source.get('gid')
         if entry['type'] == 'file':
             if 'b64' in entry:
                 raw = base64.b64decode(entry['b64'], validate=True)

@@ -522,21 +522,29 @@ fn make_backup(
         collision(&config::path(&directory).join(config::path(&name)))
     };
     let read_failed = std::cell::Cell::new(false);
-    let write = |file: &mut File| -> std::io::Result<()> {
+    let write = |file: &mut File, warning: &mut dyn FnMut(&str)| -> std::io::Result<()> {
         read_failed.set(false);
-        if let Err(error) = file.set_permissions(fs::Permissions::from_mode(meta.mode() & 0o7777))
-            && error.raw_os_error() != Some(1)
-        {
-            return Err(error);
-        }
         let bytes = fs::read(path).inspect_err(|_| read_failed.set(true))?;
         write_bytes(file, &bytes)?;
-        file.sync_all()?;
-        let _ = file.set_times(
+        // chown and content writes can clear set-ID bits. Apply the final mode
+        // after both operations, then restore times and sync all metadata.
+        if let Err(error) = native::file_chown(file, meta.uid(), meta.gid()) {
+            if error.kind() == std::io::ErrorKind::PermissionDenied {
+                let actual = file.metadata()?;
+                if (actual.uid(), actual.gid()) != (meta.uid(), meta.gid()) {
+                    warning("Cannot preserve backup ownership: Permission denied");
+                }
+            } else {
+                return Err(error);
+            }
+        }
+        file.set_permissions(fs::Permissions::from_mode(meta.mode() & 0o7777))?;
+        file.set_times(
             std::fs::FileTimes::new()
                 .set_accessed(meta.accessed()?)
                 .set_modified(meta.modified()?),
-        );
+        )?;
+        file.sync_all()?;
         Ok(())
     };
     let first = (|| {
@@ -554,7 +562,7 @@ fn make_backup(
             .truncate(c.on(INSECURE_BACKUP))
             .mode(0o600)
             .open(&name)?;
-        write(&mut file)
+        write(&mut file, &mut warning)
     })();
     if first.is_ok() {
         return Ok(());
@@ -588,7 +596,7 @@ fn make_backup(
                 .mode(0o600)
                 .open(home.join(config::path(&name)))
             {
-                Ok(mut file) => match write(&mut file) {
+                Ok(mut file) => match write(&mut file, &mut warning) {
                     Ok(()) => return Ok(()),
                     Err(e) => {
                         last = e;
@@ -618,3 +626,7 @@ fn make_backup(
 #[cfg(test)]
 #[path = "safe_save_tests.rs"]
 mod safe_save_tests;
+
+#[cfg(test)]
+#[path = "backup_tests.rs"]
+mod backup_tests;

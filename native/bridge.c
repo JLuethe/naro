@@ -281,6 +281,10 @@ static int save_unchanged(const struct stat *a,const struct stat *b) {
         a->st_mtim.tv_sec==b->st_mtim.tv_sec&&a->st_mtim.tv_nsec==b->st_mtim.tv_nsec&&
         a->st_ctim.tv_sec==b->st_ctim.tv_sec&&a->st_ctim.tv_nsec==b->st_ctim.tv_nsec;
 }
+int nr_file_chown(int fd,uint64_t uid,uint64_t gid) {
+    if((uint64_t)(uid_t)uid!=uid||(uint64_t)(gid_t)gid!=gid){errno=EINVAL;return -1;}
+    return fchown(fd,(uid_t)uid,(gid_t)gid);
+}
 int nr_close_checked(int fd) {
     /* Never retry close: on Linux even EINTR releases the descriptor. */
     return close(fd);

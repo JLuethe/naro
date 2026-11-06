@@ -34,6 +34,7 @@ unsafe extern "C" {
         committed: *mut c_int,
     ) -> c_int;
     fn nr_close_checked(fd: c_int) -> c_int;
+    fn nr_file_chown(fd: c_int, uid: u64, gid: u64) -> c_int;
     pub fn nr_configure(preserve: c_int, rawseq: c_int);
     pub fn nr_init(preserve: c_int, rawseq: c_int) -> c_int;
     pub fn nr_done();
@@ -138,6 +139,14 @@ pub fn safe_save(
 pub fn close_checked(file: std::fs::File) -> std::io::Result<()> {
     use std::os::fd::IntoRawFd;
     if unsafe { nr_close_checked(file.into_raw_fd()) } < 0 {
+        Err(std::io::Error::last_os_error())
+    } else {
+        Ok(())
+    }
+}
+pub fn file_chown(file: &std::fs::File, uid: u32, gid: u32) -> std::io::Result<()> {
+    use std::os::fd::AsRawFd;
+    if unsafe { nr_file_chown(file.as_raw_fd(), u64::from(uid), u64::from(gid)) } < 0 {
         Err(std::io::Error::last_os_error())
     } else {
         Ok(())
