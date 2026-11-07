@@ -26,7 +26,7 @@ impl Key {
         }
     }
 }
-#[derive(Default)]
+#[derive(Clone, Default)]
 pub struct Input {
     pub queue: VecDeque<i32>,
     pub replay: VecDeque<Key>,
@@ -37,17 +37,32 @@ pub struct Input {
 }
 impl Input {
     pub fn next(&mut self, c: &Config) -> Event {
+        self.next_internal(c, true)
+    }
+
+    /// Decode only already queued input.  Search polling uses this on a clone
+    /// so incomplete escape sequences and non-cancel keys stay untouched.
+    pub fn next_buffered(&mut self, c: &Config) -> Event {
+        self.next_internal(c, false)
+    }
+
+    fn next_internal(&mut self, c: &Config, fetch_terminal: bool) -> Event {
         if let Some(k) = self.replay.pop_front() {
             return Event::Key(k);
         }
         loop {
-            let sig = unsafe { native::nr_signal() };
-            if sig != 0 {
-                return Event::Signal(sig);
+            if fetch_terminal {
+                let sig = unsafe { native::nr_signal() };
+                if sig != 0 {
+                    return Event::Signal(sig);
+                }
             }
             let code = if let Some(k) = self.queue.pop_front() {
                 k
             } else {
+                if !fetch_terminal {
+                    return Event::Idle;
+                }
                 let k = unsafe { native::nr_get(100) };
                 if k < 0 {
                     return Event::Idle;

@@ -116,7 +116,27 @@ impl SearchPoll {
                 .collect(),
         }
     }
-    fn check(&mut self, input: &mut crate::input::Input) -> Result<(), ()> {
+    fn buffered_cancel(&self, input: &crate::input::Input, conf: &Config) -> bool {
+        let mut decoded = input.clone();
+        for _ in 0..input.queue.len() + input.replay.len() + 1 {
+            let key = match decoded.next_buffered(conf) {
+                crate::input::Event::Key(key) => key,
+                crate::input::Event::Signal(_) => continue,
+                crate::input::Event::Idle => break,
+            };
+            if key.command.as_deref() == Some("do_cancel") {
+                return true;
+            }
+            if (!key.meta && (32..=255).contains(&key.code)) || (key.meta && key.code < 32) {
+                continue;
+            }
+            if self.cancel_keys.contains(&key.code) {
+                return true;
+            }
+        }
+        false
+    }
+    fn check(&mut self, input: &mut crate::input::Input, conf: &Config) -> Result<(), ()> {
         self.steps += 1;
         if self.steps != 1 && !self.steps.is_multiple_of(1024) {
             return Ok(());
@@ -124,12 +144,7 @@ impl SearchPoll {
         if native::signal_pending() {
             return Err(());
         }
-        if let Some(i) = input
-            .queue
-            .iter()
-            .position(|c| self.cancel_keys.contains(c))
-        {
-            input.queue.remove(i);
+        if self.buffered_cancel(input, conf) {
             Self::discard_cancelled_input(input);
             return Err(());
         }
@@ -143,11 +158,11 @@ impl SearchPoll {
             if key < 0 {
                 break;
             }
-            if self.cancel_keys.contains(&key) {
-                Self::discard_cancelled_input(input);
-                return Err(());
-            }
             input.queue.push_back(key);
+        }
+        if self.buffered_cancel(input, conf) {
+            Self::discard_cancelled_input(input);
+            return Err(());
         }
         Ok(())
     }
@@ -156,10 +171,11 @@ impl SearchPoll {
 #[cfg(test)]
 #[test]
 fn search_poll_preserves_non_cancelled_queued_input() {
+    let conf = Config::new(false);
     let mut input = crate::input::Input::default();
     input.queue.extend([b'X' as i32, b'Y' as i32]);
-    let mut poll = SearchPoll::new(&Config::new(false));
-    assert!(poll.check(&mut input).is_ok());
+    let mut poll = SearchPoll::new(&conf);
+    assert!(poll.check(&mut input, &conf).is_ok());
     assert_eq!(
         input.queue.iter().copied().collect::<Vec<_>>(),
         vec![88, 89]
@@ -169,10 +185,11 @@ fn search_poll_preserves_non_cancelled_queued_input() {
 #[cfg(test)]
 #[test]
 fn search_poll_discards_queued_remainder_after_cancel() {
+    let conf = Config::new(false);
     let mut input = crate::input::Input::default();
     input.queue.extend([3, b'X' as i32]);
-    let mut poll = SearchPoll::new(&Config::new(false));
-    assert!(poll.check(&mut input).is_err());
+    let mut poll = SearchPoll::new(&conf);
+    assert!(poll.check(&mut input, &conf).is_err());
     assert!(input.queue.is_empty());
 }
 
@@ -199,12 +216,46 @@ fn search_poll_obeys_rebound_cancel_and_unbound_control_c() {
     let mut poll = SearchPoll::new(&conf);
     let mut input = crate::input::Input::default();
     input.queue.extend([3, b'X' as i32]);
-    assert!(poll.check(&mut input).is_ok());
+    assert!(poll.check(&mut input, &conf).is_ok());
     assert_eq!(input.queue.iter().copied().collect::<Vec<_>>(), vec![3, 88]);
     input.queue.clear();
     input.queue.extend([7, b'Y' as i32]);
     poll.steps = 0;
-    assert!(poll.check(&mut input).is_err());
+    assert!(poll.check(&mut input, &conf).is_err());
+    assert!(input.queue.is_empty());
+}
+
+#[cfg(test)]
+#[test]
+fn search_poll_decodes_meta_binding_without_consuming_other_keys() {
+    let mut conf = Config::new(false);
+    conf.keys.insert(
+        0,
+        Binding {
+            key: b'g' as i32,
+            menus: SEARCH,
+            func: "do_cancel".into(),
+            tag: "M-G".into(),
+            toggle: 0,
+            expansion: None,
+        },
+    );
+    let mut poll = SearchPoll::new(&conf);
+    let mut input = crate::input::Input::default();
+    input.queue.extend([b'g' as i32, b'X' as i32]);
+    assert!(poll.check(&mut input, &conf).is_ok());
+    assert_eq!(
+        input.queue.iter().copied().collect::<Vec<_>>(),
+        vec![103, 88]
+    );
+    input.queue.clear();
+    input.queue.push_back(27);
+    poll.steps = 0;
+    assert!(poll.check(&mut input, &conf).is_ok());
+    assert_eq!(input.queue.iter().copied().collect::<Vec<_>>(), vec![27]);
+    input.queue.extend([b'g' as i32, b'X' as i32]);
+    poll.steps = 0;
+    assert!(poll.check(&mut input, &conf).is_err());
     assert!(input.queue.is_empty());
 }
 #[derive(Debug)]
@@ -231,7 +282,7 @@ impl Pattern {
         poll: &mut SearchPoll,
         input: &mut crate::input::Input,
     ) -> Result<Option<Vec<(usize, usize)>>, ()> {
-        poll.check(input)?;
+        poll.check(input, c)?;
         let text = &terminated[..terminated.len() - 1];
         if from > text.len() {
             return Ok(None);
@@ -245,11 +296,11 @@ impl Pattern {
                 &self.needle,
                 from,
                 c.on(CASE_SENSITIVE),
-                &mut || poll.check(input),
+                &mut || poll.check(input, c),
             )?
             .map(|m| vec![m])
         };
-        poll.check(input)?;
+        poll.check(input, c)?;
         Ok(found)
     }
 }
@@ -493,7 +544,7 @@ impl Replacement {
     ) -> Result<bool, ()> {
         self.current = None;
         while self.phase < if self.region.is_some() { 1 } else { 2 } {
-            poll.check(input)?;
+            poll.check(input, c)?;
             let line = self.line;
             let len = self.source[line].len() - 1;
             if line + 1 == self.source.len() && len == 0 {
@@ -697,7 +748,7 @@ impl Editor {
             if wrapped && ((!back && line > p.line) || (back && line < p.line)) {
                 continue;
             }
-            poll.check(&mut self.input)?;
+            poll.check(&mut self.input, &self.conf)?;
             let s = &self.b().state.lines[line];
             if line + 1 == n && s.is_empty() {
                 continue;

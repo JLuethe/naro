@@ -72,6 +72,31 @@ def unbound_control_c_case():
     return case
 
 
+def decoded_cancel_case(case_id, rc, burst, should_cancel):
+    case = cancellation_case()
+    case["id"] = case_id
+    case["args"] = ["--rcfile=$FX/home/cancel.rc", "f.txt"]
+    case["files"]["home/cancel.rc"] = {"text": rc}
+    case["steps"][4] = {"hex": burst}
+    if not should_cancel:
+        case["steps"][5] = {"wait": {"text": "not found", "timeout": 4}}
+    return case
+
+
+def decoded_cancel_cases():
+    meta_rc = "unbind ^C search\nbind M-G cancel search\n"
+    return [
+        decoded_cancel_case("TEST-ISSUE14-META-G-PLAIN-G", meta_rc, "6758", False),
+        decoded_cancel_case("TEST-ISSUE14-META-G-ACTUAL", meta_rc, "1b6758", True),
+        decoded_cancel_case("TEST-ISSUE14-META-LEFT-CANCEL",
+                            "unbind ^C search\nbind M-Left cancel search\n",
+                            "1b5b313b334458", True),
+        decoded_cancel_case("TEST-ISSUE14-RAW-F1-CANCEL",
+                            "unbind ^C search\nbind F1 cancel search\nset rawsequences\n",
+                            "1b4f5058", True),
+    ]
+
+
 def require(ok, message):
     if not ok:
         raise AssertionError(message)
@@ -275,7 +300,8 @@ def main():
             "hook scenario set incomplete")
     check_cli(args.binary, args.reference, args.out)
     production = [case for case in cases if case["id"] not in HOOK_IDS]
-    production.extend([cancellation_case(), rebound_cancel_case(), unbound_control_c_case()])
+    production.extend([cancellation_case(), rebound_cancel_case(), unbound_control_c_case(),
+                       *decoded_cancel_cases()])
     require(production, "no production scenarios")
     (args.out / "production").mkdir()
     production_results = run_harness(production, args.binary, args.out / "production")
@@ -300,6 +326,18 @@ def main():
     require(b"Cancelled" not in unbound_raw and b"not found" in unbound_raw,
             "unbound ^C was treated as Cancel or search did not finish")
     print("Production rebound ^G cancels; unbound ^C allows search completion PASS")
+    for case in decoded_cancel_cases():
+        result = production_results[case["id"]]
+        path = args.out / "production/runs" / case["id"] / "raw-output.bin"
+        raw = path.read_bytes()
+        should_cancel = case["id"] != "TEST-ISSUE14-META-G-PLAIN-G"
+        require((b"Cancelled" in raw) == should_cancel,
+                case["id"] + " decoded cancellation result differs")
+        file = result["fixture"]["work/f.txt"]
+        require(file["size"] == len(expected_bytes) and
+                file["sha256"] == hashlib.sha256(expected_bytes).hexdigest(),
+                case["id"] + " changed the original file")
+    print("Production plain g, Meta+g, Meta+Left, raw F1 binding cases PASS")
     timed = production_results["TEST-ISSUE14-QUICKBLANK-TIMEOUT"]["snapshots"]
     message = "\n".join(row["text"] for row in timed["message"]["rows"])
     cleared = "\n".join(row["text"] for row in timed["cleared"]["rows"])

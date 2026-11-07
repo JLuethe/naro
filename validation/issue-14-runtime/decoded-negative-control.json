@@ -1,0 +1,36 @@
+{
+  "classification": "pre_fix_candidate_product_failures",
+  "candidate_revision": "a140d6ec35b3a103f8a3825b217c0bce6466bbea",
+  "candidate_sha256": "afcdefcc0f1f18aae506054bca5ba286c5ca726c558f842e805659e759073893",
+  "cases": [
+    {
+      "id": "TEST-ISSUE14-META-G-PLAIN-G",
+      "scenario_sha256": "4c5d057c39736293388a5d8a2da61d9e7fae952d7e57bdb6c726c4563b7fdfe9",
+      "result_json_sha256": "6b27d9d53dcfc9c56315fcd59ffd5b30566fe256929614d5ca75fb4918577ae4",
+      "raw_output_sha256": "c6de73c4aa07d7deff89762d06af8ac022d90441b66bbaa4f72adb3ed16fb7d2",
+      "observed": "Plain g incorrectly produced Cancelled; wait for not found timed out; harness FAIL."
+    },
+    {
+      "id": "TEST-ISSUE14-META-G-ACTUAL",
+      "scenario_sha256": "0e88fa654347ddb01ebfa6403693f59e625285980c9e8aae3b39d6bd6ab0af6a",
+      "result_json_sha256": "326e13da0fe5ea303325fcd04334120ba34034b4ad8d8ab27265d1b6d8107658",
+      "raw_output_sha256": "c6de73c4aa07d7deff89762d06af8ac022d90441b66bbaa4f72adb3ed16fb7d2",
+      "observed": "Actual Meta+g produced Cancelled; positive control PASS."
+    },
+    {
+      "id": "TEST-ISSUE14-META-LEFT-CANCEL",
+      "scenario_sha256": "bbd0b3f1ac4fa23253725d8378c3e104bbef8030de4e365235b5b0574578d277",
+      "result_json_sha256": "4229db1ac28155aee5ed10e0e70ad40590ba51ca9f15a2d25c7aeaec2373307c",
+      "raw_output_sha256": "3c36abdc7120b5a533a74bdd137370881261ab11ed8745cbcfe836afa1721fbf",
+      "observed": "Meta+Left did not cancel and search finished not found; harness FAIL."
+    },
+    {
+      "id": "TEST-ISSUE14-RAW-F1-CANCEL",
+      "scenario_sha256": "08027636c5b0846ce637d326ff897c3593050fcd62743aa4c69047515c9167ea",
+      "result_json_sha256": "3474585e154da3f25ac22b3b7f3dbb41a1b95bce0ddf8b595c2f8b6adfa3a4b1",
+      "raw_output_sha256": "2536960ce8e94f59b863e3f53e4e258870eb94d5b744944a7425aa58a03ac929",
+      "observed": "F1 under rawsequences did not cancel and search finished not found; harness FAIL."
+    }
+  ],
+  "raw_location": "Ignored isolated worktree target/decoded-old-binary; generated two-megabyte fixtures are not committed."
+}

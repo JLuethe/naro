@@ -85,3 +85,18 @@ key lookup, and long-search polling. The prior issue #14 production binary
 failed both new scenarios; [the negative-control receipt](rebound-negative-control.json)
 records its SHA-256, scenario and raw-result hashes, and failure notes. The
 large raw fixtures remain ignored in the isolated worktree.
+
+## Decoded-key polling follow-up
+
+The previous poll compared raw input codes. That made plain `g` cancel when
+`M-G` was bound, and missed Meta+Left and F1 sent as terminal escape sequences.
+Polling now probes a clone of queued input through the normal decoder without
+blocking or consuming the original queue. It applies the same first effective
+search-menu binding and Meta eligibility rules as ordinary key dispatch.
+Incomplete escape sequences and non-cancel keys remain available to normal
+dispatch; a decoded Cancel still drains the pending burst. Production PTY
+regressions cover plain `g` versus Meta+g, Meta+Left, and F1 with
+`rawsequences`; a unit test checks an incomplete Escape and non-cancel input.
+The [negative-control receipt](decoded-negative-control.json) records the
+three failures and positive control against the exact pre-fix binary. The
+new tests require a fresh integrated-binary run for final qualification.
