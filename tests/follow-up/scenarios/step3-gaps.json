@@ -3733,6 +3733,12 @@
     ]
    },
    {
+    "wait": {
+     "text": "Wrote 5 lines",
+     "timeout": 10
+    }
+   },
+   {
     "snapshot": "saved",
     "quiet": 200
    },

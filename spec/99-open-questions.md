@@ -16,7 +16,7 @@ target; a recorded deviation must never be hidden by comparison normalization.
 | Q-REGEX-001 | 81-case corpus × 2 locales, REGEX-002 | Resolved: libc POSIX regex via an opaque native bridge. No Rust regex engine substitution. |
 | Q-I18N-001 | German ISO-8859-1 catalog output, TEST-I18N-003 | Resolved target: gettext with original catalogs and native charset conversion. Implementation completion must be checked separately. |
 | Q-ENV-001 | No separately installed nano | Remains an environmental limitation L-3; pinned default/tiny builds suffice. No system install needed. |
-| Q-ENV-002 | Reference built from export, empty revision.h | Resolved: target reference `GNU nano 9.3` branding for compatibility. Product README identifies Naro. |
+| Q-ENV-002 | Reference built from export, empty revision.h | The reference identifies itself as `GNU nano 9.3`. NARO uses its own name and Cargo package version in the title and CLI; see [Q-IDENTITY-001](../docs/NARO_IDENTITY_POLICY.md). Original GNU observations retain their reference branding. |
 | Q-IN-001 | Terminfo/keypad timing | Resolved architecture: ncursesw; Rust decoder handles nano's additional sequences. |
 | Q-IN-002 / Q-KEY-003 | Linux VT modifier/ioctl paths | Implemented and qualified on a genuine guest Linux VT with emulated PS/2 input: 19 exact cases on both optimized builds, plus separate ioctl models. See ../validation/console-vm/README.md. Physical keyboard/operator scope remains deferred under L-2. |
 | Q-IN-003 | Malformed CSI 2 consumes burst | Resolved: reproduce deterministic behavior. |

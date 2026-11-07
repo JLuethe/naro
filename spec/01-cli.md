@@ -18,6 +18,11 @@ process exit status. "ALERT/AHEM/REMARK/HUSH/INFO/NOTICE/MILD" are status-bar
 message importance levels defined in `04-rendering.md` §6. A message shown "at
 startup" is drawn on the status bar once the first screen appears.
 
+The help and version text below describes the pinned GNU reference. NARO's
+current product wording follows [the identity policy](../docs/NARO_IDENTITY_POLICY.md):
+`Usage: naro` and `NARO, version <Cargo package version>`, with GNU nano 9.3
+identified separately as the reference. Original CLI observations stay unchanged.
+
 ---
 
 ## 1. Normative requirements

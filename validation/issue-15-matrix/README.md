@@ -12,10 +12,36 @@ nonpass; no broad compatibility qualification is claimed. Raw reports are in
 The 35 default candidate-failure IDs match the earlier `a140d6e` run. Thirty-two
 are legacy in-place save/backup fault fixtures; three newly observable root
 fixtures still use the old backup gate. Four default residuals are the
-documented symlink/hard-link, error-text, and EINTR policy differences. Tiny's
+documented symlink/hard-link and error-text policy differences plus an EINTR
+fault that missed NARO's staged inode. Tiny's
 two residuals are a historical GNU reference timeout and FIFO interruption
 presentation difference. Current separate safe-save semantic checks pass; the
 strict corpus remains red and its comparisons are unchanged.
+
+## Case-by-case residual decision for 0.1.3
+
+The retained local adjudication ledger at
+`target/retest-0.1.3-adjudication/differential/LEDGER.md` opens all 41 original
+result/raw pairs and records evidence hashes. Ten are
+intentional documented safe-save outcomes; 30 arise from historical gates that
+never hit NARO's staged inode, nonwritable-parent scenarios that cannot reach
+the old in-place sync marker, or the GNU NUL-prompt reference timeout. The
+three backup-fallback SIGKILLs are cleanup after an unreachable wait and a
+modified-buffer prompt, not evidence that NARO hung while saving. These cases
+remain nonaccepted in the strict comparison. Separate staging-aware fault
+matrices and exact-production semantic checks establish the new policy; they
+do not turn the GNU comparison green or transfer one binary's results to
+another.
+
+The remaining tiny FIFO-resize row is an **accepted 0.1.3 presentation
+difference for a scoped release**, not an exact GNU match. Both artifacts
+complete the interruption safely; NARO redraws `Modified` and `Interrupted`
+at the new 70-column width, while the pinned GNU trace retains an old-width
+title/status image. [REND-071](../../spec/04-rendering.md) states this
+decision, and `tests/remediation/tiny_fifo_resize.py` adds full-row checks to
+the original file, exit, and terminal-restoration assertions. The new focused
+test passes 11/11 checks on the frozen tiny ELF. No comparison field was
+normalized or deleted. Full GNU parity is not a 0.1.3 claim.
 
 The exact `dbc46bb` production resource and hostile-input gates also pass on
 the host and on ARM64 glibc under QEMU user emulation. A fresh Ubuntu x86 guest

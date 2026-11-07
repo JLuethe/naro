@@ -30,12 +30,28 @@ def main():
     results = []
     with tempfile.TemporaryDirectory(prefix="naro-branding-") as home:
         env = dict(os.environ, HOME=home, XDG_CONFIG_HOME=home, LC_ALL="C", TERM="xterm")
-        env.pop("NARO_BUILD_INFO", None)
-        env.pop("NARO_TRANSLATION_PROBE", None)
+        for name in ("NARO_BUILD_INFO", "NARO_TRANSLATION_PROBE", "NARO_REGEX_PROBE"):
+            env.pop(name, None)
+        run = subprocess.run([str(binary)], env=dict(env, NARO_BUILD_INFO="1"), cwd=home,
+                             capture_output=True, text=True, timeout=10)
+        try:
+            build = json.loads(run.stdout)
+        except json.JSONDecodeError:
+            build = None
+        expected_build = dict(version=version,
+                              reference_commit="6ed285c3ec7a1d228def4d4e7021c6ba269f620c")
+        results.append(dict(name="build-info", argv=[str(binary)],
+                            environment={"NARO_BUILD_INFO": "1"}, exit_status=run.returncode,
+                            stdout=run.stdout, stderr=run.stderr, expected=expected_build,
+                            passed=run.returncode == 0 and run.stderr == ""
+                            and isinstance(build, dict)
+                            and all(build.get(key) == value for key, value in expected_build.items())))
         for name, argv, expected in [
             ("version-long", ["naro", "--version"], expected_version),
             ("version-short", ["naro", "-V"], expected_version),
+            ("version-abbreviation", ["naro", "--vers"], expected_version),
             ("help-default", ["naro", "--help"], None),
+            ("help-abbreviation", ["naro", "--he"], None),
             ("help-restricted-flag", ["naro", "--restricted", "--help"], None),
             ("help-restricted-argv0", ["rnaro", "--help"], None),
         ]:

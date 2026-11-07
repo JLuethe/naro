@@ -18,6 +18,10 @@ Coordinates: rows and columns are 0-based screen positions; `LINES` × `COLS` is
 the terminal size; "column" of text means display column (`18`
 BYTE-COLUMNS).
 
+The `GNU nano 9.3` title below belongs to the pinned reference. NARO displays
+`NARO <Cargo package version>` under [the identity policy](../docs/NARO_IDENTITY_POLICY.md),
+including its separately verified effects on narrow title layouts.
+
 ---
 
 ## 1. Layout
@@ -346,6 +350,14 @@ help lines). An active prompt is redrawn with the same answer (TEST-INPUT-010).
 Reflow retains the logical top line and re-aligns its chunk column, rather than
 retaining a global wrapped-row index. Widening regression:
 TEST-NEXT-RELEASE-VIEW-01-WIDEN-TOP in `../tests/follow-up/scenarios/release-fixes.json`.
+
+NARO 0.1.3 deliberately repaints a tiny-profile FIFO interruption at the new
+terminal width: the 70-column title still shows `Modified`, and `Interrupted`
+is centered at 70 columns. The pinned GNU tiny trace retains an 80-column
+title/status layout at this boundary. The candidate-only
+`../tests/remediation/tiny_fifo_resize.py` checks the complete new-width rows,
+original file bytes, exit, and terminal restoration without changing the GNU
+reference scenario or its strict differential result.
 
 ## 8. Redraw correctness
 - After every keystroke, once nano is waiting for the next one, the screen must equal what a full redraw from the current state would produce. That is: title bar, edit rows (REND-020…035), status row (current message or blank), help lines, cursor.
