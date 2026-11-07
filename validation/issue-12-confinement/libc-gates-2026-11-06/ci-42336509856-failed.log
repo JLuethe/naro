@@ -1,0 +1,85 @@
+check	Bounded confinement entry swaps, default and tiny	﻿2026-11-07T04:09:58.9779139Z ##[group]Run candidate=$(python3 -c 'import json; print(next(r["executable"] for r in map(json.loads, open("target/ci-safe-save-default-build.jsonl")) if r.get("executable") and r.get("profile", {}).get("test")))')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:58.9780287Z ^[[36;1mcandidate=$(python3 -c 'import json; print(next(r["executable"] for r in map(json.loads, open("target/ci-safe-save-default-build.jsonl")) if r.get("executable") and r.get("profile", {}).get("test")))')^[[0m
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:58.9781046Z ^[[36;1mpython3 tests/confinement/run.py --binary "$candidate" --out target/ci-confinement-default^[[0m
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:58.9781782Z ^[[36;1mcandidate=$(python3 -c 'import json; print(next(r["executable"] for r in map(json.loads, open("target/ci-safe-save-tiny-build.jsonl")) if r.get("executable") and r.get("profile", {}).get("test")))')^[[0m
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:58.9782532Z ^[[36;1mpython3 tests/confinement/run.py --binary "$candidate" --out target/ci-confinement-tiny --tiny^[[0m
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:58.9826155Z shell: /usr/bin/bash -e {0}
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:58.9826405Z env:
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:58.9826578Z   CARGO_HOME: /home/runner/.cargo
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:58.9826790Z   CARGO_INCREMENTAL: 0
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:58.9826977Z   CARGO_TERM_COLOR: always
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:58.9827170Z ##[endgroup]
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.4685760Z pass: save-none-none-mode0-existing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.4770491Z pass: save-none-none-mode0-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.4828457Z assertion-failure: save-source-open-parent-symlink-mode0-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.4890370Z assertion-failure: save-source-open-parent-exchange-mode0-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.4944683Z assertion-failure: save-source-open-target-symlink-mode0-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.5074307Z assertion-failure: save-source-open-target-exchange-mode0-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.5154082Z assertion-failure: save-source-open-target-remove-mode0-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.5227615Z assertion-failure: save-temp-open-parent-symlink-mode0-existing KeyError('source')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.5292782Z assertion-failure: save-temp-open-parent-exchange-mode0-existing KeyError('source')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.5357342Z assertion-failure: save-temp-open-target-symlink-mode0-existing KeyError('source')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.5421893Z assertion-failure: save-temp-open-target-exchange-mode0-existing KeyError('source')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.5486014Z assertion-failure: save-temp-open-target-remove-mode0-existing KeyError('source')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.5550400Z assertion-failure: save-publish-parent-symlink-mode0-existing AssertionError({})
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.5615052Z assertion-failure: save-publish-parent-exchange-mode0-existing AssertionError({})
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.5679140Z assertion-failure: save-publish-target-symlink-mode0-existing AssertionError({})
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.5744053Z assertion-failure: save-publish-target-exchange-mode0-existing AssertionError({})
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.5808277Z assertion-failure: save-publish-target-remove-mode0-existing AssertionError({})
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.5873772Z pass: save-temp-open-parent-symlink-mode0-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.5939277Z pass: save-temp-open-parent-exchange-mode0-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6004620Z pass: save-temp-open-target-symlink-mode0-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6070202Z pass: save-temp-open-target-create-mode0-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6136399Z pass: save-publish-parent-symlink-mode0-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6202794Z pass: save-publish-parent-exchange-mode0-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6268244Z pass: save-publish-target-symlink-mode0-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6334522Z pass: save-publish-target-create-mode0-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6378132Z pass: save-none-none-mode1-existing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6421983Z pass: save-none-none-mode1-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6475272Z assertion-failure: save-source-open-parent-symlink-mode1-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6527637Z assertion-failure: save-source-open-parent-exchange-mode1-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6580689Z assertion-failure: save-source-open-target-symlink-mode1-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6633535Z assertion-failure: save-source-open-target-exchange-mode1-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6727319Z assertion-failure: save-source-open-target-remove-mode1-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6792329Z assertion-failure: save-temp-open-parent-symlink-mode1-existing KeyError('source')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6857743Z assertion-failure: save-temp-open-parent-exchange-mode1-existing KeyError('source')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6923118Z assertion-failure: save-temp-open-target-symlink-mode1-existing KeyError('source')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.6988409Z assertion-failure: save-temp-open-target-exchange-mode1-existing KeyError('source')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.7053584Z assertion-failure: save-temp-open-target-remove-mode1-existing KeyError('source')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.7282703Z assertion-failure: save-publish-parent-symlink-mode1-existing AssertionError({})
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.7640196Z assertion-failure: save-publish-parent-exchange-mode1-existing AssertionError({})
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.7748493Z assertion-failure: save-publish-target-symlink-mode1-existing AssertionError({})
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.7814847Z assertion-failure: save-publish-target-exchange-mode1-existing AssertionError({})
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.7880239Z assertion-failure: save-publish-target-remove-mode1-existing AssertionError({})
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.8229115Z pass: save-temp-open-parent-symlink-mode1-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.8297172Z pass: save-temp-open-parent-exchange-mode1-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.8363549Z pass: save-temp-open-target-symlink-mode1-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.8429850Z pass: save-temp-open-target-create-mode1-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.8496327Z pass: save-publish-parent-symlink-mode1-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.8562953Z pass: save-publish-parent-exchange-mode1-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.8629326Z pass: save-publish-target-symlink-mode1-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.8696218Z pass: save-publish-target-create-mode1-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.8741006Z pass: save-none-none-mode2-existing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.8784997Z pass: save-none-none-mode2-missing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.8838375Z assertion-failure: save-source-open-parent-symlink-mode2-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.8891578Z assertion-failure: save-source-open-parent-exchange-mode2-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.8944345Z assertion-failure: save-source-open-target-symlink-mode2-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.9038654Z assertion-failure: save-source-open-target-exchange-mode2-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.9091870Z assertion-failure: save-source-open-target-remove-mode2-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.9156918Z assertion-failure: save-temp-open-parent-symlink-mode2-existing KeyError('source')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.9222663Z assertion-failure: save-temp-open-parent-exchange-mode2-existing KeyError('source')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.9288513Z assertion-failure: save-temp-open-target-symlink-mode2-existing KeyError('source')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.9354814Z assertion-failure: save-temp-open-target-exchange-mode2-existing KeyError('source')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.9420439Z assertion-failure: save-temp-open-target-remove-mode2-existing KeyError('source')
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.9506884Z assertion-failure: save-publish-parent-symlink-mode2-existing AssertionError({})
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.9573693Z assertion-failure: save-publish-parent-exchange-mode2-existing AssertionError({})
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.9702633Z assertion-failure: save-publish-target-symlink-mode2-existing AssertionError({})
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.9768721Z assertion-failure: save-publish-target-exchange-mode2-existing AssertionError({})
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.9834586Z assertion-failure: save-publish-target-remove-mode2-existing AssertionError({})
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.9881898Z pass: read-read-reopen-parent-symlink-mode0-existing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.9928672Z pass: read-read-reopen-parent-exchange-mode0-existing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:09:59.9975952Z pass: read-read-reopen-target-symlink-mode0-existing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:10:00.0022962Z pass: read-read-reopen-target-exchange-mode0-existing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:10:00.0069249Z pass: read-read-reopen-target-remove-mode0-existing
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:10:00.0074352Z {"pass": 27, "infrastructure-failure": 0, "assertion-failure": 45}
+check	Bounded confinement entry swaps, default and tiny	2026-11-07T04:10:00.0171147Z ##[error]Process completed with exit code 1.

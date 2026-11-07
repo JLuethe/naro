@@ -55,29 +55,74 @@ static void gate(const char *stage,int parent,int source) {
     }
     _exit(94);
 }
-int openat(int dir,const char *path,int flags,...) {
-    mode_t mode=0;
-    if(flags&O_CREAT){va_list args;va_start(args,flags);mode=va_arg(args,int);va_end(args);}
-    int (*real)(int,const char*,int,...)=dlsym(RTLD_NEXT,"openat");
+/* glibc may route a no-mode call through a fortified entry point while the
+ * corresponding O_CREAT call still uses openat. Keep every spelling on the
+ * same gates, and dispatch to its actual libc symbol to preserve validation. */
+static int tracked_openat(const char *symbol,int dir,const char *path,int flags,
+                          mode_t mode,int fortified) {
     int owned=owned_parent(dir);
     int source=owned&&!strcmp(path,"target")&&!(flags&O_PATH)&&!(flags&O_CREAT);
     if(source)gate("source-open",dir,-1);
     if(owned&&!strncmp(path,".naro-save-",11)&&(flags&O_CREAT))
         gate("temp-open",dir,source_fd);
-    int fd=real(dir,path,flags,mode);
+    int fd;
+    if(fortified){
+        int (*real)(int,const char*,int)=dlsym(RTLD_NEXT,symbol);
+        fd=real(dir,path,flags);
+    }else{
+        int (*real)(int,const char*,int,...)=dlsym(RTLD_NEXT,symbol);
+        fd=real(dir,path,flags,mode);
+    }
     if(source&&fd>=0){source_fd=fd;opened("source",fd);}
     return fd;
 }
-int open(const char *path,int flags,...) {
-    mode_t mode=0;
-    if(flags&O_CREAT){va_list args;va_start(args,flags);mode=va_arg(args,int);va_end(args);}
-    int (*real)(const char*,int,...)=dlsym(RTLD_NEXT,"open");
+static int tracked_open(const char *symbol,const char *path,int flags,
+                        mode_t mode,int fortified) {
     int fd=-1;
     if(sscanf(path,"/proc/self/fd/%d",&fd)==1&&fd>=0)
         gate("read-reopen",-1,fd);
-    int result=real(path,flags,mode);
+    int result;
+    if(fortified){
+        int (*real)(const char*,int)=dlsym(RTLD_NEXT,symbol);
+        result=real(path,flags);
+    }else{
+        int (*real)(const char*,int,...)=dlsym(RTLD_NEXT,symbol);
+        result=real(path,flags,mode);
+    }
     if(fd>=0)opened("read",result);
     return result;
+}
+/* Both O_CREAT and O_TMPFILE require the variadic mode argument. */
+#define MODE_ARGUMENT \
+    mode_t mode=0; \
+    if((flags&O_CREAT)||(flags&O_TMPFILE)==O_TMPFILE){ \
+        va_list args;va_start(args,flags);mode=va_arg(args,int);va_end(args); \
+    }
+#define OPENAT_WRAPPER(symbol) \
+    int symbol(int dir,const char *path,int flags,...){ \
+        MODE_ARGUMENT \
+        return tracked_openat(#symbol,dir,path,flags,mode,0); \
+    }
+#define OPEN_WRAPPER(symbol) \
+    int symbol(const char *path,int flags,...){ \
+        MODE_ARGUMENT \
+        return tracked_open(#symbol,path,flags,mode,0); \
+    }
+OPENAT_WRAPPER(openat)
+OPENAT_WRAPPER(openat64)
+OPEN_WRAPPER(open)
+OPEN_WRAPPER(open64)
+int __openat_2(int dir,const char *path,int flags) {
+    return tracked_openat("__openat_2",dir,path,flags,0,1);
+}
+int __openat64_2(int dir,const char *path,int flags) {
+    return tracked_openat("__openat64_2",dir,path,flags,0,1);
+}
+int __open_2(const char *path,int flags) {
+    return tracked_open("__open_2",path,flags,0,1);
+}
+int __open64_2(const char *path,int flags) {
+    return tracked_open("__open64_2",path,flags,0,1);
 }
 int renameat(int from,const char *source,int to,const char *target) {
     int (*real)(int,const char*,int,const char*)=dlsym(RTLD_NEXT,"renameat");

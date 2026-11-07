@@ -1,0 +1,84 @@
+{
+  "tested_base_revision": "b10eb35180d4d051fe1cdaae9a3d2730d7b5227b",
+  "gate_sha256": "f4acd94c35e9e1b1e08ea0860be761d2db001027d50e7c6d8dd83d1ff419b7ab",
+  "raw_artifacts": "/home/john/Code/naro/target/issue-12-bounded/target/issue12-libc",
+  "matrices": [
+    {
+      "name": "before-fix-default",
+      "binary": "/home/john/Code/naro/target/issue-12-bounded/target/issue12-libc/build/debug/deps/naro-8b785946e7ffb0d9",
+      "binary_sha256": "5abbb43c7f728e1df9ebc4cb4135547cf7e056ae1fee000de61d7aae3099b319",
+      "report_sha256": "b37dd8af23739a80bd1bca847e44699a6bb4918ff3652df40c978a0826f4543a",
+      "counts": {
+        "pass": 27,
+        "assertion-failure": 45,
+        "infrastructure-failure": 0
+      }
+    },
+    {
+      "name": "after-fix-default",
+      "binary": "/home/john/Code/naro/target/issue-12-bounded/target/issue12-libc/build/debug/deps/naro-8b785946e7ffb0d9",
+      "binary_sha256": "5abbb43c7f728e1df9ebc4cb4135547cf7e056ae1fee000de61d7aae3099b319",
+      "report_sha256": "63b6521b0223567fbe1d4cd2688128fb1ff071df7afbbb7523d8c92edd90b1f0",
+      "counts": {
+        "pass": 72,
+        "assertion-failure": 0,
+        "infrastructure-failure": 0
+      }
+    },
+    {
+      "name": "after-fix-tiny",
+      "binary": "/home/john/Code/naro/target/issue-12-bounded/target/issue12-libc/build/debug/deps/naro-92b0cf5a83e9781f",
+      "binary_sha256": "1f201b12335edd3949e4ad2335b094a38f53a72e57c04971138f64a53af20f28",
+      "report_sha256": "510488fb604daba8bc1406aa5ea485d0cab6f4d65a7262dc20e29f52ad515b23",
+      "counts": {
+        "pass": 67,
+        "assertion-failure": 0,
+        "infrastructure-failure": 0
+      }
+    },
+    {
+      "name": "ordinary-default",
+      "binary": "/home/john/Code/naro/target/issue-12-bounded/target/debug/deps/naro-8b785946e7ffb0d9",
+      "binary_sha256": "002bdcaef708e00eccb77af91244c6dd8ee292422740abab325d66a45aee8b4b",
+      "report_sha256": "2fd112b8d4ddb04ee85f6000d163c01f954a080d7ccc8c125053d95871b2e428",
+      "counts": {
+        "pass": 72,
+        "assertion-failure": 0,
+        "infrastructure-failure": 0
+      }
+    },
+    {
+      "name": "ordinary-tiny",
+      "binary": "/home/john/Code/naro/target/issue-12-bounded/target/debug/deps/naro-92b0cf5a83e9781f",
+      "binary_sha256": "81b38a557283cb319e22e8a566d4a1eae61f3c71c0a6ee4b9a3e22f0ef2181e0",
+      "report_sha256": "095a2ef0752965815e15d173696589afc72e45f90dcf1dc514861284d9c1ee1d",
+      "counts": {
+        "pass": 67,
+        "assertion-failure": 0,
+        "infrastructure-failure": 0
+      }
+    },
+    {
+      "name": "after-fix-default64",
+      "binary": "/home/john/Code/naro/target/issue-12-bounded/target/issue12-libc/build64/debug/deps/naro-8b785946e7ffb0d9",
+      "binary_sha256": "876724e81388a0f5574afc7eaa860cda2b514637e51a1e80b214a6aced37c5a1",
+      "report_sha256": "3fe156a57b44e3fd885813a12fa47b74728b98d45c5a2bf26bf37b9ed0a22260",
+      "counts": {
+        "pass": 72,
+        "assertion-failure": 0,
+        "infrastructure-failure": 0
+      }
+    },
+    {
+      "name": "after-fix-tiny64",
+      "binary": "/home/john/Code/naro/target/issue-12-bounded/target/issue12-libc/build64/debug/deps/naro-92b0cf5a83e9781f",
+      "binary_sha256": "560adcc037b6f14ab164bcedb4ff8ff608d55b953d37d365a037e329099d5bc2",
+      "report_sha256": "4b1005d5d7a08a9628e6e4c52c0e5e241471e93a6a467a673ff13542090adbd0",
+      "counts": {
+        "pass": 67,
+        "assertion-failure": 0,
+        "infrastructure-failure": 0
+      }
+    }
+  ]
+}

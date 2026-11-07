@@ -1,0 +1,73 @@
+pass: save-none-none-mode0-existing
+pass: save-none-none-mode0-missing
+assertion-failure: save-source-open-parent-symlink-mode0-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+assertion-failure: save-source-open-parent-exchange-mode0-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+assertion-failure: save-source-open-target-symlink-mode0-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+assertion-failure: save-source-open-target-exchange-mode0-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+assertion-failure: save-source-open-target-remove-mode0-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+assertion-failure: save-temp-open-parent-symlink-mode0-existing KeyError('source')
+assertion-failure: save-temp-open-parent-exchange-mode0-existing KeyError('source')
+assertion-failure: save-temp-open-target-symlink-mode0-existing KeyError('source')
+assertion-failure: save-temp-open-target-exchange-mode0-existing KeyError('source')
+assertion-failure: save-temp-open-target-remove-mode0-existing KeyError('source')
+assertion-failure: save-publish-parent-symlink-mode0-existing AssertionError({})
+assertion-failure: save-publish-parent-exchange-mode0-existing AssertionError({})
+assertion-failure: save-publish-target-symlink-mode0-existing AssertionError({})
+assertion-failure: save-publish-target-exchange-mode0-existing AssertionError({})
+assertion-failure: save-publish-target-remove-mode0-existing AssertionError({})
+pass: save-temp-open-parent-symlink-mode0-missing
+pass: save-temp-open-parent-exchange-mode0-missing
+pass: save-temp-open-target-symlink-mode0-missing
+pass: save-temp-open-target-create-mode0-missing
+pass: save-publish-parent-symlink-mode0-missing
+pass: save-publish-parent-exchange-mode0-missing
+pass: save-publish-target-symlink-mode0-missing
+pass: save-publish-target-create-mode0-missing
+pass: save-none-none-mode1-existing
+pass: save-none-none-mode1-missing
+assertion-failure: save-source-open-parent-symlink-mode1-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+assertion-failure: save-source-open-parent-exchange-mode1-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+assertion-failure: save-source-open-target-symlink-mode1-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+assertion-failure: save-source-open-target-exchange-mode1-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+assertion-failure: save-source-open-target-remove-mode1-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+assertion-failure: save-temp-open-parent-symlink-mode1-existing KeyError('source')
+assertion-failure: save-temp-open-parent-exchange-mode1-existing KeyError('source')
+assertion-failure: save-temp-open-target-symlink-mode1-existing KeyError('source')
+assertion-failure: save-temp-open-target-exchange-mode1-existing KeyError('source')
+assertion-failure: save-temp-open-target-remove-mode1-existing KeyError('source')
+assertion-failure: save-publish-parent-symlink-mode1-existing AssertionError({})
+assertion-failure: save-publish-parent-exchange-mode1-existing AssertionError({})
+assertion-failure: save-publish-target-symlink-mode1-existing AssertionError({})
+assertion-failure: save-publish-target-exchange-mode1-existing AssertionError({})
+assertion-failure: save-publish-target-remove-mode1-existing AssertionError({})
+pass: save-temp-open-parent-symlink-mode1-missing
+pass: save-temp-open-parent-exchange-mode1-missing
+pass: save-temp-open-target-symlink-mode1-missing
+pass: save-temp-open-target-create-mode1-missing
+pass: save-publish-parent-symlink-mode1-missing
+pass: save-publish-parent-exchange-mode1-missing
+pass: save-publish-target-symlink-mode1-missing
+pass: save-publish-target-create-mode1-missing
+pass: save-none-none-mode2-existing
+pass: save-none-none-mode2-missing
+assertion-failure: save-source-open-parent-symlink-mode2-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+assertion-failure: save-source-open-parent-exchange-mode2-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+assertion-failure: save-source-open-target-symlink-mode2-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+assertion-failure: save-source-open-target-exchange-mode2-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+assertion-failure: save-source-open-target-remove-mode2-existing AssertionError('expected gate not reached; child status 0; see process.log/result')
+assertion-failure: save-temp-open-parent-symlink-mode2-existing KeyError('source')
+assertion-failure: save-temp-open-parent-exchange-mode2-existing KeyError('source')
+assertion-failure: save-temp-open-target-symlink-mode2-existing KeyError('source')
+assertion-failure: save-temp-open-target-exchange-mode2-existing KeyError('source')
+assertion-failure: save-temp-open-target-remove-mode2-existing KeyError('source')
+assertion-failure: save-publish-parent-symlink-mode2-existing AssertionError({})
+assertion-failure: save-publish-parent-exchange-mode2-existing AssertionError({})
+assertion-failure: save-publish-target-symlink-mode2-existing AssertionError({})
+assertion-failure: save-publish-target-exchange-mode2-existing AssertionError({})
+assertion-failure: save-publish-target-remove-mode2-existing AssertionError({})
+pass: read-read-reopen-parent-symlink-mode0-existing
+pass: read-read-reopen-parent-exchange-mode0-existing
+pass: read-read-reopen-target-symlink-mode0-existing
+pass: read-read-reopen-target-exchange-mode0-existing
+pass: read-read-reopen-target-remove-mode0-existing
+{"pass": 27, "infrastructure-failure": 0, "assertion-failure": 45}

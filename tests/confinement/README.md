@@ -22,6 +22,12 @@ fixture. Each child has a ten-second deadline; each gate waits at most five
 seconds. There is no uncontrolled race loop, external document, exploit payload,
 or scheduling-dependent success criterion. Fixtures and logs are retained.
 
+The interposer shares the same gates across `open`/`openat`, their `64`
+variants, and glibc's fortified `__open*_2` entry points. It calls the matching
+libc symbol, retaining fortified argument checks. A compiler can use
+`__openat_2` for the no-mode source open while using ordinary `openat` for the
+mode-bearing temporary creation; both must be intercepted.
+
 The 72 default cases cover 67 saves and five reads. Tiny runs the same 67 saves
 through the shared native opened-parent implementation **without confinement**;
 tiny does not expose the operating-directory option. Ordinary confinement unit
