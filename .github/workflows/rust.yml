@@ -116,14 +116,21 @@ jobs:
           python3 tests/confinement/run.py --binary "$candidate" --out target/ci-confinement-default
           python3 tests/confinement/parent_policy.py --binary "$candidate" --out target/ci-confinement-parent-policy-default
           python3 tests/backup/parent_policy.py --binary "$candidate" --out target/ci-backup-parent-policy
-          if unshare --map-root-user --map-subids true >/dev/null 2>&1; then
+          set +e
+          unshare --map-root-user --map-subids python3 tests/backup/probe_namespace_actor.py > target/ci-backup-namespace-probe.log 2>&1
+          actor_probe_status=$?
+          set -e
+          cat target/ci-backup-namespace-probe.log
+          if [ "$actor_probe_status" -eq 0 ]; then
             unshare --map-root-user --map-subids python3 tests/backup/parent_policy.py --binary "$candidate" --out target/ci-backup-foreign-owner-sticky --only foreign-owner-sticky --distinct-uid-actor
             unshare --map-root-user --map-subids python3 tests/backup/parent_policy.py --binary "$candidate" --out target/ci-backup-foreign-owner-normal --only foreign-owner-normal --distinct-uid-actor
             unshare --map-root-user --map-subids python3 tests/backup/parent_policy.py --binary "$candidate" --out target/ci-backup-foreign-owner-private --only foreign-owner-private --distinct-uid-actor
             unshare --map-root-user --map-subids python3 tests/backup/parent_policy.py --binary "$candidate" --out target/ci-backup-writable-mode-sticky --only writable-mode-sticky --distinct-uid-actor
             unshare --map-root-user --map-subids python3 tests/backup/parent_policy.py --binary "$candidate" --out target/ci-backup-writable-mode-private --only writable-mode-private --distinct-uid-actor
+          elif [ "$actor_probe_status" -eq 1 ] && rg -q '^(missing-prerequisite:|unshare:)' target/ci-backup-namespace-probe.log; then
+            echo '::notice::distinct-UID backup cases are unqualified here: namespace actor prerequisites are unavailable; independent mapped-UID receipts are documented separately'
           else
-            echo '::notice::foreign-owner sticky backup checks require user namespaces and subordinate IDs'
+            exit "$actor_probe_status"
           fi
           candidate=$(python3 -c 'import json; print(next(r["executable"] for r in map(json.loads, open("target/ci-safe-save-tiny-build.jsonl")) if r.get("executable") and r.get("profile", {}).get("test")))')
           python3 tests/confinement/run.py --binary "$candidate" --out target/ci-confinement-tiny --tiny

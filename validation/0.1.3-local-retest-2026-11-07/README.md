@@ -127,4 +127,11 @@ then restores the directory's permissions before the editor operation. The
 first actor-created attempt exposed this host's private home-directory traversal;
 using a relative fixture path from the inherited working directory corrected
 it. Both failed attempts remain nonpassing evidence, not product passes.
+The `e20d7c8` CI run passed atomic save and ordinary confinement but the
+rootless namespace could not establish the distinct actor's credentials;
+Python reported a `preexec_fn` failure before the candidate operation. CI now
+probes the exact group/UID/GID transition first. If the environment cannot
+support it, the five optional distinct-UID cases are explicitly marked
+unqualified with a CI notice; unexpected probe errors still fail CI. The
+independent mapped-UID receipts remain separate and passing.
 No tag, download, release, PR, or issue closure follows from this local report.

@@ -49,3 +49,7 @@ and exits nonzero. The chosen ID is retained in each observation.
 The foreign-owned target is created by that actor in a disposable writable
 fixture directory, then the directory is restored to mode 0755 before the
 editor runs. This avoids depending on `chown` privileges in rootless CI.
+CI first runs `probe_namespace_actor.py` inside the same kind of namespace.
+When that environment cannot clear groups and establish a distinct UID/GID,
+the five optional cases are reported as unqualified in the CI log; they are
+not counted as passes. Unexpected probe errors fail CI.

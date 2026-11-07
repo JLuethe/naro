@@ -51,6 +51,11 @@ rootless namespace lacked `chown` permission there. The fixture now has the
 mapped actor create the foreign-owned target, with the temporary writable
 parent restored before the candidate operation. The local actor-created
 fixture passes five distinct-UID cases; CI remains a separate gate.
+The subsequent `e20d7c8` CI run exposed a different namespace prerequisite:
+the runner could not establish the actor's credentials (`preexec_fn` failed).
+CI now probes that group/UID/GID transition before the five optional cases and
+reports them as unqualified if it is unavailable; unexpected probe errors fail
+the step. The independent local mapped-UID cases are not transferred to CI.
 
 `tests/remediation/differential.py` inventories and executes every applicable
 production scenario in `spec/evidence/scenarios` and
