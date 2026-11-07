@@ -28,8 +28,10 @@ with zero problems. Daybreak's earlier audit did not include that later file.
 The subsequent integrated Astra/xhigh review found three qualification-tooling
 gaps. The safe-save runner now inventories all 659 planned cases and returns
 nonzero for any missing prerequisite; its new unit tests include the negative
-control. ACL setup `EINVAL` is a missing prerequisite only when the requested
-UID is proven unmapped, while product-operation `EINVAL` remains a failure.
+control. In the document and backup parent-policy runners, ACL setup `EINVAL`
+is a missing prerequisite only when the requested UID is proven unmapped.
+The safe-save runner treats fixture-setup `EINVAL` as a missing prerequisite;
+product-operation `EINVAL` remains a failure.
 Package asset checks now use separate fixture roots even when run concurrently.
 Daybreak Blue independently retested these corrections in its restricted
 environment: both safe-save profiles accounted for 659/659 rows, including 250
