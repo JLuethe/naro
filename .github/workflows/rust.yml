@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable toolchain setup
-      - run: sudo apt-get update && sudo apt-get install -y libncurses-dev libmagic-dev locales
+      - run: sudo apt-get update && sudo apt-get install -y libncurses-dev libmagic-dev locales gettext
       - run: sudo localedef -i en_US -f UTF-8 en_US.UTF-8
       - name: Native ARM64 default and tiny gates
         run: |
