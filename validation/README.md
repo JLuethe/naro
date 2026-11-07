@@ -11,10 +11,12 @@ default/tiny differential accounting; [robustness checks](../tests/robustness/RE
 now include production-editor resource and hostile-input gates. The 0.1.3
 version-bound identity fixtures are distinct from unchanged GNU nano evidence.
 
-The final integrated binary, package, and cross-environment retest is in
-progress. Branch and earlier-candidate passes do not qualify the final 0.1.3
-artifacts. Physical power loss and exhaustive concurrency remain outside the
-deterministic test scope. No release publication follows from these checks.
+The [0.1.3 local integrated retest](0.1.3-local-retest-2026-11-07/README.md)
+binds completed checks to exact `dbc46bb` executables and source. Its default
+and tiny full differential runs are completely accounted for but nonpassing;
+they do not establish broad GNU nano compatibility. Physical power loss and
+exhaustive concurrency remain outside the deterministic test scope. No release
+publication follows from these checks.
 
 ## Historical 0.1.2 release gate after the GitHub push
 

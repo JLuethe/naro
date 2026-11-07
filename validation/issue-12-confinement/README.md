@@ -1,5 +1,12 @@
 # Issue #12 — opened-object confinement hardening
 
+The [0.1.3 local integrated retest](../0.1.3-local-retest-2026-11-07/README.md)
+binds independent `dbc46bb` test executables to 1,296/1,296 backup faults,
+659/659 safe-save cases in each profile, 77/77 bounded confinement cases and
+eight parent-policy cases. It also records distinct-UID parent tests and
+22/22 save-progress plus 10/10 save-safety terminal checks on the exact host
+default production ELF. Earlier results below retain their own identities.
+
 Latest follow-up: [backup metadata publication invariant
 (2026-11-07)](backup-metadata-2026-11-07/README.md) covers foreign ownership and
 writable modes in traversable backup directories. Earlier records remain tied

@@ -34,13 +34,15 @@ finite tested matrix; it is not a claim of exhaustive compatibility.
 ## Current qualification scope
 
 The [0.1.2 safe-save qualification](validation/daybreak-0.1.2-2026-11-06/README.md)
-belongs to its named artifacts. The current 0.1.3 candidate adds private save
-staging and bounded confinement checks for issue #12, runtime coverage work for
-issue #14, and resource/hostile-input checks for issue #15. Integrated
-qualification is pending. Regular-file saving uses atomic replacement with the
-compatibility policy below. These finite tests do not establish physical
-power-loss behavior, exhaustive concurrency or all-platform support. No release
-publication claim follows from a local version change.
+belongs to its named artifacts. The [0.1.3 local retest](validation/0.1.3-local-retest-2026-11-07/README.md)
+binds private save staging and bounded confinement checks for issue #12, the
+nine former runtime citation gaps for issue #14, and resource/hostile-input
+checks for issue #15 to exact current executables. Full default and tiny GNU
+differentials remain nonpassing, so broader compatibility qualification is not
+established. Regular-file saving uses atomic replacement with the compatibility
+policy below. These finite tests do not establish physical power-loss behavior,
+exhaustive concurrency or all-platform support. No release publication claim
+follows from a local version change.
 
 ## Historical 0.1.1 qualification
 

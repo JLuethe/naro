@@ -1,7 +1,10 @@
 # NARO 0.1.3 development candidate notes
 
 NARO 0.1.3 is a local development candidate. It is not a published release or
-an assertion that integrated qualification has passed. The source now includes
+an assertion that broad GNU nano compatibility qualification has passed. The
+[local integrated retest](validation/0.1.3-local-retest-2026-11-07/README.md)
+records complete but nonpassing default and tiny differential runs against
+GNU nano. The source now includes
 private safe-save staging for attacker-writable destination directories,
 additional bounded confinement, runtime coverage and resource/hostile-input
 checks, and a private locale fixture for exact differential retesting. The

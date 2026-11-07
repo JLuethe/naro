@@ -1,5 +1,12 @@
 # Issue #14 candidate runtime checks
 
+The [0.1.3 local integrated retest](../0.1.3-local-retest-2026-11-07/README.md)
+now binds both live-reference and recorded-oracle runs to the exact `dbc46bb`
+host production and hook builds. Each mode passes ten production, 13 default
+hook, four tiny hook and six direct PTY cases. All 12 direct PTY traces reached
+EOF, include terminal reset bytes, and match saved size and SHA-256 receipts.
+The historical branch results below remain separate from that integrated run.
+
 Date: November 6, 2026. This work follows the citation correction in
 `validation/issue-14-citations/README.md`; it does not change the historical
 reference corpus or relabel its observations as candidate tests.
@@ -25,8 +32,9 @@ requires the GNU ELF's pinned SHA-256. Every mode requires equal revision,
 source fingerprint, version, and
 compiler in the candidate builds. It checks exact feature lists. Its
 `artifacts.json` records SHA-256 and `NARO_BUILD_INFO` for the binary population
-actually exercised. The final integrated candidate needs its own fresh run;
-an isolated-branch pass does not qualify a merged binary.
+actually exercised. The `dbc46bb` integrated run is linked above; any later
+code build needs its own fresh run. An isolated-branch pass does not qualify a
+merged binary.
 
 For CI hosts without that GNU ELF, replace `--reference PATH` with
 `--recorded-oracles`. This fail-closed mode verifies the SHA-256 of the

@@ -1,7 +1,26 @@
 # Issue #15 exact-artifact differential matrix
 
-Preparation only: final frozen binaries have not yet been supplied. No current
-release qualification is claimed by this inventory.
+The [0.1.3 local integrated retest](../0.1.3-local-retest-2026-11-07/README.md)
+uses frozen `dbc46bb` binaries and this inventory. The complete host default
+run recorded and accounted for 593/593 cases, with 554 accepted and 39
+nonaccepted. The complete host tiny run recorded and accounted for 202/202,
+with 200 accepted and two nonaccepted. Both commands correctly returned
+nonpass; no broad compatibility qualification is claimed. Raw reports are in
+`target/retest-dbc46bb/diff-default/report.json` and
+`target/retest-dbc46bb/diff-tiny/report.json`.
+
+The 35 default candidate-failure IDs match the earlier `a140d6e` run. Thirty-two
+are legacy in-place save/backup fault fixtures; three newly observable root
+fixtures still use the old backup gate. Four default residuals are the
+documented symlink/hard-link, error-text, and EINTR policy differences. Tiny's
+two residuals are a historical GNU reference timeout and FIFO interruption
+presentation difference. Current separate safe-save semantic checks pass; the
+strict corpus remains red and its comparisons are unchanged.
+
+The exact `dbc46bb` production resource and hostile-input gates also pass on
+the host and on ARM64 glibc under QEMU user emulation. A fresh Ubuntu x86 guest
+VT run accepts 19/19 cases. These are named-artifact results, not evidence of
+native ARM64 hardware or physical power-loss persistence.
 
 `tests/remediation/differential.py` inventories and executes every applicable
 production scenario in `spec/evidence/scenarios` and
@@ -59,8 +78,8 @@ missing `localedef`, locale source data, or a failed probe remains a missing
 prerequisite. Original scenarios, observations, and comparison rules are not
 changed. A focused 13-case environment pilot on the pre-integration binary
 recorded all 13 pairs, including both adapted cases, without a missing-locale
-classification; this does not qualify the integrated binary. The integrated
-full-corpus run is still required. The existing Ubuntu image lacks bubblewrap, so its 28
+classification; that pilot is historical. The exact integrated host runs above
+now provide full-corpus evidence. The existing Ubuntu image lacks bubblewrap, so its 28
 root-namespace scenarios are unavailable rather than passing. Summary counts
 separate accounted cases from pairs that were actually recorded.
 
