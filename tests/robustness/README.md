@@ -22,3 +22,33 @@ holder declaration; exercised paths do not call these stubs.
 
 These checks supplement exact executable terminal qualification; they do not
 transfer a result from an instrumented binary to an unrecorded release build.
+
+`python3 tests/robustness/terminal_resources.py --binary target/release/naro
+--expected-revision "$(git rev-parse HEAD)" --out target/resources-NEW` opens
+synthetic 12 MiB and eight 2 MiB documents in a real production editor PTY.
+It checks buffer navigation, a clean exit, unchanged source hashes and the
+actual child peak RSS and elapsed time. The fixed gates are 128 MiB peak RSS,
+512 MiB address space and 30 seconds. Tiny runs the large-file case only;
+its retained feature set does not include multiple buffers. The runner keeps
+the executable hash, embedded build identity, linked native libraries, input
+hashes, raw terminal traces, and `report.json`. Supply `--tiny` for a tiny
+release binary. Use a new private `--out` directory each run. These bounds
+describe this fixture size and host class, not arbitrary files or load.
+
+`python3 tests/robustness/hostile_inputs.py --binary target/release/naro
+--expected-revision "$(git rev-parse HEAD)" --out target/hostile-NEW` compiles
+a private valid GNU catalog control and exercises an empty catalog, truncated
+header and invalid magic in real editor PTYs. It requires `msgfmt` and a
+working `en_US.UTF-8` locale, including a warning-free UTF-8 charmap probe.
+The default profile also exercises an invalid UTF-8 byte in a private nanorc
+and checks the precise diagnostic. Tiny runs catalog checks only. Cases must
+exit cleanly and leave the source file unchanged. The report records exact
+executable/native library identities, fixture hashes, probes, observations and
+per-case raw traces. A missing locale or `msgfmt` is a prerequisite failure.
+These fixed benign malformed inputs do not establish general parser safety.
+
+The CI workflow runs both production-editor gates for default and tiny release
+builds. Existing search/replace, undo and native-bridge sanitizer gates remain
+separate. A passing local or CI run applies only to the recorded executable;
+it does not constitute physical power-loss, another-architecture, or
+guest-VT qualification.

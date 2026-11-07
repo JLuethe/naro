@@ -74,6 +74,10 @@ jobs:
           python3 spec/tools/nanoharness.py --candidate-expectations tests/scenarios/safety.json --binary "$PWD/target/release/naro" --out target/ci-safety
           python3 tests/signals/terminal.py --binary "$PWD/target/release/naro" --out target/ci-signals-terminal
           python3 tests/search/terminal.py --binary "$PWD/target/release/naro" --out target/ci-search-terminal
+      - name: Production editor resource and hostile-input bounds
+        run: |
+          python3 tests/robustness/terminal_resources.py --binary "$PWD/target/release/naro" --expected-revision "$GITHUB_SHA" --out target/ci-terminal-resources
+          python3 tests/robustness/hostile_inputs.py --binary "$PWD/target/release/naro" --expected-revision "$GITHUB_SHA" --out target/ci-hostile-inputs
       - name: Linux console ioctl models
         run: python3 spec/tools/nanoharness.py --candidate-expectations tests/follow-up/scenarios/vt-ioctl.json --binary "$PWD/target/release/naro" --out target/ci-vt-ioctl
       - name: Hard-wrap marks and command filters
@@ -110,6 +114,8 @@ jobs:
       - name: Optional tiny profile
         run: |
           cargo build --release --features tiny --target-dir target/tiny
+          python3 tests/robustness/terminal_resources.py --tiny --binary "$PWD/target/tiny/release/naro" --expected-revision "$GITHUB_SHA" --out target/ci-terminal-resources-tiny
+          python3 tests/robustness/hostile_inputs.py --tiny --binary "$PWD/target/tiny/release/naro" --expected-revision "$GITHUB_SHA" --out target/ci-hostile-inputs-tiny
           python3 tools/check_branding.py --binary target/tiny/release/naro --profile tiny --out target/ci-branding-tiny
           python3 tools/check_tiny_ci.py --binary target/tiny/release/naro --out target/ci-tiny
           python3 tests/signals/terminal.py --tiny --binary "$PWD/target/tiny/release/naro" --out target/ci-signals-tiny
