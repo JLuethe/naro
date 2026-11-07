@@ -21,6 +21,11 @@ The later Astra/xhigh review and [post-fix Daybreak Blue retest](0.1.3-local-ret
 also cover fail-closed safe-save accounting, unmapped ACL prerequisites, and
 isolated concurrent package asset fixtures. Their results are bound to their
 named revisions and environments.
+The [later #15 decision and CI addendum](issue-15-matrix/README.md) records
+all 41 strict differential residuals, a separately asserted tiny FIFO redraw
+policy, five passing distinct-UID cases in a dedicated CI job, and selected
+native ARM64 production gates. It retains the original nonpassing differential
+and does not claim physical power-loss or exhaustive concurrency qualification.
 
 ## Historical 0.1.2 release gate after the GitHub push
 

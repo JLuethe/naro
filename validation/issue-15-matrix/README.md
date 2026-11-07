@@ -43,6 +43,30 @@ the original file, exit, and terminal-restoration assertions. The new focused
 test passes 11/11 checks on the frozen tiny ELF. No comparison field was
 normalized or deleted. Full GNU parity is not a 0.1.3 claim.
 
+## Subsequent native and distinct-UID CI gates
+
+GitHub Actions [run 42403969829](https://github.com/JLuethe/naro/actions/runs/42403969829)
+at `e8eeb46` passed its separate mandatory distinct-UID and native ARM64 jobs.
+The distinct-UID job ran as host root on an ephemeral GitHub runner, then
+dropped a fixture actor to UID/GID 1 with empty supplementary groups. All five
+backup-parent cases executed and passed against one CI test ELF (SHA-256
+`a0ab0d3cc6fa4be58e8cba453738789c29710c5090e98906b77250afa1398259`).
+The earlier rootless namespace step still reports its own missing prerequisite;
+it is not counted as a pass. The new job's archived probe and five raw reports
+are attached to the run.
+
+The native `ubuntu-24.04-arm` VM reported `aarch64` and built default and tiny
+ELFs at the same source revision, with SHA-256
+`2e54bed635d54e40d97987422bf51411e97e6ebb807fe5c005c68b76cca9defc`
+and `55d5644f64a5c8d8c61e0a7cc858323158c5302edb73abd268d943065a5c6b2c`.
+Default/tiny unit suites passed 82/49 tests (10 ignored per profile); production
+resource gates passed two/one cases, and hostile-input gates passed five/four.
+The first ARM job at `abf6c05` stopped at a missing `msgfmt` prerequisite after
+its builds and resource cases; the corrected job installed `gettext` and ran
+the hostile-input cases. These results establish the named native ARM64 gates,
+not every architecture-specific behavior. Actual physical power interruption
+and exhaustive concurrency remain unqualified.
+
 The exact `dbc46bb` production resource and hostile-input gates also pass on
 the host and on ARM64 glibc under QEMU user emulation. A fresh Ubuntu x86 guest
 VT run accepts 19/19 cases. These are named-artifact results, not evidence of

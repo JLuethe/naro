@@ -12,6 +12,30 @@ new version string changes the NARO title and CLI identity assertions; their
 version-bound expectations are reviewed separately from original GNU nano
 recordings. Results for earlier binaries do not qualify a 0.1.3 build.
 
+## 0.1.3 candidate decision boundary
+
+Fresh default and tiny builds display `NARO 0.1.3` in the editor title and
+report 0.1.3 through the CLI and build-info probe. The formatter-failure
+terminal scenario now waits for the completed-save message before checking its
+saved cursor; all original cursor and file assertions remain. An fsync-gated
+negative control reproduces the old in-progress snapshot failure.
+
+The strict GNU differential remains **nonpassing**: default 554/593 accepted,
+tiny 200/202. All 41 residuals have raw-evidence dispositions. Ten are the
+documented safety policy, 30 are historical test/reference gaps, and the tiny
+FIFO resize title/status redraw is an accepted 0.1.3 presentation difference
+with a separate complete-row assertion. No original comparison or normalizer
+was weakened, and full GNU nano parity is not claimed.
+
+Dedicated CI at `e8eeb46` executed all five distinct-UID backup-parent cases
+as a different host UID and passed them; its separately recorded probe cleared
+supplementary groups. A native ARM64 GitHub VM built default and tiny 0.1.3
+executables and passed their unit, production resource and hostile-input gates.
+The earlier ARM64 attempt stopped before hostile-input tests because `msgfmt`
+was missing; `gettext` was added to that CI job and the rerun passed. These are
+named-runner results. Actual physical power loss and exhaustive concurrency
+remain unqualified; no release or tag has been published.
+
 ## Historical 0.1.2 development candidate notes
 
 NARO 0.1.2 is a local development candidate. Its safety and release-readiness
