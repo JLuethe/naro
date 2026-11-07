@@ -76,8 +76,8 @@ under QEMU user emulation, not physical ARM64 hardware.
 | Host production resource and hostile-input gates | Pass; default two resource and five hostile, tiny one resource and four hostile cases | `target/retest-dbc46bb/{terminal_resources,hostile_inputs}-*.log` |
 | ARM64 glibc under QEMU user emulation | Pass; default/tiny CLI and resource gates, default 5/5 and tiny 4/4 hostile inputs | `target/issue15-arm64-dbc/target/arm64-qualification/` |
 | Bounded search and undo stress | Pass; 12 search cases across default/tiny, undo stress | `target/retest-dbc46bb/{search-stress,undo-stress}.log` |
-| Ubuntu guest-VT | Pass; 19/19 accepted with exact Ubuntu default build | `target/retest-dbc46bb/vt-report/report.json` |
-| Host package/source archive checks | Pending | `target/retest-dbc46bb/` |
+| Ubuntu guest-VT | Pass; 19/19 accepted with exact Ubuntu default build; independent provenance replay 19/19, zero problems | `target/retest-dbc46bb/vt-report/{report,vm-provenance}.json` and `vt-provenance-check.log` |
+| Host package/source archive checks | Pass; default and tiny each 17/17 package and 44/44 asset checks, including offline source rebuild | `target/retest-dbc46bb/check-{default,tiny}-final/` |
 | Independent Daybreak Blue fresh retest | Supported gates pass: production resource/hostile default and tiny, live/recorded #14, backup 1,296/1,296, confinement 77/77 default and 72/72 tiny, and exact host save semantics 22/22 progress plus 10/10 safety. ACL fixture setup returns `EINVAL`, so safe-save 409/659 in each profile and parent-policy ACL cases are incomplete in its managed sandbox; distinct-UID mapping is unavailable there. | `target/retest-dbc46bb/daybreak-final/` |
 
 The safe-save policy is [documented separately](../../docs/safe-save.md):
@@ -93,4 +93,11 @@ are missing prerequisites, not product passes or independent evidence of a
 product defect. An unrestricted independent exact-revision run passed the full
 659-case matrices and mapped-UID cases, as listed above. These environments'
 results are kept separate.
+Daybreak observed that the VM report lacked `vm-provenance.json` at the time of
+its audit. After that report, the provenance was generated from the retained
+VM launch, boot inputs, installed guest binary hashes and runtime archive;
+`validate_console_evidence` independently reopened all 19 captures and found
+zero problems. This provenance was created after capture; Daybreak did not
+independently audit the completed file. Archive manifests distinguish the
+compiled `dbc46bb` code from their later documentation/source revision.
 No tag, download, release, PR, or issue closure follows from this local report.

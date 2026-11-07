@@ -21,6 +21,9 @@ The exact `dbc46bb` production resource and hostile-input gates also pass on
 the host and on ARM64 glibc under QEMU user emulation. A fresh Ubuntu x86 guest
 VT run accepts 19/19 cases. These are named-artifact results, not evidence of
 native ARM64 hardware or physical power-loss persistence.
+The VM provenance file was assembled after capture from retained boot and
+binary inputs, then the independent console evidence validator accepted 19/19
+with zero problems. Daybreak's earlier audit did not include that later file.
 
 `tests/remediation/differential.py` inventories and executes every applicable
 production scenario in `spec/evidence/scenarios` and
