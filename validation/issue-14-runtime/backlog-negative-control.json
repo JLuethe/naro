@@ -1,0 +1,27 @@
+{
+  "classification": "pre_fix_candidate_latency_failure",
+  "candidate_revision": "2347843021c06afd9686880e0e85fdb76567d762",
+  "candidate_sha256": "45aa61b2f277a56426ba7abba0af3592e8c6ae29927830e8c948498ee671245c",
+  "fixture_sha256": "55d5bede270af247cc04a6de2972fabab8cdf2b398d884d8772f70d706efa55c",
+  "fixture_bytes": 12582912,
+  "result_json_sha256": "324d6972f6dba4d8517fe74cfe060e173282d7271aa2ec4391c27c1085c052eb",
+  "baseline": {
+    "prefix_bytes": 0,
+    "cancel_seconds": 0.986,
+    "raw_sha256": "7683c191569e03a98c1bfa4d8ba8ac35769bbd3e61dc7a5b21072a68524f4981",
+    "file_unchanged": true,
+    "status": "PASS"
+  },
+  "backlog": {
+    "prefix_bytes": 8192,
+    "burst_bytes": 8194,
+    "cancel_seconds_at_timeout": 3.02,
+    "bound_seconds": 3.0,
+    "raw_sha256": "84eddda2dfca329467619462dcade29ae51df9a0be8d795887daf6960882b41c",
+    "file_unchanged": true,
+    "status": "FAIL",
+    "error": "cancel was absent or search completed"
+  },
+  "interpretation": "The same synthetic 12 MiB view-only file and one-write PTY burst passed without a prefix but did not reach Cancel within the 3-second bound with 8192 non-cancel keys queued first. A separate exact-binary probe recorded 15.986 seconds to Cancelled for this prefix.",
+  "raw_location": "Ignored isolated worktree target/backlog-old-final; the generated file and result JSON are not committed."
+}

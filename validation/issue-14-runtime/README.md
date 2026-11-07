@@ -100,3 +100,26 @@ regressions cover plain `g` versus Meta+g, Meta+Left, and F1 with
 The [negative-control receipt](decoded-negative-control.json) records the
 three failures and positive control against the exact pre-fix binary. The
 new tests require a fresh integrated-binary run for final qualification.
+
+## Queued-input latency follow-up
+
+The decoded-key poll still read only 32 raw codes per 50 ms and started each
+check by cloning and decoding all previously retained input. A Cancel key
+behind 8,192 ordinary keys therefore arrived much later than a Cancel alone.
+The poll now keeps a private decoder cursor and feeds it only newly queued
+codes. Each nonblocking read is capped at 16,384 codes, and each scan decodes
+at most that many keys; the original input queue stays untouched until a
+Cancel binding is found. Partial escape sequences stay in the private decoder
+until more bytes arrive.
+
+`tests/issue14/backlog.py` creates a disposable 12 MiB file and sends the
+8,194-byte burst in one PTY write while a view-only search is running. It
+records production output, exit status, file digest, and time from burst to
+`Cancelled`. The queued case must complete within the larger of 3 seconds or
+twice the measured no-prefix baseline plus 0.5 seconds. The original exact
+binary passed the baseline at 0.986 seconds but
+missed the queued bound; [the negative-control receipt](backlog-negative-control.json)
+records the SHA-256 hashes and failure. The test is called by
+`tests/issue14/run.py` in both live-reference and recorded-oracle modes. This
+is a bounded deterministic PTY test, not a claim about arbitrary input rates
+or exhaustive scheduler interleavings.

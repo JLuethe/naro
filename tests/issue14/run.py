@@ -312,6 +312,13 @@ def main():
             actual_file["sha256"] == hashlib.sha256(expected_bytes).hexdigest(),
             "search cancellation changed original file")
     print("Production search ^C cancels and discards trailing same-burst X PASS")
+    backlog_cmd = [sys.executable, str(ROOT / "tests/issue14/backlog.py"),
+                   "--binary", str(args.binary), "--out", str(args.out / "backlog")]
+    backlog_run = subprocess.run(backlog_cmd, cwd=ROOT, text=True,
+                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    print(backlog_run.stdout, end="")
+    require(backlog_run.returncode == 0,
+            f"production backlog PTY failed: {backlog_run.stderr}")
     rebound = production_results["TEST-ISSUE14-SEARCH-REBOUND-CANCEL"]
     rebound_file = rebound["fixture"]["work/f.txt"]
     require(rebound_file["size"] == len(expected_bytes) and

@@ -83,8 +83,12 @@ struct SearchPoll {
     steps: usize,
     checked: std::time::Instant,
     cancel_keys: Vec<i32>,
+    decoded: Option<crate::input::Input>,
+    observed_raw: usize,
 }
 impl SearchPoll {
+    const BURST_LIMIT: usize = 16_384;
+
     fn discard_cancelled_input(input: &mut crate::input::Input) {
         // nano discards the rest of the pending input burst when a search is
         // cancelled.  The first key may already be in Input::queue; further
@@ -114,11 +118,23 @@ impl SearchPoll {
                 .into_iter()
                 .filter_map(|(key, cancel)| cancel.then_some(key))
                 .collect(),
+            decoded: None,
+            observed_raw: 0,
         }
     }
-    fn buffered_cancel(&self, input: &crate::input::Input, conf: &Config) -> bool {
-        let mut decoded = input.clone();
-        for _ in 0..input.queue.len() + input.replay.len() + 1 {
+    fn buffered_cancel(&mut self, input: &crate::input::Input, conf: &Config) -> bool {
+        let reset = self.decoded.is_none() || input.queue.len() < self.observed_raw;
+        if reset {
+            self.decoded = None;
+        }
+        let decoded = self.decoded.get_or_insert_with(|| input.clone());
+        if !reset {
+            decoded
+                .queue
+                .extend(input.queue.range(self.observed_raw..).copied());
+        }
+        self.observed_raw = input.queue.len();
+        for _ in 0..Self::BURST_LIMIT {
             let key = match decoded.next_buffered(conf) {
                 crate::input::Event::Key(key) => key,
                 crate::input::Event::Signal(_) => continue,
@@ -153,7 +169,7 @@ impl SearchPoll {
         }
         self.checked = std::time::Instant::now();
         #[cfg(not(test))]
-        for _ in 0..32 {
+        for _ in 0..Self::BURST_LIMIT {
             let key = unsafe { native::nr_get(0) };
             if key < 0 {
                 break;
@@ -220,7 +236,7 @@ fn search_poll_obeys_rebound_cancel_and_unbound_control_c() {
     assert_eq!(input.queue.iter().copied().collect::<Vec<_>>(), vec![3, 88]);
     input.queue.clear();
     input.queue.extend([7, b'Y' as i32]);
-    poll.steps = 0;
+    let mut poll = SearchPoll::new(&conf);
     assert!(poll.check(&mut input, &conf).is_err());
     assert!(input.queue.is_empty());
 }
@@ -254,6 +270,25 @@ fn search_poll_decodes_meta_binding_without_consuming_other_keys() {
     assert!(poll.check(&mut input, &conf).is_ok());
     assert_eq!(input.queue.iter().copied().collect::<Vec<_>>(), vec![27]);
     input.queue.extend([b'g' as i32, b'X' as i32]);
+    poll.steps = 0;
+    assert!(poll.check(&mut input, &conf).is_err());
+    assert!(input.queue.is_empty());
+}
+
+#[cfg(test)]
+#[test]
+fn search_poll_reaches_cancel_behind_large_retained_burst() {
+    let conf = Config::new(false);
+    let mut input = crate::input::Input::default();
+    input.queue.extend(std::iter::repeat_n(b'g' as i32, 8192));
+    let mut poll = SearchPoll::new(&conf);
+    assert!(poll.check(&mut input, &conf).is_ok());
+    assert_eq!(poll.observed_raw, 8192);
+    assert!(poll.decoded.as_ref().unwrap().queue.is_empty());
+    poll.steps = 0;
+    assert!(poll.check(&mut input, &conf).is_ok());
+    assert_eq!(input.queue.len(), 8192);
+    input.queue.extend([3, b'X' as i32]);
     poll.steps = 0;
     assert!(poll.check(&mut input, &conf).is_err());
     assert!(input.queue.is_empty());
