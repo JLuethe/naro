@@ -1,4 +1,15 @@
-# NARO 0.1.2 development candidate notes
+# NARO 0.1.3 development candidate notes
+
+NARO 0.1.3 is a local development candidate. It is not a published release or
+an assertion that integrated qualification has passed. The source now includes
+private safe-save staging for attacker-writable destination directories,
+additional bounded confinement, runtime coverage and resource/hostile-input
+checks, and a private locale fixture for exact differential retesting. The
+new version string changes the NARO title and CLI identity assertions; their
+version-bound expectations are reviewed separately from original GNU nano
+recordings. Results for earlier binaries do not qualify a 0.1.3 build.
+
+## Historical 0.1.2 development candidate notes
 
 NARO 0.1.2 is a local development candidate. Its safety and release-readiness
 changes are still undergoing integrated qualification; no 0.1.2 archive, tag,

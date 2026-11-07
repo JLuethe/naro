@@ -50,14 +50,14 @@ class IsolationTests(unittest.TestCase):
         # Whole reference-derived differences replace the old toy field whitelist.
         # This pair comes from the reviewed old qualification, not current output.
         from compare_runs import compare
-        # The 0.1.2 policy rejects the historical branded title. Preserve the
+        # The 0.1.3 policy rejects the historical branded title. Preserve the
         # recording and project only its reviewed version cells in this copy.
         self.assertIsNone(policy.deviation(tid,source,target,compare(source,target)))
         historical=target
         target=copy.deepcopy(historical)
         row=target['snapshots']['opened']['rows'][0]
         self.assertEqual(row['text'].count('NARO 0.1.1'),1)
-        row['text']=row['text'].replace('NARO 0.1.1','NARO 0.1.2',1)
+        row['text']=row['text'].replace('NARO 0.1.1','NARO 0.1.3',1)
         self.assertEqual([d['field']for d in compare(historical,target)],
                          ['snapshot.opened.row0.text'])
         differences=compare(source,target)

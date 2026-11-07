@@ -90,7 +90,7 @@ def display_pad(text, width):
     return text+' '*(width-cells)
 
 
-def title_row(cols, filename, state='', label='NARO 0.1.2', reserved=9):
+def title_row(cols, filename, state='', label='NARO 0.1.3', reserved=9):
     """Independent GNU C titlebar algorithm; ASCII names, reviewed Unicode states."""
     if (not filename.isascii() and filename != 'New·Buffer') or not filename or any(ord(c)<32 for c in filename):
         raise ValueError('title oracle needs a printable ASCII filename')
@@ -131,7 +131,7 @@ def title_row(cols, filename, state='', label='NARO 0.1.2', reserved=9):
 DEFAULT_STATES=('Modified','View','Restricted','Verändert','�Ver�ndert')
 
 
-def candidate_title(reference, cols=80, version='0.1.2', reserved=9, states=DEFAULT_STATES):
+def candidate_title(reference, cols=80, version='0.1.3', reserved=9, states=DEFAULT_STATES):
     prefix='  GNU nano 9.3'
     if not reference.startswith(prefix):raise ValueError('not a full nano title assertion')
     rest=reference[len(prefix):]

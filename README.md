@@ -5,7 +5,7 @@ experimental terminal editor for Linux, with familiar nano keybindings,
 byte-preserving editing, undo/redo, search and regex replacement, multiple
 buffers, nanorc configuration, syntax highlighting, macros and translations.
 
-This source tree is version **0.1.2**, a local development candidate with safety
+This source tree is version **0.1.3**, a local development candidate with safety
 and release-readiness changes awaiting integrated qualification. It uses NARO's
 name and version in the editing title, CLI and help. `naro --credits` prints the
 project attribution in default and tiny builds. The 0.1.1 frozen host and Ubuntu
@@ -72,8 +72,9 @@ results; complete nano parity and a security audit are not established.
 
 [0.1.1 qualification receipts](validation/release-0.1.1-final-2026-10-31/README.md)
 identify the exact inputs and evidence. [Implementation status](IMPLEMENTATION.md)
-explains known differences; the [coverage review](COVERAGE_REVIEW.md) retains nine
-unresolved specification-to-test citations. Historical reports keep their original
+explains known differences; the [coverage review](COVERAGE_REVIEW.md) tracks nine
+former specification-to-test citations whose candidate runtime coverage is being
+checked. Historical reports keep their original
 artifact scope.
 
 ## Scope and dependencies
@@ -104,7 +105,7 @@ data, syntax definitions and translations. The project is GPL-3.0-or-later;
 reused material and native dependencies retain their original terms and notices.
 See [LICENSE](LICENSE), [NOTICE](NOTICE), [CREDITS.md](CREDITS.md) and file headers.
 
-The [release notes](RELEASE_NOTES.md) describe the 0.1.2 candidate and the
+The [release notes](RELEASE_NOTES.md) describe the 0.1.3 candidate and the
 historical 0.1.1 update. The
 [release checklist](RELEASE_CHECKLIST.md) distinguishes completed technical
 qualification from remaining publication gates.

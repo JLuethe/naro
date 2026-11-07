@@ -1,6 +1,6 @@
 # Installing NARO
 
-This source tree is the NARO 0.1.2 local development candidate; no 0.1.2 release
+This source tree is the NARO 0.1.3 local development candidate; no 0.1.3 release
 has been published or qualified yet. Download a published version and its matching
 source/checksums from [GitHub Releases](https://github.com/JLuethe/naro/releases).
 The previously qualified 0.1.1 binary uses the default Linux x86_64 GNU/glibc
@@ -51,7 +51,7 @@ select a default editor, or replace system `nano`. Add the prefix's `bin` to
 your PATH yourself if desired. Existing unowned or modified files cause a
 conflict rather than silent replacement.
 
-## Recoverable installation in the 0.1.2 candidate
+## Recoverable installation in the 0.1.3 candidate
 
 The installer in this source tree adds the following transaction guarantees.
 They do not apply to the installer shipped in the historical 0.1.1 archive.
@@ -122,7 +122,7 @@ synced temporary file, atomic replacement and a containing-directory sync.
 ## Build from corresponding source
 
 For a published version, extract its matching source archive into a new
-directory. For the 0.1.2 development candidate, use this Git checkout. Provide
+directory. For the 0.1.3 development candidate, use this Git checkout. Provide
 Rust/Cargo, a C compiler, pkg-config, ncursesw development files and libmagic
 development files. The prior 0.1.1 candidate was built with rustc 1.99.1; no
 older compiler minimum is claimed here. The package has no Cargo dependencies.
@@ -166,7 +166,7 @@ candidate's qualification automatically.
   This profile uses ncursesw and omits libmagic, nanorc/syntax and other features;
   see [implementation status](IMPLEMENTATION.md). No tiny download is selected.
 - Credits: `naro --credits` prints the same attribution as `CREDITS.md` in default
-  and tiny 0.1.2 builds. The `credits` feature remains accepted by Cargo for
+  and tiny 0.1.3 builds. The `credits` feature remains accepted by Cargo for
   older build commands and does not change availability.
 - `test-hooks`: isolated recovery-testing instrumentation; never enable it in a
   distributed editor.

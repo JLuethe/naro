@@ -1,6 +1,6 @@
 # Implementation and qualification status
 
-NARO 0.1.2 is an experimental independent port of GNU nano 9.3. The pinned
+NARO 0.1.3 is an experimental independent port of GNU nano 9.3. The pinned
 reference is `6ed285c3ec7a1d228def4d4e7021c6ba269f620c`.
 The safe-save changes have scoped deterministic Linux validation; the historical
 qualification below does not transfer to the current artifacts.
@@ -33,14 +33,14 @@ finite tested matrix; it is not a claim of exhaustive compatibility.
 
 ## Current qualification scope
 
-The [safe-save qualification](validation/daybreak-0.1.2-2026-11-06/README.md)
-records fresh host/Ubuntu fault, backup, recovery, terminal and package checks.
-Regular-file saving now uses atomic replacement, with the explicit compatibility
-policy below. These finite tests do not establish physical power-loss behavior
-or adversarial namespace-race safety (issue #12). Nine runtime citation gaps
-remain (issue #14); guest-VT, additional architecture/Miri and broader native
-library qualification remain outside this retest (issue #15). No unqualified
-security, all-platform or release-publication claim follows from these results.
+The [0.1.2 safe-save qualification](validation/daybreak-0.1.2-2026-11-06/README.md)
+belongs to its named artifacts. The current 0.1.3 candidate adds private save
+staging and bounded confinement checks for issue #12, runtime coverage work for
+issue #14, and resource/hostile-input checks for issue #15. Integrated
+qualification is pending. Regular-file saving uses atomic replacement with the
+compatibility policy below. These finite tests do not establish physical
+power-loss behavior, exhaustive concurrency or all-platform support. No release
+publication claim follows from a local version change.
 
 ## Historical 0.1.1 qualification
 
@@ -69,7 +69,7 @@ PS/2 input. It is not physical keyboard/operator certification.
 
 ## Declared differences and limits
 
-- Regular-file saving uses same-directory atomic replacement by default.
+- Regular-file saving uses same-filesystem atomic replacement by default.
   [Safe-save compatibility](docs/safe-save.md) defines durability errors,
   metadata, links, append/prepend and interruption behavior. Nano's in-place
   inode and hard-link behavior is intentionally not retained.
@@ -87,10 +87,11 @@ and TEST-KEY-007. They are exclusions, not passes. Existing normalization and
 field-level exception policies are documented in the evidence; new unexplained
 mismatches block qualification.
 
-Nine specification citations remain unresolved by the recorded-scenario audit.
-[The coverage review](COVERAGE_REVIEW.md) distinguishes historical probe/table
-observations from missing scenario IDs. A structurally passing audit does not
-mean all requirements have runtime coverage.
+Nine former specification citations were removed after the recorded-scenario
+audit found that they named probes or planned tests rather than executed
+assertions. [The coverage review](COVERAGE_REVIEW.md) distinguishes historical
+probe/table observations from candidate runtime coverage. A structurally
+passing audit does not mean all requirements have runtime coverage.
 
 Other architectures/OSes, static binaries, broad native-root certification,
 physical keyboard trials, exhaustive locale/tool combinations and a security
