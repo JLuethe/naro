@@ -33,10 +33,12 @@ NARO does not silently revert to truncating the original.
   inheritance. Existing-file modification time changes on successful save;
   inode change time and creation identity are those of the new inode. NARO does
   not promise to restore old access/modification timestamps.
-- A symbolic link in the final pathname component is rejected, whether its
-  target exists or not. Open the actual target pathname to save it. The link
-  itself and its target are left intact. Ancestor directory symlinks are not
-  a complete operating-directory confinement boundary; issue #12 is separate.
+- A symbolic link observed in the final pathname component during validation
+  is rejected, whether its target exists or not. Open the actual target
+  pathname to save it. Saves never follow a final symlink. A symlink inserted
+  after final validation can itself be replaced by publication, but its
+  referent is not written. Final-entry publication is not a compare-and-swap
+  transaction; the bounded issue #12 tests document this limit.
 - Saving one name of a multiply linked file creates a new inode for that name.
   Other hard links retain the original contents and inode. Existing open file
   descriptors also continue to reference the old inode.
