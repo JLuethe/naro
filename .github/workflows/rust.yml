@@ -131,6 +131,9 @@ jobs:
           python3 tests/recovery/run.py --tiny --binary "$PWD/target/recovery-tiny-hooks/debug/naro" --out target/ci-recovery-durability-tiny
           cargo build --release --features credits --target-dir target/credits
           python3 tools/check_extensions.py --default target/release/naro --credits target/credits/release/naro --panic-runs target/ci-panic --panic-binary target/hooks/debug/naro --out target/ci-extensions
+      - name: Issue 14 production runtime and ordered key tables
+        run: |
+          python3 tests/issue14/run.py --binary "$PWD/target/release/naro" --hooks-binary "$PWD/target/hooks/debug/naro" --tiny-hooks-binary "$PWD/target/recovery-tiny-hooks/debug/naro" --recorded-oracles --out target/ci-issue14-runtime
       - name: Installed assets, archive integrity and ownership
         run: |
           python3 -m unittest discover -s tools -p 'test_package_docs.py'
