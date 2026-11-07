@@ -37,25 +37,53 @@ def acl_named_writer(uid):
          (16, 7, 0xffffffff), (32, 0, 0xffffffff)))
 
 
-def substitute(temp, stolen, outside, distinct_uid):
+def substitute(temp, stolen, outside, distinct_uid, write_temp=False):
     if distinct_uid:
         code = """import os,sys
-temp,stolen,outside=sys.argv[1:]
-os.rename(temp,stolen)
-os.symlink(outside,temp)
+temp,stolen,outside,write_temp=sys.argv[1:]
+if write_temp=='1':
+    fd=os.open(temp,os.O_WRONLY)
+    os.write(fd,b'poison')
+    os.close(fd)
+else:
+    os.rename(temp,stolen)
+    os.symlink(outside,temp)
 """
         def drop():
             os.setgroups([])
             os.setgid(100000)
             os.setuid(100000)
         actor = subprocess.run([sys.executable, "-c", code, os.path.relpath(temp),
-                                os.path.relpath(stolen), str(outside)], preexec_fn=drop,
+                                os.path.relpath(stolen), str(outside), str(int(write_temp))], preexec_fn=drop,
                                capture_output=True, text=True, timeout=5)
         if actor.returncode:
             raise InfrastructureError(f"mapped actor exited {actor.returncode}: {actor.stderr}")
     else:
-        temp.rename(stolen)
-        temp.symlink_to(outside)
+        if write_temp:
+            with temp.open("r+b") as file:
+                file.write(b"poison")
+        else:
+            temp.rename(stolen)
+            temp.symlink_to(outside)
+
+
+def check_private_temp(temp):
+    code = """import os,sys
+try:
+    os.open(sys.argv[1],os.O_WRONLY)
+except PermissionError:
+    pass
+else:
+    raise AssertionError('different UID opened private backup temporary')
+"""
+    def drop():
+        os.setgroups([])
+        os.setgid(100000)
+        os.setuid(100000)
+    actor = subprocess.run([sys.executable, "-c", code, os.path.relpath(temp)],
+                           preexec_fn=drop, capture_output=True, text=True, timeout=5)
+    if actor.returncode:
+        raise InfrastructureError(f"mapped actor exited {actor.returncode}: {actor.stderr}")
 
 
 def run_case(binary, preload, base, kind, distinct_uid):
@@ -65,13 +93,22 @@ def run_case(binary, preload, base, kind, distinct_uid):
     backups.mkdir()
     target = data / "target"
     target.write_bytes(OLD)
+    if kind.startswith("foreign-owner-"):
+        assert os.geteuid() == 0, "foreign ownership requires namespace root"
+        os.chown(target, 100000, 100000)
+    elif kind.startswith("writable-mode-"):
+        target.chmod(0o666)
     target_before = identity(target)
     outside = base / "outside-sentinel"
     outside.write_bytes(OUTSIDE)
     outside_before = identity(outside)
-    if kind == "owned-normal":
+    if kind in ("owned-private", "foreign-owner-private", "writable-mode-private"):
+        backups.chmod(0o700)
+    elif kind in ("owned-normal", "foreign-owner-normal", "writable-mode-normal"):
         backups.chmod(0o755)
     elif kind == "owned-sticky":
+        backups.chmod(0o1777)
+    elif kind in ("foreign-owner-sticky", "writable-mode-sticky"):
         backups.chmod(0o1777)
     elif kind == "unsafe-open":
         backups.chmod(0o777)
@@ -86,7 +123,8 @@ def run_case(binary, preload, base, kind, distinct_uid):
         assert backups.stat().st_mode & stat.S_IWGRP
     else:
         raise AssertionError(kind)
-    unsafe = kind in ("unsafe-open", "acl-writer")
+    unsafe = kind in ("unsafe-open", "acl-writer", "foreign-owner-sticky",
+                      "foreign-owner-normal", "writable-mode-sticky", "writable-mode-normal")
     owned = identity(backups)
     inherited = {k: v for k, v in os.environ.items()
                  if not k.startswith(("NARO_SAVE_", "NARO_BOUND_"))}
@@ -94,7 +132,7 @@ def run_case(binary, preload, base, kind, distinct_uid):
                NARO_SAVE_MODE="0", NARO_SAVE_BACKUP="1", NARO_SAVE_CONFINED="1",
                NARO_SAVE_BACKUP_DIR=str(backups), NARO_BOUND_FIXTURE=str(base),
                NARO_BOUND_DEV=str(owned[0]), NARO_BOUND_INO=str(owned[1]),
-               NARO_BOUND_STAGE="backup-publish" if unsafe else "none")
+               NARO_BOUND_STAGE="backup-publish" if unsafe or distinct_uid and kind.endswith("-private") else "none")
     with (base / "process.log").open("wb") as log:
         proc = subprocess.Popen([str(binary), "--exact", TEST, "--ignored", "--nocapture", "--test-threads=1"],
                                 env=env, stdout=log, stderr=subprocess.STDOUT)
@@ -104,7 +142,12 @@ def run_case(binary, preload, base, kind, distinct_uid):
                 if (base / "ready").exists():
                     entries = [p for p in backups.iterdir() if p.name.startswith(".naro-backup-")]
                     assert len(entries) == 1, entries
-                    substitute(entries[0], backups / "stolen", outside, distinct_uid)
+                    if kind.endswith("-private"):
+                        check_private_temp(entries[0])
+                    else:
+                        substitute(entries[0], backups / "stolen", outside, distinct_uid,
+                                   write_temp=kind in ("writable-mode-sticky", "writable-mode-normal",
+                                                       "foreign-owner-normal"))
                     (base / "release").write_text("resume\n")
                     break
                 time.sleep(0.002)
@@ -121,6 +164,8 @@ def run_case(binary, preload, base, kind, distinct_uid):
     assert proc.returncode == 0, proc.returncode
     result = (base / "root/result").read_text()
     entries = [{"name": p.name, "symlink": p.is_symlink(),
+                "uid": p.lstat().st_uid, "mode": oct(stat.S_IMODE(p.lstat().st_mode)),
+                "link_target": os.readlink(p) if p.is_symlink() else None,
                 "bytes": p.read_bytes().decode() if p.is_file() else None}
                for p in backups.iterdir()]
     observed = {"gate_reached": (base / "ready").exists(), "result": result.strip(),
@@ -135,10 +180,14 @@ def run_case(binary, preload, base, kind, distinct_uid):
         assert target.read_bytes() == OLD and identity(target) == target_before
         assert not entries, entries
     else:
-        assert not observed["gate_reached"]
+        assert observed["gate_reached"] == (distinct_uid and kind.endswith("-private"))
         assert result.startswith("ok "), result
         assert target.read_bytes() == b"replacement\n"
         assert len(entries) == 1 and not entries[0]["symlink"] and entries[0]["bytes"] == OLD.decode()
+        if kind == "foreign-owner-private":
+            assert entries[0]["uid"] == 100000
+        if kind == "writable-mode-private":
+            assert entries[0]["mode"] == "0o666"
     return observed
 
 
@@ -146,7 +195,9 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--binary", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
-    ap.add_argument("--only", choices=("unsafe-open", "acl-writer"))
+    ap.add_argument("--only", choices=("unsafe-open", "acl-writer",
+                                       "foreign-owner-sticky", "foreign-owner-normal", "foreign-owner-private",
+                                       "writable-mode-sticky", "writable-mode-normal", "writable-mode-private"))
     ap.add_argument("--distinct-uid-actor", action="store_true")
     args = ap.parse_args()
     binary = args.binary.resolve(strict=True)
@@ -164,7 +215,9 @@ def main():
         return 2
     if args.distinct_uid_actor:
         assert os.geteuid() == 0, "distinct UID actor requires namespace root"
-    cases = (args.only,) if args.only else ("owned-normal", "owned-sticky", "unsafe-open", "acl-writer")
+    cases = (args.only,) if args.only else ("owned-private", "owned-normal", "owned-sticky",
+                                           "unsafe-open", "acl-writer", "writable-mode-private",
+                                           "writable-mode-normal", "writable-mode-sticky")
     report = {"binary": str(binary), "sha256": hashlib.sha256(binary.read_bytes()).hexdigest(), "cases": []}
     for kind in cases:
         row = {"name": kind}

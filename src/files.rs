@@ -603,19 +603,34 @@ struct BackupOutput {
     parent: Parent,
     file: Option<File>,
     identity: fs::Metadata,
+    traversable_parent: bool,
     published: bool,
 }
 impl BackupOutput {
     fn create(parent: Parent) -> std::io::Result<Self> {
         native::private_entry_parent(&parent.directory)?;
+        let traversable_parent = parent.directory.metadata()?.mode() & 0o011 != 0;
         let file = parent.create(0o600)?;
         let identity = file.metadata()?;
         Ok(Self {
             parent,
             file: Some(file),
             identity,
+            traversable_parent,
             published: false,
         })
+    }
+    fn permits_metadata(&self, source: &fs::Metadata) -> std::io::Result<()> {
+        // A different UID can traverse this parent and edit a temp it owns
+        // or one with group/other write. In a sticky shared parent, its owner
+        // can also move the entry. Reject before chown/chmod exposes either
+        // capability; the temporary entry is still editor-owned mode 0600.
+        if self.traversable_parent
+            && (source.uid() != self.identity.uid() || source.mode() & 0o022 != 0)
+        {
+            return Err(std::io::ErrorKind::PermissionDenied.into());
+        }
+        Ok(())
     }
     fn owns_entry(&self) -> bool {
         self.parent
@@ -623,6 +638,12 @@ impl BackupOutput {
             .is_ok_and(|m| (m.dev(), m.ino()) == (self.identity.dev(), self.identity.ino()))
     }
     fn finish(mut self, target: Option<&Path>) -> std::io::Result<()> {
+        if self.traversable_parent {
+            let actual = self.file.as_ref().unwrap().metadata()?;
+            if actual.uid() != self.identity.uid() || actual.mode() & 0o022 != 0 {
+                return Err(std::io::ErrorKind::PermissionDenied.into());
+            }
+        }
         native::close_checked(self.file.take().unwrap())?;
         if !self.owns_entry() {
             return Err(std::io::Error::other("Backup temporary entry changed"));
@@ -677,12 +698,14 @@ fn make_backup_from(
         collision(&config::path(&directory).join(config::path(&name)))
     };
     let read_failed = std::cell::Cell::new(false);
-    let write = |file: &mut File, warning: &mut dyn FnMut(&str)| -> std::io::Result<()> {
+    let write = |output: &mut BackupOutput, warning: &mut dyn FnMut(&str)| -> std::io::Result<()> {
         read_failed.set(false);
         // Source-open failures belong to the backup failure/confirmation flow,
         // just like read failures. Keep the read anchored to the opened parent.
         let source = parent.read().inspect_err(|_| read_failed.set(true))?;
         let meta = source.metadata()?;
+        output.permits_metadata(&meta)?;
+        let file = output.file.as_mut().unwrap();
         let mut bytes = Vec::new();
         use std::os::unix::fs::FileExt;
         let mut offset = 0;
@@ -752,7 +775,7 @@ fn make_backup_from(
             }
             match BackupOutput::create(target.sibling(leaf)?) {
                 Ok(mut output) => {
-                    write(output.file.as_mut().unwrap(), &mut warning)?;
+                    write(&mut output, &mut warning)?;
                     return output.finish(Some(&target.name));
                 }
                 Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => continue,
@@ -789,8 +812,8 @@ fn make_backup_from(
                 Parent::open(c, &home.join(config::path(&name))).and_then(BackupOutput::create);
             match attempt {
                 Ok(mut output) => {
-                    let result = write(output.file.as_mut().unwrap(), &mut warning)
-                        .and_then(|()| output.finish(None));
+                    let result =
+                        write(&mut output, &mut warning).and_then(|()| output.finish(None));
                     match result {
                         Ok(()) => return Ok(()),
                         Err(e) => {

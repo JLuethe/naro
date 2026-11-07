@@ -1,5 +1,10 @@
 # Issue #12 backup parent hardening
 
+This records the earlier backup-parent revision. The later
+[metadata publication follow-up](../backup-metadata-2026-11-07/README.md)
+closes the foreign-owner and writable-mode windows in traversable parents.
+The observations below remain historical evidence for their named binaries.
+
 The backup publication path checked its temporary file's identity before
 `renameat`, leaving a substitution window in a configured nonsticky shared
 backup directory. In a bounded synthetic fixture, a mapped different-UID actor

@@ -1,0 +1,25 @@
+{
+  "binary": "/home/john/Code/naro/target/issue12-backup-owner/target/debug/deps/naro-32727381b127ff48",
+  "sha256": "5ccf86a5250161df721452ee64b02d89027f81a8e956ff883dbedad56309cf4a",
+  "cases": [
+    {
+      "name": "foreign-owner-normal",
+      "observed": {
+        "gate_reached": false,
+        "result": "error modified=true confirm_backup=true Cannot make backup: permission denied",
+        "target_bytes": "original fixture\n",
+        "target_identity": [
+          58,
+          6593740
+        ],
+        "outside_bytes": "outside sentinel\n",
+        "outside_identity": [
+          58,
+          6593742
+        ],
+        "backup_entries": []
+      },
+      "status": "pass"
+    }
+  ]
+}

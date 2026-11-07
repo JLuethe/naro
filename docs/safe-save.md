@@ -97,11 +97,18 @@ opened backup parent must pass the same owner/sticky permission check as the
 document save parent before temporary creation. Its owner must be the editor
 or root; group or other write permission requires a sticky bit. The group mode
 bits include the POSIX ACL mask. This applies to configured backup directories
-and to the home-directory fallback. It prevents a different UID from moving
-the temporary entry after its identity check and substituting a backup that
-would be published by rename. A private child is unnecessary in an authorized
-parent: the temporary file is mode 0600, and a different UID cannot move its
-entry. A nonsticky shared configured backup directory triggers the existing
+and to the home-directory fallback. In any backup parent traversable by group
+or other users, the backup also refuses to restore a foreign owner or
+group/other write bits to the temporary file. The execute bits on the opened
+parent, including the effective POSIX ACL mask, conservatively determine that
+access. The check uses metadata from the opened source and runs before changing
+the editor-owned mode-0600 temporary entry. A foreign owner can edit the file
+after chown in a mode-0755 directory and can also move it in a sticky shared
+directory; another permitted writer can change its bytes after chmod. A
+mode-0700 backup directory retains the full ownership and mode restoration
+policy. This fail-closed rule avoids
+publishing an entry another UID can replace or edit between the identity check
+and rename. A nonsticky shared configured backup directory triggers the existing
 home fallback when allowed; confined saves and failed fallbacks use the backup
 confirmation flow. Use an editor-owned private directory or a trusted-owner
 sticky directory. An existing backup entry is replaced by rename; its inode is

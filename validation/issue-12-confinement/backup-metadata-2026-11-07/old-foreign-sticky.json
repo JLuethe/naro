@@ -1,0 +1,43 @@
+{
+  "binary": "/home/john/Code/naro/target/issue12-backup-stage/target/debug/deps/naro-32727381b127ff48",
+  "sha256": "2fbf92bedd4c889949207c200b421fc53eae45a869779650e9fb69debe14ff17",
+  "cases": [
+    {
+      "name": "foreign-owner-sticky",
+      "status": "assertion-failure",
+      "error": "AssertionError('unsafe backup parent reached publish gate')",
+      "observed": {
+        "gate_reached": true,
+        "result": "ok 1 modified=false",
+        "target_bytes": "replacement\n",
+        "target_identity": [
+          58,
+          6593824
+        ],
+        "outside_bytes": "outside sentinel\n",
+        "outside_identity": [
+          58,
+          6593784
+        ],
+        "backup_entries": [
+          {
+            "name": "stolen",
+            "symlink": false,
+            "uid": 100000,
+            "mode": "0o644",
+            "link_target": null,
+            "bytes": "original fixture\n"
+          },
+          {
+            "name": "!home!john!Code!naro!target!issue12-backup-owner!target!foreign-sticky-old-qualified!foreign-owner-sticky!root!data!target~",
+            "symlink": true,
+            "uid": 100000,
+            "mode": "0o777",
+            "link_target": "/home/john/Code/naro/target/issue12-backup-owner/target/foreign-sticky-old-qualified/foreign-owner-sticky/outside-sentinel",
+            "bytes": null
+          }
+        ]
+      }
+    }
+  ]
+}

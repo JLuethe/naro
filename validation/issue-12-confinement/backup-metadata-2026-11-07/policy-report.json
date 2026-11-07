@@ -1,0 +1,194 @@
+{
+  "binary": "/home/john/Code/naro/target/issue12-backup-owner/target/debug/deps/naro-32727381b127ff48",
+  "sha256": "5ccf86a5250161df721452ee64b02d89027f81a8e956ff883dbedad56309cf4a",
+  "cases": [
+    {
+      "name": "owned-private",
+      "observed": {
+        "gate_reached": false,
+        "result": "ok 1 modified=false",
+        "target_bytes": "replacement\n",
+        "target_identity": [
+          58,
+          6562676
+        ],
+        "outside_bytes": "outside sentinel\n",
+        "outside_identity": [
+          58,
+          6562670
+        ],
+        "backup_entries": [
+          {
+            "name": "!home!john!Code!naro!target!issue12-backup-owner!target!backup-owner-policy-qualified!owned-private!root!data!target~",
+            "symlink": false,
+            "uid": 1000,
+            "mode": "0o644",
+            "link_target": null,
+            "bytes": "original fixture\n"
+          }
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "name": "owned-normal",
+      "observed": {
+        "gate_reached": false,
+        "result": "ok 1 modified=false",
+        "target_bytes": "replacement\n",
+        "target_identity": [
+          58,
+          6562691
+        ],
+        "outside_bytes": "outside sentinel\n",
+        "outside_identity": [
+          58,
+          6562685
+        ],
+        "backup_entries": [
+          {
+            "name": "!home!john!Code!naro!target!issue12-backup-owner!target!backup-owner-policy-qualified!owned-normal!root!data!target~",
+            "symlink": false,
+            "uid": 1000,
+            "mode": "0o644",
+            "link_target": null,
+            "bytes": "original fixture\n"
+          }
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "name": "owned-sticky",
+      "observed": {
+        "gate_reached": false,
+        "result": "ok 1 modified=false",
+        "target_bytes": "replacement\n",
+        "target_identity": [
+          58,
+          6562708
+        ],
+        "outside_bytes": "outside sentinel\n",
+        "outside_identity": [
+          58,
+          6562702
+        ],
+        "backup_entries": [
+          {
+            "name": "!home!john!Code!naro!target!issue12-backup-owner!target!backup-owner-policy-qualified!owned-sticky!root!data!target~",
+            "symlink": false,
+            "uid": 1000,
+            "mode": "0o644",
+            "link_target": null,
+            "bytes": "original fixture\n"
+          }
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "name": "unsafe-open",
+      "observed": {
+        "gate_reached": false,
+        "result": "error modified=true confirm_backup=true Cannot make backup: Operation not permitted",
+        "target_bytes": "original fixture\n",
+        "target_identity": [
+          58,
+          6562716
+        ],
+        "outside_bytes": "outside sentinel\n",
+        "outside_identity": [
+          58,
+          6562717
+        ],
+        "backup_entries": []
+      },
+      "status": "pass"
+    },
+    {
+      "name": "acl-writer",
+      "observed": {
+        "gate_reached": false,
+        "result": "error modified=true confirm_backup=true Cannot make backup: Operation not permitted",
+        "target_bytes": "original fixture\n",
+        "target_identity": [
+          58,
+          6562732
+        ],
+        "outside_bytes": "outside sentinel\n",
+        "outside_identity": [
+          58,
+          6562733
+        ],
+        "backup_entries": []
+      },
+      "status": "pass"
+    },
+    {
+      "name": "writable-mode-private",
+      "observed": {
+        "gate_reached": false,
+        "result": "ok 1 modified=false",
+        "target_bytes": "replacement\n",
+        "target_identity": [
+          58,
+          6562775
+        ],
+        "outside_bytes": "outside sentinel\n",
+        "outside_identity": [
+          58,
+          6562756
+        ],
+        "backup_entries": [
+          {
+            "name": "!home!john!Code!naro!target!issue12-backup-owner!target!backup-owner-policy-qualified!writable-mode-private!root!data!target~",
+            "symlink": false,
+            "uid": 1000,
+            "mode": "0o666",
+            "link_target": null,
+            "bytes": "original fixture\n"
+          }
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "name": "writable-mode-normal",
+      "observed": {
+        "gate_reached": false,
+        "result": "error modified=true confirm_backup=true Cannot make backup: permission denied",
+        "target_bytes": "original fixture\n",
+        "target_identity": [
+          58,
+          6562791
+        ],
+        "outside_bytes": "outside sentinel\n",
+        "outside_identity": [
+          58,
+          6562792
+        ],
+        "backup_entries": []
+      },
+      "status": "pass"
+    },
+    {
+      "name": "writable-mode-sticky",
+      "observed": {
+        "gate_reached": false,
+        "result": "error modified=true confirm_backup=true Cannot make backup: permission denied",
+        "target_bytes": "original fixture\n",
+        "target_identity": [
+          58,
+          6562830
+        ],
+        "outside_bytes": "outside sentinel\n",
+        "outside_identity": [
+          58,
+          6562831
+        ],
+        "backup_entries": []
+      },
+      "status": "pass"
+    }
+  ]
+}

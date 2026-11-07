@@ -112,6 +112,15 @@ jobs:
           python3 tests/confinement/run.py --binary "$candidate" --out target/ci-confinement-default
           python3 tests/confinement/parent_policy.py --binary "$candidate" --out target/ci-confinement-parent-policy-default
           python3 tests/backup/parent_policy.py --binary "$candidate" --out target/ci-backup-parent-policy
+          if unshare --map-root-user --map-subids true >/dev/null 2>&1; then
+            unshare --map-root-user --map-subids python3 tests/backup/parent_policy.py --binary "$candidate" --out target/ci-backup-foreign-owner-sticky --only foreign-owner-sticky --distinct-uid-actor
+            unshare --map-root-user --map-subids python3 tests/backup/parent_policy.py --binary "$candidate" --out target/ci-backup-foreign-owner-normal --only foreign-owner-normal --distinct-uid-actor
+            unshare --map-root-user --map-subids python3 tests/backup/parent_policy.py --binary "$candidate" --out target/ci-backup-foreign-owner-private --only foreign-owner-private --distinct-uid-actor
+            unshare --map-root-user --map-subids python3 tests/backup/parent_policy.py --binary "$candidate" --out target/ci-backup-writable-mode-sticky --only writable-mode-sticky --distinct-uid-actor
+            unshare --map-root-user --map-subids python3 tests/backup/parent_policy.py --binary "$candidate" --out target/ci-backup-writable-mode-private --only writable-mode-private --distinct-uid-actor
+          else
+            echo '::notice::foreign-owner sticky backup checks require user namespaces and subordinate IDs'
+          fi
           candidate=$(python3 -c 'import json; print(next(r["executable"] for r in map(json.loads, open("target/ci-safe-save-tiny-build.jsonl")) if r.get("executable") and r.get("profile", {}).get("test")))')
           python3 tests/confinement/run.py --binary "$candidate" --out target/ci-confinement-tiny --tiny
           python3 tests/confinement/parent_policy.py --binary "$candidate" --out target/ci-confinement-parent-policy-tiny

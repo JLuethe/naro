@@ -1,5 +1,10 @@
 # Issue #12 — opened-object confinement hardening
 
+Latest follow-up: [backup metadata publication invariant
+(2026-11-07)](backup-metadata-2026-11-07/README.md) covers foreign ownership and
+writable modes in traversable backup directories. Earlier records remain tied
+to their named binaries.
+
 Latest follow-up: [backup parent authorization and bounded publication
 substitution (2026-11-07)](backup-parent-2026-11-07/README.md) covers the
 configured backup directory. The earlier reports remain tied to their named

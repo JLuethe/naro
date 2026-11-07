@@ -1,0 +1,35 @@
+{
+  "binary": "/home/john/Code/naro/target/issue12-backup-stage/target/debug/deps/naro-32727381b127ff48",
+  "sha256": "2fbf92bedd4c889949207c200b421fc53eae45a869779650e9fb69debe14ff17",
+  "cases": [
+    {
+      "name": "foreign-owner-normal",
+      "status": "assertion-failure",
+      "error": "AssertionError('unsafe backup parent reached publish gate')",
+      "observed": {
+        "gate_reached": true,
+        "result": "ok 1 modified=false",
+        "target_bytes": "replacement\n",
+        "target_identity": [
+          58,
+          6593800
+        ],
+        "outside_bytes": "outside sentinel\n",
+        "outside_identity": [
+          58,
+          6593733
+        ],
+        "backup_entries": [
+          {
+            "name": "!home!john!Code!naro!target!issue12-backup-owner!target!foreign-normal-old-qualified!foreign-owner-normal!root!data!target~",
+            "symlink": false,
+            "uid": 100000,
+            "mode": "0o644",
+            "link_target": null,
+            "bytes": "poisonal fixture\n"
+          }
+        ]
+      }
+    }
+  ]
+}

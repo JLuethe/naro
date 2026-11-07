@@ -24,6 +24,18 @@ never reach that gate for the unsafe parent. Run the actor case with
 `unshare --map-root-user --map-subids` where supported. The fixture contains
 only synthetic files and has a ten-second child deadline.
 
+The same gate also covers a foreign-owned source in a root-owned sticky backup
+directory. On the earlier binary, the backup temporary became owned by the
+foreign UID, which could then move it despite the sticky bit. A mode-0755
+backup parent also lets that UID traverse and edit its file after chown. The
+current policy refuses before chown whenever the parent has group/other
+execute permission. A source mode with group/other write permission is likewise
+refused in such a parent before chmod, so another UID cannot alter published
+backup bytes. Both properties remain available when the backup directory is
+mode 0700. The mapped-UID private-directory gate confirms that even a foreign
+owner or a permitted writer of the temporary file cannot traverse that parent
+to edit the unpublished bytes.
+
 The matrix exercises overwrite, append and prepend with backups enabled;
 `allow_insecure_backup` on/off; confinement on/off; missing, regular, source
 hard-link and source symlink backup entries; exclusive temp-name collisions;
