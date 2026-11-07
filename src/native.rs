@@ -224,7 +224,7 @@ impl Regex {
     }
     pub fn flags(pattern: &[u8], flags: i32) -> Result<Self, String> {
         let p = CString::new(pattern).map_err(|_| "NUL in regex".to_string())?;
-        let mut error = [0i8; 512];
+        let mut error = [0 as c_char; 512];
         let raw = unsafe { nr_regex(p.as_ptr(), flags, error.as_mut_ptr(), error.len()) };
         let ptr = NonNull::new(raw).ok_or_else(|| {
             String::from_utf8_lossy(&unsafe { from_c(error.as_ptr()) }).into_owned()
