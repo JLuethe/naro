@@ -1,0 +1,257 @@
+{
+  "binary": "/home/john/Code/naro/target/issue12-finish/target/debug/deps/naro-8b785946e7ffb0d9",
+  "sha256": "e99d829662b32664e47ba8a89126f5b245039ac137295422ccb6e79d224511ce",
+  "tiny": false,
+  "reader_sha256": "fc7c6333e75c4bd7138b66118e3e1ab3bddaa637825abcebdf8d729910ab5953",
+  "cases": [
+    {
+      "name": "save-publish-stage-entry-symlink-mode0-existing",
+      "result": "error modified=true confirm_backup=false File replaced, but durability is uncertain for /home/john/Code/naro/target/issue12-finish/target/issue12-stage-regression-new-3/save-publish-stage-entry-symlink-mode0-existing/root/data/target: Stale file handle",
+      "before": {
+        "root": [
+          58,
+          6149065
+        ],
+        "parent": [
+          58,
+          6149066
+        ],
+        "outside_parent": [
+          58,
+          6149068
+        ],
+        "target": [
+          58,
+          6149070
+        ],
+        "outside": [
+          58,
+          6149071
+        ],
+        "other": [
+          58,
+          6149072
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          6149066
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          6149070
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        6149066
+      ],
+      "destination_after": [
+        58,
+        6149081
+      ],
+      "outcome": "published-from-held-private-directory",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-stage-entry-symlink-mode0-missing",
+      "result": "error modified=true confirm_backup=false File replaced, but durability is uncertain for /home/john/Code/naro/target/issue12-finish/target/issue12-stage-regression-new-3/save-publish-stage-entry-symlink-mode0-missing/root/data/target: Stale file handle",
+      "before": {
+        "root": [
+          58,
+          6149106
+        ],
+        "parent": [
+          58,
+          6149107
+        ],
+        "outside_parent": [
+          58,
+          6149108
+        ],
+        "target": null,
+        "outside": [
+          58,
+          6149109
+        ],
+        "other": [
+          58,
+          6149110
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          6149107
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        6149107
+      ],
+      "destination_after": [
+        58,
+        6149128
+      ],
+      "outcome": "published-from-held-private-directory",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-stage-entry-symlink-mode1-existing",
+      "result": "error modified=true confirm_backup=false File replaced, but durability is uncertain for /home/john/Code/naro/target/issue12-finish/target/issue12-stage-regression-new-3/save-publish-stage-entry-symlink-mode1-existing/root/data/target: Stale file handle",
+      "before": {
+        "root": [
+          58,
+          6149154
+        ],
+        "parent": [
+          58,
+          6149155
+        ],
+        "outside_parent": [
+          58,
+          6149156
+        ],
+        "target": [
+          58,
+          6149157
+        ],
+        "outside": [
+          58,
+          6149158
+        ],
+        "other": [
+          58,
+          6149159
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          6149155
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          6149157
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        6149155
+      ],
+      "destination_after": [
+        58,
+        6149169
+      ],
+      "outcome": "published-from-held-private-directory",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-stage-entry-symlink-mode1-missing",
+      "result": "error modified=true confirm_backup=false File replaced, but durability is uncertain for /home/john/Code/naro/target/issue12-finish/target/issue12-stage-regression-new-3/save-publish-stage-entry-symlink-mode1-missing/root/data/target: Stale file handle",
+      "before": {
+        "root": [
+          58,
+          6149192
+        ],
+        "parent": [
+          58,
+          6149193
+        ],
+        "outside_parent": [
+          58,
+          6149194
+        ],
+        "target": null,
+        "outside": [
+          58,
+          6149195
+        ],
+        "other": [
+          58,
+          6149196
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          6149193
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        6149193
+      ],
+      "destination_after": [
+        58,
+        6149206
+      ],
+      "outcome": "published-from-held-private-directory",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-stage-entry-symlink-mode2-existing",
+      "result": "error modified=true confirm_backup=false File replaced, but durability is uncertain for /home/john/Code/naro/target/issue12-finish/target/issue12-stage-regression-new-3/save-publish-stage-entry-symlink-mode2-existing/root/data/target: Stale file handle",
+      "before": {
+        "root": [
+          58,
+          6149219
+        ],
+        "parent": [
+          58,
+          6149220
+        ],
+        "outside_parent": [
+          58,
+          6149221
+        ],
+        "target": [
+          58,
+          6149222
+        ],
+        "outside": [
+          58,
+          6149223
+        ],
+        "other": [
+          58,
+          6149224
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          6149220
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          6149222
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        6149220
+      ],
+      "destination_after": [
+        58,
+        6149231
+      ],
+      "outcome": "published-from-held-private-directory",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    }
+  ]
+}

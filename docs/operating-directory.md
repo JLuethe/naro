@@ -12,8 +12,11 @@ directory remains supported. Tiny does not offer the operating-directory option.
 
 Loads and insertion obtain data and metadata from the same authorized open file.
 Regular saves retain an authorized parent and pass it to the atomic save path;
-source checks, temporary creation, replacement, and directory sync are relative
-to that parent. A missing final filename is allowed only after its existing
+source checks, staging-directory creation, replacement, and directory sync are relative
+to that parent. The temporary file is created within a unique mode-0700 child
+of the opened parent. The held child descriptor remains the publication source
+even if another process renames its entry in an attacker-writable parent.
+A missing final filename is allowed only after its existing
 parent has been opened successfully. Other resolution errors deny access.
 Backups read a pinned source descriptor and, when confined, create in an
 authorized parent. Confined backups never fall back to the home directory and
@@ -51,13 +54,22 @@ remove directory entries, and replacement is not a general compare-and-swap
 transaction against concurrent writers. Hard links and mounts already present
 inside the root are part of its accessible namespace.
 
+The private staging child protects its contents from an actor with a distinct
+UID who may change entries in a mode-0777 parent. Such an actor can still move
+or replace the child directory's parent entry, causing a committed save to
+return an error during cleanup; publication continues to use the held child
+descriptor and does not publish the substituted entry. A process with the
+editor's UID can access its private directory and is outside this filesystem
+secrecy boundary. The staging child remains on the destination filesystem;
+ordinary cleanup checks entry identities and does not remove substitutions.
+
 This feature is not a process sandbox. Configuration files, history storage,
 external commands and tools, their temporary files, and their own filesystem
 access remain governed by their existing trust and permission policies. In
 particular, invoking a formatter, speller or command grants that program the
 editor process's ordinary operating-system authority.
 
-The bounded issue #12 fixtures exercise controlled parent and final-entry swaps
+The bounded issue #12 fixtures exercise controlled parent, staging, and final-entry swaps
 at source open, temporary creation, final publication, and confined read reopen.
 They support the opened-object policy for those interleavings and demonstrate
 the final-entry compare-and-swap limit; they do not establish exhaustive race

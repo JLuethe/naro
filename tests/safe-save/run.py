@@ -16,16 +16,30 @@ OLD = b"original data must survive\n"
 NEW = b"replacement\n"
 PRE = ("open", "zero", "eio", "enospc", "partial-eio", "file-sync", "close", "rename", "metadata", "source-close")
 SUCCESS = ("none", "short", "eintr", "sync-eintr", "read-eintr")
-CRASH = ("exit-write", "exit-file-sync", "exit-close", "exit-rename", "exit-committed", "exit-dir-sync")
+CRASH = ("exit-write", "exit-file-sync", "exit-close", "exit-rename", "exit-committed", "exit-dir-sync",
+         "exit-stage-sync", "exit-parent-sync", "exit-stage-remove", "exit-final-parent-sync")
+POST = ("dir-sync", "stage-sync", "parent-sync", "stage-remove", "final-parent-sync", "directory-close")
 
 
 def run_case(binary, preload, root, mode, fault, kind):
     data = root / "data"
     data.mkdir(parents=True)
     target = data / "target"
+    new_kind = kind in ("new", "collision", "new-default-acl")
+    direct_acl = None
+    if kind == "new-default-acl":
+        default_acl = struct.pack("<I", 2) + b"".join(
+            struct.pack("<HHI", t, p, u) for t, p, u in
+            ((1, 7, 0xffffffff), (2, 4, os.getuid()+1), (4, 5, 0xffffffff),
+             (16, 5, 0xffffffff), (32, 0, 0xffffffff)))
+        os.setxattr(data, "system.posix_acl_default", default_acl)
+        direct = data / "direct"
+        direct.touch(mode=0o666)
+        direct_acl = os.getxattr(direct, "system.posix_acl_access")
+        direct_mode = stat.S_IMODE(direct.stat().st_mode)
     sentinel = data / ".naro-save-unrelated"
     sentinel.write_bytes(b"unrelated")
-    if kind not in ("new", "collision"):
+    if not new_kind:
         target.write_bytes(OLD)
         target.chmod(0o640)
         os.utime(target, ns=(1_000_000_000, 2_000_000_000))
@@ -60,10 +74,11 @@ def run_case(binary, preload, root, mode, fault, kind):
     if kind == "collision":
         target = Path((root / "destination").read_text())
     crash = fault in CRASH
-    rejected = kind in ("symlink", "dangling") or (kind in ("new", "collision") and mode == 2)
-    committed = not rejected and (fault in SUCCESS or fault in ("dir-sync", "directory-close", "exit-committed", "exit-dir-sync"))
+    rejected = kind in ("symlink", "dangling") or (new_kind and mode == 2)
+    committed = not rejected and (fault in SUCCESS or fault in POST or fault.startswith("exit-") and fault not in
+                 ("exit-write", "exit-file-sync", "exit-close", "exit-rename"))
     assert proc.returncode == (99 if crash and not rejected else 0), (proc.returncode, proc.stdout)
-    expected = NEW if mode == 0 or kind in ("new", "collision") else OLD + NEW if mode == 1 else NEW + OLD
+    expected = NEW if mode == 0 or new_kind else OLD + NEW if mode == 1 else NEW + OLD
     if rejected:
         assert result.startswith("error "), result
         if kind in ("symlink", "dangling"):
@@ -73,7 +88,9 @@ def run_case(binary, preload, root, mode, fault, kind):
             assert not target.exists()
     elif committed:
         assert target.read_bytes() == expected
-        assert stat.S_IMODE(target.stat().st_mode) == 0o640
+        assert stat.S_IMODE(target.stat().st_mode) == (direct_mode if direct_acl is not None else 0o640)
+        if direct_acl is not None:
+            assert os.getxattr(target, "system.posix_acl_access") == direct_acl
         if before:
             after = target.stat()
             assert (after.st_uid, after.st_gid) == (before.st_uid, before.st_gid)
@@ -84,9 +101,9 @@ def run_case(binary, preload, root, mode, fault, kind):
         if fault in SUCCESS:
             assert result.startswith("ok "), result
             assert ("modified=false" if mode == 0 else "modified=true") in result
-            for event in ("file-sync", "close", "rename", "committed", "dir-sync"):
+            for event in ("file-sync", "close", "rename", "committed", "dir-sync", "stage-sync", "parent-sync", "stage-remove", "final-parent-sync"):
                 assert event in events, events
-            assert events.index("file-sync") < events.index("close") < events.index("rename") < events.index("dir-sync"), events
+            assert events.index("file-sync") < events.index("close") < events.index("rename") < events.index("stage-sync") < events.index("parent-sync") < events.index("stage-remove") < events.index("final-parent-sync"), events
         elif not crash:
             assert result.startswith("error ") and "modified=true" in result, result
             assert "File replaced, but durability is uncertain" in result, result
@@ -113,8 +130,15 @@ def run_case(binary, preload, root, mode, fault, kind):
     if not crash:
         assert not leftovers, leftovers
     for path in leftovers:
-        assert path.is_file() and not path.is_symlink()
-    return {"result": result.strip(), "events": events, "crash_temp_count": len(leftovers)}
+        assert path.is_dir() and not path.is_symlink(), path
+        assert stat.S_IMODE(path.stat().st_mode) == 0o700, path
+        entries = list(path.iterdir())
+        if fault in ("exit-committed", "exit-dir-sync", "exit-stage-sync", "exit-parent-sync", "exit-stage-remove"):
+            assert not entries, entries
+        else:
+            assert len(entries) == 1 and entries[0].name == "content", entries
+            assert entries[0].is_file() and not entries[0].is_symlink()
+    return {"result": result.strip(), "events": events, "crash_stage_count": len(leftovers)}
 
 
 def main():
@@ -132,23 +156,23 @@ def main():
     cases = []
     skips = []
     for mode in range(3):
-        kinds = ("existing",) if args.regression_only else ("existing", "new", "hardlink", "symlink", "dangling", "xattr", "acl", "group", "collision")
+        kinds = ("existing",) if args.regression_only else ("existing", "new", "new-default-acl", "hardlink", "symlink", "dangling", "xattr", "acl", "group", "collision")
         for kind in kinds:
             if kind == "group" and not any(g != os.getgid() for g in os.getgroups()):
                 skips.append({"mode": mode, "kind": kind, "reason": "no supplementary group available"})
                 continue
-            faults = ("file-sync",) if args.regression_only else SUCCESS + PRE + ("dir-sync", "directory-close") + CRASH
+            faults = ("file-sync",) if args.regression_only else SUCCESS + PRE + POST + CRASH
             if not args.regression_only:
-                if mode and kind not in ("new", "collision", "symlink", "dangling"):
+                if mode and kind not in ("new", "collision", "new-default-acl", "symlink", "dangling"):
                     faults += ("read-eio",)
                 if kind in ("xattr", "acl"):
                     faults += ("xattr",)
             for fault in faults:
-                if (kind in ("symlink", "dangling") or (kind in ("new", "collision") and mode == 2)) and fault != "none":
+                if (kind in ("symlink", "dangling") or (kind in ("new", "collision", "new-default-acl") and mode == 2)) and fault != "none":
                     continue
-                if fault == "source-close" and kind in ("new", "collision"):
+                if fault == "source-close" and kind in ("new", "collision", "new-default-acl"):
                     continue
-                if fault == "read-eintr" and (not mode or kind in ("new", "collision")):
+                if fault == "read-eintr" and (not mode or kind in ("new", "collision", "new-default-acl")):
                     continue
                 row = {"mode": mode, "kind": kind, "fault": fault}
                 try:

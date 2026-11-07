@@ -1,0 +1,106 @@
+{
+  "binary": "/home/john/Code/naro/target/issue12-finish/target/debug/deps/naro-8b785946e7ffb0d9",
+  "sha256": "e99d829662b32664e47ba8a89126f5b245039ac137295422ccb6e79d224511ce",
+  "tiny": false,
+  "reader_sha256": "fc7c6333e75c4bd7138b66118e3e1ab3bddaa637825abcebdf8d729910ab5953",
+  "cases": [
+    {
+      "name": "save-publish-stage-entry-symlink-separate-uid-mode0-existing",
+      "result": "error modified=true confirm_backup=false File replaced, but durability is uncertain for /home/john/Code/naro/target/issue12-finish/target/issue12-distinct-uid-final/save-publish-stage-entry-symlink-separate-uid-mode0-existing/root/data/target: Stale file handle",
+      "before": {
+        "root": [
+          58,
+          6149318
+        ],
+        "parent": [
+          58,
+          6149319
+        ],
+        "outside_parent": [
+          58,
+          6149320
+        ],
+        "target": [
+          58,
+          6149321
+        ],
+        "outside": [
+          58,
+          6149322
+        ],
+        "other": [
+          58,
+          6149323
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          6149319
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          6149321
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        6149319
+      ],
+      "destination_after": [
+        58,
+        6149330
+      ],
+      "outcome": "published-from-held-private-directory",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-stage-entry-symlink-separate-uid-mode0-missing",
+      "result": "error modified=true confirm_backup=false File replaced, but durability is uncertain for /home/john/Code/naro/target/issue12-finish/target/issue12-distinct-uid-final/save-publish-stage-entry-symlink-separate-uid-mode0-missing/root/data/target: Stale file handle",
+      "before": {
+        "root": [
+          58,
+          6149340
+        ],
+        "parent": [
+          58,
+          6149341
+        ],
+        "outside_parent": [
+          58,
+          6149342
+        ],
+        "target": null,
+        "outside": [
+          58,
+          6149343
+        ],
+        "other": [
+          58,
+          6149344
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          6149341
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        6149341
+      ],
+      "destination_after": [
+        58,
+        6149350
+      ],
+      "outcome": "published-from-held-private-directory",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    }
+  ]
+}

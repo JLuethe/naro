@@ -1,0 +1,33 @@
+{
+  "binary": "/home/john/Code/naro/target/issue12-finish/target/issue12-old/target/debug/deps/naro-8b785946e7ffb0d9",
+  "sha256": "f3e6f81522fc34e7ff16cd73015e22c94b219d236d8949f473b7c2b8aa9c9208",
+  "tiny": false,
+  "reader_sha256": "fc7c6333e75c4bd7138b66118e3e1ab3bddaa637825abcebdf8d729910ab5953",
+  "cases": [
+    {
+      "name": "save-publish-stage-entry-symlink-mode0-existing",
+      "status": "assertion-failure",
+      "error": "AssertionError((b'outside sentinel\\n', b'replacement\\n'))"
+    },
+    {
+      "name": "save-publish-stage-entry-symlink-mode0-missing",
+      "status": "assertion-failure",
+      "error": "AssertionError((b'outside sentinel\\n', b'replacement\\n'))"
+    },
+    {
+      "name": "save-publish-stage-entry-symlink-mode1-existing",
+      "status": "assertion-failure",
+      "error": "AssertionError((b'outside sentinel\\n', b'original fixture\\nreplacement\\n'))"
+    },
+    {
+      "name": "save-publish-stage-entry-symlink-mode1-missing",
+      "status": "assertion-failure",
+      "error": "AssertionError((b'outside sentinel\\n', b'replacement\\n'))"
+    },
+    {
+      "name": "save-publish-stage-entry-symlink-mode2-existing",
+      "status": "assertion-failure",
+      "error": "AssertionError((b'outside sentinel\\n', b'replacement\\noriginal fixture\\n'))"
+    }
+  ]
+}

@@ -11,11 +11,14 @@ subprocess logs, operations and resulting fixtures. Missing supplementary groups
 are explicit skips; other unavailable prerequisites fail rather than pass.
 
 The matrix covers all save modes, file/link/metadata policy, syscall failures,
-EINTR, short/partial writes, abrupt exit boundaries and temp-name collisions.
+EINTR, short/partial writes, abrupt exit boundaries, staging-name collisions,
+and default-ACL inheritance for a new file compared with direct parent creation.
 Returned precommit failures must preserve original bytes/inode/mtime, keep the
-buffer dirty and remove their temp without touching an unrelated sentinel.
-Abrupt exit may leave a private uncommitted temp. Directory-sync failures must
-explicitly report uncertain durability after complete replacement.
+buffer dirty and remove their private staging directory without touching an
+unrelated sentinel. Abrupt exit may leave a mode-0700 staging directory containing
+`content` before publication or empty afterward. Post-commit stage sync,
+parent sync, stage removal, and final parent sync failures must explicitly
+report uncertain durability after complete replacement.
 `--regression-only` tests old original-preservation behavior in three modes.
 
 Generate terminal candidates with `python3 tests/safe-save/progress_cases.py`

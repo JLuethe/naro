@@ -9,7 +9,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
-static int writes, syncs, backup_done, save_temp_closed, directory_synced;
+static int writes, syncs, backup_done, save_temp_closed, directory_synced, parent_syncs, stage_remove_faulted;
 static int backup_phase(void) {return getenv("NARO_SAVE_BACKUP")&&!backup_done;}
 static int is(const char *s) {
  const char *f=getenv("NARO_SAVE_FAULT"),*phase=getenv("NARO_SAVE_FAULT_PHASE");
@@ -34,7 +34,20 @@ ssize_t write(int fd,const void *p,size_t n) {
  return real(fd,p,n);
 }
 int fsync(int fd) {
- int (*real)(int)=dlsym(RTLD_NEXT,"fsync");int dir=0,hit=target_fd(fd);if(hit){struct stat st;if(fstat(fd,&st))return -1;dir=S_ISDIR(st.st_mode);boundary(dir?"dir-sync":"file-sync");if((dir&&is("dir-sync"))||(!dir&&is("file-sync"))){errno=EIO;return -1;}if(is("sync-eintr")&&syncs++==0){errno=EINTR;return -1;}}int r=real(fd);if(!r&&hit&&dir){if(backup_phase()){backup_done=1;writes=0;syncs=0;}else directory_synced=1;}return r;
+ int (*real)(int)=dlsym(RTLD_NEXT,"fsync");int dir=0,hit=target_fd(fd);if(hit){struct stat st;if(fstat(fd,&st))return -1;dir=S_ISDIR(st.st_mode);boundary(dir?"dir-sync":"file-sync");if(dir&&!backup_phase()){
+   char key[64],path[4096];snprintf(key,sizeof key,"/proc/self/fd/%d",fd);ssize_t n=readlink(key,path,sizeof path-1);if(n>=0)path[n]=0;else path[0]=0;
+   const char *point=strstr(path,"/.naro-save-");
+   const char *phase=point?"stage-sync":(++parent_syncs==1?"parent-sync":"final-parent-sync");
+   boundary(phase);if(is(phase)){errno=EIO;return -1;}
+  }
+  if((dir&&is("dir-sync"))||(!dir&&is("file-sync"))){errno=EIO;return -1;}if(is("sync-eintr")&&syncs++==0){errno=EINTR;return -1;}}int r=real(fd);if(!r&&hit&&dir){if(backup_phase()){backup_done=1;writes=0;syncs=0;}else directory_synced=1;}return r;
+}
+int unlinkat(int dir,const char *path,int flags) {
+ int (*real)(int,const char*,int)=dlsym(RTLD_NEXT,"unlinkat");
+ if((flags&AT_REMOVEDIR)&&target_fd(dir)&&!strncmp(path,".naro-save-",11)&&directory_synced){
+  boundary("stage-remove");if(is("stage-remove")&&!stage_remove_faulted++){errno=EIO;return -1;}
+ }
+ return real(dir,path,flags);
 }
 int close(int fd) {
  int (*real)(int)=dlsym(RTLD_NEXT,"close");

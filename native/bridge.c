@@ -294,10 +294,12 @@ int nr_close_checked(int fd) {
     return close(fd);
 }
 int nr_safe_save_at(int parent_fd,const char *path,const unsigned char *data,size_t len,int mode,int *committed) {
-    int dir=-1,source=-1,temp=-1,result=-1,exists=0,temp_exists=0,temp_identified=0;
+    int dir=-1,stage=-1,source=-1,temp=-1,result=-1,exists=0;
+    int stage_exists=0,stage_identified=0,temp_exists=0,temp_identified=0;
     int error=0;
-    struct stat original,current,temporary_stat;
-    char temporary[96];
+    struct stat original,current,temporary_stat,stage_stat,parent_stat;
+    char stage_name[96];
+    const char *temporary="content";
     char *parent=strdup(path);
     const char *name=path;
     static atomic_ulong serial=0;
@@ -321,15 +323,29 @@ int nr_safe_save_at(int parent_fd,const char *path,const unsigned char *data,siz
         if(fstat(source,&current)<0)goto done;
         if(!save_unchanged(&original,&current)){errno=ESTALE;goto done;}
     }else if(errno!=ENOENT||mode==2)goto done;
+    if(fstat(dir,&parent_stat)<0)goto done;
     for(int attempt=0;attempt<1000;attempt++){
         unsigned long sequence=atomic_fetch_add(&serial,1);
-        snprintf(temporary,sizeof temporary,".naro-save-%ld-%lu",(long)getpid(),sequence);
-        if(strcmp(temporary,name)==0)continue;
-        do{temp=openat(dir,temporary,O_WRONLY|O_CREAT|O_EXCL|O_CLOEXEC,exists?0600:0666);}
-        while(temp<0&&errno==EINTR);
-        if(temp>=0)break;
+        snprintf(stage_name,sizeof stage_name,".naro-save-%ld-%lu",(long)getpid(),sequence);
+        if(strcmp(stage_name,name)==0)continue;
+        if(mkdirat(dir,stage_name,0700)==0){stage_exists=1;break;}
         if(errno!=EEXIST)goto done;
     }
+    if(!stage_exists){errno=EEXIST;goto done;}
+    /* The parent entry may be attacker-writable. Keep the temporary name in a
+     * private child directory, and publish from its held fd. A different uid
+     * may rename the child entry but cannot replace an entry inside it. */
+    stage=openat(dir,stage_name,O_RDONLY|O_DIRECTORY|O_NOFOLLOW|O_CLOEXEC);
+    if(stage<0)goto done;
+    if(fstat(stage,&stage_stat)<0)goto done;
+    stage_identified=1;
+    if(!S_ISDIR(stage_stat.st_mode)||stage_stat.st_uid!=geteuid()||
+       stage_stat.st_dev!=parent_stat.st_dev){errno=ESTALE;goto done;}
+    if(fchmod(stage,(stage_stat.st_mode&S_ISGID)|0700)<0)goto done;
+    if(fstatat(dir,stage_name,&current,AT_SYMLINK_NOFOLLOW)<0)goto done;
+    if(current.st_dev!=stage_stat.st_dev||current.st_ino!=stage_stat.st_ino){errno=ESTALE;goto done;}
+    do{temp=openat(stage,temporary,O_WRONLY|O_CREAT|O_EXCL|O_CLOEXEC,exists?0600:0666);}
+    while(temp<0&&errno==EINTR);
     if(temp<0)goto done;
     temp_exists=1;
     /* Creation applies umask/default ACLs for new files. Keep unpublished
@@ -355,11 +371,19 @@ int nr_safe_save_at(int parent_fd,const char *path,const unsigned char *data,siz
         if(!save_unchanged(&original,&current)){errno=ESTALE;goto done;}
     }else if(fstatat(dir,name,&current,AT_SYMLINK_NOFOLLOW)==0){errno=EEXIST;goto done;}
     else if(errno!=ENOENT)goto done;
-    if(fstatat(dir,temporary,&current,AT_SYMLINK_NOFOLLOW)<0)goto done;
+    if(fstatat(stage,temporary,&current,AT_SYMLINK_NOFOLLOW)<0)goto done;
     if(current.st_dev!=temporary_stat.st_dev||current.st_ino!=temporary_stat.st_ino){errno=ESTALE;goto done;}
-    if(renameat(dir,temporary,dir,name)<0)goto done;
+    if(renameat(stage,temporary,dir,name)<0)goto done;
     temp_exists=0;*committed=1;
+    if(save_sync(stage)<0)goto done;
     if(save_sync(dir)<0)goto done;
+    if(fstatat(dir,stage_name,&current,AT_SYMLINK_NOFOLLOW)<0)goto done;
+    if(current.st_dev!=stage_stat.st_dev||current.st_ino!=stage_stat.st_ino){errno=ESTALE;goto done;}
+    if(unlinkat(dir,stage_name,AT_REMOVEDIR)<0)goto done;
+    stage_exists=0;
+    if(save_sync(dir)<0)goto done;
+    closing=stage;stage=-1;
+    if(nr_close_checked(closing)<0)goto done;
     closing=dir;dir=-1;
     if(nr_close_checked(closing)<0)goto done;
     result=0;
@@ -367,9 +391,14 @@ done:
     error=errno;
     if(temp>=0)close(temp);
     if(source>=0)close(source);
-    if(temp_exists&&temp_identified&&fstatat(dir,temporary,&current,AT_SYMLINK_NOFOLLOW)==0&&
+    if(temp_exists&&temp_identified&&stage>=0&&fstatat(stage,temporary,&current,AT_SYMLINK_NOFOLLOW)==0&&
        current.st_dev==temporary_stat.st_dev&&current.st_ino==temporary_stat.st_ino)
-        unlinkat(dir,temporary,0);
+        unlinkat(stage,temporary,0);
+    if(stage_exists&&stage_identified&&dir>=0&&
+       fstatat(dir,stage_name,&current,AT_SYMLINK_NOFOLLOW)==0&&
+       current.st_dev==stage_stat.st_dev&&current.st_ino==stage_stat.st_ino)
+        unlinkat(dir,stage_name,AT_REMOVEDIR);
+    if(stage>=0)close(stage);
     if(dir>=0)close(dir);
     free(parent);errno=error;
     return result;

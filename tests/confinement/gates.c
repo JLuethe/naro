@@ -63,8 +63,6 @@ static int tracked_openat(const char *symbol,int dir,const char *path,int flags,
     int owned=owned_parent(dir);
     int source=owned&&!strcmp(path,"target")&&!(flags&O_PATH)&&!(flags&O_CREAT);
     if(source)gate("source-open",dir,-1);
-    if(owned&&!strncmp(path,".naro-save-",11)&&(flags&O_CREAT))
-        gate("temp-open",dir,source_fd);
     int fd;
     if(fortified){
         int (*real)(int,const char*,int)=dlsym(RTLD_NEXT,symbol);
@@ -128,4 +126,10 @@ int renameat(int from,const char *source,int to,const char *target) {
     int (*real)(int,const char*,int,const char*)=dlsym(RTLD_NEXT,"renameat");
     if(owned_parent(to)&&!strcmp(target,"target"))gate("publish",to,-1);
     return real(from,source,to,target);
+}
+int mkdirat(int dir,const char *path,mode_t mode) {
+    int (*real)(int,const char*,mode_t)=dlsym(RTLD_NEXT,"mkdirat");
+    if(owned_parent(dir)&&!strncmp(path,".naro-save-",11))
+        gate("temp-open",dir,source_fd);
+    return real(dir,path,mode);
 }

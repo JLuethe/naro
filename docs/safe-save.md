@@ -5,10 +5,16 @@ change from nano's in-place writing and from NARO 0.1.1. There is no opt-in
 in-place mode for regular files: preserving inode identity is not sufficient
 justification for exposing the old contents to truncation on an I/O failure.
 
-The save creates a unique temporary file in the destination directory, writes
-the complete result, applies metadata, syncs and closes the file, replaces the
-named destination, then syncs the directory. A successful save requires all
-these operations to succeed. The rename is the commit point. Failures before
+The save creates a unique private mode-0700 staging directory directly under
+the opened destination directory, then exclusively creates its temporary file
+inside that child. This keeps the temporary entry inaccessible to a different
+user even when the destination directory is attacker-writable. The child and
+destination are on the same filesystem, so publication by `renameat` remains
+atomic. The save writes the complete result, applies metadata, syncs and closes
+the file, replaces the named destination from the held staging-directory
+descriptor, syncs the staging directory and destination directory, removes the
+empty staging directory, and syncs the destination directory again. A successful
+save requires all these operations to succeed. The rename is the commit point. Failures before
 that point leave the destination's bytes and pathname unchanged; errors after
 rename explicitly report that replacement happened but durability is uncertain.
 The buffer remains modified on failure, including directory-sync failure.
@@ -29,8 +35,11 @@ NARO does not silently revert to truncating the original.
   failures abort replacement. This may refuse a save that nano would permit.
   Existing-file metadata preservation currently supports Linux; other native
   platforms reject replacement rather than silently discard metadata.
-- New files use creation permissions subject to the process umask and directory
-  inheritance. Existing-file modification time changes on successful save;
+- New files use creation permissions subject to the process umask and default
+  ACL inherited by the private staging directory from the destination parent.
+  The private directory is narrowed to mode 0700, and its file receives the
+  same parent default ACL and resulting mode as a direct child would on Linux.
+  Existing-file modification time changes on successful save;
   inode change time and creation identity are those of the new inode. NARO does
   not promise to restore old access/modification timestamps.
 - A symbolic link observed in the final pathname component during validation
@@ -95,13 +104,16 @@ Directory-sync errors cannot roll back a committed rename safely, so they are
 reported as uncertain durability rather than success or original preservation.
 Errors closing the directory after sync receive the same conservative report.
 
-Ordinary error cleanup removes only the transaction's own temporary entry.
-Uncatchable termination or power loss can leave a temporary file; NARO does
-not scan for and delete names belonging to unrelated processes. Before rename,
-the original remains intact. After rename, readers see the complete replacement;
-persistence across power loss is established only after directory sync succeeds.
-Tests at deterministic boundaries do not simulate every filesystem, storage
-controller or power-loss behavior.
+Ordinary error cleanup removes only the transaction's own temporary entry and
+staging directory, after checking their identities. A replaced staging entry
+is left alone. Uncatchable termination or power loss can leave a private
+staging directory, with a `content` file before publication or empty after it.
+NARO does not scan for and delete names belonging to unrelated processes.
+Before rename, the original remains intact. After rename, readers see the
+complete replacement. The file-then-directory fsync sequence is the intended
+Linux durability contract; successful calls are required before reporting
+success. These tests do not establish persistence after an actual power cut on
+any particular filesystem, controller, or device.
 
 Historical nano comparisons that require truncation, inode preservation or
 hard-link propagation are evidence of the old compatibility behavior, not

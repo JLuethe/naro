@@ -12,6 +12,7 @@ import os
 from pathlib import Path
 import stat
 import subprocess
+import sys
 import time
 
 OLD = b"original fixture\n"
@@ -44,6 +45,29 @@ def records(path):
         return {}
     return {row[0]: [int(x) for x in row[1:]] for line in path.read_text().splitlines()
             if (row := line.split()) and row[0] != "stage"}
+
+
+def separate_uid_stage_swap(stage_entry, displaced, outside_target):
+    """One bounded actor with a mapped, different UID in a user namespace."""
+    code = """import os,sys
+stage,displaced,outside=sys.argv[1:]
+try:
+    os.listdir(stage)
+except PermissionError:
+    pass
+else:
+    raise AssertionError('private stage was traversable by the actor')
+os.rename(stage,displaced)
+os.symlink(outside,stage)
+"""
+    def drop():
+        os.setgroups([])
+        os.setgid(100000)
+        os.setuid(100000)
+    actor = subprocess.run([sys.executable, "-c", code, os.path.relpath(stage_entry),
+                            os.path.relpath(displaced), str(outside_target)],
+                           preexec_fn=drop, capture_output=True, text=True, timeout=5)
+    assert actor.returncode == 0, (actor.returncode, actor.stdout, actor.stderr)
 
 
 def run_case(binary, reader, preload, base, tiny, operation, stage, action, mode, missing=False):
@@ -107,6 +131,15 @@ def run_case(binary, reader, preload, base, tiny, operation, stage, action, mode
                 elif action == "target-create":
                     target.write_bytes(OTHER)
                     os.link(target, base / "created-sentinel")
+                elif action in ("stage-entry-symlink", "stage-entry-symlink-separate-uid"):
+                    entries = list(parent.glob(".naro-save-*"))
+                    assert len(entries) == 1, entries
+                    (base / "stage-name").write_text(entries[0].name)
+                    if action.endswith("separate-uid"):
+                        separate_uid_stage_swap(entries[0], parent / "displaced-stage", outside / "target")
+                    else:
+                        entries[0].rename(parent / "displaced-stage")
+                        entries[0].symlink_to(outside / "target")
                 elif action != "none":
                     raise AssertionError(action)
                 (base / "release").write_text("resume\n")
@@ -158,7 +191,7 @@ def run_case(binary, reader, preload, base, tiny, operation, stage, action, mode
         assert opened["read"] == before["target"]
         outcome = "pinned-read"
     else:
-        success = (stage == "publish" or action in ("none", "parent-symlink", "parent-exchange")) and not (missing and mode == 2)
+        success = (stage == "publish" or action in ("none", "parent-symlink", "parent-exchange")) and not (missing and mode == 2) and not action.startswith("stage-entry-symlink")
         if success:
             assert result.startswith("ok "), result
             expected = NEW if missing or mode == 0 else OLD + NEW if mode == 1 else NEW + OLD
@@ -167,21 +200,42 @@ def run_case(binary, reader, preload, base, tiny, operation, stage, action, mode
             assert identity(destination) not in (before["target"], before["outside"], before["other"])
             outcome = "published-without-CAS" if stage == "publish" and action.startswith("target-") else "authorized-parent-save"
         else:
-            assert result.startswith("error "), result
-            if action == "target-symlink":
+            if action.startswith("stage-entry-symlink"):
+                expected = NEW if missing or mode == 0 else OLD + NEW if mode == 1 else NEW + OLD
+                assert destination.read_bytes() == expected, (destination.read_bytes(), expected)
+                assert not destination.is_symlink()
+                assert "File replaced, but durability is uncertain" in result, result
+                displaced = parent / "displaced-stage"
+                assert displaced.is_dir() and not list(displaced.iterdir())
+                stage_entry = actual_parent / (base / "stage-name").read_text()
+                assert stage_entry.is_symlink()
+                assert stage_entry.resolve() == outside / "target"
+                outcome = "published-from-held-private-directory"
+            elif action == "target-symlink":
+                assert result.startswith("error "), result
                 assert destination.is_symlink()
             elif action == "target-exchange":
+                assert result.startswith("error "), result
                 assert destination.read_bytes() == OTHER
                 assert identity(destination) == before["other"]
             elif action == "target-create":
+                assert result.startswith("error "), result
                 assert destination.read_bytes() == OTHER
             elif missing or action == "target-remove":
+                assert result.startswith("error "), result
                 assert not destination.exists()
-            outcome = "refused-before-publication"
+            else:
+                assert result.startswith("error "), result
+            if not action.startswith("stage-entry-symlink"):
+                outcome = "refused-before-publication"
     if (base / "created-sentinel").exists():
         assert (base / "created-sentinel").read_bytes() == OTHER
     for directory in (actual_parent, outside_target.parent):
-        assert not list(directory.glob(".naro-save-*")), directory
+        leftovers = list(directory.glob(".naro-save-*"))
+        if action.startswith("stage-entry-symlink") and directory == actual_parent:
+            assert leftovers == [directory / (base / "stage-name").read_text()], leftovers
+        else:
+            assert not leftovers, directory
     return {"result": result.strip(), "before": before, "gate": gate, "opened": opened,
             "authorized_parent_after": identity(actual_parent),
             "destination_after": identity(destination) if destination.exists() else None,
@@ -193,6 +247,10 @@ def main():
     parser.add_argument("--binary", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--tiny", action="store_true")
+    parser.add_argument("--distinct-uid", action="store_true",
+                        help="run the isolated publish substitution with a mapped different UID")
+    parser.add_argument("--stage-substitution-only", action="store_true",
+                        help="run only same-UID stage substitution regression cases")
     args = parser.parse_args()
     binary = args.binary.resolve(strict=True)
     args.out.mkdir(parents=True, exist_ok=False)
@@ -223,9 +281,19 @@ def main():
             for stage in ("temp-open", "publish"):
                 for action in ("parent-symlink", "parent-exchange", "target-symlink", "target-create"):
                     cases.append(("save", stage, action, mode, True))
+        cases.append(("save", "publish", "stage-entry-symlink", mode, False))
+        if mode != 2:
+            cases.append(("save", "publish", "stage-entry-symlink", mode, True))
     if not args.tiny:
         for action in ("parent-symlink", "parent-exchange", "target-symlink", "target-exchange", "target-remove"):
             cases.append(("read", "read-reopen", action, 0, False))
+    if args.distinct_uid:
+        if os.geteuid() != 0:
+            raise SystemExit("--distinct-uid requires namespace root and a mapped UID 100000")
+        cases = [("save", "publish", "stage-entry-symlink-separate-uid", 0, False),
+                 ("save", "publish", "stage-entry-symlink-separate-uid", 0, True)]
+    elif args.stage_substitution_only:
+        cases = [case for case in cases if case[2] == "stage-entry-symlink"]
     report = {"binary": str(binary), "sha256": hashlib.sha256(binary.read_bytes()).hexdigest(),
               "tiny": args.tiny,
               "reader_sha256": hashlib.sha256(reader.read_bytes()).hexdigest() if reader.exists() else None,
