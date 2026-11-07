@@ -74,8 +74,13 @@ check('symlink-launcher-assets', probe.returncode == 0 and probe.stdout == 'Hilf
       {'locale':a.probe_locale,'command':[str(link)],'status':probe.returncode,
        'stdout':probe.stdout,'stderr':probe.stderr})
 assets_out = (a.out / 'assets').resolve()
+# The asset harness uses fixed scenario IDs; parallel package checks need
+# separate scenario roots even when their package fixtures have unique names.
+assets_workroot = (a.out / 'asset-fixtures').resolve()
+assets_workroot.mkdir()
+assets_env = {**env, 'NANOSPEC_WORK': str(assets_workroot)}
 result = subprocess.run([sys.executable, str(ROOT / 'tools/check_installed_assets.py'),
-                         '--prefix', str(prefix), '--out', str(assets_out)], env=env)
+                         '--prefix', str(prefix), '--out', str(assets_out)], env=assets_env)
 check('installed-native-catalogs-and-syntax', result.returncode == 0)
 
 if a.clean_container:
