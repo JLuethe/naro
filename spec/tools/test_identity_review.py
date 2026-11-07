@@ -60,6 +60,27 @@ class IdentityTests(unittest.TestCase):
  def test_cli_f1_literal(self):
   with self.assertRaises(ValueError):expected_cli_output(' GNU nano, version 9.4\n')
   ref='Usage: nano [OPTIONS]\nSee the nanorc manual for configuring nano.\n';self.assertEqual(expected_cli_output(ref),'Usage: naro [OPTIONS]\nSee the nanorc manual for configuring NARO.\n')
+ def test_original_cli_abbreviations_project_only_reviewed_stdout(self):
+  probes={r['id']:r for r in json.loads((ROOT/'spec/evidence/cli/cli-probes.json').read_text())['results']}
+  for probe_id,option in [('CLI-P-019','--vers'),('CLI-P-038','--he')]:
+   probe=probes[probe_id]
+   self.assertIn(option,probe['args'])
+   reference={'reference_commit':'6ed285c3ec7a1d228def4d4e7021c6ba269f620c',
+              'scenario':'TEST-M15-'+probe_id,'argv':[probe['argv0'],*probe['args']],
+              'env':{},'stdout':probe['stdout'],'stderr':probe['stderr'],
+              'exit_status':probe['exit_status'],'inputs':[],'snapshots':{}}
+   candidate=copy.deepcopy(reference)
+   candidate['stdout']=expected_cli_output(probe['stdout'])
+   result=classify(reference,candidate,case=probe)
+   self.assertFalse(result['raw_exact']);self.assertTrue(result['accepted'])
+   self.assertEqual(result['identity_fields'],[{'field':'stdout','kind':'cli-identity'}])
+   self.assertEqual([d['field'] for d in result['differences']],['stdout'])
+   for field,value in [('stdout',candidate['stdout']+'extra'),('stderr','extra'),('exit_status',2)]:
+    corrupted=copy.deepcopy(candidate);corrupted[field]=value
+    self.assertFalse(classify(reference,corrupted,case=probe)['accepted'],(probe_id,field))
+   unsupported=copy.deepcopy(reference)
+   unsupported['argv'][-1]=option+'x'
+   self.assertFalse(classify(unsupported,candidate,case=probe)['accepted'])
  def test_policy_bound(self):self.assertEqual(len(policy_identity()['sha256']),64)
 
 class TitleExtensionTests(unittest.TestCase):

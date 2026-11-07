@@ -45,6 +45,12 @@ CLI checking projects only exact recognized expected version/help stdout from
 the unchanged reference oracle. Actual candidate output is never rewritten;
 stderr stays exact. Unrecognized version text fails instead of accepting an
 arbitrary replacement.
+The original CLI probes `CLI-P-019` (`--solo --vers`) and `CLI-P-038`
+(`--he`) use GNU's accepted unambiguous option abbreviations. These two exact
+spellings trigger the same reference-derived version/help identity projection
+as their full options. They do not change option parsing or authorize other
+abbreviations, output shapes, stderr, or exit differences. Raw comparisons
+retain the original GNU/NARO stdout difference.
 
 ## No broad comparison normalization
 

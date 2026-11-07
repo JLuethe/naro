@@ -187,7 +187,7 @@ def classify(reference, candidate, case_id=None, case=None):
                 attr_errors.append({'field': f'snapshot.{name}.row{change["row"]}.raw_attributes',
                                     'reference': 'original identity-row attributes', 'candidate': 'changed'})
     args = reference.get('argv', [])[1:]
-    if any(x in ('--help', '-h', '--version', '-V') for x in args):
+    if any(x in ('--help', '-h', '--version', '-V', '--vers', '--he') for x in args):
         profile = 'tiny' if (case or {}).get('profile') == 'tiny' else 'default'
         try:
             stdout = expected_cli_output(reference.get('stdout', ''), profile)
