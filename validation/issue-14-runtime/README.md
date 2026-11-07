@@ -112,7 +112,7 @@ at most that many keys; the original input queue stays untouched until a
 Cancel binding is found. Partial escape sequences stay in the private decoder
 until more bytes arrive.
 
-`tests/issue14/backlog.py` creates a disposable 12 MiB file and sends the
+`tests/issue14/backlog.py` creates a disposable 24 MiB file and sends the
 8,194-byte burst in one PTY write while a view-only search is running. It
 records production output, exit status, file digest, and time from burst to
 `Cancelled`. The queued case must complete within the larger of 3 seconds or
@@ -123,3 +123,23 @@ records the SHA-256 hashes and failure. The test is called by
 `tests/issue14/run.py` in both live-reference and recorded-oracle modes. This
 is a bounded deterministic PTY test, not a claim about arbitrary input rates
 or exhaustive scheduler interleavings.
+
+## Split-sequence polling follow-up
+
+Search polling now waits for a complete SS3 or CSI terminal sequence when its
+private decoder reaches a partial prefix. A final byte can arrive in a later
+poll, including after the 16,384-code scan boundary, without losing a rebound
+F1 or Meta+Left Cancel binding. The original input queue remains untouched
+until Cancel is found. Normal blocking input retains its existing Escape
+timeout behavior.
+
+Three deterministic queue-boundary regressions fail on the old decoder and
+pass with the fix. The [negative-control receipt](split-sequence-negative-control.json)
+records their old-source failures. Production PTY cases also send SS3 and CSI
+keys in two writes separated by 600 ms while a disposable search runs. Those
+cases pass on both the old and new exact production ELFs; ncurses appears to
+withhold incomplete terminal sequences until the final byte. They are
+supplementary artifact checks, not negative-control proof of the poll fix.
+The direct PTY runner saves every case's raw output and timed events on both
+success and failure. It verifies the saved output's size and SHA-256 before
+reporting a pass.

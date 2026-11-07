@@ -96,6 +96,22 @@ impl Input {
                 }
                 continue;
             }
+            // The search poll decodes a private copy of pending input.  An
+            // ESC O / ESC [ introducer can arrive at the end of one poll and
+            // its final byte in the next; wait for that byte before deciding
+            // whether this is a Meta key or a terminal sequence.  Normal
+            // blocking input keeps its existing timeout behavior.
+            if !fetch_terminal
+                && matches!(self.esc, 1 | 2)
+                && matches!(code, 79 | 91)
+                && self.queue.front() != Some(&27)
+                && !self.queue.iter().any(|next| {
+                    *next == 27 || (64..=126).contains(next) || !(0..=255).contains(next)
+                })
+            {
+                self.queue.push_front(code);
+                return Event::Idle;
+            }
             let mut key = Key::plain(code);
             match self.esc {
                 1 => {

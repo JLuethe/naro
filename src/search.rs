@@ -293,6 +293,87 @@ fn search_poll_reaches_cancel_behind_large_retained_burst() {
     assert!(poll.check(&mut input, &conf).is_err());
     assert!(input.queue.is_empty());
 }
+
+#[cfg(test)]
+fn assert_split_cancel(key: i32, first: Vec<i32>, last: Vec<i32>) {
+    let mut conf = Config::new(false);
+    conf.set(RAW_SEQUENCES, true);
+    conf.keys.insert(
+        0,
+        Binding {
+            key,
+            menus: SEARCH,
+            func: "do_cancel".into(),
+            tag: String::new(),
+            toggle: 0,
+            expansion: None,
+        },
+    );
+    let mut input = crate::input::Input::default();
+    input.queue.extend(first.iter().copied());
+    let mut poll = SearchPoll::new(&conf);
+    assert!(poll.check(&mut input, &conf).is_ok());
+    assert_eq!(input.queue.iter().copied().collect::<Vec<_>>(), first);
+    input.queue.extend(last);
+    poll.steps = 0;
+    assert!(poll.check(&mut input, &conf).is_err());
+    assert!(input.queue.is_empty());
+}
+
+#[cfg(test)]
+#[test]
+fn search_poll_waits_for_split_ss3_f1_cancel() {
+    assert_split_cancel(265, vec![27, 79], vec![80]);
+}
+
+#[cfg(test)]
+#[cfg(not(feature = "tiny"))]
+#[test]
+fn search_poll_waits_for_split_csi_meta_left_cancel() {
+    assert_split_cancel(0x421, vec![27, 91, 49, 59], vec![51, 68]);
+}
+
+#[cfg(test)]
+#[cfg(feature = "tiny")]
+#[test]
+fn search_poll_waits_for_split_csi_left_cancel_in_tiny() {
+    assert_split_cancel(260, vec![27, 91], vec![68]);
+}
+
+#[cfg(test)]
+#[test]
+fn search_poll_keeps_partial_ss3_across_burst_limit() {
+    let mut conf = Config::new(false);
+    conf.set(RAW_SEQUENCES, true);
+    conf.keys.insert(
+        0,
+        Binding {
+            key: 265,
+            menus: SEARCH,
+            func: "do_cancel".into(),
+            tag: "F1".into(),
+            toggle: 0,
+            expansion: None,
+        },
+    );
+    let mut input = crate::input::Input::default();
+    input.queue.extend(std::iter::repeat_n(
+        b'g' as i32,
+        SearchPoll::BURST_LIMIT - 1,
+    ));
+    input.queue.push_back(27);
+    let mut poll = SearchPoll::new(&conf);
+    assert!(poll.check(&mut input, &conf).is_ok());
+    assert_eq!(poll.observed_raw, SearchPoll::BURST_LIMIT);
+    input.queue.push_back(79);
+    poll.steps = 0;
+    assert!(poll.check(&mut input, &conf).is_ok());
+    assert_eq!(input.queue.len(), SearchPoll::BURST_LIMIT + 1);
+    input.queue.push_back(80);
+    poll.steps = 0;
+    assert!(poll.check(&mut input, &conf).is_err());
+    assert!(input.queue.is_empty());
+}
 #[derive(Debug)]
 struct Pattern {
     needle: Vec<u8>,

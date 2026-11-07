@@ -1,0 +1,32 @@
+{
+  "base_revision": "2209f878a4c764414c85f7ce0c146a2617e4d894",
+  "setup": "Detached worktree at base revision; copy only the new src/search.rs regression tests and helper into the base source. src/input.rs remains at base revision.",
+  "default": {
+    "command": "/home/john/.cargo/bin/cargo test --offline search_poll --quiet",
+    "exit_status": 101,
+    "failed_tests": [
+      "search::search_poll_waits_for_split_ss3_f1_cancel",
+      "search::search_poll_waits_for_split_csi_meta_left_cancel",
+      "search::search_poll_keeps_partial_ss3_across_burst_limit"
+    ],
+    "raw_test_output_sha256": "68b63c375c8e2bf6310c3d2dea40023b20e99f7f0c6232637ce31c4ad90c412c",
+    "raw_test_output_bytes": 1366
+  },
+  "tiny": {
+    "command": "/home/john/.cargo/bin/cargo test --offline --no-default-features --features tiny search_poll --quiet",
+    "exit_status": 101,
+    "failed_tests": [
+      "search::search_poll_waits_for_split_ss3_f1_cancel",
+      "search::search_poll_waits_for_split_csi_left_cancel_in_tiny",
+      "search::search_poll_keeps_partial_ss3_across_burst_limit"
+    ],
+    "raw_test_output_sha256": "03bf889576c0c49123e10d47832a757cafa91b01b8673d5d8c521c00b3c7626d",
+    "raw_test_output_bytes": 1378
+  },
+  "failure": "Each failed at the assertion that the completed bound key cancels the search.",
+  "production_pty_control": {
+    "binary_sha256": "0071b748123962ff8213b5f95111ec220d8df32fc5606160cf7f15d3c754cefc",
+    "result": "Both split-key cases passed against the exact old production ELF with a 600 ms gap; this PTY path does not reproduce the queue-boundary defect, likely because ncurses waits for a complete sequence.",
+    "scope": "The unit failures are the negative control. The production PTY cases assert behavior only on the artifact under test."
+  }
+}
