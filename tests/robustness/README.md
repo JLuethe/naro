@@ -32,7 +32,9 @@ actual child peak RSS and elapsed time. The fixed gates are 128 MiB peak RSS,
 its retained feature set does not include multiple buffers. The runner keeps
 the executable hash, embedded build identity, linked native libraries, input
 hashes, raw terminal traces, and `report.json`. Supply `--tiny` for a tiny
-release binary. Use a new private `--out` directory each run. These bounds
+release binary. Both runners require the exact production feature set (empty
+for default, `tiny` for tiny) and reject instrumented or extension builds.
+Use a new private `--out` directory each run. These bounds
 describe this fixture size and host class, not arbitrary files or load.
 
 `python3 tests/robustness/hostile_inputs.py --binary target/release/naro

@@ -109,14 +109,14 @@ def main():
     out = args.out.resolve()
     out.mkdir(parents=True, exist_ok=False)
     out.chmod(0o700)
-    if not shutil.which('msgfmt'):
-        raise InfrastructureError('missing prerequisite: msgfmt')
     info = json.loads(subprocess.check_output([str(binary)],
                         env=dict(os.environ, NARO_BUILD_INFO='1')))
     if info['revision'] != args.expected_revision:
         raise InfrastructureError('binary revision differs from requested revision')
-    if ('tiny' in info['features'].split(',')) != args.tiny:
+    if info['features'] != ('tiny' if args.tiny else ''):
         raise InfrastructureError('binary feature profile differs from requested profile')
+    if not shutil.which('msgfmt'):
+        raise InfrastructureError('missing prerequisite: msgfmt')
     locale_env = dict(os.environ, LC_ALL='en_US.UTF-8', LANG='en_US.UTF-8')
     locale_check = subprocess.run(['/usr/bin/locale', 'charmap'], env=locale_env,
                                   text=True, capture_output=True, timeout=10)

@@ -161,7 +161,7 @@ def main():
                         env=dict(os.environ, NARO_BUILD_INFO='1')))
     if info['revision'] != args.expected_revision:
         raise InfrastructureError('binary revision differs from requested revision')
-    if ('tiny' in info['features'].split(',')) != args.tiny:
+    if info['features'] != ('tiny' if args.tiny else ''):
         raise InfrastructureError('binary feature profile differs from requested profile')
     report = {'binary': str(binary), 'binary_sha256': digest(binary),
               'build_info': info, 'native_libraries': subprocess.check_output(

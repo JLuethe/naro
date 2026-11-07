@@ -76,6 +76,7 @@ jobs:
           python3 tests/search/terminal.py --binary "$PWD/target/release/naro" --out target/ci-search-terminal
       - name: Production editor resource and hostile-input bounds
         run: |
+          python3 -m unittest discover -s tests/robustness -p 'test_*.py'
           python3 tests/robustness/terminal_resources.py --binary "$PWD/target/release/naro" --expected-revision "$GITHUB_SHA" --out target/ci-terminal-resources
           python3 tests/robustness/hostile_inputs.py --binary "$PWD/target/release/naro" --expected-revision "$GITHUB_SHA" --out target/ci-hostile-inputs
       - name: Linux console ioctl models
