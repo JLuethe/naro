@@ -1,6 +1,22 @@
 # Validation evidence
 
-## 0.1.2 release gate after the GitHub push
+## 0.1.3 development candidate
+
+The [issue #12 confinement evidence](issue-12-confinement/README.md) records
+bounded save-entry and opened-object tests, including old-binary negative
+controls. [Issue #14 runtime checks](issue-14-runtime/README.md) add executed
+candidate assertions for the former citation gaps and a search-cancellation
+regression. The [issue #15 matrix](issue-15-matrix/README.md) defines exact
+default/tiny differential accounting; [robustness checks](../tests/robustness/README.md)
+now include production-editor resource and hostile-input gates. The 0.1.3
+version-bound identity fixtures are distinct from unchanged GNU nano evidence.
+
+The final integrated binary, package, and cross-environment retest is in
+progress. Branch and earlier-candidate passes do not qualify the final 0.1.3
+artifacts. Physical power loss and exhaustive concurrency remain outside the
+deterministic test scope. No release publication follows from these checks.
+
+## Historical 0.1.2 release gate after the GitHub push
 
 [Issue #12 bounded interleavings](issue-12-confinement/README.md) exercised
 attacker-writable synthetic parents, symlink and rename exchanges, missing
