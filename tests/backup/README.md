@@ -42,3 +42,7 @@ regular/symlink/hard-link replacement and identity-checked cleanup/publication
 when an owned temporary entry is replaced by a fixture sentinel. The ignored
 foreign-owner tests use `run_namespace.py`; they require a prepared rootless
 Podman image and never use host root.
+The parent-policy distinct-UID fixtures select a nonzero ID present in both
+`/proc/self/uid_map` and `/proc/self/gid_map`. Namespace layouts vary by host;
+if no shared distinct ID is mapped, the runner records a missing prerequisite
+and exits nonzero. The chosen ID is retained in each observation.

@@ -27,6 +27,16 @@ POLICIES = (
 
 
 class ParentPolicySetupTests(unittest.TestCase):
+    def test_distinct_actor_uses_an_id_mapped_in_both_tables(self):
+        policy = POLICIES[0]
+        self.assertEqual(policy.select_distinct_id("0 1000 1\n100000 100000 65536\n",
+                                                   "0 1000 1\n100000 100000 65536\n"), 100000)
+        self.assertEqual(policy.select_distinct_id("0 1000 1\n1 100000 65536\n",
+                                                   "0 1000 1\n1 100000 65536\n"), 1)
+        with self.assertRaises(policy.PrerequisiteError):
+            policy.select_distinct_id("0 1000 1\n1 100000 10\n",
+                                      "0 1000 1\n20 100000 10\n")
+
     def test_uid_mapping_is_conservative_when_unknown(self):
         for policy in POLICIES:
             with self.subTest(policy=policy.__name__):

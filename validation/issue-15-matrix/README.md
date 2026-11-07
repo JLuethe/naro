@@ -39,6 +39,14 @@ explicit missing prerequisites each, and returned nonzero. Unrestricted runs
 passed 659/659 in both profiles. The strict GNU differential result above
 remains nonpassing.
 
+The first pushed `4b3c759` CI run passed the safe-save fault step and then
+stopped at a foreign-owner confinement fixture: its user namespace mapped a
+different nonzero UID/GID range from the local host. The parent-policy runner
+now chooses a common mapped nonzero ID from `/proc/self/{uid,gid}_map`, records
+that ID, and reports a missing prerequisite with a nonzero exit if none exists.
+This corrects fixture portability without changing the product or accepting a
+failed case.
+
 `tests/remediation/differential.py` inventories and executes every applicable
 production scenario in `spec/evidence/scenarios` and
 `tests/follow-up/scenarios`. It runs fresh paired GNU nano/NARO recordings in

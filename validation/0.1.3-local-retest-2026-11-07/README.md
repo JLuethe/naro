@@ -113,4 +113,11 @@ nonzero with explicit missing-prerequisite rows; unrestricted exact-revision
 matrices pass all 659 cases per profile. The package source revision and archive
 checks after these fixes are recorded separately from the frozen `dbc46bb`
 executables.
+The first pushed CI run at `4b3c759` passed atomic save faults but exposed a
+namespace-fixture assumption in the subsequent bounded confinement step:
+`unshare --map-subids` succeeded while UID/GID 100000 was not mapped inside
+that runner. The foreign-owner setup returned `EINVAL`; CI correctly stopped.
+The parent-policy fixture now selects an ID that appears in both actual
+namespace maps and records it in the observation. This is a test-environment
+correction; the production code and frozen executable hashes remain unchanged.
 No tag, download, release, PR, or issue closure follows from this local report.

@@ -50,6 +50,36 @@ def named_uid_mapped(uid):
     return False
 
 
+def select_distinct_id(uid_map, gid_map):
+    """Choose an unprivileged ID mapped in both namespace tables."""
+    def ranges(mapping):
+        result = []
+        for line in mapping.splitlines():
+            start, _, count = map(int, line.split())
+            if count <= 0:
+                raise ValueError("empty namespace mapping")
+            result.append((start, start + count))
+        return result
+
+    try:
+        for uid_start, uid_end in ranges(uid_map):
+            for gid_start, gid_end in ranges(gid_map):
+                candidate = max(1, uid_start, gid_start)
+                if candidate < min(uid_end, gid_end):
+                    return candidate
+    except ValueError as error:
+        raise PrerequisiteError(f"invalid UID/GID namespace mapping: {error}") from error
+    raise PrerequisiteError("no distinct UID/GID is mapped in this namespace")
+
+
+def mapped_distinct_id():
+    try:
+        return select_distinct_id(Path("/proc/self/uid_map").read_text(),
+                                  Path("/proc/self/gid_map").read_text())
+    except OSError as error:
+        raise PrerequisiteError(f"UID/GID namespace mapping unavailable: {error}") from error
+
+
 def set_named_writer_acl(path, uid):
     try:
         os.setxattr(path, "system.posix_acl_access", acl_named_writer(uid))
@@ -61,8 +91,8 @@ def set_named_writer_acl(path, uid):
         raise
 
 
-def substitute(temp, stolen, outside, distinct_uid, write_temp=False):
-    if distinct_uid:
+def substitute(temp, stolen, outside, actor_id, write_temp=False):
+    if actor_id is not None:
         code = """import os,sys
 temp,stolen,outside,write_temp=sys.argv[1:]
 if write_temp=='1':
@@ -75,8 +105,8 @@ else:
 """
         def drop():
             os.setgroups([])
-            os.setgid(100000)
-            os.setuid(100000)
+            os.setgid(actor_id)
+            os.setuid(actor_id)
         actor = subprocess.run([sys.executable, "-c", code, os.path.relpath(temp),
                                 os.path.relpath(stolen), str(outside), str(int(write_temp))], preexec_fn=drop,
                                capture_output=True, text=True, timeout=5)
@@ -91,7 +121,7 @@ else:
             temp.symlink_to(outside)
 
 
-def check_private_temp(stage):
+def check_private_temp(stage, actor_id):
     code = """import os,sys
 stage=sys.argv[1]
 try:
@@ -109,8 +139,8 @@ else:
 """
     def drop():
         os.setgroups([])
-        os.setgid(100000)
-        os.setuid(100000)
+        os.setgid(actor_id)
+        os.setuid(actor_id)
     actor = subprocess.run([sys.executable, "-c", code, os.path.relpath(stage)],
                            preexec_fn=drop, capture_output=True, text=True, timeout=5)
     if actor.returncode:
@@ -118,6 +148,7 @@ else:
 
 
 def run_case(binary, preload, base, kind, distinct_uid):
+    actor_id = mapped_distinct_id() if distinct_uid else None
     data = base / "root/data"
     backups = base / "root/backups"
     data.mkdir(parents=True)
@@ -126,7 +157,8 @@ def run_case(binary, preload, base, kind, distinct_uid):
     target.write_bytes(OLD)
     if kind.startswith("foreign-owner-"):
         assert os.geteuid() == 0, "foreign ownership requires namespace root"
-        os.chown(target, 100000, 100000)
+        assert actor_id is not None, "foreign ownership requires a distinct actor"
+        os.chown(target, actor_id, actor_id)
     elif kind.startswith("writable-mode-"):
         target.chmod(0o666)
     target_before = identity(target)
@@ -168,9 +200,9 @@ def run_case(binary, preload, base, kind, distinct_uid):
                     entries = [p for p in backups.iterdir() if p.name.startswith(".naro-backup-")]
                     assert len(entries) == 1, entries
                     if entries[0].is_dir():
-                        check_private_temp(entries[0])
+                        check_private_temp(entries[0], actor_id)
                     else:
-                        substitute(entries[0], backups / "stolen", outside, distinct_uid,
+                        substitute(entries[0], backups / "stolen", outside, actor_id,
                                    write_temp=kind in ("writable-mode-sticky", "writable-mode-normal",
                                                        "foreign-owner-normal"))
                     (base / "release").write_text("resume\n")
@@ -194,6 +226,7 @@ def run_case(binary, preload, base, kind, distinct_uid):
                 "bytes": p.read_bytes().decode() if p.is_file() else None}
                for p in backups.iterdir()]
     observed = {"gate_reached": (base / "ready").exists(), "result": result.strip(),
+                "actor_id": actor_id,
                 "target_bytes": target.read_bytes().decode(), "target_identity": identity(target),
                 "outside_bytes": outside.read_bytes().decode(), "outside_identity": identity(outside),
                 "backup_entries": entries}
@@ -210,7 +243,7 @@ def run_case(binary, preload, base, kind, distinct_uid):
         assert target.read_bytes() == b"replacement\n"
         assert len(entries) == 1 and not entries[0]["symlink"] and entries[0]["bytes"] == OLD.decode()
         if kind.startswith("foreign-owner-"):
-            assert entries[0]["uid"] == 100000
+            assert entries[0]["uid"] == actor_id
         if kind.startswith("writable-mode-"):
             assert entries[0]["mode"] == "0o666"
     return observed
