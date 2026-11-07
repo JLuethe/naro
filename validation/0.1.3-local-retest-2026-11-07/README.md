@@ -77,8 +77,11 @@ under QEMU user emulation, not physical ARM64 hardware.
 | ARM64 glibc under QEMU user emulation | Pass; default/tiny CLI and resource gates, default 5/5 and tiny 4/4 hostile inputs | `target/issue15-arm64-dbc/target/arm64-qualification/` |
 | Bounded search and undo stress | Pass; 12 search cases across default/tiny, undo stress | `target/retest-dbc46bb/{search-stress,undo-stress}.log` |
 | Ubuntu guest-VT | Pass; 19/19 accepted with exact Ubuntu default build; independent provenance replay 19/19, zero problems | `target/retest-dbc46bb/vt-report/{report,vm-provenance}.json` and `vt-provenance-check.log` |
-| Host package/source archive checks | Pass; default and tiny each 17/17 package and 44/44 asset checks, including offline source rebuild | `target/retest-dbc46bb/check-{default,tiny}-final/` |
+| Host package/source archive checks at source revision `22450f1` | Pass; default and tiny each 17/17 package and 44/44 asset checks, including offline source rebuild | `target/retest-dbc46bb/check-{default,tiny}-final/` |
 | Independent Daybreak Blue fresh retest | Supported gates pass: production resource/hostile default and tiny, live/recorded #14, backup 1,296/1,296, confinement 77/77 default and 72/72 tiny, and exact host save semantics 22/22 progress plus 10/10 safety. ACL fixture setup returns `EINVAL`, so safe-save 409/659 in each profile and parent-policy ACL cases are incomplete in its managed sandbox; distinct-UID mapping is unavailable there. | `target/retest-dbc46bb/daybreak-final/` |
+| Safe-save and parent-policy harness corrections | Six safe-save and three parent-policy classifier unit tests pass; unrestricted default/tiny matrices each pass 659/659. An old #3 binary fails all three preservation controls. An unmapped-UID/no-supplementary-group control accounts for every planned row and exits nonzero. | `target/retest-dbf686e/{save-default,save-tiny,old-preservation-control,parent-unmapped,backup-parent-unmapped,daybreak-postfix}/` |
+| Concurrent package-check regression | Both checks against the earlier archives pass 17/17 package and 44/44 asset cases with distinct fixture roots; the original shared-root failure is retained. | `target/retest-dbc46bb/check-concurrency-{default,tiny}/` |
+| Daybreak Blue focused post-fix retest | Unit tests pass 6/6 and 3/3; its managed sandbox reports 659/659 planned rows in each profile, with 409 passes and 250 missing prerequisites, exit 1. ACL parent controls are missing prerequisites, exit 1. No false success is reported. | `target/retest-dbf686e/daybreak-postfix/REPORT.md` |
 
 The safe-save policy is [documented separately](../../docs/safe-save.md):
 publication replaces the inode, rejects final symlinks, preserves old hard-link
@@ -100,4 +103,14 @@ VM launch, boot inputs, installed guest binary hashes and runtime archive;
 zero problems. This provenance was created after capture; Daybreak did not
 independently audit the completed file. Archive manifests distinguish the
 compiled `dbc46bb` code from their later documentation/source revision.
+The later Astra/xhigh integrated review found no production defect but identified
+three qualification-tooling gaps: incomplete safe-save coverage could return
+success, an unmapped ACL setup error was misclassified as a product failure,
+and simultaneous package checks could remove one another's asset fixtures.
+Commits `dbf686e`, `adee23b`, and `fddc519` correct these respectively. The
+post-fix Daybreak report verifies that its constrained environment now exits
+nonzero with explicit missing-prerequisite rows; unrestricted exact-revision
+matrices pass all 659 cases per profile. The package source revision and archive
+checks after these fixes are recorded separately from the frozen `dbc46bb`
+executables.
 No tag, download, release, PR, or issue closure follows from this local report.

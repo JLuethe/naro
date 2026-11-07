@@ -17,6 +17,10 @@ and tiny full differential runs are completely accounted for but nonpassing;
 they do not establish broad GNU nano compatibility. Physical power loss and
 exhaustive concurrency remain outside the deterministic test scope. No release
 publication follows from these checks.
+The later Astra/xhigh review and [post-fix Daybreak Blue retest](0.1.3-local-retest-2026-11-07/README.md)
+also cover fail-closed safe-save accounting, unmapped ACL prerequisites, and
+isolated concurrent package asset fixtures. Their results are bound to their
+named revisions and environments.
 
 ## Historical 0.1.2 release gate after the GitHub push
 

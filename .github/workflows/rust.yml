@@ -101,6 +101,8 @@ jobs:
           python3 tests/remediation/safe_save_semantics.py --binary "$PWD/target/release/naro" --out target/ci-save-semantics
       - name: Atomic save faults, default and tiny
         run: |
+          python3 -m unittest discover -s tests/safe-save -p 'test_run.py'
+          python3 -m unittest tests/backup/test_parent_policy_setup.py
           cargo test --no-run --message-format=json > target/ci-safe-save-default-build.jsonl
           candidate=$(python3 -c 'import json; print(next(r["executable"] for r in map(json.loads, open("target/ci-safe-save-default-build.jsonl")) if r.get("executable") and r.get("profile", {}).get("test")))')
           python3 tests/safe-save/run.py --binary "$candidate" --out target/ci-safe-save-default

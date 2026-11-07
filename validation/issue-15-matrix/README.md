@@ -25,6 +25,18 @@ The VM provenance file was assembled after capture from retained boot and
 binary inputs, then the independent console evidence validator accepted 19/19
 with zero problems. Daybreak's earlier audit did not include that later file.
 
+The subsequent integrated Astra/xhigh review found three qualification-tooling
+gaps. The safe-save runner now inventories all 659 planned cases and returns
+nonzero for any missing prerequisite; its new unit tests include the negative
+control. ACL setup `EINVAL` is a missing prerequisite only when the requested
+UID is proven unmapped, while product-operation `EINVAL` remains a failure.
+Package asset checks now use separate fixture roots even when run concurrently.
+Daybreak Blue independently retested these corrections in its restricted
+environment: both safe-save profiles accounted for 659/659 rows, including 250
+explicit missing prerequisites each, and returned nonzero. Unrestricted runs
+passed 659/659 in both profiles. The strict GNU differential result above
+remains nonpassing.
+
 `tests/remediation/differential.py` inventories and executes every applicable
 production scenario in `spec/evidence/scenarios` and
 `tests/follow-up/scenarios`. It runs fresh paired GNU nano/NARO recordings in
