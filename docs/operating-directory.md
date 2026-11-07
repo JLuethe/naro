@@ -14,8 +14,10 @@ Loads and insertion obtain data and metadata from the same authorized open file.
 Regular saves retain an authorized parent and pass it to the atomic save path;
 source checks, staging-directory creation, replacement, and directory sync are relative
 to that parent. The temporary file is created within a unique mode-0700 child
-of the opened parent. The held child descriptor remains the publication source
-even if another process renames its entry in an attacker-writable parent.
+of the opened parent. Saves refuse a parent owned by an untrusted UID, or one
+with group/other write permission and no sticky bit, before creating that child.
+The held child descriptor remains the publication source after a same-UID
+entry change in an otherwise authorized parent.
 A missing final filename is allowed only after its existing
 parent has been opened successfully. Other resolution errors deny access.
 Backups read a pinned source descriptor and, when confined, create in an
@@ -55,13 +57,15 @@ transaction against concurrent writers. Hard links and mounts already present
 inside the root are part of its accessible namespace.
 
 The private staging child protects its contents from an actor with a distinct
-UID who may change entries in a mode-0777 parent. Such an actor can still move
-or replace the child directory's parent entry, causing a committed save to
-return an error during cleanup; publication continues to use the held child
-descriptor and does not publish the substituted entry. A process with the
-editor's UID can access its private directory and is outside this filesystem
-secrecy boundary. The staging child remains on the destination filesystem;
-ordinary cleanup checks entry identities and does not remove substitutions.
+UID. A non-sticky parent writable by that actor is refused because it could
+replace the child entry before NARO opens it. An editor-owned or root-owned
+sticky parent protects the editor-owned child entry; a foreign unprivileged
+owner could move entries despite sticky protection and is refused. POSIX ACL
+named-user and group write grants are reflected in the group mode mask and
+trigger the same conservative rule. A process with the editor's UID can access
+the private directory and remains outside this filesystem permission boundary.
+The staging child remains on the destination filesystem; ordinary cleanup
+checks entry identities and does not remove substitutions it observes.
 
 This feature is not a process sandbox. Configuration files, history storage,
 external commands and tools, their temporary files, and their own filesystem

@@ -1,0 +1,387 @@
+{
+  "binary": "/home/john/Code/naro/target/issue12-parent-policy/target/debug/deps/naro-32727381b127ff48",
+  "sha256": "986088d4e516f6424be975ded06d0412fa4a6d8c9fe7be2d4ea0af98f67f035c",
+  "cases": [
+    {
+      "name": "owned-private-mode0-existing",
+      "kind": "owned-private",
+      "mode": 0,
+      "missing": false,
+      "observed": {
+        "gate_reached": false,
+        "result": "ok 1 modified=false",
+        "target_bytes": "replacement\n",
+        "target_identity": [
+          58,
+          6224804
+        ],
+        "borrowed_before_identity": [
+          58,
+          6224799
+        ],
+        "borrowed_before_mode": "0700",
+        "borrowed_after_identity": [
+          58,
+          6224799
+        ],
+        "borrowed_after_mode": "0o700",
+        "borrowed_inode_survivors": [
+          {
+            "name": "borrowed",
+            "identity": [
+              58,
+              6224799
+            ],
+            "mode": "0o700"
+          }
+        ],
+        "stolen_exists": false,
+        "stage_entries": []
+      },
+      "parent_mode": "0o700",
+      "status": "pass"
+    },
+    {
+      "name": "owned-normal-mode0-existing",
+      "kind": "owned-normal",
+      "mode": 0,
+      "missing": false,
+      "observed": {
+        "gate_reached": false,
+        "result": "ok 1 modified=false",
+        "target_bytes": "replacement\n",
+        "target_identity": [
+          58,
+          6224828
+        ],
+        "borrowed_before_identity": [
+          58,
+          6224818
+        ],
+        "borrowed_before_mode": "0700",
+        "borrowed_after_identity": [
+          58,
+          6224818
+        ],
+        "borrowed_after_mode": "0o700",
+        "borrowed_inode_survivors": [
+          {
+            "name": "borrowed",
+            "identity": [
+              58,
+              6224818
+            ],
+            "mode": "0o700"
+          }
+        ],
+        "stolen_exists": false,
+        "stage_entries": []
+      },
+      "parent_mode": "0o755",
+      "status": "pass"
+    },
+    {
+      "name": "owned-sticky-mode0-existing",
+      "kind": "owned-sticky",
+      "mode": 0,
+      "missing": false,
+      "observed": {
+        "gate_reached": false,
+        "result": "ok 1 modified=false",
+        "target_bytes": "replacement\n",
+        "target_identity": [
+          58,
+          6224844
+        ],
+        "borrowed_before_identity": [
+          58,
+          6224839
+        ],
+        "borrowed_before_mode": "0700",
+        "borrowed_after_identity": [
+          58,
+          6224839
+        ],
+        "borrowed_after_mode": "0o700",
+        "borrowed_inode_survivors": [
+          {
+            "name": "borrowed",
+            "identity": [
+              58,
+              6224839
+            ],
+            "mode": "0o700"
+          }
+        ],
+        "stolen_exists": false,
+        "stage_entries": []
+      },
+      "parent_mode": "0o1777",
+      "status": "pass"
+    },
+    {
+      "name": "unsafe-open-mode0-existing",
+      "kind": "unsafe-open",
+      "mode": 0,
+      "missing": false,
+      "observed": {
+        "gate_reached": false,
+        "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue12-parent-policy/target/parent-policy-default-final2/unsafe-open-mode0-existing/root/data/target: Operation not permitted (original file unchanged)",
+        "target_bytes": "original fixture\n",
+        "target_identity": [
+          58,
+          6224851
+        ],
+        "borrowed_before_identity": [
+          58,
+          6224852
+        ],
+        "borrowed_before_mode": "0700",
+        "borrowed_after_identity": [
+          58,
+          6224852
+        ],
+        "borrowed_after_mode": "0o700",
+        "borrowed_inode_survivors": [
+          {
+            "name": "borrowed",
+            "identity": [
+              58,
+              6224852
+            ],
+            "mode": "0o700"
+          }
+        ],
+        "stolen_exists": false,
+        "stage_entries": []
+      },
+      "parent_mode": "0o777",
+      "status": "pass"
+    },
+    {
+      "name": "unsafe-open-mode0-missing",
+      "kind": "unsafe-open",
+      "mode": 0,
+      "missing": true,
+      "observed": {
+        "gate_reached": false,
+        "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue12-parent-policy/target/parent-policy-default-final2/unsafe-open-mode0-missing/root/data/target: Operation not permitted (original file unchanged)",
+        "target_bytes": null,
+        "target_identity": null,
+        "borrowed_before_identity": [
+          58,
+          6224862
+        ],
+        "borrowed_before_mode": "0700",
+        "borrowed_after_identity": [
+          58,
+          6224862
+        ],
+        "borrowed_after_mode": "0o700",
+        "borrowed_inode_survivors": [
+          {
+            "name": "borrowed",
+            "identity": [
+              58,
+              6224862
+            ],
+            "mode": "0o700"
+          }
+        ],
+        "stolen_exists": false,
+        "stage_entries": []
+      },
+      "parent_mode": "0o777",
+      "status": "pass"
+    },
+    {
+      "name": "unsafe-open-mode1-existing",
+      "kind": "unsafe-open",
+      "mode": 1,
+      "missing": false,
+      "observed": {
+        "gate_reached": false,
+        "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue12-parent-policy/target/parent-policy-default-final2/unsafe-open-mode1-existing/root/data/target: Operation not permitted (original file unchanged)",
+        "target_bytes": "original fixture\n",
+        "target_identity": [
+          58,
+          6224876
+        ],
+        "borrowed_before_identity": [
+          58,
+          6224877
+        ],
+        "borrowed_before_mode": "0700",
+        "borrowed_after_identity": [
+          58,
+          6224877
+        ],
+        "borrowed_after_mode": "0o700",
+        "borrowed_inode_survivors": [
+          {
+            "name": "borrowed",
+            "identity": [
+              58,
+              6224877
+            ],
+            "mode": "0o700"
+          }
+        ],
+        "stolen_exists": false,
+        "stage_entries": []
+      },
+      "parent_mode": "0o777",
+      "status": "pass"
+    },
+    {
+      "name": "unsafe-open-mode1-missing",
+      "kind": "unsafe-open",
+      "mode": 1,
+      "missing": true,
+      "observed": {
+        "gate_reached": false,
+        "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue12-parent-policy/target/parent-policy-default-final2/unsafe-open-mode1-missing/root/data/target: Operation not permitted (original file unchanged)",
+        "target_bytes": null,
+        "target_identity": null,
+        "borrowed_before_identity": [
+          58,
+          6224900
+        ],
+        "borrowed_before_mode": "0700",
+        "borrowed_after_identity": [
+          58,
+          6224900
+        ],
+        "borrowed_after_mode": "0o700",
+        "borrowed_inode_survivors": [
+          {
+            "name": "borrowed",
+            "identity": [
+              58,
+              6224900
+            ],
+            "mode": "0o700"
+          }
+        ],
+        "stolen_exists": false,
+        "stage_entries": []
+      },
+      "parent_mode": "0o777",
+      "status": "pass"
+    },
+    {
+      "name": "unsafe-open-mode2-existing",
+      "kind": "unsafe-open",
+      "mode": 2,
+      "missing": false,
+      "observed": {
+        "gate_reached": false,
+        "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue12-parent-policy/target/parent-policy-default-final2/unsafe-open-mode2-existing/root/data/target: Operation not permitted (original file unchanged)",
+        "target_bytes": "original fixture\n",
+        "target_identity": [
+          58,
+          6224924
+        ],
+        "borrowed_before_identity": [
+          58,
+          6224925
+        ],
+        "borrowed_before_mode": "0700",
+        "borrowed_after_identity": [
+          58,
+          6224925
+        ],
+        "borrowed_after_mode": "0o700",
+        "borrowed_inode_survivors": [
+          {
+            "name": "borrowed",
+            "identity": [
+              58,
+              6224925
+            ],
+            "mode": "0o700"
+          }
+        ],
+        "stolen_exists": false,
+        "stage_entries": []
+      },
+      "parent_mode": "0o777",
+      "status": "pass"
+    },
+    {
+      "name": "acl-writer-mode0-existing",
+      "kind": "acl-writer",
+      "mode": 0,
+      "missing": false,
+      "observed": {
+        "gate_reached": false,
+        "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue12-parent-policy/target/parent-policy-default-final2/acl-writer-mode0-existing/root/data/target: Operation not permitted (original file unchanged)",
+        "target_bytes": "original fixture\n",
+        "target_identity": [
+          58,
+          6224948
+        ],
+        "borrowed_before_identity": [
+          58,
+          6224949
+        ],
+        "borrowed_before_mode": "0700",
+        "borrowed_after_identity": [
+          58,
+          6224949
+        ],
+        "borrowed_after_mode": "0o700",
+        "borrowed_inode_survivors": [
+          {
+            "name": "borrowed",
+            "identity": [
+              58,
+              6224949
+            ],
+            "mode": "0o700"
+          }
+        ],
+        "stolen_exists": false,
+        "stage_entries": []
+      },
+      "parent_mode": "0o770",
+      "status": "pass"
+    },
+    {
+      "name": "acl-writer-mode0-missing",
+      "kind": "acl-writer",
+      "mode": 0,
+      "missing": true,
+      "observed": {
+        "gate_reached": false,
+        "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue12-parent-policy/target/parent-policy-default-final2/acl-writer-mode0-missing/root/data/target: Operation not permitted (original file unchanged)",
+        "target_bytes": null,
+        "target_identity": null,
+        "borrowed_before_identity": [
+          58,
+          6224974
+        ],
+        "borrowed_before_mode": "0700",
+        "borrowed_after_identity": [
+          58,
+          6224974
+        ],
+        "borrowed_after_mode": "0o700",
+        "borrowed_inode_survivors": [
+          {
+            "name": "borrowed",
+            "identity": [
+              58,
+              6224974
+            ],
+            "mode": "0o700"
+          }
+        ],
+        "stolen_exists": false,
+        "stage_entries": []
+      },
+      "parent_mode": "0o770",
+      "status": "pass"
+    }
+  ]
+}

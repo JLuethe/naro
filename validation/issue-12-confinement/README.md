@@ -1,5 +1,10 @@
 # Issue #12 — opened-object confinement hardening
 
+Current follow-up: [parent-permission and stage-open negative control
+(2026-11-06)](parent-policy-2026-11-06/README.md) documents the fail-closed
+policy for unsafe destination parents. Earlier records below are historical
+evidence for their named binaries.
+
 Follow-up: [bounded interleaving evidence (2026-11-06)](bounded-2026-11-06/README.md)
 now exercises the entry-swapping items. The original results below remain a
 historical record of the earlier implementation and tests, not the current

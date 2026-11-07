@@ -47,25 +47,28 @@ def records(path):
             if (row := line.split()) and row[0] != "stage"}
 
 
-def separate_uid_stage_swap(stage_entry, displaced, outside_target):
-    """One bounded actor with a mapped, different UID in a user namespace."""
+def separate_uid_stage_check(stage_entry):
+    """A mapped different UID cannot traverse or move an owned private stage."""
     code = """import os,sys
-stage,displaced,outside=sys.argv[1:]
+stage=sys.argv[1]
 try:
     os.listdir(stage)
 except PermissionError:
     pass
 else:
     raise AssertionError('private stage was traversable by the actor')
-os.rename(stage,displaced)
-os.symlink(outside,stage)
+try:
+    os.rename(stage,stage+'-moved')
+except PermissionError:
+    pass
+else:
+    raise AssertionError('owned parent allowed a different UID to move stage')
 """
     def drop():
         os.setgroups([])
         os.setgid(100000)
         os.setuid(100000)
-    actor = subprocess.run([sys.executable, "-c", code, os.path.relpath(stage_entry),
-                            os.path.relpath(displaced), str(outside_target)],
+    actor = subprocess.run([sys.executable, "-c", code, os.path.relpath(stage_entry)],
                            preexec_fn=drop, capture_output=True, text=True, timeout=5)
     assert actor.returncode == 0, (actor.returncode, actor.stdout, actor.stderr)
 
@@ -75,9 +78,9 @@ def run_case(binary, reader, preload, base, tiny, operation, stage, action, mode
     outside = base / "outside"
     parent.mkdir(parents=True)
     outside.mkdir()
-    # Deliberately attacker-writable synthetic parents, without sticky-bit protection.
-    parent.chmod(0o777)
-    outside.chmod(0o777)
+    # The editor owns these parents; only its UID can mutate entries.
+    parent.chmod(0o755)
+    outside.chmod(0o755)
     target = parent / "target"
     sentinel = base / "original-sentinel"
     if not missing:
@@ -131,15 +134,16 @@ def run_case(binary, reader, preload, base, tiny, operation, stage, action, mode
                 elif action == "target-create":
                     target.write_bytes(OTHER)
                     os.link(target, base / "created-sentinel")
-                elif action in ("stage-entry-symlink", "stage-entry-symlink-separate-uid"):
+                elif action == "stage-entry-symlink":
                     entries = list(parent.glob(".naro-save-*"))
                     assert len(entries) == 1, entries
                     (base / "stage-name").write_text(entries[0].name)
-                    if action.endswith("separate-uid"):
-                        separate_uid_stage_swap(entries[0], parent / "displaced-stage", outside / "target")
-                    else:
-                        entries[0].rename(parent / "displaced-stage")
-                        entries[0].symlink_to(outside / "target")
+                    entries[0].rename(parent / "displaced-stage")
+                    entries[0].symlink_to(outside / "target")
+                elif action == "stage-private-separate-uid":
+                    entries = list(parent.glob(".naro-save-*"))
+                    assert len(entries) == 1, entries
+                    separate_uid_stage_check(entries[0])
                 elif action != "none":
                     raise AssertionError(action)
                 (base / "release").write_text("resume\n")
@@ -164,7 +168,7 @@ def run_case(binary, reader, preload, base, tiny, operation, stage, action, mode
                      outside if action == "parent-exchange" else parent)
     destination = actual_parent / "target"
     assert identity(actual_parent) == before["parent"]
-    assert stat.S_IMODE(actual_parent.stat().st_mode) == 0o777
+    assert stat.S_IMODE(actual_parent.stat().st_mode) == 0o755
     if operation == "save" and stage != "none":
         assert gate["parent"] == before["parent"], gate
     if stage in ("temp-open", "read-reopen") and not missing:
@@ -290,8 +294,8 @@ def main():
     if args.distinct_uid:
         if os.geteuid() != 0:
             raise SystemExit("--distinct-uid requires namespace root and a mapped UID 100000")
-        cases = [("save", "publish", "stage-entry-symlink-separate-uid", 0, False),
-                 ("save", "publish", "stage-entry-symlink-separate-uid", 0, True)]
+        cases = [("save", "publish", "stage-private-separate-uid", 0, False),
+                 ("save", "publish", "stage-private-separate-uid", 0, True)]
     elif args.stage_substitution_only:
         cases = [case for case in cases if case[2] == "stage-entry-symlink"]
     report = {"binary": str(binary), "sha256": hashlib.sha256(binary.read_bytes()).hexdigest(),

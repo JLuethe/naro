@@ -63,6 +63,8 @@ static int tracked_openat(const char *symbol,int dir,const char *path,int flags,
     int owned=owned_parent(dir);
     int source=owned&&!strcmp(path,"target")&&!(flags&O_PATH)&&!(flags&O_CREAT);
     if(source)gate("source-open",dir,-1);
+    if(owned&&!strncmp(path,".naro-save-",11)&&(flags&O_DIRECTORY))
+        gate("stage-open",dir,source_fd);
     int fd;
     if(fortified){
         int (*real)(int,const char*,int)=dlsym(RTLD_NEXT,symbol);

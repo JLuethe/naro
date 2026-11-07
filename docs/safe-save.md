@@ -8,7 +8,7 @@ justification for exposing the old contents to truncation on an I/O failure.
 The save creates a unique private mode-0700 staging directory directly under
 the opened destination directory, then exclusively creates its temporary file
 inside that child. This keeps the temporary entry inaccessible to a different
-user even when the destination directory is attacker-writable. The child and
+user in an authorized destination directory. The child and
 destination are on the same filesystem, so publication by `renameat` remains
 atomic. The save writes the complete result, applies metadata, syncs and closes
 the file, replaces the named destination from the held staging-directory
@@ -27,6 +27,18 @@ The directory must permit creating and replacing directory entries. A writable
 file in a non-writable directory can no longer be saved through its existing
 name. Filesystems that cannot support the required operations fail closed;
 NARO does not silently revert to truncating the original.
+
+Before staging, NARO requires an opened destination parent owned by the editor
+or root. If the parent has group or other write permission, it must also have
+the sticky bit. These checks use the opened directory's mode; its group mode
+bits include the effective POSIX ACL mask, so a named ACL writer is treated
+conservatively. An ordinary mode-0777 directory without sticky protection is
+refused even when the editor owns it. An editor-owned private directory and a
+trusted-owner sticky directory can still be saved in. This restriction prevents
+a different UID from replacing the newly created staging directory with an
+unrelated editor-owned directory before NARO opens it. It is a compatibility
+restriction for shared writable directories; choose a private directory or a
+sticky directory owned by the editor or root.
 
 ## Compatibility policy
 

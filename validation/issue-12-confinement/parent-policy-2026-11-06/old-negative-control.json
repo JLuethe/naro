@@ -1,0 +1,33 @@
+{
+  "binary": "/home/john/Code/naro/target/issue12-finish/target/debug/deps/naro-8b785946e7ffb0d9",
+  "sha256": "e99d829662b32664e47ba8a89126f5b245039ac137295422ccb6e79d224511ce",
+  "cases": [
+    {
+      "name": "unsafe-open-mode0-existing",
+      "kind": "unsafe-open",
+      "mode": 0,
+      "missing": false,
+      "status": "assertion-failure",
+      "error": "AssertionError('unsafe parent reached stage-open boundary')",
+      "observed": {
+        "gate_reached": true,
+        "result": "ok 1 modified=false",
+        "target_bytes": "replacement\n",
+        "target_identity": [
+          58,
+          6224965
+        ],
+        "borrowed_before_identity": [
+          58,
+          6224892
+        ],
+        "borrowed_before_mode": "0700",
+        "borrowed_after_identity": null,
+        "borrowed_after_mode": null,
+        "borrowed_inode_survivors": [],
+        "stolen_exists": true,
+        "stage_entries": []
+      }
+    }
+  ]
+}

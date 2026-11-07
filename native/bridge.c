@@ -324,6 +324,18 @@ int nr_safe_save_at(int parent_fd,const char *path,const unsigned char *data,siz
         if(!save_unchanged(&original,&current)){errno=ESTALE;goto done;}
     }else if(errno!=ENOENT||mode==2)goto done;
     if(fstat(dir,&parent_stat)<0)goto done;
+    /* In a non-sticky shared parent another uid can move our newly created
+     * staging entry before openat, then substitute an editor-owned directory.
+     * Its owner/device checks would accept the wrong object. A parent owned by
+     * another unprivileged uid can also become writable after this check.
+     * The group bits include the POSIX ACL mask, so they conservatively cover
+     * named-user and named-group ACL write grants. A sticky parent is safe only
+     * when its owner is the editor or privileged root: other users cannot move
+     * the editor-owned staging entry. */
+    if((parent_stat.st_uid!=geteuid()&&parent_stat.st_uid!=0)||
+       ((parent_stat.st_mode&(S_IWGRP|S_IWOTH))&&!(parent_stat.st_mode&S_ISVTX))){
+        errno=EPERM;goto done;
+    }
     for(int attempt=0;attempt<1000;attempt++){
         unsigned long sequence=atomic_fetch_add(&serial,1);
         snprintf(stage_name,sizeof stage_name,".naro-save-%ld-%lu",(long)getpid(),sequence);
@@ -332,9 +344,8 @@ int nr_safe_save_at(int parent_fd,const char *path,const unsigned char *data,siz
         if(errno!=EEXIST)goto done;
     }
     if(!stage_exists){errno=EEXIST;goto done;}
-    /* The parent entry may be attacker-writable. Keep the temporary name in a
-     * private child directory, and publish from its held fd. A different uid
-     * may rename the child entry but cannot replace an entry inside it. */
+    /* The trusted parent prevents entry substitution before this open. Keep
+     * temporary bytes in a private child and publish from its held fd. */
     stage=openat(dir,stage_name,O_RDONLY|O_DIRECTORY|O_NOFOLLOW|O_CLOEXEC);
     if(stage<0)goto done;
     if(fstat(stage,&stage_stat)<0)goto done;

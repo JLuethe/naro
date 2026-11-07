@@ -8,6 +8,7 @@ python3 tests/confinement/run.py --binary /absolute/path/to/test-executable --ou
 cargo test --offline --features tiny --no-run --message-format=json
 python3 tests/confinement/run.py --binary /absolute/path/to/tiny-test-executable --out target/boundary-tiny --tiny
 unshare --map-root-user --map-subids python3 tests/confinement/run.py --binary /absolute/path/to/test-executable --out target/boundary-distinct-uid --distinct-uid
+python3 tests/confinement/parent_policy.py --binary /absolute/path/to/test-executable --out target/parent-policy-default
 ```
 
 `--out` must be fresh. The fixture is ignored by ordinary unit runs because it
@@ -50,16 +51,27 @@ before reopening the authorized `O_PATH` descriptor via `/proc/self/fd`.
 Assertions cover destination bytes, original/outside/other inode witnesses,
 opened root/parent/source identities as applicable, read metadata/data agreement,
 new publication inode identity, and absence of unpublished `.naro-save-*` files.
-Parents are mode 0777 without sticky protection. At publication, five additional
+The main matrix parents are editor-owned mode 0755. At publication, five additional
 cases move the private staging directory and replace its former entry with a
 symlink to an outside sentinel. Publication still takes bytes from the held
 private directory; cleanup reports a committed error and preserves the
 substituted entry. The two `--distinct-uid` cases run under a user namespace:
-the actor has mapped UID 100000, is denied traversal into the mode-0700 stage,
-then moves its parent entry and substitutes a symlink. This optional command
+the actor has mapped UID 100000 and is denied traversal into the mode-0700 stage
+and moving its entry in the editor-owned mode-0755 parent. This optional command
 requires user namespaces, subordinate ID mapping and Python privilege drop.
 The main matrix actor has the editor's credentials. Parent relocation outside the root
 intentionally retains authority over the same directory inode, as documented.
+
+`parent_policy.py` adds editor-owned private and ordinary directories, an
+editor-owned sticky shared directory, unsafe non-sticky mode-0777, and a parent
+whose POSIX ACL mask grants a named UID write access. The latter two must refuse
+before stage creation, with original target and unrelated editor-owned directory
+unchanged. Its `stage-open` gate is a bounded negative control: an old binary
+can pause after `mkdirat` and before opening the stage, while the controller
+moves that stage and substitutes the unrelated editor-owned directory. The
+fixed binary must never reach that gate for an unsafe parent. A user-namespace
+run can perform the substitution with mapped UID 100000 and separately test a
+foreign-owned sticky parent.
 
 Final-entry changes before source open or temporary creation are rejected. A
 change immediately before publication can be replaced successfully: the final

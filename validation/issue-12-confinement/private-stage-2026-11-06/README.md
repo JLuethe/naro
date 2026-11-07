@@ -1,5 +1,10 @@
 # Issue #12 private staging follow-up
 
+This records the first private-staging revision. A later bounded stage-open
+negative control found a remaining unsafe-parent window; see the
+[parent-policy follow-up](../parent-policy-2026-11-06/README.md) for the current
+policy and results. The observations below remain historical artifact evidence.
+
 The bounded publish-gate fixture exposed a real gap in the earlier save path:
 after the last temporary-entry identity check, another process with write
 access to the mode-0777 destination parent could move that entry and substitute

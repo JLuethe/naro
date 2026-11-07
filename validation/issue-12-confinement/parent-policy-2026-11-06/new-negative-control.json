@@ -1,0 +1,45 @@
+{
+  "binary": "/home/john/Code/naro/target/issue12-parent-policy/target/debug/deps/naro-32727381b127ff48",
+  "sha256": "986088d4e516f6424be975ded06d0412fa4a6d8c9fe7be2d4ea0af98f67f035c",
+  "cases": [
+    {
+      "name": "unsafe-open-mode0-existing",
+      "kind": "unsafe-open",
+      "mode": 0,
+      "missing": false,
+      "observed": {
+        "gate_reached": false,
+        "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue12-parent-policy/target/parent-policy-distinct-new-final/unsafe-open-mode0-existing/root/data/target: Operation not permitted (original file unchanged)",
+        "target_bytes": "original fixture\n",
+        "target_identity": [
+          58,
+          6224811
+        ],
+        "borrowed_before_identity": [
+          58,
+          6224812
+        ],
+        "borrowed_before_mode": "0700",
+        "borrowed_after_identity": [
+          58,
+          6224812
+        ],
+        "borrowed_after_mode": "0o700",
+        "borrowed_inode_survivors": [
+          {
+            "name": "borrowed",
+            "identity": [
+              58,
+              6224812
+            ],
+            "mode": "0o700"
+          }
+        ],
+        "stolen_exists": false,
+        "stage_entries": []
+      },
+      "parent_mode": "0o777",
+      "status": "pass"
+    }
+  ]
+}
