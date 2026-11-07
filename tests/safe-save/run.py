@@ -4,6 +4,7 @@ Pass the executable from cargo test --no-run --message-format=json.
 --out must be fresh. No terminal, credentials, or user documents are used.
 """
 import argparse
+import errno
 import hashlib
 import json
 import os
@@ -21,6 +22,45 @@ CRASH = ("exit-write", "exit-file-sync", "exit-close", "exit-rename", "exit-comm
 POST = ("dir-sync", "stage-sync", "parent-sync", "stage-remove", "final-parent-sync", "directory-close")
 
 
+class MissingFixturePrerequisite(Exception):
+    """The disposable fixture cannot be constructed on this host."""
+
+
+def fixture_metadata(operation, call, *args):
+    try:
+        return call(*args)
+    except OSError as error:
+        # These failures occur while constructing the synthetic ACL/group
+        # fixture, before the editor or fault hook is launched. Never treat an
+        # EINVAL from the product operation as a missing prerequisite.
+        if error.errno in (errno.EINVAL, errno.ENOTSUP, errno.EOPNOTSUPP):
+            raise MissingFixturePrerequisite(f"{operation}: {error}") from error
+        raise
+
+
+def planned_cases(regression_only):
+    for mode in range(3):
+        kinds = (("existing",) if regression_only else
+                 ("existing", "new", "new-default-acl", "hardlink", "symlink", "dangling",
+                  "xattr", "acl", "group", "collision"))
+        for kind in kinds:
+            faults = ("file-sync",) if regression_only else SUCCESS + PRE + POST + CRASH
+            if not regression_only:
+                if mode and kind not in ("new", "collision", "new-default-acl", "symlink", "dangling"):
+                    faults += ("read-eio",)
+                if kind in ("xattr", "acl"):
+                    faults += ("xattr",)
+            for fault in faults:
+                if (kind in ("symlink", "dangling") or
+                        (kind in ("new", "collision", "new-default-acl") and mode == 2)) and fault != "none":
+                    continue
+                if fault == "source-close" and kind in ("new", "collision", "new-default-acl"):
+                    continue
+                if fault == "read-eintr" and (not mode or kind in ("new", "collision", "new-default-acl")):
+                    continue
+                yield mode, kind, fault
+
+
 def run_case(binary, preload, root, mode, fault, kind):
     data = root / "data"
     data.mkdir(parents=True)
@@ -32,10 +72,10 @@ def run_case(binary, preload, root, mode, fault, kind):
             struct.pack("<HHI", t, p, u) for t, p, u in
             ((1, 7, 0xffffffff), (2, 4, os.getuid()+1), (4, 5, 0xffffffff),
              (16, 5, 0xffffffff), (32, 0, 0xffffffff)))
-        os.setxattr(data, "system.posix_acl_default", default_acl)
+        fixture_metadata("default ACL setup", os.setxattr, data, "system.posix_acl_default", default_acl)
         direct = data / "direct"
         direct.touch(mode=0o666)
-        direct_acl = os.getxattr(direct, "system.posix_acl_access")
+        direct_acl = fixture_metadata("inherited ACL probe", os.getxattr, direct, "system.posix_acl_access")
         direct_mode = stat.S_IMODE(direct.stat().st_mode)
     sentinel = data / ".naro-save-unrelated"
     sentinel.write_bytes(b"unrelated")
@@ -45,7 +85,7 @@ def run_case(binary, preload, root, mode, fault, kind):
         os.utime(target, ns=(1_000_000_000, 2_000_000_000))
     if kind == "group":
         group = next(g for g in os.getgroups() if g != os.getgid())
-        os.chown(target, -1, group)
+        fixture_metadata("supplementary group setup", os.chown, target, -1, group)
     if kind == "hardlink":
         os.link(target, data / "other")
     if kind in ("symlink", "dangling"):
@@ -60,7 +100,10 @@ def run_case(binary, preload, root, mode, fault, kind):
             ((1, 6, 0xffffffff), (2, 4, os.getuid()+1), (4, 4, 0xffffffff),
              (16, 4, 0xffffffff), (32, 0, 0xffffffff)))
     for name, value in attrs.items():
-        os.setxattr(target, name, value)
+        if name == "system.posix_acl_access":
+            fixture_metadata("access ACL setup", os.setxattr, target, name, value)
+        else:
+            os.setxattr(target, name, value)
     before = target.stat() if target.exists() else None
     env = dict(os.environ, LD_PRELOAD=str(preload), NARO_SAVE_FIXTURE=str(root),
                NARO_SAVE_MODE=str(mode), NARO_SAVE_FAULT=fault)
@@ -153,40 +196,32 @@ def main():
     preload = out / "faults.so"
     command = ["cc", "-shared", "-fPIC", "-Wall", "-Wextra", "-Werror", str(Path(__file__).with_name("faults.c")), "-ldl", "-o", str(preload)]
     subprocess.run(command, check=True)
+    planned = list(planned_cases(args.regression_only))
     cases = []
-    skips = []
-    for mode in range(3):
-        kinds = ("existing",) if args.regression_only else ("existing", "new", "new-default-acl", "hardlink", "symlink", "dangling", "xattr", "acl", "group", "collision")
-        for kind in kinds:
-            if kind == "group" and not any(g != os.getgid() for g in os.getgroups()):
-                skips.append({"mode": mode, "kind": kind, "reason": "no supplementary group available"})
-                continue
-            faults = ("file-sync",) if args.regression_only else SUCCESS + PRE + POST + CRASH
-            if not args.regression_only:
-                if mode and kind not in ("new", "collision", "new-default-acl", "symlink", "dangling"):
-                    faults += ("read-eio",)
-                if kind in ("xattr", "acl"):
-                    faults += ("xattr",)
-            for fault in faults:
-                if (kind in ("symlink", "dangling") or (kind in ("new", "collision", "new-default-acl") and mode == 2)) and fault != "none":
-                    continue
-                if fault == "source-close" and kind in ("new", "collision", "new-default-acl"):
-                    continue
-                if fault == "read-eintr" and (not mode or kind in ("new", "collision", "new-default-acl")):
-                    continue
-                row = {"mode": mode, "kind": kind, "fault": fault}
-                try:
-                    row.update(run_case(binary, preload, out / f"mode{mode}-{kind}-{fault}", mode, fault, kind))
-                    row["status"] = "pass"
-                except Exception as error:
-                    row.update(status="fail", error=repr(error))
-                cases.append(row)
-                print(f"{row['status']}: {mode} {kind} {fault}" + (f" {row['error']}" if "error" in row else ""), flush=True)
+    for mode, kind, fault in planned:
+        row = {"mode": mode, "kind": kind, "fault": fault}
+        if kind == "group" and not any(g != os.getgid() for g in os.getgroups()):
+            row.update(status="missing-prerequisite", error="no supplementary group available")
+        else:
+            try:
+                row.update(run_case(binary, preload, out / f"mode{mode}-{kind}-{fault}", mode, fault, kind))
+                row["status"] = "pass"
+            except MissingFixturePrerequisite as error:
+                row.update(status="missing-prerequisite", error=str(error))
+            except Exception as error:
+                row.update(status="fail", error=repr(error))
+        cases.append(row)
+        print(f"{row['status']}: {mode} {kind} {fault}" + (f" {row['error']}" if "error" in row else ""), flush=True)
+    passed = sum(r["status"] == "pass" for r in cases)
+    missing = sum(r["status"] == "missing-prerequisite" for r in cases)
+    complete = len(cases) == len(planned) and len({(r["mode"], r["kind"], r["fault"]) for r in cases}) == len(planned)
     report = {"binary": str(binary), "sha256": hashlib.sha256(binary.read_bytes()).hexdigest(), "compiler_command": command,
-              "cases": cases, "skips": skips, "passed": sum(r["status"] == "pass" for r in cases), "total": len(cases)}
+              "cases": cases, "skips": [r for r in cases if r["status"] == "missing-prerequisite"],
+              "passed": passed, "missing_prerequisites": missing, "total": len(cases),
+              "expected": len(planned), "complete": complete}
     (out / "report.json").write_text(json.dumps(report, indent=2) + "\n")
-    print(f"{report['passed']}/{report['total']} passed")
-    return int(report["passed"] != report["total"])
+    print(f"{passed}/{len(planned)} passed; {missing} missing prerequisites")
+    return int(not complete or passed != len(planned) or missing != 0)
 
 
 if __name__ == "__main__":

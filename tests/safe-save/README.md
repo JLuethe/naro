@@ -7,8 +7,13 @@ Linux /proc, ACL/xattr support, C compiler and normal build prerequisites are
 required. The output directory must be new. Tests call actual files::write in
 isolated test processes with fixture-bounded LD_PRELOAD faults. The Rust fixture
 is cfg(test), excluded from shipped binaries. Reports record executable hashes,
-subprocess logs, operations and resulting fixtures. Missing supplementary groups
-are explicit skips; other unavailable prerequisites fail rather than pass.
+subprocess logs, operations and resulting fixtures. Every planned case remains
+in the report, including unavailable supplementary-group and ACL fixtures.
+Fixture setup `EINVAL`/unsupported-ACL errors are marked
+`missing-prerequisite`; errors from the editor operation remain product/test
+failures. Any missing prerequisite makes the runner exit nonzero. `expected`,
+`total`, `passed`, `missing_prerequisites` and `complete` expose omissions; the
+full matrix requires all 659 planned cases to pass.
 
 The matrix covers all save modes, file/link/metadata policy, syscall failures,
 EINTR, short/partial writes, abrupt exit boundaries, staging-name collisions,
@@ -20,6 +25,11 @@ unrelated sentinel. Abrupt exit may leave a mode-0700 staging directory containi
 parent sync, stage removal, and final parent sync failures must explicitly
 report uncertain durability after complete replacement.
 `--regression-only` tests old original-preservation behavior in three modes.
+`python3 -m unittest discover -s tests/safe-save -p 'test_run.py'` exercises the
+runner's accounting with a deterministic no-supplementary-group control: 94
+unavailable cases cannot turn 565/659 coverage into a success. It also verifies
+that an editor-operation `EINVAL` stays a failure, while a fixture setup
+`EINVAL` is a missing prerequisite.
 
 Generate terminal candidates with `python3 tests/safe-save/progress_cases.py`
 and `python3 tests/safe-save/progress_cases.py save-safety`, redirecting each into
