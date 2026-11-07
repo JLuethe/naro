@@ -78,12 +78,22 @@ fn literal_checked(
     }
     Ok(None)
 }
-/// Only consume Cancel; preserve other buffered input and pending signals.
+/// Preserve non-cancelled input; discard the pending burst after Cancel.
 struct SearchPoll {
     steps: usize,
     checked: std::time::Instant,
 }
 impl SearchPoll {
+    fn discard_cancelled_input(input: &mut crate::input::Input) {
+        // nano discards the rest of the pending input burst when a search is
+        // cancelled.  The first key may already be in Input::queue; further
+        // keys may still be waiting in ncurses' nonblocking input buffer.
+        input.queue.clear();
+        input.replay.clear();
+        #[cfg(not(test))]
+        while unsafe { native::nr_get(0) } >= 0 {}
+    }
+
     fn new() -> Self {
         Self {
             steps: 0,
@@ -100,6 +110,7 @@ impl SearchPoll {
         }
         if let Some(i) = input.queue.iter().position(|c| *c == 3) {
             input.queue.remove(i);
+            Self::discard_cancelled_input(input);
             return Err(());
         }
         if self.checked.elapsed() < std::time::Duration::from_millis(50) {
@@ -113,12 +124,36 @@ impl SearchPoll {
                 break;
             }
             if key == 3 {
+                Self::discard_cancelled_input(input);
                 return Err(());
             }
             input.queue.push_back(key);
         }
         Ok(())
     }
+}
+
+#[cfg(test)]
+#[test]
+fn search_poll_preserves_non_cancelled_queued_input() {
+    let mut input = crate::input::Input::default();
+    input.queue.extend([b'X' as i32, b'Y' as i32]);
+    let mut poll = SearchPoll::new();
+    assert!(poll.check(&mut input).is_ok());
+    assert_eq!(
+        input.queue.iter().copied().collect::<Vec<_>>(),
+        vec![88, 89]
+    );
+}
+
+#[cfg(test)]
+#[test]
+fn search_poll_discards_queued_remainder_after_cancel() {
+    let mut input = crate::input::Input::default();
+    input.queue.extend([3, b'X' as i32]);
+    let mut poll = SearchPoll::new();
+    assert!(poll.check(&mut input).is_err());
+    assert!(input.queue.is_empty());
 }
 #[derive(Debug)]
 struct Pattern {

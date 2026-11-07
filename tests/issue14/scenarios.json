@@ -1,0 +1,107 @@
+[
+  {
+    "id": "TEST-ISSUE14-KEYS-DEFAULT",
+    "argv0": "nano",
+    "args": ["-I"],
+    "env": {"NARO_ISSUE14_SNAPSHOT": "$FX/snapshot.txt"},
+    "steps": [{"wait_exit": 5}, {"capture_file": "snapshot.txt"}],
+    "expect": {"exit_status": 0}
+  },
+  {
+    "id": "TEST-ISSUE14-KEYS-RNANO",
+    "argv0": "rnano",
+    "args": ["-I"],
+    "env": {"NARO_ISSUE14_SNAPSHOT": "$FX/snapshot.txt"},
+    "steps": [{"wait_exit": 5}, {"capture_file": "snapshot.txt"}],
+    "expect": {"exit_status": 0}
+  },
+  {
+    "id": "TEST-ISSUE14-KEYS-RESTRICTED",
+    "argv0": "nano",
+    "args": ["-I", "-R"],
+    "env": {"NARO_ISSUE14_SNAPSHOT": "$FX/snapshot.txt"},
+    "steps": [{"wait_exit": 5}, {"capture_file": "snapshot.txt"}],
+    "expect": {"exit_status": 0}
+  },
+  {
+    "id": "TEST-ISSUE14-KEYS-MODERN-PRESERVE",
+    "argv0": "nano",
+    "args": ["-I", "-p", "-/"],
+    "env": {"NARO_ISSUE14_SNAPSHOT": "$FX/snapshot.txt"},
+    "steps": [{"wait_exit": 5}, {"capture_file": "snapshot.txt"}],
+    "expect": {"exit_status": 0}
+  },
+  {
+    "id": "TEST-ISSUE14-RC-ONLY",
+    "argv0": "nano",
+    "args": ["--rcfile=$FX/home/a.rc"],
+    "files": {"home/a.rc": {"text": "set autoindent\nset tabsize 7\nset fill 44\nset guidestripe 12\nset wordchars RC\n"}},
+    "env": {"NARO_ISSUE14_SNAPSHOT": "$FX/snapshot.txt"},
+    "steps": [{"wait_exit": 5}, {"capture_file": "snapshot.txt"}],
+    "expect": {"exit_status": 0}
+  },
+  {
+    "id": "TEST-ISSUE14-RC-CLI-WINS",
+    "argv0": "nano",
+    "args": ["-i", "-T", "3", "-r", "20", "-J", "4", "-X", "CLI", "--rcfile=$FX/home/a.rc"],
+    "files": {"home/a.rc": {"text": "unset autoindent\nset tabsize 7\nset fill 44\nset guidestripe 12\nset wordchars RC\n"}},
+    "env": {"NARO_ISSUE14_SNAPSHOT": "$FX/snapshot.txt"},
+    "steps": [{"wait_exit": 5}, {"capture_file": "snapshot.txt"}],
+    "expect": {"exit_status": 0}
+  },
+  {
+    "id": "TEST-ISSUE14-RC-RESTRICTED",
+    "argv0": "nano",
+    "args": ["-R", "--rcfile=$FX/home/a.rc"],
+    "files": {"home/a.rc": {"text": "set backup\nset historylog\nset positionlog\nset operatingdir /tmp\n"}},
+    "env": {"NARO_ISSUE14_SNAPSHOT": "$FX/snapshot.txt"},
+    "steps": [{"wait_exit": 5}, {"capture_file": "snapshot.txt"}],
+    "expect": {"exit_status": 0}
+  },
+  {
+    "id": "TEST-ISSUE14-EXIT-DISCARD",
+    "args": ["-I", "f.txt"],
+    "files": {"work/f.txt": {"text": "original\n"}},
+    "steps": [
+      {"wait": {"text": "original"}},
+      {"text": "changed"},
+      {"keys": ["^X"]},
+      {"wait": {"text": "Save modified buffer?"}},
+      {"keys": ["^Q"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {"exit_status": 2, "files": {"work/f.txt": {"text": "original\n"}}}
+  },
+  {
+    "id": "TEST-ISSUE14-MODERN-PRESERVE-SAVE",
+    "args": ["-I", "-p", "-/", "f.txt"],
+    "files": {"work/f.txt": {"text": "old\n"}},
+    "steps": [
+      {"wait": {"text": "old"}},
+      {"text": "X"},
+      {"keys": ["^S"]},
+      {"wait": {"text": "Wrote"}},
+      {"keys": ["^Q"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {"exit_status": 0, "files": {"work/f.txt": {"text": "Xold\n"}}}
+  },
+  {
+    "id": "TEST-ISSUE14-QUICKBLANK-TIMEOUT",
+    "args": ["-I", "-U", "-_", "f.txt"],
+    "files": {"work/f.txt": {"text": "alpha\n"}},
+    "steps": [
+      {"wait": {"text": "alpha"}},
+      {"keys": ["^W"]},
+      {"text": "missing"},
+      {"keys": ["Enter"]},
+      {"wait": {"text": "not found"}},
+      {"snapshot": "message", "quiet": 0},
+      {"sleep": 1200},
+      {"snapshot": "cleared", "quiet": 0},
+      {"keys": ["^X"]},
+      {"wait_exit": 5}
+    ],
+    "expect": {"exit_status": 0}
+  }
+]

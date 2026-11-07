@@ -86,15 +86,12 @@ fn overlapping_backward_and_magic_line_find() {
     assert_eq!(e.b().pos(), Pos { line: 0, x: 1 });
 }
 #[test]
-fn cancel_search_preserves_other_input() {
+fn cancel_search_discards_pending_input_burst() {
     let mut e = fixture(&vec![b'a'; 65536], b"z", false, false);
     e.input.queue.extend([b'x' as i32, 3, b'y' as i32]);
     e.find(false);
     assert_eq!(e.b().pos(), Pos::default());
-    assert_eq!(
-        e.input.queue.iter().copied().collect::<Vec<_>>(),
-        vec![b'x' as i32, b'y' as i32]
-    );
+    assert!(e.input.queue.is_empty());
     assert_eq!(e.message.as_ref().unwrap().text, "Cancelled");
 }
 #[test]

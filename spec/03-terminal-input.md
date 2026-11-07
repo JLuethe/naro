@@ -230,7 +230,7 @@ as text.
 | INPUT-009 | runtime TEST-INPUT-005/-011; Yes/No, help, browser parts source-only |
 | INPUT-010 | runtime TEST-INPUT-009 (click, help-line click); wheel, scroll bar source-only |
 | INPUT-011 | runtime TEST-INPUT-010 |
-| INPUT-012/013 | source only for cancellation/timing branches; the proposed runtime series is unexecuted and does not qualify INPUT-014 either |
+| INPUT-012/013 | reference source for the complete rules; `tests/issue14/run.py` executes candidate production cancellation/burst discard and quickblank clearing cases. It does not measure exact reference timing or qualify INPUT-014. |
 
 ## 4. Open questions
 - **Q-IN-001:** A Rust implementation that does not use ncurses has to reproduce ncurses' terminfo-driven translation (layer 2) and its 50 ms ESC delay to match the decoding of keys known to terminfo. Proposed decision: implement a terminfo-driven key matcher equivalent to ncurses `keypad` mode for `$TERM`, with the same timing, then feed nano's decoder. Alternatively use ncurses via FFI (`15` §4).

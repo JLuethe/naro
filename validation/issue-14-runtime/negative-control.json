@@ -1,0 +1,19 @@
+{
+  "classification": "pre_fix_candidate_product_failure",
+  "candidate_sha256": "68cddb587600dcea89b34136fcfdb91e19bfd2f470256fd14a147ea899991f2c",
+  "candidate_revision": "d5a496a31112d885ccae0158e35108bea6ab2e51",
+  "scenario_id": "TEST-ISSUE14-CANCEL-PROTOTYPE",
+  "scenario_sha256": "721ceaf86bbf69ecaa9b352004ae66129104f6aeb4458ed6eb744f5d4b56d89f",
+  "raw_output_sha256": "900c108d1e6e18769e5f2584d87539ac162de60489e871582ae3630497de18c4",
+  "result_json_sha256": "27e6789dfc02a1705bdb2d33c8d74e16e7ea025939b3070f600091510054bee1",
+  "input_hex_sequence": ["17", "7a7a7a7a", "0d", "0358", "18"],
+  "observed": {
+    "cancelled_in_raw_output": true,
+    "screen_first_line_prefix": "Xaaaaaaaaaaaaaaaaaaa",
+    "save_modified_buffer_prompt": true,
+    "exit_wait_timed_out": true,
+    "terminated_by_harness_sigkill": true
+  },
+  "interpretation": "The same-burst X was inserted after search cancellation. The committed bounded regression asserts clean exit and the original file digest; old behavior reaches the save prompt and fails.",
+  "limitation": "The prototype's separate file:text check was invalid for a file over the harness's inline-text threshold; its failure is excluded from this product finding. The large raw fixture remains ignored under target/issue14-cancel-prototype-run."
+}

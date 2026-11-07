@@ -82,7 +82,7 @@ registration is reachable.
 - Profiles: `default-utf8` is ENV-BASE. `default-C` changes only the arrow notation (KEY-002). `default-modern*` see KEY-040. `default-preserve` see KEY-041. `default-restricted` = `default-rnano` see KEY-042. `default-view` see KEY-043. `default-saveonexit` is identical to the default. `tiny-*` see KEY-044.
 - **Source:** `src/global.c:1252-1626` (`shortcut_init`).
 - **Evidence:** runtime-observed (13 gdb dumps) + source-confirmed.
-- **Qualification:** The 13 historical gdb dumps and `data/keybindings.csv` document reference tables; no executed candidate re-dump and assertion covers the complete table or ordering. Help-line scenarios cover their own observed contexts (KEY-050).
+- **Candidate follow-up (November 6, 2026):** `tests/issue14/run.py` compares all rows and ordering of the 13 historical reference profiles against default and tiny test-hook startup snapshots. Production terminal scenarios cover selected key paths; the snapshot check does not assert every production interaction. Help-line scenarios cover their own observed contexts (KEY-050).
 
 ### KEY-010 — Shortcut lookup
 Given a keycode and the meta flag, in context C:

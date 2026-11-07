@@ -54,3 +54,31 @@ commands and their outcomes are recorded in
 This review does not alter any historical reference result, exclusion, or
 normalization rule. Current qualification and exact artifacts remain indexed
 in `validation/README.md`.
+
+## Issue #14 runtime follow-up, November 6, 2026
+
+`tests/issue14/run.py` adds assertions against a named production candidate
+and companion test-hook builds. Its `artifacts.json` records SHA-256 and build
+identity and rejects a mismatched reference ELF, candidate revision, source
+fingerprint, or feature set. The checks below apply to the binaries named in
+that receipt only; an integrated build must rerun them.
+
+| Former citation | New executed assertion and scope |
+| --- | --- |
+| `TEST-CLI-P003`, `TEST-CLI-P042` | Production `--help` for `nano`, `rnano`, `rvi`, `xnano`, and `Rnano`; exact GNU output with the reviewed NARO identity projection, plus restricted/full grouping. |
+| `TEST-KEY-RESTR-001` | Test-hook snapshots compare all 190 ordered bindings for `rnano` and `-R` to the independent reference tables and to each other. Production invocation-name help is checked separately. |
+| `TEST-CLI-P009` | Production candidate matches five pinned-reference error status/stdout/stderr tuples, including invalid short, unknown long, ambiguous prefix, missing argument, and forbidden long argument. |
+| `TEST-RC-PREC-001` | Test-hook runtime checks rc-only values, CLI boolean/numeric/string precedence, and restricted cleanup. This is a representative merge matrix, not every rc option or lookup path. |
+| `TEST-KEY-MODPRES-001` | Test-hook ordered table equals the reference modern table minus the two preserve-sensitive bindings; production terminal flow saves with ^S and exits with ^Q under `-p -/`. |
+| `TEST-FILE-EXIT-002` | Production terminal test discards an edited existing buffer, exits 2, and preserves the file bytes. |
+| `TEST-INPUT-020` | Production quickblank message clears after 1.2 seconds, and a bounded candidate long search responds to ^C while discarding a trailing same-burst `X`. The long-search reference could not be deterministically held open with the disposable fixture; this is a candidate assertion plus the documented source rule, not a reference timing comparison. INPUT-014 remains a separate requirement. |
+| `TEST-KEY-TABLE-001` | Test-hook snapshots compare every row and order of all 13 recorded reference profiles (nine default and four tiny). The hooks verify startup table state; production terminal behavior is asserted only for selected key paths. |
+
+The cancellation test initially failed: a trailing `X` became an edit after
+`Cancelled`. `src/search.rs` now drains queued and ncurses pending input only
+when search cancellation occurs. The
+[negative-control receipt](validation/issue-14-runtime/negative-control.json)
+records the failure; the raw result is retained in the isolated worktree's
+ignored `target/issue14-cancel-prototype-run` directory;
+the committed test reproduces its trigger and fails against the old binary.
+The complete commands and limits are in `validation/issue-14-runtime/README.md`.

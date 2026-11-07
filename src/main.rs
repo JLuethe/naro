@@ -99,6 +99,16 @@ fn main() {
             conf.on(generated::RAW_SEQUENCES) as i32,
         );
     }
+    #[cfg(feature = "test-hooks")]
+    if let Some(path) = std::env::var_os("NARO_ISSUE14_SNAPSHOT") {
+        let output = test_hooks::issue14_snapshot(&conf);
+        drop(terminal);
+        if let Err(error) = std::fs::write(path, output) {
+            eprintln!("Issue 14 fixture snapshot: {error}");
+            std::process::exit(1);
+        }
+        return;
+    }
     let mut editor = editor::Editor::new(conf);
     std::panic::set_hook(Box::new(|_| {}));
     let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| editor.run()));

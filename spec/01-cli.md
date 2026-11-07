@@ -29,7 +29,7 @@ startup" is drawn on the status bar once the first screen appears.
 - **Note:** the check is on the first byte only and is case-sensitive (`Rnano` is not restricted).
 - **Source:** `src/nano.c:1877-1879` (`main`), `src/utils.c:55-63` (`tail`).
 - **Evidence:** runtime-observed (`CLI-P-003`: `rnano --help` prints the restricted help; `CLI-P-042`: `xnano --help` prints the full help); key tables `evidence/tables/default-rnano.json` equal `default-restricted.json`.
-- **Qualification:** The `CLI-P-*` observations and reference key-table dumps above are separate evidence types. No candidate scenario here asserts the first-byte and case-sensitive invocation-name rule or re-dumps the restricted table.
+- **Candidate follow-up (November 6, 2026):** `tests/issue14/run.py` asserts production help output for positive and negative invocation names and compares test-hook restricted key tables. The `CLI-P-*` reference observations remain separate evidence.
 
 ### CLI-002 — Option syntax and parser
 - The parser is GNU `getopt_long` with the short-option string
@@ -227,7 +227,7 @@ When rcfiles are read (not `-I`, not tiny):
 - **Hard-wrap:** if an rcfile left `nowrap` *unset* (`unset nowrap`), `breaklonglines` is turned on (backward compatibility). Then CLI-015 applies.
 - Options that only exist in nanorc (colors, `punct`, `brackets`, `matchbrackets`, `whitespace`, `allow_insecure_backup`, `casesensitive`, `regexp`) take their rcfile values.
 - **Source:** `src/nano.c:2185-2275`.
-- **Evidence:** source-confirmed. The proposed rc precedence series is unexecuted; this full merge rule is not candidate-runtime-qualified by a mapped test.
+- **Evidence:** source-confirmed. `tests/issue14/run.py` executes a representative candidate merge matrix for rc-only, CLI precedence, and restricted cleanup. The full rule for every option and rc lookup path remains unqualified.
 
 ### CLI-015 — `-b` versus `-w`
 The last of `-b`/`--breaklonglines` and `-w`/`--nowrap` on the command line
@@ -239,7 +239,7 @@ rcfile/default decides (default: off).
 The key tables are built from the command-line flags (step 5 of CLI-013).
 Therefore:
 - `-p`/`--preserve` on the command line removes the ^S (`savefile`, main), ^Q (`wherewas`, main/browser/help), ^S (`speller`, Execute) and ^Q (`discardbuffer`, Write Out) bindings. `set preserve` in an rcfile does **not** remove them, but it does make the terminal keep XON/XOFF (^S/^Q stop and resume output) — see `02` KEY-PRESERVE and Q-KEY-002.
-- `-/` (modern bindings) clears the preserve flag **after** the tables are built. With `-p -/`, the modern ^S/^Q bindings exist, but the Execute-menu ^S (speller) and the Write-Out ^Q (discard buffer) are missing, and flow control is not preserved. This combined order-sensitive behavior is source/table-derived and lacks a mapped candidate-runtime assertion.
+- `-/` (modern bindings) clears the preserve flag **after** the tables are built. With `-p -/`, the modern ^S/^Q bindings exist, but the Execute-menu ^S (speller) and the Write-Out ^Q (discard buffer) are missing, and flow control is not preserved. `tests/issue14/run.py` checks the candidate's combined ordered table and a production ^S-save/^Q-exit terminal flow; other interactions are still source/table-derived.
 - `-R` and `-v` given on the command line remove the registrations listed in `02` KEY-RESTR/KEY-VIEW. Neither mode can be set from an rcfile.
 - **Source:** `src/nano.c:2183, 2302-2304`; `src/global.c:1259-1298, 1319-1320, 1558-1559, 1564-1584`.
 - **Evidence:** runtime-observed via gdb table dumps `default-preserve`, `default-modern`, `default-restricted`, `default-view`.
@@ -446,7 +446,7 @@ affects an exit performed during the same keystroke (`src/nano.c:2745`).
 | CLI-003 | source (all); runtime for the options listed in CLI-003 |
 | CLI-004…006 | runtime (CLI-P probes), source |
 | CLI-010…012 | runtime, source |
-| CLI-014 | source; runtime tests planned (TEST-RC-PREC-*) |
+| CLI-014 | source; candidate representative runtime matrix in `tests/issue14/run.py` |
 | CLI-020 | runtime (gdb tables), source |
 | CLI-021…024 | runtime (TEST-CLI-032…035), source |
 | CLI-030…038 | runtime (TEST-CLI-001…065), source |
