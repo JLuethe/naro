@@ -8,10 +8,14 @@ exist: a citation of a planned case or of a range endpoint is resolved
 against the recorded inventory and reported as a warning instead.
 """
 import csv
+from contextlib import redirect_stdout
+import io
 import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 SPEC = Path(__file__).resolve().parents[1]
 ROOT = SPEC.parent
@@ -84,6 +88,18 @@ class CitedTestIdsTest(unittest.TestCase):
 
 
 class AuditInventoryTest(unittest.TestCase):
+    def test_no_write_keeps_tracked_outputs_when_reference_is_absent(self):
+        outputs = [SPEC / 'data/requirements.csv', SPEC / 'evidence/audit.json']
+        before = [path.read_bytes() for path in outputs]
+        with tempfile.TemporaryDirectory() as directory:
+            with patch.object(Path, 'home', return_value=Path(directory)), \
+                 patch.object(sys, 'argv', ['audit_spec.py', '--no-write']), \
+                 redirect_stdout(io.StringIO()) as captured:
+                self.assertFalse(audit_spec.main())
+        self.assertEqual([path.read_bytes() for path in outputs], before)
+        report = json.loads(captured.getvalue())
+        self.assertIn('reference worktree absent; integrity check skipped', report['warnings'])
+
     def test_inventory_lists_only_recorded_cases(self):
         known = recorded_ids()
         with (SPEC / "data/requirements.csv").open(newline="") as f:

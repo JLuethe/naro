@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Reference 6ed285c3ec7a1d228def4d4e7021c6ba269f620c: reproducible structural audit."""
+import argparse
 import csv
 import json
 from pathlib import Path
@@ -40,6 +41,10 @@ def cited_test_ids(text):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--no-write', action='store_true',
+                        help='report findings without updating tracked audit outputs')
+    args = parser.parse_args()
     problems, warnings, requirements = [], [], []
     docs = sorted(ROOT.glob('[0-9][0-9]-*.md'))
     expected = [f'{n:02d}' for n in range(19)] + ['97', '98', '99']
@@ -153,8 +158,9 @@ def main():
             problems.append('reference worktree changed')
     else:
         warnings.append('reference worktree absent; integrity check skipped')
-    with (ROOT / 'data/requirements.csv').open('w', newline='') as f:
-        w = csv.writer(f); w.writerow(['requirement', 'document', 'title', 'explicit_test_ids', 'phase']); w.writerows(requirements)
+    if not args.no_write:
+        with (ROOT / 'data/requirements.csv').open('w', newline='') as f:
+            w = csv.writer(f); w.writerow(['requirement', 'document', 'title', 'explicit_test_ids', 'phase']); w.writerows(requirements)
     report = dict(reference_commit=COMMIT, documents=len(docs), requirements=len(requirements),
                   baseline_documents=len(docs) - len(follow_up_docs),
                   baseline_requirements=len(requirements) - len(follow_up_ids),
@@ -164,7 +170,8 @@ def main():
                                       for s in sorted({r['status'] for r in follow_up_tests})},
                   scenarios=len(ids), recorded=recorded, explicit_assertions=checks,
                   intentional_sigkill=killed, suites=suites, warnings=warnings, problems=problems)
-    (ROOT / 'evidence/audit.json').write_text(json.dumps(report, indent=2) + '\n')
+    if not args.no_write:
+        (ROOT / 'evidence/audit.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report, indent=2))
     return bool(problems)
 
