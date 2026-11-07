@@ -98,11 +98,13 @@ jobs:
         run: |
           python3 tests/safe-save/progress_cases.py save-safety > target/ci-safe-save-safety.json
           python3 spec/tools/nanoharness.py target/ci-safe-save-safety.json --binary "$PWD/target/release/naro" --out target/ci-save-safety
+          python3 tests/remediation/safe_save_semantics.py --binary "$PWD/target/release/naro" --out target/ci-save-semantics
       - name: Atomic save faults, default and tiny
         run: |
           cargo test --no-run --message-format=json > target/ci-safe-save-default-build.jsonl
           candidate=$(python3 -c 'import json; print(next(r["executable"] for r in map(json.loads, open("target/ci-safe-save-default-build.jsonl")) if r.get("executable") and r.get("profile", {}).get("test")))')
           python3 tests/safe-save/run.py --binary "$candidate" --out target/ci-safe-save-default
+          python3 tests/backup/run_safe_save.py --binary "$candidate" --out target/ci-backup-safe-save
           cargo test --no-run --features tiny --message-format=json > target/ci-safe-save-tiny-build.jsonl
           candidate=$(python3 -c 'import json; print(next(r["executable"] for r in map(json.loads, open("target/ci-safe-save-tiny-build.jsonl")) if r.get("executable") and r.get("profile", {}).get("test")))')
           python3 tests/safe-save/run.py --binary "$candidate" --out target/ci-safe-save-tiny

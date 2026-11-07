@@ -15,26 +15,16 @@ Rust test processes and records the binary hash, every case, events and result.
 All source, backup, home fallback and sentinel paths belong to fresh fixtures.
 
 The parent-policy runner uses a configured backup directory. Editor-owned
-mode-0755 and sticky mode-1777 directories succeed. Nonsticky mode-0777 and a
-POSIX ACL named writer are refused before temporary creation, preserving the
-original document. Its one-shot `backup-publish` gate can demonstrate the prior
-gap with an old binary: a mapped different-UID actor moves the backup temporary
-entry after the identity check and substitutes a symlink. The fixed binary must
-never reach that gate for the unsafe parent. Run the actor case with
-`unshare --map-root-user --map-subids` where supported. The fixture contains
-only synthetic files and has a ten-second child deadline.
-
-The same gate also covers a foreign-owned source in a root-owned sticky backup
-directory. On the earlier binary, the backup temporary became owned by the
-foreign UID, which could then move it despite the sticky bit. A mode-0755
-backup parent also lets that UID traverse and edit its file after chown. The
-current policy refuses before chown whenever the parent has group/other
-execute permission. A source mode with group/other write permission is likewise
-refused in such a parent before chmod, so another UID cannot alter published
-backup bytes. Both properties remain available when the backup directory is
-mode 0700. The mapped-UID private-directory gate confirms that even a foreign
-owner or a permitted writer of the temporary file cannot traverse that parent
-to edit the unpublished bytes.
+mode-0755 and sticky mode-1777 directories succeed, including foreign-owner
+and writable-mode source metadata. Nonsticky mode-0777 and a POSIX ACL named
+writer are refused before staging. The one-shot `backup-publish` gate compares
+old direct temporary files with the new private mode-0700 staging directory:
+a mapped different UID can move a chowned temporary in a root-owned sticky
+parent or edit writable bytes in a mode-0755 parent on the old binary. With
+private staging, the actor can neither traverse the child nor move its entry;
+the complete backup is published. Run these actor cases with
+`unshare --map-root-user --map-subids` where supported. Fixtures are synthetic
+and children have a ten-second deadline.
 
 The matrix exercises overwrite, append and prepend with backups enabled;
 `allow_insecure_backup` on/off; confinement on/off; missing, regular, source

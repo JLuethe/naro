@@ -600,65 +600,91 @@ fn write_bytes(file: &mut File, mut bytes: &[u8]) -> std::io::Result<()> {
 // A backup output is always an exclusively created inode. Keep its identity
 // through close so errors can clean up only the entry this operation created.
 struct BackupOutput {
-    parent: Parent,
+    stage_entry: Parent,
+    content: Parent,
+    target: Parent,
     file: Option<File>,
     identity: fs::Metadata,
-    traversable_parent: bool,
-    published: bool,
+    stage_identity: fs::Metadata,
 }
 impl BackupOutput {
-    fn create(parent: Parent) -> std::io::Result<Self> {
-        native::private_entry_parent(&parent.directory)?;
-        let traversable_parent = parent.directory.metadata()?.mode() & 0o011 != 0;
-        let file = parent.create(0o600)?;
-        let identity = file.metadata()?;
+    fn create(stage_entry: Parent, target: Parent) -> std::io::Result<Self> {
+        native::private_entry_parent(&stage_entry.directory)?;
+        let content = stage_entry.private_child()?;
+        let stage_identity = content.directory.metadata()?;
+        let file = match content.create(0o600) {
+            Ok(file) => file,
+            Err(error) => {
+                if stage_entry.metadata().is_ok_and(|m| {
+                    (m.dev(), m.ino()) == (stage_identity.dev(), stage_identity.ino())
+                }) {
+                    let _ = stage_entry.remove_directory();
+                }
+                return Err(error);
+            }
+        };
+        let identity = match file.metadata() {
+            Ok(identity) => identity,
+            Err(error) => {
+                drop(file);
+                let _ = content.remove();
+                if stage_entry.metadata().is_ok_and(|m| {
+                    (m.dev(), m.ino()) == (stage_identity.dev(), stage_identity.ino())
+                }) {
+                    let _ = stage_entry.remove_directory();
+                }
+                return Err(error);
+            }
+        };
         Ok(Self {
-            parent,
+            stage_entry,
+            content,
+            target,
             file: Some(file),
             identity,
-            traversable_parent,
-            published: false,
+            stage_identity,
         })
     }
-    fn permits_metadata(&self, source: &fs::Metadata) -> std::io::Result<()> {
-        // A different UID can traverse this parent and edit a temp it owns
-        // or one with group/other write. In a sticky shared parent, its owner
-        // can also move the entry. Reject before chown/chmod exposes either
-        // capability; the temporary entry is still editor-owned mode 0600.
-        if self.traversable_parent
-            && (source.uid() != self.identity.uid() || source.mode() & 0o022 != 0)
-        {
-            return Err(std::io::ErrorKind::PermissionDenied.into());
-        }
-        Ok(())
+    fn owns_stage(&self) -> bool {
+        self.stage_entry.metadata().is_ok_and(|m| {
+            (m.dev(), m.ino()) == (self.stage_identity.dev(), self.stage_identity.ino())
+        })
     }
     fn owns_entry(&self) -> bool {
-        self.parent
+        self.content
             .metadata()
             .is_ok_and(|m| (m.dev(), m.ino()) == (self.identity.dev(), self.identity.ino()))
     }
-    fn finish(mut self, target: Option<&Path>) -> std::io::Result<()> {
-        if self.traversable_parent {
-            let actual = self.file.as_ref().unwrap().metadata()?;
-            if actual.uid() != self.identity.uid() || actual.mode() & 0o022 != 0 {
-                return Err(std::io::ErrorKind::PermissionDenied.into());
-            }
-        }
+    fn finish(mut self, replace: bool) -> std::io::Result<()> {
         native::close_checked(self.file.take().unwrap())?;
-        if !self.owns_entry() {
+        if !self.owns_stage() || !self.owns_entry() {
             return Err(std::io::Error::other("Backup temporary entry changed"));
         }
-        if let Some(target) = target {
-            self.parent.rename_sibling(target)?;
+        self.content.publish_to(&self.target, replace)?;
+        if !replace {
+            // linkat gives the home fallback its original exclusive-create
+            // semantics, then removes the private source name.
+            if !self.owns_entry() {
+                return Err(std::io::Error::other("Backup temporary entry changed"));
+            }
+            self.content.remove()?;
         }
-        self.published = true;
-        self.parent.directory.sync_all()
+        self.content.directory.sync_all()?;
+        self.target.directory.sync_all()?;
+        if !self.owns_stage() {
+            return Err(std::io::Error::other("Backup staging entry changed"));
+        }
+        self.stage_entry.remove_directory()?;
+        self.target.directory.sync_all()
     }
 }
 impl Drop for BackupOutput {
     fn drop(&mut self) {
-        if !self.published && self.owns_entry() {
-            let _ = self.parent.remove();
+        if self.owns_entry() {
+            let _ = self.content.remove();
+        }
+        if self.owns_stage() {
+            let _ = self.stage_entry.remove_directory();
         }
     }
 }
@@ -704,7 +730,6 @@ fn make_backup_from(
         // just like read failures. Keep the read anchored to the opened parent.
         let source = parent.read().inspect_err(|_| read_failed.set(true))?;
         let meta = source.metadata()?;
-        output.permits_metadata(&meta)?;
         let file = output.file.as_mut().unwrap();
         let mut bytes = Vec::new();
         use std::os::unix::fs::FileExt;
@@ -755,6 +780,7 @@ fn make_backup_from(
         }
         result => result,
     };
+    static SERIAL: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
     let first = (|| {
         let target = target?;
         let source_dir = parent.directory.metadata()?;
@@ -766,17 +792,17 @@ fn make_backup_from(
         }
         // Even allow_insecure_backup must not truncate an existing object:
         // that object may be another name for the save destination.
-        static SERIAL: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
         for _ in 0..1000 {
             let serial = SERIAL.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
             let leaf = PathBuf::from(format!(".naro-backup-{}-{serial}", std::process::id()));
             if leaf == parent.name || leaf == target.name {
                 continue;
             }
-            match BackupOutput::create(target.sibling(leaf)?) {
+            match BackupOutput::create(target.sibling(leaf)?, target.sibling(target.name.clone())?)
+            {
                 Ok(mut output) => {
                     write(&mut output, &mut warning)?;
-                    return output.finish(Some(&target.name));
+                    return output.finish(true);
                 }
                 Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => continue,
                 Err(e) => return Err(e),
@@ -808,14 +834,18 @@ fn make_backup_from(
                 name.push(alphabet[(n % 62) as usize]);
                 n /= 62;
             }
-            let attempt =
-                Parent::open(c, &home.join(config::path(&name))).and_then(BackupOutput::create);
+            let attempt = Parent::open(c, &home.join(config::path(&name))).and_then(|target| {
+                let serial = SERIAL.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+                let leaf = PathBuf::from(format!(".naro-backup-{}-{serial}", std::process::id()));
+                BackupOutput::create(target.sibling(leaf)?, target)
+            });
             match attempt {
                 Ok(mut output) => {
                     let result =
-                        write(&mut output, &mut warning).and_then(|()| output.finish(None));
+                        write(&mut output, &mut warning).and_then(|()| output.finish(false));
                     match result {
                         Ok(()) => return Ok(()),
+                        Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => continue,
                         Err(e) => {
                             last = e;
                             break;

@@ -67,20 +67,27 @@ else:
             temp.symlink_to(outside)
 
 
-def check_private_temp(temp):
+def check_private_temp(stage):
     code = """import os,sys
+stage=sys.argv[1]
 try:
-    os.open(sys.argv[1],os.O_WRONLY)
+    os.open(stage+'/content',os.O_WRONLY)
 except PermissionError:
     pass
 else:
     raise AssertionError('different UID opened private backup temporary')
+try:
+    os.rename(stage,stage+'-moved')
+except PermissionError:
+    pass
+else:
+    raise AssertionError('different UID moved private backup staging entry')
 """
     def drop():
         os.setgroups([])
         os.setgid(100000)
         os.setuid(100000)
-    actor = subprocess.run([sys.executable, "-c", code, os.path.relpath(temp)],
+    actor = subprocess.run([sys.executable, "-c", code, os.path.relpath(stage)],
                            preexec_fn=drop, capture_output=True, text=True, timeout=5)
     if actor.returncode:
         raise InfrastructureError(f"mapped actor exited {actor.returncode}: {actor.stderr}")
@@ -123,8 +130,7 @@ def run_case(binary, preload, base, kind, distinct_uid):
         assert backups.stat().st_mode & stat.S_IWGRP
     else:
         raise AssertionError(kind)
-    unsafe = kind in ("unsafe-open", "acl-writer", "foreign-owner-sticky",
-                      "foreign-owner-normal", "writable-mode-sticky", "writable-mode-normal")
+    unsafe = kind in ("unsafe-open", "acl-writer")
     owned = identity(backups)
     inherited = {k: v for k, v in os.environ.items()
                  if not k.startswith(("NARO_SAVE_", "NARO_BOUND_"))}
@@ -132,7 +138,7 @@ def run_case(binary, preload, base, kind, distinct_uid):
                NARO_SAVE_MODE="0", NARO_SAVE_BACKUP="1", NARO_SAVE_CONFINED="1",
                NARO_SAVE_BACKUP_DIR=str(backups), NARO_BOUND_FIXTURE=str(base),
                NARO_BOUND_DEV=str(owned[0]), NARO_BOUND_INO=str(owned[1]),
-               NARO_BOUND_STAGE="backup-publish" if unsafe or distinct_uid and kind.endswith("-private") else "none")
+               NARO_BOUND_STAGE="backup-publish" if unsafe or distinct_uid else "none")
     with (base / "process.log").open("wb") as log:
         proc = subprocess.Popen([str(binary), "--exact", TEST, "--ignored", "--nocapture", "--test-threads=1"],
                                 env=env, stdout=log, stderr=subprocess.STDOUT)
@@ -142,7 +148,7 @@ def run_case(binary, preload, base, kind, distinct_uid):
                 if (base / "ready").exists():
                     entries = [p for p in backups.iterdir() if p.name.startswith(".naro-backup-")]
                     assert len(entries) == 1, entries
-                    if kind.endswith("-private"):
+                    if entries[0].is_dir():
                         check_private_temp(entries[0])
                     else:
                         substitute(entries[0], backups / "stolen", outside, distinct_uid,
@@ -180,13 +186,13 @@ def run_case(binary, preload, base, kind, distinct_uid):
         assert target.read_bytes() == OLD and identity(target) == target_before
         assert not entries, entries
     else:
-        assert observed["gate_reached"] == (distinct_uid and kind.endswith("-private"))
+        assert observed["gate_reached"] == distinct_uid
         assert result.startswith("ok "), result
         assert target.read_bytes() == b"replacement\n"
         assert len(entries) == 1 and not entries[0]["symlink"] and entries[0]["bytes"] == OLD.decode()
-        if kind == "foreign-owner-private":
+        if kind.startswith("foreign-owner-"):
             assert entries[0]["uid"] == 100000
-        if kind == "writable-mode-private":
+        if kind.startswith("writable-mode-"):
             assert entries[0]["mode"] == "0o666"
     return observed
 

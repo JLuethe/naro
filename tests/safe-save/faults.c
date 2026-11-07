@@ -9,7 +9,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
-static int writes, syncs, backup_done, save_temp_closed, directory_synced, parent_syncs, stage_remove_faulted;
+static int writes, syncs, backup_done, backup_dir_syncs, save_temp_closed, directory_synced, parent_syncs, stage_remove_faulted;
 static int backup_phase(void) {return getenv("NARO_SAVE_BACKUP")&&!backup_done;}
 static int is(const char *s) {
  const char *f=getenv("NARO_SAVE_FAULT"),*phase=getenv("NARO_SAVE_FAULT_PHASE");
@@ -27,7 +27,7 @@ static void boundary(const char *s) {char stage[96];snprintf(stage,sizeof stage,
 static int opening(int yes,int flags) {if(yes&&(flags&(O_WRONLY|O_RDWR))){boundary("open");if(is("open")){errno=EACCES;return -1;}}return 0;}
 int open(const char *p,int f,...) {mode_t m=0;if(f&O_CREAT){va_list a;va_start(a,f);m=va_arg(a,int);va_end(a);}int (*real)(const char*,int,...)=dlsym(RTLD_NEXT,"open");if(opening(owned(p),f))return -1;return real(p,f,m);}
 int open64(const char *p,int f,...) {mode_t m=0;if(f&O_CREAT){va_list a;va_start(a,f);m=va_arg(a,int);va_end(a);}int (*real)(const char*,int,...)=dlsym(RTLD_NEXT,"open64");if(opening(owned(p),f))return -1;return real(p,f,m);}
-int openat(int d,const char *p,int f,...) {mode_t m=0;if(f&O_CREAT){va_list a;va_start(a,f);m=va_arg(a,int);va_end(a);}int (*real)(int,const char*,int,...)=dlsym(RTLD_NEXT,"openat");if(opening(target_fd(d)||owned(p),f))return -1;return real(d,p,f,m);}
+int openat(int d,const char *p,int f,...) {mode_t m=0;if(f&O_CREAT){va_list a;va_start(a,f);m=va_arg(a,int);va_end(a);}int (*real)(int,const char*,int,...)=dlsym(RTLD_NEXT,"openat");if(target_fd(d)&&(f&O_DIRECTORY)&&!strncmp(p,".naro-backup-",13)){boundary("stage-open");if(is("stage-open")){errno=EACCES;return -1;}}if(opening(target_fd(d)||owned(p),f))return -1;return real(d,p,f,m);}
 ssize_t write(int fd,const void *p,size_t n) {
  ssize_t (*real)(int,const void*,size_t)=dlsym(RTLD_NEXT,"write");
  if(target_fd(fd)){boundary("write");writes++;if(is("eintr")&&writes==1){errno=EINTR;return -1;}if(is("eio")){errno=EIO;return -1;}if(is("enospc")){errno=ENOSPC;return -1;}if(is("zero"))return 0;if(is("partial-eio")&&writes>1){errno=EIO;return -1;}if((is("short")||is("partial-eio"))&&n>2)n=2;}
@@ -40,7 +40,7 @@ int fsync(int fd) {
    const char *phase=point?"stage-sync":(++parent_syncs==1?"parent-sync":"final-parent-sync");
    boundary(phase);if(is(phase)){errno=EIO;return -1;}
   }
-  if((dir&&is("dir-sync"))||(!dir&&is("file-sync"))){errno=EIO;return -1;}if(is("sync-eintr")&&syncs++==0){errno=EINTR;return -1;}}int r=real(fd);if(!r&&hit&&dir){if(backup_phase()){backup_done=1;writes=0;syncs=0;}else directory_synced=1;}return r;
+  if((dir&&is("dir-sync"))||(!dir&&is("file-sync"))){errno=EIO;return -1;}if(is("sync-eintr")&&syncs++==0){errno=EINTR;return -1;}}int r=real(fd);if(!r&&hit&&dir){if(backup_phase()){if(++backup_dir_syncs==3){backup_done=1;backup_dir_syncs=0;writes=0;syncs=0;}}else directory_synced=1;}return r;
 }
 int unlinkat(int dir,const char *path,int flags) {
  int (*real)(int,const char*,int)=dlsym(RTLD_NEXT,"unlinkat");
@@ -66,7 +66,7 @@ int close(int fd) {
 int rename(const char *a,const char *b) {int (*real)(const char*,const char*)=dlsym(RTLD_NEXT,"rename");if(owned(b)){boundary("rename");if(is("rename")){errno=EIO;return -1;}}int r=real(a,b);if(!r&&owned(b))boundary("committed");return r;}
 int renameat(int a,const char *p,int b,const char *q) {int (*real)(int,const char*,int,const char*)=dlsym(RTLD_NEXT,"renameat");int hit=target_fd(b)||owned(q);if(hit){boundary("rename");if(is("rename")){errno=EIO;return -1;}}int r=real(a,p,b,q);if(!r&&hit)boundary("committed");return r;}
 ssize_t read(int fd,void *p,size_t n) {static int reads;ssize_t (*real)(int,void*,size_t)=dlsym(RTLD_NEXT,"read");if(target_fd(fd)){boundary("read");reads++;if(is("read-eio")){errno=EIO;return -1;}if(is("read-eintr")&&reads==1){errno=EINTR;return -1;}}return real(fd,p,n);}
-int fchmod(int fd,mode_t mode) {int (*real)(int,mode_t)=dlsym(RTLD_NEXT,"fchmod");if(target_fd(fd)&&is("metadata")){boundary("metadata");errno=EPERM;return -1;}return real(fd,mode);}
+int fchmod(int fd,mode_t mode) {int (*real)(int,mode_t)=dlsym(RTLD_NEXT,"fchmod");struct stat st;if(target_fd(fd)&&fstat(fd,&st)==0){if(S_ISDIR(st.st_mode)){boundary("stage-metadata");if(is("stage-metadata")){errno=EPERM;return -1;}}else if(S_ISREG(st.st_mode)){boundary("metadata");if(is("metadata")){errno=EPERM;return -1;}}}return real(fd,mode);}
 int fsetxattr(int fd,const char *name,const void *value,size_t size,int flags) {int (*real)(int,const char*,const void*,size_t,int)=dlsym(RTLD_NEXT,"fsetxattr");if(target_fd(fd)&&is("xattr")){boundary("xattr");errno=EPERM;return -1;}return real(fd,name,value,size,flags);}
 
 ssize_t pread64(int fd,void *p,size_t n,off64_t offset) {

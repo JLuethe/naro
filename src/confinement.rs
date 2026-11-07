@@ -14,9 +14,18 @@ unsafe extern "C" {
     fn nr_confined_open(root: i32, path: *const std::ffi::c_char, directory: i32) -> i32;
     fn nr_at_open(dir: i32, name: *const std::ffi::c_char, operation: i32, mode: u32) -> i32;
     fn nr_at_unlink(dir: i32, name: *const std::ffi::c_char) -> i32;
-    fn nr_at_rename(
-        dir: i32,
+    fn nr_at_rmdir(dir: i32, name: *const std::ffi::c_char) -> i32;
+    fn nr_at_private_child(dir: i32, name: *const std::ffi::c_char) -> i32;
+    fn nr_at_rename_between(
+        from: i32,
         source: *const std::ffi::c_char,
+        to: i32,
+        target: *const std::ffi::c_char,
+    ) -> i32;
+    fn nr_at_link_between(
+        from: i32,
+        source: *const std::ffi::c_char,
+        to: i32,
         target: *const std::ffi::c_char,
     ) -> i32;
     fn nr_directory_chdir(dir: i32) -> i32;
@@ -207,15 +216,45 @@ impl Parent {
             Ok(())
         }
     }
-    /// Publish a sibling entry without opening or writing the old target.
-    pub fn rename_sibling(&self, target: &Path) -> io::Result<()> {
-        if target.components().count() != 1 || target.file_name().is_none() {
-            return Err(io::ErrorKind::InvalidInput.into());
+    pub fn remove_directory(&self) -> io::Result<()> {
+        let name = cpath(&self.name)?;
+        if unsafe { nr_at_rmdir(self.directory.as_raw_fd(), name.as_ptr()) } < 0 {
+            Err(io::Error::last_os_error())
+        } else {
+            Ok(())
         }
+    }
+    pub fn private_child(&self) -> io::Result<Self> {
+        let name = cpath(&self.name)?;
+        let directory =
+            descriptor(unsafe { nr_at_private_child(self.directory.as_raw_fd(), name.as_ptr()) })?;
+        Ok(Self {
+            directory,
+            name: PathBuf::from("content"),
+            confined: self.confined,
+        })
+    }
+    pub fn publish_to(&self, target: &Self, replace: bool) -> io::Result<()> {
         let source = cpath(&self.name)?;
-        let target = cpath(target)?;
-        if unsafe { nr_at_rename(self.directory.as_raw_fd(), source.as_ptr(), target.as_ptr()) } < 0
-        {
+        let destination = cpath(&target.name)?;
+        let result = unsafe {
+            if replace {
+                nr_at_rename_between(
+                    self.directory.as_raw_fd(),
+                    source.as_ptr(),
+                    target.directory.as_raw_fd(),
+                    destination.as_ptr(),
+                )
+            } else {
+                nr_at_link_between(
+                    self.directory.as_raw_fd(),
+                    source.as_ptr(),
+                    target.directory.as_raw_fd(),
+                    destination.as_ptr(),
+                )
+            }
+        };
+        if result < 0 {
             Err(io::Error::last_os_error())
         } else {
             Ok(())

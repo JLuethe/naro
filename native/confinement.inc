@@ -79,9 +79,43 @@ int nr_at_open(int dir,const char *name,int operation,unsigned int mode) {
     }
     return fd;
 }
-int nr_at_rename(int dir,const char *source,const char *target) {
-    return renameat(dir,source,dir,target);
+int nr_at_private_child(int dir,const char *name) {
+    struct stat parent,entry,opened;
+    int identified=0,fd=-1;
+    if(fstat(dir,&parent)<0)return -1;
+    if(mkdirat(dir,name,0700)<0)return -1;
+    if(fstatat(dir,name,&entry,AT_SYMLINK_NOFOLLOW)<0)goto fail;
+    identified=1;
+    fd=openat(dir,name,O_RDONLY|O_DIRECTORY|O_NOFOLLOW|O_CLOEXEC);
+    if(fd<0)goto fail;
+    if(fstat(fd,&opened)<0)goto fail;
+    if(!S_ISDIR(opened.st_mode)||opened.st_uid!=geteuid()||
+       opened.st_dev!=parent.st_dev||opened.st_dev!=entry.st_dev||
+       opened.st_ino!=entry.st_ino){errno=ESTALE;goto fail;}
+    if(fchmod(fd,(opened.st_mode&S_ISGID)|0700)<0)goto fail;
+    if(fstat(fd,&opened)<0)goto fail;
+    if(!S_ISDIR(opened.st_mode)||opened.st_uid!=geteuid()||
+       opened.st_dev!=entry.st_dev||opened.st_ino!=entry.st_ino||
+       (opened.st_mode&0077)!=0){errno=EACCES;goto fail;}
+    return fd;
+fail:;
+    int error=errno;
+    if(fd>=0)close(fd);
+    if(identified){
+        struct stat current;
+        if(fstatat(dir,name,&current,AT_SYMLINK_NOFOLLOW)==0&&
+           current.st_dev==entry.st_dev&&current.st_ino==entry.st_ino)
+            unlinkat(dir,name,AT_REMOVEDIR);
+    }
+    errno=error;return -1;
 }
+int nr_at_rename_between(int from,const char *source,int to,const char *target) {
+    return renameat(from,source,to,target);
+}
+int nr_at_link_between(int from,const char *source,int to,const char *target) {
+    return linkat(from,source,to,target,0);
+}
+int nr_at_rmdir(int dir,const char *name) {return unlinkat(dir,name,AT_REMOVEDIR);}
 int nr_at_unlink(int dir,const char *name) {return unlinkat(dir,name,0);}
 #include <dirent.h>
 void *nr_directory_stream(int fd) {

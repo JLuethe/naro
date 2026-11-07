@@ -189,20 +189,22 @@ fn backups_replace_regular_files_and_links_without_writing_through_them() {
 fn backup_cleanup_keeps_collisions_and_replaced_entries() {
     let fixture = Fixture::new("cleanup");
     let name = fixture.0.join("temporary");
+    let target = fixture.0.join("backup");
     let parent = Parent::open(&Config::new(false), &name).unwrap();
     fs::write(&name, b"collision").unwrap();
     assert!(
-        matches!(BackupOutput::create(parent), Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists)
+        matches!(BackupOutput::create(parent, Parent::open(&Config::new(false), &target).unwrap()), Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists)
     );
     assert_eq!(fs::read(&name).unwrap(), b"collision");
     fs::remove_file(&name).unwrap();
     let parent = Parent::open(&Config::new(false), &name).unwrap();
-    let output = BackupOutput::create(parent).unwrap();
+    let output =
+        BackupOutput::create(parent, Parent::open(&Config::new(false), &target).unwrap()).unwrap();
     fs::rename(&name, fixture.0.join("held")).unwrap();
     fs::write(&name, b"replacement entry").unwrap();
     drop(output);
     assert_eq!(fs::read(&name).unwrap(), b"replacement entry");
-    assert!(fixture.0.join("held").is_file());
+    assert!(fixture.0.join("held").is_dir());
 }
 
 #[test]
@@ -211,11 +213,18 @@ fn backup_publish_rejects_replaced_temp_and_keeps_existing_backup() {
     let name = fixture.0.join("temporary");
     let backup = fixture.0.join("backup");
     fs::write(&backup, b"previous backup").unwrap();
-    let output = BackupOutput::create(Parent::open(&Config::new(false), &name).unwrap()).unwrap();
-    fs::rename(&name, fixture.0.join("held")).unwrap();
-    fs::write(&name, b"replacement entry").unwrap();
-    assert!(output.finish(Some(Path::new("backup"))).is_err());
-    assert_eq!(fs::read(&name).unwrap(), b"replacement entry");
+    let output = BackupOutput::create(
+        Parent::open(&Config::new(false), &name).unwrap(),
+        Parent::open(&Config::new(false), &backup).unwrap(),
+    )
+    .unwrap();
+    fs::rename(name.join("content"), name.join("held")).unwrap();
+    fs::write(name.join("content"), b"replacement entry").unwrap();
+    assert!(output.finish(true).is_err());
+    assert_eq!(
+        fs::read(name.join("content")).unwrap(),
+        b"replacement entry"
+    );
     assert_eq!(fs::read(&backup).unwrap(), b"previous backup");
 }
 

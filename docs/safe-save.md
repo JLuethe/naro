@@ -89,38 +89,35 @@ sticky directory owned by the editor or root.
 
 ## Backup safety
 
-Backup output is written to a newly and exclusively created file, with the
-existing owner/group, permission and timestamp handling. The normal backup is
-published from a sibling temporary file only after its contents and metadata
-are synced and its close succeeds, then the backup directory is synced. An
-opened backup parent must pass the same owner/sticky permission check as the
-document save parent before temporary creation. Its owner must be the editor
-or root; group or other write permission requires a sticky bit. The group mode
-bits include the POSIX ACL mask. This applies to configured backup directories
-and to the home-directory fallback. In any backup parent traversable by group
-or other users, the backup also refuses to restore a foreign owner or
-group/other write bits to the temporary file. The execute bits on the opened
-parent, including the effective POSIX ACL mask, conservatively determine that
-access. The check uses metadata from the opened source and runs before changing
-the editor-owned mode-0600 temporary entry. A foreign owner can edit the file
-after chown in a mode-0755 directory and can also move it in a sticky shared
-directory; another permitted writer can change its bytes after chmod. A
-mode-0700 backup directory retains the full ownership and mode restoration
-policy. This fail-closed rule avoids
-publishing an entry another UID can replace or edit between the identity check
-and rename. A nonsticky shared configured backup directory triggers the existing
-home fallback when allowed; confined saves and failed fallbacks use the backup
-confirmation flow. Use an editor-owned private directory or a trusted-owner
-sticky directory. An existing backup entry is replaced by rename; its inode is
-never opened for writing, even with `allow_insecure_backup`. Hard links and symbolic links at
-the backup name therefore cannot redirect output into the save destination or
-another existing file. The option remains accepted for configuration
-compatibility, but does not enable truncating existing backup objects.
+Backup output is written to a newly and exclusively created file inside a
+unique mode-0700 staging directory beneath the opened backup parent. Metadata
+and content are finalized and the file is synced and closed while that child
+remains private. A held child descriptor supplies the published file. The
+normal backup uses cross-directory `renameat` to replace the backup name; the
+home fallback uses `linkat` to retain exclusive-create semantics, then removes
+the private source name. The child and backup parent are synced, the empty
+child is removed, and the parent is synced again before success. A failure
+after publication reports an error without rolling back the complete backup.
+
+The opened backup parent must pass the same owner/sticky permission check as
+the document save parent before staging. Its owner must be the editor or root;
+group or other write permission requires a sticky bit. The group mode bits
+include the POSIX ACL mask. This applies to configured backup directories,
+sibling backups, and the home fallback. The private child prevents another UID
+from reaching a temporary file even when final metadata makes that UID its
+owner or grants group/other write. A foreign UID cannot move the editor-owned
+child entry in an authorized parent. Nonsticky shared configured backup
+directories still trigger the existing home fallback when allowed; confined
+saves and failed fallbacks use the backup confirmation flow. Existing backup
+entries are replaced as entries and are never opened for writing, including
+with `allow_insecure_backup`. The option remains accepted for configuration
+compatibility but never enables truncating existing backup objects.
 
 A failed unpublished attempt retains any previous backup. Error cleanup checks
-the created entry's identity before removing it, and leaves colliding or
-substituted entries alone. The existing home-directory fallback uses exclusive
-creation and the same checked write, metadata, sync and close handling. Backup
+the created file and staging-directory identities before removing them, and
+leaves colliding or substituted entries alone. The home-directory fallback
+uses exclusive publication after the same checked write, metadata, sync and
+close handling. Backup
 failures retain the existing confirmation flow. A published backup, including
 one whose directory sync failed, may remain after a failed save or fallback;
 that side effect never permits changing the destination before the save's own

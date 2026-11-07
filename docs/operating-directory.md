@@ -20,8 +20,9 @@ The held child descriptor remains the publication source after a same-UID
 entry change in an otherwise authorized parent.
 A missing final filename is allowed only after its existing
 parent has been opened successfully. Other resolution errors deny access.
-Backups read a pinned source descriptor and, when confined, create in an
-authorized parent. Confined backups never fall back to the home directory and
+Backups read a pinned source descriptor and create a private staging child in
+an authorized opened parent. Publication uses the held child descriptor.
+Confined backups never fall back to the home directory and
 always use exclusive creation, including with `allow_insecure_backup` enabled.
 An explicitly configured backup directory must also be within the root.
 Backup publication additionally refuses a parent whose owner/sticky permission

@@ -14,8 +14,8 @@ PREVIOUS = b"previous backup\n"
 SAVE_FAULTS = ("none", "short", "open", "zero", "eio", "enospc", "partial-eio",
                "file-sync", "close", "rename", "metadata", "source-close",
                "dir-sync", "directory-close")
-BACKUP_FAULTS = ("open", "zero", "eio", "enospc", "partial-eio", "file-sync",
-                 "close", "rename", "metadata", "dir-sync", "read-eio")
+BACKUP_FAULTS = ("stage-open", "stage-metadata", "open", "zero", "eio", "enospc",
+                 "partial-eio", "file-sync", "close", "rename", "metadata", "dir-sync", "read-eio")
 
 
 def run_case(binary, preload, root, mode, fault, phase, kind, insecure, confined):
