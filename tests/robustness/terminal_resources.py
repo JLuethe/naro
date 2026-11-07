@@ -111,7 +111,15 @@ def run_case(binary, out, multi, tiny):
             if os.waitid(os.P_PID, process.pid, os.WEXITED | os.WNOHANG | os.WNOWAIT):
                 break
         else:
-            raise AssertionError('editor did not close its unmodified buffers')
+            # Under emulation the queued keypresses may take longer to repaint
+            # each buffer. Keep the original elapsed bound while allowing the
+            # editor to consume the already supplied input.
+            while time.monotonic() - started < TIME_SECONDS:
+                drain(.1)
+                if os.waitid(os.P_PID, process.pid, os.WEXITED | os.WNOHANG | os.WNOWAIT):
+                    break
+            else:
+                raise AssertionError('editor did not close its unmodified buffers')
         _, status, usage = os.wait4(process.pid, 0)
         reaped = True
         process.returncode = os.waitstatus_to_exitcode(status)
