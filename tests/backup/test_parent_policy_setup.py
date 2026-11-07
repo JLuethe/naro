@@ -27,6 +27,23 @@ POLICIES = (
 
 
 class ParentPolicySetupTests(unittest.TestCase):
+    def test_foreign_fixture_is_created_by_actor_without_chown(self):
+        policy = POLICIES[0]
+        with tempfile.TemporaryDirectory() as temp:
+            data = Path(temp)
+            target = data / "target"
+            calls = []
+            def fake_run(*args, **kwargs):
+                calls.append((args, kwargs))
+                self.assertEqual(data.stat().st_mode & 0o777, 0o777)
+                target.write_bytes(policy.OLD)
+                return type("Result", (), {"returncode": 0, "stderr": ""})()
+            with mock.patch.object(policy.subprocess, "run", side_effect=fake_run), \
+                 mock.patch.object(policy.os, "chown", side_effect=AssertionError("chown used")):
+                policy.create_foreign_target(data, target, data.stat().st_uid)
+            self.assertEqual(len(calls), 1)
+            self.assertEqual(data.stat().st_mode & 0o777, 0o755)
+
     def test_distinct_actor_uses_an_id_mapped_in_both_tables(self):
         policy = POLICIES[0]
         self.assertEqual(policy.select_distinct_id("0 1000 1\n100000 100000 65536\n",

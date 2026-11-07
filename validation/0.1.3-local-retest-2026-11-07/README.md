@@ -120,4 +120,11 @@ that runner. The foreign-owner setup returned `EINVAL`; CI correctly stopped.
 The parent-policy fixture now selects an ID that appears in both actual
 namespace maps and records it in the observation. This is a test-environment
 correction; the production code and frozen executable hashes remain unchanged.
+The next CI run at `da0bd60` advanced past mapped-ID selection but returned
+`EPERM` while its namespace tried to `chown` the foreign-owned fixture. The
+fixture now has the mapped actor create that file under a disposable directory,
+then restores the directory's permissions before the editor operation. The
+first actor-created attempt exposed this host's private home-directory traversal;
+using a relative fixture path from the inherited working directory corrected
+it. Both failed attempts remain nonpassing evidence, not product passes.
 No tag, download, release, PR, or issue closure follows from this local report.

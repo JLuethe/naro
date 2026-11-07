@@ -46,3 +46,6 @@ The parent-policy distinct-UID fixtures select a nonzero ID present in both
 `/proc/self/uid_map` and `/proc/self/gid_map`. Namespace layouts vary by host;
 if no shared distinct ID is mapped, the runner records a missing prerequisite
 and exits nonzero. The chosen ID is retained in each observation.
+The foreign-owned target is created by that actor in a disposable writable
+fixture directory, then the directory is restored to mode 0755 before the
+editor runs. This avoids depending on `chown` privileges in rootless CI.

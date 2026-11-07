@@ -46,6 +46,11 @@ now chooses a common mapped nonzero ID from `/proc/self/{uid,gid}_map`, records
 that ID, and reports a missing prerequisite with a nonzero exit if none exists.
 This corrects fixture portability without changing the product or accepting a
 failed case.
+The following `da0bd60` CI run reached the mapped foreign-owner setup but the
+rootless namespace lacked `chown` permission there. The fixture now has the
+mapped actor create the foreign-owned target, with the temporary writable
+parent restored before the candidate operation. The local actor-created
+fixture passes five distinct-UID cases; CI remains a separate gate.
 
 `tests/remediation/differential.py` inventories and executes every applicable
 production scenario in `spec/evidence/scenarios` and

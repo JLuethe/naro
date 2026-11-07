@@ -147,6 +147,27 @@ else:
         raise InfrastructureError(f"mapped actor exited {actor.returncode}: {actor.stderr}")
 
 
+def create_foreign_target(data, target, actor_id):
+    """Let the mapped actor own the fixture without requiring host chown."""
+    code = """from pathlib import Path
+import sys
+Path(sys.argv[1]).write_bytes(b'original fixture\\n')
+"""
+    def drop():
+        os.setgroups([])
+        os.setgid(actor_id)
+        os.setuid(actor_id)
+    data.chmod(0o777)
+    try:
+        actor = subprocess.run([sys.executable, "-c", code, os.path.relpath(target)],
+                               preexec_fn=drop, capture_output=True, text=True, timeout=5)
+    finally:
+        data.chmod(0o755)
+    if actor.returncode:
+        raise InfrastructureError(f"foreign-owner fixture actor exited {actor.returncode}: {actor.stderr}")
+    assert target.stat().st_uid == actor_id and target.read_bytes() == OLD
+
+
 def run_case(binary, preload, base, kind, distinct_uid):
     actor_id = mapped_distinct_id() if distinct_uid else None
     data = base / "root/data"
@@ -154,11 +175,14 @@ def run_case(binary, preload, base, kind, distinct_uid):
     data.mkdir(parents=True)
     backups.mkdir()
     target = data / "target"
-    target.write_bytes(OLD)
     if kind.startswith("foreign-owner-"):
         assert os.geteuid() == 0, "foreign ownership requires namespace root"
         assert actor_id is not None, "foreign ownership requires a distinct actor"
-        os.chown(target, actor_id, actor_id)
+        create_foreign_target(data, target, actor_id)
+    else:
+        target.write_bytes(OLD)
+    if kind.startswith("foreign-owner-"):
+        assert target.stat().st_uid == actor_id
     elif kind.startswith("writable-mode-"):
         target.chmod(0o666)
     target_before = identity(target)
