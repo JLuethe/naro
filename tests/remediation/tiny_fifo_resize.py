@@ -3,7 +3,8 @@
 
 The pinned GNU scenario remains unchanged. This candidate-only check retains
 its file, exit, terminal-reset, and interruption assertions, then adds exact
-title and status rows for NARO's documented full redraw on resize.
+title and status rows for NARO's documented full redraw on resize. The existing
+fortified-open adapter makes the FIFO gate reach NARO's open path.
 """
 import argparse
 import copy
@@ -14,6 +15,9 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "spec/tools"))
+from open_gate import adapt_tiny_safety_case
+
 ORIGINAL = ROOT / "tests/follow-up/scenarios/tiny-safety.json"
 CASE_ID = "TEST-TINY-FIFO-RESIZE-SAFETY"
 
@@ -25,7 +29,8 @@ def main():
     args = parser.parse_args()
     binary = args.binary.resolve(strict=True)
     source = json.loads(ORIGINAL.read_text())
-    case = copy.deepcopy(next(row for row in source if row["id"] == CASE_ID))
+    case = adapt_tiny_safety_case(copy.deepcopy(next(
+        row for row in source if row["id"] == CASE_ID)))
     case["id"] = "TEST-NARO-TINY-FIFO-RESIZE-70"
     case["expect"]["screen"].extend([
         {"snapshot": "after-interrupted", "row": 0,
