@@ -1,0 +1,3386 @@
+{
+  "binary": "/home/john/Code/naro/target/issue-12-bounded/target/debug/deps/naro-92b0cf5a83e9781f",
+  "sha256": "81b38a557283cb319e22e8a566d4a1eae61f3c71c0a6ee4b9a3e22f0ef2181e0",
+  "tiny": true,
+  "reader_sha256": null,
+  "cases": [
+    {
+      "name": "save-none-none-mode0-existing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5836797
+        ],
+        "parent": [
+          58,
+          5836798
+        ],
+        "outside_parent": [
+          58,
+          5836799
+        ],
+        "target": [
+          58,
+          5836800
+        ],
+        "outside": [
+          58,
+          5836801
+        ],
+        "other": [
+          58,
+          5836802
+        ]
+      },
+      "gate": {},
+      "opened": {
+        "source": [
+          58,
+          5836800
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5836798
+      ],
+      "destination_after": [
+        58,
+        5836808
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-none-none-mode0-missing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5836813
+        ],
+        "parent": [
+          58,
+          5836814
+        ],
+        "outside_parent": [
+          58,
+          5836815
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5836816
+        ],
+        "other": [
+          58,
+          5836817
+        ]
+      },
+      "gate": {},
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5836814
+      ],
+      "destination_after": [
+        58,
+        5836823
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-source-open-parent-symlink-mode0-existing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5836827
+        ],
+        "parent": [
+          58,
+          5836828
+        ],
+        "outside_parent": [
+          58,
+          5836829
+        ],
+        "target": [
+          58,
+          5836830
+        ],
+        "outside": [
+          58,
+          5836831
+        ],
+        "other": [
+          58,
+          5836832
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5836828
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5836830
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5836828
+      ],
+      "destination_after": [
+        58,
+        5836841
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-source-open-parent-exchange-mode0-existing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5836845
+        ],
+        "parent": [
+          58,
+          5836846
+        ],
+        "outside_parent": [
+          58,
+          5836847
+        ],
+        "target": [
+          58,
+          5836848
+        ],
+        "outside": [
+          58,
+          5836849
+        ],
+        "other": [
+          58,
+          5836850
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5836846
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5836848
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5836846
+      ],
+      "destination_after": [
+        58,
+        5836858
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-source-open-target-symlink-mode0-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-source-open-target-symlink-mode0-existing/root/data/target: Too many levels of symbolic links (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5836862
+        ],
+        "parent": [
+          58,
+          5836863
+        ],
+        "outside_parent": [
+          58,
+          5836864
+        ],
+        "target": [
+          58,
+          5836865
+        ],
+        "outside": [
+          58,
+          5836866
+        ],
+        "other": [
+          58,
+          5836867
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5836863
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5836863
+      ],
+      "destination_after": [
+        58,
+        5836866
+      ],
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-source-open-target-exchange-mode0-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-source-open-target-exchange-mode0-existing/root/data/target: Stale file handle (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5836878
+        ],
+        "parent": [
+          58,
+          5836879
+        ],
+        "outside_parent": [
+          58,
+          5836880
+        ],
+        "target": [
+          58,
+          5836881
+        ],
+        "outside": [
+          58,
+          5836882
+        ],
+        "other": [
+          58,
+          5836883
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5836879
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5836883
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5836879
+      ],
+      "destination_after": [
+        58,
+        5836883
+      ],
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-source-open-target-remove-mode0-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-source-open-target-remove-mode0-existing/root/data/target: No such file or directory (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5836894
+        ],
+        "parent": [
+          58,
+          5836895
+        ],
+        "outside_parent": [
+          58,
+          5836896
+        ],
+        "target": [
+          58,
+          5836897
+        ],
+        "outside": [
+          58,
+          5836898
+        ],
+        "other": [
+          58,
+          5836899
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5836895
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5836895
+      ],
+      "destination_after": null,
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-parent-symlink-mode0-existing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5836909
+        ],
+        "parent": [
+          58,
+          5836910
+        ],
+        "outside_parent": [
+          58,
+          5836911
+        ],
+        "target": [
+          58,
+          5836912
+        ],
+        "outside": [
+          58,
+          5836913
+        ],
+        "other": [
+          58,
+          5836914
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5836910
+        ],
+        "source": [
+          58,
+          5836912
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5836912
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5836910
+      ],
+      "destination_after": [
+        58,
+        5836923
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-parent-exchange-mode0-existing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5836927
+        ],
+        "parent": [
+          58,
+          5836928
+        ],
+        "outside_parent": [
+          58,
+          5836929
+        ],
+        "target": [
+          58,
+          5836930
+        ],
+        "outside": [
+          58,
+          5836931
+        ],
+        "other": [
+          58,
+          5836932
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5836928
+        ],
+        "source": [
+          58,
+          5836930
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5836930
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5836928
+      ],
+      "destination_after": [
+        58,
+        5836940
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-target-symlink-mode0-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-temp-open-target-symlink-mode0-existing/root/data/target: Stale file handle (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5836944
+        ],
+        "parent": [
+          58,
+          5836945
+        ],
+        "outside_parent": [
+          58,
+          5836946
+        ],
+        "target": [
+          58,
+          5836947
+        ],
+        "outside": [
+          58,
+          5836948
+        ],
+        "other": [
+          58,
+          5836949
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5836945
+        ],
+        "source": [
+          58,
+          5836947
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5836947
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5836945
+      ],
+      "destination_after": [
+        58,
+        5836948
+      ],
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-target-exchange-mode0-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-temp-open-target-exchange-mode0-existing/root/data/target: Stale file handle (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5836962
+        ],
+        "parent": [
+          58,
+          5836963
+        ],
+        "outside_parent": [
+          58,
+          5836964
+        ],
+        "target": [
+          58,
+          5836965
+        ],
+        "outside": [
+          58,
+          5836966
+        ],
+        "other": [
+          58,
+          5836967
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5836963
+        ],
+        "source": [
+          58,
+          5836965
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5836965
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5836963
+      ],
+      "destination_after": [
+        58,
+        5836967
+      ],
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-target-remove-mode0-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-temp-open-target-remove-mode0-existing/root/data/target: Stale file handle (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5836979
+        ],
+        "parent": [
+          58,
+          5836980
+        ],
+        "outside_parent": [
+          58,
+          5836981
+        ],
+        "target": [
+          58,
+          5836982
+        ],
+        "outside": [
+          58,
+          5836983
+        ],
+        "other": [
+          58,
+          5836984
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5836980
+        ],
+        "source": [
+          58,
+          5836982
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5836982
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5836980
+      ],
+      "destination_after": null,
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-parent-symlink-mode0-existing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5836996
+        ],
+        "parent": [
+          58,
+          5836997
+        ],
+        "outside_parent": [
+          58,
+          5836998
+        ],
+        "target": [
+          58,
+          5836999
+        ],
+        "outside": [
+          58,
+          5837000
+        ],
+        "other": [
+          58,
+          5837001
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5836997
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5836999
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5836997
+      ],
+      "destination_after": [
+        58,
+        5837007
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-parent-exchange-mode0-existing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5837014
+        ],
+        "parent": [
+          58,
+          5837015
+        ],
+        "outside_parent": [
+          58,
+          5837016
+        ],
+        "target": [
+          58,
+          5837017
+        ],
+        "outside": [
+          58,
+          5837018
+        ],
+        "other": [
+          58,
+          5837019
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837015
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837017
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837015
+      ],
+      "destination_after": [
+        58,
+        5837025
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-target-symlink-mode0-existing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5837031
+        ],
+        "parent": [
+          58,
+          5837032
+        ],
+        "outside_parent": [
+          58,
+          5837033
+        ],
+        "target": [
+          58,
+          5837034
+        ],
+        "outside": [
+          58,
+          5837035
+        ],
+        "other": [
+          58,
+          5837036
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837032
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837034
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837032
+      ],
+      "destination_after": [
+        58,
+        5837042
+      ],
+      "outcome": "published-without-CAS",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-target-exchange-mode0-existing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5837049
+        ],
+        "parent": [
+          58,
+          5837050
+        ],
+        "outside_parent": [
+          58,
+          5837051
+        ],
+        "target": [
+          58,
+          5837052
+        ],
+        "outside": [
+          58,
+          5837053
+        ],
+        "other": [
+          58,
+          5837054
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837050
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837052
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837050
+      ],
+      "destination_after": [
+        58,
+        5837060
+      ],
+      "outcome": "published-without-CAS",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-target-remove-mode0-existing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5837066
+        ],
+        "parent": [
+          58,
+          5837067
+        ],
+        "outside_parent": [
+          58,
+          5837068
+        ],
+        "target": [
+          58,
+          5837069
+        ],
+        "outside": [
+          58,
+          5837070
+        ],
+        "other": [
+          58,
+          5837071
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837067
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837069
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837067
+      ],
+      "destination_after": [
+        58,
+        5837077
+      ],
+      "outcome": "published-without-CAS",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-parent-symlink-mode0-missing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5837083
+        ],
+        "parent": [
+          58,
+          5837084
+        ],
+        "outside_parent": [
+          58,
+          5837085
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837086
+        ],
+        "other": [
+          58,
+          5837087
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837084
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837084
+      ],
+      "destination_after": [
+        58,
+        5837095
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-parent-exchange-mode0-missing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5837099
+        ],
+        "parent": [
+          58,
+          5837100
+        ],
+        "outside_parent": [
+          58,
+          5837101
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837102
+        ],
+        "other": [
+          58,
+          5837103
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837100
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837100
+      ],
+      "destination_after": [
+        58,
+        5837110
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-target-symlink-mode0-missing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-temp-open-target-symlink-mode0-missing/root/data/target: File exists (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837114
+        ],
+        "parent": [
+          58,
+          5837115
+        ],
+        "outside_parent": [
+          58,
+          5837116
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837117
+        ],
+        "other": [
+          58,
+          5837118
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837115
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837115
+      ],
+      "destination_after": [
+        58,
+        5837117
+      ],
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-target-create-mode0-missing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-temp-open-target-create-mode0-missing/root/data/target: File exists (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837130
+        ],
+        "parent": [
+          58,
+          5837131
+        ],
+        "outside_parent": [
+          58,
+          5837132
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837133
+        ],
+        "other": [
+          58,
+          5837134
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837131
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837131
+      ],
+      "destination_after": [
+        58,
+        5837140
+      ],
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-parent-symlink-mode0-missing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5837146
+        ],
+        "parent": [
+          58,
+          5837147
+        ],
+        "outside_parent": [
+          58,
+          5837148
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837149
+        ],
+        "other": [
+          58,
+          5837150
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837147
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837147
+      ],
+      "destination_after": [
+        58,
+        5837155
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-parent-exchange-mode0-missing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5837162
+        ],
+        "parent": [
+          58,
+          5837163
+        ],
+        "outside_parent": [
+          58,
+          5837164
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837165
+        ],
+        "other": [
+          58,
+          5837166
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837163
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837163
+      ],
+      "destination_after": [
+        58,
+        5837171
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-target-symlink-mode0-missing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5837177
+        ],
+        "parent": [
+          58,
+          5837178
+        ],
+        "outside_parent": [
+          58,
+          5837179
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837180
+        ],
+        "other": [
+          58,
+          5837181
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837178
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837178
+      ],
+      "destination_after": [
+        58,
+        5837186
+      ],
+      "outcome": "published-without-CAS",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-target-create-mode0-missing",
+      "result": "ok 1 modified=false",
+      "before": {
+        "root": [
+          58,
+          5837193
+        ],
+        "parent": [
+          58,
+          5837194
+        ],
+        "outside_parent": [
+          58,
+          5837195
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837196
+        ],
+        "other": [
+          58,
+          5837197
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837194
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837194
+      ],
+      "destination_after": [
+        58,
+        5837202
+      ],
+      "outcome": "published-without-CAS",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-none-none-mode1-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837209
+        ],
+        "parent": [
+          58,
+          5837210
+        ],
+        "outside_parent": [
+          58,
+          5837211
+        ],
+        "target": [
+          58,
+          5837212
+        ],
+        "outside": [
+          58,
+          5837213
+        ],
+        "other": [
+          58,
+          5837214
+        ]
+      },
+      "gate": {},
+      "opened": {
+        "source": [
+          58,
+          5837212
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837210
+      ],
+      "destination_after": [
+        58,
+        5837220
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-none-none-mode1-missing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837224
+        ],
+        "parent": [
+          58,
+          5837225
+        ],
+        "outside_parent": [
+          58,
+          5837226
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837227
+        ],
+        "other": [
+          58,
+          5837228
+        ]
+      },
+      "gate": {},
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837225
+      ],
+      "destination_after": [
+        58,
+        5837233
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-source-open-parent-symlink-mode1-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837237
+        ],
+        "parent": [
+          58,
+          5837238
+        ],
+        "outside_parent": [
+          58,
+          5837239
+        ],
+        "target": [
+          58,
+          5837240
+        ],
+        "outside": [
+          58,
+          5837241
+        ],
+        "other": [
+          58,
+          5837242
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837238
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837240
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837238
+      ],
+      "destination_after": [
+        58,
+        5837251
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-source-open-parent-exchange-mode1-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837255
+        ],
+        "parent": [
+          58,
+          5837256
+        ],
+        "outside_parent": [
+          58,
+          5837257
+        ],
+        "target": [
+          58,
+          5837258
+        ],
+        "outside": [
+          58,
+          5837259
+        ],
+        "other": [
+          58,
+          5837260
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837256
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837258
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837256
+      ],
+      "destination_after": [
+        58,
+        5837268
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-source-open-target-symlink-mode1-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-source-open-target-symlink-mode1-existing/root/data/target: Too many levels of symbolic links (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837272
+        ],
+        "parent": [
+          58,
+          5837273
+        ],
+        "outside_parent": [
+          58,
+          5837274
+        ],
+        "target": [
+          58,
+          5837275
+        ],
+        "outside": [
+          58,
+          5837276
+        ],
+        "other": [
+          58,
+          5837277
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837273
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837273
+      ],
+      "destination_after": [
+        58,
+        5837276
+      ],
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-source-open-target-exchange-mode1-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-source-open-target-exchange-mode1-existing/root/data/target: Stale file handle (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837288
+        ],
+        "parent": [
+          58,
+          5837289
+        ],
+        "outside_parent": [
+          58,
+          5837290
+        ],
+        "target": [
+          58,
+          5837291
+        ],
+        "outside": [
+          58,
+          5837292
+        ],
+        "other": [
+          58,
+          5837293
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837289
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837293
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837289
+      ],
+      "destination_after": [
+        58,
+        5837293
+      ],
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-source-open-target-remove-mode1-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-source-open-target-remove-mode1-existing/root/data/target: No such file or directory (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837304
+        ],
+        "parent": [
+          58,
+          5837305
+        ],
+        "outside_parent": [
+          58,
+          5837306
+        ],
+        "target": [
+          58,
+          5837307
+        ],
+        "outside": [
+          58,
+          5837308
+        ],
+        "other": [
+          58,
+          5837309
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837305
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837305
+      ],
+      "destination_after": null,
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-parent-symlink-mode1-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837319
+        ],
+        "parent": [
+          58,
+          5837320
+        ],
+        "outside_parent": [
+          58,
+          5837321
+        ],
+        "target": [
+          58,
+          5837322
+        ],
+        "outside": [
+          58,
+          5837323
+        ],
+        "other": [
+          58,
+          5837324
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837320
+        ],
+        "source": [
+          58,
+          5837322
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837322
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837320
+      ],
+      "destination_after": [
+        58,
+        5837333
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-parent-exchange-mode1-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837337
+        ],
+        "parent": [
+          58,
+          5837338
+        ],
+        "outside_parent": [
+          58,
+          5837339
+        ],
+        "target": [
+          58,
+          5837340
+        ],
+        "outside": [
+          58,
+          5837341
+        ],
+        "other": [
+          58,
+          5837342
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837338
+        ],
+        "source": [
+          58,
+          5837340
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837340
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837338
+      ],
+      "destination_after": [
+        58,
+        5837350
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-target-symlink-mode1-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-temp-open-target-symlink-mode1-existing/root/data/target: Stale file handle (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837354
+        ],
+        "parent": [
+          58,
+          5837355
+        ],
+        "outside_parent": [
+          58,
+          5837356
+        ],
+        "target": [
+          58,
+          5837357
+        ],
+        "outside": [
+          58,
+          5837358
+        ],
+        "other": [
+          58,
+          5837359
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837355
+        ],
+        "source": [
+          58,
+          5837357
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837357
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837355
+      ],
+      "destination_after": [
+        58,
+        5837358
+      ],
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-target-exchange-mode1-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-temp-open-target-exchange-mode1-existing/root/data/target: Stale file handle (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837372
+        ],
+        "parent": [
+          58,
+          5837373
+        ],
+        "outside_parent": [
+          58,
+          5837374
+        ],
+        "target": [
+          58,
+          5837375
+        ],
+        "outside": [
+          58,
+          5837376
+        ],
+        "other": [
+          58,
+          5837377
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837373
+        ],
+        "source": [
+          58,
+          5837375
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837375
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837373
+      ],
+      "destination_after": [
+        58,
+        5837377
+      ],
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-target-remove-mode1-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-temp-open-target-remove-mode1-existing/root/data/target: Stale file handle (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837389
+        ],
+        "parent": [
+          58,
+          5837390
+        ],
+        "outside_parent": [
+          58,
+          5837391
+        ],
+        "target": [
+          58,
+          5837392
+        ],
+        "outside": [
+          58,
+          5837393
+        ],
+        "other": [
+          58,
+          5837394
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837390
+        ],
+        "source": [
+          58,
+          5837392
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837392
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837390
+      ],
+      "destination_after": null,
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-parent-symlink-mode1-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837406
+        ],
+        "parent": [
+          58,
+          5837407
+        ],
+        "outside_parent": [
+          58,
+          5837408
+        ],
+        "target": [
+          58,
+          5837409
+        ],
+        "outside": [
+          58,
+          5837410
+        ],
+        "other": [
+          58,
+          5837411
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837407
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837409
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837407
+      ],
+      "destination_after": [
+        58,
+        5837417
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-parent-exchange-mode1-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837424
+        ],
+        "parent": [
+          58,
+          5837425
+        ],
+        "outside_parent": [
+          58,
+          5837426
+        ],
+        "target": [
+          58,
+          5837427
+        ],
+        "outside": [
+          58,
+          5837428
+        ],
+        "other": [
+          58,
+          5837429
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837425
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837427
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837425
+      ],
+      "destination_after": [
+        58,
+        5837435
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-target-symlink-mode1-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837441
+        ],
+        "parent": [
+          58,
+          5837442
+        ],
+        "outside_parent": [
+          58,
+          5837443
+        ],
+        "target": [
+          58,
+          5837444
+        ],
+        "outside": [
+          58,
+          5837445
+        ],
+        "other": [
+          58,
+          5837446
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837442
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837444
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837442
+      ],
+      "destination_after": [
+        58,
+        5837452
+      ],
+      "outcome": "published-without-CAS",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-target-exchange-mode1-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837459
+        ],
+        "parent": [
+          58,
+          5837460
+        ],
+        "outside_parent": [
+          58,
+          5837461
+        ],
+        "target": [
+          58,
+          5837462
+        ],
+        "outside": [
+          58,
+          5837463
+        ],
+        "other": [
+          58,
+          5837464
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837460
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837462
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837460
+      ],
+      "destination_after": [
+        58,
+        5837470
+      ],
+      "outcome": "published-without-CAS",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-target-remove-mode1-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837476
+        ],
+        "parent": [
+          58,
+          5837477
+        ],
+        "outside_parent": [
+          58,
+          5837478
+        ],
+        "target": [
+          58,
+          5837479
+        ],
+        "outside": [
+          58,
+          5837480
+        ],
+        "other": [
+          58,
+          5837481
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837477
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837479
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837477
+      ],
+      "destination_after": [
+        58,
+        5837487
+      ],
+      "outcome": "published-without-CAS",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-parent-symlink-mode1-missing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837493
+        ],
+        "parent": [
+          58,
+          5837494
+        ],
+        "outside_parent": [
+          58,
+          5837495
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837496
+        ],
+        "other": [
+          58,
+          5837497
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837494
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837494
+      ],
+      "destination_after": [
+        58,
+        5837505
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-parent-exchange-mode1-missing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837509
+        ],
+        "parent": [
+          58,
+          5837510
+        ],
+        "outside_parent": [
+          58,
+          5837511
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837512
+        ],
+        "other": [
+          58,
+          5837513
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837510
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837510
+      ],
+      "destination_after": [
+        58,
+        5837520
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-target-symlink-mode1-missing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-temp-open-target-symlink-mode1-missing/root/data/target: File exists (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837524
+        ],
+        "parent": [
+          58,
+          5837525
+        ],
+        "outside_parent": [
+          58,
+          5837526
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837527
+        ],
+        "other": [
+          58,
+          5837528
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837525
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837525
+      ],
+      "destination_after": [
+        58,
+        5837527
+      ],
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-target-create-mode1-missing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-temp-open-target-create-mode1-missing/root/data/target: File exists (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837540
+        ],
+        "parent": [
+          58,
+          5837541
+        ],
+        "outside_parent": [
+          58,
+          5837542
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837543
+        ],
+        "other": [
+          58,
+          5837544
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837541
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837541
+      ],
+      "destination_after": [
+        58,
+        5837550
+      ],
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-parent-symlink-mode1-missing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837556
+        ],
+        "parent": [
+          58,
+          5837557
+        ],
+        "outside_parent": [
+          58,
+          5837558
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837559
+        ],
+        "other": [
+          58,
+          5837560
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837557
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837557
+      ],
+      "destination_after": [
+        58,
+        5837565
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-parent-exchange-mode1-missing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837572
+        ],
+        "parent": [
+          58,
+          5837573
+        ],
+        "outside_parent": [
+          58,
+          5837574
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837575
+        ],
+        "other": [
+          58,
+          5837576
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837573
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837573
+      ],
+      "destination_after": [
+        58,
+        5837581
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-target-symlink-mode1-missing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837587
+        ],
+        "parent": [
+          58,
+          5837588
+        ],
+        "outside_parent": [
+          58,
+          5837589
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837590
+        ],
+        "other": [
+          58,
+          5837591
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837588
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837588
+      ],
+      "destination_after": [
+        58,
+        5837596
+      ],
+      "outcome": "published-without-CAS",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-target-create-mode1-missing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837603
+        ],
+        "parent": [
+          58,
+          5837604
+        ],
+        "outside_parent": [
+          58,
+          5837605
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837606
+        ],
+        "other": [
+          58,
+          5837607
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837604
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837604
+      ],
+      "destination_after": [
+        58,
+        5837612
+      ],
+      "outcome": "published-without-CAS",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-none-none-mode2-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837619
+        ],
+        "parent": [
+          58,
+          5837620
+        ],
+        "outside_parent": [
+          58,
+          5837621
+        ],
+        "target": [
+          58,
+          5837622
+        ],
+        "outside": [
+          58,
+          5837623
+        ],
+        "other": [
+          58,
+          5837624
+        ]
+      },
+      "gate": {},
+      "opened": {
+        "source": [
+          58,
+          5837622
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837620
+      ],
+      "destination_after": [
+        58,
+        5837630
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-none-none-mode2-missing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-none-none-mode2-missing/root/data/target: No such file or directory (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837634
+        ],
+        "parent": [
+          58,
+          5837635
+        ],
+        "outside_parent": [
+          58,
+          5837636
+        ],
+        "target": null,
+        "outside": [
+          58,
+          5837637
+        ],
+        "other": [
+          58,
+          5837638
+        ]
+      },
+      "gate": {},
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837635
+      ],
+      "destination_after": null,
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-source-open-parent-symlink-mode2-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837646
+        ],
+        "parent": [
+          58,
+          5837647
+        ],
+        "outside_parent": [
+          58,
+          5837648
+        ],
+        "target": [
+          58,
+          5837649
+        ],
+        "outside": [
+          58,
+          5837650
+        ],
+        "other": [
+          58,
+          5837651
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837647
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837649
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837647
+      ],
+      "destination_after": [
+        58,
+        5837660
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-source-open-parent-exchange-mode2-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837664
+        ],
+        "parent": [
+          58,
+          5837665
+        ],
+        "outside_parent": [
+          58,
+          5837666
+        ],
+        "target": [
+          58,
+          5837667
+        ],
+        "outside": [
+          58,
+          5837668
+        ],
+        "other": [
+          58,
+          5837669
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837665
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837667
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837665
+      ],
+      "destination_after": [
+        58,
+        5837677
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-source-open-target-symlink-mode2-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-source-open-target-symlink-mode2-existing/root/data/target: Too many levels of symbolic links (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837681
+        ],
+        "parent": [
+          58,
+          5837682
+        ],
+        "outside_parent": [
+          58,
+          5837683
+        ],
+        "target": [
+          58,
+          5837684
+        ],
+        "outside": [
+          58,
+          5837685
+        ],
+        "other": [
+          58,
+          5837686
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837682
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837682
+      ],
+      "destination_after": [
+        58,
+        5837685
+      ],
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-source-open-target-exchange-mode2-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-source-open-target-exchange-mode2-existing/root/data/target: Stale file handle (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837697
+        ],
+        "parent": [
+          58,
+          5837698
+        ],
+        "outside_parent": [
+          58,
+          5837699
+        ],
+        "target": [
+          58,
+          5837700
+        ],
+        "outside": [
+          58,
+          5837701
+        ],
+        "other": [
+          58,
+          5837702
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837698
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837702
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837698
+      ],
+      "destination_after": [
+        58,
+        5837702
+      ],
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-source-open-target-remove-mode2-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-source-open-target-remove-mode2-existing/root/data/target: No such file or directory (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837713
+        ],
+        "parent": [
+          58,
+          5837714
+        ],
+        "outside_parent": [
+          58,
+          5837715
+        ],
+        "target": [
+          58,
+          5837716
+        ],
+        "outside": [
+          58,
+          5837717
+        ],
+        "other": [
+          58,
+          5837718
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837714
+        ]
+      },
+      "opened": {},
+      "authorized_parent_after": [
+        58,
+        5837714
+      ],
+      "destination_after": null,
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-parent-symlink-mode2-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837728
+        ],
+        "parent": [
+          58,
+          5837729
+        ],
+        "outside_parent": [
+          58,
+          5837730
+        ],
+        "target": [
+          58,
+          5837731
+        ],
+        "outside": [
+          58,
+          5837732
+        ],
+        "other": [
+          58,
+          5837733
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837729
+        ],
+        "source": [
+          58,
+          5837731
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837731
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837729
+      ],
+      "destination_after": [
+        58,
+        5837742
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-parent-exchange-mode2-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837746
+        ],
+        "parent": [
+          58,
+          5837747
+        ],
+        "outside_parent": [
+          58,
+          5837748
+        ],
+        "target": [
+          58,
+          5837749
+        ],
+        "outside": [
+          58,
+          5837750
+        ],
+        "other": [
+          58,
+          5837751
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837747
+        ],
+        "source": [
+          58,
+          5837749
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837749
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837747
+      ],
+      "destination_after": [
+        58,
+        5837759
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-target-symlink-mode2-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-temp-open-target-symlink-mode2-existing/root/data/target: Stale file handle (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837763
+        ],
+        "parent": [
+          58,
+          5837764
+        ],
+        "outside_parent": [
+          58,
+          5837765
+        ],
+        "target": [
+          58,
+          5837766
+        ],
+        "outside": [
+          58,
+          5837767
+        ],
+        "other": [
+          58,
+          5837768
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837764
+        ],
+        "source": [
+          58,
+          5837766
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837766
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837764
+      ],
+      "destination_after": [
+        58,
+        5837767
+      ],
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-target-exchange-mode2-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-temp-open-target-exchange-mode2-existing/root/data/target: Stale file handle (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837781
+        ],
+        "parent": [
+          58,
+          5837782
+        ],
+        "outside_parent": [
+          58,
+          5837783
+        ],
+        "target": [
+          58,
+          5837784
+        ],
+        "outside": [
+          58,
+          5837785
+        ],
+        "other": [
+          58,
+          5837786
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837782
+        ],
+        "source": [
+          58,
+          5837784
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837784
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837782
+      ],
+      "destination_after": [
+        58,
+        5837786
+      ],
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-temp-open-target-remove-mode2-existing",
+      "result": "error modified=true confirm_backup=false Error writing /home/john/Code/naro/target/issue-12-bounded/target/issue12-boundary/external-reviewed-tiny/save-temp-open-target-remove-mode2-existing/root/data/target: Stale file handle (original file unchanged)",
+      "before": {
+        "root": [
+          58,
+          5837798
+        ],
+        "parent": [
+          58,
+          5837799
+        ],
+        "outside_parent": [
+          58,
+          5837800
+        ],
+        "target": [
+          58,
+          5837801
+        ],
+        "outside": [
+          58,
+          5837802
+        ],
+        "other": [
+          58,
+          5837803
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837799
+        ],
+        "source": [
+          58,
+          5837801
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837801
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837799
+      ],
+      "destination_after": null,
+      "outcome": "refused-before-publication",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-parent-symlink-mode2-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837815
+        ],
+        "parent": [
+          58,
+          5837816
+        ],
+        "outside_parent": [
+          58,
+          5837817
+        ],
+        "target": [
+          58,
+          5837818
+        ],
+        "outside": [
+          58,
+          5837819
+        ],
+        "other": [
+          58,
+          5837820
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837816
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837818
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837816
+      ],
+      "destination_after": [
+        58,
+        5837826
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-parent-exchange-mode2-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837833
+        ],
+        "parent": [
+          58,
+          5837834
+        ],
+        "outside_parent": [
+          58,
+          5837835
+        ],
+        "target": [
+          58,
+          5837836
+        ],
+        "outside": [
+          58,
+          5837837
+        ],
+        "other": [
+          58,
+          5837838
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837834
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837836
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837834
+      ],
+      "destination_after": [
+        58,
+        5837844
+      ],
+      "outcome": "authorized-parent-save",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-target-symlink-mode2-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837850
+        ],
+        "parent": [
+          58,
+          5837851
+        ],
+        "outside_parent": [
+          58,
+          5837852
+        ],
+        "target": [
+          58,
+          5837853
+        ],
+        "outside": [
+          58,
+          5837854
+        ],
+        "other": [
+          58,
+          5837855
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837851
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837853
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837851
+      ],
+      "destination_after": [
+        58,
+        5837861
+      ],
+      "outcome": "published-without-CAS",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-target-exchange-mode2-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837868
+        ],
+        "parent": [
+          58,
+          5837869
+        ],
+        "outside_parent": [
+          58,
+          5837870
+        ],
+        "target": [
+          58,
+          5837871
+        ],
+        "outside": [
+          58,
+          5837872
+        ],
+        "other": [
+          58,
+          5837873
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837869
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837871
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837869
+      ],
+      "destination_after": [
+        58,
+        5837879
+      ],
+      "outcome": "published-without-CAS",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    },
+    {
+      "name": "save-publish-target-remove-mode2-existing",
+      "result": "ok 1 modified=true",
+      "before": {
+        "root": [
+          58,
+          5837885
+        ],
+        "parent": [
+          58,
+          5837886
+        ],
+        "outside_parent": [
+          58,
+          5837887
+        ],
+        "target": [
+          58,
+          5837888
+        ],
+        "outside": [
+          58,
+          5837889
+        ],
+        "other": [
+          58,
+          5837890
+        ]
+      },
+      "gate": {
+        "parent": [
+          58,
+          5837886
+        ]
+      },
+      "opened": {
+        "source": [
+          58,
+          5837888
+        ]
+      },
+      "authorized_parent_after": [
+        58,
+        5837886
+      ],
+      "destination_after": [
+        58,
+        5837896
+      ],
+      "outcome": "published-without-CAS",
+      "temporary_leftovers": 0,
+      "status": "pass"
+    }
+  ]
+}

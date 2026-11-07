@@ -34,7 +34,10 @@ The symlink policy is deliberate:
 - Reads and directory traversal support relative symlinks whose whole resolution
   stays under the operating root. Absolute symlinks are refused, even if their
   target text names a location inside the root. Kernel magic links are refused.
-- Final-component save symlinks remain refused; save the target's path explicitly.
+- Final-component save symlinks observed during validation are refused; save the
+  target's path explicitly. Saves never follow a final symlink. A symlink inserted
+  after the final validation can itself be replaced by publication, just like any
+  concurrent final-entry replacement; this is not a compare-and-swap guarantee.
   Atomic saves replace one directory entry, preserving other hard links as
   described in [the safe-save policy](safe-save.md).
 - Confined file reads accept regular files only. FIFO and device data reads are
@@ -54,7 +57,9 @@ access remain governed by their existing trust and permission policies. In
 particular, invoking a formatter, speller or command grants that program the
 editor process's ordinary operating-system authority.
 
-The issue #12 review remains a source-supported hypothesis: this change supplies
-defensive authorization and ordinary fixture coverage, not evidence that a
-pathname race was exploited. No entry-swapping or adversarial race reproducer
-was constructed or run. See [validation](../validation/issue-12-confinement/README.md).
+The bounded issue #12 fixtures exercise controlled parent and final-entry swaps
+at source open, temporary creation, final publication, and confined read reopen.
+They support the opened-object policy for those interleavings and demonstrate
+the final-entry compare-and-swap limit; they do not establish exhaustive race
+safety or an exploited vulnerability. See
+[validation](../validation/issue-12-confinement/README.md).

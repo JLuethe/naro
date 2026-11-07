@@ -1,0 +1,88 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running unittests src/main.rs (target/debug/deps/naro-8b785946e7ffb0d9)
+
+running 82 tests
+test buffer::tests::backspace_and_delete_are_distinct_undo_groups ... ok
+test buffer::tests::compounds_marks_magic_and_line_identity_round_trip ... ok
+test buffer::tests::byte_edits_saved_and_redo ... ok
+test buffer::tests::region_splice ... ok
+test buffer::tests::generations_stay_parallel_and_unique ... ok
+test buffer::tests::spillage_join_preserves_embedded_nul ... ok
+test bytes::tests::columns_tabs ... ok
+test buffer::tests::splice_identity_follows_the_operation ... ok
+test buffer::tests::budget_overflow_discards_whole_compound_and_growing_groups ... ok
+test buffer::tests::wrap_budget_failure_never_retains_a_partial_wrap ... ok
+test bytes::tests::invalid_and_boundaries ... ok
+test bytes::tests::nul_roundtrip ... ok
+test buffer::tests::budget_eviction_barriers_and_saved_points ... ok
+test config::nanorc_regressions::byte_locale_keeps_syntax_names_and_deferred_commands ... ok
+test config::nanorc_regressions::invalid_utf8_reports_exact_file_and_line_and_continues ... ok
+test config::nanorc_regressions::raw_payloads_survive_invalid_utf8_syntax_and_binding_lines ... ok
+test config::nanorc_regressions::byte_locale_keeps_non_utf8_option_bytes ... ok
+test config::nanorc_regressions::invalid_byte_syntax_name_is_escaped_in_errors ... ok
+test config::nanorc_regressions::ignored_invalid_bytes_do_not_create_false_errors ... ok
+test config::nanorc_regressions::bracket_glob_matches_classes_and_preserves_raw_names ... ok
+test config::nanorc_regressions::system_precedes_first_user_rcfile ... ok
+test confinement::tests::confinement_directory_listing_is_authorized ... ok
+test config::nanorc_regressions::xdg_is_first_fallback_after_home_nanorc ... ok
+test confinement::tests::confinement_reads_and_metadata_use_opened_file ... ok
+test confinement::shared_tests::confinement_parent_supports_unconfined_file_operations ... ok
+test confinement::tests::confinement_rejects_unresolved_or_uninitialized_authority ... ok
+test confinement::tests::confinement_rejects_fifo_before_data_open ... ok
+test confinement::tests::confinement_rejects_paths_outside_root_and_absolute_links ... ok
+test features::completion_tests::cycling_word_completion_preserves_delta_undo ... ok
+test files::backup_tests::backup_preserves_foreign_owner_in_private_root_namespace ... ignored, requires uid 0 inside a private user namespace
+test files::backup_tests::backup_cleanup_keeps_collisions_and_replaced_entries ... ok
+test confinement::tests::confinement_syntax_matches_authorized_canonical_name ... ok
+test buffer::tests::deterministic_multiline_history_round_trips ... ok
+test confinement::tests::confinement_recovery_and_locks_use_authorized_parent ... ok
+test files::backup_tests::backup_warns_when_foreign_ownership_is_denied ... ignored, requires a prepared foreign-owned fixture in a private user namespace
+test files::backup_tests::backup_publish_rejects_replaced_temp_and_keeps_existing_backup ... ok
+test files::backup_tests::backup_preserves_mode_and_times_for_current_owner ... ok
+test confinement::tests::confinement_magic_selects_syntax_through_file_open ... ok
+test files::lock_tests::missing_owned_lock_can_be_refreshed_and_removed ... ok
+test files::lock_tests::cleanup_preserves_substituted_lock_entry ... ok
+test files::backup_tests::backup_directory_keeps_numbered_previous_copies ... ok
+test files::load_tests::multiline_without_final_lf_loads_with_aligned_metadata ... ok
+test confinement::tests::confinement_backups_stay_with_authorized_parents ... ok
+test confinement::tests::confinement_startup_pins_and_enters_root ... ok
+test files::safe_save_tests::fixture_save ... ignored, requires the owned fixture from tests/safe-save/run.py
+test files::lock_tests::only_explicit_takeover_replaces_an_unowned_lock ... ok
+test files::backup_tests::insecure_backup_replaces_a_hard_link_without_truncating_source ... ok
+test identity::tests::all_cli_help_profiles_identify_the_executable ... ok
+test identity::tests::main_help_heading_always_names_naro_without_double_prefix ... ok
+test identity::tests::version_identifies_product_and_reference_separately ... ok
+test identity::tests::observed_catalog_aliases_preserve_inflections_and_config_terms ... ok
+test identity::tests::translated_program_names_preserve_other_words ... ok
+test native::position_catalog_tests::catalog_position_message ... ignored, run in an isolated locale process through tests/catalog/run.py
+test position_message::tests::catalog_bytes_and_percent_spacing_are_preserved ... ok
+test position_message::tests::english_widths_and_large_unsigned_values ... ok
+test files::backup_tests::backup_preserves_supplementary_group_setid_and_times ... ok
+test position_message::tests::malformed_templates_use_english_without_interpreting_arguments ... ok
+test confinement::tests::confinement_new_overwrite_append_prepend_and_symlink_policy ... ok
+test files::lock_tests::owned_lock_refresh_and_cleanup_keep_normal_semantics ... ok
+test files::lock_tests::refresh_preserves_substituted_lock_entry ... ok
+test search::tests::cancel_all_keeps_completed_edits_and_undo_valid ... ok
+test files::lock_tests::save_as_to_owned_lock_keeps_document_and_saved_state ... ok
+test render::branding_tests::narrow_header_identity_and_filename_boundaries ... ok
+test files::lock_tests::save_as_preserves_an_unowned_new_sidecar ... ok
+test search::tests::capture_and_zero_width_replacement ... ok
+test search::tests::interactive_skip_then_all_and_nul_captures ... ok
+test search::tests::stress_find_literal ... ignored, bounded resource fixture, run via tests/search/run.py
+test search::tests::stress_find_regex ... ignored, bounded resource fixture, run via tests/search/run.py
+test search::tests::stress_replace_backward_regex ... ignored, bounded resource fixture, run via tests/search/run.py
+test search::tests::stress_replace_literal ... ignored, bounded resource fixture, run via tests/search/run.py
+test search::tests::stress_replace_multiline ... ignored, bounded resource fixture, run via tests/search/run.py
+test search::tests::stress_replace_regex ... ignored, bounded resource fixture, run via tests/search/run.py
+test search::tests::cancel_search_preserves_other_input ... ok
+test search::tests::overlapping_backward_and_magic_line_find ... ok
+test search::tests::multiline_replacement_preserves_later_matches ... ok
+test render::branding_tests::editing_header_identifies_naro_and_preserves_file_state ... ok
+test search::tests::region_zero_width_restores_adjusted_mark ... ok
+test search::tests::replacement_wrap_direction_region_and_undo ... ok
+test search::tests::multiline_all_after_interactive_and_midline_wrap ... ok
+test files::backup_tests::backups_replace_regular_files_and_links_without_writing_through_them ... ok
+test buffer::tests::small_edits_retain_only_deltas_in_a_ten_mib_line ... ok
+test bytes::tests::bounded_arbitrary_bytes_preserve_coordinate_progress ... ok
+
+test result: ok. 72 passed; 0 failed; 10 ignored; 0 measured; 0 filtered out; finished in 0.05s

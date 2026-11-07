@@ -1,5 +1,10 @@
 # Issue #12 — opened-object confinement hardening
 
+Follow-up: [bounded interleaving evidence (2026-11-06)](bounded-2026-11-06/README.md)
+now exercises the entry-swapping items. The original results below remain a
+historical record of the earlier implementation and tests, not the current
+coverage claim.
+
 Date: 2026-11-05. This is defensive remediation of the issue's source-supported
 hypothesis. **No symlink-swap, rename-exchange, adversarial race, or exploit
 reproduction was constructed or executed.** The issue's requested race proof

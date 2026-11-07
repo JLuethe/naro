@@ -1,0 +1,55 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running unittests src/main.rs (target/debug/deps/naro-92b0cf5a83e9781f)
+
+running 49 tests
+test files::backup_tests::backup_preserves_foreign_owner_in_private_root_namespace ... ignored, requires uid 0 inside a private user namespace
+test bytes::tests::invalid_and_boundaries ... ok
+test buffer::tests::region_splice ... ok
+test files::backup_tests::backup_warns_when_foreign_ownership_is_denied ... ignored, requires a prepared foreign-owned fixture in a private user namespace
+test bytes::tests::columns_tabs ... ok
+test bytes::tests::nul_roundtrip ... ok
+test files::lock_tests::missing_owned_lock_can_be_refreshed_and_removed ... ok
+test files::load_tests::multiline_without_final_lf_loads_with_aligned_metadata ... ok
+test files::backup_tests::backup_publish_rejects_replaced_temp_and_keeps_existing_backup ... ok
+test files::lock_tests::cleanup_preserves_substituted_lock_entry ... ok
+test files::backup_tests::backup_cleanup_keeps_collisions_and_replaced_entries ... ok
+test files::lock_tests::only_explicit_takeover_replaces_an_unowned_lock ... ok
+test files::safe_save_tests::fixture_save ... ignored, requires the owned fixture from tests/safe-save/run.py
+test identity::tests::all_cli_help_profiles_identify_the_executable ... ok
+test identity::tests::observed_catalog_aliases_preserve_inflections_and_config_terms ... ok
+test files::lock_tests::owned_lock_refresh_and_cleanup_keep_normal_semantics ... ok
+test identity::tests::translated_program_names_preserve_other_words ... ok
+test identity::tests::version_identifies_product_and_reference_separately ... ok
+test native::position_catalog_tests::catalog_position_message ... ignored, run in an isolated locale process through tests/catalog/run.py
+test files::lock_tests::refresh_preserves_substituted_lock_entry ... ok
+test position_message::tests::catalog_bytes_and_percent_spacing_are_preserved ... ok
+test files::lock_tests::save_as_preserves_an_unowned_new_sidecar ... ok
+test position_message::tests::english_widths_and_large_unsigned_values ... ok
+test files::lock_tests::save_as_to_owned_lock_keeps_document_and_saved_state ... ok
+test position_message::tests::malformed_templates_use_english_without_interpreting_arguments ... ok
+test search::tests::cancel_all_keeps_completed_edits_and_undo_valid ... ok
+test render::branding_tests::narrow_header_identity_and_filename_boundaries ... ok
+test search::tests::interactive_skip_then_all_and_nul_captures ... ok
+test search::tests::capture_and_zero_width_replacement ... ok
+test search::tests::overlapping_backward_and_magic_line_find ... ok
+test search::tests::multiline_replacement_preserves_later_matches ... ok
+test search::tests::multiline_all_after_interactive_and_midline_wrap ... ok
+test search::tests::stress_find_literal ... ignored, bounded resource fixture, run via tests/search/run.py
+test search::tests::stress_find_regex ... ignored, bounded resource fixture, run via tests/search/run.py
+test search::tests::stress_replace_backward_regex ... ignored, bounded resource fixture, run via tests/search/run.py
+test search::tests::stress_replace_literal ... ignored, bounded resource fixture, run via tests/search/run.py
+test search::tests::stress_replace_multiline ... ignored, bounded resource fixture, run via tests/search/run.py
+test search::tests::stress_replace_regex ... ignored, bounded resource fixture, run via tests/search/run.py
+test search::tests::region_zero_width_restores_adjusted_mark ... ok
+test search::tests::replacement_wrap_direction_region_and_undo ... ok
+test search::tests::cancel_search_preserves_other_input ... ok
+test render::branding_tests::editing_header_identifies_naro_and_preserves_file_state ... ok
+test files::backup_tests::backup_preserves_supplementary_group_setid_and_times ... ok
+test files::backup_tests::insecure_backup_replaces_a_hard_link_without_truncating_source ... ok
+test files::backup_tests::backup_preserves_mode_and_times_for_current_owner ... ok
+test confinement::shared_tests::confinement_parent_supports_unconfined_file_operations ... ok
+test buffer::tests::tiny_edits_do_not_retain_buffer_snapshots ... ok
+test files::backup_tests::backups_replace_regular_files_and_links_without_writing_through_them ... ok
+test bytes::tests::bounded_arbitrary_bytes_preserve_coordinate_progress ... ok
+
+test result: ok. 39 passed; 0 failed; 10 ignored; 0 measured; 0 filtered out; finished in 0.03s
