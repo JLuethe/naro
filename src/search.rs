@@ -314,6 +314,10 @@ fn assert_split_cancel(key: i32, first: Vec<i32>, last: Vec<i32>) {
     let mut poll = SearchPoll::new(&conf);
     assert!(poll.check(&mut input, &conf).is_ok());
     assert_eq!(input.queue.iter().copied().collect::<Vec<_>>(), first);
+    poll.decoded
+        .as_mut()
+        .unwrap()
+        .age_buffered_prefix_for_test(std::time::Duration::from_millis(100));
     input.queue.extend(last);
     poll.steps = 0;
     assert!(poll.check(&mut input, &conf).is_err());
@@ -370,6 +374,53 @@ fn search_poll_keeps_partial_ss3_across_burst_limit() {
     assert!(poll.check(&mut input, &conf).is_ok());
     assert_eq!(input.queue.len(), SearchPoll::BURST_LIMIT + 1);
     input.queue.push_back(80);
+    poll.steps = 0;
+    assert!(poll.check(&mut input, &conf).is_err());
+    assert!(input.queue.is_empty());
+}
+
+#[cfg(test)]
+#[test]
+fn search_poll_control_cancel_ends_incomplete_prefix() {
+    for prefix in [vec![27, 91, 49, 59, 51], vec![27, 79]] {
+        for suffix in [vec![3, 3], vec![3, 3, b'X' as i32]] {
+            let conf = Config::new(false);
+            let mut input = crate::input::Input::default();
+            input.queue.extend(prefix.iter().copied());
+            let mut poll = SearchPoll::new(&conf);
+            assert!(poll.check(&mut input, &conf).is_ok());
+            input.queue.extend(suffix);
+            poll.steps = 0;
+            assert!(poll.check(&mut input, &conf).is_err());
+            assert!(input.queue.is_empty());
+        }
+    }
+}
+
+#[cfg(test)]
+#[test]
+fn search_poll_standalone_meta_bracket_expires_to_cancel() {
+    let mut conf = Config::new(false);
+    conf.keys.insert(
+        0,
+        Binding {
+            key: b'[' as i32,
+            menus: SEARCH,
+            func: "do_cancel".into(),
+            tag: "M-[".into(),
+            toggle: 0,
+            expansion: None,
+        },
+    );
+    let mut input = crate::input::Input::default();
+    input.queue.extend([27, b'[' as i32]);
+    let mut poll = SearchPoll::new(&conf);
+    assert!(poll.check(&mut input, &conf).is_ok());
+    assert_eq!(input.queue.len(), 2);
+    poll.decoded
+        .as_mut()
+        .unwrap()
+        .age_buffered_prefix_for_test(std::time::Duration::from_millis(150));
     poll.steps = 0;
     assert!(poll.check(&mut input, &conf).is_err());
     assert!(input.queue.is_empty());

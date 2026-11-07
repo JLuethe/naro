@@ -34,8 +34,24 @@ pub struct Input {
     first_alone: bool,
     last_alone: bool,
     digits: Vec<u8>,
+    buffered_prefix_since: Option<std::time::Instant>,
 }
 impl Input {
+    const BUFFERED_PREFIX_WAIT: std::time::Duration = std::time::Duration::from_millis(150);
+
+    fn buffered_sequence_complete(&self) -> bool {
+        self.queue
+            .iter()
+            .take(64)
+            .take_while(|next| (32..=255).contains(*next) && **next != 127)
+            .any(|next| (64..=126).contains(next))
+    }
+
+    #[cfg(test)]
+    pub(crate) fn age_buffered_prefix_for_test(&mut self, age: std::time::Duration) {
+        self.buffered_prefix_since = Some(std::time::Instant::now() - age);
+    }
+
     pub fn next(&mut self, c: &Config) -> Event {
         self.next_internal(c, true)
     }
@@ -97,21 +113,31 @@ impl Input {
                 continue;
             }
             // The search poll decodes a private copy of pending input.  An
-            // ESC O / ESC [ introducer can arrive at the end of one poll and
-            // its final byte in the next; wait for that byte before deciding
-            // whether this is a Meta key or a terminal sequence.  Normal
-            // blocking input keeps its existing timeout behavior.
-            if !fetch_terminal
-                && matches!(self.esc, 1 | 2)
-                && matches!(code, 79 | 91)
-                && self.queue.front() != Some(&27)
-                && !self.queue.iter().any(|next| {
-                    *next == 27 || (64..=126).contains(next) || !(0..=255).contains(next)
-                })
+            // ESC O / ESC [ may be a Meta key or a terminal sequence.  Wait
+            // briefly for a final byte, but let control/ESC input break the
+            // ambiguity immediately.  Never pass those bytes to sequence(),
+            // which would consume them as part of an unknown sequence.
+            // Normal blocking input keeps its existing timeout behavior.
+            let buffered_prefix =
+                !fetch_terminal && matches!(self.esc, 1 | 2) && matches!(code, 79 | 91);
+            let sequence_complete = buffered_prefix && self.buffered_sequence_complete();
+            if buffered_prefix
+                && !sequence_complete
+                && self
+                    .queue
+                    .iter()
+                    .take(64)
+                    .all(|next| (32..=255).contains(next) && *next != 127)
+                && self
+                    .buffered_prefix_since
+                    .get_or_insert_with(std::time::Instant::now)
+                    .elapsed()
+                    < Self::BUFFERED_PREFIX_WAIT
             {
                 self.queue.push_front(code);
                 return Event::Idle;
             }
+            self.buffered_prefix_since = None;
             let mut key = Key::plain(code);
             match self.esc {
                 1 => {
@@ -127,6 +153,7 @@ impl Input {
                     } else if matches!(code, 79 | 91)
                         && !self.queue.is_empty()
                         && self.queue.front() != Some(&27)
+                        && (fetch_terminal || sequence_complete)
                     {
                         key = self.sequence(code);
                     } else {
@@ -155,7 +182,10 @@ impl Input {
                             _ => 0x4fc,
                         };
                         key.shift = c >= 97;
-                    } else if matches!(code, 79 | 91) && !self.queue.is_empty() {
+                    } else if matches!(code, 79 | 91)
+                        && !self.queue.is_empty()
+                        && (fetch_terminal || sequence_complete)
+                    {
                         key = self.sequence(code);
                         key.meta = true;
                     } else if (48..=50).contains(&code)

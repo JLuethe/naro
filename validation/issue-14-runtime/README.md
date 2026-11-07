@@ -110,7 +110,7 @@ The poll now keeps a private decoder cursor and feeds it only newly queued
 codes. Each nonblocking read is capped at 16,384 codes, and each scan decodes
 at most that many keys; the original input queue stays untouched until a
 Cancel binding is found. Partial escape sequences stay in the private decoder
-until more bytes arrive.
+until more bytes arrive or the bounded ambiguity window expires.
 
 `tests/issue14/backlog.py` creates a disposable 24 MiB file and sends the
 8,194-byte burst in one PTY write while a view-only search is running. It
@@ -126,7 +126,7 @@ or exhaustive scheduler interleavings.
 
 ## Split-sequence polling follow-up
 
-Search polling now waits for a complete SS3 or CSI terminal sequence when its
+Search polling now waits briefly for a complete SS3 or CSI terminal sequence when its
 private decoder reaches a partial prefix. A final byte can arrive in a later
 poll, including after the 16,384-code scan boundary, without losing a rebound
 F1 or Meta+Left Cancel binding. The original input queue remains untouched
@@ -143,3 +143,29 @@ supplementary artifact checks, not negative-control proof of the poll fix.
 The direct PTY runner saves every case's raw output and timed events on both
 success and failure. It verifies the saved output's size and SHA-256 before
 reporting a pass.
+
+## Incomplete-prefix ambiguity and complete PTY traces
+
+`ESC [` and `ESC O` can also mean standalone Meta keys. The private search
+decoder examines at most 64 following raw codes for a complete terminal
+sequence. If none is present, it waits up to 150 ms from the first observed
+incomplete prefix before treating the introducer as Meta. A control byte,
+Escape, Delete, or nonbyte key before the final byte ends that wait immediately;
+those codes remain available for Cancel matching. A complete sequence already
+queued at the next check wins even if the clock passed 150 ms between checks.
+This policy applies only to search polling's private decoder; normal input's
+Escape handling is unchanged. The timeout adds at most 150 ms of ambiguity
+plus the search check cadence and scheduler delay. A final byte arriving only
+after the fallback has been decoded cannot retroactively form a terminal key.
+
+The old integrated production ELF missed Cancel for both partial CSI plus
+Ctrl-C and standalone `M-[`, while the candidate passes. Default and tiny
+SearchPoll tests also fail against the old decoder and pass with the fix;
+[the negative-control receipt](prefix-ambiguity-negative-control.json) pins
+the old artifact and raw results. Tests retain split F1/CSI recognition and
+the 16,384-code boundary. The PTY runner now reads through process exit to
+PTY EOF (Linux EIO counts as EOF), verifies alternate-screen and bracketed-
+paste reset bytes, and records teardown and completeness for successes and
+failures. A synthetic early-exit test checks that failed runs still save and
+hash their complete raw stream. The runner uses a disposable 24 MiB fixture;
+its timing bounds are host-local checks, not a guarantee under arbitrary load.

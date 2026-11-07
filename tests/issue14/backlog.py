@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Bounded direct-PTY regressions for buffered search cancellation."""
 import argparse
+import errno
 import fcntl
 import hashlib
 import json
@@ -20,6 +21,7 @@ FILE_BYTES = 24 * 1024 * 1024
 PREFIX_BYTES = 8192
 MAX_CANCEL_SECONDS = 3.0
 MAX_BASELINE_SECONDS = 10.0
+RESET_MARKERS = (b"\x1b[?1049l", b"\x1b[?2004l")
 
 
 def digest(path):
@@ -28,7 +30,7 @@ def digest(path):
 
 
 def run_case(binary, source, home, prefix, latency_bound, raw_path,
-             split=None, rcfile=None):
+             split=None, rcfile=None, early_cancel=False):
     master, slave = pty.openpty()
     fcntl.ioctl(slave, termios.TIOCSWINSZ, struct.pack("HHHH", 24, 80, 0, 0))
 
@@ -49,6 +51,8 @@ def run_case(binary, source, home, prefix, latency_bound, raw_path,
     raw = bytearray()
     sent = 0
     elapsed = None
+    raw_complete = False
+    teardown = "normal"
     epoch = time.monotonic()
     events = []
 
@@ -78,6 +82,33 @@ def run_case(binary, source, home, prefix, latency_bound, raw_path,
             if marker not in raw:
                 raise AssertionError(f"missing {marker!r} within {seconds}s")
 
+        def wait_for_count(marker, count, seconds):
+            deadline = time.monotonic() + seconds
+            while raw.count(marker) < count and time.monotonic() < deadline:
+                drain(.02)
+            if raw.count(marker) < count:
+                raise AssertionError(f"missing {count} occurrences of {marker!r}")
+
+        def drain_to_eof(seconds):
+            deadline = time.monotonic() + seconds
+            while time.monotonic() < deadline:
+                if not select.select([master], [], [],
+                                     max(0, min(.02, deadline - time.monotonic())))[0]:
+                    continue
+                try:
+                    part = os.read(master, 65536)
+                except OSError as error:
+                    if error.errno == errno.EIO:  # Linux PTY master at slave close.
+                        event("pty_eof")
+                        return True
+                    raise
+                if not part:
+                    event("pty_eof")
+                    return True
+                raw.extend(part)
+            event("pty_drain_timeout")
+            return False
+
         wait_for(b"^X", 4)
         event("editor_ready")
         drain(.3)
@@ -88,7 +119,13 @@ def run_case(binary, source, home, prefix, latency_bound, raw_path,
         if os.write(master, b"zzzz\r") != 5:
             raise AssertionError("partial search-text input")
         event("search_submitted")
-        drain(.08)
+        if early_cancel:
+            # Confirm that prompt input was consumed before testing a key
+            # that could otherwise cancel the prompt itself.
+            wait_for_count(b"\x1b[0;7mz", 4, 4)
+            drain(.15)
+        else:
+            drain(.08)
         if b"not found" in raw:
             raise AssertionError("search finished before cancellation burst")
         burst = b"g" * prefix + b"\x03X" if split is None else split[0]
@@ -99,13 +136,14 @@ def run_case(binary, source, home, prefix, latency_bound, raw_path,
             raise AssertionError(f"partial cancellation burst: {sent}/{len(burst)}")
         if split is not None:
             drain(.6)  # Cross several 50 ms search-poll intervals.
-            if b"Cancelled" in raw or b"not found" in raw:
-                raise AssertionError("search completed before split key's final bytes")
-            final_sent = os.write(master, split[1] + b"X")
-            event("final_input_sent")
-            if final_sent != len(split[1]) + 1:
-                raise AssertionError(f"partial final-key input: {final_sent}")
-            sent += final_sent
+            if not early_cancel:
+                if b"Cancelled" in raw or b"not found" in raw:
+                    raise AssertionError("search completed before split key's final bytes")
+                final_sent = os.write(master, split[1] + b"X")
+                event("final_input_sent")
+                if final_sent != len(split[1]) + 1:
+                    raise AssertionError(f"partial final-key input: {final_sent}")
+                sent += final_sent
         deadline = start + latency_bound
         while b"Cancelled" not in raw and b"not found" not in raw and time.monotonic() < deadline:
             drain(.02)
@@ -121,6 +159,11 @@ def run_case(binary, source, home, prefix, latency_bound, raw_path,
         drain(.2)
         process.wait(timeout=5)
         event("process_exited")
+        raw_complete = drain_to_eof(2)
+        if not raw_complete:
+            raise AssertionError("PTY output did not reach EOF after editor exit")
+        if not all(marker in raw for marker in RESET_MARKERS):
+            raise AssertionError("terminal reset bytes missing from complete output")
         if process.returncode != 0:
             raise AssertionError(f"editor exit status {process.returncode}")
         return {"status": "PASS", "prefix_bytes": prefix, "burst_bytes": sent,
@@ -128,21 +171,30 @@ def run_case(binary, source, home, prefix, latency_bound, raw_path,
                 "cancel_seconds": round(elapsed, 3), "exit_status": process.returncode,
                 "raw_sha256": hashlib.sha256(raw).hexdigest(),
                 "raw_bytes": len(raw), "raw_path": raw_path.name,
-                "events": events}
+                "events": events, "raw_complete": raw_complete,
+                "terminal_reset": True, "teardown": teardown}
     except Exception as error:
         event("case_failed")
+        if process.poll() is None:
+            teardown = "killed_after_failure"
+            process.kill()
+            event("process_killed")
+            process.wait(timeout=5)
+        else:
+            teardown = "already_exited_after_failure"
+        event("process_reaped")
+        raw_complete = drain_to_eof(2)
         return {"status": "FAIL", "prefix_bytes": prefix, "burst_bytes": sent,
                 "latency_bound_seconds": latency_bound,
                 "cancel_seconds": None if elapsed is None else round(elapsed, 3),
                 "error": str(error), "exit_status": process.poll(),
                 "raw_sha256": hashlib.sha256(raw).hexdigest(),
                 "raw_bytes": len(raw), "raw_path": raw_path.name,
-                "events": events}
+                "events": events, "raw_complete": raw_complete,
+                "terminal_reset": all(marker in raw for marker in RESET_MARKERS),
+                "teardown": teardown}
     finally:
         raw_path.write_bytes(raw)
-        if process.poll() is None:
-            process.kill()
-            process.wait()
         os.close(master)
 
 
@@ -161,16 +213,22 @@ def main():
         source = root / "large.txt"
         source.write_bytes((b"A" * 4095 + b"\n") * (FILE_BYTES // 4096))
         original = digest(source)
-        cases = [("baseline", 0, None, None),
-                 ("backlog", PREFIX_BYTES, None, None)]
+        cases = [("baseline", 0, None, None, False),
+                 ("backlog", PREFIX_BYTES, None, None, False)]
         for name, binding, first, final in (
             ("split-ss3-f1", "bind F1 cancel search\nset rawsequences\n", b"\x1bO", b"P"),
             ("split-csi-meta-left", "bind M-Left cancel search\n", b"\x1b[1;", b"3D"),
         ):
             rcfile = root / f"{name}.rc"
             rcfile.write_text("unbind ^C search\n" + binding)
-            cases.append((name, 0, (first, final), rcfile))
-        for name, prefix, split, rcfile in cases:
+            cases.append((name, 0, (first, final), rcfile, False))
+        cases.append(("split-csi-control", 0,
+                      (b"\x1b[1;3", b"\x03"), None, False))
+        meta_rc = root / "standalone-meta-bracket.rc"
+        meta_rc.write_text("unbind ^C search\nbind M-[ cancel search\nset rawsequences\n")
+        cases.append(("standalone-meta-bracket", 0,
+                      (b"\x1b[", b""), meta_rc, True))
+        for name, prefix, split, rcfile, early_cancel in cases:
             if prefix == 0:
                 bound = MAX_BASELINE_SECONDS
             elif results[0]["status"] == "PASS":
@@ -178,13 +236,14 @@ def main():
             else:
                 bound = MAX_CANCEL_SECONDS
             result = run_case(binary, source, home, prefix, bound,
-                              args.out / f"{name}.raw", split, rcfile)
+                              args.out / f"{name}.raw", split, rcfile, early_cancel)
             result["id"] = name
             result["file_unchanged"] = digest(source) == original
             raw_file = args.out / result["raw_path"]
             result["raw_verified"] = (digest(raw_file) == result["raw_sha256"]
                                       and raw_file.stat().st_size == result["raw_bytes"])
-            if not result["file_unchanged"] or not result["raw_verified"]:
+            if (not result["file_unchanged"] or not result["raw_verified"]
+                    or not result["raw_complete"]):
                 result["status"] = "FAIL"
             results.append(result)
             print(f"{name} prefix={prefix}: {result['status']} "

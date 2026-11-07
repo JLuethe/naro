@@ -1,0 +1,33 @@
+{
+  "base_revision": "e8f1a10bdfb9ff727b12b3b95863e96f36545c43",
+  "production_binary_sha256": "80d1ffad84387c7afcc47609b243e58c76788a8cba2bac645602c1891fbb3d95",
+  "production_command": "python3 tests/issue14/backlog.py --binary OLD_ELF --out NEW_OUTPUT_DIR",
+  "production_exit_status": 1,
+  "production_failures": [
+    {
+      "id": "split-csi-control",
+      "observation": "Search finished without Cancelled after partial CSI followed by Ctrl-C.",
+      "raw_sha256": "7be364165755e40859e442bb468b268f23358be060376619d95bd22fe7200de4",
+      "raw_bytes": 3409,
+      "pty_eof_after_forced_teardown": true
+    },
+    {
+      "id": "standalone-meta-bracket",
+      "observation": "Search finished without Cancelled after standalone M-[ binding.",
+      "raw_sha256": "26a93a1100939d881696aa0e0450ce2cb8e8e3ec00e962e4e5d9026498f09f31",
+      "raw_bytes": 3409,
+      "pty_eof_after_forced_teardown": true
+    }
+  ],
+  "unit_setup": "Detached old-revision worktree with only new src/search.rs tests copied in and a test-only no-op age_buffered_prefix_for_test compatibility shim in src/input.rs; old production decoder is unchanged.",
+  "default_unit": {
+    "exit_status": 101,
+    "failed_tests": ["search_poll_control_cancel_ends_incomplete_prefix", "search_poll_standalone_meta_bracket_expires_to_cancel"],
+    "raw_output_sha256": "214df7f2d8d1d4517c2c0055d0f6f34232fe419fa7947edc7e2d95a75940334d"
+  },
+  "tiny_unit": {
+    "exit_status": 101,
+    "failed_tests": ["search_poll_control_cancel_ends_incomplete_prefix", "search_poll_standalone_meta_bracket_expires_to_cancel"],
+    "raw_output_sha256": "ad3acdcb91493a8dbddf017df593ad995bc8e945a1d7e2e9d86a17cfa8ed1aad"
+  }
+}

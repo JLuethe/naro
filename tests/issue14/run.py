@@ -312,6 +312,12 @@ def main():
             actual_file["sha256"] == hashlib.sha256(expected_bytes).hexdigest(),
             "search cancellation changed original file")
     print("Production search ^C cancels and discards trailing same-burst X PASS")
+    trace_test = subprocess.run([sys.executable, str(ROOT / "tests/issue14/test_backlog.py")],
+                                cwd=ROOT, text=True, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+    require(trace_test.returncode == 0,
+            f"direct PTY failure-trace test failed: {trace_test.stderr}")
+    print("Direct PTY failed-editor raw trace and EOF PASS")
     backlog_cmd = [sys.executable, str(ROOT / "tests/issue14/backlog.py"),
                    "--binary", str(args.binary), "--out", str(args.out / "backlog")]
     backlog_run = subprocess.run(backlog_cmd, cwd=ROOT, text=True,
