@@ -54,6 +54,24 @@ def cancellation_case():
             "expect": {"exit_status": 0}}
 
 
+def rebound_cancel_case():
+    case = cancellation_case()
+    case["id"] = "TEST-ISSUE14-SEARCH-REBOUND-CANCEL"
+    case["args"] = ["--rcfile=$FX/home/cancel.rc", "f.txt"]
+    case["files"]["home/cancel.rc"] = {
+        "text": "unbind ^C search\nbind ^G cancel search\n"}
+    case["steps"][4] = {"hex": "0758"}
+    return case
+
+
+def unbound_control_c_case():
+    case = rebound_cancel_case()
+    case["id"] = "TEST-ISSUE14-SEARCH-UNBOUND-CONTROL-C"
+    case["steps"][4] = {"hex": "0358"}
+    case["steps"][5] = {"wait": {"text": "not found", "timeout": 4}}
+    return case
+
+
 def require(ok, message):
     if not ok:
         raise AssertionError(message)
@@ -257,7 +275,7 @@ def main():
             "hook scenario set incomplete")
     check_cli(args.binary, args.reference, args.out)
     production = [case for case in cases if case["id"] not in HOOK_IDS]
-    production.append(cancellation_case())
+    production.extend([cancellation_case(), rebound_cancel_case(), unbound_control_c_case()])
     require(production, "no production scenarios")
     (args.out / "production").mkdir()
     production_results = run_harness(production, args.binary, args.out / "production")
@@ -268,6 +286,20 @@ def main():
             actual_file["sha256"] == hashlib.sha256(expected_bytes).hexdigest(),
             "search cancellation changed original file")
     print("Production search ^C cancels and discards trailing same-burst X PASS")
+    rebound = production_results["TEST-ISSUE14-SEARCH-REBOUND-CANCEL"]
+    rebound_file = rebound["fixture"]["work/f.txt"]
+    require(rebound_file["size"] == len(expected_bytes) and
+            rebound_file["sha256"] == hashlib.sha256(expected_bytes).hexdigest(),
+            "rebound search cancellation changed original file")
+    unbound = production_results["TEST-ISSUE14-SEARCH-UNBOUND-CONTROL-C"]
+    unbound_file = unbound["fixture"]["work/f.txt"]
+    require(unbound_file["size"] == len(expected_bytes) and
+            unbound_file["sha256"] == hashlib.sha256(expected_bytes).hexdigest(),
+            "unbound ^C search case changed original file")
+    unbound_raw = (args.out / "production/runs/TEST-ISSUE14-SEARCH-UNBOUND-CONTROL-C/raw-output.bin").read_bytes()
+    require(b"Cancelled" not in unbound_raw and b"not found" in unbound_raw,
+            "unbound ^C was treated as Cancel or search did not finish")
+    print("Production rebound ^G cancels; unbound ^C allows search completion PASS")
     timed = production_results["TEST-ISSUE14-QUICKBLANK-TIMEOUT"]["snapshots"]
     message = "\n".join(row["text"] for row in timed["message"]["rows"])
     cleared = "\n".join(row["text"] for row in timed["cleared"]["rows"])

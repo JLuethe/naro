@@ -72,3 +72,16 @@ option, and restricted cleanup; they do not cover every rc option. The
 quickblank case checks visible clearing after 1.2 seconds, not a precision
 measurement of the 0.8-second threshold. These limits must remain visible
 when reporting issue #14.
+
+## Search Cancel binding follow-up
+
+A later review found that long-search polling recognized raw ^C rather than
+the effective binding in the search menu. The follow-up uses the same ordered
+key lookup rule as ordinary dispatch: after `unbind ^C search` and
+`bind ^G cancel search`, ^G cancels and discards the trailing same-burst key,
+while ^C allows the missing search to finish. Unit tests check the queued
+input decision directly; production PTY tests exercise the actual rc parser,
+key lookup, and long-search polling. The prior issue #14 production binary
+failed both new scenarios; [the negative-control receipt](rebound-negative-control.json)
+records its SHA-256, scenario and raw-result hashes, and failure notes. The
+large raw fixtures remain ignored in the isolated worktree.

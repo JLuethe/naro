@@ -82,6 +82,7 @@ fn literal_checked(
 struct SearchPoll {
     steps: usize,
     checked: std::time::Instant,
+    cancel_keys: Vec<i32>,
 }
 impl SearchPoll {
     fn discard_cancelled_input(input: &mut crate::input::Input) {
@@ -94,10 +95,25 @@ impl SearchPoll {
         while unsafe { native::nr_get(0) } >= 0 {}
     }
 
-    fn new() -> Self {
+    fn new(conf: &Config) -> Self {
+        // Use the first effective binding in the search menu, as normal key
+        // dispatch does.  In particular, an rc unbind can remove ^C and a
+        // later bind can make another control key Cancel.
+        let mut first = std::collections::HashMap::new();
+        for binding in &conf.keys {
+            if binding.menus & SEARCH != 0 {
+                first
+                    .entry(binding.key)
+                    .or_insert(binding.func == "do_cancel");
+            }
+        }
         Self {
             steps: 0,
             checked: std::time::Instant::now(),
+            cancel_keys: first
+                .into_iter()
+                .filter_map(|(key, cancel)| cancel.then_some(key))
+                .collect(),
         }
     }
     fn check(&mut self, input: &mut crate::input::Input) -> Result<(), ()> {
@@ -108,7 +124,11 @@ impl SearchPoll {
         if native::signal_pending() {
             return Err(());
         }
-        if let Some(i) = input.queue.iter().position(|c| *c == 3) {
+        if let Some(i) = input
+            .queue
+            .iter()
+            .position(|c| self.cancel_keys.contains(c))
+        {
             input.queue.remove(i);
             Self::discard_cancelled_input(input);
             return Err(());
@@ -123,7 +143,7 @@ impl SearchPoll {
             if key < 0 {
                 break;
             }
-            if key == 3 {
+            if self.cancel_keys.contains(&key) {
                 Self::discard_cancelled_input(input);
                 return Err(());
             }
@@ -138,7 +158,7 @@ impl SearchPoll {
 fn search_poll_preserves_non_cancelled_queued_input() {
     let mut input = crate::input::Input::default();
     input.queue.extend([b'X' as i32, b'Y' as i32]);
-    let mut poll = SearchPoll::new();
+    let mut poll = SearchPoll::new(&Config::new(false));
     assert!(poll.check(&mut input).is_ok());
     assert_eq!(
         input.queue.iter().copied().collect::<Vec<_>>(),
@@ -151,7 +171,39 @@ fn search_poll_preserves_non_cancelled_queued_input() {
 fn search_poll_discards_queued_remainder_after_cancel() {
     let mut input = crate::input::Input::default();
     input.queue.extend([3, b'X' as i32]);
-    let mut poll = SearchPoll::new();
+    let mut poll = SearchPoll::new(&Config::new(false));
+    assert!(poll.check(&mut input).is_err());
+    assert!(input.queue.is_empty());
+}
+
+#[cfg(test)]
+#[test]
+fn search_poll_obeys_rebound_cancel_and_unbound_control_c() {
+    let mut conf = Config::new(false);
+    for binding in &mut conf.keys {
+        if binding.key == 3 {
+            binding.menus &= !SEARCH;
+        }
+    }
+    conf.keys.insert(
+        0,
+        Binding {
+            key: 7,
+            menus: SEARCH,
+            func: "do_cancel".into(),
+            tag: "^G".into(),
+            toggle: 0,
+            expansion: None,
+        },
+    );
+    let mut poll = SearchPoll::new(&conf);
+    let mut input = crate::input::Input::default();
+    input.queue.extend([3, b'X' as i32]);
+    assert!(poll.check(&mut input).is_ok());
+    assert_eq!(input.queue.iter().copied().collect::<Vec<_>>(), vec![3, 88]);
+    input.queue.clear();
+    input.queue.extend([7, b'Y' as i32]);
+    poll.steps = 0;
     assert!(poll.check(&mut input).is_err());
     assert!(input.queue.is_empty());
 }
@@ -706,7 +758,7 @@ impl Editor {
         wordchars: &[u8],
     ) -> Option<Match> {
         let pattern = Pattern::new(&self.conf, &self.search).ok()?;
-        let mut poll = SearchPoll::new();
+        let mut poll = SearchPoll::new(&self.conf);
         let mut offset = 0;
         for line in 0..self.b().state.lines.len() {
             let mut text = self.b().state.lines[line].clone();
@@ -751,7 +803,7 @@ impl Editor {
         };
         let p = self.b().pos();
         let back = self.conf.on(BACKWARDS_SEARCH);
-        let mut poll = SearchPoll::new();
+        let mut poll = SearchPoll::new(&self.conf);
         let first = self.scan_find(&pattern, p, back, startup, false, &mut poll);
         let wrapped = matches!(first, Ok(None));
         let picked = match first {
@@ -806,7 +858,7 @@ impl Editor {
         );
     }
     pub fn start_replace(&mut self, replacement: Vec<u8>) {
-        let mut poll = SearchPoll::new();
+        let mut poll = SearchPoll::new(&self.conf);
         let mut r = match Replacement::new(self, replacement, &mut poll) {
             Ok(r) => r,
             Err(e) => {
@@ -1030,7 +1082,7 @@ impl Editor {
         let Some(mut r) = self.replacement.take() else {
             return;
         };
-        let mut poll = SearchPoll::new();
+        let mut poll = SearchPoll::new(&self.conf);
         if yes
             && all
             && (r.replacement.contains(&b'\n') || self.b().state.lines.len() != r.source.len())

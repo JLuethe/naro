@@ -1,0 +1,22 @@
+{
+  "classification": "pre_fix_candidate_product_failures",
+  "candidate_sha256": "ef118875ed067bea6d20ee794d6cd7b8df876b229594ea487a6fef4e1f27a4a5",
+  "candidate_revision": "55a22343937caae37d77f42685a8b65e0a2f1e6c",
+  "cases": [
+    {
+      "id": "TEST-ISSUE14-SEARCH-REBOUND-CANCEL",
+      "scenario_sha256": "8b850db8dcb307430f540a6976de5fbe55c3079584887d11adf3a9331c9e9b0e",
+      "result_json_sha256": "d65f869eb0585763424e1c18ce433e4c101729a45ce63addf3cad92950463db6",
+      "raw_output_sha256": "738a1ea59672224529fa7743e9238d96f198f05db62e073a2ab39337f1a9660f",
+      "observed": "^G was bound to Cancel in the search menu, but the wait for Cancelled timed out. Harness status FAIL despite a passing exit-status check."
+    },
+    {
+      "id": "TEST-ISSUE14-SEARCH-UNBOUND-CONTROL-C",
+      "scenario_sha256": "f9abfe6e9a2b71ac4e502cff3c6e4cdb8fa7201c306eaa6bd3fd786b5e67087d",
+      "result_json_sha256": "54d94c0c99517d91f5d4cd1d2bb2246a9ea3128f0cc7edae66e28320aec2ce34",
+      "raw_output_sha256": "80dc80a08b28ba7555fa51894cf90cbe26f97f53ea33c0528bdbd594c197cccf",
+      "observed": "^C was unbound from Cancel in the search menu, but the wait for not found timed out. Harness status FAIL despite a passing exit-status check."
+    }
+  ],
+  "raw_location": "Ignored isolated worktree target/rebound-old-binary; generated 2 MB fixtures are not committed."
+}
