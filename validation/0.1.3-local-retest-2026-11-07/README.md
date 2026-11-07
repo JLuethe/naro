@@ -134,4 +134,9 @@ probes the exact group/UID/GID transition first. If the environment cannot
 support it, the five optional distinct-UID cases are explicitly marked
 unqualified with a CI notice; unexpected probe errors still fail CI. The
 independent mapped-UID receipts remain separate and passing.
+Astra's focused review then found that the initial probe accepted unexpected
+`OSError` values and generic `unshare:` messages as skips. The corrected probe
+accepts only known unavailable-credential errors and its exact single-line
+missing-prerequisite record. Unexpected OS, map-parser and launcher errors fail
+CI; regression controls inject `ENOMEM`, `EAGAIN` and malformed launcher output.
 No tag, download, release, PR, or issue closure follows from this local report.

@@ -68,7 +68,7 @@ def select_distinct_id(uid_map, gid_map):
                 if candidate < min(uid_end, gid_end):
                     return candidate
     except ValueError as error:
-        raise PrerequisiteError(f"invalid UID/GID namespace mapping: {error}") from error
+        raise InfrastructureError(f"invalid UID/GID namespace mapping: {error}") from error
     raise PrerequisiteError("no distinct UID/GID is mapped in this namespace")
 
 
@@ -77,7 +77,9 @@ def mapped_distinct_id():
         return select_distinct_id(Path("/proc/self/uid_map").read_text(),
                                   Path("/proc/self/gid_map").read_text())
     except OSError as error:
-        raise PrerequisiteError(f"UID/GID namespace mapping unavailable: {error}") from error
+        if error.errno in (errno.ENOENT, errno.ENOTDIR, errno.EACCES, errno.EPERM):
+            raise PrerequisiteError(f"UID/GID namespace mapping unavailable: {error}") from error
+        raise InfrastructureError(f"UID/GID namespace mapping read failed: {error}") from error
 
 
 def set_named_writer_acl(path, uid):

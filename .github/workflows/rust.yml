@@ -127,7 +127,7 @@ jobs:
             unshare --map-root-user --map-subids python3 tests/backup/parent_policy.py --binary "$candidate" --out target/ci-backup-foreign-owner-private --only foreign-owner-private --distinct-uid-actor
             unshare --map-root-user --map-subids python3 tests/backup/parent_policy.py --binary "$candidate" --out target/ci-backup-writable-mode-sticky --only writable-mode-sticky --distinct-uid-actor
             unshare --map-root-user --map-subids python3 tests/backup/parent_policy.py --binary "$candidate" --out target/ci-backup-writable-mode-private --only writable-mode-private --distinct-uid-actor
-          elif [ "$actor_probe_status" -eq 1 ] && rg -q '^(missing-prerequisite:|unshare:)' target/ci-backup-namespace-probe.log; then
+          elif [ "$actor_probe_status" -eq 1 ] && python3 tests/backup/probe_namespace_actor.py --is-missing-log "$actor_probe_status" target/ci-backup-namespace-probe.log; then
             echo '::notice::distinct-UID backup cases are unqualified here: namespace actor prerequisites are unavailable; independent mapped-UID receipts are documented separately'
           else
             exit "$actor_probe_status"

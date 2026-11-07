@@ -24,9 +24,38 @@ POLICIES = (
     load_policy("backup_parent_policy", TESTS / "backup/parent_policy.py"),
     load_policy("confinement_parent_policy", TESTS / "confinement/parent_policy.py"),
 )
+with mock.patch.dict(sys.modules, {"parent_policy": POLICIES[0]}):
+    PROBE = load_policy("backup_namespace_probe", TESTS / "backup/probe_namespace_actor.py")
 
 
 class ParentPolicySetupTests(unittest.TestCase):
+    def test_namespace_probe_skip_record_is_exact(self):
+        marker = PROBE.MISSING_PREFIX + "supplementary groups: [Errno 1] denied\n"
+        self.assertTrue(PROBE.is_known_missing(1, marker))
+        for status, output in ((0, marker), (2, marker),
+                               (1, "unshare: failed to execute python3: Exec format error\n"),
+                               (1, "unshare: unshare failed: Input/output error\n"),
+                               (1, marker + "Traceback: unexpected failure\n")):
+            with self.subTest(status=status, output=output):
+                self.assertFalse(PROBE.is_known_missing(status, output))
+
+    def test_namespace_probe_unexpected_os_errors_fail(self):
+        for stage, fault, expected_status, prefix in (("setgroups", errno.EPERM, 1, PROBE.MISSING_PREFIX),
+                                                       ("setgroups", errno.ENOMEM, 2, "infrastructure-failure:"),
+                                                       ("setuid", errno.EAGAIN, 2, "infrastructure-failure:")):
+            with self.subTest(stage=stage, errno=fault):
+                import contextlib
+                import io
+                output = io.StringIO()
+                with mock.patch.object(PROBE.sys, "argv", [PROBE.__file__]), \
+                     mock.patch.object(PROBE, "select_distinct_id", return_value=1), \
+                     mock.patch.object(PROBE.os, "setgroups", side_effect=OSError(fault, "synthetic") if stage == "setgroups" else None), \
+                     mock.patch.object(PROBE.os, "setgid"), \
+                     mock.patch.object(PROBE.os, "setuid", side_effect=OSError(fault, "synthetic") if stage == "setuid" else None), \
+                     contextlib.redirect_stdout(output):
+                    self.assertEqual(PROBE.main(), expected_status)
+                self.assertTrue(output.getvalue().startswith(prefix))
+
     def test_foreign_fixture_is_created_by_actor_without_chown(self):
         policy = POLICIES[0]
         with tempfile.TemporaryDirectory() as temp:
@@ -53,6 +82,8 @@ class ParentPolicySetupTests(unittest.TestCase):
         with self.assertRaises(policy.PrerequisiteError):
             policy.select_distinct_id("0 1000 1\n1 100000 10\n",
                                       "0 1000 1\n20 100000 10\n")
+        with self.assertRaises(policy.InfrastructureError):
+            policy.select_distinct_id("malformed\n", "0 1000 1\n")
 
     def test_uid_mapping_is_conservative_when_unknown(self):
         for policy in POLICIES:

@@ -56,6 +56,10 @@ the runner could not establish the actor's credentials (`preexec_fn` failed).
 CI now probes that group/UID/GID transition before the five optional cases and
 reports them as unqualified if it is unavailable; unexpected probe errors fail
 the step. The independent local mapped-UID cases are not transferred to CI.
+The focused Astra review found that the first probe version could skip on
+unexpected OS and launcher failures. The final classifier limits skips to a
+known credential-prerequisite errno and one exact probe record; injected
+`ENOMEM`, `EAGAIN`, malformed maps and launcher errors remain failures.
 
 `tests/remediation/differential.py` inventories and executes every applicable
 production scenario in `spec/evidence/scenarios` and
