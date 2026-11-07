@@ -57,8 +57,10 @@ substitutes only those two exact cases' LOCPATH inputs, recording the original
 and selected paths. It probes the selected locale before classifying the pair;
 missing `localedef`, locale source data, or a failed probe remains a missing
 prerequisite. Original scenarios, observations, and comparison rules are not
-changed. A local compile/probe passed, but the integrated full-corpus run is
-still required. The existing Ubuntu image lacks bubblewrap, so its 28
+changed. A focused 13-case environment pilot on the pre-integration binary
+recorded all 13 pairs, including both adapted cases, without a missing-locale
+classification; this does not qualify the integrated binary. The integrated
+full-corpus run is still required. The existing Ubuntu image lacks bubblewrap, so its 28
 root-namespace scenarios are unavailable rather than passing. Summary counts
 separate accounted cases from pairs that were actually recorded.
 
