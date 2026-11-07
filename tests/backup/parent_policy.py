@@ -37,6 +37,30 @@ def acl_named_writer(uid):
          (16, 7, 0xffffffff), (32, 0, 0xffffffff)))
 
 
+def named_uid_mapped(uid):
+    try:
+        mapping = Path("/proc/self/uid_map").read_text()
+        for line in mapping.splitlines():
+            start, _, count = map(int, line.split())
+            if start <= uid < start + count:
+                return True
+    except (OSError, ValueError):
+        # An unknown mapping must not turn a fixture error into a skip.
+        return True
+    return False
+
+
+def set_named_writer_acl(path, uid):
+    try:
+        os.setxattr(path, "system.posix_acl_access", acl_named_writer(uid))
+    except OSError as error:
+        unsupported = error.errno in (errno.ENOTSUP, errno.EOPNOTSUPP, errno.ENOSYS)
+        unmapped_uid = error.errno == errno.EINVAL and not named_uid_mapped(uid)
+        if unsupported or unmapped_uid:
+            raise PrerequisiteError(f"POSIX ACL fixture setup failed: {error}") from error
+        raise
+
+
 def substitute(temp, stolen, outside, distinct_uid, write_temp=False):
     if distinct_uid:
         code = """import os,sys
@@ -121,12 +145,7 @@ def run_case(binary, preload, base, kind, distinct_uid):
         backups.chmod(0o777)
     elif kind == "acl-writer":
         backups.chmod(0o750)
-        try:
-            os.setxattr(backups, "system.posix_acl_access", acl_named_writer(100000))
-        except OSError as error:
-            if error.errno in (errno.ENOTSUP, errno.EOPNOTSUPP, errno.ENOSYS):
-                raise PrerequisiteError("POSIX ACL support unavailable") from error
-            raise
+        set_named_writer_acl(backups, 100000)
         assert backups.stat().st_mode & stat.S_IWGRP
     else:
         raise AssertionError(kind)
