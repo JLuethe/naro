@@ -51,10 +51,15 @@ Eight accounting tests and a fresh focused history pair pass.
 
 Requested locales are prerequisites: a locale command that warns and falls back
 to ASCII cannot count as success even when its process returns zero. The host's
-historical private LOCPATH lacks `en_US.UTF-8` for two follow-up scenarios; these
-will be reported as missing prerequisites. Ubuntu preparation includes that
-locale in its own directory. The existing Ubuntu image lacks bubblewrap, so its
-28 root-namespace scenarios are unavailable rather than passing. Summary counts
+historical private LOCPATH lacks `en_US.UTF-8` for two follow-up scenarios.
+The runner now compiles `en_US.UTF-8` into each fresh private work directory and
+substitutes only those two exact cases' LOCPATH inputs, recording the original
+and selected paths. It probes the selected locale before classifying the pair;
+missing `localedef`, locale source data, or a failed probe remains a missing
+prerequisite. Original scenarios, observations, and comparison rules are not
+changed. A local compile/probe passed, but the integrated full-corpus run is
+still required. The existing Ubuntu image lacks bubblewrap, so its 28
+root-namespace scenarios are unavailable rather than passing. Summary counts
 separate accounted cases from pairs that were actually recorded.
 
 The first host attempt was interrupted at the parent's request for a separate

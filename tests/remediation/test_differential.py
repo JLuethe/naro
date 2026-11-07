@@ -96,6 +96,23 @@ class Accounting(unittest.TestCase):
         with self.assertRaises(ValueError):
             d.private_case(broken, Path('/tmp/owned-m15'))
 
+    def test_private_locale_input_relocation_is_narrow_and_recordable(self):
+        cases = d.inventory('default')[0]['environments']
+        scratch = Path('/tmp/owned-m15')
+        for case in cases:
+            old = copy.deepcopy(case)
+            selected = d.private_case(case, scratch)
+            if case['id'] in d.PRIVATE_LOCALE_CASES:
+                self.assertEqual(case['locpath'], d.PINNED_LOCPATH)
+                self.assertEqual(selected['locpath'], str(scratch / 'locales'))
+                broken = copy.deepcopy(case)
+                broken['locpath'] = '/different'
+                with self.assertRaises(ValueError):
+                    d.private_case(broken, scratch)
+            else:
+                self.assertEqual(selected, case)
+            self.assertEqual(case, old)
+
     def test_locale_warning_is_not_success_even_with_zero_status(self):
         outcome = type('Outcome', (), {'returncode': 0, 'stdout': 'ANSI_X3.4-1968\n', 'stderr': 'Cannot set locale'})()
         d.locale_probe.cache_clear()

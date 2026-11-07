@@ -27,6 +27,8 @@ from identity_review import classify, policy_identity
 from release_gate_evidence import corpus_coverage_problems, recording_problems
 
 PIN = '6ed285c3ec7a1d228def4d4e7021c6ba269f620c'
+PRIVATE_LOCALE_CASES = {'TEST-NEXT-I18N-002-2', 'TEST-NEXT-I18N-002-6'}
+PINNED_LOCPATH = '/home/john/src/nano-locales'
 
 
 def digest(path):
@@ -121,6 +123,10 @@ def private_case(case, scratch):
     scenarios; it never rewrites observations or broadens normalization.
     """
     selected = adapt_tiny_safety_case(case)
+    if case['id'] in PRIVATE_LOCALE_CASES:
+        if selected.get('lang') != 'en_US.UTF-8' or selected.get('locpath') != PINNED_LOCPATH:
+            raise ValueError('locale fixture changed; review adaptation')
+        selected['locpath'] = str(scratch / 'locales')
     if case['id'] == 'TEST-FEAT-015':
         entry = selected['files']['home/.local/share/nano/filepos_history']
         old = '/elsewhere 3 1\n41 42 /tmp/nanospec-work/TEST-FEAT-015/fx/work/f.txt 40 2\n'
@@ -218,13 +224,31 @@ def run_group(name, cases, args, binaries):
         return report
     hashes = {k: digest(v) for k, v in selected_binaries.items()}
     report['binary_sha256'] = hashes
-    report['locale_prerequisites'] = {c['id']: case_locale(c) for c in cases}
+    if any(c['id'] in PRIVATE_LOCALE_CASES for c in cases):
+        locale_dir = scratch / 'locales'
+        locale_dir.mkdir()
+        build_command = ['localedef', '--no-archive', '-i', 'en_US', '-f', 'UTF-8',
+                         str(locale_dir / 'en_US.UTF-8')]
+        try:
+            generated = subprocess.run(build_command, capture_output=True, text=True,
+                                       timeout=60, env={**os.environ, 'LC_ALL': 'C'})
+            report['private_locale_build'] = {'command': build_command,
+                                              'status': generated.returncode,
+                                              'stdout': generated.stdout,
+                                              'stderr': generated.stderr}
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            report['private_locale_build'] = {'command': build_command, 'error': repr(exc)}
+    report['locale_prerequisites'] = {c['id']: case_locale(private_case(c, scratch)) for c in cases}
     report['input_adaptations'] = [{'id': c['id'], 'field': 'files.home/.local/share/nano/filepos_history.text', 'before': c['files']['home/.local/share/nano/filepos_history']['text'], 'after': private_case(c, scratch)['files']['home/.local/share/nano/filepos_history']['text']} for c in cases if c['id'] == 'TEST-FEAT-015']
     report['input_adaptations'] += [
         {'id': c['id'], 'field': 'files.gate.c.text',
          'before_sha256': hashlib.sha256(c['files']['gate.c']['text'].encode()).hexdigest(),
          'after_sha256': hashlib.sha256(adapt_tiny_safety_case(c)['files']['gate.c']['text'].encode()).hexdigest()}
         for c in cases if c['id'] == 'TEST-TINY-FIFO-RESIZE-SAFETY']
+    report['input_adaptations'] += [
+        {'id': c['id'], 'field': 'locpath', 'before': c['locpath'],
+         'after': private_case(c, scratch)['locpath']}
+        for c in cases if c['id'] in PRIVATE_LOCALE_CASES]
     try:
         for side, binary in selected_binaries.items():
             selected = [private_case(candidate_case(c) if side == 'candidate' else c, scratch) for c in cases]
