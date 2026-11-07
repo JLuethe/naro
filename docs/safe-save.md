@@ -93,8 +93,19 @@ Backup output is written to a newly and exclusively created file, with the
 existing owner/group, permission and timestamp handling. The normal backup is
 published from a sibling temporary file only after its contents and metadata
 are synced and its close succeeds, then the backup directory is synced. An
-existing backup entry is replaced by rename; its inode is never opened for
-writing, even with `allow_insecure_backup`. Hard links and symbolic links at
+opened backup parent must pass the same owner/sticky permission check as the
+document save parent before temporary creation. Its owner must be the editor
+or root; group or other write permission requires a sticky bit. The group mode
+bits include the POSIX ACL mask. This applies to configured backup directories
+and to the home-directory fallback. It prevents a different UID from moving
+the temporary entry after its identity check and substituting a backup that
+would be published by rename. A private child is unnecessary in an authorized
+parent: the temporary file is mode 0600, and a different UID cannot move its
+entry. A nonsticky shared configured backup directory triggers the existing
+home fallback when allowed; confined saves and failed fallbacks use the backup
+confirmation flow. Use an editor-owned private directory or a trusted-owner
+sticky directory. An existing backup entry is replaced by rename; its inode is
+never opened for writing, even with `allow_insecure_backup`. Hard links and symbolic links at
 the backup name therefore cannot redirect output into the save destination or
 another existing file. The option remains accepted for configuration
 compatibility, but does not enable truncating existing backup objects.

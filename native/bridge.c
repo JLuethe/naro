@@ -293,6 +293,17 @@ int nr_close_checked(int fd) {
     /* Never retry close: on Linux even EINTR releases the descriptor. */
     return close(fd);
 }
+int nr_private_entry_parent(int fd) {
+    struct stat st;
+    if(fstat(fd,&st)<0)return -1;
+    /* A foreign unprivileged owner can later chmod the parent; group mode
+     * includes the effective POSIX ACL mask for named writers. */
+    if((st.st_uid!=geteuid()&&st.st_uid!=0)||
+       ((st.st_mode&(S_IWGRP|S_IWOTH))&&!(st.st_mode&S_ISVTX))){
+        errno=EPERM;return -1;
+    }
+    return 0;
+}
 int nr_safe_save_at(int parent_fd,const char *path,const unsigned char *data,size_t len,int mode,int *committed) {
     int dir=-1,stage=-1,source=-1,temp=-1,result=-1,exists=0;
     int stage_exists=0,stage_identified=0,temp_exists=0,temp_identified=0;
@@ -332,10 +343,7 @@ int nr_safe_save_at(int parent_fd,const char *path,const unsigned char *data,siz
      * named-user and named-group ACL write grants. A sticky parent is safe only
      * when its owner is the editor or privileged root: other users cannot move
      * the editor-owned staging entry. */
-    if((parent_stat.st_uid!=geteuid()&&parent_stat.st_uid!=0)||
-       ((parent_stat.st_mode&(S_IWGRP|S_IWOTH))&&!(parent_stat.st_mode&S_ISVTX))){
-        errno=EPERM;goto done;
-    }
+    if(nr_private_entry_parent(dir)<0)goto done;
     for(int attempt=0;attempt<1000;attempt++){
         unsigned long sequence=atomic_fetch_add(&serial,1);
         snprintf(stage_name,sizeof stage_name,".naro-save-%ld-%lu",(long)getpid(),sequence);

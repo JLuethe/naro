@@ -24,6 +24,9 @@ Backups read a pinned source descriptor and, when confined, create in an
 authorized parent. Confined backups never fall back to the home directory and
 always use exclusive creation, including with `allow_insecure_backup` enabled.
 An explicitly configured backup directory must also be within the root.
+Backup publication additionally refuses a parent whose owner/sticky permission
+policy would allow another UID to substitute the temporary entry before rename;
+the same rule applies without confinement.
 Lock creation/removal and recovery creation/sync retain their parent descriptor.
 Browser and completion enumeration use an authorized directory stream; displayed
 names are reauthorized when selected. Browser metadata uses authorized opens.

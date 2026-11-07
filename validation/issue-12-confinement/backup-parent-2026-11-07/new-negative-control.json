@@ -1,0 +1,25 @@
+{
+  "binary": "/home/john/Code/naro/target/issue12-backup-stage/target/debug/deps/naro-32727381b127ff48",
+  "sha256": "2fbf92bedd4c889949207c200b421fc53eae45a869779650e9fb69debe14ff17",
+  "cases": [
+    {
+      "name": "unsafe-open",
+      "observed": {
+        "gate_reached": false,
+        "result": "error modified=true confirm_backup=true Cannot make backup: Operation not permitted",
+        "target_bytes": "original fixture\n",
+        "target_identity": [
+          58,
+          6364341
+        ],
+        "outside_bytes": "outside sentinel\n",
+        "outside_identity": [
+          58,
+          6364342
+        ],
+        "backup_entries": []
+      },
+      "status": "pass"
+    }
+  ]
+}

@@ -110,8 +110,11 @@ jobs:
         run: |
           candidate=$(python3 -c 'import json; print(next(r["executable"] for r in map(json.loads, open("target/ci-safe-save-default-build.jsonl")) if r.get("executable") and r.get("profile", {}).get("test")))')
           python3 tests/confinement/run.py --binary "$candidate" --out target/ci-confinement-default
+          python3 tests/confinement/parent_policy.py --binary "$candidate" --out target/ci-confinement-parent-policy-default
+          python3 tests/backup/parent_policy.py --binary "$candidate" --out target/ci-backup-parent-policy
           candidate=$(python3 -c 'import json; print(next(r["executable"] for r in map(json.loads, open("target/ci-safe-save-tiny-build.jsonl")) if r.get("executable") and r.get("profile", {}).get("test")))')
           python3 tests/confinement/run.py --binary "$candidate" --out target/ci-confinement-tiny --tiny
+          python3 tests/confinement/parent_policy.py --binary "$candidate" --out target/ci-confinement-parent-policy-tiny
       - name: Optional tiny profile
         run: |
           cargo build --release --features tiny --target-dir target/tiny

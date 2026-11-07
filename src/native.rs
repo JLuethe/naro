@@ -36,6 +36,7 @@ unsafe extern "C" {
     ) -> c_int;
     fn nr_close_checked(fd: c_int) -> c_int;
     fn nr_file_chown(fd: c_int, uid: u64, gid: u64) -> c_int;
+    fn nr_private_entry_parent(fd: c_int) -> c_int;
     pub fn nr_configure(preserve: c_int, rawseq: c_int);
     pub fn nr_init(preserve: c_int, rawseq: c_int) -> c_int;
     pub fn nr_done();
@@ -142,6 +143,15 @@ pub fn safe_save(
 pub fn close_checked(file: std::fs::File) -> std::io::Result<()> {
     use std::os::fd::IntoRawFd;
     if unsafe { nr_close_checked(file.into_raw_fd()) } < 0 {
+        Err(std::io::Error::last_os_error())
+    } else {
+        Ok(())
+    }
+}
+/// A temporary entry can be published safely only from a trusted parent.
+pub fn private_entry_parent(directory: &std::fs::File) -> std::io::Result<()> {
+    use std::os::fd::AsRawFd;
+    if unsafe { nr_private_entry_parent(directory.as_raw_fd()) } < 0 {
         Err(std::io::Error::last_os_error())
     } else {
         Ok(())

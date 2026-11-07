@@ -22,6 +22,12 @@ fn fixture_save() {
     let backup = std::env::var_os("NARO_SAVE_BACKUP").is_some();
     let mut config = Config::new(false);
     config.set(MAKE_BACKUP, backup);
+    if let Some(directory) = std::env::var_os("NARO_SAVE_BACKUP_DIR") {
+        config.strings.insert(
+            "backupdir".into(),
+            directory.as_os_str().as_bytes().to_vec(),
+        );
+    }
     config.set(
         INSECURE_BACKUP,
         std::env::var_os("NARO_SAVE_INSECURE").is_some(),

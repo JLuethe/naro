@@ -126,6 +126,7 @@ int __open64_2(const char *path,int flags) {
 }
 int renameat(int from,const char *source,int to,const char *target) {
     int (*real)(int,const char*,int,const char*)=dlsym(RTLD_NEXT,"renameat");
+    if(owned_parent(to)&&!strncmp(source,".naro-backup-",13))gate("backup-publish",to,-1);
     if(owned_parent(to)&&!strcmp(target,"target"))gate("publish",to,-1);
     return real(from,source,to,target);
 }

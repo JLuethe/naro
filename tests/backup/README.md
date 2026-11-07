@@ -5,6 +5,7 @@ run:
 
 ```sh
 python3 tests/backup/run_safe_save.py --binary /absolute/test/executable --out target/fresh-backup-evidence
+python3 tests/backup/parent_policy.py --binary /absolute/test/executable --out target/fresh-backup-parent-policy
 ```
 
 Run as an ordinary host user so the overridden HOME keeps fallback output in
@@ -12,6 +13,16 @@ the fixture. Backups and their configuration are absent in the tiny profile;
 use the safe-save and recovery runners for that profile. This Linux runner loads the fixture-bounded safe-save syscall interposer into isolated
 Rust test processes and records the binary hash, every case, events and result.
 All source, backup, home fallback and sentinel paths belong to fresh fixtures.
+
+The parent-policy runner uses a configured backup directory. Editor-owned
+mode-0755 and sticky mode-1777 directories succeed. Nonsticky mode-0777 and a
+POSIX ACL named writer are refused before temporary creation, preserving the
+original document. Its one-shot `backup-publish` gate can demonstrate the prior
+gap with an old binary: a mapped different-UID actor moves the backup temporary
+entry after the identity check and substitutes a symlink. The fixed binary must
+never reach that gate for the unsafe parent. Run the actor case with
+`unshare --map-root-user --map-subids` where supported. The fixture contains
+only synthetic files and has a ten-second child deadline.
 
 The matrix exercises overwrite, append and prepend with backups enabled;
 `allow_insecure_backup` on/off; confinement on/off; missing, regular, source

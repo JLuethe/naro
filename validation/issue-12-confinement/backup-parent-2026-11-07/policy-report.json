@@ -1,0 +1,94 @@
+{
+  "binary": "/home/john/Code/naro/target/issue12-backup-stage/target/debug/deps/naro-32727381b127ff48",
+  "sha256": "2fbf92bedd4c889949207c200b421fc53eae45a869779650e9fb69debe14ff17",
+  "cases": [
+    {
+      "name": "owned-normal",
+      "observed": {
+        "gate_reached": false,
+        "result": "ok 1 modified=false",
+        "target_bytes": "replacement\n",
+        "target_identity": [
+          58,
+          6361337
+        ],
+        "outside_bytes": "outside sentinel\n",
+        "outside_identity": [
+          58,
+          6361331
+        ],
+        "backup_entries": [
+          {
+            "name": "!home!john!Code!naro!target!issue12-backup-stage!target!backup-parent-policy-1!owned-normal!root!data!target~",
+            "symlink": false,
+            "bytes": "original fixture\n"
+          }
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "name": "owned-sticky",
+      "observed": {
+        "gate_reached": false,
+        "result": "ok 1 modified=false",
+        "target_bytes": "replacement\n",
+        "target_identity": [
+          58,
+          6361352
+        ],
+        "outside_bytes": "outside sentinel\n",
+        "outside_identity": [
+          58,
+          6361346
+        ],
+        "backup_entries": [
+          {
+            "name": "!home!john!Code!naro!target!issue12-backup-stage!target!backup-parent-policy-1!owned-sticky!root!data!target~",
+            "symlink": false,
+            "bytes": "original fixture\n"
+          }
+        ]
+      },
+      "status": "pass"
+    },
+    {
+      "name": "unsafe-open",
+      "observed": {
+        "gate_reached": false,
+        "result": "error modified=true confirm_backup=true Cannot make backup: Operation not permitted",
+        "target_bytes": "original fixture\n",
+        "target_identity": [
+          58,
+          6361360
+        ],
+        "outside_bytes": "outside sentinel\n",
+        "outside_identity": [
+          58,
+          6361361
+        ],
+        "backup_entries": []
+      },
+      "status": "pass"
+    },
+    {
+      "name": "acl-writer",
+      "observed": {
+        "gate_reached": false,
+        "result": "error modified=true confirm_backup=true Cannot make backup: Operation not permitted",
+        "target_bytes": "original fixture\n",
+        "target_identity": [
+          58,
+          6361371
+        ],
+        "outside_bytes": "outside sentinel\n",
+        "outside_identity": [
+          58,
+          6361372
+        ],
+        "backup_entries": []
+      },
+      "status": "pass"
+    }
+  ]
+}

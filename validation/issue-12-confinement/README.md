@@ -1,5 +1,10 @@
 # Issue #12 — opened-object confinement hardening
 
+Latest follow-up: [backup parent authorization and bounded publication
+substitution (2026-11-07)](backup-parent-2026-11-07/README.md) covers the
+configured backup directory. The earlier reports remain tied to their named
+binaries.
+
 Current follow-up: [parent-permission and stage-open negative control
 (2026-11-06)](parent-policy-2026-11-06/README.md) documents the fail-closed
 policy for unsafe destination parents. Earlier records below are historical

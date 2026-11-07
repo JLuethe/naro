@@ -607,6 +607,7 @@ struct BackupOutput {
 }
 impl BackupOutput {
     fn create(parent: Parent) -> std::io::Result<Self> {
+        native::private_entry_parent(&parent.directory)?;
         let file = parent.create(0o600)?;
         let identity = file.metadata()?;
         Ok(Self {
