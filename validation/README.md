@@ -1,5 +1,24 @@
 # Validation evidence
 
+## 0.1.2 release gate after the GitHub push
+
+[Issue #12 bounded interleavings](issue-12-confinement/README.md) exercised
+attacker-writable synthetic parents, symlink and rename exchanges, missing
+targets, and overwrite/append/prepend at controlled native boundaries. The
+recorded default matrix passed 72/72 and tiny's shared save path passed 67/67.
+The tested swaps did not redirect writes to outside sentinel inodes. A final
+entry changed just before publication can still be replaced, so these results
+do not establish a general compare-and-swap or exhaustive race guarantee.
+
+The issue #14 citation correction removes unsupported test claims; its nine
+underlying runtime behaviors are still unqualified. Issue #15 still calls for
+broader resource, native-environment, and physical power-loss evidence. Those
+open-ended gaps do not automatically veto a narrowly described Linux 0.1.2
+point release, but they prohibit broader safety or compatibility claims. Hold
+publication until CI passes on the final commit and fresh package and
+qualification receipts bind the exact proposed binaries and archives. Prior
+receipts below remain historical for their recorded commits.
+
 ## Issue #3 safe-save change
 
 [Post-fix Daybreak Blue package retest](daybreak-blue-postfix-2026-11-06/README.md)

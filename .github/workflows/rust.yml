@@ -101,6 +101,12 @@ jobs:
           cargo test --no-run --features tiny --message-format=json > target/ci-safe-save-tiny-build.jsonl
           candidate=$(python3 -c 'import json; print(next(r["executable"] for r in map(json.loads, open("target/ci-safe-save-tiny-build.jsonl")) if r.get("executable") and r.get("profile", {}).get("test")))')
           python3 tests/safe-save/run.py --binary "$candidate" --out target/ci-safe-save-tiny
+      - name: Bounded confinement entry swaps, default and tiny
+        run: |
+          candidate=$(python3 -c 'import json; print(next(r["executable"] for r in map(json.loads, open("target/ci-safe-save-default-build.jsonl")) if r.get("executable") and r.get("profile", {}).get("test")))')
+          python3 tests/confinement/run.py --binary "$candidate" --out target/ci-confinement-default
+          candidate=$(python3 -c 'import json; print(next(r["executable"] for r in map(json.loads, open("target/ci-safe-save-tiny-build.jsonl")) if r.get("executable") and r.get("profile", {}).get("test")))')
+          python3 tests/confinement/run.py --binary "$candidate" --out target/ci-confinement-tiny --tiny
       - name: Optional tiny profile
         run: |
           cargo build --release --features tiny --target-dir target/tiny
